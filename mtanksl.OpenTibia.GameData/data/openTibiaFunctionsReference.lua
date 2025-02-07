@@ -153,6 +153,13 @@ return {
 		args = "(ondeath)",
 		returns = "void"
 	},
+	-- void registercreaturescriptscreaturekill(onkill)
+	registercreaturescriptscreaturekill = {
+		type = "function",
+		description = "",
+		args = "(onkill)",
+		returns = "void"
+	},
 	-- void registercreaturescriptsplayerearnachievement(onearnachievement)
 	registercreaturescriptsplayerearnachievement = {
 		type = "function",

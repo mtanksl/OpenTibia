@@ -16,6 +16,7 @@
     { filename = "OpenTibia.Game.Scripts.PlayerAdvanceSkillScripts" },
     { filename = "OpenTibia.Game.Scripts.PlayerEarnAchievementScripts" },
     { filename = "OpenTibia.Game.Scripts.CreatureDeathScripts" },
+    { filename = "OpenTibia.Game.Scripts.CreatureKillScripts" },
     { filename = "OpenTibia.Game.Scripts.PlayerMoveCreatureScripts" },
     { filename = "OpenTibia.Game.Scripts.PlayerMoveItemScripts" },
     { filename = "OpenTibia.Game.Scripts.PlayerRotateItemScripts" },

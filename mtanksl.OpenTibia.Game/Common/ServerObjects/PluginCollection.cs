@@ -266,6 +266,12 @@ namespace OpenTibia.Game.Common.ServerObjects
                             }
                             break;
 
+                            case "CreatureKill":
+                            {
+                                pluginCollection.AddCreatureKillPlugin(script, initialization.Parameters);
+                            }
+                            break;
+
                             case "PlayerEarnAchievement":
                             {
                                 pluginCollection.AddPlayerEarnAchievementPlugin(script, initialization.Parameters);
@@ -627,6 +633,12 @@ namespace OpenTibia.Game.Common.ServerObjects
                     case "CreatureDeath":
                     {
                         AddCreatureDeathPlugin(fileName, plugin);
+                    }
+                    break;
+
+                    case "CreatureKill":
+                    {
+                        AddCreatureKillPlugin(fileName, plugin);
                     }
                     break;
 
@@ -1321,6 +1333,35 @@ namespace OpenTibia.Game.Common.ServerObjects
             return creatureDeathPlugins.GetPlugins();
         }
 
+        private PluginListCached<CreatureKillPlugin> creatureKillPlugins = new PluginListCached<CreatureKillPlugin>();
+
+        private void AddCreatureKillPlugin(CreatureKillPlugin creatureKillPlugin)
+        {
+            creatureKillPlugins.AddPlugin(creatureKillPlugin);
+        }
+
+        public void AddCreatureKillPlugin(string fileName, LuaTable parameters)
+        {
+            if (fileName.EndsWith(".lua") )
+            {
+                AddCreatureKillPlugin(new LuaScriptingCreatureKillPlugin(fileName, parameters) );
+            }
+            else
+            {
+                AddCreatureKillPlugin( (CreatureKillPlugin)Activator.CreateInstance(server.PluginLoader.GetType(fileName) ) );
+            }
+        }
+
+        public void AddCreatureKillPlugin(ILuaScope script, LuaTable parameters)
+        {
+            AddCreatureKillPlugin(new LuaScriptingCreatureKillPlugin(script, parameters) );
+        }
+
+        public IEnumerable<CreatureKillPlugin> GetCreatureKillPlugins()
+        {
+            return creatureKillPlugins.GetPlugins();
+        }
+
         private PluginListCached<PlayerEarnAchievementPlugin> playerEarnAchievementPlugins = new PluginListCached<PlayerEarnAchievementPlugin>();
 
         private void AddPlayerEarnAchievementPlugin(PlayerEarnAchievementPlugin playerEarnAchievementPlugin)
@@ -1769,6 +1810,8 @@ namespace OpenTibia.Game.Common.ServerObjects
                 playerAdvanceSkillPlugins.GetPlugins(),
 
                 creatureDeathPlugins.GetPlugins(),
+
+                creatureKillPlugins.GetPlugins(),
 
                 playerEarnAchievementPlugins.GetPlugins(),
 

@@ -210,6 +210,11 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
+            if (killer != null)
+            {
+                Context.AddEvent(killer, new CreatureKillEventArgs(killer, Creature) );
+            }
+
             Context.AddEvent(Creature, new CreatureDeathEventArgs(Creature, killer, mostDamage) );
 
             await Context.AddCommand(new CreatureDestroyCommand(Creature, true) );

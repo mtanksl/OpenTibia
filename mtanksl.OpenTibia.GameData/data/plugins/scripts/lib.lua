@@ -129,6 +129,13 @@ function registercreaturescriptscreaturedeath(ondeath)
     } )
 end
 
+function registercreaturescriptscreaturekill(onkill)
+    registerplugin("creaturescripts", {
+	    type = "CreatureKill",
+	    onkill = onkill
+    } )
+end
+
 function registercreaturescriptsplayerearnachievement(onearnachievement)
     registerplugin("creaturescripts", {
 	    type = "PlayerEarnAchievement",

@@ -75,6 +75,10 @@ namespace OpenTibia.Game.Common.ServerObjects
         void AddCreatureDeathPlugin(ILuaScope script, LuaTable parameters);
         IEnumerable<CreatureDeathPlugin> GetCreatureDeathPlugins();
 
+        void AddCreatureKillPlugin(string fileName, LuaTable parameters);
+        void AddCreatureKillPlugin(ILuaScope script, LuaTable parameters);
+        IEnumerable<CreatureKillPlugin> GetCreatureKillPlugins();
+
         void AddPlayerEarnAchievementPlugin(string fileName, LuaTable parameters);
         void AddPlayerEarnAchievementPlugin(ILuaScope script, LuaTable parameters);
         IEnumerable<PlayerEarnAchievementPlugin> GetPlayerEarnAchievementPlugins();
