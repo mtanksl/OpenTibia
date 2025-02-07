@@ -321,7 +321,7 @@ function topic:addbank(responses)
 
 	local confirmdeposit = topic:new(self)
 	self:add("deposit (%d+)", function(context) 
-		local count = math.max(1, tonumber(context.captures[1] ) )
+		local count = math.max(1, math.min(100 * 1000000, tonumber(context.captures[1] ) ) ) -- 100 slots of 100 crystal coins
 		context:setparameters( { count = count, topic = confirmdeposit } )
 		context:say(responses.bank.deposit)
 	end)
@@ -341,7 +341,7 @@ function topic:addbank(responses)
 
 	local confirmwithdraw = topic:new(self)
 	self:add("withdraw (%d+)", function(context) 
-		local count = math.max(1, tonumber(context.captures[1] ) )
+		local count = math.max(1, math.min(10 * 1000000, tonumber(context.captures[1] ) ) ) -- 10 slots of 100 crystal coins
 		context:setparameters( { count = count, topic = confirmwithdraw } )
 		context:say(responses.bank.withdraw)
 	end)
