@@ -72,6 +72,8 @@ namespace OpenTibia.Game.Components
 
         private Guid globalServerReloaded;
 
+        private int ticks;
+
         private Guid globalTick;
 
         private Guid playerSay;
@@ -86,7 +88,7 @@ namespace OpenTibia.Game.Components
 
         private Guid playerCloseNpcsChannel;
 
-        private DateTime nextWalk = DateTime.MinValue;
+        private DateTime nextWalk;
 
         public override void Start()
         {
@@ -101,7 +103,9 @@ namespace OpenTibia.Game.Components
                 return Promise.Completed;
             } );
 
-            globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance(npc.Id), (context, e) => OnThink() );
+            ticks = 1000;
+
+            globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance(npc.Id), OnThink);
 
             playerSay = Context.Server.GameObjectEventHandlers.Subscribe<ObserveEventArgs<PlayerSayEventArgs> >(npc, (context, e) => Say(e.SourceEvent.Player, e.SourceEvent.Message) );
 
@@ -116,45 +120,52 @@ namespace OpenTibia.Game.Components
             playerCloseNpcsChannel = Context.Server.GameObjectEventHandlers.Subscribe<ObserveEventArgs<PlayerCloseNpcsChannelEventArgs> >(npc, (context, e) => CloseNpcsChannel(e.SourceEvent.Player) );
         }
 
-        private async Promise OnThink()
+        private async Promise OnThink(Context context, GlobalTickEventArgs e)
         {
-            foreach (var player in queue.ToArray() )
-            {
-                if (player.Tile == null || player.IsDestroyed || !npc.Tile.Position.IsInRange(player.Tile.Position, 3) )
-                {
-                    await Disappear(player);
-                }
-            }
+            ticks -= e.Ticks;
 
-            if (queue.Count == 0)
+            while (ticks <= 0)
             {
-                if (DateTime.UtcNow >= nextWalk)
-                {
-                    Tile toTile;
+                ticks += 1000;
 
-                    if (idleWalkStrategy.CanWalk(npc, null, out toTile) )
+                foreach (var player in queue.ToArray() )
+                {
+                    if (player.Tile == null || player.IsDestroyed || !npc.Tile.Position.IsInRange(player.Tile.Position, 3) )
                     {
-                        await Context.AddCommand(new CreatureMoveCommand(npc, toTile) );
-
-                        nextWalk = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / npc.Speed);
+                        await Disappear(player);
                     }
-                    else
-                    {
-                        nextWalk = DateTime.UtcNow.AddSeconds(1);
-                    }
-
-                    nextWalk = nextWalk.AddSeconds(1);
                 }
-            }
-            else
-            {
-                Player target = queue.Peek();
 
-                Direction? direction = npc.Tile.Position.ToDirection(target.Tile.Position);
-
-                if (direction != null)
+                if (queue.Count == 0)
                 {
-                    await Context.AddCommand(new CreatureUpdateDirectionCommand(npc, direction.Value));
+                    if (DateTime.UtcNow >= nextWalk)
+                    {
+                        Tile toTile;
+
+                        if (idleWalkStrategy.CanWalk(npc, null, out toTile) )
+                        {
+                            await Context.AddCommand(new CreatureMoveCommand(npc, toTile) );
+
+                            nextWalk = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / npc.Speed);
+                        }
+                        else
+                        {
+                            nextWalk = DateTime.UtcNow.AddSeconds(1);
+                        }
+
+                        nextWalk = nextWalk.AddSeconds(1);
+                    }
+                }
+                else
+                {
+                    Player target = queue.Peek();
+
+                    Direction? direction = npc.Tile.Position.ToDirection(target.Tile.Position);
+
+                    if (direction != null)
+                    {
+                        await Context.AddCommand(new CreatureUpdateDirectionCommand(npc, direction.Value));
+                    }
                 }
             }
         }

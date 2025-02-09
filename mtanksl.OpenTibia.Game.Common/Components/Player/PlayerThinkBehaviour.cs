@@ -11,14 +11,6 @@ namespace OpenTibia.Game.Components
 {
     public class PlayerThinkBehaviour : Behaviour
     {
-        private enum State
-        {
-            None,
-            Attack,
-            Follow,
-            AttackAndFollow
-        }
-
         private IAttackStrategy attackStrategy;
         private IWalkStrategy walkStrategy;
 
@@ -28,10 +20,6 @@ namespace OpenTibia.Game.Components
             this.walkStrategy = walkStrategy;
         }
 
-        private Player player;
-
-        private Creature target;
-
         public Creature Target
         {
             get
@@ -40,41 +28,41 @@ namespace OpenTibia.Game.Components
             }
         }
 
-        private State state;
-
         public void Attack(Creature creature)
         {
             target = creature;
 
-            state = State.Attack;
-
-            if (current == null)
+            if ( !attacking)
             {
-                StartThreads();
+                attacking = true;
+
+                StartAttackThread();
             }
-            else if (target != current)
-            {
-                StopThreads();
 
-                StartThreads();
+            if (following)
+            {
+                following = false;
+
+                StopFollowThread();
             }
         }
 
         public void Follow(Creature creature)
-        {
+        {            
             target = creature;
 
-            state = State.Follow;
-
-            if (current == null)
+            if (attacking)
             {
-                StartThreads();
+                attacking = false;
+
+                StopAttackThread();
             }
-            else if (target != current)
-            {
-                StopThreads();
 
-                StartThreads();
+            if ( !following)
+            {
+                following = true;
+
+                StartFollowThread();
             }
         }
 
@@ -82,33 +70,38 @@ namespace OpenTibia.Game.Components
         {
             target = creature;
 
-            state = State.AttackAndFollow;
-
-            if (current == null)
+            if ( !attacking)
             {
-                StartThreads();
+                attacking = true;
+
+                StartAttackThread();
             }
-            else if (target != current)
-            {
-                StopThreads();
 
-                StartThreads();
+            if ( !following)
+            {
+                following = true;
+
+                StartFollowThread();
             }
         }
 
         public void StartFollow()
         {
-            if (state == State.Attack)
+            if (attacking && !following)
             {
-                state = State.AttackAndFollow;
+                following = true;
+
+                StartFollowThread();
             }
         }
 
         public void StopFollow()
         {
-            if (state == State.AttackAndFollow)
+            if (attacking && following)
             {
-                state = State.Attack;
+                following = false;
+
+                StopFollowThread();
             }
         }
 
@@ -116,177 +109,53 @@ namespace OpenTibia.Game.Components
         {
             target = null;
 
-            state = State.None;
-
-            if (current != null)
+            if (attacking)
             {
-                StopThreads();
+                attacking = false;
+
+                StopAttackThread();
+            }
+
+            if (following)
+            {
+                following = false;
+
+                StopFollowThread();
             }
         }
 
-        private Creature current;
+        private Player player;
 
-        private DateTime nextAttack = DateTime.MinValue;
-
-        private DateTime nextWalk = DateTime.MinValue;
-
-        private string attackingKey = Guid.NewGuid().ToString();
-
-        private string followingKey = Guid.NewGuid().ToString();
-
-        private void StartThreads()
-        {
-            current = target;
-
-            if (attackStrategy != null)
-            {
-                Promise.Run(async () =>
-                {
-                    while (true)
-                    {
-                        await Promise.Delay(attackingKey, nextAttack - DateTime.UtcNow);
-
-                        if (current.Tile == null ||
-                            current.IsDestroyed ||
-                            current.Tile.ProtectionZone ||
-                            player.Tile.ProtectionZone)
-                        {
-                            StopAttackAndFollow();
-
-                            Context.AddPacket(player, new StopAttackAndFollowOutgoingPacket(0) );
-
-                            break;
-                        }
-                        else
-                        {
-                            if ( !player.Tile.Position.CanHearSay(current.Tile.Position) )
-                            {
-                                StopAttackAndFollow();
-
-                                Context.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TargetLost) );
-
-                                Context.AddPacket(player, new StopAttackAndFollowOutgoingPacket(0) );
-                            
-                                break;
-                            }
-                        }
-
-                        if ( (state == State.Attack || state == State.AttackAndFollow) && await attackStrategy.CanAttack(player, current) )
-                        {
-                            await attackStrategy.Attack(player, current);
-
-                            nextAttack = DateTime.UtcNow.AddSeconds(1);
-                        }
-                        else
-                        {
-                            nextAttack = DateTime.UtcNow.AddMilliseconds(500);
-                        }
-                    }
-
-                } ).Catch( (ex) =>
-                {
-                    if (ex is PromiseCanceledException)
-                    {
-                        //
-                    }
-                    else
-                    {
-                        Context.Server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
-                    }
-                } );
-            }
-
-            if (walkStrategy != null)
-            {
-                Promise.Run(async () =>
-                {                       
-                    while (true)
-                    {
-                        await Promise.Delay(followingKey, nextWalk - DateTime.UtcNow);
-
-                        if (current.Tile == null ||
-                            current.IsDestroyed ||
-                            current.Tile.ProtectionZone ||
-                            player.Tile.ProtectionZone)
-                        {
-                            StopAttackAndFollow();
-
-                            Context.AddPacket(player, new StopAttackAndFollowOutgoingPacket(0) );
-
-                            break;
-                        }
-                        else
-                        {
-                            if ( !player.Tile.Position.CanHearSay(current.Tile.Position) )
-                            {
-                                StopAttackAndFollow();
-
-                                Context.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TargetLost) );
-
-                                Context.AddPacket(player, new StopAttackAndFollowOutgoingPacket(0) );
-                            
-                                break;
-                            }
-                        }
-
-                        Tile toTile;
-
-                        if ( (state == State.Follow || state == State.AttackAndFollow) && walkStrategy.CanWalk(player, current, out toTile) )
-                        {
-                            MoveDirection moveDirection = player.Tile.Position.ToMoveDirection(toTile.Position).Value;
-
-                            await Context.AddCommand(new CreatureMoveCommand(player, toTile) );
-
-                            int diagonalCost = (moveDirection == MoveDirection.NorthWest || 
-                                                moveDirection == MoveDirection.NorthEast || 
-                                                moveDirection == MoveDirection.SouthWest || 
-                                                moveDirection == MoveDirection.SouthEast) ? 2 : 1;
-                            
-                            nextWalk = DateTime.UtcNow.AddMilliseconds(diagonalCost * 1000 * toTile.Ground.Metadata.Speed / player.Speed);
-                        }
-                        else
-                        {
-                            nextWalk = DateTime.UtcNow.AddMilliseconds(500);
-                        }
-                    }
-
-                } ).Catch( (ex) =>
-                {
-                    if (ex is PromiseCanceledException)
-                    {
-                        //
-                    }
-                    else
-                    {
-                        Context.Server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
-                    }
-                } );
-            }            
-        }
-
-        private void StopThreads()
-        {
-            Context.Server.CancelQueueForExecution(attackingKey);
-
-            Context.Server.CancelQueueForExecution(followingKey);
-
-            current = null;
-        }
+        private int ticks;
 
         private Guid globalTick;
+                
+        private string walkingKey = Guid.NewGuid().ToString();
+
+        private DateTime nextWalk;
+
+        private Creature target;
 
         public override void Start()
         {
-            player = (Player)GameObject;
+            player = (Player)GameObject;            
+        }
 
-            globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance(player.Id), (context, e) =>
+        private bool attacking;
+
+        private void StartAttackThread()
+        {
+            ticks = 1000;
+
+            globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance(player.Id), async (context, e) =>
             {
-                if (target != null)
+                ticks -= e.Ticks;
+
+                while (ticks <= 0)
                 {
-                    if (target.Tile == null || 
-                        target.IsDestroyed || 
-                        target.Tile.ProtectionZone ||
-                        player.Tile.ProtectionZone)
+                    ticks += 1000;
+
+                    if (target == null || target.Tile == null || target.IsDestroyed || target.Tile.ProtectionZone || player.Tile.ProtectionZone)
                     {
                         StopAttackAndFollow();
 
@@ -302,18 +171,98 @@ namespace OpenTibia.Game.Components
 
                             Context.AddPacket(player, new StopAttackAndFollowOutgoingPacket(0) );
                         }
+                        else
+                        {
+                            if (await attackStrategy.CanAttack(1000, player, target) )
+                            {
+                                await attackStrategy.Attack(player, target);
+                            }
+                        }
                     }
                 }
-
-                return Promise.Completed;
             } );
+        }
+
+        private bool following;
+
+        private void StartFollowThread()
+        {
+            Promise.Run(async () =>
+            {
+                while (true)
+                {
+                    await Promise.Delay(walkingKey, nextWalk - DateTime.UtcNow);
+
+                    if (target == null || target.Tile == null || target.IsDestroyed || target.Tile.ProtectionZone || player.Tile.ProtectionZone)
+                    {
+                        StopAttackAndFollow();
+
+                        Context.AddPacket(player, new StopAttackAndFollowOutgoingPacket(0) );
+
+                        break;
+                    }
+                    else
+                    {
+                        if ( !player.Tile.Position.CanHearSay(target.Tile.Position) )
+                        {
+                            StopAttackAndFollow();
+
+                            Context.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TargetLost) );
+
+                            Context.AddPacket(player, new StopAttackAndFollowOutgoingPacket(0) );
+                        
+                            break;
+                        }
+                        else
+                        {
+                            Tile toTile;
+
+                            if (walkStrategy.CanWalk(player, target, out toTile) )
+                            {
+                                MoveDirection moveDirection = player.Tile.Position.ToMoveDirection(toTile.Position).Value;
+
+                                await Context.AddCommand(new CreatureMoveCommand(player, toTile) );
+
+                                int diagonalCost = (moveDirection == MoveDirection.NorthWest ||
+                                                    moveDirection == MoveDirection.NorthEast ||
+                                                    moveDirection == MoveDirection.SouthWest ||
+                                                    moveDirection == MoveDirection.SouthEast) ? 2 : 1;
+
+                                nextWalk = DateTime.UtcNow.AddMilliseconds(diagonalCost * 1000 * toTile.Ground.Metadata.Speed / player.Speed);
+                            }
+                            else
+                            {
+                                nextWalk = DateTime.UtcNow.AddMilliseconds(500);
+                            }
+                        }
+                    }
+                }
+            } ).Catch( (ex) =>
+            {
+                if (ex is PromiseCanceledException)
+                {
+                    //
+                }
+                else
+                {
+                    Context.Server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
+                }
+            } );
+        }
+
+        private void StopAttackThread()
+        {
+            Context.Server.EventHandlers.Unsubscribe(globalTick);
+        }
+
+        private void StopFollowThread()
+        {
+            Context.Server.CancelQueueForExecution(walkingKey);
         }
 
         public override void Stop()
         {
-            StopThreads();
-
-            Context.Server.EventHandlers.Unsubscribe(globalTick);
+            StopAttackAndFollow();
         }
     }
 }

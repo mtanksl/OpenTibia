@@ -24,7 +24,7 @@ namespace OpenTibia.Game.Components
             this.changeTargetStrategy = changeTargetStrategy;
         }
 
-        public bool ShouldChange(int eticks, Creature attacker, Player target)
+        public bool ShouldChange(int eticks, Creature attacker, Creature target)
         {
             bool currentResult = false;
 

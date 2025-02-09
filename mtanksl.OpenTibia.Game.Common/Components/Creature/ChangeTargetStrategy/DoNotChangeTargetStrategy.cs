@@ -11,7 +11,7 @@ namespace OpenTibia.Game.Components
             
         }
 
-        public bool ShouldChange(int ticks, Creature attacker, Player target)
+        public bool ShouldChange(int ticks, Creature attacker, Creature target)
         {
             return false;
         }
