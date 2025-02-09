@@ -12,19 +12,21 @@ namespace OpenTibia.Game.Components
             this.targetStrategies = targetStrategies;
         }
 
-        public Player GetTarget(Creature attacker, Player[] visiblePlayers)
+        public Player GetTarget(int ticks, Creature attacker, Player[] players)
         {
+            Player currentPlayer = null;
+
             foreach (var targetStrategy in Context.Current.Server.Randomization.Shuffle(targetStrategies) )
             {
-                Player player = targetStrategy.GetTarget(attacker, visiblePlayers);
+                Player player = targetStrategy.GetTarget(ticks, attacker, players);
 
-                if (player != null)
+                if (player != null && currentPlayer == null)
                 {
-                    return player;
+                    currentPlayer = player;
                 }
             }
 
-            return null;
+            return currentPlayer;
         }
     }
 }

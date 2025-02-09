@@ -1,6 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Common;
-using System.Linq;
 
 namespace OpenTibia.Game.Components
 {
@@ -13,19 +12,9 @@ namespace OpenTibia.Game.Components
             
         }
 
-        public Player GetTarget(Creature attacker, Player[] visiblePlayers)
+        public Player GetTarget(int ticks, Creature attacker, Player[] players)
         {
-            Player[] targets = visiblePlayers
-                .Where(p => !p.Tile.ProtectionZone &&
-                            attacker.Tile.Position.CanHearSay(p.Tile.Position) )
-                .ToArray();
-
-            if (targets.Length > 0)
-            {
-                return Context.Current.Server.Randomization.Take(targets);
-            }
-
-            return null;
+            return Context.Current.Server.Randomization.Take(players);
         }
     }
 }

@@ -39,7 +39,22 @@ namespace OpenTibia.Game.Components
                     {
                         ticks = voices.Interval;
 
-                        globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance(npc.Id), OnThink);
+                        globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance(npc.Id), async (context, e) =>
+                        {
+                            ticks -= e.Ticks;
+
+                            while (ticks <= 0)
+                            {
+                                ticks += voices.Interval;
+
+                                if (Context.Server.Randomization.HasProbability(voices.Chance / 100.0) )
+                                {
+                                    VoiceItem voiceItem = Context.Server.Randomization.Take(voices.Items);
+                                                                           
+                                    await Context.AddCommand(new NpcSayCommand(npc, voiceItem.Sentence) );
+                                }
+                            }
+                        } );
                     }
 
                     near++;
@@ -62,23 +77,6 @@ namespace OpenTibia.Game.Components
 
                 return Promise.Completed;
             } );
-        }
-
-        private async Promise OnThink(Context context, GlobalTickEventArgs e)
-        {
-            ticks -= e.Ticks;
-
-            while (ticks <= 0)
-            {
-                ticks += voices.Interval;
-
-                if (Context.Server.Randomization.HasProbability(voices.Chance / 100.0) )
-                {
-                    VoiceItem voiceItem = Context.Server.Randomization.Take(voices.Items);
-                                                                           
-                    await Context.AddCommand(new NpcSayCommand(npc, voiceItem.Sentence) );
-                }
-            }
         }
 
         public override void Stop()

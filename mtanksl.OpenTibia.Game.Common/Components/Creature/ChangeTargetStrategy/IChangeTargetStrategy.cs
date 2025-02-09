@@ -4,6 +4,6 @@ namespace OpenTibia.Game.Components
 {
     public interface IChangeTargetStrategy
     {
-        bool ShouldChange(Creature attacker, Player target);
+        bool ShouldChange(int ticks, Creature attacker, Player target);
     }
 }

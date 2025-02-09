@@ -5,7 +5,7 @@ namespace OpenTibia.Game.Components
 {
     public interface IAttackStrategy
     {
-        PromiseResult<bool> CanAttack(Creature attacker, Creature target);
+        PromiseResult<bool> CanAttack(int ticks, Creature attacker, Creature target);
 
         Promise Attack(Creature attacker, Creature target);
     }

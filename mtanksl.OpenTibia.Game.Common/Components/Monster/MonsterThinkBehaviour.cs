@@ -5,6 +5,7 @@ using OpenTibia.Game.Common;
 using OpenTibia.Game.Common.ServerObjects;
 using OpenTibia.Game.Events;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace OpenTibia.Game.Components
@@ -28,231 +29,167 @@ namespace OpenTibia.Game.Components
 
         private Monster monster;
 
-        private Player target;
+        private Guid creatureAppearEventArgs;
 
-        public Player Target
-        {
-            get
-            {
-                return target;
-            }
-        }
+        private Guid creatureDisappearEventArgs;
 
-        private bool hasVisiblePlayers;
+        private HashSet<Player> near = new HashSet<Player>();
 
-        private Player current;
-
-        private DateTime nextAttack = DateTime.MinValue;
-
-        private DateTime nextWalk = DateTime.MinValue;
-
-        private string attackingKey = Guid.NewGuid().ToString();
-
-        private string followingKey = Guid.NewGuid().ToString();
-
-        private void StartThreads()
-        {
-            current = target;
-
-            if (attackStrategy != null)
-            {
-                Promise.Run(async () =>
-                {
-                    while (true)
-                    {
-                        await Promise.Delay(attackingKey, nextAttack - DateTime.UtcNow);
-
-                        if (current.Tile == null || 
-                            current.IsDestroyed || 
-                            current.Tile.ProtectionZone || 
-                            !monster.Tile.Position.CanHearSay(current.Tile.Position) )
-                        {
-                            StopThreads();
-
-                            break;
-                        }
-
-                        if (await attackStrategy.CanAttack(monster, current) )
-                        {
-                            await attackStrategy.Attack(monster, current);
-                        }
-
-                        nextAttack = DateTime.UtcNow.AddSeconds(1);
-                    }
-
-                } ).Catch( (ex) =>
-                {
-                    if (ex is PromiseCanceledException)
-                    {
-                        //
-                    }
-                    else
-                    {
-                        Context.Server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
-                    }
-                } );
-            }
-
-            if (walkStrategy != null)
-            {
-                Promise.Run(async () =>
-                {
-                    while (true)
-                    {                            
-                        await Promise.Delay(followingKey, nextWalk - DateTime.UtcNow);
-
-                        if (current.Tile == null || 
-                            current.IsDestroyed || 
-                            current.Tile.ProtectionZone || 
-                            !monster.Tile.Position.CanHearSay(current.Tile.Position) )
-                        {
-                            StopThreads();
-
-                            break;
-                        }
-
-                        Tile toTile;
-
-                        if (walkStrategy.CanWalk(monster, current, out toTile) )
-                        {
-                            MoveDirection moveDirection = monster.Tile.Position.ToMoveDirection(toTile.Position).Value;
-
-                            await Context.AddCommand(new CreatureMoveCommand(monster, toTile) );
-
-                            int diagonalCost = (moveDirection == MoveDirection.NorthWest || 
-                                                moveDirection == MoveDirection.NorthEast || 
-                                                moveDirection == MoveDirection.SouthWest || 
-                                                moveDirection == MoveDirection.SouthEast) ? 2 : 1;
-
-                            nextWalk = DateTime.UtcNow.AddMilliseconds(diagonalCost * 1000 * toTile.Ground.Metadata.Speed / monster.Speed);
-                        }
-                        else
-                        {
-                            nextWalk = DateTime.UtcNow.AddSeconds(1);
-                        }
-                    }
-
-                } ).Catch( (ex) =>
-                {
-                    if (ex is PromiseCanceledException)
-                    {
-                        //
-                    }
-                    else
-                    {
-                        Context.Server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
-                    }
-                } );
-            }            
-        }
-
-        private void StopThreads()
-        {
-            Context.Server.CancelQueueForExecution(attackingKey);
-
-            Context.Server.CancelQueueForExecution(followingKey);
-
-            current = null;
-        }
+        private int ticks;
 
         private Guid globalTick;
+
+        private string walkingKey;
+
+        private DateTime nextWalk;
+
+        private Player target;
 
         public override void Start()
         {
             monster = (Monster)GameObject;
 
-            globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance(monster.Id), async (context, e) =>
+            creatureAppearEventArgs = Context.Server.GameObjectEventHandlers.Subscribe<CreatureAppearEventArgs>(monster, (context, e) => 
             {
-                if (Math.Abs(monster.Tile.Position.X - monster.Spawn.Position.X) > Context.Server.Config.GameplayMonsterDeSpawnRadius || 
-                    Math.Abs(monster.Tile.Position.Y - monster.Spawn.Position.Y) > Context.Server.Config.GameplayMonsterDeSpawnRadius ||
-                    Math.Abs(monster.Tile.Position.Z - monster.Spawn.Position.Z) > Context.Server.Config.GameplayMonsterDeSpawnRange)
+                if (e.Creature is Player player && player.Rank != Rank.Gamemaster && player.Rank != Rank.AccountManager)
                 {
-                    if (Context.Server.Config.GameplayMonsterRemoveOnDeSpawn)
+                    if (near.Count == 0)
                     {
-                        await Context.AddCommand(new ShowMagicEffectCommand(monster, MagicEffectType.Puff) );
+                        ticks = 1000;
 
-                        await Context.AddCommand(new CreatureDestroyCommand(monster) );
+                        globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance(monster.Id), async (context, e) =>
+                        {
+                            ticks -= e.Ticks;
+
+                            while (ticks <= 0)
+                            {
+                                ticks += 1000;
+
+                                if (Math.Abs(monster.Tile.Position.X - monster.Spawn.Position.X) > Context.Server.Config.GameplayMonsterDeSpawnRadius || 
+                                    Math.Abs(monster.Tile.Position.Y - monster.Spawn.Position.Y) > Context.Server.Config.GameplayMonsterDeSpawnRadius || 
+                                    Math.Abs(monster.Tile.Position.Z - monster.Spawn.Position.Z) > Context.Server.Config.GameplayMonsterDeSpawnRange)
+                                {
+                                    if (Context.Server.Config.GameplayMonsterRemoveOnDeSpawn)
+                                    {
+                                        await Context.AddCommand(new ShowMagicEffectCommand(monster, MagicEffectType.Puff) );
+
+                                        await Context.AddCommand(new CreatureDestroyCommand(monster) );
+                                    }
+                                    else
+                                    {
+                                        await Context.AddCommand(new ShowMagicEffectCommand(monster, MagicEffectType.Puff) );
+
+                                        await Context.AddCommand(new CreatureMoveCommand(monster, monster.Spawn) );
+
+                                        await Context.AddCommand(new ShowMagicEffectCommand(monster, MagicEffectType.Teleport) );
+                                    }
+                                }
+                                else
+                                {
+                                    if (target == null || target.Tile == null || target.IsDestroyed || target.Tile.ProtectionZone || !monster.Tile.Position.CanHearSay(target.Tile.Position) || changeTargetStrategy.ShouldChange(1000, monster, target) )
+                                    {
+                                        Player[] players = near
+                                            .Where(p => !p.Tile.ProtectionZone && 
+                                                        monster.Tile.Position.CanHearSay(p.Tile.Position) )
+                                            .ToArray();
+
+                                        if (players.Length > 0)
+                                        {
+                                            target = targetStrategy.GetTarget(1000, monster, players);
+                                        }
+                                        else
+                                        {
+                                            target = null;
+                                        }
+                                    }
+
+                                    if (target != null && await attackStrategy.CanAttack(1000, monster, target) )
+                                    {
+                                        await attackStrategy.Attack(monster, target);
+                                    }
+                                }
+                            }
+                        } );
+
+                        walkingKey = Guid.NewGuid().ToString();
+
+                        Promise.Run(async () =>
+                        {
+                            while (true)
+                            {
+                                await Promise.Delay(walkingKey, nextWalk - DateTime.UtcNow);
+
+                                Tile toTile;
+
+                                if ( (target == null ? idleWalkStrategy : walkStrategy).CanWalk(monster, target, out toTile) )
+                                {
+                                    MoveDirection moveDirection = monster.Tile.Position.ToMoveDirection(toTile.Position).Value;
+
+                                    await Context.AddCommand(new CreatureMoveCommand(monster, toTile) );
+
+                                    int diagonalCost = (moveDirection == MoveDirection.NorthWest ||
+                                                        moveDirection == MoveDirection.NorthEast ||
+                                                        moveDirection == MoveDirection.SouthWest ||
+                                                        moveDirection == MoveDirection.SouthEast) ? 2 : 1;
+
+                                    nextWalk = DateTime.UtcNow.AddMilliseconds(diagonalCost * 1000 * toTile.Ground.Metadata.Speed / monster.Speed);
+                                }
+                                else
+                                {
+                                    nextWalk = DateTime.UtcNow.AddSeconds(1);
+                                }
+                            }
+                        } ).Catch( (ex) =>
+                        {
+                            if (ex is PromiseCanceledException)
+                            {
+                                //
+                            }
+                            else
+                            {
+                                Context.Server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
+                            }
+                        } );
                     }
-                    else
+
+                    near.Add(player);
+                }
+
+                return Promise.Completed; 
+            } );
+
+            creatureDisappearEventArgs = Context.Server.GameObjectEventHandlers.Subscribe<CreatureDisappearEventArgs>(monster, (context, e) =>
+            {
+                if (e.Creature is Player player && player.Rank != Rank.Gamemaster && player.Rank != Rank.AccountManager)
+                {
+                    near.Remove(player);
+
+                    if (near.Count == 0)
                     {
-                        await Context.AddCommand(new ShowMagicEffectCommand(monster, MagicEffectType.Puff) );
+                        Context.Server.EventHandlers.Unsubscribe(globalTick);
 
-                        await Context.AddCommand(new CreatureMoveCommand(monster, monster.Spawn) );
-
-                        await Context.AddCommand(new ShowMagicEffectCommand(monster, MagicEffectType.Teleport) );
+                        Context.Server.CancelQueueForExecution(walkingKey);
                     }
                 }
-                else
-                {
-                    if (target == null || 
-                        target.Tile == null || 
-                        target.IsDestroyed || 
-                        target.Tile.ProtectionZone ||
-                        !monster.Tile.Position.CanHearSay(target.Tile.Position) || 
-                        changeTargetStrategy.ShouldChange(monster, target) )
-                    {
-                        Player[] visiblePlayers = Context.Server.Map.GetObserversOfTypePlayer(monster.Tile.Position)
-                            .Where(p => p.Rank != Rank.Gamemaster &&
-                                        p.Rank != Rank.AccountManager &&
-                                        monster.Tile.Position.CanSee(p.Tile.Position) )
-                            .ToArray();
 
-                        if (visiblePlayers.Length > 0)
-                        {
-                            target = targetStrategy.GetTarget(monster, visiblePlayers);
-
-                            hasVisiblePlayers = true;
-                        }
-                        else
-                        {
-                            target = null;
-
-                            hasVisiblePlayers = false;
-                        }
-                    }
-
-                    if (target == null && current != null)
-                    {
-                        StopThreads();                        
-                    }
-                    else if (target != null && current == null)
-                    {
-                        StartThreads();
-                    }
-                    else if (target != null && current != null)
-                    {
-                        if (target != current)
-                        {
-                            StopThreads();
-
-                            StartThreads();
-                        }
-                    }
-
-                    if (target == null && hasVisiblePlayers && idleWalkStrategy != null && DateTime.UtcNow >= nextWalk)
-                    {
-                        Tile toTile;
-
-                        if (idleWalkStrategy.CanWalk(monster, null, out toTile) )
-                        {
-                            await Context.AddCommand(new CreatureMoveCommand(monster, toTile) );
-
-                            nextWalk = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / monster.Speed);
-                        }
-                        else
-                        {
-                            nextWalk = DateTime.UtcNow.AddSeconds(1);
-                        }
-                    }
-                }
-            } );            
+                return Promise.Completed;
+            } );
         }
 
         public override void Stop()
         {
-            StopThreads();
+            Context.Server.GameObjectEventHandlers.Unsubscribe(creatureAppearEventArgs);
 
-            Context.Server.EventHandlers.Unsubscribe(globalTick);
+            Context.Server.GameObjectEventHandlers.Unsubscribe(creatureDisappearEventArgs);
+
+            if (near.Count > 0)
+            {
+                near.Clear();
+
+                Context.Server.EventHandlers.Unsubscribe(globalTick);
+
+                Context.Server.CancelQueueForExecution(walkingKey);
+            }
         }
     }
 }

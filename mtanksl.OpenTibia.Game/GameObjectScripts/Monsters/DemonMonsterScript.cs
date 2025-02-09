@@ -19,7 +19,7 @@ namespace OpenTibia.Game.GameObjectScripts
                     new IntervalAndChanceAttackStrategy(2000, 90, AttackStrategyFactory.Create(AttackType.FireField) ) ),
                 ApproachWalkStrategy.Instance,
                 RandomWalkStrategy.Instance,
-                new RandomChangeTargetStrategy(10 / 100.0),
+                new IntervalAndChanceChangeTargetStrategy(1000, 10, DoChangeTargetStrategy.Instance),
                 RandomTargetStrategy.Instance) );
         }
 

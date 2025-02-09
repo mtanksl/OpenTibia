@@ -14,13 +14,13 @@ namespace OpenTibia.Game.Components
 
         private IAttackStrategy currentAttackStrategy;
 
-        public async PromiseResult<bool> CanAttack(Creature attacker, Creature target)
+        public async PromiseResult<bool> CanAttack(int ticks, Creature attacker, Creature target)
         {
             currentAttackStrategy = null;
 
             foreach (var attackStrategy in Context.Current.Server.Randomization.Shuffle(attackStrategies) )
             {
-                if (await attackStrategy.CanAttack(attacker, target) && currentAttackStrategy == null)
+                if (await attackStrategy.CanAttack(ticks, attacker, target) && currentAttackStrategy == null)
                 {
                     currentAttackStrategy = attackStrategy;
                 }

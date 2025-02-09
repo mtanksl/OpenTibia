@@ -17,7 +17,7 @@ namespace OpenTibia.Game.Components
            
         }
 
-        public async PromiseResult<bool> CanAttack(Creature attacker, Creature target)
+        public async PromiseResult<bool> CanAttack(int ticks, Creature attacker, Creature target)
         {
             Player player = (Player)attacker;
 

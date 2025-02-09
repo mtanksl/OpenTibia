@@ -28,7 +28,7 @@ namespace OpenTibia.Game.Components
 
                 ticks = 1000;
 
-                globalTick = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>(OnThink);
+                globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance(GameObject.Id), OnThink);
             }
 
             regeneration += regenerationInSeconds;
@@ -50,7 +50,7 @@ namespace OpenTibia.Game.Components
 
                 ticks = 1000;
 
-                globalTick = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>(OnThink);
+                globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance(GameObject.Id), OnThink);
             }
 
             soulRegeneration = 4 * 60;

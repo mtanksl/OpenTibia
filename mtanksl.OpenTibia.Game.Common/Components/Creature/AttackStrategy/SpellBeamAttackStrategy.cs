@@ -41,7 +41,7 @@ namespace OpenTibia.Game.Components
             this.condition = condition;
         }
 
-        public PromiseResult<bool> CanAttack(Creature attacker, Creature target)
+        public PromiseResult<bool> CanAttack(int ticks, Creature attacker, Creature target)
         {
             return Promise.FromResultAsBooleanTrue;
         }

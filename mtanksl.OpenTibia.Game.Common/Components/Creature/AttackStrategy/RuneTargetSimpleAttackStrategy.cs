@@ -41,7 +41,7 @@ namespace OpenTibia.Game.Components
             this.condition = condition;
         }
 
-        public PromiseResult<bool> CanAttack(Creature attacker, Creature target)
+        public PromiseResult<bool> CanAttack(int ticks, Creature attacker, Creature target)
         {
             if (Context.Current.Server.Pathfinding.CanThrow(attacker.Tile.Position, target.Tile.Position) )
             {

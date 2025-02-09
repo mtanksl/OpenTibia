@@ -4,6 +4,6 @@ namespace OpenTibia.Game.Components
 {
     public interface ITargetStrategy
     {
-        Player GetTarget(Creature attacker, Player[] visiblePlayers);
+        Player GetTarget(int ticks, Creature attacker, Player[] players);
     }
 }

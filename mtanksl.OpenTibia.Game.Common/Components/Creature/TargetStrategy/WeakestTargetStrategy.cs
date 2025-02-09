@@ -12,11 +12,9 @@ namespace OpenTibia.Game.Components
             
         }
 
-        public Player GetTarget(Creature attacker, Player[] visiblePlayers)
+        public Player GetTarget(int ticks, Creature attacker, Player[] players)
         {
-            return visiblePlayers
-                .Where(p => !p.Tile.ProtectionZone &&
-                            attacker.Tile.Position.CanHearSay(p.Tile.Position) )
+            return players
                 .OrderBy(p => p.MaxHealth)
                     .ThenBy(p => p.Health)
                 .FirstOrDefault();

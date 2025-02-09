@@ -10,7 +10,7 @@ namespace OpenTibia.Game.GameObjectScripts
             base.Start(monster);
 
             Context.Server.GameObjectComponents.AddComponent(monster, new MonsterThinkBehaviour(
-                null, 
+                DoNotAttackStrategy.Instance, 
                 RunAwayWalkStrategy.Instance,
                 RandomWalkStrategy.Instance,
                 DoNotChangeTargetStrategy.Instance,
