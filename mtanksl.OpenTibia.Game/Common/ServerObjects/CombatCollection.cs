@@ -33,6 +33,15 @@ namespace OpenTibia.Game.Common.ServerObjects
             hit.LastAttack = DateTime.UtcNow;
         }
 
+        public Dictionary<Creature, Hit> GetHitsByTarget(Creature target) 
+        {
+            Dictionary<Creature, Hit> hits;
+
+            hitss.TryGetValue(target, out hits);
+
+            return hits;
+        }
+
         public Dictionary<Creature, Hit> GetHitsByTargetAndRemove(Creature target)
         {
             Dictionary<Creature, Hit> hits;

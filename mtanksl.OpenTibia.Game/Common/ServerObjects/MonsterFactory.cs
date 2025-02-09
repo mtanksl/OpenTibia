@@ -85,7 +85,19 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     Defense = xmlMonster.Defenses?.Defense ?? 0,
 
-                    Defenses = xmlMonster.Defenses?.Items?.Select(d => new DefenseItem() { Name = d.Name, Interval = d.Interval, Chance = d.Chance, Min = d.Min ?? 0, Max = d.Max ?? 0 } ).ToArray()
+                    Defenses = xmlMonster.Defenses?.Items?.Select(d => new DefenseItem() { Name = d.Name, Interval = d.Interval, Chance = d.Chance, Min = d.Min ?? 0, Max = d.Max ?? 0 } ).ToArray(),
+
+                    ChangeTargetInterval = xmlMonster.ChangeTargetStrategy?.Interval ?? 1000,
+
+                    ChangeTargetChance = xmlMonster.ChangeTargetStrategy?.Chance ?? 0,
+
+                    TargetNearestChance = xmlMonster.TargetStrategy?.Nearest ?? 0,
+
+                    TargetWeakestChance = xmlMonster.TargetStrategy?.Weakest ?? 0,
+
+                    TargetMostDamagedChance = xmlMonster.TargetStrategy?.MostDamaged ?? 0,
+
+                    TargetRandomChance = xmlMonster.TargetStrategy?.Random ?? 0
                 };
 
                 if (xmlMonster.Immunities != null)

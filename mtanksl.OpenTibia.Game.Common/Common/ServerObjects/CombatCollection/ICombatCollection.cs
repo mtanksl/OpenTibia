@@ -7,6 +7,8 @@ namespace OpenTibia.Game.Common.ServerObjects
     {
         void AddHitToTarget(Creature attacker, Creature target, int damage);
         
+        Dictionary<Creature, Hit> GetHitsByTarget(Creature target);
+
         Dictionary<Creature, Hit> GetHitsByTargetAndRemove(Creature target);
     }
 }

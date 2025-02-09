@@ -54,5 +54,17 @@ namespace OpenTibia.Common.Objects
         public int Defense { get; set; }
 
         public DefenseItem[] Defenses { get; set; }
+
+        public int ChangeTargetInterval { get; set; }
+
+        public int ChangeTargetChance { get; set; }
+
+        public int TargetNearestChance { get; set; }
+
+        public int TargetMostDamagedChance { get; set; }
+
+        public int TargetWeakestChance { get; set; }
+
+        public int TargetRandomChance { get; set; }
     }
 }

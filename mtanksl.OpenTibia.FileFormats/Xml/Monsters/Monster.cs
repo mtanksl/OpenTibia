@@ -275,6 +275,34 @@ namespace OpenTibia.FileFormats.Xml.Monsters
                 }
             }
 
+            XElement changeTargetStrategyNode = monsterNode.Element("changetargetstrategy");
+
+            if (changeTargetStrategyNode != null)
+            {
+                monster.ChangeTargetStrategy = new ChangeTargetStrategy()
+                {
+                    Interval = (int)changeTargetStrategyNode.Attribute("interval"),
+
+                    Chance = (int)changeTargetStrategyNode.Attribute("chance")
+                };
+            }
+
+            XElement targetStrategyNode = monsterNode.Element("targetstrategy");
+
+            if (targetStrategyNode != null)
+            {
+                monster.TargetStrategy = new TargetStrategy()
+                {
+                    Nearest = (int)targetStrategyNode.Attribute("nearest"),
+
+                    Weakest = (int)targetStrategyNode.Attribute("weakest"),
+
+                    MostDamaged = (int)targetStrategyNode.Attribute("mostdamaged"),
+
+                    Random = (int)targetStrategyNode.Attribute("random")
+                };
+            }
+
             return monster;
         }
 
@@ -324,5 +352,11 @@ namespace OpenTibia.FileFormats.Xml.Monsters
 
         [XmlElement("defenses")]
         public DefenseCollection Defenses { get; set; }
+
+        [XmlElement("changetargetstrategy")]
+        public ChangeTargetStrategy ChangeTargetStrategy { get; set; }
+
+        [XmlElement("targetstrategy")]
+        public TargetStrategy TargetStrategy { get; set; }
     }
 }

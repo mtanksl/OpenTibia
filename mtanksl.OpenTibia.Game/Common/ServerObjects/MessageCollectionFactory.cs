@@ -1,5 +1,4 @@
-﻿using mtanksl.OpenTibia.Game.Common.Common;
-using OpenTibia.Common.Objects;
+﻿using OpenTibia.Common.Objects;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Collections.Generic;

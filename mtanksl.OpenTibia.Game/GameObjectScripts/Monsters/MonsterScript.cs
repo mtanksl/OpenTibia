@@ -41,24 +41,45 @@ namespace OpenTibia.Game.GameObjectScripts
                 }
             }
 
-            if (attackStrategies.Count > 0)
+            List<ITargetStrategy> targetStrategies = new List<ITargetStrategy>();
+
+            if (monster.Metadata.TargetWeakestChance > 0)
             {
-                Context.Server.GameObjectComponents.AddComponent(monster, new MonsterThinkBehaviour(
-                    new CombineRandomAttackStrategy(attackStrategies.ToArray() ),
-                    ApproachWalkStrategy.Instance,
-                    RandomWalkStrategy.Instance,
+                targetStrategies.Add(new IntervalAndChanceTargetStrategy(1000, monster.Metadata.TargetWeakestChance, WeakestTargetStrategy.Instance) );
+            }
+
+            if (monster.Metadata.TargetNearestChance > 0)
+            {
+                targetStrategies.Add(new IntervalAndChanceTargetStrategy(1000, monster.Metadata.TargetNearestChance, NearestTargetStrategy.Instance) );
+            }
+
+            if (monster.Metadata.TargetMostDamagedChance > 0)
+            {
+                targetStrategies.Add(new IntervalAndChanceTargetStrategy(1000, monster.Metadata.TargetMostDamagedChance, MostDamagedByAttackerTargetStrategy.Instance) );
+            }
+
+            if (monster.Metadata.TargetRandomChance > 0)
+            {
+                targetStrategies.Add(new IntervalAndChanceTargetStrategy(1000, monster.Metadata.TargetRandomChance, RandomTargetStrategy.Instance) );
+            }
+
+            Context.Server.GameObjectComponents.AddComponent(monster, new MonsterThinkBehaviour(
+
+                attackStrategies.Count > 0 ? 
+                    new CombineRandomAttackStrategy(attackStrategies.ToArray() ) :
+                    DoNotAttackStrategy.Instance,
+
+                ApproachWalkStrategy.Instance,
+
+                RandomWalkStrategy.Instance,
+
+                (monster.Metadata.ChangeTargetInterval > 0 && monster.Metadata.ChangeTargetChance > 0) ? 
+                    new IntervalAndChanceChangeTargetStrategy(monster.Metadata.ChangeTargetInterval, monster.Metadata.ChangeTargetChance, DoChangeTargetStrategy.Instance) : 
                     DoNotChangeTargetStrategy.Instance,
+
+                targetStrategies.Count > 0 ? 
+                    new CombineRandomTargetStrategy(targetStrategies.ToArray() ) : 
                     RandomTargetStrategy.Instance) );
-            }
-            else
-            {
-                Context.Server.GameObjectComponents.AddComponent(monster, new MonsterThinkBehaviour(
-                    new IntervalAndChanceAttackStrategy(2000, 90, AttackStrategyFactory.Create(AttackType.Melee, 0, 20) ),
-                    ApproachWalkStrategy.Instance,
-                    RandomWalkStrategy.Instance,
-                    DoNotChangeTargetStrategy.Instance,
-                    RandomTargetStrategy.Instance));
-            }
         }
 
         public override void Stop(Monster monster)
