@@ -28,54 +28,67 @@ namespace OpenTibia.Game.Commands
             {
                 // pvm or mvm
 
-                int damage = Context.Current.Server.Randomization.Take(Min, Max);
+                int damage;
 
-                BlockType blockType = BlockType.None;
+                BlockType blockType;
 
-                if (damage > 0)
+                if (monster.Metadata.Immunities.Contains(DamageType) )
                 {
-                    double elementPercent;
+                    damage = 0;
 
-                    if ( !monster.Metadata.DamageTakenFromElements.TryGetValue(DamageType, out elementPercent) )
-                    {
-                        elementPercent = 1;
-                    }
-
-                    damage = (int)(damage * elementPercent);
-
-                    if (damage <= 0)
-                    {
-                        damage = 0;
-
-                        blockType = BlockType.Immune;
-                    }
+                    blockType = BlockType.Immune;
                 }
-
-                if (damage > 0)
+                else
                 {
-                    int defense = Formula.DefenseFormula(monster.Metadata.Defense, FightMode.Balanced);
+                    damage = Context.Current.Server.Randomization.Take(Min, Max);
 
-                    damage -= defense;
+                    blockType = BlockType.None;
 
-                    if (damage <= 0)
+                    if (damage > 0)
                     {
-                        damage = 0;
+                        int defense = Formula.DefenseFormula(monster.Metadata.Defense, FightMode.Balanced);
 
-                        blockType = BlockType.Shield;
+                        damage -= defense;
+
+                        if (damage <= 0)
+                        {
+                            damage = 0;
+
+                            blockType = BlockType.Shield;
+                        }
                     }
-                }
 
-                if (damage > 0)
-                {
-                    int armor = Formula.ArmorFormula(monster.Metadata.Armor);
-
-                    damage -= armor;
-
-                    if (damage <= 0)
+                    if (damage > 0)
                     {
-                        damage = 0;
+                        double elementPercent;
 
-                        blockType = BlockType.Armor;
+                        if ( !monster.Metadata.DamageTakenFromElements.TryGetValue(DamageType, out elementPercent) )
+                        {
+                            elementPercent = 1;
+                        }
+
+                        damage = (int)(damage * elementPercent);
+
+                        if (damage <= 0)
+                        {
+                            damage = 0;
+
+                            blockType = BlockType.Armor;
+                        }
+                    }
+
+                    if (damage > 0)
+                    {
+                        int armor = Formula.ArmorFormula(monster.Metadata.Armor);
+
+                        damage -= armor;
+
+                        if (damage <= 0)
+                        {
+                            damage = 0;
+
+                            blockType = BlockType.Armor;
+                        }
                     }
                 }
 

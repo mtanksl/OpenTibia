@@ -27,6 +27,8 @@ namespace OpenTibia.Common.Objects
 
         public LootItem[] Loot { get; set; }
 
+        public HashSet<DamageType> Immunities { get; set; }
+
         public Dictionary<DamageType, double> DamageTakenFromElements { get; set; }
 
         public bool Summonable { get; set; }

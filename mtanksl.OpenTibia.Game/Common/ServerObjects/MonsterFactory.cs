@@ -59,6 +59,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     Loot = xmlMonster.Loot?.Select(l => new LootItem() { OpenTibiaId = l.Id, KillsToGetOne = l.KillsToGetOne, CountMin = l.CountMin ?? 1, CountMax = l.CountMax ?? 1 } ).ToArray(),
 
+                    Immunities = new HashSet<DamageType>(),
+
                     DamageTakenFromElements = new Dictionary<DamageType, double>(),
 
                     Summonable = xmlMonster.Flags?.Any(f => f.Summonable == 1) ?? false,
@@ -85,6 +87,53 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     Defenses = xmlMonster.Defenses?.Items?.Select(d => new DefenseItem() { Name = d.Name, Interval = d.Interval, Chance = d.Chance, Min = d.Min ?? 0, Max = d.Max ?? 0 } ).ToArray()
                 };
+
+                if (xmlMonster.Immunities != null)
+                {
+                    foreach (var immunityItem in xmlMonster.Immunities)
+                    {
+                        if (immunityItem.Physical == 1)
+                        {
+                            monsterMetadata.Immunities.Add(DamageType.Physical);
+                        }
+                        else if (immunityItem.Earth == 1)
+                        {
+                            monsterMetadata.Immunities.Add(DamageType.Earth);
+                        }
+                        else if (immunityItem.Fire == 1)
+                        {
+                            monsterMetadata.Immunities.Add(DamageType.Fire);
+                        }
+                        else if (immunityItem.Energy == 1)
+                        {
+                            monsterMetadata.Immunities.Add(DamageType.Energy);
+                        }
+                        else if (immunityItem.Ice == 1)
+                        {
+                            monsterMetadata.Immunities.Add(DamageType.Ice);
+                        }
+                        else if (immunityItem.Death == 1)
+                        {
+                            monsterMetadata.Immunities.Add(DamageType.Death);
+                        }
+                        else if (immunityItem.Holy == 1)
+                        {
+                            monsterMetadata.Immunities.Add(DamageType.Holy);
+                        }
+                        else if (immunityItem.Drown == 1)
+                        {
+                            monsterMetadata.Immunities.Add(DamageType.Drown);
+                        }
+                        else if (immunityItem.ManaDrain == 1)
+                        {
+                            monsterMetadata.Immunities.Add(DamageType.ManaDrain);
+                        }
+                        else if (immunityItem.LifeDrain == 1)
+                        {
+                            monsterMetadata.Immunities.Add(DamageType.LifeDrain);
+                        }
+                    }
+                }
 
                 if (xmlMonster.Elements != null)
                 {

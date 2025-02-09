@@ -127,6 +127,39 @@ namespace OpenTibia.FileFormats.Xml.Monsters
                 }
             }
 
+            XElement immunities = monsterNode.Element("immunities");
+
+            if (immunities != null)
+            {
+                monster.Immunities = new List<ImmunityItem>();
+
+                foreach (var immunityNode in immunities.Elements() )
+                {
+                    monster.Immunities.Add(new ImmunityItem() 
+                    {
+                        Physical = (int?)immunityNode.Attribute("physical"),
+
+                        Earth = (int?)immunityNode.Attribute("earth"),
+
+                        Fire = (int?)immunityNode.Attribute("fire"),
+
+                        Energy = (int?)immunityNode.Attribute("energy"),
+
+                        Ice = (int?)immunityNode.Attribute("ice"),
+
+                        Death = (int?)immunityNode.Attribute("death"),
+
+                        Holy = (int?)immunityNode.Attribute("holy"),
+
+                        Drown = (int?)immunityNode.Attribute("drown"),
+
+                        ManaDrain = (int?)immunityNode.Attribute("manaDrain"),
+
+                        LifeDrain = (int?)immunityNode.Attribute("lifeDrain")
+                    } );
+                }
+            }
+
             XElement elementsNode = monsterNode.Element("elements");
 
             if (elementsNode != null)
@@ -272,6 +305,10 @@ namespace OpenTibia.FileFormats.Xml.Monsters
         [XmlArray("loot")]
         [XmlArrayItem("item")]
         public List<LootItem> Loot { get; set; }
+
+        [XmlArray("immunities")]
+        [XmlArrayItem("immunity")]
+        public List<ImmunityItem> Immunities { get; set; }
 
         [XmlArray("elements")]
         [XmlArrayItem("element")]
