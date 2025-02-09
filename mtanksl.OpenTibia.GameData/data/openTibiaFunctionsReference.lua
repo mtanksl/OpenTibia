@@ -642,8 +642,8 @@ return {
 				args = "(Player player, ulong experience)",
 				returns = "void"
 			},
-			-- void command.playeraremoveexperience(Player player, ulong experience)
-			playeraremoveexperience = {
+			-- void command.playerremoveexperience(Player player, ulong experience)
+			playerremoveexperience = {
 				type = "function",
 				description = "",
 				args = "(Player player, ulong experience)",
