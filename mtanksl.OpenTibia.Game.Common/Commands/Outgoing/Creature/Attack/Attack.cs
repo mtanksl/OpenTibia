@@ -51,6 +51,34 @@ namespace OpenTibia.Game.Commands
                     }
                 }
 
+                if (damage > 0)
+                {
+                    int defense = Formula.DefenseFormula(monster.Metadata.Defense, FightMode.Balanced);
+
+                    damage -= defense;
+
+                    if (damage <= 0)
+                    {
+                        damage = 0;
+
+                        blockType = BlockType.Shield;
+                    }
+                }
+
+                if (damage > 0)
+                {
+                    int armor = Formula.ArmorFormula(monster.Metadata.Armor);
+
+                    damage -= armor;
+
+                    if (damage <= 0)
+                    {
+                        damage = 0;
+
+                        blockType = BlockType.Armor;
+                    }
+                }
+
                 return (damage, blockType);
             }
 
