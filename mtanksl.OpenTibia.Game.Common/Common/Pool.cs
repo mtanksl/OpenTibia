@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 
-namespace mtanksl.OpenTibia.Game.Common.Common
+namespace OpenTibia.Game.Common
 {
     //Reference: https://stackoverflow.com/a/2572919
 
