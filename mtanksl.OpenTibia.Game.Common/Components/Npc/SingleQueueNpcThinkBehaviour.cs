@@ -99,7 +99,7 @@ namespace OpenTibia.Game.Components
         {
             if (queue.Count == 0)
             {
-                if (idleWalkStrategy != null && DateTime.UtcNow >= nextWalk)
+                if (DateTime.UtcNow >= nextWalk)
                 {
                     Tile toTile;
 
@@ -113,6 +113,8 @@ namespace OpenTibia.Game.Components
                     {
                         nextWalk = DateTime.UtcNow.AddSeconds(1);
                     }
+
+                    nextWalk = nextWalk.AddSeconds(1);
                 }
             }
             else
