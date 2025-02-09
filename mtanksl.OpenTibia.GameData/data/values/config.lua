@@ -109,7 +109,7 @@
 				[2210] = 2213, -- Dwarven ring
 				[2211] = 2214 -- Ring of healing
 			},
-			ringDequip = {
+			ringDeEquip = {
 				[2202] = 2165, -- Stealth ring
 				[2203] = 2166, -- Power ring
 				[2204] = 2167, -- Energy ring
