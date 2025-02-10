@@ -99,7 +99,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     TargetWeakestChance = xmlMonster.TargetStrategy?.Weakest ?? 0.0,
 
-                    TargetMostDamagedChance = xmlMonster.TargetStrategy?.MostDamaged ?? 0.0,
+                    TargetMostDamageChance = xmlMonster.TargetStrategy?.MostDamage ?? 0.0,
 
                     TargetRandomChance = xmlMonster.TargetStrategy?.Random ?? 0.0
                 };

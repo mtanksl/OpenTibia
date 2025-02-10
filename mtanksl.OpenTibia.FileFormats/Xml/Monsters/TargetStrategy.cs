@@ -10,8 +10,8 @@ namespace OpenTibia.FileFormats.Xml.Monsters
         [XmlAttribute("weakest")]
         public double Weakest { get; set; }
 
-        [XmlAttribute("mostdamaged")]
-        public double MostDamaged { get; set; }
+        [XmlAttribute("mostdamage")]
+        public double MostDamage { get; set; }
 
         [XmlAttribute("random")]
         public double Random { get; set; }

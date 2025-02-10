@@ -65,7 +65,7 @@ namespace OpenTibia.Common.Objects
 
         public double TargetNearestChance { get; set; }
 
-        public double TargetMostDamagedChance { get; set; }
+        public double TargetMostDamageChance { get; set; }
 
         public double TargetWeakestChance { get; set; }
 

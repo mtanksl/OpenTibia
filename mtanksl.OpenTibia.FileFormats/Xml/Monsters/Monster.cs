@@ -301,7 +301,7 @@ namespace OpenTibia.FileFormats.Xml.Monsters
                      
                     Weakest = Math.Max(0, Math.Min(100, (double)targetStrategyNode.Attribute("weakest") ) ),
 
-                    MostDamaged = Math.Max(0, Math.Min(100, (double)targetStrategyNode.Attribute("mostdamaged") ) ),
+                    MostDamage = Math.Max(0, Math.Min(100, (double)targetStrategyNode.Attribute("mostdamage") ) ),
 
                     Random = Math.Max(0, Math.Min(100, (double)targetStrategyNode.Attribute("random") ) )
                 };

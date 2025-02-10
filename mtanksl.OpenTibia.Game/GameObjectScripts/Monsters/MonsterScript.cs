@@ -53,9 +53,9 @@ namespace OpenTibia.Game.GameObjectScripts
                 targetStrategies.Add(new IntervalAndChanceTargetStrategy(1000, monster.Metadata.TargetNearestChance, NearestTargetStrategy.Instance) );
             }
 
-            if (monster.Metadata.TargetMostDamagedChance > 0)
+            if (monster.Metadata.TargetMostDamageChance > 0)
             {
-                targetStrategies.Add(new IntervalAndChanceTargetStrategy(1000, monster.Metadata.TargetMostDamagedChance, MostDamagedByAttackerTargetStrategy.Instance) );
+                targetStrategies.Add(new IntervalAndChanceTargetStrategy(1000, monster.Metadata.TargetMostDamageChance, MostDamageToAttackerTargetStrategy.Instance) );
             }
 
             if (monster.Metadata.TargetRandomChance > 0)
