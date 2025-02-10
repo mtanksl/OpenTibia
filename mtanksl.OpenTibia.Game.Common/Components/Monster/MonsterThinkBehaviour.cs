@@ -116,30 +116,30 @@ namespace OpenTibia.Game.Components
 
                             await Context.AddCommand(new ShowMagicEffectCommand(monster, MagicEffectType.Teleport) );
                         }
+
+                        target = null;
                     }
-                    else
+
+                    if (target == null || target.Tile == null || target.IsDestroyed || target.Tile.ProtectionZone || !monster.Tile.Position.CanHearSay(target.Tile.Position) || changeTargetStrategy.ShouldChange(1000, monster, target) )
                     {
-                        if (target == null || target.Tile == null || target.IsDestroyed || target.Tile.ProtectionZone || !monster.Tile.Position.CanHearSay(target.Tile.Position) || changeTargetStrategy.ShouldChange(1000, monster, target) )
-                        {
-                            Player[] players = near
-                                .Where(p => !p.Tile.ProtectionZone && 
-                                            monster.Tile.Position.CanHearSay(p.Tile.Position) )
-                                .ToArray();
+                        Player[] players = near
+                            .Where(p => !p.Tile.ProtectionZone && 
+                                        monster.Tile.Position.CanHearSay(p.Tile.Position) )
+                            .ToArray();
 
-                            if (players.Length > 0)
-                            {
-                                target = targetStrategy.GetTarget(1000, monster, players);
-                            }
-                            else
-                            {
-                                target = null;
-                            }
-                        }
-
-                        if (target != null && await attackStrategy.CanAttack(1000, monster, target) )
+                        if (players.Length > 0)
                         {
-                            await attackStrategy.Attack(monster, target);
+                            target = targetStrategy.GetTarget(1000, monster, players);
                         }
+                        else
+                        {
+                            target = null;
+                        }
+                    }
+
+                    if (target != null && await attackStrategy.CanAttack(1000, monster, target) )
+                    {
+                        await attackStrategy.Attack(monster, target);
                     }
                 }
             } );
