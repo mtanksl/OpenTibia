@@ -8,4 +8,21 @@
     <element earthPercent="100" />
     <element holyPercent="-25" />
   </elements>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity drunk="0" />
+  </immunities>
+  <flags>
+    <flag summonable="1" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="1" />
+    <flag convinceable="1" />
+    <flag pushable="0" />
+    <flag canpushitems="1" />
+    <flag canpushcreatures="1" />
+    <flag targetdistance="1" />
+    <flag staticattack="90" />
+    <flag runonhealth="0" />
+  </flags>
 </monster>

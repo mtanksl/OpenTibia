@@ -15,4 +15,17 @@
     <element earth="-10" />
     <element death="-15" />
   </elements>
+  <flags>
+    <flag summonable="1" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="1" />
+    <flag convinceable="1" />
+    <flag pushable="1" />
+    <flag canpushitems="0" />
+    <flag canpushcreatures="0" />
+    <flag staticattack="80" />
+    <flag targetdistance="1" />
+    <flag runonhealth="10" />
+  </flags>
 </monster>

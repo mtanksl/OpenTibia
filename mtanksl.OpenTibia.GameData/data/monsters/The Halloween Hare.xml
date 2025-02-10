@@ -2,4 +2,16 @@
 <monster name="The Halloween Hare" nameDescription="The Halloween Hare" speed="150" experience="0" race="blood">
   <health now="2000" max="2000" />
   <look typeex="0" type="74" head="0" body="0" legs="0" feet="0" corpse="3058" />
+  <immunities>
+    <immunity name="physical" />
+    <immunity name="energy" />
+    <immunity name="fire" />
+    <immunity name="poison" />
+    <immunity name="drown" />
+    <immunity name="lifedrain" />
+    <immunity name="paralyze" />
+    <immunity name="outfit" />
+    <immunity name="drunk" />
+    <immunity name="invisible" />
+  </immunities>
 </monster>

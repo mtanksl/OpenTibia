@@ -2,4 +2,21 @@
 <monster name="Brutus Bloodbeard" nameDescription="Brutus Bloodbeard" speed="240" experience="500" race="blood">
   <health now="1200" max="1200" />
   <look typeex="0" type="98" head="0" body="0" legs="0" feet="0" corpse="6080" />
+  <immunities>
+    <immunity invisible="1" />
+  </immunities>
+  <flags>
+    <flag summonable="0" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="0" />
+    <flag convinceable="0" />
+    <flag pushable="0" />
+    <flag canpushitems="1" />
+    <flag staticattack="50" />
+    <flag lightlevel="0" />
+    <flag lightcolor="0" />
+    <flag targetdistance="1" />
+    <flag runonhealth="0" />
+  </flags>
 </monster>

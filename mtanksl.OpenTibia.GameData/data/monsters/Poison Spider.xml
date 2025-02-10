@@ -6,4 +6,24 @@
     <element earthPercent="100" />
     <element firePercent="-10" />
   </elements>
+  <immunities>
+    <immunity lifedrain="0" />
+    <immunity paralyze="0" />
+    <immunity outfit="0" />
+    <immunity drunk="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <flags>
+    <flag summonable="1" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="1" />
+    <flag convinceable="1" />
+    <flag pushable="1" />
+    <flag canpushitems="0" />
+    <flag canpushcreatures="0" />
+    <flag targetdistance="1" />
+    <flag staticattack="90" />
+    <flag runonhealth="6" />
+  </flags>
 </monster>

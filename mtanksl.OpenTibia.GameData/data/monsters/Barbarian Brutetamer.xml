@@ -14,4 +14,24 @@
     <element physicalPercent="-10" />
     <element deathPercent="-7" />
   </elements>
+  <immunities>
+    <immunity lifedrain="1" />
+    <immunity paralyze="1" />
+    <immunity outfit="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <flags>
+    <flag summonable="0" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="0" />
+    <flag convinceable="0" />
+    <flag pushable="0" />
+    <flag canpushitems="1" />
+    <flag staticattack="90" />
+    <flag lightlevel="0" />
+    <flag lightcolor="0" />
+    <flag targetdistance="4" />
+    <flag runonhealth="0" />
+  </flags>
 </monster>

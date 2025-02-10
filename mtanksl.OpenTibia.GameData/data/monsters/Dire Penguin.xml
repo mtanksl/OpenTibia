@@ -2,4 +2,23 @@
 <monster name="Dire Penguin" nameDescription="dire penguin" speed="156" experience="120" race="blood">
   <health now="173" max="173" />
   <look typeex="0" type="250" head="0" body="0" legs="0" feet="0" corpse="7334" />
+  <immunities>
+    <immunity lifedrain="1" />
+    <immunity paralyze="1" />
+    <immunity outfit="1" />
+    <immunity drunk="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <flags>
+    <flag summonable="0" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="1" />
+    <flag convinceable="0" />
+    <flag pushable="0" />
+    <flag canpushitems="0" />
+    <flag canpushcreatures="0" />
+    <flag targetdistance="1" />
+    <flag runonhealth="0" />
+  </flags>
 </monster>

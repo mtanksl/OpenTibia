@@ -13,4 +13,17 @@
     <element physicalPercent="15" />
     <element deathPercent="-10" />
   </elements>
+  <flags>
+    <flag summonable="0" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="0" />
+    <flag convinceable="1" />
+    <flag pushable="1" />
+    <flag canpushitems="0" />
+    <flag canpushcreatures="0" />
+    <flag staticattack="90" />
+    <flag targetdistance="1" />
+    <flag runonhealth="10" />
+  </flags>
 </monster>

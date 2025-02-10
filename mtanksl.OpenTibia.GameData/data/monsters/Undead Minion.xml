@@ -2,4 +2,28 @@
 <monster name="Undead Minion" nameDescription="Undead Minion" speed="230" experience="550" race="undead">
   <health now="850" max="850" />
   <look typeex="0" type="37" head="0" body="0" legs="0" feet="0" corpse="5963" />
+  <immunities>
+    <immunity physical="0" />
+    <immunity energy="0" />
+    <immunity fire="1" />
+    <immunity poison="1" />
+    <immunity lifedrain="1" />
+    <immunity paralyze="0" />
+    <immunity outfit="0" />
+    <immunity drunk="1" />
+    <immunity invisible="0" />
+  </immunities>
+  <flags>
+    <flag summonable="0" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="1" />
+    <flag convinceable="1" />
+    <flag pushable="0" />
+    <flag canpushitems="1" />
+    <flag canpushcreatures="1" />
+    <flag targetdistance="1" />
+    <flag staticattack="90" />
+    <flag runonhealth="0" />
+  </flags>
 </monster>

@@ -6,4 +6,28 @@
 		<item id="2666" countmax="10" killsToGetOne="2" /> <!-- meat -->
     <item id="2671" countmax="4" killsToGetOne="2" />  <!-- ham -->
 	</loot>
+  <immunities>
+    <immunity physical="0" />
+    <immunity energy="0" />
+    <immunity fire="0" />
+    <immunity poison="0" />
+    <immunity lifedrain="0" />
+    <immunity paralyze="0" />
+    <immunity outfit="0" />
+    <immunity drunk="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <flags>
+    <flag summonable="1" />
+    <flag attackable="1" />
+    <flag hostile="0" />
+    <flag illusionable="1" />
+    <flag convinceable="1" />
+    <flag pushable="1" />
+    <flag canpushitems="0" />
+    <flag canpushcreatures="0" />
+    <flag targetdistance="1" />
+    <flag staticattack="90" />
+    <flag runonhealth="25" />
+  </flags>
 </monster>

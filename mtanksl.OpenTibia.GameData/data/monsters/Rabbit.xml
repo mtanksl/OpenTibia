@@ -2,4 +2,17 @@
 <monster name="Rabbit" nameDescription="a rabbit" speed="180" experience="0" race="blood">
   <health now="15" max="15" />
   <look typeex="0" type="74" head="0" body="0" legs="0" feet="0" corpse="6017" />
+  <flags>
+    <flag summonable="1" />
+    <flag attackable="1" />
+    <flag hostile="0" />
+    <flag illusionable="1" />
+    <flag convinceable="1" />
+    <flag pushable="1" />
+    <flag canpushitems="0" />
+    <flag canpushcreatures="0" />
+    <flag targetdistance="1" />
+    <flag staticattack="90" />
+    <flag runonhealth="15" />
+  </flags>
 </monster>

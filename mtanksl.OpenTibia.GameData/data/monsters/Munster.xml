@@ -5,4 +5,29 @@
   <voices interval="5000" chance="10">
     <voice sentence="Meeeeep!" />
   </voices>
+  <immunities>
+    <immunity physical="0" />
+    <immunity energy="0" />
+    <immunity fire="0" />
+    <immunity poison="0" />
+    <immunity lifedrain="0" />
+    <immunity paralyze="0" />
+    <immunity outfit="0" />
+    <immunity drunk="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <flags>
+    <flag summonable="1" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="1" />
+    <flag convinceable="1" />
+    <flag pushable="1" />
+    <flag canpushitems="0" />
+    <flag staticattack="80" />
+    <flag lightlevel="0" />
+    <flag lightcolor="0" />
+    <flag targetdistance="1" />
+    <flag runonhealth="10" />
+  </flags>
 </monster>

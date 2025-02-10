@@ -18,4 +18,28 @@
     <voice sentence="Magic is only good for girls!" />
     <voice sentence="We'll be back!" />
   </voices>
+  <immunities>
+    <immunity physical="0" />
+    <immunity energy="1" />
+    <immunity fire="1" />
+    <immunity poison="0" />
+    <immunity lifedrain="0" />
+    <immunity paralyze="0" />
+    <immunity outfit="0" />
+    <immunity drunk="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <flags>
+    <flag summonable="0" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="0" />
+    <flag convinceable="0" />
+    <flag pushable="0" />
+    <flag canpushitems="1" />
+    <flag canpushcreatures="1" />
+    <flag staticattack="90" />
+    <flag targetdistance="1" />
+    <flag runonhealth="5" />
+  </flags>
 </monster>

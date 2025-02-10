@@ -15,4 +15,18 @@
     <element energyPercent="-15" />
     <element deathPercent="-5" />
   </elements>
+  <flags>
+    <flag summonable="0" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="0" />
+    <flag convinceable="1" />
+    <flag pushable="0" />
+    <flag canpushitems="1" />
+    <flag staticattack="50" />
+    <flag lightlevel="0" />
+    <flag lightcolor="0" />
+    <flag targetdistance="1" />
+    <flag runonhealth="0" />
+  </flags>
 </monster>

@@ -14,4 +14,21 @@
     <element firePercent="-8" />
     <element energyPercent="-10" />
   </elements>
+  <immunities>
+    <immunity invisible="1" />
+  </immunities>
+  <flags>
+    <flag summonable="0" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="0" />
+    <flag convinceable="1" />
+    <flag pushable="0" />
+    <flag canpushitems="1" />
+    <flag canpushcreatures="0" />
+    <flag staticattack="50" />
+    <flag staticattack="90" />
+    <flag targetdistance="1" />
+    <flag runonhealth="25" />
+  </flags>
 </monster>

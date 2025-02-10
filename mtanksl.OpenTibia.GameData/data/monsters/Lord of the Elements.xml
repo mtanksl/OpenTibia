@@ -6,4 +6,25 @@
     <element icePercent="30" />
     <element energyPercent="30" />
   </elements>
+  <immunities>
+    <immunity holy="1" />
+    <immunity earth="1" />
+    <immunity physical="1" />
+    <immunity fire="1" />
+    <immunity death="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <flags>
+    <flag summonable="0" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="0" />
+    <flag convinceable="0" />
+    <flag pushable="0" />
+    <flag canpushitems="1" />
+    <flag canpushcreatures="1" />
+    <flag targetdistance="1" />
+    <flag staticattack="90" />
+    <flag runonhealth="0" />
+  </flags>
 </monster>

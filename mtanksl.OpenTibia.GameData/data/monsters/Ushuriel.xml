@@ -2,4 +2,22 @@
 <monster name="Ushuriel" nameDescription="Ushuriel" speed="350" experience="10000" race="fire">
   <health now="50000" max="50000" />
   <look typeex="0" type="12" head="0" body="95" legs="19" feet="112" corpse="6068" />
+  <immunities>
+    <immunity lifedrain="1" />
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <flags>
+    <flag summonable="0" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="0" />
+    <flag convinceable="0" />
+    <flag pushable="0" />
+    <flag canpushitems="1" />
+    <flag canpushcreatures="1" />
+    <flag targetdistance="1" />
+    <flag staticattack="85" />
+    <flag runonhealth="0" />
+  </flags>
 </monster>

@@ -2,4 +2,29 @@
 <monster name="Countess Sorrow" nameDescription="Countess Sorrow" speed="250" experience="5150" race="undead">
   <health now="7200" max="7200" />
   <look typeex="0" type="241" head="20" body="0" legs="0" feet="0" corpse="6344" />
+  <immunities>
+    <immunity physical="1" />
+    <immunity energy="0" />
+    <immunity fire="0" />
+    <immunity poison="1" />
+    <immunity ice="1" />
+    <immunity lifedrain="1" />
+    <immunity paralyze="1" />
+    <immunity outfit="1" />
+    <immunity drunk="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <flags>
+    <flag summonable="0" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="1" />
+    <flag convinceable="0" />
+    <flag pushable="0" />
+    <flag canpushitems="1" />
+    <flag canpushcreatures="1" />
+    <flag targetdistance="1" />
+    <flag staticattack="90" />
+    <flag runonhealth="0" />
+  </flags>
 </monster>

@@ -2,4 +2,18 @@
 <monster name="Ron the Ripper" nameDescription="Ron the Ripper" speed="240" experience="500" race="blood">
   <health now="1500" max="1500" />
   <look typeex="0" type="151" head="95" body="94" legs="117" feet="97" corpse="6080" />
+  <flags>
+    <flag summonable="0" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="0" />
+    <flag convinceable="0" />
+    <flag pushable="0" />
+    <flag canpushitems="1" />
+    <flag staticattack="50" />
+    <flag lightlevel="0" />
+    <flag lightcolor="0" />
+    <flag targetdistance="1" />
+    <flag runonhealth="250" />
+  </flags>
 </monster>

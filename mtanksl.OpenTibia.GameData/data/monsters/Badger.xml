@@ -2,4 +2,17 @@
 <monster name="Badger" nameDescription="a badger" speed="180" experience="5" race="blood">
   <health now="20" max="20" />
   <look typeex="0" type="105" head="0" body="0" legs="0" feet="0" corpse="6034" />
+  <flags>
+    <flag summonable="1" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="1" />
+    <flag convinceable="1" />
+    <flag pushable="1" />
+    <flag canpushitems="0" />
+    <flag canpushcreatures="0" />
+    <flag targetdistance="1" />
+    <flag staticattack="90" />
+    <flag runonhealth="10" />
+  </flags>
 </monster>

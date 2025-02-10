@@ -7,4 +7,17 @@
     <voice sentence="You are my game today!" />
     <voice sentence="Look what has stepped into my trap!" />
   </voices>
+  <flags>
+    <flag summonable="0" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="1" />
+    <flag convinceable="1" />
+    <flag pushable="0" />
+    <flag canpushitems="1" />
+    <flag canpushcreatures="0" />
+    <flag targetdistance="4" />
+    <flag staticattack="90" />
+    <flag runonhealth="5" />
+  </flags>
 </monster>

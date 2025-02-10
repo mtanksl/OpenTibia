@@ -2,4 +2,24 @@
 <monster name="Mutated Bat" nameDescription="a mutated bat" speed="245" experience="615" race="blood">
   <health now="900" max="900" />
   <look typeex="0" type="307" head="0" body="0" legs="0" feet="0" corpse="9829" />
+  <immunities>
+    <immunity death="1" />
+    <immunity earth="1" />
+    <immunity drown="1" />
+    <immunity invisible="1" />
+    <immunity drunk="1" />
+  </immunities>
+  <flags>
+    <flag summonable="0" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="0" />
+    <flag convinceable="0" />
+    <flag pushable="0" />
+    <flag canpushitems="1" />
+    <flag canpushcreatures="1" />
+    <flag targetdistance="1" />
+    <flag staticattack="90" />
+    <flag runonhealth="0" />
+  </flags>
 </monster>

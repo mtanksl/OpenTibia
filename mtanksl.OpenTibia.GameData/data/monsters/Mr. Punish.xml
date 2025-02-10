@@ -2,4 +2,29 @@
 <monster name="Mr. Punish" nameDescription="Mr. Punish" speed="470" experience="5500" race="undead">
   <health now="12000" max="12000" />
   <look typeex="0" type="234" head="0" body="0" legs="0" feet="0" corpse="6331" />
+  <immunities>
+    <immunity physical="0" />
+    <immunity energy="1" />
+    <immunity fire="1" />
+    <immunity poison="1" />
+    <immunity lifedrain="0" />
+    <immunity paralyze="0" />
+    <immunity outfit="0" />
+    <immunity drunk="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <flags>
+    <flag summonable="0" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="1" />
+    <flag convinceable="0" />
+    <flag pushable="0" />
+    <flag canpushitems="1" />
+    <flag staticattack="50" />
+    <flag lightlevel="0" />
+    <flag lightcolor="0" />
+    <flag targetdistance="1" />
+    <flag runonhealth="2000" />
+  </flags>
 </monster>

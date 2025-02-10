@@ -9,4 +9,21 @@
     <element energyPercent="20" />
     <element icePercent="10" />
   </elements>
+  <immunities>
+    <immunity drunk="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <flags>
+    <flag summonable="0" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="1" />
+    <flag convinceable="0" />
+    <flag pushable="0" />
+    <flag canpushitems="1" />
+    <flag canpushcreatures="1" />
+    <flag targetdistance="1" />
+    <flag staticattack="90" />
+    <flag runonhealth="300" />
+  </flags>
 </monster>

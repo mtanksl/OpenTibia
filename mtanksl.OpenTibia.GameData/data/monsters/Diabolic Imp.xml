@@ -13,4 +13,21 @@
     <element icePercent="-25" />
     <element holyPercent="-12" />
   </elements>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <flags>
+    <flag summonable="0" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="1" />
+    <flag convinceable="0" />
+    <flag pushable="0" />
+    <flag canpushitems="1" />
+    <flag canpushcreatures="1" />
+    <flag targetdistance="3" />
+    <flag staticattack="90" />
+    <flag runonhealth="400" />
+  </flags>
 </monster>

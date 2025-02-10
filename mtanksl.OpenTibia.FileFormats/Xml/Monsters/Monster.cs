@@ -236,7 +236,7 @@ namespace OpenTibia.FileFormats.Xml.Monsters
 
                         Interval = (int)attackNode.Attribute("interval"),
 
-                        Chance = Math.Max(0, Math.Min(100, (double)voicesNode.Attribute("chance") ) ),
+                        Chance = Math.Max(0, Math.Min(100, (double)attackNode.Attribute("chance") ) ),
 
                         Min = (int?)attackNode.Attribute("min"),
 
@@ -251,9 +251,9 @@ namespace OpenTibia.FileFormats.Xml.Monsters
             {
                 monster.Defenses = new DefenseCollection()
                 {
-                    Armor = (int)voicesNode.Attribute("armor"),
+                    Armor = (int)defensesNode.Attribute("armor"),
                     
-                    Defense = (int)voicesNode.Attribute("defense"),
+                    Defense = (int)defensesNode.Attribute("defense"),
 
                     Items = new List<DefenseItem>()
                 };
@@ -266,7 +266,7 @@ namespace OpenTibia.FileFormats.Xml.Monsters
 
                         Interval = (int)defenseNode.Attribute("interval"),
 
-                        Chance = Math.Max(0, Math.Min(100, (double)voicesNode.Attribute("chance") ) ),
+                        Chance = Math.Max(0, Math.Min(100, (double)defenseNode.Attribute("chance") ) ),
 
                         Min = (int?)defenseNode.Attribute("min"),
 

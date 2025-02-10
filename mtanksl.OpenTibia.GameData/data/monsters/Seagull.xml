@@ -2,4 +2,17 @@
 <monster name="Seagull" nameDescription="a seagull" speed="200" experience="0" race="blood">
   <health now="25" max="25" />
   <look typeex="0" type="223" head="0" body="0" legs="0" feet="0" corpse="6076" />
+  <flags>
+    <flag summonable="1" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="0" />
+    <flag convinceable="0" />
+    <flag pushable="1" />
+    <flag canpushitems="0" />
+    <flag canpushcreatures="0" />
+    <flag staticattack="90" />
+    <flag targetdistance="11" />
+    <flag runonhealth="10" />
+  </flags>
 </monster>

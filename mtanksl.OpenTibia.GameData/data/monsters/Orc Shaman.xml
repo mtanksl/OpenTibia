@@ -11,4 +11,20 @@
     <element earthPercent="-5" />
     <element deathPercent="-5" />
   </elements>
+  <immunities>
+    <immunity invisible="1" />
+  </immunities>
+  <flags>
+    <flag summonable="0" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="1" />
+    <flag convinceable="0" />
+    <flag pushable="0" />
+    <flag canpushitems="0" />
+    <flag canpushcreatures="0" />
+    <flag targetdistance="4" />
+    <flag staticattack="90" />
+    <flag runonhealth="15" />
+  </flags>
 </monster>

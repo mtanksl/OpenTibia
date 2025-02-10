@@ -2,4 +2,16 @@
 <monster name="Flamingo" nameDescription="a flamingo" speed="180" experience="0" race="blood">
   <health now="25" max="25" />
   <look typeex="0" type="212" head="0" body="0" legs="0" feet="0" corpse="6054" />
+  <flags>
+    <flag summonable="1" />
+    <flag attackable="1" />
+    <flag hostile="0" />
+    <flag illusionable="1" />
+    <flag convinceable="1" />
+    <flag pushable="1" />
+    <flag canpushitems="0" />
+    <flag canpushcreatures="0" />
+    <flag staticattack="90" />
+    <flag runonhealth="25" />
+  </flags>
 </monster>

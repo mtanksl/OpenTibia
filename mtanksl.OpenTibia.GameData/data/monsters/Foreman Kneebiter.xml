@@ -8,4 +8,14 @@
     <element firePercent="-5" />
     <element deathPercent="-5" />
   </elements>
+  <immunities>
+    <immunity invisible="1" />
+  </immunities>
+  <flags>
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag canpushitems="1" />
+    <flag targetdistance="1" />
+    <flag staticattack="90" />
+  </flags>
 </monster>

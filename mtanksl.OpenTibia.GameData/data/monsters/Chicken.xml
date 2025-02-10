@@ -6,4 +6,17 @@
     <voice sentence="gokgoooook" />
     <voice sentence="cluck cluck" />
   </voices>
+  <flags>
+    <flag summonable="1" />
+    <flag attackable="1" />
+    <flag hostile="0" />
+    <flag illusionable="1" />
+    <flag convinceable="1" />
+    <flag pushable="1" />
+    <flag canpushitems="0" />
+    <flag canpushcreatures="0" />
+    <flag targetdistance="1" />
+    <flag staticattack="90" />
+    <flag runonhealth="15" />
+  </flags>
 </monster>
