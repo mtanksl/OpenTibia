@@ -2,7 +2,6 @@
 using OpenTibia.Game.Common;
 using OpenTibia.Game.Common.ServerObjects;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace OpenTibia.Game.Components
 {
@@ -21,17 +20,22 @@ namespace OpenTibia.Game.Components
 
             Player mostDamage = null;
 
-            Dictionary<Creature, Hit> hits = Context.Current.Server.Combats.GetHitsByTarget(attacker);
+            Dictionary<Creature, Hit> hits = Context.Current.Server.Combats.GetHitsByTarget(attacker); // Get everyone that attacked the attacker
 
-            foreach (var hit in hits)
+            if (hits != null)
             {
-                if (players.Contains(hit.Key) )
+                foreach (var player in players)
                 {
-                    if (hit.Value.Damage > maxDamage)
-                    {
-                        maxDamage = hit.Value.Damage;
+                    Hit hit;
 
-                        mostDamage = (Player)hit.Key;
+                    if (hits.TryGetValue(player, out hit) ) // Find the player in the list
+                    {
+                        if (hit.Damage > maxDamage)
+                        {
+                            maxDamage = hit.Damage;
+
+                            mostDamage = player;
+                        }
                     }
                 }
             }

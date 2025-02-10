@@ -22,13 +22,13 @@ namespace OpenTibia.Game.Components
 
             foreach (var player in players)
             {
-                Dictionary<Creature, Hit> hits = Context.Current.Server.Combats.GetHitsByTarget(player);
+                Dictionary<Creature, Hit> hits = Context.Current.Server.Combats.GetHitsByTarget(player); // Get everyone that attacked the player
 
                 if (hits != null)
                 {
                     Hit hit;
 
-                    if (hits.TryGetValue(attacker, out hit) )
+                    if (hits.TryGetValue(attacker, out hit) ) // Find the attacker in the list
                     {
                         if (hit.Damage > maxDamage)
                         {
