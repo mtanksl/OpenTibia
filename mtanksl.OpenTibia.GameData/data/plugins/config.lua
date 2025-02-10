@@ -32,7 +32,7 @@
 		{ type = "ServerRecord", filename = "record.lua" }
 	},
 	npcs = {
-		{ type = "Dialogue", name = "Default", filename = "default.lua" }
+		{ type = "Dialogue", name = "", filename = "default.lua" }
 	},
 	spells = {
 		{ words = "exiva", name = "Find Person", group = "Support", cooldown = 2, groupcooldown = 2, level = 8, mana = 20, soul = 0, premium = false, vocations = { vocation.knight, vocation.paladin, vocation.druid, vocation.sorcerer, vocation.eliteknight, vocation.royalpaladin, vocation.elderdruid, vocation.mastersorcerer }, requirestarget = true, filename = "OpenTibia.Plugins.Spells.FindPersonSpellPlugin, mtanksl.OpenTibia.Plugins" },

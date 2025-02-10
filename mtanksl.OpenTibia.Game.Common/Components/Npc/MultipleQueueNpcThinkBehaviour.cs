@@ -49,7 +49,7 @@ namespace OpenTibia.Game.Components
 
         private void Reload()
         {
-            dialoguePlugin = Context.Server.Plugins.GetDialoguePlugin(npc.Name) ?? Context.Server.Plugins.GetDialoguePlugin("Default");
+            dialoguePlugin = Context.Server.Plugins.GetDialoguePlugin(npc.Name) ?? Context.Server.Plugins.GetDialoguePlugin("");
 
             foreach (var player in queue)
             {
