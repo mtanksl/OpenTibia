@@ -2,6 +2,7 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.Data.Models;
 using OpenTibia.Game.GameObjectScripts;
+using OpenTibia.Game.Plugins;
 using System;
 using System.Linq;
 
@@ -40,11 +41,21 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             server.GameObjects.AddGameObject(player);
 
-            GameObjectScript<Player> gameObjectScript = server.GameObjectScripts.GetPlayerGameObjectScript(player.Name);
+            GameObjectScript<Player> gameObjectScript = server.GameObjectScripts.GetPlayerGameObjectScript(player.Name) ?? server.GameObjectScripts.GetPlayerGameObjectScript("");
 
             if (gameObjectScript != null)
             {
                 gameObjectScript.Start(player);
+            }
+
+            PlayerCreationPlugin plugin = server.Plugins.GetPlayerCreationPlugin(player.Name) ?? server.Plugins.GetPlayerCreationPlugin("");
+
+            if (plugin != null)
+            {
+                if (plugin.OnStart(player).Result)
+                {
+                    
+                }
             }
         }
 
@@ -52,11 +63,21 @@ namespace OpenTibia.Game.Common.ServerObjects
         {
             if (server.GameObjects.RemoveGameObject(player) )
             {
-                GameObjectScript<Player> gameObjectScript = server.GameObjectScripts.GetPlayerGameObjectScript(player.Name);
+                GameObjectScript<Player> gameObjectScript = server.GameObjectScripts.GetPlayerGameObjectScript(player.Name) ?? server.GameObjectScripts.GetPlayerGameObjectScript("");
 
                 if (gameObjectScript != null)
                 {
                     gameObjectScript.Stop(player);
+                }
+
+                PlayerCreationPlugin plugin = server.Plugins.GetPlayerCreationPlugin(player.Name) ?? server.Plugins.GetPlayerCreationPlugin("");
+
+                if (plugin != null)
+                {
+                    if (plugin.OnStop(player).Result)
+                    {
+                        
+                    }
                 }
 
                 return true;

@@ -103,6 +103,22 @@ namespace OpenTibia.Game.Common.ServerObjects
         void AddDialoguePlugin(string name, string fileName, LuaTable parameters);
         DialoguePlugin GetDialoguePlugin(string name);
 
+        void AddItemCreationPlugin(ushort openTibiaId, ILuaScope script, LuaTable parameters);
+        void AddItemCreationPlugin(ushort openTibiaId, string fileName, LuaTable parameters);
+        ItemCreationPlugin GetItemCreationPlugin(ushort openTibiaId);
+
+        void AddMonsterCreationPlugin(string name, ILuaScope script, LuaTable parameters);
+        void AddMonsterCreationPlugin(string name, string fileName, LuaTable parameters);
+        MonsterCreationPlugin GetMonsterCreationPlugin(string name);
+
+        void AddNpcCreationPlugin(string name, ILuaScope script, LuaTable parameters);
+        void AddNpcCreationPlugin(string name, string fileName, LuaTable parameters);
+        NpcCreationPlugin GetNpcCreationPlugin(string name);
+
+        void AddPlayerCreationPlugin(string name, ILuaScope script, LuaTable parameters);
+        void AddPlayerCreationPlugin(string name, string fileName, LuaTable parameters);
+        PlayerCreationPlugin GetPlayerCreationPlugin(string name);
+
         void AddSpellPlugin(bool requiresTarget, ILuaScope script, LuaTable parameters, Spell spell);
         void AddSpellPlugin(bool requiresTarget, string fileName, LuaTable parameters, Spell spell);
         SpellPlugin GetSpellPlugin(bool requiresTarget, string words);

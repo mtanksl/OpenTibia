@@ -2,6 +2,7 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.FileFormats.Xml.Monsters;
 using OpenTibia.Game.GameObjectScripts;
+using OpenTibia.Game.Plugins;
 using System.Collections.Generic;
 using System.Linq;
 using AttackItem = OpenTibia.Common.Objects.AttackItem;
@@ -241,11 +242,21 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             server.GameObjects.AddGameObject(monster);
 
-            GameObjectScript<Monster> gameObjectScript = server.GameObjectScripts.GetMonsterGameObjectScript(monster.Name);
+            GameObjectScript<Monster> gameObjectScript = server.GameObjectScripts.GetMonsterGameObjectScript(monster.Name) ?? server.GameObjectScripts.GetMonsterGameObjectScript("");
 
             if (gameObjectScript != null)
             {
                 gameObjectScript.Start(monster);
+            }
+
+            MonsterCreationPlugin plugin = server.Plugins.GetMonsterCreationPlugin(monster.Name) ?? server.Plugins.GetMonsterCreationPlugin("");
+
+            if (plugin != null)
+            {
+                if (plugin.OnStart(monster).Result)
+                {
+
+                }
             }
         }
 
@@ -253,11 +264,21 @@ namespace OpenTibia.Game.Common.ServerObjects
         {
             if (server.GameObjects.RemoveGameObject(monster) )
             {
-                GameObjectScript<Monster> gameObjectScript = server.GameObjectScripts.GetMonsterGameObjectScript(monster.Name);
+                GameObjectScript<Monster> gameObjectScript = server.GameObjectScripts.GetMonsterGameObjectScript(monster.Name) ?? server.GameObjectScripts.GetMonsterGameObjectScript("");
 
                 if (gameObjectScript != null)
                 {
                     gameObjectScript.Stop(monster);
+                }
+
+                MonsterCreationPlugin plugin = server.Plugins.GetMonsterCreationPlugin(monster.Name) ?? server.Plugins.GetMonsterCreationPlugin("");
+
+                if (plugin != null)
+                {
+                    if (plugin.OnStop(monster).Result)
+                    {
+
+                    }
                 }
 
                 return true;

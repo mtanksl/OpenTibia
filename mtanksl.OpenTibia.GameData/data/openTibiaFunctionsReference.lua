@@ -202,6 +202,34 @@ return {
 		args = "(name, handler)",
 		returns = "void"
 	},
+	-- void registeritemsitemcreation(opentibiaid, onstart, onstop)
+	registeritemsitemcreation = {
+		type = "function",
+		description = "",
+		args = "(opentibiaid, onstart, onstop)",
+		returns = "void"
+	},
+	-- void registermonstersmonstercreation(name, onstart, onstop)
+	registermonstersmonstercreation = {
+		type = "function",
+		description = "",
+		args = "(name, onstart, onstop)",
+		returns = "void"
+	},
+	-- void registernpcsnpccreation(name, onstart, onstop)
+	registernpcsnpccreation = {
+		type = "function",
+		description = "",
+		args = "(name, onstart, onstop)",
+		returns = "void"
+	},
+	-- void registerplayersplayercreation(name, onstart, onstop)
+	registerplayersplayercreation = {
+		type = "function",
+		description = "",
+		args = "(name, onstart, onstop)",
+		returns = "void"
+	},
 	-- void registerspell(words, name, group, cooldown, groupcooldown, level, mana, soul, premium, vocations, requirestarget, oncasting, oncast)
 	registerspell = {
 		type = "function",

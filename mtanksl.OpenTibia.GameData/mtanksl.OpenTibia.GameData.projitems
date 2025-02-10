@@ -25,6 +25,10 @@
     <None Include="$(MSBuildThisFileDirectory)data\plugins\globalevents\save.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\globalevents\startup.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\globalevents\shutdown.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\items\creation.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\players\creation.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\monsters\creation.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\npcs\creation.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\raids\rats.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\raids\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\scripts\npcs\suzy.lua" />

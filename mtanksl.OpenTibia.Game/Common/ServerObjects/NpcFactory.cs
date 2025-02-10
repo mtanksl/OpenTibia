@@ -2,6 +2,7 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.FileFormats.Xml.Npcs;
 using OpenTibia.Game.GameObjectScripts;
+using OpenTibia.Game.Plugins;
 using System.Collections.Generic;
 using System.Linq;
 using Npc = OpenTibia.Common.Objects.Npc;
@@ -90,11 +91,21 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             server.GameObjects.AddGameObject(npc);
 
-            GameObjectScript<Npc> gameObjectScript = server.GameObjectScripts.GetNpcGameObjectScript(npc.Name);
+            GameObjectScript<Npc> gameObjectScript = server.GameObjectScripts.GetNpcGameObjectScript(npc.Name) ?? server.GameObjectScripts.GetNpcGameObjectScript("");
 
             if (gameObjectScript != null)
             {
                 gameObjectScript.Start(npc);
+            }
+
+            NpcCreationPlugin plugin = server.Plugins.GetNpcCreationPlugin(npc.Name) ?? server.Plugins.GetNpcCreationPlugin("");
+
+            if (plugin != null)
+            {
+                if (plugin.OnStart(npc).Result)
+                {
+
+                }
             }
         }
 
@@ -102,11 +113,21 @@ namespace OpenTibia.Game.Common.ServerObjects
         {
             if (server.GameObjects.RemoveGameObject(npc) )
             {
-                GameObjectScript<Npc> gameObjectScript = server.GameObjectScripts.GetNpcGameObjectScript(npc.Name);
+                GameObjectScript<Npc> gameObjectScript = server.GameObjectScripts.GetNpcGameObjectScript(npc.Name) ?? server.GameObjectScripts.GetNpcGameObjectScript("");
 
                 if (gameObjectScript != null)
                 {
                     gameObjectScript.Stop(npc);
+                }
+
+                NpcCreationPlugin plugin = server.Plugins.GetNpcCreationPlugin(npc.Name) ?? server.Plugins.GetNpcCreationPlugin("");
+
+                if (plugin != null)
+                {
+                    if (plugin.OnStop(npc).Result)
+                    {
+
+                    }
                 }
 
                 return true;

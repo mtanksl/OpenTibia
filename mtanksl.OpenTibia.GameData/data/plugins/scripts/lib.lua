@@ -190,6 +190,42 @@ function registernpcsdialogue(name, handler)
     } )
 end
 
+function registeritemsitemcreation(opentibiaid, onstart, onstop)
+	registerplugin("items", {
+		type = "ItemCreation",
+		opentibiaid = opentibiaid,
+		onstart = onstart,
+		onstop = onstop,
+	} )
+end
+
+function registermonstersmonstercreation(name, onstart, onstop)
+	registerplugin("monsters", {
+		type = "MonsterCreation",
+		name = name,
+		onstart = onstart,
+		onstop = onstop,
+	} )
+end
+
+function registernpcsnpccreation(name, onstart, onstop)
+	registerplugin("npcs", {
+		type = "NpcCreation",
+		name = name,
+		onstart = onstart,
+		onstop = onstop,
+	} )
+end
+
+function registerplayersplayercreation(name, onstart, onstop)
+	registerplugin("players", {
+		type = "PlayerCreation",
+		name = name,
+		onstart = onstart,
+		onstop = onstop,
+	} )
+end
+
 function registerspell(words, name, group, cooldown, groupcooldown, level, mana, soul, premium, vocations, requirestarget, oncasting, oncast)
     registerplugin("spells", {
         words = words, 

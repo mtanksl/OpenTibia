@@ -310,17 +310,70 @@ namespace OpenTibia.Game.Common.ServerObjects
                             break;
                         }
                     }
+                    else if (initialization.Type == "items")
+                    {
+                        string type = LuaScope.GetString(initialization.Parameters["type"] );
+
+                        switch (type)
+                        {
+                            case "ItemCreation":
+                            {
+                                ushort openTibiaId = LuaScope.GetUInt16(initialization.Parameters["openTibiaId"] );
+
+                                pluginCollection.AddItemCreationPlugin(openTibiaId, script, initialization.Parameters);
+                            }
+                            break;
+                        }
+                    }
+                    else if (initialization.Type == "monsters")
+                    {
+                        string type = LuaScope.GetString(initialization.Parameters["type"] );
+
+                        switch (type)
+                        {
+                            case "MonsterCreation":
+                            {
+                                string name = LuaScope.GetString(initialization.Parameters["name"] );
+
+                                pluginCollection.AddMonsterCreationPlugin(name, script, initialization.Parameters);
+                            }
+                            break;
+                        }
+                    }
                     else if (initialization.Type == "npcs")
                     {
                         string type = LuaScope.GetString(initialization.Parameters["type"] );
 
                         switch (type)
                         {
+                            case "NpcCreation":
+                            {
+                                string name = LuaScope.GetString(initialization.Parameters["name"] );
+
+                                pluginCollection.AddNpcCreationPlugin(name, script, initialization.Parameters);
+                            }
+                            break;
+
                             case "Dialogue":
                             {
                                 string name = LuaScope.GetString(initialization.Parameters["name"] );
 
                                 pluginCollection.AddDialoguePlugin(name, script, initialization.Parameters);
+                            }
+                            break;
+                        }
+                    }
+                    else if (initialization.Type == "players")
+                    {
+                        string type = LuaScope.GetString(initialization.Parameters["type"] );
+
+                        switch (type)
+                        {
+                            case "PlayerCreation":
+                            {
+                                string name = LuaScope.GetString(initialization.Parameters["name"] );
+
+                                pluginCollection.AddPlayerCreationPlugin(name, script, initialization.Parameters);
                             }
                             break;
                         }
@@ -684,6 +737,42 @@ namespace OpenTibia.Game.Common.ServerObjects
                 }
             }
 
+            foreach (LuaTable plugin in ( (LuaTable)script["plugins.items"] ).Values)
+            {
+                string type = LuaScope.GetString(plugin["type"] );
+
+                string fileName = LuaScope.GetString(plugin["filename"] );
+
+                switch (type)
+                {
+                    case "ItemCreation":
+                    {
+                        ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
+
+                        AddItemCreationPlugin(openTibiaId, fileName, plugin);
+                    }
+                    break;
+                }
+            }
+
+            foreach (LuaTable plugin in ( (LuaTable)script["plugins.monsters"] ).Values)
+            {
+                string type = LuaScope.GetString(plugin["type"] );
+
+                string fileName = LuaScope.GetString(plugin["filename"] );
+
+                switch (type)
+                {
+                    case "MonsterCreation":
+                    {
+                        string name = LuaScope.GetString(plugin["name"] );
+
+                        AddMonsterCreationPlugin(name, fileName, plugin);
+                    }
+                    break;
+                }
+            }
+
             foreach (LuaTable plugin in ( (LuaTable)script["plugins.npcs"] ).Values)
             {
                 string type = LuaScope.GetString(plugin["type"] );
@@ -692,11 +781,37 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                 switch (type)
                 {
+                    case "NpcCreation":
+                    {
+                        string name = LuaScope.GetString(plugin["name"] );
+
+                        AddNpcCreationPlugin(name, fileName, plugin);
+                    }
+                    break;
+
                     case "Dialogue":
                     {
                         string name = LuaScope.GetString(plugin["name"] );
 
                         AddDialoguePlugin(name, fileName, plugin);
+                    }
+                    break;
+                }
+            }
+
+            foreach (LuaTable plugin in ( (LuaTable)script["plugins.players"] ).Values)
+            {
+                string type = LuaScope.GetString(plugin["type"] );
+
+                string fileName = LuaScope.GetString(plugin["filename"] );
+
+                switch (type)
+                {
+                    case "PlayerCreation":
+                    {
+                        string name = LuaScope.GetString(plugin["name"] );
+
+                        AddPlayerCreationPlugin(name, fileName, plugin);
                     }
                     break;
                 }
@@ -1536,6 +1651,122 @@ namespace OpenTibia.Game.Common.ServerObjects
             return dialoguePlugins.GetPlugin(name);
         }
 
+        private PluginDictionaryCached<ushort, ItemCreationPlugin> itemCreationPlugins = new PluginDictionaryCached<ushort, ItemCreationPlugin>();
+
+        private void AddItemCreationPlugin(ushort openTibiaId, ItemCreationPlugin itemCreationPlugin)
+        {
+            itemCreationPlugins.AddPlugin(openTibiaId, itemCreationPlugin);
+        }
+
+        public void AddItemCreationPlugin(ushort openTibiaId, string fileName, LuaTable parameters)
+        {
+            if (fileName.EndsWith(".lua") )
+            {
+                AddItemCreationPlugin(openTibiaId, new LuaScriptingItemCreationPlugin(fileName, parameters) );
+            }
+            else
+            {
+                AddItemCreationPlugin(openTibiaId, (ItemCreationPlugin)Activator.CreateInstance(server.PluginLoader.GetType(fileName) ) );
+            }
+        }
+
+        public void AddItemCreationPlugin(ushort openTibiaId, ILuaScope script, LuaTable parameters)
+        {
+            AddItemCreationPlugin(openTibiaId, new LuaScriptingItemCreationPlugin(script, parameters) );
+        }
+
+        public ItemCreationPlugin GetItemCreationPlugin(ushort openTibiaId)
+        {
+            return itemCreationPlugins.GetPlugin(openTibiaId);
+        }
+
+        private PluginDictionaryCached<string, MonsterCreationPlugin> monsterCreationPlugins = new PluginDictionaryCached<string, MonsterCreationPlugin>();
+
+        private void AddMonsterCreationPlugin(string name, MonsterCreationPlugin monsterCreationPlugin)
+        {
+            monsterCreationPlugins.AddPlugin(name, monsterCreationPlugin);
+        }
+
+        public void AddMonsterCreationPlugin(string name, string fileName, LuaTable parameters)
+        {
+            if (fileName.EndsWith(".lua") )
+            {
+                AddMonsterCreationPlugin(name, new LuaScriptingMonsterCreationPlugin(fileName, parameters) );
+            }
+            else
+            {
+                AddMonsterCreationPlugin(name, (MonsterCreationPlugin)Activator.CreateInstance(server.PluginLoader.GetType(fileName) ) );
+            }
+        }
+
+        public void AddMonsterCreationPlugin(string name, ILuaScope script, LuaTable parameters)
+        {
+            AddMonsterCreationPlugin(name, new LuaScriptingMonsterCreationPlugin(script, parameters) );
+        }
+
+        public MonsterCreationPlugin GetMonsterCreationPlugin(string name)
+        {
+            return monsterCreationPlugins.GetPlugin(name);
+        }
+
+        private PluginDictionaryCached<string, NpcCreationPlugin> npcCreationPlugins = new PluginDictionaryCached<string, NpcCreationPlugin>();
+
+        private void AddNpcCreationPlugin(string name, NpcCreationPlugin npcCreationPlugin)
+        {
+            npcCreationPlugins.AddPlugin(name, npcCreationPlugin);
+        }
+
+        public void AddNpcCreationPlugin(string name, string fileName, LuaTable parameters)
+        {
+            if (fileName.EndsWith(".lua") )
+            {
+                AddNpcCreationPlugin(name, new LuaScriptingNpcCreationPlugin(fileName, parameters) );
+            }
+            else
+            {
+                AddNpcCreationPlugin(name, (NpcCreationPlugin)Activator.CreateInstance(server.PluginLoader.GetType(fileName) ) );
+            }
+        }
+
+        public void AddNpcCreationPlugin(string name, ILuaScope script, LuaTable parameters)
+        {
+            AddNpcCreationPlugin(name, new LuaScriptingNpcCreationPlugin(script, parameters) );
+        }
+
+        public NpcCreationPlugin GetNpcCreationPlugin(string name)
+        {
+            return npcCreationPlugins.GetPlugin(name);
+        }
+
+        private PluginDictionaryCached<string, PlayerCreationPlugin> playerCreationPlugins = new PluginDictionaryCached<string, PlayerCreationPlugin>();
+
+        private void AddPlayerCreationPlugin(string name, PlayerCreationPlugin playerCreationPlugin)
+        {
+            playerCreationPlugins.AddPlugin(name, playerCreationPlugin);
+        }
+
+        public void AddPlayerCreationPlugin(string name, string fileName, LuaTable parameters)
+        {
+            if (fileName.EndsWith(".lua") )
+            {
+                AddPlayerCreationPlugin(name, new LuaScriptingPlayerCreationPlugin(fileName, parameters) );
+            }
+            else
+            {
+                AddPlayerCreationPlugin(name, (PlayerCreationPlugin)Activator.CreateInstance(server.PluginLoader.GetType(fileName) ) );
+            }
+        }
+
+        public void AddPlayerCreationPlugin(string name, ILuaScope script, LuaTable parameters)
+        {
+            AddPlayerCreationPlugin(name, new LuaScriptingPlayerCreationPlugin(script, parameters) );
+        }
+
+        public PlayerCreationPlugin GetPlayerCreationPlugin(string name)
+        {
+            return playerCreationPlugins.GetPlugin(name);
+        }
+
         private PluginDictionaryCached<string, SpellPlugin> spellPluginsRequiresTarget = new PluginDictionaryCached<string, SpellPlugin>();
         private PluginDictionaryCached<string, SpellPlugin> spellPlugins = new PluginDictionaryCached<string, SpellPlugin>();
 
@@ -1824,6 +2055,14 @@ namespace OpenTibia.Game.Common.ServerObjects
                 serverShutdownPlugins.GetPlugins(),
 
                 dialoguePlugins.GetPlugins(),
+
+                itemCreationPlugins.GetPlugins(),
+
+                monsterCreationPlugins.GetPlugins(),
+
+                npcCreationPlugins.GetPlugins(),
+
+                playerCreationPlugins.GetPlugins(),
 
                 spellPluginsRequiresTarget.GetPlugins(),
 

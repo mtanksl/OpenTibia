@@ -88,11 +88,6 @@ namespace OpenTibia.Game.Common.ServerObjects
                 return gameObjectScript;
             }
             
-            if (items.TryGetValue(0, out gameObjectScript) )
-            {
-                return gameObjectScript;
-            }
-
             return null;
         }
 
@@ -103,11 +98,6 @@ namespace OpenTibia.Game.Common.ServerObjects
             GameObjectScript<Player> gameObjectScript;
 
             if (players.TryGetValue(name, out gameObjectScript) )
-            {
-                return gameObjectScript;
-            }
-            
-            if (players.TryGetValue("", out gameObjectScript) )
             {
                 return gameObjectScript;
             }
@@ -125,11 +115,6 @@ namespace OpenTibia.Game.Common.ServerObjects
             {
                 return gameObjectScript;
             }
-            
-            if (monsters.TryGetValue("", out gameObjectScript) )
-            {
-                return gameObjectScript;
-            }
 
             return null;
         }
@@ -141,11 +126,6 @@ namespace OpenTibia.Game.Common.ServerObjects
             GameObjectScript< Npc> gameObjectScript;
 
             if (npcs.TryGetValue(name, out gameObjectScript) )
-            {
-                return gameObjectScript;
-            }
-            
-            if (npcs.TryGetValue("", out gameObjectScript) )
             {
                 return gameObjectScript;
             }

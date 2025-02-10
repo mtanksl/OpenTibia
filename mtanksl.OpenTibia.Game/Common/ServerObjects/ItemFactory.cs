@@ -4,6 +4,7 @@ using OpenTibia.FileFormats.Dat;
 using OpenTibia.FileFormats.Otb;
 using OpenTibia.FileFormats.Xml.Items;
 using OpenTibia.Game.GameObjectScripts;
+using OpenTibia.Game.Plugins;
 using System.Collections.Generic;
 using System.Linq;
 using Item = OpenTibia.Common.Objects.Item;
@@ -436,11 +437,21 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             server.GameObjects.AddGameObject(item);
 
-            GameObjectScript<Item> gameObjectScript = server.GameObjectScripts.GetItemGameObjectScript(item.Metadata.OpenTibiaId);
+            GameObjectScript<Item> gameObjectScript = server.GameObjectScripts.GetItemGameObjectScript(item.Metadata.OpenTibiaId) ?? server.GameObjectScripts.GetItemGameObjectScript(0);
 
             if (gameObjectScript != null)
             {
                 gameObjectScript.Start(item);
+            }
+
+            ItemCreationPlugin plugin = server.Plugins.GetItemCreationPlugin(item.Metadata.OpenTibiaId) ?? server.Plugins.GetItemCreationPlugin(0);
+
+            if (plugin != null)
+            {
+                if (plugin.OnStart(item).Result)
+                {
+                    
+                }
             }
         }
 
@@ -448,11 +459,21 @@ namespace OpenTibia.Game.Common.ServerObjects
         {
             if (server.GameObjects.RemoveGameObject(item) )
             {
-                GameObjectScript<Item> gameObjectScript = server.GameObjectScripts.GetItemGameObjectScript(item.Metadata.OpenTibiaId);
+                GameObjectScript<Item> gameObjectScript = server.GameObjectScripts.GetItemGameObjectScript(item.Metadata.OpenTibiaId) ?? server.GameObjectScripts.GetItemGameObjectScript(0);
 
                 if (gameObjectScript != null)
                 {
                     gameObjectScript.Stop(item);
+                }
+
+                ItemCreationPlugin plugin = server.Plugins.GetItemCreationPlugin(item.Metadata.OpenTibiaId) ?? server.Plugins.GetItemCreationPlugin(0);
+
+                if (plugin != null)
+                {
+                    if (plugin.OnStop(item).Result)
+                    {
+                        
+                    }
                 }
 
                 return true;

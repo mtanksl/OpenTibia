@@ -31,8 +31,18 @@
 		-- { type = "ServerSave", filename = "save.lua" },
 		{ type = "ServerRecord", filename = "record.lua" }
 	},
+	items = {
+		-- { type = "ItemCreation", openTibiaId = 0, filename = "creation.lua" }
+	},
+	monsters = {
+		-- { type = "MonsterCreation", name = "", filename = "creation.lua" }
+	},
 	npcs = {
+		-- { type = "NpcCreation", name = "", filename = "creation.lua" }
 		{ type = "Dialogue", name = "", filename = "default.lua" }
+	},
+	players = {
+		-- { type = "PlayerCreation", name = "", filename = "creation.lua" }
 	},
 	spells = {
 		{ words = "exiva", name = "Find Person", group = "Support", cooldown = 2, groupcooldown = 2, level = 8, mana = 20, soul = 0, premium = false, vocations = { vocation.knight, vocation.paladin, vocation.druid, vocation.sorcerer, vocation.eliteknight, vocation.royalpaladin, vocation.elderdruid, vocation.mastersorcerer }, requirestarget = true, filename = "OpenTibia.Plugins.Spells.FindPersonSpellPlugin, mtanksl.OpenTibia.Plugins" },
