@@ -42,9 +42,9 @@
     <flag targetdistance="1" />
     <flag runonhealth="10" />
   </flags>
-  <defenses armor="12" />
+  <defenses defense="0" armor="12" />
   <attacks>
-    <attack name="melee" interval="2000" chance="90" min="0" max="70" />
-    <attack name="spears" interval="2000" chance="90" min="0" max="50" />
+    <attack name="melee" interval="2000" chance="100" min="0" max="70" />
+    <attack name="spears" interval="2000" chance="15" min="0" max="50" />
   </attacks>
 </monster>

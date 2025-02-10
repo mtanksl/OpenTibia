@@ -32,9 +32,9 @@
     <flag targetdistance="4" />
     <flag runonhealth="10" />
   </flags>
-  <defenses armor="10" />
+  <defenses defense="0" armor="10" />
   <attacks>
-    <attack name="melee" interval="2000" chance="90" min="0" max="45" />
-    <attack name="knives" interval="2000" chance="90" min="0" max="40" />
+    <attack name="melee" interval="2000" chance="100" min="0" max="45" />
+    <attack name="knives" interval="2000" chance="15" min="0" max="40" />
   </attacks>
 </monster>

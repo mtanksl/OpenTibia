@@ -22,8 +22,8 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
-  <defenses armor="8" />
+  <defenses defense="0" armor="8" />
   <attacks>
-    <attack name="melee" interval="2000" chance="90" min="0" max="31" />
+    <attack name="melee" interval="2000" chance="100" min="0" max="31" />
   </attacks>
 </monster>

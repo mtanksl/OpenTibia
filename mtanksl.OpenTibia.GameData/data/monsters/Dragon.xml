@@ -28,11 +28,11 @@
     <flag targetdistance="1" />
     <flag runonhealth="300" />
   </flags>
-  <defenses armor="25" />
+  <defenses defense="0" armor="25" />
   <attacks>
-    <attack name="melee" interval="2000" chance="90" min="0" max="120" />
-    <attack name="spears" interval="fire wave" chance="90" min="100" max="170" />
-    <attack name="spears" interval="great fireball" chance="90" min="60" max="140" />
-    <attack name="spears" interval="self heaing" chance="90" min="40" max="70" />
+    <attack name="melee" interval="2000" chance="100" min="0" max="120" />
+    <attack name="fire wave" interval="2000" chance="15" min="100" max="170" />
+    <attack name="great fireball" interval="2000" chance="15" min="60" max="140" />
+    <attack name="self heaing" interval="2000" chance="15" min="40" max="70" />
   </attacks>
 </monster>

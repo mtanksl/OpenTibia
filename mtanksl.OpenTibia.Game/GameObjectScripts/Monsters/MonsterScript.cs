@@ -71,10 +71,10 @@ namespace OpenTibia.Game.GameObjectScripts
 
                 (monster.Metadata.Speed > 0 ?
                     (monster.Metadata.RunOnHealth > 0 ?
-                        new RunAwayOnLowHealthWalkStrategy(monster.Metadata.RunOnHealth, (monster.Metadata.TargetDistance > 0 ? 
+                        new RunAwayOnLowHealthWalkStrategy(monster.Metadata.RunOnHealth, (monster.Metadata.TargetDistance > 1 ? 
                             new KeepDistanceWalkStrategy(monster.Metadata.TargetDistance) : 
                             ApproachWalkStrategy.Instance) ) :
-                        (monster.Metadata.TargetDistance > 0 ? 
+                        (monster.Metadata.TargetDistance > 1 ? 
                             new KeepDistanceWalkStrategy(monster.Metadata.TargetDistance) : 
                             ApproachWalkStrategy.Instance) ) :
                     DoNotWalkStrategy.Instance),

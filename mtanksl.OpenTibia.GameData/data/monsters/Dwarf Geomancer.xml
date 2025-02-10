@@ -30,11 +30,11 @@
     <flag targetdistance="4" />
     <flag runonhealth="150" />
   </flags>
-  <defenses armor="15" />
+  <defenses defense="0" armor="15" />
   <attacks>
-    <attack name="melee" interval="2000" chance="90" min="0" max="100" />
-    <attack name="mana drain" interval="2000" chance="90" min="25" max="80" />
-    <attack name="stalagmite" interval="2000" chance="90" min="50" max="110" />
-    <attack name="self healing" interval="1000" chance="90" min="25" max="130" />
+    <attack name="melee" interval="2000" chance="100" min="0" max="100" />
+    <attack name="mana drain" interval="2000" chance="15" min="25" max="80" />
+    <attack name="stalagmite" interval="2000" chance="15" min="50" max="110" />
+    <attack name="self healing" interval="1000" chance="15" min="25" max="130" />
   </attacks>
 </monster>
