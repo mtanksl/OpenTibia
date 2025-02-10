@@ -13,7 +13,6 @@
     <flag convinceable="0" />
     <flag pushable="0" />
     <flag canpushitems="0" />
-    <flag staticattack="50" />
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>

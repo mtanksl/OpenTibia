@@ -8,8 +8,6 @@ namespace OpenTibia.Game.Components
 {
     public class KeepDistanceWalkStrategy : IWalkStrategy
     {
-        public static readonly KeepDistanceWalkStrategy Instance = new KeepDistanceWalkStrategy(3);
-
         private int radius;
 
         public KeepDistanceWalkStrategy(int radius)

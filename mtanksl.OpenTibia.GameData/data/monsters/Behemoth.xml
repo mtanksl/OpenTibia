@@ -53,7 +53,11 @@
     <flag canpushitems="1" />
     <flag canpushcreatures="1" />
     <flag targetdistance="1" />
-    <flag staticattack="90" />
     <flag runonhealth="0" />
   </flags>
+  <defenses armor="50" />
+  <attacks>
+    <attack name="melee" interval="2000" chance="90" min="0" max="455" />
+    <attack name="boulder throw" interval="2000" chance="90" min="0" max="200" />
+  </attacks>
 </monster>

@@ -24,7 +24,6 @@
     <flag convinceable="1" />
     <flag pushable="0" />
     <flag canpushitems="1" />
-    <flag staticattack="80" />
     <flag lightlevel="0" />
     <flag lightcolor="0" />
     <flag targetdistance="1" />

@@ -217,7 +217,11 @@ namespace OpenTibia.FileFormats.Xml.Monsters
 
                         CanPushItems = (int?)flagNode.Attribute("canpushitems"),
 
-                        CanPushCreatures = (int?)flagNode.Attribute("canpushcreatures")
+                        CanPushCreatures = (int?)flagNode.Attribute("canpushcreatures"),
+
+                        TargetDistance = (int?)flagNode.Attribute("targetdistance"),
+
+                        RunOnHealth = (int?)flagNode.Attribute("runonhealth")
                     } );
                 }
             }
@@ -283,7 +287,7 @@ namespace OpenTibia.FileFormats.Xml.Monsters
                 {
                     Interval = (int)changeTargetStrategyNode.Attribute("interval"),
 
-                    Chance = (int)changeTargetStrategyNode.Attribute("chance")
+                    Chance = Math.Max(0, Math.Min(100, (double)changeTargetStrategyNode.Attribute("chance") ) )
                 };
             }
 
@@ -293,13 +297,13 @@ namespace OpenTibia.FileFormats.Xml.Monsters
             {
                 monster.TargetStrategy = new TargetStrategy()
                 {
-                    Nearest = (int)targetStrategyNode.Attribute("nearest"),
+                    Nearest = Math.Max(0, Math.Min(100, (double)targetStrategyNode.Attribute("nearest") ) ),
+                     
+                    Weakest = Math.Max(0, Math.Min(100, (double)targetStrategyNode.Attribute("weakest") ) ),
 
-                    Weakest = (int)targetStrategyNode.Attribute("weakest"),
+                    MostDamaged = Math.Max(0, Math.Min(100, (double)targetStrategyNode.Attribute("mostdamaged") ) ),
 
-                    MostDamaged = (int)targetStrategyNode.Attribute("mostdamaged"),
-
-                    Random = (int)targetStrategyNode.Attribute("random")
+                    Random = Math.Max(0, Math.Min(100, (double)targetStrategyNode.Attribute("random") ) )
                 };
             }
 

@@ -65,21 +65,31 @@ namespace OpenTibia.Game.GameObjectScripts
 
             Context.Server.GameObjectComponents.AddComponent(monster, new MonsterThinkBehaviour(
 
-                attackStrategies.Count > 0 ? 
+                (attackStrategies.Count > 0 ? 
                     new CombineRandomAttackStrategy(attackStrategies.ToArray() ) :
-                    DoNotAttackStrategy.Instance,
+                    DoNotAttackStrategy.Instance),
 
-                ApproachWalkStrategy.Instance,
+                (monster.Metadata.Speed > 0 ?
+                    (monster.Metadata.RunOnHealth > 0 ?
+                        new RunAwayOnLowHealthWalkStrategy(monster.Metadata.RunOnHealth, (monster.Metadata.TargetDistance > 0 ? 
+                            new KeepDistanceWalkStrategy(monster.Metadata.TargetDistance) : 
+                            ApproachWalkStrategy.Instance) ) :
+                        (monster.Metadata.TargetDistance > 0 ? 
+                            new KeepDistanceWalkStrategy(monster.Metadata.TargetDistance) : 
+                            ApproachWalkStrategy.Instance) ) :
+                    DoNotWalkStrategy.Instance),
 
-                RandomWalkStrategy.Instance,
+                (monster.Metadata.Speed > 0 ?
+                    RandomWalkStrategy.Instance : 
+                    DoNotWalkStrategy.Instance),
 
-                (monster.Metadata.ChangeTargetInterval > 0 && monster.Metadata.ChangeTargetChance > 0) ? 
+                ( (monster.Metadata.ChangeTargetInterval > 0 && monster.Metadata.ChangeTargetChance > 0) ? 
                     new IntervalAndChanceChangeTargetStrategy(monster.Metadata.ChangeTargetInterval, monster.Metadata.ChangeTargetChance, DoChangeTargetStrategy.Instance) : 
-                    DoNotChangeTargetStrategy.Instance,
+                    DoNotChangeTargetStrategy.Instance),
 
-                targetStrategies.Count > 0 ? 
+                (targetStrategies.Count > 0 ? 
                     new CombineRandomTargetStrategy(targetStrategies.ToArray() ) : 
-                    RandomTargetStrategy.Instance) );
+                    RandomTargetStrategy.Instance) ) );
         }
 
         public override void Stop(Monster monster)

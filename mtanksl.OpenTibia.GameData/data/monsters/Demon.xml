@@ -62,7 +62,15 @@
     <flag canpushitems="1" />
     <flag canpushcreatures="1" />
     <flag targetdistance="1" />
-    <flag staticattack="40" />
     <flag runonhealth="0" />
   </flags>
+  <defenses armor="44" />
+  <attacks>
+    <attack name="melee" interval="2000" chance="90" min="0" max="500" />
+    <attack name="great fireball" interval="2000" chance="90" min="150" max="250" />
+    <attack name="energy beam" interval="2000" chance="90" min="300" max="480" />
+    <attack name="mana drain" interval="2000" chance="90" min="30" max="120" />
+    <attack name="self healing" interval="2000" chance="90" min="80" max="250" />
+    <attack name="fire field" interval="2000" chance="90" />
+  </attacks>
 </monster>

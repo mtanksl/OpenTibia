@@ -47,6 +47,10 @@ namespace OpenTibia.Common.Objects
 
         public bool CanPushCreatures { get; set; }
 
+        public int TargetDistance { get; set; }
+
+        public int RunOnHealth { get; set; }
+
         public AttackItem[] Attacks { get; set; }
 
         public int Armor { get; set; }
@@ -57,14 +61,14 @@ namespace OpenTibia.Common.Objects
 
         public int ChangeTargetInterval { get; set; }
 
-        public int ChangeTargetChance { get; set; }
+        public double ChangeTargetChance { get; set; }
 
-        public int TargetNearestChance { get; set; }
+        public double TargetNearestChance { get; set; }
 
-        public int TargetMostDamagedChance { get; set; }
+        public double TargetMostDamagedChance { get; set; }
 
-        public int TargetWeakestChance { get; set; }
+        public double TargetWeakestChance { get; set; }
 
-        public int TargetRandomChance { get; set; }
+        public double TargetRandomChance { get; set; }
     }
 }

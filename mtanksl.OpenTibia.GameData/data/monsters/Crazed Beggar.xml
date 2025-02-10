@@ -24,7 +24,6 @@
     <flag pushable="1" />
     <flag canpushitems="0" />
     <flag canpushcreatures="0" />
-    <flag staticattack="80" />
     <flag targetdistance="1" />
     <flag runonhealth="10" />
   </flags>

@@ -27,7 +27,10 @@
     <flag canpushitems="0" />
     <flag canpushcreatures="0" />
     <flag targetdistance="1" />
-    <flag staticattack="90" />
     <flag runonhealth="25" />
   </flags>
+  <defenses armor="2" />
+  <attacks>
+    <attack name="melee" interval="2000" chance="90" min="0" max="1" />
+  </attacks>
 </monster>

@@ -30,7 +30,7 @@ namespace OpenTibia.Game.Common.ServerObjects
             {
                 MonsterMetadata monsterMetadata = new MonsterMetadata()
                 {
-                    Name = xmlMonster.Name,
+                        Name = xmlMonster.Name,
 
                     Description = xmlMonster.NameDescription,
 
@@ -79,6 +79,10 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     CanPushCreatures = xmlMonster.Flags?.Any(f => f.CanPushCreatures == 1) ?? false,
 
+                    TargetDistance = xmlMonster.Flags?.Where(f => f.TargetDistance != null).Select(f => f.TargetDistance.Value).FirstOrDefault() ?? 0,
+
+                    RunOnHealth = xmlMonster.Flags?.Where(f => f.RunOnHealth != null).Select(f => f.RunOnHealth.Value).FirstOrDefault() ?? 0,
+
                     Attacks = xmlMonster.Attacks?.Select(a => new AttackItem() { Name = a.Name, Interval = a.Interval, Chance = a.Chance, Min = a.Min ?? 0, Max = a.Max ?? 0 } ).ToArray(),
 
                     Armor = xmlMonster.Defenses?.Armor ?? 0,
@@ -89,15 +93,15 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     ChangeTargetInterval = xmlMonster.ChangeTargetStrategy?.Interval ?? 1000,
 
-                    ChangeTargetChance = xmlMonster.ChangeTargetStrategy?.Chance ?? 0,
+                    ChangeTargetChance = xmlMonster.ChangeTargetStrategy?.Chance ?? 0.0,
 
-                    TargetNearestChance = xmlMonster.TargetStrategy?.Nearest ?? 0,
+                    TargetNearestChance = xmlMonster.TargetStrategy?.Nearest ?? 0.0,
 
-                    TargetWeakestChance = xmlMonster.TargetStrategy?.Weakest ?? 0,
+                    TargetWeakestChance = xmlMonster.TargetStrategy?.Weakest ?? 0.0,
 
-                    TargetMostDamagedChance = xmlMonster.TargetStrategy?.MostDamaged ?? 0,
+                    TargetMostDamagedChance = xmlMonster.TargetStrategy?.MostDamaged ?? 0.0,
 
-                    TargetRandomChance = xmlMonster.TargetStrategy?.Random ?? 0
+                    TargetRandomChance = xmlMonster.TargetStrategy?.Random ?? 0.0
                 };
 
                 if (xmlMonster.Immunities != null)

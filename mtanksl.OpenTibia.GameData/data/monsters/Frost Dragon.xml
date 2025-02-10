@@ -29,7 +29,6 @@
     <flag canpushitems="1" />
     <flag canpushcreatures="1" />
     <flag targetdistance="1" />
-    <flag staticattack="70" />
     <flag runonhealth="250" />
   </flags>
 </monster>

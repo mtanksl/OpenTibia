@@ -7,8 +7,6 @@ namespace OpenTibia.Game.Components
 {
     public class NpcWalkStrategy : IWalkStrategy
     {
-        public static readonly NpcWalkStrategy Instance = new NpcWalkStrategy(2);
-        
         private int radius;
 
         public NpcWalkStrategy(int radius)

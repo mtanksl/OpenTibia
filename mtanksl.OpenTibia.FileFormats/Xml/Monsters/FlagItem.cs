@@ -29,5 +29,11 @@ namespace OpenTibia.FileFormats.Xml.Monsters
 
         [XmlAttribute("canpushcreatures")]
         public int? CanPushCreatures { get; set; }
+
+        [XmlAttribute("targetdistance")]
+        public int? TargetDistance { get; set; }
+
+        [XmlAttribute("runonhealth")]
+        public int? RunOnHealth { get; set; }
     }
 }
