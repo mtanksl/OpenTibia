@@ -250,9 +250,19 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     metadata.Capacity = xmlItem.ContainerSize;
 
-                    if (metadata.Capacity != null)
+                    if (metadata.Capacity == null)
                     {
-                        metadata.Flags |= ItemMetadataFlags.IsContainer;
+                        if (metadata.Flags.Is(ItemMetadataFlags.IsContainer) )
+                        {
+                            metadata.Capacity = 8;
+                        }
+                    }
+                    else
+                    {
+                        if ( !metadata.Flags.Is(ItemMetadataFlags.IsContainer) )
+                        {
+                            metadata.Flags |= ItemMetadataFlags.IsContainer;
+                        }
                     }
 
                     metadata.WeaponType = xmlItem.WeaponType;
