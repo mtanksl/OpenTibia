@@ -133,10 +133,11 @@
     <Content Include="$(MSBuildThisFileDirectory)data\monsters\Brimstone Bug.xml" />
     <Content Include="$(MSBuildThisFileDirectory)data\monsters\Brutus Bloodbeard.xml" />
     <Content Include="$(MSBuildThisFileDirectory)data\monsters\Bug.xml" />
-    <Content Include="$(MSBuildThisFileDirectory)data\monsters\Blue Butterfly.xml" />
-    <Content Include="$(MSBuildThisFileDirectory)data\monsters\Purple Butterfly.xml" />
-    <Content Include="$(MSBuildThisFileDirectory)data\monsters\Red Butterfly.xml" />
-    <Content Include="$(MSBuildThisFileDirectory)data\monsters\Yellow Butterfly.xml" />
+    <Content Include="$(MSBuildThisFileDirectory)data\monsters\Butterfly %28Blue%29.xml" />
+    <Content Include="$(MSBuildThisFileDirectory)data\monsters\Demon %28Goblin%29.xml" />
+    <Content Include="$(MSBuildThisFileDirectory)data\monsters\Butterfly %28Purple%29.xml" />
+    <Content Include="$(MSBuildThisFileDirectory)data\monsters\Butterfly %28Red%29.xml" />
+    <Content Include="$(MSBuildThisFileDirectory)data\monsters\Butterfly %28Yellow%29.xml" />
     <Content Include="$(MSBuildThisFileDirectory)data\monsters\Captain Jones.xml" />
     <Content Include="$(MSBuildThisFileDirectory)data\monsters\Carniphila.xml" />
     <Content Include="$(MSBuildThisFileDirectory)data\monsters\Carrion Worm.xml" />

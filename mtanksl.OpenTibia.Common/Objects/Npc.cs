@@ -4,7 +4,7 @@
     {
         public Npc(NpcMetadata metadata)
         {
-            Name = metadata.Name;
+            Name = metadata.NameDisplayed ?? metadata.Name;
 
             Health = metadata.Health;
 

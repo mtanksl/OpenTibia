@@ -12,6 +12,8 @@ namespace OpenTibia.FileFormats.Xml.Npcs
 
             npc.Name = (string)npcNode.Attribute("name");
 
+            npc.NameDisplayed = (string)npcNode.Attribute("nameDisplayed");
+
             npc.NameDescription = (string)npcNode.Attribute("nameDescription");
 
             npc.Speed = (int)npcNode.Attribute("speed");
@@ -68,6 +70,8 @@ namespace OpenTibia.FileFormats.Xml.Npcs
         }
 
         public string Name { get; set; }
+
+        public string NameDisplayed { get; set; }
 
         public string NameDescription { get; set; }
 

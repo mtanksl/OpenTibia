@@ -30,6 +30,8 @@ namespace OpenTibia.Game.Common.ServerObjects
                 {
                     Name = xmlNpc.Name,
 
+                    NameDisplayed = xmlNpc.NameDisplayed,
+
                     Description = xmlNpc.NameDescription,
 
                     Speed = (ushort)xmlNpc.Speed,

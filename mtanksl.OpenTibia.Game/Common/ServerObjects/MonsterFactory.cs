@@ -33,6 +33,8 @@ namespace OpenTibia.Game.Common.ServerObjects
                 {
                     Name = xmlMonster.Name,
 
+                    NameDisplayed = xmlMonster.NameDisplayed,
+
                     Description = xmlMonster.NameDescription,
 
                     Race = xmlMonster.Race,

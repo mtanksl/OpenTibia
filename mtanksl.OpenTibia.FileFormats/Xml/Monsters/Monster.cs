@@ -14,6 +14,8 @@ namespace OpenTibia.FileFormats.Xml.Monsters
 
             monster.Name = (string)monsterNode.Attribute("name");
 
+            monster.NameDisplayed = (string)monsterNode.Attribute("nameDisplayed");
+
             monster.NameDescription = (string)monsterNode.Attribute("nameDescription");
 
             switch ( (string)monsterNode.Attribute("race") )
@@ -314,6 +316,8 @@ namespace OpenTibia.FileFormats.Xml.Monsters
         }
 
         public string Name { get; set; }
+
+        public string NameDisplayed { get; set; }
 
         public string NameDescription { get; set; }
 
