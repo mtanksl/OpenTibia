@@ -1,18 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Orc Warrior" nameDescription="an orc warrior" speed="190" experience="50" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Orc Warrior" nameDescription="an orc warrior" race="blood" speed="190" experience="50" manacost="360">
   <health now="125" max="125" />
   <look typeex="0" type="7" head="0" body="0" legs="0" feet="0" corpse="5979" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Grow truk grrrr." />
-    <voice sentence="Trak grrrr brik." />
-    <voice sentence="Alk!" />
-  </voices>
-  <elements>
-    <element energyPercent="30" />
-    <element holyPercent="20" />
-    <element earthPercent="-10" />
-    <element deathPercent="-5" />
-  </elements>
   <flags>
     <flag summonable="1" />
     <flag attackable="1" />
@@ -25,4 +14,30 @@
     <flag targetdistance="1" />
     <flag runonhealth="10" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="-10" />
+    <element firePercent="0" />
+    <element energyPercent="30" />
+    <element icePercent="0" />
+    <element deathPercent="-10" />
+    <element holyPercent="10" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Alk!" />
+    <voice yell="0" sentence="Grow truk grrrr." />
+    <voice yell="0" sentence="Trak grrrr brik." />
+  </voices>
+  <defenses mitigation="0.36" defense="0" armor="8" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

@@ -1,19 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Golgordan" nameDescription="Golgordan" speed="350" experience="10000" race="fire">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Golgordan" nameDescription="Golgordan" race="fire" speed="390" experience="10000" manacost="0">
   <health now="40000" max="40000" />
-  <look typeex="0" type="12" head="108" body="100" legs="105" feet="114" corpse="6068" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Latrivan your fool" />
-  </voices>
-  <elements>
-    <element icePercent="-10" />
-    <element holyPercent="15" />
-    <element physicalPercent="20" />
-    <element firePercent="-5" />
-  </elements>
-  <immunities>
-    <immunity death="1" />
-  </immunities>
+  <look typeex="0" type="12" head="128" body="62" legs="95" feet="15" corpse="6068" />
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -26,4 +14,28 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="100" />
+    <element earthpercent="5" />
+    <element firePercent="-5" />
+    <element energyPercent="30" />
+    <element icePercent="100" />
+    <element deathPercent="100" />
+    <element holyPercent="100" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="1" sentence="Latrivan your fool" />
+  </voices>
+  <defenses mitigation="0" defense="0" armor="0" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

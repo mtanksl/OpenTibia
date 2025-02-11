@@ -1,12 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Poacher" nameDescription="a poacher" speed="205" experience="70" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Poacher" nameDescription="a poacher" race="blood" speed="198" experience="70" manacost="530">
   <health now="90" max="90" />
-  <look typeex="0" type="129" head="115" body="119" legs="119" feet="115" corpse="6080" />
-  <voices interval="5000" chance="10">
-    <voice sentence="You will not live to tell anyone!" />
-    <voice sentence="You are my game today!" />
-    <voice sentence="Look what has stepped into my trap!" />
-  </voices>
+  <look typeex="0" type="129" head="60" body="118" legs="118" feet="116" corpse="6080" />
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -15,8 +10,34 @@
     <flag convinceable="1" />
     <flag pushable="0" />
     <flag canpushitems="1" />
-    <flag canpushcreatures="0" />
-    <flag targetdistance="4" />
+    <flag canpushcreatures="1" />
+    <flag targetdistance="1" />
     <flag runonhealth="5" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="0" />
+    <element firePercent="0" />
+    <element energyPercent="0" />
+    <element icePercent="0" />
+    <element deathPercent="0" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="You are my game today!" />
+    <voice yell="0" sentence="You will not live to tell anyone!" />
+    <voice yell="0" sentence="Look what has stepped into my trap!" />
+  </voices>
+  <defenses mitigation="0.33" defense="0" armor="10" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

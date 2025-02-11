@@ -1,21 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Minotaur Mage" nameDescription="a minotaur mage" speed="170" experience="150" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Minotaur Mage" nameDescription="a minotaur mage" race="blood" speed="170" experience="150" manacost="0">
   <health now="155" max="155" />
   <look typeex="0" type="23" head="0" body="0" legs="0" feet="0" corpse="5981" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Learrn tha secrret uf deathhh!" />
-    <voice sentence="Kaplar!" />
-  </voices>
-  <elements>
-    <element energyPercent="20" />
-    <element earthPercent="15" />
-    <element holyPercent="10" />
-    <element icePercent="-5" />
-    <element deathPercent="-5" />
-  </elements>
-  <immunities>
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -28,4 +14,29 @@
     <flag targetdistance="4" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="20" />
+    <element firePercent="0" />
+    <element energyPercent="20" />
+    <element icePercent="-10" />
+    <element deathPercent="-5" />
+    <element holyPercent="10" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Kaplar!" />
+    <voice yell="0" sentence="Learrn tha secrret uf deathhh!" />
+  </voices>
+  <defenses mitigation="1.04" defense="0" armor="18" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

@@ -1,26 +1,43 @@
-<?xml version="1.0"?>
-<monster name="Swamp Troll" nameDescription="a swamp troll" speed="128" experience="65" race="venom">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Swamp Troll" nameDescription="a swamp troll" race="blood" speed="128" experience="25" manacost="320">
   <health now="55" max="55" />
   <look typeex="0" type="76" head="0" body="0" legs="0" feet="0" corpse="6018" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Grrrr" />
-    <voice sentence="Groar!" />
-    <voice sentence="Me strong! Me ate spinach!" />
-  </voices>
-  <elements>
-    <element earthPercent="20" />
-    <element firePercent="-10" />
-  </elements>
   <flags>
     <flag summonable="1" />
     <flag attackable="1" />
     <flag hostile="1" />
     <flag illusionable="1" />
-    <flag convinceable="1" />
+    <flag convinceable="0" />
     <flag pushable="1" />
     <flag canpushitems="0" />
     <flag canpushcreatures="0" />
     <flag targetdistance="1" />
     <flag runonhealth="15" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="15" />
+    <element firePercent="-5" />
+    <element energyPercent="0" />
+    <element icePercent="0" />
+    <element deathPercent="0" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Grrrr" />
+    <voice yell="0" sentence="Groar!" />
+    <voice yell="0" sentence="Me strong! Me ate spinach!" />
+  </voices>
+  <defenses mitigation="0.25" defense="0" armor="6" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

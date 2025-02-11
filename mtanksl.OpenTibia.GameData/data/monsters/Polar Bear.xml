@@ -1,17 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Polar Bear" nameDescription="a polar bear" speed="156" experience="28" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Polar Bear" nameDescription="a polar bear" race="blood" speed="156" experience="28" manacost="315">
   <health now="85" max="85" />
   <look typeex="0" type="42" head="0" body="0" legs="0" feet="0" corpse="5987" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Grrrrrr" />
-    <voice sentence="GROARRR!" />
-  </voices>
-  <elements>
-    <element icePercent="20" />
-    <element firePercent="7" />
-    <element deathPercent="-10" />
-    <element energyPercent="-3" />
-  </elements>
   <flags>
     <flag summonable="1" />
     <flag attackable="1" />
@@ -24,4 +14,28 @@
     <flag targetdistance="1" />
     <flag runonhealth="5" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="0" />
+    <element firePercent="10" />
+    <element energyPercent="-5" />
+    <element icePercent="20" />
+    <element deathPercent="-10" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="GROARRR!" />
+  </voices>
+  <defenses mitigation="0.25" defense="0" armor="7" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

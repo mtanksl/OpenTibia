@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Elder Bonelord" nameDescription="an elder bonelord" race="blood" speed="170" experience="280" manacost="0">
+  <health now="500" max="500" />
+  <look typeex="0" type="108" head="0" body="0" legs="0" feet="0" corpse="6037" />
+  <flags>
+    <flag summonable="0" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="1" />
+    <flag convinceable="0" />
+    <flag pushable="0" />
+    <flag canpushitems="1" />
+    <flag canpushcreatures="1" />
+    <flag targetdistance="4" />
+    <flag runonhealth="0" />
+  </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="100" />
+    <element firePercent="-10" />
+    <element energyPercent="20" />
+    <element icePercent="30" />
+    <element deathPercent="30" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="100" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="653768764!" />
+    <voice yell="0" sentence="659978 54764!" />
+    <voice yell="0" sentence="Let me take a look at you!" />
+    <voice yell="0" sentence="Inferior creatures, bow before my power!" />
+  </voices>
+  <defenses mitigation="0.67" defense="0" armor="13" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
+</monster>

@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Terramite" nameDescription="a terramite" race="venom" speed="222" experience="160" manacost="505">
+  <health now="365" max="365" />
+  <look typeex="0" type="346" head="0" body="0" legs="0" feet="0" corpse="11347" />
+  <flags>
+    <flag summonable="1" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="1" />
+    <flag convinceable="1" />
+    <flag pushable="1" />
+    <flag canpushitems="1" />
+    <flag canpushcreatures="0" />
+    <flag targetdistance="1" />
+    <flag runonhealth="0" />
+  </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="5" />
+    <element earthpercent="20" />
+    <element firePercent="-10" />
+    <element energyPercent="-5" />
+    <element icePercent="0" />
+    <element deathPercent="0" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Zrp zrp!" />
+  </voices>
+  <defenses mitigation="0.56" defense="0" armor="15" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
+</monster>

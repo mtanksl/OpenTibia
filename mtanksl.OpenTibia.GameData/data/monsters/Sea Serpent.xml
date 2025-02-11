@@ -1,22 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Sea Serpent" nameDescription="a sea serpent" speed="658" experience="2300" race="blood">
-  <health now="3200" max="3200" />
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Sea Serpent" nameDescription="a sea serpent" race="blood" speed="480" experience="2300" manacost="0">
+  <health now="1950" max="1950" />
   <look typeex="0" type="275" head="0" body="0" legs="0" feet="0" corpse="8307" />
-  <voices interval="5000" chance="10">
-    <voice sentence="CHHHRRRR" />
-    <voice sentence="HISSSS" />
-  </voices>
-  <elements>
-    <element firePercent="20" />
-    <element energyPercent="-15" />
-    <element physicalPercent="-15" />
-    <element deathPercent="-15" />
-  </elements>
-  <immunities>
-    <immunity ice="1" />
-    <immunity paralyze="1" />
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -26,7 +11,32 @@
     <flag pushable="0" />
     <flag canpushitems="1" />
     <flag canpushcreatures="1" />
-    <flag targetdistance="0" />
-    <flag runonhealth="300" />
+    <flag targetdistance="1" />
+    <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="-10" />
+    <element earthpercent="0" />
+    <element firePercent="30" />
+    <element energyPercent="-5" />
+    <element icePercent="100" />
+    <element deathPercent="10" />
+    <element holyPercent="0" />
+    <element drownPercent="100" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="HISSSS" />
+    <voice yell="0" sentence="CHHHRRRR" />
+  </voices>
+  <defenses mitigation="1.04" defense="0" armor="25" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

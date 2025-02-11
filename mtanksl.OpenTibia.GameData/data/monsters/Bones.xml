@@ -1,23 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Bones" nameDescription="Bones" speed="300" experience="3750" race="undead">
+<?xml version="1.0" encoding="utf-8"?>
+<monster name="Bones" nameDescription="Bones" race="undead" speed="300" experience="3750" manacost="0">
   <health now="9500" max="9500" />
   <look typeex="0" type="231" head="0" body="0" legs="0" feet="0" corpse="6306" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Your new name is breakfast." />
-    <voice sentence="Keep that dog away!" />
-    <voice sentence="Out Fluffy! Out! Bad dog!" />
-  </voices>
-  <immunities>
-    <immunity physical="0" />
-    <immunity energy="0" />
-    <immunity fire="0" />
-    <immunity poison="0" />
-    <immunity lifedrain="0" />
-    <immunity paralyze="0" />
-    <immunity outfit="0" />
-    <immunity drunk="1" />
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -28,6 +12,32 @@
     <flag canpushitems="1" />
     <flag canpushcreatures="1" />
     <flag targetdistance="1" />
-    <flag runonhealth="1" />
+    <flag runonhealth="380" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="0" />
+    <element firePercent="0" />
+    <element energyPercent="0" />
+    <element icePercent="0" />
+    <element deathPercent="0" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Keep that dog away!" />
+    <voice yell="0" sentence="Out Fluffy! Out! Bad dog!" />
+    <voice yell="0" sentence="Your new name is breakfast." />
+  </voices>
+  <defenses mitigation="0" defense="0" armor="0" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

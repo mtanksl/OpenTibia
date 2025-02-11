@@ -1,17 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Thul" nameDescription="Thul" speed="300" experience="1800" race="undead">
-  <health now="3000" max="3000" />
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Thul" nameDescription="Thul" race="blood" speed="520" experience="2700" manacost="0">
+  <health now="2950" max="2950" />
   <look typeex="0" type="46" head="0" body="0" legs="0" feet="0" corpse="6065" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Gaaahhh!" />
-  </voices>
-  <elements>
-    <element icePercent="100" />
-    <element energyPercent="-20" />
-  </elements>
-  <immunities>
-    <immunity lifedrain="0" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -20,9 +10,32 @@
     <flag convinceable="0" />
     <flag pushable="0" />
     <flag canpushitems="1" />
-    <flag lightlevel="0" />
-    <flag lightcolor="0" />
+    <flag canpushcreatures="0" />
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="100" />
+    <element firePercent="0" />
+    <element energyPercent="100" />
+    <element icePercent="100" />
+    <element deathPercent="0" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="100" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Gaaahhh!" />
+  </voices>
+  <defenses mitigation="0" defense="0" armor="0" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

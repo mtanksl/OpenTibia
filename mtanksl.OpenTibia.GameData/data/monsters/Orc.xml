@@ -1,18 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Orc" nameDescription="an orc" speed="150" experience="25" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Orc" nameDescription="an orc" race="blood" speed="150" experience="25" manacost="300">
   <health now="70" max="70" />
   <look typeex="0" type="5" head="0" body="0" legs="0" feet="0" corpse="5966" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Grak brrretz!" />
-    <voice sentence="Grow truk grrrrr." />
-    <voice sentence="Prek tars, dekklep zurk." />
-  </voices>
-  <elements>
-    <element energyPercent="20" />
-    <element holyPercent="10" />
-    <element earthPercent="-20" />
-    <element deathPercent="-5" />
-  </elements>
   <flags>
     <flag summonable="1" />
     <flag attackable="1" />
@@ -25,4 +14,30 @@
     <flag targetdistance="1" />
     <flag runonhealth="15" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="-10" />
+    <element firePercent="0" />
+    <element energyPercent="20" />
+    <element icePercent="0" />
+    <element deathPercent="-10" />
+    <element holyPercent="10" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Grak brrretz!" />
+    <voice yell="0" sentence="Grow truk grrrrr." />
+    <voice yell="0" sentence="Prek tars, dekklep zurk." />
+  </voices>
+  <defenses mitigation="0.2" defense="0" armor="4" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

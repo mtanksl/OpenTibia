@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Bonelord" nameDescription="a bonelord" race="venom" speed="150" experience="170" manacost="0">
+  <health now="260" max="260" />
+  <look typeex="0" type="17" head="0" body="0" legs="0" feet="0" corpse="5992" />
+  <flags>
+    <flag summonable="0" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="1" />
+    <flag convinceable="0" />
+    <flag pushable="0" />
+    <flag canpushitems="1" />
+    <flag canpushcreatures="1" />
+    <flag targetdistance="4" />
+    <flag runonhealth="0" />
+  </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="100" />
+    <element firePercent="-10" />
+    <element energyPercent="0" />
+    <element icePercent="20" />
+    <element deathPercent="0" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="100" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Eye for eye!" />
+    <voice yell="0" sentence="I've got to look!" />
+    <voice yell="0" sentence="You've got the look!" />
+    <voice yell="0" sentence="Here's looking at you!" />
+    <voice yell="0" sentence="Let me take a look at you!" />
+  </voices>
+  <defenses mitigation="0.51" defense="0" armor="5" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
+</monster>

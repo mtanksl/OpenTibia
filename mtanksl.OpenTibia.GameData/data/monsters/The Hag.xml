@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="The Hag" nameDescription="The Hag" race="blood" speed="205" experience="510" manacost="0">
+  <health now="935" max="935" />
+  <look typeex="0" type="264" head="19" body="1" legs="40" feet="2" corpse="6080" />
+  <flags>
+    <flag summonable="0" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="0" />
+    <flag convinceable="0" />
+    <flag pushable="0" />
+    <flag canpushitems="1" />
+    <flag canpushcreatures="1" />
+    <flag targetdistance="5" />
+    <flag runonhealth="0" />
+  </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="0" />
+    <element firePercent="30" />
+    <element energyPercent="10" />
+    <element icePercent="20" />
+    <element deathPercent="0" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="2000" chance="5">
+    <voice yell="0" sentence="I'll teach you respect for the old!" />
+    <voice yell="0" sentence="Let me teach you a few things youngster!" />
+    <voice yell="0" sentence="If you think I am to old to fight then you're wrong!" />
+    <voice yell="0" sentence="I've forgotten more things then you have ever learned!" />
+  </voices>
+  <defenses mitigation="0" defense="0" armor="0" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
+</monster>

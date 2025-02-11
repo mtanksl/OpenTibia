@@ -1,31 +1,39 @@
-<?xml version="1.0"?>
-<monster name="Earth Elemental" nameDescription="an earth elemental" speed="330" experience="450" race="undead">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Earth Elemental" nameDescription="an earth elemental" race="undead" speed="230" experience="450" manacost="0">
   <health now="650" max="650" />
   <look typeex="0" type="301" head="0" body="0" legs="0" feet="0" corpse="8933" />
-  <elements>
-    <element deathPercent="20" />
-    <element icePercent="20" />
-    <element physicalPercent="20" />
-    <element holyPercent="20" />
-    <element firePercent="-25" />
-  </elements>
-  <immunities>
-    <immunity paralyze="1" />
-    <immunity invisible="1" />
-    <immunity earth="1" />
-    <immunity energy="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
     <flag hostile="1" />
-    <flag illusionable="0" />
+    <flag illusionable="1" />
     <flag convinceable="0" />
     <flag pushable="0" />
     <flag canpushitems="1" />
-    <flag lightlevel="0" />
-    <flag lightcolor="0" />
+    <flag canpushcreatures="1" />
     <flag targetdistance="1" />
-    <flag runonhealth="1" />
+    <flag runonhealth="80" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="35" />
+    <element earthpercent="100" />
+    <element firePercent="-25" />
+    <element energyPercent="100" />
+    <element icePercent="85" />
+    <element deathPercent="40" />
+    <element holyPercent="50" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10" />
+  <defenses mitigation="0.78" defense="0" armor="45" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

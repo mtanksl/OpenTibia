@@ -1,25 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Vampire" nameDescription="a vampire" speed="220" experience="305" race="blood">
-  <health now="450" max="450" />
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Vampire" nameDescription="a vampire" race="undead" speed="238" experience="305" manacost="0">
+  <health now="475" max="475" />
   <look typeex="0" type="68" head="0" body="0" legs="0" feet="0" corpse="6006" />
-  <voices interval="5000" chance="10">
-    <voice sentence="BLOOD!" />
-    <voice sentence="Let me kiss your neck." />
-    <voice sentence="I smell warm blood." />
-    <voice sentence="I call you, my bats! Come!" />
-  </voices>
-  <elements>
-    <element deathPercent="100" />
-    <element earthPercent="100" />
-    <element physicalPercent="15" />
-    <element firePercent="-10" />
-    <element holyPercent="-25" />
-  </elements>
-  <immunities>
-    <immunity lifedrain="1" />
-    <immunity paralyze="1" />
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -30,6 +12,33 @@
     <flag canpushitems="1" />
     <flag canpushcreatures="1" />
     <flag targetdistance="1" />
-    <flag runonhealth="0" />
+    <flag runonhealth="30" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="25" />
+    <element earthpercent="100" />
+    <element firePercent="-10" />
+    <element energyPercent="0" />
+    <element icePercent="0" />
+    <element deathPercent="100" />
+    <element holyPercent="-25" />
+    <element drownPercent="100" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="100" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="BLOOD!" />
+    <voice yell="0" sentence="I smell warm blood!" />
+    <voice yell="0" sentence="Let me kiss your neck" />
+    <voice yell="0" sentence="I call you, my bats! Come!" />
+  </voices>
+  <defenses mitigation="1.04" defense="0" armor="28" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

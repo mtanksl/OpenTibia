@@ -1,24 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Vampire Bride" nameDescription="a vampire bride" speed="220" experience="1050" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Vampire Bride" nameDescription="a vampire bride" race="blood" speed="200" experience="1050" manacost="0">
   <health now="1200" max="1200" />
   <look typeex="0" type="312" head="0" body="0" legs="0" feet="0" corpse="9660" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Kneel before your Mistress!" />
-    <voice sentence="Dead is the new alive." />
-    <voice sentence="Come, let me kiss you, darling. Oh wait, I meant kill." />
-    <voice sentence="Enjoy the pain - I know you love it." />
-  </voices>
-  <elements>
-    <element energyPercent="10" />
-    <element earthPercent="80" />
-    <element icePercent="15" />
-    <element firePercent="-10" />
-    <element holyPercent="-25" />
-  </elements>
-  <immunities>
-    <immunity death="1" />
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -31,4 +14,33 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="20" />
+    <element firePercent="-10" />
+    <element energyPercent="10" />
+    <element icePercent="20" />
+    <element deathPercent="100" />
+    <element holyPercent="-10" />
+    <element drownPercent="10" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Dead is the new alive." />
+    <voice yell="0" sentence="Kneel before your Mistress!" />
+    <voice yell="0" sentence="Are you suffering nicely enough?" />
+    <voice yell="0" sentence="Enjoy the pain - I know you love it." />
+    <voice yell="0" sentence="You won't regret you came to me, sweetheart." />
+    <voice yell="0" sentence="Come, let me kiss you, darling. Oh wait, I meant kill." />
+  </voices>
+  <defenses mitigation="1.18" defense="0" armor="55" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

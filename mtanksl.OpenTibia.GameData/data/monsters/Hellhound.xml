@@ -1,24 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Hellhound" nameDescription="a hellhound" speed="310" experience="6800" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Hellhound" nameDescription="a hellhound" race="blood" speed="360" experience="5440" manacost="0">
   <health now="7500" max="7500" />
   <look typeex="0" type="240" head="0" body="0" legs="0" feet="0" corpse="6332" />
-  <voices interval="5000" chance="10">
-    <voice sentence="GROOOWL!" />
-    <voice sentence="GRRRRR!" />
-  </voices>
-  <elements>
-    <element firePercent="100" />
-    <element earthPercent="40" />
-    <element energyPercent="40" />
-    <element icePercent="-20" />
-    <element holyPercent="-10" />
-  </elements>
-  <immunities>
-    <immunity paralyze="1" />
-    <immunity outfit="1" />
-    <immunity drunk="1" />
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -31,4 +14,29 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="20" />
+    <element firePercent="100" />
+    <element energyPercent="10" />
+    <element icePercent="-5" />
+    <element deathPercent="0" />
+    <element holyPercent="-5" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="GRRRRR!" />
+    <voice yell="0" sentence="GROOOWL!" />
+  </voices>
+  <defenses mitigation="2.75" defense="0" armor="60" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

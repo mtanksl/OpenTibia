@@ -1,30 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Hacker" nameDescription="a Hacker" speed="250" experience="45" race="blood">
+<?xml version="1.0" encoding="utf-8"?>
+<monster name="Hacker" nameDescription="a hacker" race="blood" speed="250" experience="45" manacost="0">
   <health now="430" max="430" />
   <look typeex="0" type="8" head="0" body="0" legs="0" feet="0" corpse="5980" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Feel the wrath of me dos attack!" />
-    <voice sentence="You're next!" />
-    <voice sentence="Gimme free gold!" />
-    <voice sentence="Me sooo smart!" />
-    <voice sentence="Me have a cheating link for you!" />
-    <voice sentence="Me is GM!" />
-    <voice sentence="Gimme your password!" />
-    <voice sentence="Me just need the code!" />
-    <voice sentence="Me not stink!" />
-    <voice sentence="Me other char is highlevel!" />
-  </voices>
-  <immunities>
-    <immunity physical="0" />
-    <immunity energy="1" />
-    <immunity fire="1" />
-    <immunity poison="1" />
-    <immunity lifedrain="0" />
-    <immunity paralyze="0" />
-    <immunity outfit="0" />
-    <immunity drunk="1" />
-    <immunity invisible="0" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -37,4 +14,37 @@
     <flag targetdistance="1" />
     <flag runonhealth="429" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="0" />
+    <element firePercent="100" />
+    <element energyPercent="0" />
+    <element icePercent="0" />
+    <element deathPercent="0" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Me is GM!" />
+    <voice yell="0" sentence="You're next!" />
+    <voice yell="0" sentence="Me not stink!" />
+    <voice yell="0" sentence="Me sooo smart!" />
+    <voice yell="0" sentence="Gimme free gold!" />
+    <voice yell="0" sentence="Gimme your password!" />
+    <voice yell="0" sentence="Me just need the code!" />
+    <voice yell="0" sentence="Me other char is highlevel!" />
+    <voice yell="0" sentence="Feel the wrath of me dos attack!" />
+    <voice yell="0" sentence="Me have a cheating link for you!" />
+  </voices>
+  <defenses mitigation="0" defense="0" armor="0" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

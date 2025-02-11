@@ -1,26 +1,12 @@
-<?xml version="1.0"?>
-<monster name="Quara Predator" nameDescription="a quara predator" speed="520" experience="1600" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Quara Predator" nameDescription="a quara predator" race="blood" speed="450" experience="1600" manacost="0">
   <health now="2200" max="2200" />
   <look typeex="0" type="20" head="0" body="0" legs="0" feet="0" corpse="6067" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Rrrah!" />
-    <voice sentence="Rraaar!" />
-  </voices>
-  <elements>
-    <element firePercent="100" />
-    <element icePercent="100" />
-    <element earthPercent="-12" />
-    <element energyPercent="-25" />
-  </elements>
-  <immunities>
-    <immunity lifedrain="1" />
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
     <flag hostile="1" />
-    <flag illusionable="0" />
+    <flag illusionable="1" />
     <flag convinceable="0" />
     <flag pushable="0" />
     <flag canpushitems="1" />
@@ -28,4 +14,29 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="-10" />
+    <element firePercent="100" />
+    <element energyPercent="-25" />
+    <element icePercent="100" />
+    <element deathPercent="0" />
+    <element holyPercent="0" />
+    <element drownPercent="100" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="100" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Rrrah!" />
+    <voice yell="0" sentence="Rraaar!" />
+  </voices>
+  <defenses mitigation="1.46" defense="0" armor="40" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

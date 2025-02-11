@@ -1,30 +1,42 @@
-<?xml version="1.0"?>
-<monster name="Fire Devil" nameDescription="a fire devil" speed="190" experience="110" race="blood">
+<?xml version="1.0" encoding="utf-8"?>
+<monster name="Fire Devil" nameDescription="a fire devil" race="blood" speed="196" experience="145" manacost="530">
   <health now="200" max="200" />
   <look typeex="0" type="40" head="0" body="0" legs="0" feet="0" corpse="5985" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Hot, eh?" />
-    <voice sentence="Hell, oh hell!" />
-  </voices>
+  <flags>
+	<flag summonable="1" />
+	<flag attackable="1" />
+	<flag hostile="1" />
+	<flag illusionable="1" />
+	<flag convinceable="1" />
+	<flag pushable="0" />
+	<flag canpushitems="1" />
+	<flag canpushcreatures="0" />
+	<flag targetdistance="4" />
+	<flag runonhealth="0" />
+  </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
   <elements>
+    <element physicalPercent="10" />
+    <element earthpercent="20" />
     <element firePercent="100" />
     <element energyPercent="30" />
-    <element earthPercent="25" />
-    <element deathPercent="15" />
-    <element physicalPercent="10" />
     <element icePercent="-20" />
+    <element deathPercent="20" />
     <element holyPercent="-10" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
   </elements>
-  <flags>
-    <flag summonable="1" />
-    <flag attackable="1" />
-    <flag hostile="1" />
-    <flag illusionable="1" />
-    <flag convinceable="1" />
-    <flag pushable="0" />
-    <flag canpushitems="1" />
-    <flag canpushcreatures="0" />
-    <flag targetdistance="4" />
-    <flag runonhealth="0" />
-  </flags>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Hot, eh?" />
+    <voice yell="0" sentence="Hell, oh hell!" />
+  </voices>
+  <defenses mitigation="0.05" defense="0" armor="13" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

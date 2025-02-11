@@ -1,24 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Barbarian Skullhunter" nameDescription="a barbarian skullhunter" speed="270" experience="85" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Barbarian Skullhunter" nameDescription="a barbarian skullhunter" race="blood" speed="168" experience="85" manacost="450">
   <health now="135" max="135" />
-  <look typeex="0" type="254" head="0" body="77" legs="77" feet="114" corpse="6080" />
-  <voices interval="5000" chance="10">
-    <voice sentence="You will become my trophy." />
-    <voice sentence="Fight harder, coward." />
-    <voice sentence="Show that you are a worthy opponent." />
-  </voices>
-  <elements>
-    <element icePercent="50" />
-    <element holyPercent="10" />
-    <element energyPercent="20" />
-    <element physicalPercent="5" />
-    <element earthPercent="-10" />
-    <element deathPercent="-7" />
-  </elements>
-  <immunities>
-    <immunity drunk="1" />
-    <immunity paralyze="1" />
-  </immunities>
+  <look typeex="0" type="254" head="0" body="77" legs="96" feet="114" corpse="6080" />
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -27,9 +10,34 @@
     <flag convinceable="1" />
     <flag pushable="0" />
     <flag canpushitems="1" />
-    <flag lightlevel="0" />
-    <flag lightcolor="0" />
+    <flag canpushcreatures="1" />
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="10" />
+    <element earthpercent="-10" />
+    <element firePercent="0" />
+    <element energyPercent="20" />
+    <element icePercent="50" />
+    <element deathPercent="-5" />
+    <element holyPercent="10" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Fight harder, coward." />
+    <voice yell="0" sentence="You will become my trophy." />
+    <voice yell="0" sentence="Show that you are a worthy opponent." />
+  </voices>
+  <defenses mitigation="0.33" defense="0" armor="8" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

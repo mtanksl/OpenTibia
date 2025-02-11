@@ -1,17 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Roaring Water Elemental" nameDescription="a roaring water elemental" speed="390" experience="1300" race="undead">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Roaring Water Elemental" nameDescription="a roaring water elemental" race="undead" speed="390" experience="1300" manacost="0">
   <health now="1750" max="1750" />
-  <look typeex="0" type="11" head="0" body="0" legs="0" feet="0" corpse="8965" />
-  <elements>
-    <element physicalPercent="50" />
-    <element holyPercent="30" />
-  </elements>
-  <immunities>
-    <immunity fire="1" />
-    <immunity lifedrain="1" />
-    <immunity paralyze="1" />
-    <immunity invisible="1" />
-  </immunities>
+  <look typeex="0" type="11" head="0" body="0" legs="0" feet="0" corpse="2025" />
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -20,9 +10,30 @@
     <flag convinceable="0" />
     <flag pushable="0" />
     <flag canpushitems="1" />
-    <flag lightlevel="0" />
-    <flag lightcolor="0" />
+    <flag canpushcreatures="0" />
     <flag targetdistance="1" />
-    <flag runonhealth="1" />
+    <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="45" />
+    <element earthpercent="100" />
+    <element firePercent="100" />
+    <element energyPercent="0" />
+    <element icePercent="100" />
+    <element deathPercent="100" />
+    <element holyPercent="40" />
+    <element drownPercent="100" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10" />
+  <defenses mitigation="0" defense="0" armor="0" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

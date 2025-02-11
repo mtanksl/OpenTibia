@@ -1,21 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Nightmare Scion" nameDescription="a nightmare scion" speed="340" experience="1350" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Nightmare Scion" nameDescription="a nightmare scion" race="blood" speed="440" experience="1350" manacost="0">
   <health now="1400" max="1400" />
   <look typeex="0" type="321" head="0" body="0" legs="0" feet="0" corpse="9919" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Weeeheeheee!" />
-  </voices>
-  <elements>
-    <element holyPercent="-25" />
-    <element firePercent="45" />
-    <element energyPercent="20" />
-    <element icePercent="15" />
-  </elements>
-  <immunities>
-    <immunity earth="1" />
-    <immunity death="1" />
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -28,4 +14,30 @@
     <flag targetdistance="1" />
     <flag runonhealth="300" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="100" />
+    <element firePercent="20" />
+    <element energyPercent="20" />
+    <element icePercent="10" />
+    <element deathPercent="100" />
+    <element holyPercent="-25" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Weeeheeheee!" />
+    <voice yell="0" sentence="Pffffrrrrrrrrrrrr." />
+    <voice yell="0" sentence="Peak a boo, I killed you!" />
+  </voices>
+  <defenses mitigation="0.7" defense="0" armor="25" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

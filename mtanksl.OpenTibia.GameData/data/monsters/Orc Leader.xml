@@ -1,17 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Orc Leader" nameDescription="an orc leader" speed="230" experience="270" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Orc Leader" nameDescription="an orc leader" race="blood" speed="230" experience="270" manacost="640">
   <health now="450" max="450" />
   <look typeex="0" type="59" head="0" body="0" legs="0" feet="0" corpse="6001" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Ulderek futgyr human!" />
-  </voices>
-  <elements>
-	<element firePercent="100" />
-	<element energyPercent="20" />
-	<element holyPercent="10" />
-	<element earthPercent="-10" />
-	<element deathPercent="-5" />
-  </elements>
   <flags>
     <flag summonable="1" />
     <flag attackable="1" />
@@ -24,4 +14,28 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="-10" />
+    <element firePercent="100" />
+    <element energyPercent="20" />
+    <element icePercent="0" />
+    <element deathPercent="-10" />
+    <element holyPercent="20" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Ulderek futgyr human!" />
+  </voices>
+  <defenses mitigation="1.18" defense="0" armor="20" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

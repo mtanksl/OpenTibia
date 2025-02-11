@@ -1,14 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Mutated Bat" nameDescription="a mutated bat" speed="245" experience="615" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Mutated Bat" nameDescription="a mutated bat" race="blood" speed="186" experience="615" manacost="0">
   <health now="900" max="900" />
   <look typeex="0" type="307" head="0" body="0" legs="0" feet="0" corpse="9829" />
-  <immunities>
-    <immunity death="1" />
-    <immunity earth="1" />
-    <immunity drown="1" />
-    <immunity invisible="1" />
-    <immunity drunk="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -19,6 +12,30 @@
     <flag canpushitems="1" />
     <flag canpushcreatures="1" />
     <flag targetdistance="1" />
-    <flag runonhealth="0" />
+    <flag runonhealth="300" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="100" />
+    <element firePercent="0" />
+    <element energyPercent="0" />
+    <element icePercent="0" />
+    <element deathPercent="100" />
+    <element holyPercent="0" />
+    <element drownPercent="100" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Shriiiiiek" />
+  </voices>
+  <defenses mitigation="1.74" defense="0" armor="19" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

@@ -1,21 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Jagged Earth Elemental" nameDescription="a jagged earth elemental" speed="280" experience="1300" race="undead">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Jagged Earth Elemental" nameDescription="a jagged earth elemental" race="undead" speed="280" experience="1300" manacost="0">
   <health now="1500" max="1500" />
   <look typeex="0" type="285" head="0" body="0" legs="0" feet="0" corpse="8933" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Stomp STOMP" />
-  </voices>
-  <elements>
-    <element deathPercent="20" />
-    <element icePercent="20" />
-    <element energyPercent="20" />
-    <element firePercent="-25" />
-  </elements>
-  <immunities>
-    <immunity paralyze="1" />
-    <immunity invisible="1" />
-    <immunity earth="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -24,9 +10,32 @@
     <flag convinceable="0" />
     <flag pushable="0" />
     <flag canpushitems="1" />
-    <flag lightlevel="0" />
-    <flag lightcolor="0" />
+    <flag canpushcreatures="0" />
     <flag targetdistance="1" />
-    <flag runonhealth="1" />
+    <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="100" />
+    <element firePercent="-15" />
+    <element energyPercent="85" />
+    <element icePercent="20" />
+    <element deathPercent="45" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="1000" chance="5">
+    <voice yell="0" sentence="*STOMP STOMP*" />
+  </voices>
+  <defenses mitigation="0" defense="0" armor="0" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

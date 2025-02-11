@@ -1,12 +1,47 @@
-<?xml version="1.0"?>
-<monster name="Behemoth" nameDescription="a behemoth" speed="280" experience="2500" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Behemoth" nameDescription="a behemoth" race="blood" speed="340" experience="2500" manacost="0">
   <health now="4000" max="4000" />
   <look typeex="0" type="55" head="0" body="0" legs="0" feet="0" corpse="5999" />
+  <flags>
+    <flag summonable="0" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="0" />
+    <flag convinceable="0" />
+    <flag pushable="0" />
+    <flag canpushitems="1" />
+    <flag canpushcreatures="1" />
+    <flag targetdistance="1" />
+    <flag runonhealth="0" />
+  </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="10" />
+    <element earthpercent="80" />
+    <element firePercent="30" />
+    <element energyPercent="10" />
+    <element icePercent="-10" />
+    <element deathPercent="-5" />
+    <element holyPercent="30" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
   <voices interval="5000" chance="10">
-    <voice sentence="You're so little!" />
-    <voice sentence="Human flesh - delicious!" />
-    <voice sentence="Crush the intruders!" />
+    <voice yell="0" sentence="You're so little!" />
+    <voice yell="0" sentence="Crush the intruders!" />
+    <voice yell="0" sentence="Human flesh - delicious!" />
   </voices>
+  <defenses mitigation="1.74" defense="0" armor="50" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks>
+    <attack name="melee" interval="2000" chance="90" min="0" max="455" />
+    <attack name="boulder throw" interval="2000" chance="90" min="0" max="200" />
+  </attacks>
 	<loot>
 		<item id="2148" countmax="200" killsToGetOne="1" />  <!-- gold coin -->
 		<item id="2152" countmax="5" killsToGetOne="2" />    <!-- platinum coin -->
@@ -30,34 +65,4 @@
 		<item id="2023" killsToGetOne="1004" />							<!-- amphora -->
 		<item id="2454" killsToGetOne="1475" />							<!-- war axe -->
 	</loot>
-  <elements>
-    <element earthPercent="80" />
-    <element holyPercent="30" />
-    <element firePercent="30" />
-    <element energyPercent="10" />
-    <element physicalPercent="10" />
-    <element icePercent="-10" />
-    <element deathPercent="-5" />
-  </elements>
-  <immunities>
-    <immunity paralyze="1" />
-    <immunity invisible="1" />
-  </immunities>
-  <flags>
-    <flag summonable="0" />
-    <flag attackable="1" />
-    <flag hostile="1" />
-    <flag illusionable="0" />
-    <flag convinceable="0" />
-    <flag pushable="0" />
-    <flag canpushitems="1" />
-    <flag canpushcreatures="1" />
-    <flag targetdistance="1" />
-    <flag runonhealth="0" />
-  </flags>
-  <defenses defense="0" armor="50" />
-  <attacks>
-    <attack name="melee" interval="2000" chance="100" min="0" max="455" />
-    <attack name="boulder throw" interval="2000" chance="15" min="0" max="200" />
-  </attacks>
 </monster>

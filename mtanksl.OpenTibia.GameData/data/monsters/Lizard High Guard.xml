@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Lizard High Guard" nameDescription="a lizard high guard" race="blood" speed="238" experience="1450" manacost="0">
+  <health now="1800" max="1800" />
+  <look typeex="0" type="337" head="0" body="0" legs="0" feet="0" corpse="11272" />
+  <flags>
+    <flag summonable="0" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="1" />
+    <flag convinceable="0" />
+    <flag pushable="0" />
+    <flag canpushitems="1" />
+    <flag canpushcreatures="1" />
+    <flag targetdistance="1" />
+    <flag runonhealth="0" />
+  </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="100" />
+    <element firePercent="45" />
+    <element energyPercent="0" />
+    <element icePercent="-10" />
+    <element deathPercent="0" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Hizzzzzzz!" />
+    <voice yell="0" sentence="To armzzzz!" />
+    <voice yell="0" sentence="Engage zze aggrezzor!" />
+  </voices>
+  <defenses mitigation="1.18" defense="0" armor="40" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
+</monster>

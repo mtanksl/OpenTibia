@@ -1,18 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Ancient Scarab" nameDescription="an ancient scarab" speed="330" experience="720" race="venom">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Ancient Scarab" nameDescription="an ancient scarab" race="venom" speed="218" experience="720" manacost="0">
   <health now="1000" max="1000" />
   <look typeex="0" type="79" head="0" body="0" legs="0" feet="0" corpse="6021" />
-  <elements>
-    <element earthPercent="100" />
-    <element energyPercent="20" />
-    <element physicalPercent="10" />
-    <element firePercent="-15" />
-    <element icePercent="-5" />
-  </elements>
-  <immunities>
-    <immunity paralyze="1" />
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -25,4 +14,26 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="10" />
+    <element earthpercent="100" />
+    <element firePercent="-20" />
+    <element energyPercent="20" />
+    <element icePercent="-5" />
+    <element deathPercent="0" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10" />
+  <defenses mitigation="0.86" defense="0" armor="36" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

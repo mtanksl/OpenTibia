@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Draken Warmaster" nameDescription="a draken warmaster" race="blood" speed="324" experience="2400" manacost="0">
+  <health now="4150" max="4150" />
+  <look typeex="0" type="334" head="0" body="0" legs="0" feet="0" corpse="11107" />
+  <flags>
+    <flag summonable="0" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="1" />
+    <flag convinceable="0" />
+    <flag pushable="0" />
+    <flag canpushitems="1" />
+    <flag canpushcreatures="1" />
+    <flag targetdistance="1" />
+    <flag runonhealth="0" />
+  </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="100" />
+    <element firePercent="100" />
+    <element energyPercent="5" />
+    <element icePercent="-5" />
+    <element deathPercent="50" />
+    <element holyPercent="5" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Hizzzzz!" />
+    <voice yell="0" sentence="Attack aggrezzively! Dezztroy zze intruderzz!" />
+  </voices>
+  <defenses mitigation="1.6" defense="0" armor="55" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
+</monster>

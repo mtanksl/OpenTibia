@@ -1,20 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Monk" nameDescription="a monk" speed="220" experience="200" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Monk" nameDescription="a monk" race="blood" speed="240" experience="200" manacost="600">
   <health now="240" max="240" />
   <look typeex="0" type="57" head="0" body="0" legs="0" feet="0" corpse="6080" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Repent Heretic!" />
-    <voice sentence="A prayer to the almighty one!" />
-    <voice sentence="I will punish the sinners!" />
-  </voices>
-  <elements>
-    <element holyPercent="50" />
-    <element deathPercent="50" />
-    <element physicalPercent="-15" />
-  </elements>
-  <immunities>
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="1" />
     <flag attackable="1" />
@@ -27,4 +14,30 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="-5" />
+    <element earthpercent="0" />
+    <element firePercent="0" />
+    <element energyPercent="0" />
+    <element icePercent="0" />
+    <element deathPercent="50" />
+    <element holyPercent="50" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Repent Heretic!" />
+    <voice yell="0" sentence="I will punish the sinners!" />
+    <voice yell="0" sentence="A prayer to the almighty one!" />
+  </voices>
+  <defenses mitigation="1.37" defense="0" armor="25" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

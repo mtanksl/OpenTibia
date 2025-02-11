@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Diseased Fred" nameDescription="a diseased Fred" race="venom" speed="250" experience="300" manacost="0">
+  <health now="1100" max="1100" />
+  <look typeex="0" type="299" head="0" body="0" legs="0" feet="0" corpse="8951" />
+  <flags>
+    <flag summonable="0" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="0" />
+    <flag convinceable="0" />
+    <flag pushable="0" />
+    <flag canpushitems="1" />
+    <flag canpushcreatures="1" />
+    <flag targetdistance="1" />
+    <flag runonhealth="150" />
+  </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="15" />
+    <element earthpercent="100" />
+    <element firePercent="15" />
+    <element energyPercent="15" />
+    <element icePercent="15" />
+    <element deathPercent="100" />
+    <element holyPercent="15" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="The pain! The pain!" />
+    <voice yell="0" sentence="The plague will get you!" />
+    <voice yell="0" sentence="Stay away! I am contagious!" />
+    <voice yell="0" sentence="You will suffer the same fate as I do!" />
+  </voices>
+  <defenses mitigation="0" defense="0" armor="0" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
+</monster>

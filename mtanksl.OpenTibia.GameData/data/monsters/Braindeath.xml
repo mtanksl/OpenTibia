@@ -1,34 +1,44 @@
-<?xml version="1.0"?>
-<monster name="Braindeath" nameDescription="a braindeath" speed="270" experience="895" race="undead">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Braindeath" nameDescription="a braindeath" race="venom" speed="218" experience="985" manacost="0">
   <health now="1225" max="1225" />
   <look typeex="0" type="256" head="0" body="0" legs="0" feet="0" corpse="7256" />
-  <voices interval="5000" chance="10">
-    <voice sentence="You have disturbed my thoughts!" />
-    <voice sentence="Let me turn you into something more useful!" />
-    <voice sentence="Let me taste your brain!" />
-    <voice sentence="You will be punished!" />
-  </voices>
-  <elements>
-	<element icePercent="13" />
-    <element physicalPercent="9" />
-    <element holyPercent="-10" />
-    <element firePercent="-10" />
-  </elements>
-  <immunities>
-    <immunity earth="1" />
-    <immunity death="1" />
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
     <flag hostile="1" />
-    <flag illusionable="1" />
+    <flag illusionable="0" />
     <flag convinceable="0" />
     <flag pushable="0" />
     <flag canpushitems="1" />
-    <flag canpushcreatures="0" />
-    <flag targetdistance="5" />
+    <flag canpushcreatures="1" />
+    <flag targetdistance="4" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="15" />
+    <element earthpercent="100" />
+    <element firePercent="-15" />
+    <element energyPercent="10" />
+    <element icePercent="20" />
+    <element deathPercent="100" />
+    <element holyPercent="-20" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="You will be punished!" />
+    <voice yell="0" sentence="Let me taste your brain!" />
+    <voice yell="0" sentence="You have disturbed my thoughts!" />
+    <voice yell="0" sentence="Let me turn you into something more useful!" />
+  </voices>
+  <defenses mitigation="0.67" defense="0" armor="12" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

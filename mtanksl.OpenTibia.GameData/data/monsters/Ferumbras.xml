@@ -1,21 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Ferumbras" nameDescription="Ferumbras" speed="320" experience="12000" race="venom">
-  <health now="35000" max="35000" />
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Ferumbras" nameDescription="Ferumbras" race="venom" speed="320" experience="35000" manacost="0">
+  <health now="90000" max="90000" />
   <look typeex="0" type="229" head="0" body="0" legs="0" feet="0" corpse="6078" />
-  <voices interval="5000" chance="10">
-    <voice sentence="NOONE WILL STOP ME THIS TIME!" />
-    <voice sentence="THE POWER IS MINE!" />
-  </voices>
-  <elements>
-    <element firePercent="90" />
-  </elements>
-  <immunities>
-    <immunity lifedrain="1" />
-    <immunity paralyze="1" />
-    <immunity outfit="1" />
-    <immunity drunk="1" />
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -25,7 +11,35 @@
     <flag pushable="0" />
     <flag canpushitems="1" />
     <flag canpushcreatures="1" />
-    <flag targetdistance="2" />
+    <flag targetdistance="1" />
     <flag runonhealth="2500" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="10" />
+    <element earthpercent="90" />
+    <element firePercent="90" />
+    <element energyPercent="90" />
+    <element icePercent="20" />
+    <element deathPercent="5" />
+    <element holyPercent="20" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="100" />
+  </elements>
+  <voices interval="5000" chance="20">
+    <voice yell="1" sentence="THE POWER IS MINE!" />
+    <voice yell="1" sentence="NOONE WILL STOP ME THIS TIME!" />
+    <voice yell="0" sentence="Even in my weakened state I will crush you all!" />
+    <voice yell="0" sentence="I returned from death and you dream about defeating me?" />
+    <voice yell="0" sentence="Witness the first seconds of my eternal world domination!" />
+  </voices>
+  <defenses mitigation="0" defense="0" armor="0" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

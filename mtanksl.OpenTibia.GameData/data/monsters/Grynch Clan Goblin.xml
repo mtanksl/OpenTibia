@@ -1,50 +1,12 @@
-<?xml version="1.0"?>
-<monster name="Grynch Clan Goblin" nameDescription="a Grynch Clan Goblin" speed="400" experience="4" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Grynch Clan Goblin" nameDescription="Grynch Clan Goblin" race="blood" speed="200" experience="4" manacost="0">
   <health now="80" max="80" />
   <look typeex="0" type="61" head="0" body="0" legs="0" feet="0" corpse="6002" />
-  <voices interval="5000" chance="10">
-    <voice sentence="T'was not me hand in your pocket!" />
-    <voice sentence="Look! Cool stuff in house. Let's get it!" />
-    <voice sentence="Uhh! Nobody home!" />
-    <voice sentence="Me just borrowed it!" />
-    <voice sentence="Me no steal! Me found it!" />
-    <voice sentence="Me had it for five minutes. It's family heirloom now!" />
-    <voice sentence="Nice human won't hurt little, good goblin?" />
-    <voice sentence="Gimmegimme!" />
-    <voice sentence="Invite me in you lovely house plx!" />
-    <voice sentence="Other Goblin stole it!" />
-    <voice sentence="All presents mine!" />
-    <voice sentence="Me got ugly ones purse" />
-    <voice sentence="Free itans plz!" />
-    <voice sentence="Not me! Not me!" />
-    <voice sentence="Guys, help me here! Guys? Guys???" />
-    <voice sentence="That only much dust in me pocket! Honest!" />
-    <voice sentence="Can me have your stuff?" />
-    <voice sentence="Halp, Big dumb one is after me!" />
-    <voice sentence="Uh, So many shiny things!" />
-    <voice sentence="Utani hur hur hur!" />
-    <voice sentence="Mee? Stealing? Never!!!" />
-    <voice sentence="Oh what fun it is to steal a one-horse open sleigh!" />
-    <voice sentence="Must have it! Must have it!" />
-    <voice sentence="Where me put me lockpick?" />
-    <voice sentence="Catch me if you can!" />
-  </voices>
-  <immunities>
-    <immunity physical="0" />
-    <immunity energy="0" />
-    <immunity fire="1" />
-    <immunity poison="0" />
-    <immunity lifedrain="0" />
-    <immunity paralyze="0" />
-    <immunity outfit="0" />
-    <immunity drunk="0" />
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
     <flag hostile="0" />
-    <flag illusionable="0" />
+    <flag illusionable="1" />
     <flag convinceable="0" />
     <flag pushable="0" />
     <flag canpushitems="0" />
@@ -52,4 +14,52 @@
     <flag targetdistance="11" />
     <flag runonhealth="80" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="0" />
+    <element firePercent="0" />
+    <element energyPercent="0" />
+    <element icePercent="0" />
+    <element deathPercent="0" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="1000" chance="5">
+    <voice yell="0" sentence="Gimmegimme!" />
+    <voice yell="0" sentence="Free itans plz!" />
+    <voice yell="0" sentence="Not me! Not me!" />
+    <voice yell="0" sentence="All presents mine!" />
+    <voice yell="0" sentence="Utani hur hur hur!" />
+    <voice yell="0" sentence="Me just borrowed it!" />
+    <voice yell="0" sentence="Catch me if you can!" />
+    <voice yell="0" sentence="Other Goblin stole it!" />
+    <voice yell="0" sentence="Me got ugly ones purse" />
+    <voice yell="0" sentence="Can me have your stuff?" />
+    <voice yell="0" sentence="Mee? Stealing? Never!!!" />
+    <voice yell="0" sentence="Me no steal! Me found it!" />
+    <voice yell="0" sentence="Uh, So many shiny things!" />
+    <voice yell="0" sentence="Where me put me lockpick?" />
+    <voice yell="0" sentence="Uhh! Nobody home! &lt;chuckle&gt;" />
+    <voice yell="0" sentence="Must have it! Must have it!" />
+    <voice yell="0" sentence="Halp, Big dumb one is after me!" />
+    <voice yell="0" sentence="T'was not me hand in your pocket!" />
+    <voice yell="0" sentence="Guys, help me here! Guys? Guys???" />
+    <voice yell="0" sentence="Invite me in you lovely house plx!" />
+    <voice yell="0" sentence="Look! Cool stuff in house. Let's get it!" />
+    <voice yell="0" sentence="That only much dust in me pocket! Honest!" />
+    <voice yell="0" sentence="Nice human won't hurt little, good goblin?" />
+    <voice yell="0" sentence="Oh what fun it is to steal a one-horse open sleigh!" />
+    <voice yell="0" sentence="Me had it for five minutes. It's family heirloom now!" />
+  </voices>
+  <defenses mitigation="0.25" defense="0" armor="5" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

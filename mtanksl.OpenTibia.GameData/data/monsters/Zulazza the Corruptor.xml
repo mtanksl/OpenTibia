@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Zulazza the Corruptor" nameDescription="Zulazza the Corruptor" race="blood" speed="290" experience="10000" manacost="0">
+  <health now="46500" max="46500" />
+  <look typeex="0" type="334" head="0" body="0" legs="0" feet="0" corpse="11107" />
+  <flags>
+    <flag summonable="0" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="0" />
+    <flag convinceable="0" />
+    <flag pushable="0" />
+    <flag canpushitems="1" />
+    <flag canpushcreatures="1" />
+    <flag targetdistance="1" />
+    <flag runonhealth="1500" />
+  </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="70" />
+    <element firePercent="0" />
+    <element energyPercent="100" />
+    <element icePercent="20" />
+    <element deathPercent="30" />
+    <element holyPercent="20" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="2000" chance="10">
+    <voice yell="0" sentence="I'm Zulazza, and you won't forget me that fazzt." />
+    <voice yell="0" sentence="Oh, HE will take revenge on zzizz azzault when you zztep in front of HIZZ fazze!" />
+  </voices>
+  <defenses mitigation="0" defense="0" armor="0" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
+</monster>

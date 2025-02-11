@@ -1,20 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Goblin" nameDescription="a goblin" speed="200" experience="25" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Goblin" nameDescription="a goblin" race="blood" speed="120" experience="25" manacost="290">
   <health now="50" max="50" />
   <look typeex="0" type="61" head="0" body="0" legs="0" feet="0" corpse="6002" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Me have him!" />
-    <voice sentence="Zig Zag! Gobo attack!" />
-    <voice sentence="Help! Goblinkiller!" />
-    <voice sentence="Bugga! Bugga!" />
-    <voice sentence="Me green, me mean!" />
-  </voices>
-  <elements>
-    <element energyPercent="20" />
-    <element holyPercent="20" />
-    <element earthPercent="-10" />
-    <element deathPercent="-5" />
-  </elements>
   <flags>
     <flag summonable="1" />
     <flag attackable="1" />
@@ -25,6 +12,34 @@
     <flag canpushitems="0" />
     <flag canpushcreatures="0" />
     <flag targetdistance="1" />
-    <flag runonhealth="15" />
+    <flag runonhealth="35" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="-10" />
+    <element firePercent="0" />
+    <element energyPercent="20" />
+    <element icePercent="0" />
+    <element deathPercent="-10" />
+    <element holyPercent="20" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Me have him!" />
+    <voice yell="0" sentence="Bugga! Bugga!" />
+    <voice yell="0" sentence="Me green, me mean!" />
+    <voice yell="0" sentence="Help! Goblinkiller!" />
+    <voice yell="0" sentence="Zig Zag! Gobo attack!" />
+  </voices>
+  <defenses mitigation="0.2" defense="0" armor="6" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

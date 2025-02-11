@@ -1,25 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Barbarian Brutetamer" nameDescription="a barbarian brutetamer" speed="270" experience="90" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Barbarian Brutetamer" nameDescription="a barbarian brutetamer" race="blood" speed="178" experience="90" manacost="0">
   <health now="145" max="145" />
-  <look typeex="0" type="264" head="78" body="116" legs="95" feet="121" corpse="6081" />
-  <voices interval="5000" chance="10">
-    <voice sentence="To me, creatures of the wild!" />
-    <voice sentence="My instincts tell me about your cowardice." />
-  </voices>
-  <elements>
-    <element icePercent="50" />
-    <element holyPercent="20" />
-    <element energyPercent="20" />
-    <element earthPercent="-13" />
-    <element physicalPercent="-10" />
-    <element deathPercent="-7" />
-  </elements>
-  <immunities>
-    <immunity lifedrain="1" />
-    <immunity paralyze="1" />
-    <immunity outfit="1" />
-    <immunity invisible="1" />
-  </immunities>
+  <look typeex="0" type="264" head="78" body="97" legs="95" feet="121" corpse="6081" />
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -28,9 +10,33 @@
     <flag convinceable="0" />
     <flag pushable="0" />
     <flag canpushitems="1" />
-    <flag lightlevel="0" />
-    <flag lightcolor="0" />
+    <flag canpushcreatures="0" />
     <flag targetdistance="4" />
-    <flag runonhealth="0" />
+    <flag runonhealth="10" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="-10" />
+    <element earthpercent="0" />
+    <element firePercent="0" />
+    <element energyPercent="20" />
+    <element icePercent="50" />
+    <element deathPercent="-5" />
+    <element holyPercent="10" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="100" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="To me, creatures of the wild!" />
+    <voice yell="0" sentence="My instincts tell me about your cowardice." />
+  </voices>
+  <defenses mitigation="0.36" defense="0" armor="8" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

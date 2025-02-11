@@ -1,24 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Grim Reaper" nameDescription="a grim reaper" speed="400" experience="4500" race="undead">
-  <health now="4100" max="4100" />
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Grim Reaper" nameDescription="a grim reaper" race="undead" speed="320" experience="5500" manacost="0">
+  <health now="3900" max="3900" />
   <look typeex="0" type="300" head="0" body="0" legs="0" feet="0" corpse="8955" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Death!" />
-    <voice sentence="Come a little closer!" />
-    <voice sentence="The end is near!" />
-  </voices>
-  <elements>
-    <element energyPercent="10" />
-    <element earthPercent="-20" />
-    <element icePercent="-10" />
-    <element holyPercent="10" />
-    <element deathPercent="-20" />
-    <element firePercent="10" />
-  </elements>
-  <immunities>
-    <immunity paralyze="1" />
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -31,4 +14,30 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="25" />
+    <element earthpercent="40" />
+    <element firePercent="-10" />
+    <element energyPercent="-10" />
+    <element icePercent="65" />
+    <element deathPercent="80" />
+    <element holyPercent="-10" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Death!" />
+    <voice yell="0" sentence="The end is near!" />
+    <voice yell="0" sentence="Come a little closer!" />
+  </voices>
+  <defenses mitigation="0.64" defense="0" armor="30" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

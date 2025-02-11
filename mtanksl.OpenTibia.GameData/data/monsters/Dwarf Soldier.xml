@@ -1,15 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Dwarf Soldier" nameDescription="a dwarf soldier" speed="170" experience="70" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Dwarf Soldier" nameDescription="a dwarf soldier" race="blood" speed="176" experience="70" manacost="360">
   <health now="135" max="135" />
   <look typeex="0" type="71" head="0" body="0" legs="0" feet="0" corpse="6014" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Hail Durin!" />
-  </voices>
-  <elements>
-    <element earthPercent="75" />
-    <element firePercent="-5" />
-    <element deathPercent="-5" />
-  </elements>
   <flags>
     <flag summonable="1" />
     <flag attackable="1" />
@@ -18,13 +10,35 @@
     <flag convinceable="1" />
     <flag pushable="0" />
     <flag canpushitems="1" />
-    <flag canpushcreatures="0" />
+    <flag canpushcreatures="1" />
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
-  <defenses defense="0" armor="9" />
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="10" />
+    <element firePercent="-5" />
+    <element energyPercent="0" />
+    <element icePercent="0" />
+    <element deathPercent="-5" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Hail Durin!" />
+  </voices>
+  <defenses mitigation="0.51" defense="0" armor="9" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
   <attacks>
-    <attack name="melee" interval="2000" chance="100" min="0" max="70" />
-    <attack name="bolts" interval="2000" chance="15" min="0" max="60" />
+    <attack name="melee" interval="2000" chance="90" min="0" max="70" />
+    <attack name="bolts" interval="2000" chance="90" min="0" max="60" />
   </attacks>
+  <loot />
 </monster>

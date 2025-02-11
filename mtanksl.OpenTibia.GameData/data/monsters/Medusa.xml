@@ -1,22 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Medusa" nameDescription="a medusa" speed="240" experience="4050" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Medusa" nameDescription="a medusa" race="blood" speed="250" experience="4050" manacost="0">
   <health now="4500" max="4500" />
   <look typeex="0" type="330" head="0" body="0" legs="0" feet="0" corpse="10524" />
-  <voices interval="5000" chance="10">
-    <voice sentence="You will ssuch a fine ssstatue!" />
-    <voice sentence="There isss no chhhanccce of esscape" />
-    <voice sentence="Are you tired or why are you moving thhat sslow" />
-  </voices>
-  <elements>
-    <element icePercent="20" />
-    <element firePercent="-5" />
-    <element energyPercent="-10" />
-  </elements>
-  <immunities>
-    <immunity earth="1" />
-    <immunity paralyze="1" />
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -27,6 +12,33 @@
     <flag canpushitems="1" />
     <flag canpushcreatures="1" />
     <flag targetdistance="1" />
-    <flag runonhealth="275" />
+    <flag runonhealth="600" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="100" />
+    <element firePercent="-10" />
+    <element energyPercent="-10" />
+    <element icePercent="20" />
+    <element deathPercent="0" />
+    <element holyPercent="0" />
+    <element drownPercent="100" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="100" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Jusssst look at me!" />
+    <voice yell="0" sentence="There isss no chhhanccce of esscape" />
+    <voice yell="0" sentence="You will make ssuch a fine ssstatue!" />
+    <voice yell="0" sentence="Are you tired or why are you moving thhat sslow&lt;chuckle&gt;" />
+  </voices>
+  <defenses mitigation="1.74" defense="0" armor="45" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

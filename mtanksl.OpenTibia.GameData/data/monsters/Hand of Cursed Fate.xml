@@ -1,19 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Hand of Cursed Fate" nameDescription="a hand of cursed fate" speed="250" experience="3850" race="blood">
-  <health now="10500" max="10500" />
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Hand of Cursed Fate" nameDescription="a hand of cursed fate" race="blood" speed="260" experience="5000" manacost="0">
+  <health now="7500" max="7500" />
   <look typeex="0" type="230" head="0" body="0" legs="0" feet="0" corpse="6312" />
-  <elements>
-    <element deathPercent="100" />
-    <element firePercent="100" />
-    <element energyPercent="100" />
-    <element earthPercent="100" />
-    <element icePercent="-40" />
-    <element holyPercent="-35" />
-  </elements>
-  <immunities>
-    <immunity paralyze="1" />
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -24,6 +12,28 @@
     <flag canpushitems="1" />
     <flag canpushcreatures="1" />
     <flag targetdistance="1" />
-    <flag runonhealth="3100" />
+    <flag runonhealth="6000" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="100" />
+    <element firePercent="100" />
+    <element energyPercent="100" />
+    <element icePercent="-10" />
+    <element deathPercent="100" />
+    <element holyPercent="-25" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10" />
+  <defenses mitigation="1.88" defense="0" armor="53" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

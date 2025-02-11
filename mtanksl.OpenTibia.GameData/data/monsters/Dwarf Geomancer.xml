@@ -1,23 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Dwarf Geomancer" nameDescription="a dwarf geomancer" speed="200" experience="245" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Dwarf Geomancer" nameDescription="a dwarf geomancer" race="blood" speed="200" experience="265" manacost="0">
   <health now="380" max="380" />
   <look typeex="0" type="66" head="0" body="0" legs="0" feet="0" corpse="6015" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Hail Durin!" />
-    <voice sentence="Earth is the strongest element." />
-    <voice sentence="Dust to dust." />
-  </voices>
-  <elements>
-    <element earthPercent="80" />
-    <element firePercent="60" />
-    <element energyPercent="10" />
-    <element holyPercent="10" />
-    <element icePercent="-10" />
-    <element deathPercent="-5" />
-  </elements>
-  <immunities>
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -30,11 +14,35 @@
     <flag targetdistance="4" />
     <flag runonhealth="150" />
   </flags>
-  <defenses defense="0" armor="15" />
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="20" />
+    <element firePercent="60" />
+    <element energyPercent="10" />
+    <element icePercent="-5" />
+    <element deathPercent="-10" />
+    <element holyPercent="10" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Hail Durin!" />
+    <voice yell="0" sentence="Dust to dust." />
+    <voice yell="0" sentence="Earth is the strongest element." />
+  </voices>
+  <defenses mitigation="0.91" defense="0" armor="15" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
   <attacks>
-    <attack name="melee" interval="2000" chance="100" min="0" max="100" />
-    <attack name="mana drain" interval="2000" chance="15" min="25" max="80" />
-    <attack name="stalagmite" interval="2000" chance="15" min="50" max="110" />
-    <attack name="self healing" interval="1000" chance="15" min="25" max="130" />
+    <attack name="melee" interval="2000" chance="90" min="0" max="100" />
+    <attack name="mana drain" interval="2000" chance="90" min="25" max="80" />
+    <attack name="stalagmite" interval="2000" chance="90" min="50" max="110" />
+    <attack name="self healing" interval="1000" chance="90" min="25" max="130" />
   </attacks>
+  <loot />
 </monster>

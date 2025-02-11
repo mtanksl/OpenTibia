@@ -1,16 +1,7 @@
-<?xml version="1.0"?>
-<monster name="The Horned Fox" nameDescription="the Horned Fox" speed="210" experience="200" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="The Horned Fox" nameDescription="The Horned Fox" race="blood" speed="210" experience="300" manacost="0">
   <health now="265" max="265" />
   <look typeex="0" type="202" head="0" body="0" legs="0" feet="0" corpse="5983" />
-  <voices interval="5000" chance="10">
-    <voice sentence="You will never get me!" />
-    <voice sentence="I'll be back!" />
-    <voice sentence="Catch me, if you can!" />
-    <voice sentence="Help me, boys!" />
-  </voices>
-  <immunities>
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -23,4 +14,31 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="0" />
+    <element firePercent="0" />
+    <element energyPercent="0" />
+    <element icePercent="100" />
+    <element deathPercent="100" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="I'll be back!" />
+    <voice yell="0" sentence="Help me, boys!" />
+    <voice yell="0" sentence="Catch me, if you can!" />
+    <voice yell="0" sentence="You will never get me!" />
+  </voices>
+  <defenses mitigation="0" defense="0" armor="16" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

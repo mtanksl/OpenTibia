@@ -1,27 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Black Knight" nameDescription="a black knight" speed="450" experience="1600" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Black Knight" nameDescription="a black knight" race="blood" speed="250" experience="1600" manacost="0">
   <health now="1800" max="1800" />
   <look typeex="0" type="131" head="95" body="95" legs="95" feet="95" corpse="6080" />
-  <voices interval="5000" chance="10">
-    <voice sentence="MINE!" />
-    <voice sentence="No prisoners!" />
-    <voice sentence="NO MERCY!" />
-    <voice sentence="By Bolg's Blood!" />
-    <voice sentence="You're no match for me!" />
-  </voices>
-  <elements>
-    <element earthPercent="100" />
-    <element icePercent="100" />
-    <element firePercent="95" />
-    <element energyPercent="80" />
-    <element physicalPercent="22" />
-    <element deathPercent="20" />
-    <element holyPercent="-16" />
-  </elements>
-  <immunities>
-    <immunity paralyze="1" />
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -34,4 +14,32 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="10" />
+    <element earthpercent="100" />
+    <element firePercent="95" />
+    <element energyPercent="80" />
+    <element icePercent="100" />
+    <element deathPercent="20" />
+    <element holyPercent="100" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="MINE!" />
+    <voice yell="0" sentence="NO MERCY!" />
+    <voice yell="0" sentence="NO PRISONERS!" />
+    <voice yell="0" sentence="By Bolg's blood!" />
+    <voice yell="0" sentence="You're no match for me!" />
+  </voices>
+  <defenses mitigation="0" defense="0" armor="42" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

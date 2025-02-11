@@ -1,13 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Tiquandas Revenge" nameDescription="Tiquandas Revenge" speed="440" experience="1755" race="venom">
-  <health now="2000" max="2000" />
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Tiquandas Revenge" nameDescription="Tiquandas Revenge" race="venom" speed="440" experience="2635" manacost="0">
+  <health now="1800" max="1800" />
   <look typeex="0" type="120" head="0" body="0" legs="0" feet="0" corpse="6047" />
-  <elements>
-    <element earthPercent="100" />
-  </elements>
-  <immunities>
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -20,4 +14,26 @@
     <flag targetdistance="1" />
     <flag runonhealth="400" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="100" />
+    <element earthpercent="100" />
+    <element firePercent="100" />
+    <element energyPercent="0" />
+    <element icePercent="100" />
+    <element deathPercent="100" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10" />
+  <defenses mitigation="0" defense="0" armor="0" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

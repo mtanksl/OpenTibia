@@ -1,20 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Chakoya Windcaller" nameDescription="a chakoya windcaller" speed="270" experience="48" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Chakoya Windcaller" nameDescription="a chakoya windcaller" race="blood" speed="142" experience="48" manacost="305">
   <health now="84" max="84" />
   <look typeex="0" type="260" head="0" body="0" legs="0" feet="0" corpse="7320" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Mupi! Si siyoqua jinuma!" />
-    <voice sentence="Siqsiq ji jusipa!" />
-    <voice sentence="Jagura taluka taqua!" />
-    <voice sentence="Quatu nguraka!" />
-  </voices>
-  <elements>
-    <element icePercent="100" />
-    <element firePercent="50" />
-    <element holyPercent="20" />
-    <element energyPercent="-15" />
-    <element deathPercent="-10" />
-  </elements>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -23,9 +10,35 @@
     <flag convinceable="1" />
     <flag pushable="0" />
     <flag canpushitems="1" />
-    <flag lightlevel="0" />
-    <flag lightcolor="0" />
+    <flag canpushcreatures="0" />
     <flag targetdistance="4" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="0" />
+    <element firePercent="50" />
+    <element energyPercent="-15" />
+    <element icePercent="100" />
+    <element deathPercent="-8" />
+    <element holyPercent="20" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Quatu nguraka!" />
+    <voice yell="0" sentence="Siqsiq ji jusipa!" />
+    <voice yell="0" sentence="Jagura taluka taqua!" />
+    <voice yell="0" sentence="Mupi! Si siyoqua jinuma!" />
+  </voices>
+  <defenses mitigation="0.38" defense="0" armor="7" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

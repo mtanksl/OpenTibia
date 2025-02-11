@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Gnorre Chyllson" nameDescription="Gnorre Chyllson" race="blood" speed="370" experience="4000" manacost="0">
+  <health now="7150" max="7150" />
+  <look typeex="0" type="251" head="11" body="9" legs="11" feet="85" corpse="6080" />
+  <flags>
+    <flag summonable="0" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="0" />
+    <flag convinceable="0" />
+    <flag pushable="0" />
+    <flag canpushitems="1" />
+    <flag canpushcreatures="1" />
+    <flag targetdistance="1" />
+    <flag runonhealth="0" />
+  </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="100" />
+    <element earthpercent="100" />
+    <element firePercent="100" />
+    <element energyPercent="-10" />
+    <element icePercent="100" />
+    <element deathPercent="0" />
+    <element holyPercent="100" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="2000" chance="5">
+    <voice yell="0" sentence="Snow will be your death shroud." />
+    <voice yell="0" sentence="Feel the wrath of father chyll!" />
+    <voice yell="0" sentence="I am like the merciless northwind." />
+  </voices>
+  <defenses mitigation="0" defense="0" armor="0" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
+</monster>

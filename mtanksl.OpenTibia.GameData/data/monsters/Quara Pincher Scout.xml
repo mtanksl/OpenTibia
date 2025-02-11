@@ -1,26 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Quara Pincher Scout" nameDescription="a quara pincher scout" speed="250" experience="600" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Quara Pincher Scout" nameDescription="a quara pincher scout" race="blood" speed="156" experience="600" manacost="0">
   <health now="775" max="775" />
   <look typeex="0" type="77" head="0" body="0" legs="0" feet="0" corpse="6063" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Clank clank!" />
-    <voice sentence="Clap!" />
-  </voices>
-  <elements>
-    <element energyPercent="-10" />
-    <element physicalPercent="10" />
-  </elements>
-  <immunities>
-    <immunity physical="0" />
-    <immunity energy="0" />
-    <immunity fire="1" />
-    <immunity poison="1" />
-    <immunity lifedrain="1" />
-    <immunity paralyze="1" />
-    <immunity outfit="1" />
-    <immunity drunk="1" />
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -33,4 +14,30 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="-10" />
+    <element firePercent="100" />
+    <element energyPercent="-10" />
+    <element icePercent="100" />
+    <element deathPercent="0" />
+    <element holyPercent="0" />
+    <element drownPercent="100" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="100" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Clap!" />
+    <voice yell="0" sentence="Clank clank!" />
+    <voice yell="0" sentence="Crrrk! Crrrk!" />
+  </voices>
+  <defenses mitigation="0.91" defense="0" armor="70" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

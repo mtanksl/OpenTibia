@@ -1,18 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Latrivan" nameDescription="a latrivan" speed="340" experience="10000" race="fire">
-  <health now="40000" max="40000" />
-  <look typeex="0" type="12" head="120" body="128" legs="121" feet="111" corpse="6068" />
-  <voices interval="5000" chance="10">
-    <voice sentence="I might reward you for killing my brother ~ with a swift dead!" />
-  </voices>
-  <elements>
-    <element icePercent="-10" />
-    <element energyPercent="35" />
-    <element deathPercent="-12" />
-  </elements>
-  <immunities>
-    <immunity fire="1" />
-  </immunities>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Latrivan" nameDescription="Latrivan" race="fire" speed="390" experience="10000" manacost="0">
+  <health now="25000" max="25000" />
+  <look typeex="0" type="12" head="119" body="71" legs="118" feet="34" corpse="6068" />
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -25,4 +14,31 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="5" />
+    <element firePercent="-5" />
+    <element energyPercent="30" />
+    <element icePercent="100" />
+    <element deathPercent="100" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Golgordan you fool!" />
+    <voice yell="0" sentence="Colateral damage is so fun!" />
+    <voice yell="0" sentence="We are the brothers of fear!" />
+    <voice yell="1" sentence="I might reward you for killing my brother ~ with a swift dead!" />
+  </voices>
+  <defenses mitigation="0" defense="0" armor="0" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

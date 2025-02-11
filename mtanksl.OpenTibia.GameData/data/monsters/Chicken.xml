@@ -1,11 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Chicken" nameDescription="a chicken" speed="200" experience="0" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Chicken" nameDescription="a chicken" race="blood" speed="128" experience="0" manacost="220">
   <health now="15" max="15" />
   <look typeex="0" type="111" head="0" body="0" legs="0" feet="0" corpse="6042" />
-  <voices interval="5000" chance="10">
-    <voice sentence="gokgoooook" />
-    <voice sentence="cluck cluck" />
-  </voices>
   <flags>
     <flag summonable="1" />
     <flag attackable="1" />
@@ -18,4 +14,29 @@
     <flag targetdistance="1" />
     <flag runonhealth="15" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="0" />
+    <element firePercent="0" />
+    <element energyPercent="0" />
+    <element icePercent="0" />
+    <element deathPercent="0" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Gokgoooook" />
+    <voice yell="0" sentence="Cluck Cluck" />
+  </voices>
+  <defenses mitigation="0.05" defense="0" armor="1" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

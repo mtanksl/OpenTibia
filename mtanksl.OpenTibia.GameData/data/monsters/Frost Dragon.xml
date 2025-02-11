@@ -1,24 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Frost Dragon" nameDescription="a frost dragon" speed="260" experience="2300" race="undead">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Frost Dragon" nameDescription="a frost dragon" race="undead" speed="212" experience="2100" manacost="0">
   <health now="1800" max="1800" />
   <look typeex="0" type="248" head="0" body="0" legs="0" feet="0" corpse="7091" />
-  <voices interval="5000" chance="10">
-    <voice sentence="YOU WILL FREEZE!" />
-    <voice sentence="ZCHHHHH!" />
-    <voice sentence="I am so cool" />
-    <voice sentence="Chill out!." />
-  </voices>
-  <elements>
-    <element firePercent="100" />
-    <element icePercent="100" />
-    <element earthPercent="100" />
-    <element physicalPercent="15" />
-  </elements>
-  <immunities>
-    <immunity lifedrain="1" />
-	    <immunity paralyze="1" />
-	    <immunity invisible="1" />
-	  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -31,4 +14,31 @@
     <flag targetdistance="1" />
     <flag runonhealth="250" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="5" />
+    <element earthpercent="100" />
+    <element firePercent="100" />
+    <element energyPercent="0" />
+    <element icePercent="100" />
+    <element deathPercent="10" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="100" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="1" sentence="ZCHHHHH!" />
+    <voice yell="0" sentence="Chill out!" />
+    <voice yell="0" sentence="I am so cool." />
+    <voice yell="1" sentence="YOU WILL FREEZE!" />
+  </voices>
+  <defenses mitigation="1.07" defense="0" armor="38" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

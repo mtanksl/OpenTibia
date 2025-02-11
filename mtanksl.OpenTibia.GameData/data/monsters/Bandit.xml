@@ -1,15 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Bandit" nameDescription="a bandit" speed="180" experience="65" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Bandit" nameDescription="a bandit" race="blood" speed="180" experience="65" manacost="450">
   <health now="245" max="245" />
-  <look typeex="0" type="129" head="58" body="59" legs="45" feet="114" corpse="6080" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Your money or your life!" />
-    <voice sentence="Hand me your purse!" />
-  </voices>
-  <elements>
-    <element physicalPercent="-12" />
-    <element deathPercent="-5" />
-  </elements>
+  <look typeex="0" type="129" head="58" body="40" legs="24" feet="95" corpse="6080" />
   <flags>
     <flag summonable="1" />
     <flag attackable="1" />
@@ -18,8 +10,33 @@
     <flag convinceable="1" />
     <flag pushable="1" />
     <flag canpushitems="1" />
-    <flag canpushcreatures="0" />
+    <flag canpushcreatures="1" />
     <flag targetdistance="1" />
     <flag runonhealth="25" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="-10" />
+    <element earthpercent="0" />
+    <element firePercent="0" />
+    <element energyPercent="0" />
+    <element icePercent="0" />
+    <element deathPercent="-5" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Hand me your purse!" />
+    <voice yell="0" sentence="Your money or your life!" />
+  </voices>
+  <defenses mitigation="0.43" defense="0" armor="11" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

@@ -1,32 +1,45 @@
-<?xml version="1.0"?>
-<monster name="Dark Torturer" nameDescription="a dark torturer" speed="250" experience="3500" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Dark Torturer" nameDescription="a dark torturer" race="blood" speed="370" experience="4650" manacost="0">
   <health now="7350" max="7350" />
-  <look typeex="0" type="234" head="0" body="0" legs="0" feet="0" corpse="6328" />
-  <voices interval="5000" chance="10">
-    <voice sentence="You like it, don't you?" />
-    <voice sentence="IahaEhheAie!" />
-  </voices>
-  <elements>
-    <element firePercent="100" />
-    <element earthPercent="50" />
-    <element energyPercent="40" />
-    <element deathPercent="35" />
-    <element icePercent="-20" />
-    <element holyPercent="-17" />
-  </elements>
-  <immunities>
-    <immunity invisible="1" />
-  </immunities>
+  <look typeex="0" type="234" head="0" body="0" legs="0" feet="0" corpse="6331" />
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
     <flag hostile="1" />
-    <flag illusionable="1" />
+    <flag illusionable="0" />
     <flag convinceable="0" />
     <flag pushable="0" />
     <flag canpushitems="1" />
     <flag canpushcreatures="1" />
     <flag targetdistance="1" />
-    <flag runonhealth="0" />
+    <flag runonhealth="500" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="90" />
+    <element firePercent="100" />
+    <element energyPercent="30" />
+    <element icePercent="-10" />
+    <element deathPercent="10" />
+    <element holyPercent="-10" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="IahaEhheAie!" />
+    <voice yell="0" sentence="Harrr, Harrr!" />
+    <voice yell="0" sentence="It's party time!" />
+    <voice yell="0" sentence="The torturer is in!" />
+    <voice yell="0" sentence="You like it, don't you?" />
+  </voices>
+  <defenses mitigation="1.74" defense="0" armor="45" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

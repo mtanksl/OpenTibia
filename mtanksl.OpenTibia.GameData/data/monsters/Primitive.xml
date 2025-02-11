@@ -1,34 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Primitive" nameDescription="a Primitive" speed="300" experience="45" race="blood">
+<?xml version="1.0" encoding="utf-8"?>
+<monster name="Primitive" nameDescription="a primitive" race="blood" speed="300" experience="45" manacost="0">
   <health now="200" max="200" />
   <look typeex="0" type="143" head="1" body="1" legs="1" feet="1" corpse="6080" />
-  <voices interval="5000" chance="10">
-    <voice sentence="We don't need a future!" />
-    <voice sentence="I'll rook you all!" />
-    <voice sentence="They thought they'd beaten us!" />
-    <voice sentence="You are history!" />
-    <voice sentence="There can only be one world!" />
-    <voice sentence="Valor who?" />
-    <voice sentence="Die noob!" />
-    <voice sentence="There are no dragons!" />
-    <voice sentence="I'll quit forever! Again ..." />
-    <voice sentence="You all are noobs!" />
-    <voice sentence="Beware of the cyclops!" />
-    <voice sentence="Just had a disconnect." />
-    <voice sentence="Magic is only good for girls!" />
-    <voice sentence="We'll be back!" />
-  </voices>
-  <immunities>
-    <immunity physical="0" />
-    <immunity energy="1" />
-    <immunity fire="1" />
-    <immunity poison="0" />
-    <immunity lifedrain="0" />
-    <immunity paralyze="0" />
-    <immunity outfit="0" />
-    <immunity drunk="1" />
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -41,4 +14,41 @@
     <flag targetdistance="1" />
     <flag runonhealth="5" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="0" />
+    <element firePercent="100" />
+    <element energyPercent="100" />
+    <element icePercent="0" />
+    <element deathPercent="0" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Die noob!" />
+    <voice yell="0" sentence="Valor who?" />
+    <voice yell="0" sentence="We'll be back!" />
+    <voice yell="0" sentence="You are history!" />
+    <voice yell="0" sentence="I'll rook you all!" />
+    <voice yell="0" sentence="You all are noobs!" />
+    <voice yell="0" sentence="There are no dragons!" />
+    <voice yell="0" sentence="Beware of the cyclops!" />
+    <voice yell="0" sentence="Just had a disconnect." />
+    <voice yell="0" sentence="We don't need a future!" />
+    <voice yell="0" sentence="I'll quit forever! Again ..." />
+    <voice yell="0" sentence="There can only be one world!" />
+    <voice yell="0" sentence="They thought they'd beaten us!" />
+    <voice yell="0" sentence="Magic is only good for girls!" />
+  </voices>
+  <defenses mitigation="0" defense="0" armor="0" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

@@ -1,21 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Acolyte of the Cult" nameDescription="an acolyte of the cult" speed="230" experience="300" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Acolyte of the Cult" nameDescription="an acolyte of the cult" race="blood" speed="200" experience="300" manacost="0">
   <health now="390" max="390" />
-  <look typeex="0" type="194" head="114" body="121" legs="121" feet="57" corpse="6080" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Praise voodoo!" />
-  </voices>
-  <elements>
-    <element holyPercent="20" />
-    <element earthPercent="10" />
-    <element icePercent="10" />
-    <element physicalPercent="-10" />
-    <element energyPercent="-10" />
-    <element deathPercent="-5" />
-  </elements>
-  <immunities>
-    <immunity invisible="1" />
-  </immunities>
+  <look typeex="0" type="194" head="95" body="100" legs="100" feet="19" corpse="6080" />
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -25,7 +11,33 @@
     <flag pushable="0" />
     <flag canpushitems="1" />
     <flag canpushcreatures="0" />
-    <flag targetdistance="5" />
+    <flag targetdistance="4" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="-10" />
+    <element earthpercent="20" />
+    <element firePercent="0" />
+    <element energyPercent="-10" />
+    <element icePercent="20" />
+    <element deathPercent="-5" />
+    <element holyPercent="20" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Praise the voodoo!" />
+    <voice yell="0" sentence="Power to the cult!" />
+    <voice yell="0" sentence="Feel the power of the cult!" />
+  </voices>
+  <defenses mitigation="1.13" defense="0" armor="30" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

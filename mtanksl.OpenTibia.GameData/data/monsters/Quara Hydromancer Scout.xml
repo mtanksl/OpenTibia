@@ -1,21 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Quara Hydromancer Scout" nameDescription="a quara hydromancer scout" speed="280" experience="800" race="undead">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Quara Hydromancer Scout" nameDescription="a quara hydromancer scout" race="blood" speed="190" experience="800" manacost="0">
   <health now="1100" max="1100" />
   <look typeex="0" type="47" head="0" body="0" legs="0" feet="0" corpse="6066" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Qua hah tsh!" />
-  </voices>
-  <elements>
-    <element energyPercent="-25" />
-    <element earthPercent="-10" />
-  </elements>
-  <immunities>
-    <immunity ice="1" />
-    <immunity fire="1" />
-    <immunity lifedrain="1" />
-    <immunity paralyze="1" />
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -28,4 +14,33 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="-10" />
+    <element firePercent="100" />
+    <element energyPercent="-10" />
+    <element icePercent="100" />
+    <element deathPercent="0" />
+    <element holyPercent="0" />
+    <element drownPercent="100" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="100" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Blup." />
+    <voice yell="0" sentence="Blubber." />
+    <voice yell="0" sentence="Qua hah tsh!" />
+    <voice yell="0" sentence="Tssssha Quara!" />
+    <voice yell="0" sentence="Quara tsha Fach!" />
+    <voice yell="0" sentence="Teech tsha tshul!" />
+  </voices>
+  <defenses mitigation="1.04" defense="0" armor="30" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Eternal Guardian" nameDescription="an eternal guardian" race="undead" speed="204" experience="1800" manacost="0">
+  <health now="2500" max="2500" />
+  <look typeex="0" type="345" head="0" body="0" legs="0" feet="0" corpse="11300" />
+  <flags>
+    <flag summonable="0" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="0" />
+    <flag convinceable="0" />
+    <flag pushable="0" />
+    <flag canpushitems="1" />
+    <flag canpushcreatures="1" />
+    <flag targetdistance="1" />
+    <flag runonhealth="0" />
+  </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="20" />
+    <element earthpercent="100" />
+    <element firePercent="70" />
+    <element energyPercent="10" />
+    <element icePercent="10" />
+    <element deathPercent="20" />
+    <element holyPercent="20" />
+    <element drownPercent="100" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Zzrkrrch!" />
+    <voice yell="0" sentence="&lt;crackle&gt;" />
+  </voices>
+  <defenses mitigation="1.18" defense="0" armor="62" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
+</monster>

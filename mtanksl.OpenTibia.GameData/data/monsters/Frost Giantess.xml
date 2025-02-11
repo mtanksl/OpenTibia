@@ -1,32 +1,45 @@
-<?xml version="1.0"?>
-<monster name="Frost Giantess" nameDescription="a frost giantess" speed="195" experience="150" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Frost Giantess" nameDescription="a frost giantess" race="blood" speed="194" experience="150" manacost="490">
   <health now="275" max="275" />
   <look typeex="0" type="265" head="0" body="0" legs="0" feet="0" corpse="7330" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Ymirs Mjalle!" />
-    <voice sentence="No run so much, must stay fat!" />
-    <voice sentence="Horre, Sjan Flan!" />
-    <voice sentence="Damned fast food." />
-    <voice sentence="Come kiss the cook!" />
-  </voices>
-  <elements>
-    <element icePercent="100" />
-    <element firePercent="20" />
-    <element holyPercent="10" />
-    <element energyPercent="-10" />
-    <element deathPercent="-5" />
-  </elements>
   <flags>
-    <flag summonable="0" />
+    <flag summonable="1" />
     <flag attackable="1" />
     <flag hostile="1" />
     <flag illusionable="1" />
     <flag convinceable="1" />
     <flag pushable="0" />
     <flag canpushitems="1" />
-    <flag lightlevel="0" />
-    <flag lightcolor="0" />
-    <flag targetdistance="8" />
+    <flag canpushcreatures="1" />
+    <flag targetdistance="4" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="0" />
+    <element firePercent="20" />
+    <element energyPercent="-10" />
+    <element icePercent="100" />
+    <element deathPercent="-3" />
+    <element holyPercent="10" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="1000" chance="5">
+    <voice yell="0" sentence="Ymirs Mjalle!" />
+    <voice yell="0" sentence="Hörre Sjan Flan!" />
+    <voice yell="0" sentence="Damned fast food." />
+    <voice yell="0" sentence="Come kiss the cook!" />
+    <voice yell="0" sentence="No run so much, must stay fat!" />
+  </voices>
+  <defenses mitigation="0.67" defense="0" armor="20" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

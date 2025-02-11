@@ -1,5 +1,5 @@
-<?xml version="1.0"?>
-<monster name="Hyaena" nameDescription="a hyaena" speed="206" experience="20" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Hyaena" nameDescription="a hyaena" race="blood" speed="196" experience="20" manacost="275">
   <health now="60" max="60" />
   <look typeex="0" type="94" head="0" body="0" legs="0" feet="0" corpse="6026" />
   <flags>
@@ -14,4 +14,29 @@
     <flag targetdistance="1" />
     <flag runonhealth="30" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="0" />
+    <element firePercent="0" />
+    <element energyPercent="0" />
+    <element icePercent="0" />
+    <element deathPercent="0" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Grrrrrr" />
+    <voice yell="0" sentence="Hou hou hou!" />
+  </voices>
+  <defenses mitigation="0.13" defense="0" armor="1" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

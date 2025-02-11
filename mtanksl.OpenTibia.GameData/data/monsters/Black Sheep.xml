@@ -1,21 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Black Sheep" nameDescription="a black sheep" speed="200" experience="0" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Black Sheep" nameDescription="a black sheep" race="blood" speed="116" experience="0" manacost="250">
   <health now="20" max="20" />
   <look typeex="0" type="13" head="0" body="0" legs="0" feet="0" corpse="5994" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Maeh" />
-  </voices>
-  <immunities>
-    <immunity physical="0" />
-    <immunity energy="0" />
-    <immunity fire="0" />
-    <immunity poison="0" />
-    <immunity lifedrain="0" />
-    <immunity paralyze="0" />
-    <immunity outfit="0" />
-    <immunity drunk="0" />
-    <immunity invisible="0" />
-  </immunities>
   <flags>
     <flag summonable="1" />
     <flag attackable="1" />
@@ -28,4 +14,28 @@
     <flag targetdistance="1" />
     <flag runonhealth="20" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="0" />
+    <element firePercent="-5" />
+    <element energyPercent="0" />
+    <element icePercent="0" />
+    <element deathPercent="0" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Maeh" />
+  </voices>
+  <defenses mitigation="0.05" defense="0" armor="1" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

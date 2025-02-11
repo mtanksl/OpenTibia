@@ -1,11 +1,47 @@
-<?xml version="1.0"?>
-<monster name="Amazon" nameDescription="an amazon" speed="210" experience="60" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Amazon" nameDescription="an amazon" race="blood" speed="172" experience="60" manacost="390">
   <health now="110" max="110" />
-  <look typeex="0" type="137" head="113" body="120" legs="114" feet="132" corpse="6081" />
+  <look typeex="0" type="137" head="113" body="120" legs="95" feet="115" corpse="6081" />
+  <flags>
+    <flag summonable="1" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="1" />
+    <flag convinceable="1" />
+    <flag pushable="1" />
+    <flag canpushitems="1" />
+    <flag canpushcreatures="1" />
+    <flag targetdistance="4" />
+    <flag runonhealth="0" />
+  </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="-5" />
+    <element earthpercent="0" />
+    <element firePercent="0" />
+    <element energyPercent="0" />
+    <element icePercent="0" />
+    <element deathPercent="-5" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
   <voices interval="5000" chance="10">
-    <voice sentence="Yeeee ha!" />
-    <voice sentence="Your head shall be mine!" />
+    <voice yell="0" sentence="Yeeee ha!" />
+    <voice yell="0" sentence="Your head will be mine!" />
+    <voice yell="0" sentence="Your head shall be mine!" />
   </voices>
+  <defenses mitigation="0.28" defense="0" armor="10" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks>
+    <attack name="melee" interval="2000" chance="90" min="0" max="45" />
+    <attack name="knives" interval="2000" chance="90" min="0" max="40" />
+  </attacks>
 	<loot>
 		<item id="2229" countmax="2" killsToGetOne="2" />   <!-- skull -->
 		<item id="2379" killsToGetOne="2" />				        <!-- dagger -->
@@ -16,25 +52,4 @@
 		<item id="2125" killsToGetOne="421" />			        <!-- crystal necklace -->
 		<item id="2147" countmax="1" killsToGetOne="793" /> <!-- small ruby -->
 	</loot>
-  <elements>
-    <element physicalPercent="-8" />
-    <element deathPercent="-7" />
-  </elements>
-  <flags>
-    <flag summonable="1" />
-    <flag attackable="1" />
-    <flag hostile="1" />
-    <flag illusionable="1" />
-    <flag convinceable="1" />
-    <flag pushable="0" />
-    <flag canpushitems="1" />
-    <flag canpushcreatures="0" />
-    <flag targetdistance="4" />
-    <flag runonhealth="10" />
-  </flags>
-  <defenses defense="0" armor="10" />
-  <attacks>
-    <attack name="melee" interval="2000" chance="100" min="0" max="45" />
-    <attack name="knives" interval="2000" chance="15" min="0" max="40" />
-  </attacks>
 </monster>

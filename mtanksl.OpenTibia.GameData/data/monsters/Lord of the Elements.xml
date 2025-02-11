@@ -1,19 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Lord of the Elements" nameDescription="Lord of the Elements" speed="370" experience="8000" race="undead">
-  <health now="10000" max="10000" />
-  <look typeex="0" type="290" head="0" body="0" legs="0" feet="0" corpse="9009" />
-  <elements>
-    <element icePercent="30" />
-    <element energyPercent="30" />
-  </elements>
-  <immunities>
-    <immunity holy="1" />
-    <immunity earth="1" />
-    <immunity physical="1" />
-    <immunity fire="1" />
-    <immunity death="1" />
-    <immunity invisible="1" />
-  </immunities>
+<?xml version="1.0" encoding="utf-8"?>
+<monster name="Lord of the Elements" nameDescription="Lord of the Elements" race="undead" speed="196" experience="8000" manacost="0">
+  <health now="8000" max="8000" />
+  <look typeex="0" type="290" head="0" body="0" legs="0" feet="0" corpse="8966" />
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -26,4 +14,29 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="50" />
+    <element earthpercent="45" />
+    <element firePercent="30" />
+    <element energyPercent="30" />
+    <element icePercent="30" />
+    <element deathPercent="100" />
+    <element holyPercent="100" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="WHO DARES CALLING ME?"/>
+    <voice yell="0" sentence="I'LL FREEZE YOU THEN I CRUSH YOU!"/>
+  </voices>
+  <defenses mitigation="0" defense="0" armor="0" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

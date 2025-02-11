@@ -1,26 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Ungreez" nameDescription="an ungreez" speed="330" experience="5000" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Ungreez" nameDescription="Ungreez" race="fire" speed="240" experience="500" manacost="0">
   <health now="8200" max="8200" />
   <look typeex="0" type="35" head="0" body="0" legs="0" feet="0" corpse="5995" />
-  <voices interval="5000" chance="10">
-    <voice sentence="I'll teach you that even heros can die" />
-    <voice sentence="You wil die Begging like the others did" />
-  </voices>
-  <elements>
-    <element physicalPercent="25" />
-    <element icePercent="-15" />
-  </elements>
-  <immunities>
-    <immunity physical="0" />
-    <immunity energy="1" />
-    <immunity fire="1" />
-    <immunity poison="0" />
-    <immunity lifedrain="1" />
-    <immunity paralyze="1" />
-    <immunity outfit="1" />
-    <immunity drunk="1" />
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -33,4 +14,29 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="30" />
+    <element earthpercent="60" />
+    <element firePercent="100" />
+    <element energyPercent="55" />
+    <element icePercent="-5" />
+    <element deathPercent="20" />
+    <element holyPercent="-5" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="1" sentence="I'll teach you that even heros can die" />
+    <voice yell="1" sentence="You wil die Begging like the others did" />
+  </voices>
+  <defenses mitigation="0" defense="0" armor="0" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

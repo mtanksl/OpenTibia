@@ -1,32 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Cyclops" nameDescription="a cyclops" speed="200" experience="150" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Cyclops" nameDescription="a cyclops" race="blood" speed="190" experience="150" manacost="490">
   <health now="260" max="260" />
   <look typeex="0" type="22" head="0" body="0" legs="0" feet="0" corpse="5962" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Il lorstok human!" />
-    <voice sentence="Toks utat." />
-    <voice sentence="Human, uh whil dyh!" />
-    <voice sentence="Youh ah trak!" />
-    <voice sentence="Let da mashing begin!" />
-  </voices>
-	<loot>
-		<item id="2148" countmax="47" killsToGetOne="2" /> <!-- gold coin -->
-		<item id="2666" countmax="3" killsToGetOne="4" />	 <!-- meat -->
-		<item id="2406" killsToGetOne="13" />							 <!-- short sword -->
-		<item id="2511" killsToGetOne="40" />							 <!-- brass shield -->
-		<item id="2513" killsToGetOne="67" />							 <!-- battle shield -->
-		<item id="2381" killsToGetOne="102" />						 <!-- halberd -->
-		<item id="2129" killsToGetOne="357" />						 <!-- wolf tooth chain -->
-		<item id="2490" killsToGetOne="428" />						 <!-- dark helmet -->
-		<item id="7618" killsToGetOne="713" />						 <!-- health potion -->
-		<item id="2209" killsToGetOne="2038" />						 <!-- club ring -->
-	</loot>
-  <elements>
-    <element energyPercent="25" />
-    <element holyPercent="20" />
-    <element earthPercent="-10" />
-    <element deathPercent="-10" />
-  </elements>
   <flags>
     <flag summonable="1" />
     <flag attackable="1" />
@@ -39,8 +14,45 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
-  <defenses defense="0" armor="17" />
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="-10" />
+    <element firePercent="0" />
+    <element energyPercent="25" />
+    <element icePercent="0" />
+    <element deathPercent="-10" />
+    <element holyPercent="20" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Toks utat." />
+    <voice yell="0" sentence="Youh ah trak!" />
+    <voice yell="0" sentence="Il lorstok human!" />
+    <voice yell="0" sentence="Human, uh whil dyh!" />
+    <voice yell="0" sentence="Let da mashing begin!" />
+  </voices>
+  <defenses mitigation="0.62" defense="0" armor="17" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
   <attacks>
-    <attack name="melee" interval="2000" chance="100" min="0" max="105" />
+    <attack name="melee" interval="2000" chance="90" min="0" max="105" />
   </attacks>
+	<loot>
+		<item id="2148" countmax="47" killsToGetOne="2" /> <!-- gold coin -->
+		<item id="2666" countmax="3" killsToGetOne="4" />	 <!-- meat -->
+		<item id="2406" killsToGetOne="13" />							 <!-- short sword -->
+		<item id="2511" killsToGetOne="40" />							 <!-- brass shield -->
+		<item id="2513" killsToGetOne="67" />							 <!-- battle shield -->
+		<item id="2381" killsToGetOne="102" />						 <!-- halberd -->
+		<item id="2129" killsToGetOne="357" />						 <!-- wolf tooth chain -->
+		<item id="2490" killsToGetOne="428" />						 <!-- dark helmet -->
+		<item id="7618" killsToGetOne="713" />						 <!-- health potion -->
+		<item id="2209" killsToGetOne="2038" />						 <!-- club ring -->
+	</loot>
 </monster>

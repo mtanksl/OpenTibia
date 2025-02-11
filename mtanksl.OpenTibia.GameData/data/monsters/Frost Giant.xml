@@ -1,18 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Frost Giant" nameDescription="a frost giant" speed="195" experience="150" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Frost Giant" nameDescription="a frost giant" race="blood" speed="190" experience="150" manacost="490">
   <health now="270" max="270" />
   <look typeex="0" type="257" head="0" body="0" legs="0" feet="0" corpse="7330" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Hmm Humansoup" />
-    <voice sentence="Stand still ya tasy snack!" />
-    <voice sentence="Joh Thun!" />
-    <voice sentence="Brore Smode!" />
-    <voice sentence="Horre Sjan Flan!" />
-    <voice sentence="Forle Bramma!" />
-  </voices>
-  <elements>
-    <element icePercent="100" />
-  </elements>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -21,9 +10,37 @@
     <flag convinceable="1" />
     <flag pushable="0" />
     <flag canpushitems="1" />
-    <flag lightlevel="0" />
-    <flag lightcolor="0" />
+    <flag canpushcreatures="1" />
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="0" />
+    <element firePercent="0" />
+    <element energyPercent="0" />
+    <element icePercent="100" />
+    <element deathPercent="0" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="1000" chance="5">
+    <voice yell="0" sentence="Joh Thun!" />
+    <voice yell="0" sentence="Bröre Smöde!" />
+    <voice yell="0" sentence="Forle Bramma" />
+    <voice yell="0" sentence="Hmm Humansoup!" />
+    <voice yell="0" sentence="Hörre Sjan Flan!" />
+    <voice yell="0" sentence="Stand still ya tasy snack!" />
+  </voices>
+  <defenses mitigation="0.46" defense="0" armor="22" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

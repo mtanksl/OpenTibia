@@ -1,26 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Orshabaal" nameDescription="Orshabaal" speed="380" experience="9999" race="fire">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Orshabaal" nameDescription="Orshabaal" race="fire" speed="540" experience="10000" manacost="0">
   <health now="22500" max="22500" />
   <look typeex="0" type="201" head="0" body="0" legs="0" feet="0" corpse="2916" />
-  <voices interval="5000" chance="10">
-    <voice sentence="PRAISED BE MY MASTERS, THE RUTHLESS SEVEN!" />
-    <voice sentence="YOU ARE DOOMED!" />
-    <voice sentence="ORSHABAAL IS BACK!" />
-    <voice sentence="Be prepared for the day my masters will come for you!" />
-    <voice sentence="SOULS FOR ORSHABAAL!" />
-  </voices>
-  <elements>
-    <element firePercent="100" />
-    <element earthPercent="100" />
-    <element deathPercent="50" />
-    <element icePercent="-20" />
-    <element holyPercent="-25" />
-  </elements>
-  <immunities>
-    <immunity lifedrain="1" />
-    <immunity paralyze="1" />
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -33,4 +14,32 @@
     <flag targetdistance="1" />
     <flag runonhealth="2500" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="100" />
+    <element earthpercent="100" />
+    <element firePercent="100" />
+    <element energyPercent="80" />
+    <element icePercent="100" />
+    <element deathPercent="50" />
+    <element holyPercent="100" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="100" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="YOU ARE DOOMED!" />
+    <voice yell="0" sentence="ORSHABAAL IS BACK!" />
+    <voice yell="0" sentence="SOULS FOR ORSHABAAL!" />
+    <voice yell="0" sentence="PRAISED BE MY MASTERS, THE RUTHLESS SEVEN!" />
+    <voice yell="0" sentence="Be prepared for the day my masters will come for you!" />
+  </voices>
+  <defenses mitigation="0" defense="0" armor="90" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

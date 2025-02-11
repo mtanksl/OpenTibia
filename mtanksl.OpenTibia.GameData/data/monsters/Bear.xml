@@ -1,17 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Bear" nameDescription="a bear" speed="176" experience="23" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Bear" nameDescription="a bear" race="blood" speed="156" experience="23" manacost="300">
   <health now="80" max="80" />
   <look typeex="0" type="16" head="0" body="0" legs="0" feet="0" corpse="5975" />
-  <voices interval="5000" chance="10">
-    <voice sentence="grrrr" />
-    <voice sentence="groar" />
-  </voices>
-  <elements>
-    <element earthPercent="20" />
-    <element holyPercent="7" />
-    <element icePercent="-10" />
-    <element deathPercent="-4" />
-  </elements>
   <flags>
     <flag summonable="1" />
     <flag attackable="1" />
@@ -24,4 +14,29 @@
     <flag targetdistance="1" />
     <flag runonhealth="15" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="0" />
+    <element firePercent="0" />
+    <element energyPercent="0" />
+    <element icePercent="-10" />
+    <element deathPercent="-5" />
+    <element holyPercent="10" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Grrrr" />
+    <voice yell="0" sentence="Groar" />
+  </voices>
+  <defenses mitigation="0.15" defense="0" armor="6" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

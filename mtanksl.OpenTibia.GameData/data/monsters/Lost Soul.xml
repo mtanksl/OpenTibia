@@ -1,23 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Lost Soul" nameDescription="a lost soul" speed="250" experience="4000" race="undead">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Lost Soul" nameDescription="a lost soul" race="undead" speed="380" experience="4000" manacost="0">
   <health now="5800" max="5800" />
   <look typeex="0" type="232" head="0" body="0" legs="0" feet="0" corpse="6310" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Forgive Meeeee!" />
-    <voice sentence="Mouuuurn meeee!" />
-  </voices>
-  <elements>
-    <element firePercent="100" />
-    <element deathPercent="100" />
-    <element earthPercent="100" />
-    <element icePercent="50" />
-    <element energyPercent="30" />
-    <element holyPercent="-20" />
-  </elements>
-  <immunities>
-    <immunity paralyze="1" />
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -28,6 +12,32 @@
     <flag canpushitems="1" />
     <flag canpushcreatures="1" />
     <flag targetdistance="1" />
-    <flag runonhealth="0" />
+    <flag runonhealth="450" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="100" />
+    <element firePercent="100" />
+    <element energyPercent="10" />
+    <element icePercent="50" />
+    <element deathPercent="100" />
+    <element holyPercent="-25" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="100" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Help meeee!" />
+    <voice yell="0" sentence="Forgive Meeeee!" />
+    <voice yell="0" sentence="Mouuuurn meeee!" />
+  </voices>
+  <defenses mitigation="1.6" defense="0" armor="28" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

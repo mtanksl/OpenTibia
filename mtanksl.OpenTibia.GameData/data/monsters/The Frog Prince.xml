@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="The Frog Prince" nameDescription="The Frog Prince" race="blood" speed="320" experience="1" manacost="0">
+  <health now="55" max="55" />
+  <look typeex="0" type="224" head="0" body="0" legs="0" feet="0" corpse="6079" />
+  <flags>
+    <flag summonable="0" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="0" />
+    <flag convinceable="0" />
+    <flag pushable="1" />
+    <flag canpushitems="0" />
+    <flag canpushcreatures="0" />
+    <flag targetdistance="1" />
+    <flag runonhealth="0" />
+  </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="98" />
+    <element earthpercent="80" />
+    <element firePercent="90" />
+    <element energyPercent="90" />
+    <element icePercent="90" />
+    <element deathPercent="0" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="1000" chance="2">
+    <voice yell="0" sentence="Have mercy!" />
+    <voice yell="0" sentence="Don't Kill me!!!" />
+    <voice yell="0" sentence="Perhaps a kiss might release me!" />
+  </voices>
+  <defenses mitigation="0" defense="0" armor="0" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
+</monster>

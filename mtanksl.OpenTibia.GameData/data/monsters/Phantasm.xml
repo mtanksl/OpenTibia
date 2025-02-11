@@ -1,26 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Phantasm" nameDescription="a phantasm" speed="280" experience="3300" race="undead">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Phantasm" nameDescription="a phantasm" race="undead" speed="340" experience="4400" manacost="0">
   <health now="3950" max="3950" />
-  <look typeex="0" type="241" head="20" body="0" legs="0" feet="0" corpse="6344" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Oh my, you forgot to put your pants on!" />
-    <voice sentence="Weeheeheeheehee!" />
-    <voice sentence="Its nothing but a dream!" />
-    <voice sentence="Give in!" />
-  </voices>
-  <elements>
-    <element deathPercent="100" />
-    <element physicalPercent="100" />
-    <element earthPercent="70" />
-    <element icePercent="70" />
-    <element holyPercent="-25" />
-    <element firePercent="-24" />
-    <element icePercent="-22" />
-  </elements>
-  <immunities>
-    <immunity paralyze="1" />
-    <immunity invisible="1" />
-  </immunities>
+  <look typeex="0" type="241" head="0" body="0" legs="0" feet="0" corpse="6344" />
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -31,6 +12,33 @@
     <flag canpushitems="1" />
     <flag canpushcreatures="1" />
     <flag targetdistance="1" />
-    <flag runonhealth="0" />
+    <flag runonhealth="350" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="100" />
+    <element earthpercent="20" />
+    <element firePercent="-10" />
+    <element energyPercent="-10" />
+    <element icePercent="20" />
+    <element deathPercent="100" />
+    <element holyPercent="-10" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="100" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Give in!" />
+    <voice yell="0" sentence="Weeheeheeheehee!" />
+    <voice yell="0" sentence="Its nothing but a dream!" />
+    <voice yell="0" sentence="Oh my, you forgot to put your pants on!" />
+  </voices>
+  <defenses mitigation="1.1" defense="0" armor="80" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

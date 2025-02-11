@@ -1,24 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Undead Gladiator" nameDescription="a undead gladiator" speed="270" experience="800" race="undead">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Undead Gladiator" nameDescription="an undead gladiator" race="undead" speed="220" experience="800" manacost="0">
   <health now="1000" max="1000" />
   <look typeex="0" type="306" head="0" body="0" legs="0" feet="0" corpse="9823" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Let's battle it out in a duel!" />
-    <voice sentence="Bring it!" />
-    <voice sentence="I'll fight here in eternity and beyond." />
-    <voice sentence="I will not give up!" />
-    <voice sentence="Another foolish adventurer who tries to beat me." />
-  </voices>
-  <elements>
-    <element earthPercent="-5" />
-    <element holyPercent="10" />
-    <element firePercent="80" />
-    <element energyPercent="20" />
-    <element deathPercent="-5" />
-  </elements>
-  <immunities>
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -31,4 +14,32 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="-10" />
+    <element firePercent="80" />
+    <element energyPercent="20" />
+    <element icePercent="0" />
+    <element deathPercent="-5" />
+    <element holyPercent="10" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Bring it!" />
+    <voice yell="0" sentence="I will not give up!" />
+    <voice yell="0" sentence="Let's battle it out in a duel!" />
+    <voice yell="0" sentence="I'll fight here in eternity and beyond." />
+    <voice yell="0" sentence="Another foolish adventurer who tries to beat me." />
+  </voices>
+  <defenses mitigation="1.54" defense="0" armor="35" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

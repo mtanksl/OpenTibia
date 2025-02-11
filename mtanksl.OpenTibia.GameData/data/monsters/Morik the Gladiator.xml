@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Morik the Gladiator" nameDescription="Morik the Gladiator" race="blood" speed="200" experience="160" manacost="0">
+  <health now="1235" max="1235" />
+  <look typeex="0" type="131" head="57" body="57" legs="57" feet="57" corpse="6080" />
+  <flags>
+    <flag summonable="0" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="0" />
+    <flag convinceable="0" />
+    <flag pushable="0" />
+    <flag canpushitems="1" />
+    <flag canpushcreatures="1" />
+    <flag targetdistance="1" />
+    <flag runonhealth="50" />
+  </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="10" />
+    <element firePercent="10" />
+    <element energyPercent="10" />
+    <element icePercent="10" />
+    <element deathPercent="100" />
+    <element holyPercent="10" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="1000" chance="2">
+    <voice yell="0" sentence="I am the best!" />
+    <voice yell="0" sentence="I'll take your ears as a trophy!" />
+    <voice yell="0" sentence="To be the one you'll have to beat the one!" />
+    <voice yell="0" sentence="Where did I put my ultimate health potion again?" />
+  </voices>
+  <defenses mitigation="0" defense="0" armor="0" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
+</monster>

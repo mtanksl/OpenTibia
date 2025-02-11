@@ -1,26 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Hero" nameDescription="a hero" speed="268" experience="1200" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Hero" nameDescription="a hero" race="blood" speed="280" experience="1200" manacost="0">
   <health now="1400" max="1400" />
   <look typeex="0" type="73" head="0" body="0" legs="0" feet="0" corpse="6080" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Let's have a fight!" />
-    <voice sentence="Welcome to my battleground." />
-    <voice sentence="Have you seen princess Lumelia?" />
-    <voice sentence="I will sing a tune at your grave." />
-  </voices>
-  <elements>
-    <element energyPercent="25" />
-    <element icePercent="20" />
-    <element firePercent="20" />
-    <element holyPercent="20" />
-    <element earthPercent="20" />
-    <element physicalPercent="15" />
-    <element deathPercent="-37" />
-  </elements>
-  <immunities>
-    <immunity paralyze="1" />
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -33,4 +14,31 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="10" />
+    <element earthpercent="50" />
+    <element firePercent="30" />
+    <element energyPercent="40" />
+    <element icePercent="10" />
+    <element deathPercent="-20" />
+    <element holyPercent="50" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Let's have a fight!" />
+    <voice yell="0" sentence="Welcome to my battleground!" />
+    <voice yell="0" sentence="Have you seen princess Lumelia?" />
+    <voice yell="0" sentence="I will sing a tune at your grave." />
+  </voices>
+  <defenses mitigation="1.32" defense="0" armor="35" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

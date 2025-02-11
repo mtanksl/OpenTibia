@@ -1,18 +1,9 @@
-<?xml version="1.0"?>
-<monster name="Goblin Assassin" nameDescription="a goblin assassin" speed="220" experience="52" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Goblin Assassin" nameDescription="a goblin assassin" race="blood" speed="140" experience="52" manacost="360">
   <health now="75" max="75" />
   <look typeex="0" type="296" head="0" body="0" legs="0" feet="0" corpse="6002" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Goblin Powahhh!" />
-  </voices>
-  <elements>
-    <element energyPercent="10" />
-    <element earthPercent="-10" />
-    <element holyPercent="5" />
-    <element deathPercent="-15" />
-  </elements>
   <flags>
-    <flag summonable="1" />
+    <flag summonable="0" />
     <flag attackable="1" />
     <flag hostile="1" />
     <flag illusionable="1" />
@@ -23,4 +14,32 @@
     <flag targetdistance="1" />
     <flag runonhealth="15" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="-10" />
+    <element firePercent="0" />
+    <element energyPercent="20" />
+    <element icePercent="0" />
+    <element deathPercent="-10" />
+    <element holyPercent="20" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Gobabunga!" />
+    <voice yell="0" sentence="Me kill you!" />
+    <voice yell="0" sentence="Gooobliiiins!" />
+    <voice yell="0" sentence="Goblin Powahhh!" />
+    <voice yell="0" sentence="Me green menace!" />
+  </voices>
+  <defenses mitigation="0.15" defense="0" armor="6" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

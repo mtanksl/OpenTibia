@@ -1,23 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Dark Magician" nameDescription="a dark magician" speed="220" experience="185" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Dark Magician" nameDescription="a dark magician" race="blood" speed="180" experience="185" manacost="0">
   <health now="325" max="325" />
-  <look typeex="0" type="133" head="116" body="95" legs="50" feet="132" corpse="6080" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Feel the power of my runes!" />
-    <voice sentence="Killing you is getting expensive!" />
-    <voice sentence="My secrets are mine alone!" />
-  </voices>
-  <elements>
-    <element firePercent="10" />
-    <element earthPercent="8" />
-    <element energyPercent="8" />
-    <element icePercent="8" />
-    <element holyPercent="5" />
-    <element deathPercent="-6" />
-  </elements>
-  <immunities>
-    <immunity invisible="1" />
-  </immunities>
+  <look typeex="0" type="133" head="58" body="95" legs="51" feet="131" corpse="6080" />
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -28,6 +12,33 @@
     <flag canpushitems="1" />
     <flag canpushcreatures="1" />
     <flag targetdistance="4" />
-    <flag runonhealth="800" />
+    <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="20" />
+    <element firePercent="10" />
+    <element energyPercent="20" />
+    <element icePercent="10" />
+    <element deathPercent="-5" />
+    <element holyPercent="20" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Stand Still!" />
+    <voice yell="0" sentence="My secrets are mine alone!" />
+    <voice yell="0" sentence="Feel the power of my runes!" />
+    <voice yell="0" sentence="Killing you is getting expensive!" />
+  </voices>
+  <defenses mitigation="0.64" defense="0" armor="15" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

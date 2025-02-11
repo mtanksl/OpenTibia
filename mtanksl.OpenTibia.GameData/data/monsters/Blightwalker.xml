@@ -1,33 +1,43 @@
-<?xml version="1.0"?>
-<monster name="Blightwalker" nameDescription="a blightwalker" speed="240" experience="3350" race="undead">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Blightwalker" nameDescription="a blightwalker" race="undead" speed="350" experience="5850" manacost="0">
   <health now="8900" max="8900" />
   <look typeex="0" type="246" head="0" body="0" legs="0" feet="0" corpse="6354" />
-  <voices interval="5000" chance="10">
-    <voice sentence="I can see you decaying!" />
-    <voice sentence="Let me taste your mortality!" />
-  </voices>
-  <elements>
-    <element earthPercent="100" />
-    <element deathPercent="100" />
-    <element firePercent="60" />
-    <element energyPercent="40" />
-    <element icePercent="33" />
-    <element physicalPercent="-5" />
-    <element holyPercent="-30" />
-  </elements>
-  <immunities>
-    <immunity paralyze="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
     <flag hostile="1" />
-    <flag illusionable="1" />
+    <flag illusionable="0" />
     <flag convinceable="0" />
     <flag pushable="0" />
     <flag canpushitems="1" />
     <flag canpushcreatures="1" />
     <flag targetdistance="1" />
-    <flag runonhealth="0" />
+    <flag runonhealth="800" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="-10" />
+    <element earthpercent="100" />
+    <element firePercent="50" />
+    <element energyPercent="20" />
+    <element icePercent="50" />
+    <element deathPercent="100" />
+    <element holyPercent="-30" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="I can see you decaying!" />
+    <voice yell="0" sentence="Your lifeforce is waning!" />
+    <voice yell="0" sentence="Let me taste your mortality!" />
+  </voices>
+  <defenses mitigation="1.18" defense="0" armor="63" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

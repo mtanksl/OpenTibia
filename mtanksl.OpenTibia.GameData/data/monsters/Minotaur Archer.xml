@@ -1,27 +1,42 @@
-<?xml version="1.0"?>
-<monster name="Minotaur Archer" nameDescription="a minotaur archer" speed="170" experience="65" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Minotaur Archer" nameDescription="a minotaur archer" race="blood" speed="160" experience="65" manacost="390">
   <health now="100" max="100" />
   <look typeex="0" type="24" head="0" body="0" legs="0" feet="0" corpse="5982" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Ruan Wihmpy!" />
-    <voice sentence="Kaplar!" />
-  </voices>
-  <elements>
-    <element firePercent="20" />
-    <element holyPercent="10" />
-    <element icePercent="-10" />
-    <element deathPercent="-5" />
-  </elements>
   <flags>
     <flag summonable="1" />
     <flag attackable="1" />
     <flag hostile="1" />
     <flag illusionable="1" />
     <flag convinceable="1" />
-    <flag pushable="0" />
+    <flag pushable="1" />
     <flag canpushitems="0" />
     <flag canpushcreatures="0" />
     <flag targetdistance="4" />
-    <flag runonhealth="10" />
+    <flag runonhealth="29" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="0" />
+    <element firePercent="20" />
+    <element energyPercent="0" />
+    <element icePercent="-10" />
+    <element deathPercent="-5" />
+    <element holyPercent="10" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Kaplar!" />
+    <voice yell="0" sentence="Ruan Wihmpy!" />
+  </voices>
+  <defenses mitigation="0.2" defense="0" armor="6" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

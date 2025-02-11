@@ -1,10 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Son of Verminor" nameDescription="a son of verminor" speed="120" experience="5900" race="venom">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Son of Verminor" nameDescription="Son of Verminor" race="venom" speed="240" experience="5900" manacost="0">
   <health now="8500" max="8500" />
   <look typeex="0" type="19" head="0" body="0" legs="0" feet="0" corpse="1496" />
-  <immunities>
-    <immunity poison="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -13,8 +10,32 @@
     <flag convinceable="0" />
     <flag pushable="0" />
     <flag canpushitems="1" />
-    <flag canpushcreatures="0" />
+    <flag canpushcreatures="1" />
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="100" />
+    <element firePercent="10" />
+    <element energyPercent="20" />
+    <element icePercent="0" />
+    <element deathPercent="0" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Blubb" />
+  </voices>
+  <defenses mitigation="1.32" defense="0" armor="48" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

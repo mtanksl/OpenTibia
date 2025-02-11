@@ -1,15 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Panda" nameDescription="a panda" speed="240" experience="23" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Panda" nameDescription="a panda" race="blood" speed="156" experience="23" manacost="300">
   <health now="80" max="80" />
   <look typeex="0" type="123" head="0" body="0" legs="0" feet="0" corpse="6049" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Grrrr" />
-    <voice sentence="Groar" />
-  </voices>
-  <elements>
-    <element earthPercent="100" />
-    <element firePercent="-4" />
-  </elements>
   <flags>
     <flag summonable="1" />
     <flag attackable="1" />
@@ -22,4 +14,29 @@
     <flag targetdistance="1" />
     <flag runonhealth="15" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="100" />
+    <element firePercent="-10" />
+    <element energyPercent="0" />
+    <element icePercent="0" />
+    <element deathPercent="0" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Grrrr" />
+    <voice yell="0" sentence="Groar" />
+  </voices>
+  <defenses mitigation="0.2" defense="0" armor="8" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

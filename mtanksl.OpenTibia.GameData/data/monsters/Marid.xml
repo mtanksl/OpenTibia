@@ -1,25 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Marid" nameDescription="a marid" speed="170" experience="325" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Marid" nameDescription="a marid" race="blood" speed="234" experience="410" manacost="0">
   <health now="550" max="550" />
   <look typeex="0" type="104" head="0" body="0" legs="0" feet="0" corpse="6033" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Simsalabim" />
-    <voice sentence="Feel the power of my magic, tiny mortal!" />
-    <voice sentence="Wishes can come true." />
-    <voice sentence="Djinns will soon again be the greatest!" />
-  </voices>
-  <elements>
-    <element firePercent="90" />
-    <element earthPercent="70" />
-    <element energyPercent="60" />
-    <element holyPercent="30" />
-    <element icePercent="-20" />
-    <element deathPercent="-15" />
-  </elements>
-  <immunities>
-    <immunity paralyze="1" />
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -32,4 +14,32 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="10" />
+    <element firePercent="90" />
+    <element energyPercent="60" />
+    <element icePercent="-5" />
+    <element deathPercent="-8" />
+    <element holyPercent="20" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Simsalabim" />
+    <voice yell="0" sentence="Wishes can come true." />
+    <voice yell="0" sentence="Be careful what you wish." />
+    <voice yell="0" sentence="Djinns will soon again be the greatest!" />
+    <voice yell="0" sentence="Feel the power of my magic, tiny mortal!" />
+  </voices>
+  <defenses mitigation="0.91" defense="0" armor="24" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

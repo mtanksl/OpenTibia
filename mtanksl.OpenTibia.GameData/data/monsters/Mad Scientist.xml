@@ -1,24 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Mad Scientist" nameDescription="a mad scientist" speed="220" experience="205" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Mad Scientist" nameDescription="a mad scientist" race="blood" speed="180" experience="205" manacost="0">
   <health now="325" max="325" />
-  <look typeex="0" type="133" head="97" body="0" legs="38" feet="97" corpse="6080" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Die in the name of Science!" />
-    <voice sentence="You will regret interrupting my studies!" />
-    <voice sentence="Let me test this!" />
-    <voice sentence="I will study your corpse!" />
-  </voices>
-  <elements>
-    <element firePercent="10" />
-    <element earthPercent="20" />
-    <element energyPercent="20" />
-    <element icePercent="10" />
-    <element holyPercent="20" />
-    <element deathPercent="-15" />
-  </elements>
-  <immunities>
-    <immunity invisible="1" />
-  </immunities>
+  <look typeex="0" type="133" head="39" body="0" legs="19" feet="20" corpse="6080" />
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -31,4 +14,31 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="20" />
+    <element firePercent="10" />
+    <element energyPercent="20" />
+    <element icePercent="10" />
+    <element deathPercent="-5" />
+    <element holyPercent="20" />
+    <element drownPercent="100" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Let me test this!" />
+    <voice yell="0" sentence="I will study your corpse!" />
+    <voice yell="0" sentence="Die in the name of Science!" />
+    <voice yell="0" sentence="You will regret interrupting my studies!" />
+  </voices>
+  <defenses mitigation="0.64" defense="0" armor="15" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

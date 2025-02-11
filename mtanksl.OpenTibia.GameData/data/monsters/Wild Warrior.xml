@@ -1,16 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Wild Warrior" nameDescription="a wild warrior" speed="215" experience="55" race="blood">
-  <health now="120" max="120" />
+<?xml version="1.0" encoding="utf-8"?>
+<monster name="Wild Warrior" nameDescription="a wild warrior" race="blood" speed="190" experience="60" manacost="420">
+  <health now="135" max="135" />
   <look typeex="0" type="131" head="57" body="57" legs="57" feet="57" corpse="6080" />
-  <voices interval="5000" chance="10">
-    <voice sentence="An enemy!" />
-    <voice sentence="Gimme your money!" />
-  </voices>
-  <elements>
-    <element holyPercent="10" />
-    <element physicalPercent="-12" />
-    <element deathPercent="-5" />
-  </elements>
   <flags>
     <flag summonable="1" />
     <flag attackable="1" />
@@ -23,4 +14,29 @@
     <flag targetdistance="1" />
     <flag runonhealth="10" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="-5" />
+    <element earthpercent="0" />
+    <element firePercent="0" />
+    <element energyPercent="0" />
+    <element icePercent="0" />
+    <element deathPercent="-5" />
+    <element holyPercent="10" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="An enemy!" />
+    <voice yell="0" sentence="Gimme your money!" />
+  </voices>
+  <defenses mitigation="0.46" defense="0" armor="8" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

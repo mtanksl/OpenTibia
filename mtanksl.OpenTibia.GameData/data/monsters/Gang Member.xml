@@ -1,26 +1,45 @@
-<?xml version="1.0"?>
-<monster name="Gang Member" nameDescription="a gang member" speed="220" experience="70" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Gang Member" nameDescription="a gang member" race="blood" speed="190" experience="70" manacost="450">
   <health now="295" max="295" />
-  <look typeex="0" type="151" head="114" body="19" legs="42" feet="20" corpse="3058" />
-  <voices interval="5000" chance="10">
-    <voice sentence="This is our territory!" />
-    <voice sentence="Help me guys!" />
-    <voice sentence="I don't like the way you look!" />
-    <voice sentence="You're wearing the wrong colours!" />
-  </voices>
-  <elements>
-    <element deathPercent="-10" />
-  </elements>
+  <look typeex="0" type="151" head="114" body="19" legs="23" feet="40" corpse="6080" />
   <flags>
-    <flag summonable="1" />
+    <flag summonable="0" />
     <flag attackable="1" />
     <flag hostile="1" />
     <flag illusionable="1" />
     <flag convinceable="1" />
     <flag pushable="1" />
-    <flag canpushitems="0" />
-    <flag canpushcreatures="0" />
+    <flag canpushitems="1" />
+    <flag canpushcreatures="1" />
     <flag targetdistance="1" />
-    <flag runonhealth="45" />
+    <flag runonhealth="35" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="0" />
+    <element firePercent="0" />
+    <element energyPercent="0" />
+    <element icePercent="0" />
+    <element deathPercent="-5" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Help me guys!" />
+    <voice yell="0" sentence="Don't mess with us!" />
+    <voice yell="0" sentence="This is our territory!" />
+    <voice yell="0" sentence="I don't like the way you look!" />
+    <voice yell="0" sentence="You're wearing the wrong colours!" />
+  </voices>
+  <defenses mitigation="0.38" defense="0" armor="8" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

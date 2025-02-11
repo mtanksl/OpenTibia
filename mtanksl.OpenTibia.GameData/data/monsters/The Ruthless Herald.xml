@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<monster name="The Ruthless Herald" nameDescription="The Ruthless Herald" race="fire" speed="210" experience="0" manacost="0">
+  <health now="100" max="100" />
+  <look typeex="0" type="237" head="0" body="0" legs="0" feet="0" corpse="6364" />
+  <flags>
+	<flag summonable="0" />
+	<flag attackable="1" />
+	<flag hostile="1" />
+	<flag illusionable="0" />
+	<flag convinceable="0" />
+	<flag pushable="0" />
+	<flag canpushitems="1" />
+	<flag canpushcreatures="0" />
+	<flag targetdistance="4" />
+	<flag runonhealth="0" />
+  </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="0" />
+    <element firePercent="0" />
+    <element energyPercent="0" />
+    <element icePercent="0" />
+    <element deathPercent="0" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="My masters are on their way!" />
+    <voice yell="0" sentence="I am so proud of my son Orshabaal." />
+    <voice yell="0" sentence="They are coming ... perhaps for YOU!" />
+    <voice yell="0" sentence="Beware! The Ruthless Seven are coming!" />
+    <voice yell="0" sentence="The one who kills me gets an imp-outfit." />
+    <voice yell="0" sentence="Nice to meet you. I am Harold, the ruthless herald." />
+    <voice yell="0" sentence="Have you heard, the imperor is marrying an imp named April? What a fool." />
+    <voice yell="0" sentence="The Ruthless Seven are going to make the easter bunny an honorary member!" />
+    <voice yell="0" sentence="Killing me is imp-ossible, because I am imp-roved! I am immune to any imp-act!" />
+    <voice yell="0" sentence="Hey you! I've heard that! You're first to die when the masters come." />
+    <voice yell="0" sentence="Have you seen my friend Harvey? I could swear he's somewhere around." />
+  </voices>
+  <defenses mitigation="0" defense="0" armor="0" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
+</monster>

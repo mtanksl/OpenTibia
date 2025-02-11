@@ -1,23 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Orc Warlord" nameDescription="an orc warlord" speed="290" experience="670" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Orc Warlord" nameDescription="an orc warlord" race="blood" speed="234" experience="670" manacost="0">
   <health now="950" max="950" />
   <look typeex="0" type="2" head="0" body="0" legs="0" feet="0" corpse="6008" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Ranat Ulderek!" />
-    <voice sentence="Orc buta bana!" />
-    <voice sentence="Ikem rambo zambo!" />
-    <voice sentence="Futchi maruk buta!" />
-  </voices>
-  <elements>
-    <element firePercent="80" />
-    <element energyPercent="40" />
-    <element holyPercent="20" />
-    <element earthPercent="-10" />
-    <element deathPercent="-5" />
-  </elements>
-  <immunities>
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -30,4 +14,31 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="-10" />
+    <element firePercent="80" />
+    <element energyPercent="20" />
+    <element icePercent="0" />
+    <element deathPercent="-5" />
+    <element holyPercent="10" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Ranat Ulderek!" />
+    <voice yell="0" sentence="Orc buta bana!" />
+    <voice yell="0" sentence="Ikem rambo zambo!" />
+    <voice yell="0" sentence="Futchi maruk buta!" />
+  </voices>
+  <defenses mitigation="1.46" defense="0" armor="28" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

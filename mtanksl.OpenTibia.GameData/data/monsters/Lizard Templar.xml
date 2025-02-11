@@ -1,16 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Lizard Templar" nameDescription="a lizard templar" speed="220" experience="115" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Lizard Templar" nameDescription="a lizard templar" race="blood" speed="174" experience="155" manacost="0">
   <health now="410" max="410" />
   <look typeex="0" type="113" head="0" body="0" legs="0" feet="0" corpse="4251" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Hissss!" />
-  </voices>
-  <elements>
-    <element earthPercent="100" />
-    <element energyPercent="20" />
-    <element icePercent="10" />
-    <element firePercent="-10" />
-  </elements>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -19,8 +10,32 @@
     <flag convinceable="0" />
     <flag pushable="0" />
     <flag canpushitems="1" />
-    <flag canpushcreatures="0" />
+    <flag canpushcreatures="1" />
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="100" />
+    <element firePercent="-10" />
+    <element energyPercent="20" />
+    <element icePercent="10" />
+    <element deathPercent="0" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Hissss!" />
+  </voices>
+  <defenses mitigation="0.51" defense="0" armor="26" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

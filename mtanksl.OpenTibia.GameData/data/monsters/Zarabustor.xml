@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Zarabustor" nameDescription="Zarabustor" race="blood" speed="440" experience="8000" manacost="0">
+  <health now="5100" max="5100" />
+  <look typeex="0" type="130" head="0" body="77" legs="92" feet="115" corpse="6080" />
+  <flags>
+    <flag summonable="0" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="0" />
+    <flag convinceable="0" />
+    <flag pushable="0" />
+    <flag canpushitems="1" />
+    <flag canpushcreatures="1" />
+    <flag targetdistance="4" />
+    <flag runonhealth="900" />
+  </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="100" />
+    <element earthpercent="90" />
+    <element firePercent="100" />
+    <element energyPercent="100" />
+    <element icePercent="100" />
+    <element deathPercent="0" />
+    <element holyPercent="100" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="1000" chance="2">
+    <voice yell="0" sentence="Time to test my newest spells!" />
+    <voice yell="0" sentence="Killing is such a splendid diversion from my studies." />
+  </voices>
+  <defenses mitigation="0" defense="0" armor="0" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
+</monster>

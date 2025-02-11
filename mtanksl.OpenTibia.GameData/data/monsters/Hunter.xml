@@ -1,17 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Hunter" nameDescription="a hunter" speed="215" experience="150" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Hunter" nameDescription="a hunter" race="blood" speed="210" experience="150" manacost="530">
   <health now="150" max="150" />
-  <look typeex="0" type="129" head="95" body="116" legs="121" feet="115" corpse="6080" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Guess who we're hunting, haha!" />
-    <voice sentence="Guess who we are hunting!" />
-    <voice sentence="Bullseye!" />
-    <voice sentence="You'll make a nice trophy!" />
-  </voices>
-  <elements>
-    <element holyPercent="20" />
-    <element physicalPercent="-20" />
-  </elements>
+  <look typeex="0" type="129" head="95" body="116" legs="120" feet="115" corpse="6080" />
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -20,8 +10,35 @@
     <flag convinceable="1" />
     <flag pushable="0" />
     <flag canpushitems="1" />
-    <flag canpushcreatures="0" />
+    <flag canpushcreatures="1" />
     <flag targetdistance="4" />
     <flag runonhealth="10" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="-5" />
+    <element earthpercent="0" />
+    <element firePercent="0" />
+    <element energyPercent="0" />
+    <element icePercent="0" />
+    <element deathPercent="0" />
+    <element holyPercent="20" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Bullseye!" />
+    <voice yell="0" sentence="Guess who we are hunting!" />
+    <voice yell="0" sentence="You'll make a nice trophy!" />
+    <voice yell="0" sentence="Guess who we're hunting, haha!" />
+  </voices>
+  <defenses mitigation="0.25" defense="0" armor="8" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

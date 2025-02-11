@@ -1,23 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Elf Arcanist" nameDescription="an elf arcanist" speed="230" experience="175" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Elf Arcanist" nameDescription="an elf arcanist" race="blood" speed="220" experience="175" manacost="0">
   <health now="220" max="220" />
   <look typeex="0" type="63" head="0" body="0" legs="0" feet="0" corpse="6011" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Feel my wrath!" />
-    <voice sentence="For the Daughter of the Stars!" />
-    <voice sentence="I'll bring balance upon you!" />
-    <voice sentence="Tha'shi Cenath!" />
-    <voice sentence="Vihil Ealuel!" />
-  </voices>
-  <elements>
-    <element firePercent="50" />
-    <element energyPercent="45" />
-    <element deathPercent="30" />
-    <element holyPercent="-11" />
-  </elements>
-  <immunities>
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -26,8 +10,36 @@
     <flag convinceable="0" />
     <flag pushable="0" />
     <flag canpushitems="1" />
-    <flag canpushcreatures="0" />
+    <flag canpushcreatures="1" />
     <flag targetdistance="4" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="0" />
+    <element firePercent="50" />
+    <element energyPercent="20" />
+    <element icePercent="0" />
+    <element deathPercent="20" />
+    <element holyPercent="-10" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Vihil Ealuel!" />
+    <voice yell="0" sentence="Feel my wrath!" />
+    <voice yell="0" sentence="Tha'shi Cenath!" />
+    <voice yell="0" sentence="I'll bring balance upon you!" />
+    <voice yell="0" sentence="For the Daughter of the Stars!" />
+  </voices>
+  <defenses mitigation="0.51" defense="0" armor="15" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

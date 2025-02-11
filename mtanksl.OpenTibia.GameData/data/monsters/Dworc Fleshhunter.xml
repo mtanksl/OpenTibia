@@ -1,28 +1,43 @@
-<?xml version="1.0"?>
-<monster name="Dworc Fleshhunter" nameDescription="a dworc fleshhunter" speed="240" experience="35" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Dworc Fleshhunter" nameDescription="a dworc fleshhunter" race="blood" speed="148" experience="40" manacost="0">
   <health now="85" max="85" />
   <look typeex="0" type="215" head="0" body="0" legs="0" feet="0" corpse="6058" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Grak brrretz!" />
-    <voice sentence="Grow truk grrrrr." />
-    <voice sentence="Prek tars, dekklep zurk." />
-  </voices>
-  <elements>
-    <element earthPercent="100" />
-    <element deathPercent="-15" />
-    <element firePercent="-10" />
-    <element icePercent="-10" />
-  </elements>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
     <flag hostile="1" />
     <flag illusionable="1" />
-    <flag convinceable="1" />
+    <flag convinceable="0" />
     <flag pushable="1" />
     <flag canpushitems="0" />
     <flag canpushcreatures="0" />
     <flag targetdistance="1" />
     <flag runonhealth="8" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="100" />
+    <element firePercent="-8" />
+    <element energyPercent="0" />
+    <element icePercent="-10" />
+    <element deathPercent="-13" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Grak brrretz!" />
+    <voice yell="0" sentence="Grow truk grrrrr." />
+    <voice yell="0" sentence="Prek tars, dekklep zurk." />
+  </voices>
+  <defenses mitigation="0.2" defense="0" armor="3" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

@@ -1,22 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Priestess" nameDescription="a priestess" speed="220" experience="420" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Priestess" nameDescription="a priestess" race="blood" speed="170" experience="420" manacost="0">
   <health now="390" max="390" />
   <look typeex="0" type="58" head="0" body="0" legs="0" feet="0" corpse="6081" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Your energy is mine." />
-    <voice sentence="Now, your life has come to an end, hahahha!" />
-    <voice sentence="Throw the soul on the altar!" />
-  </voices>
-  <elements>
-    <element firePercent="40" />
-    <element earthPercent="20" />
-    <element deathPercent="20" />
-    <element physicalPercent="-13" />
-    <element holyPercent="-10" />
-  </elements>
-  <immunities>
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -29,4 +14,30 @@
     <flag targetdistance="4" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="-10" />
+    <element earthpercent="70" />
+    <element firePercent="40" />
+    <element energyPercent="0" />
+    <element icePercent="0" />
+    <element deathPercent="10" />
+    <element holyPercent="-10" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Your energy is mine." />
+    <voice yell="0" sentence="Throw the soul on the altar!" />
+    <voice yell="0" sentence="Now your life is come to the end, hahahaha!" />
+  </voices>
+  <defenses mitigation="1.32" defense="0" armor="30" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

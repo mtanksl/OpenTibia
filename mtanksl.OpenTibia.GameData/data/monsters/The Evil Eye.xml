@@ -1,17 +1,7 @@
-<?xml version="1.0"?>
-<monster name="The Evil Eye" nameDescription="The Evil Eye" speed="240" experience="500" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="The Evil Eye" nameDescription="The Evil Eye" race="blood" speed="350" experience="750" manacost="0">
   <health now="1200" max="1200" />
   <look typeex="0" type="210" head="0" body="0" legs="0" feet="0" corpse="6037" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Inferior creatures, bow before my power!" />
-  </voices>
-  <elements>
-    <element earthPercent="100" />
-    <element holyPercent="-20" />
-  </elements>
-  <immunities>
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -20,8 +10,33 @@
     <flag convinceable="0" />
     <flag pushable="0" />
     <flag canpushitems="1" />
-    <flag canpushcreatures="0" />
-    <flag targetdistance="3" />
+    <flag canpushcreatures="1" />
+    <flag targetdistance="4" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="100" />
+    <element firePercent="0" />
+    <element energyPercent="0" />
+    <element icePercent="0" />
+    <element deathPercent="0" />
+    <element holyPercent="100" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="653768764!" />
+    <voice yell="0" sentence="Inferior creatures, bow before my power!" />
+  </voices>
+  <defenses mitigation="0" defense="0" armor="0" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

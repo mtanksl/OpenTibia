@@ -1,19 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Troll Champion" nameDescription="a troll champion" speed="120" experience="30" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Troll Champion" nameDescription="a troll champion" race="blood" speed="138" experience="40" manacost="350">
   <health now="75" max="75" />
   <look typeex="0" type="281" head="0" body="0" legs="0" feet="0" corpse="7926" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Meee maity!" />
-    <voice sentence="Grrrr" />
-    <voice sentence="Whaaaz up!?" />
-    <voice sentence="Gruntz!" />
-  </voices>
-  <elements>
-    <element energyPercent="22" />
-    <element holyPercent="11" />
-    <element earthPercent="-3" />
-    <element deathPercent="-4" />
-  </elements>
   <flags>
     <flag summonable="1" />
     <flag attackable="1" />
@@ -24,6 +12,34 @@
     <flag canpushitems="0" />
     <flag canpushcreatures="0" />
     <flag targetdistance="1" />
-    <flag runonhealth="20" />
+    <flag runonhealth="15" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="-10" />
+    <element firePercent="0" />
+    <element energyPercent="20" />
+    <element icePercent="0" />
+    <element deathPercent="-10" />
+    <element holyPercent="10" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Grrrr" />
+    <voice yell="0" sentence="Groar" />
+    <voice yell="0" sentence="Gruntz!" />
+    <voice yell="0" sentence="Meee maity!" />
+    <voice yell="0" sentence="Whaaaz up!?" />
+  </voices>
+  <defenses mitigation="0.28" defense="0" armor="10" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

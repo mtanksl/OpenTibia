@@ -1,15 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Stalker" nameDescription="a stalker" speed="210" experience="90" race="blood">
-  <health now="150" max="150" />
-  <look typeex="0" type="128" head="95" body="116" legs="95" feet="114" corpse="6080" />
-  <elements>
-    <element deathPercent="10" />
-    <element physicalPercent="-12" />
-    <element holyPercent="-5" />
-  </elements>
-  <immunities>
-    <immunity invisible="1" />
-  </immunities>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Stalker" nameDescription="a stalker" race="blood" speed="260" experience="90" manacost="0">
+  <health now="120" max="120" />
+  <look typeex="0" type="128" head="97" body="116" legs="95" feet="95" corpse="6080" />
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -22,4 +14,26 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="-10" />
+    <element earthpercent="0" />
+    <element firePercent="0" />
+    <element energyPercent="0" />
+    <element icePercent="0" />
+    <element deathPercent="10" />
+    <element holyPercent="-10" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="100" />
+  </elements>
+  <voices interval="5000" chance="10" />
+  <defenses mitigation="0.51" defense="0" armor="14" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

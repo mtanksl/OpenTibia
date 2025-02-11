@@ -1,30 +1,44 @@
-<?xml version="1.0"?>
-<monster name="Cyclops Drone" nameDescription="a cyclops drone" speed="220" experience="200" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Cyclops Drone" nameDescription="a cyclops drone" race="blood" speed="198" experience="200" manacost="525">
   <health now="325" max="325" />
   <look typeex="0" type="280" head="0" body="0" legs="0" feet="0" corpse="7847" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Fee! Fie! Foe! Fum!" />
-    <voice sentence="Luttl pest!" />
-    <voice sentence="Me makking you pulp!" />
-    <voice sentence="Humy tasy! Hum hum!" />
-  </voices>
-  <elements>
-    <element energyPercent="10" />
-    <element icePercent="10" />
-    <element holyPercent="10" />
-    <element earthPercent="-10" />
-    <element deathPercent="-5" />
-  </elements>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
     <flag hostile="1" />
-    <flag illusionable="0" />
+    <flag illusionable="1" />
     <flag convinceable="1" />
     <flag pushable="0" />
     <flag canpushitems="1" />
     <flag canpushcreatures="1" />
     <flag targetdistance="1" />
-    <flag runonhealth="75" />
+    <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="-10" />
+    <element firePercent="0" />
+    <element energyPercent="10" />
+    <element icePercent="20" />
+    <element deathPercent="-5" />
+    <element holyPercent="20" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Luttl pest!" />
+    <voice yell="0" sentence="Fee! Fie! Foe! Fum!" />
+    <voice yell="0" sentence="Humy tasy! Hum hum!" />
+    <voice yell="0" sentence="Me makking you pulp!" />
+  </voices>
+  <defenses mitigation="0.72" defense="0" armor="25" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

@@ -1,18 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Gladiator" nameDescription="a gladiator" speed="200" experience="90" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Gladiator" nameDescription="a gladiator" race="blood" speed="196" experience="90" manacost="470">
   <health now="185" max="185" />
-  <look typeex="0" type="131" head="78" body="3" legs="79" feet="114" corpse="3058" />
-  <voices interval="5000" chance="10">
-    <voice sentence="You are no match for me!" />
-    <voice sentence="Feel my prowess" />
-    <voice sentence="Fight!" />
-    <voice sentence="Take this!" />
-  </voices>
-  <elements>
-    <element holyPercent="10" />
-    <element physicalPercent="15" />
-    <element deathPercent="-10" />
-  </elements>
+  <look typeex="0" type="131" head="78" body="3" legs="79" feet="114" corpse="6080" />
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -25,4 +14,31 @@
     <flag targetdistance="1" />
     <flag runonhealth="10" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="5" />
+    <element earthpercent="0" />
+    <element firePercent="0" />
+    <element energyPercent="0" />
+    <element icePercent="0" />
+    <element deathPercent="-5" />
+    <element holyPercent="10" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Fight!" />
+    <voice yell="0" sentence="Take this!" />
+    <voice yell="0" sentence="Feel my prowess" />
+    <voice yell="0" sentence="You are no match for me!" />
+  </voices>
+  <defenses mitigation="0.78" defense="0" armor="14" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

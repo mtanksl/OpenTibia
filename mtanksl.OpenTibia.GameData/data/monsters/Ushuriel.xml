@@ -1,12 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Ushuriel" nameDescription="Ushuriel" speed="350" experience="10000" race="fire">
-  <health now="50000" max="50000" />
-  <look typeex="0" type="12" head="0" body="95" legs="19" feet="112" corpse="6068" />
-  <immunities>
-    <immunity lifedrain="1" />
-    <immunity paralyze="1" />
-    <immunity invisible="1" />
-  </immunities>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Ushuriel" nameDescription="Ushuriel" race="fire" speed="440" experience="10000" manacost="0">
+  <health now="31500" max="31500" />
+  <look typeex="0" type="12" head="0" body="57" legs="0" feet="61" corpse="6068" />
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -19,4 +14,31 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="50" />
+    <element earthpercent="30" />
+    <element firePercent="30" />
+    <element energyPercent="30" />
+    <element icePercent="30" />
+    <element deathPercent="100" />
+    <element holyPercent="25" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="You can't run or hide forever!" />
+    <voice yell="0" sentence="The final punishment awaits you!" />
+    <voice yell="0" sentence="I'm the executioner of the Seven!" />
+    <voice yell="0" sentence="The judgement is guilty! The sentence is death!" />
+  </voices>
+  <defenses mitigation="0" defense="0" armor="0" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

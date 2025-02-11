@@ -1,17 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Demon Skeleton" nameDescription="a demon skeleton" speed="230" experience="240" race="undead">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Demon Skeleton" nameDescription="a demon skeleton" race="undead" speed="180" experience="240" manacost="620">
   <health now="400" max="400" />
   <look typeex="0" type="37" head="0" body="0" legs="0" feet="0" corpse="5963" />
-  <elements>
-    <element firePercent="100" />
-    <element deathPercent="100" />
-    <element earthPercent="100" />
-    <element holyPercent="-25" />
-  </elements>
-  <immunities>
-    <immunity paralyze="1" />
-    <immunity drunk="0" />
-  </immunities>
   <flags>
     <flag summonable="1" />
     <flag attackable="1" />
@@ -24,4 +14,26 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="100" />
+    <element firePercent="100" />
+    <element energyPercent="0" />
+    <element icePercent="0" />
+    <element deathPercent="100" />
+    <element holyPercent="-25" />
+    <element drownPercent="100" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="100" />
+  </elements>
+  <voices interval="5000" chance="10" />
+  <defenses mitigation="0.91" defense="0" armor="25" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

@@ -1,25 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Nightstalker" nameDescription="a nightstalker" speed="260" experience="500" race="undead">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Nightstalker" nameDescription="a nightstalker" race="undead" speed="260" experience="500" manacost="0">
   <health now="700" max="700" />
   <look typeex="0" type="320" head="0" body="0" legs="0" feet="0" corpse="9915" />
-  <voices interval="5000" chance="10">
-    <voice sentence="The sunlight is so depressing." />
-    <voice sentence="Come with me, my child." />
-    <voice sentence="I've been in the shadow under your bed last night." />
-    <voice sentence="You never know what hides in the night." />
-    <voice sentence="I remember your face - and I know where you sleep" />
-  </voices>
-  <elements>
-    <element physicalPercent="-25" />
-    <element energyPercent="-15" />
-    <element deathPercent="-5" />
-    <element icePercent="20" />
-    <element holyPercent="10" />
-  </elements>
-  <immunities>
-    <immunity paralyze="1" />
-    <immunity invisible="1" /> 
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -30,6 +12,35 @@
     <flag canpushitems="1" />
     <flag canpushcreatures="1" />
     <flag targetdistance="1" />
-    <flag runonhealth="0" /> 
+    <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="-5" />
+    <element earthpercent="0" />
+    <element firePercent="0" />
+    <element energyPercent="-5" />
+    <element icePercent="20" />
+    <element deathPercent="-5" />
+    <element holyPercent="20" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Come with me, my child." />
+    <voice yell="0" sentence="The sunlight is so depressing." />
+    <voice yell="0" sentence="You never know what hides in the night." />
+    <voice yell="0" sentence="I've been in the shadow under your bed last night." />
+    <voice yell="0" sentence="I remember your face - and I know where you sleep." />
+    <voice yell="0" sentence="Only the sweetest and cruelest dreams for you, my love." />
+  </voices>
+  <defenses mitigation="1.18" defense="0" armor="40" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

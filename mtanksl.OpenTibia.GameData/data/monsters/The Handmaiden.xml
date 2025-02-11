@@ -1,19 +1,7 @@
-<?xml version="1.0"?>
-<monster name="The Handmaiden" nameDescription="The Handmaiden" speed="450" experience="3850" race="blood">
-  <health now="14500" max="14500" />
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="The Handmaiden" nameDescription="The Handmaiden" race="blood" speed="450" experience="7500" manacost="0">
+  <health now="19500" max="19500" />
   <look typeex="0" type="230" head="0" body="0" legs="0" feet="0" corpse="6312" />
-  <immunities>
-    <immunity physical="0" />
-    <immunity energy="1" />
-    <immunity fire="1" />
-    <immunity ice="1" />
-    <immunity poison="1" />
-    <immunity lifedrain="1" />
-    <immunity paralyze="1" />
-    <immunity outfit="1" />
-    <immunity drunk="1" />
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -26,4 +14,26 @@
     <flag targetdistance="1" />
     <flag runonhealth="3100" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="10" />
+    <element earthpercent="100" />
+    <element firePercent="100" />
+    <element energyPercent="15" />
+    <element icePercent="15" />
+    <element deathPercent="100" />
+    <element holyPercent="-10" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10" />
+  <defenses mitigation="0" defense="0" armor="0" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

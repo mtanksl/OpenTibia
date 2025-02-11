@@ -1,24 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Lich" nameDescription="a lich" speed="320" experience="900" race="undead">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Lich" nameDescription="a lich" race="undead" speed="210" experience="900" manacost="0">
   <health now="880" max="880" />
-  <look typeex="0" type="99" head="95" body="116" legs="119" feet="115" corpse="6028" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Doomed be the living!" />
-    <voice sentence="You will endure agony beyond thy death!" />
-    <voice sentence="Death awaits all!" />
-    <voice sentence="Thy living flesh offends me!" />
-    <voice sentence="Death and Decay!" />
-  </voices>
-  <elements>
-    <element deathPercent="100" />
-    <element earthPercent="100" />
-    <element energyPercent="80" />
-    <element holyPercent="-35" />
-  </elements>
-  <immunities>
-    <immunity paralyze="1" />
-    <immunity invisible="1" />
-  </immunities>
+  <look typeex="0" type="99" head="0" body="0" legs="0" feet="0" corpse="6028" />
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -31,4 +14,34 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="100" />
+    <element firePercent="0" />
+    <element energyPercent="80" />
+    <element icePercent="0" />
+    <element deathPercent="100" />
+    <element holyPercent="-20" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="100" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Death and Decay!" />
+    <voice yell="0" sentence="Pain sweet pain!" />
+    <voice yell="0" sentence="Death awaits all!" />
+    <voice yell="0" sentence="Doomed be the living!" />
+    <voice yell="0" sentence="Come to me my children!" />
+    <voice yell="0" sentence="Thy living flesh offends me!" />
+    <voice yell="0" sentence="You will endure agony beyond thy death!" />
+  </voices>
+  <defenses mitigation="1.6" defense="0" armor="50" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

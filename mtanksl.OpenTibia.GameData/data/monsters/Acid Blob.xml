@@ -1,16 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Acid Blob" nameDescription="an acid blob" speed="210" experience="250" race="venom">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Acid Blob" nameDescription="an acid blob" race="venom" speed="120" experience="250" manacost="0">
   <health now="250" max="250" />
   <look typeex="0" type="314" head="0" body="0" legs="0" feet="0" corpse="9962" />
-  <elements>
-    <element firePercent="-5" />
-    <element icePercent="8" />
-    <element energyPercent="-10" />
-  </elements>
-  <immunities>
-    <immunity death="1" />
-    <immunity earth="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -23,4 +14,28 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="100" />
+    <element firePercent="-10" />
+    <element energyPercent="-10" />
+    <element icePercent="20" />
+    <element deathPercent="100" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Kzzchhh!" />
+  </voices>
+  <defenses mitigation="0.25" defense="0" armor="3" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

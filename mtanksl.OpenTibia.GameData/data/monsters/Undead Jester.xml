@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Undead Jester" nameDescription="an undead jester" race="blood" speed="224" experience="5" manacost="0">
+  <health now="355" max="355" />
+  <look typeex="0" type="273" head="0" body="0" legs="114" feet="0" corpse="6080" />
+  <flags>
+    <flag summonable="0" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="0" />
+    <flag convinceable="0" />
+    <flag pushable="0" />
+    <flag canpushitems="1" />
+    <flag canpushcreatures="1" />
+    <flag targetdistance="4" />
+    <flag runonhealth="0" />
+  </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="100" />
+    <element firePercent="20" />
+    <element energyPercent="10" />
+    <element icePercent="30" />
+    <element deathPercent="100" />
+    <element holyPercent="-20" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="100" />
+  </elements>
+  <voices interval="1000" chance="5">
+    <voice yell="0" sentence="Doh!" />
+    <voice yell="0" sentence="Ha Ha!" />
+    <voice yell="0" sentence="Who's bad?" />
+    <voice yell="0" sentence="Did I do that?" />
+    <voice yell="0" sentence="Pull my finger!" />
+    <voice yell="0" sentence="I have a cunning plan!" />
+    <voice yell="0" sentence="Are we having fun yet?" />
+    <voice yell="0" sentence="Zathroth made me do it!" />
+    <voice yell="0" sentence="Th-Th-Th-That's all, folks!" />
+    <voice yell="0" sentence="You think this is funny now?" />
+    <voice yell="0" sentence="I will teach you all to mock me!" />
+    <voice yell="0" sentence="He who laughs last, Laughs best!" />
+    <voice yell="0" sentence="Resistance is futile! You will be amused!" />
+    <voice yell="0" sentence="And now for something completely different!" />
+    <voice yell="0" sentence="Why did the chicken cross the road? TO KILL YOU!!!" />
+    <voice yell="0" sentence="A zathroth priest, a druid and a paladin walk into a bar ..." />
+  </voices>
+  <defenses mitigation="0.13" defense="0" armor="3" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
+</monster>

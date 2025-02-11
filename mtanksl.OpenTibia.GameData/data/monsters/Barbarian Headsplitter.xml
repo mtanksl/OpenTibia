@@ -1,22 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Barbarian Headsplitter" nameDescription="a barbarian headsplitter" speed="270" experience="85" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Barbarian Headsplitter" nameDescription="a barbarian headsplitter" race="blood" speed="168" experience="85" manacost="450">
   <health now="100" max="100" />
-  <look typeex="0" type="253" head="115" body="105" legs="119" feet="132" corpse="6080" />
-  <voices interval="5000" chance="10">
-    <voice sentence="I will regain my honor with your blood!" />
-    <voice sentence="Surrender is not option!" />
-    <voice sentence="Its you or me!" />
-  </voices>
-  <elements>
-    <element icePercent="50" />
-    <element holyPercent="20" />
-    <element energyPercent="20" />
-    <element earthPercent="-13" />
-    <element deathPercent="-7" />
-  </elements>
-  <immunities>
-    <immunity paralyze="1" />
-  </immunities>
+  <look typeex="0" type="253" head="115" body="86" legs="119" feet="113" corpse="6080" />
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -25,9 +10,35 @@
     <flag convinceable="1" />
     <flag pushable="0" />
     <flag canpushitems="1" />
-    <flag lightlevel="0" />
-    <flag lightcolor="0" />
+    <flag canpushcreatures="1" />
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="-10" />
+    <element firePercent="0" />
+    <element energyPercent="20" />
+    <element icePercent="50" />
+    <element deathPercent="-10" />
+    <element holyPercent="20" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Its you or me!" />
+    <voice yell="0" sentence="Die! Die! Die!" />
+    <voice yell="0" sentence="Surrender is not option!" />
+    <voice yell="0" sentence="I will regain my honor with your blood!" />
+  </voices>
+  <defenses mitigation="0.36" defense="0" armor="7" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

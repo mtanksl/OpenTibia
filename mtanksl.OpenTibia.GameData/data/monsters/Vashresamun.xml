@@ -1,21 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Vashresamun" nameDescription="a vashresamun" speed="340" experience="2950" race="undead">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Vashresamun" nameDescription="Vashresamun" race="undead" speed="340" experience="2950" manacost="0">
   <health now="4000" max="4000" />
   <look typeex="0" type="90" head="0" body="0" legs="0" feet="0" corpse="6025" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Come my maidens, we have visitors!" />
-    <voice sentence="Are you enjoying my music?" />
-    <voice sentence="If music is the food of death, drop dead." />
-  </voices>
-  <elements>
-    <element deathPercent="100" />
-    <element icePercent="20" />
-    <element firePercent="20" />
-    <element energyPercent="20" />
-  </elements>
-  <immunities>
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -28,4 +14,32 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="20" />
+    <element firePercent="20" />
+    <element energyPercent="20" />
+    <element icePercent="20" />
+    <element deathPercent="100" />
+    <element holyPercent="-10" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="100" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Heheheheee!" />
+    <voice yell="0" sentence="Chakka Chakka!" />
+    <voice yell="0" sentence="Are you enjoying my music?" />
+    <voice yell="0" sentence="Come my maidens, we have visitors!" />
+    <voice yell="0" sentence="If music is the food of death, drop dead." />
+  </voices>
+  <defenses mitigation="0" defense="0" armor="40" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

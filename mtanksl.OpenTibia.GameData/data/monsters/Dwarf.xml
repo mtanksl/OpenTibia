@@ -1,15 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Dwarf" nameDescription="a dwarf" speed="170" experience="45" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Dwarf" nameDescription="a dwarf" race="blood" speed="170" experience="45" manacost="320">
   <health now="90" max="90" />
   <look typeex="0" type="69" head="0" body="0" legs="0" feet="0" corpse="6007" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Hail Durin!" />
-  </voices>
-  <elements>
-    <element earthPercent="70" />
-    <element firePercent="-5" />
-    <element deathPercent="-3" />
-  </elements>
   <flags>
     <flag summonable="1" />
     <flag attackable="1" />
@@ -22,8 +14,30 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
-  <defenses defense="0" armor="8" />
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="10" />
+    <element firePercent="-5" />
+    <element energyPercent="0" />
+    <element icePercent="0" />
+    <element deathPercent="-5" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Hail Durin!" />
+  </voices>
+  <defenses mitigation="0.36" defense="0" armor="8" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
   <attacks>
-    <attack name="melee" interval="2000" chance="100" min="0" max="31" />
+    <attack name="melee" interval="2000" chance="90" min="0" max="31" />
   </attacks>
+  <loot />
 </monster>

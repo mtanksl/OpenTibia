@@ -1,22 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Ice Golem" nameDescription="an ice golem" speed="195" experience="295" race="undead">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Ice Golem" nameDescription="an ice golem" race="undead" speed="190" experience="295" manacost="0">
   <health now="385" max="385" />
   <look typeex="0" type="261" head="0" body="0" legs="0" feet="0" corpse="7282" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Chrr." />
-  </voices>
-  <elements>
-    <element icePercent="100" />
-    <element firePercent="100" />
-    <element deathPercent="100" />
-    <element holyPercent="100" />
-    <element physicalPercent="40" />
-    <element energyPercent="-20" />
-  </elements>
-  <immunities>
-    <immunity paralyze="1" />
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -25,9 +10,34 @@
     <flag convinceable="0" />
     <flag pushable="0" />
     <flag canpushitems="1" />
-    <flag lightlevel="0" />
-    <flag lightcolor="0" />
+    <flag canpushcreatures="0" />
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="20" />
+    <element earthpercent="0" />
+    <element firePercent="100" />
+    <element energyPercent="-20" />
+    <element icePercent="100" />
+    <element deathPercent="100" />
+    <element holyPercent="100" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="2000" chance="5">
+    <voice yell="0" sentence="Chrrr." />
+    <voice yell="0" sentence="Gnarr." />
+    <voice yell="0" sentence="Crrrrk." />
+  </voices>
+  <defenses mitigation="0.7" defense="0" armor="47" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

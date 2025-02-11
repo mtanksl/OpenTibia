@@ -1,31 +1,43 @@
-<?xml version="1.0"?>
-<monster name="Novice of the Cult" nameDescription="a novice of the cult" speed="210" experience="100" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Novice of the Cult" nameDescription="a novice of the cult" race="blood" speed="200" experience="100" manacost="0">
   <health now="285" max="285" />
-  <look typeex="0" type="133" head="114" body="95" legs="114" feet="114" corpse="6080" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Fear us!" />
-    <voice sentence="You will not tell anyone what you have seen." />
-    <voice sentence="Your curiosity will be punished!" />
-  </voices>
-  <elements>
-    <element earthPercent="10" />
-    <element icePercent="10" />
-    <element holyPercent="10" />
-    <element physicalPercent="-15" />
-    <element energyPercent="-6" />
-    <element firePercent="-5" />
-    <element deathPercent="-5" />
-  </elements>
+  <look typeex="0" type="133" head="114" body="114" legs="76" feet="114" corpse="6080" />
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
     <flag hostile="1" />
-    <flag illusionable="0" />
+    <flag illusionable="1" />
     <flag convinceable="0" />
-    <flag pushable="1" />
+    <flag pushable="0" />
     <flag canpushitems="1" />
     <flag canpushcreatures="0" />
     <flag targetdistance="1" />
     <flag runonhealth="40" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="-10" />
+    <element earthpercent="10" />
+    <element firePercent="-5" />
+    <element energyPercent="-8" />
+    <element icePercent="10" />
+    <element deathPercent="-8" />
+    <element holyPercent="10" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Fear us!" />
+    <voice yell="0" sentence="Your curiosity will be punished!" />
+    <voice yell="0" sentence="You will not tell anyone what you have seen!" />
+  </voices>
+  <defenses mitigation="0.62" defense="0" armor="15" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

@@ -1,11 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Penguin" nameDescription="penguin" speed="156" experience="1" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Penguin" nameDescription="a penguin" race="blood" speed="116" experience="1" manacost="290">
   <health now="33" max="33" />
   <look typeex="0" type="250" head="0" body="0" legs="0" feet="0" corpse="7334" />
-  <elements>
-    <element icePercent="10" />
-    <element energyPercent="-5" />
-  </elements>
   <flags>
     <flag summonable="1" />
     <flag attackable="1" />
@@ -16,6 +12,28 @@
     <flag canpushitems="0" />
     <flag canpushcreatures="0" />
     <flag targetdistance="1" />
-    <flag runonhealth="15" />
+    <flag runonhealth="32" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="0" />
+    <element firePercent="0" />
+    <element energyPercent="-10" />
+    <element icePercent="20" />
+    <element deathPercent="0" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10" />
+  <defenses mitigation="0.07" defense="0" armor="2" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

@@ -1,23 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Undead Dragon" nameDescription="an undead dragon" speed="300" experience="7200" race="undead">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Undead Dragon" nameDescription="an undead dragon" race="undead" speed="330" experience="7200" manacost="0">
   <health now="8350" max="8350" />
   <look typeex="0" type="231" head="0" body="0" legs="0" feet="0" corpse="6306" />
-  <voices interval="5000" chance="10">
-    <voice sentence="FEEEED MY ETERNAL HUNGER!" />
-    <voice sentence="I SENSE LIFE" />
-  </voices>
-  <elements>
-    <element deathPercent="100" />
-    <element earthPercent="100" />
-    <element firePercent="100" />
-    <element physicalPercent="10" />
-    <element icePercent="8" />
-    <element holyPercent="-20" />
-  </elements>
-  <immunities>
-    <immunity paralyze="1" />
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -30,4 +14,29 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="5" />
+    <element earthpercent="100" />
+    <element firePercent="100" />
+    <element energyPercent="0" />
+    <element icePercent="50" />
+    <element deathPercent="100" />
+    <element holyPercent="-25" />
+    <element drownPercent="100" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="100" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="1" sentence="I SENSE LIFE" />
+    <voice yell="1" sentence="FEEEED MY ETERNAL HUNGER!" />
+  </voices>
+  <defenses mitigation="1.74" defense="0" armor="66" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

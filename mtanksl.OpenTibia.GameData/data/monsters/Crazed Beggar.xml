@@ -1,20 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Crazed Beggar" nameDescription="a crazed beggar" speed="220" experience="35" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Crazed Beggar" nameDescription="a crazed beggar" race="blood" speed="154" experience="35" manacost="300">
   <health now="100" max="100" />
-  <look typeex="0" type="153" head="59" body="38" legs="38" feet="97" corpse="3058" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Hehehe!" />
-    <voice sentence="Raahhh!" />
-    <voice sentence="You are one of THEM! Die!" />
-    <voice sentence="Wanna buy roses??" />
-  </voices>
-  <elements>
-    <element physicalPercent="5" />
-    <element energyPercent="20" />
-    <element holyPercent="10" />
-    <element earth="-10" />
-    <element death="-15" />
-  </elements>
+  <look typeex="0" type="153" head="40" body="19" legs="21" feet="97" corpse="6080" />
   <flags>
     <flag summonable="1" />
     <flag attackable="1" />
@@ -27,4 +14,34 @@
     <flag targetdistance="1" />
     <flag runonhealth="10" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="5" />
+    <element earthpercent="-10" />
+    <element firePercent="0" />
+    <element energyPercent="20" />
+    <element icePercent="0" />
+    <element deathPercent="-10" />
+    <element holyPercent="10" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="1000" chance="5">
+    <voice yell="0" sentence="Hehehe!" />
+    <voice yell="0" sentence="Raahhh!" />
+    <voice yell="0" sentence="Gimme money!" />
+    <voice yell="0" sentence="Make it stop!" />
+    <voice yell="0" sentence="Wanna buy roses??" />
+    <voice yell="0" sentence="You are one of THEM! Die!" />
+    <voice yell="0" sentence="They're coming! They're coming!" />
+  </voices>
+  <defenses mitigation="0.2" defense="0" armor="4" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

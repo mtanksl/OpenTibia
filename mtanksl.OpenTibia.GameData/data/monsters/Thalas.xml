@@ -1,17 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Thalas" nameDescription="a thalas" speed="320" experience="2950" race="undead">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Thalas" nameDescription="Thalas" race="undead" speed="420" experience="2950" manacost="0">
   <health now="4100" max="4100" />
   <look typeex="0" type="90" head="0" body="0" legs="0" feet="0" corpse="6025" />
-  <voices interval="5000" chance="10">
-    <voice sentence="You will become a feast for my maggots." />
-  </voices>
-  <elements>
-    <element earthPercent="100" />
-    <element firePercent="-23" />
-  </elements>
-  <immunities>
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -24,4 +14,28 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="100" />
+    <element firePercent="-10" />
+    <element energyPercent="20" />
+    <element icePercent="-10" />
+    <element deathPercent="100" />
+    <element holyPercent="-20" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="You will become a feast for my maggots!" />
+  </voices>
+  <defenses mitigation="0" defense="0" armor="40" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

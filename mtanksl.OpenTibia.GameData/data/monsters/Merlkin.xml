@@ -1,26 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Merlkin" nameDescription="a merlkin" speed="200" experience="145" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Merlkin" nameDescription="a merlkin" race="blood" speed="194" experience="145" manacost="0">
   <health now="235" max="235" />
   <look typeex="0" type="117" head="0" body="0" legs="0" feet="0" corpse="6044" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Ugh! Ugh! Ugh!" />
-    <voice sentence="Holy banana!" />
-    <voice sentence="Chakka! Chakka!" />
-  </voices>
-  <elements>
-    <element firePercent="20" />
-    <element energyPercent="10" />
-    <element holyPercent="10" />
-    <element icePercent="-15" />
-    <element deathPercent="-5" />
-  </elements>
-  <immunities>
-    <immunity lifedrain="0" />
-    <immunity paralyze="0" />
-    <immunity outfit="1" />
-    <immunity drunk="1" />
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -33,4 +14,30 @@
     <flag targetdistance="4" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="0" />
+    <element firePercent="20" />
+    <element energyPercent="10" />
+    <element icePercent="-15" />
+    <element deathPercent="-5" />
+    <element holyPercent="10" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Holy banana!" />
+    <voice yell="0" sentence="Ugh! Ugh! Ugh!" />
+    <voice yell="0" sentence="Chakka! Chakka!" />
+  </voices>
+  <defenses mitigation="1.04" defense="0" armor="16" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

@@ -1,23 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Mad Technomancer" nameDescription="Mad Technomancer" speed="200" experience="55" race="blood">
-  <health now="1000" max="1000" />
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Mad Technomancer" nameDescription="a mad technomancer" race="blood" speed="200" experience="55" manacost="0">
+  <health now="1800" max="1800" />
   <look typeex="0" type="66" head="0" body="0" legs="0" feet="0" corpse="6015" />
-  <voices interval="5000" chance="10">
-    <voice sentence="I'm going to make them an offer they can't refuse." />
-    <voice sentence="My masterplan cannot fail!" />
-    <voice sentence="Gentlemen, you can't fight here! This is the War Room!" />
-  </voices>
-  <elements>
-    <element earthPercent="80" />
-    <element firePercent="60" />
-    <element energyPercent="10" />
-    <element holyPercent="10" />
-    <element icePercent="-10" />
-    <element deathPercent="-5" />
-  </elements>
-  <immunities>
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -30,4 +14,30 @@
     <flag targetdistance="4" />
     <flag runonhealth="150" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="100" />
+    <element firePercent="100" />
+    <element energyPercent="-5" />
+    <element icePercent="100" />
+    <element deathPercent="0" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="My masterplan cannot fail!" />
+    <voice yell="0" sentence="I'm going to make them an offer they can't refuse." />
+    <voice yell="0" sentence="Gentlemen, you can't fight here! This is the War Room!" />
+  </voices>
+  <defenses mitigation="0" defense="0" armor="0" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

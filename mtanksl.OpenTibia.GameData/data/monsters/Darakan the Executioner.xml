@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Darakan the Executioner" nameDescription="Darakan the Executioner" race="blood" speed="205" experience="1600" manacost="0">
+  <health now="3480" max="3480" />
+  <look typeex="0" type="255" head="78" body="95" legs="0" feet="95" corpse="6080" />
+  <flags>
+    <flag summonable="0" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="0" />
+    <flag convinceable="0" />
+    <flag pushable="0" />
+    <flag canpushitems="1" />
+    <flag canpushcreatures="1" />
+    <flag targetdistance="1" />
+    <flag runonhealth="0" />
+  </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="0" />
+    <element firePercent="100" />
+    <element energyPercent="0" />
+    <element icePercent="100" />
+    <element deathPercent="0" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="2000" chance="5">
+    <voice yell="1" sentence="VICTORY IS MINE!" />
+    <voice yell="0" sentence="I AM your father!" />
+    <voice yell="1" sentence="FIGHT LIKE A BARBARIAN!" />
+    <voice yell="0" sentence="To be the man you have to beat the man!" />
+  </voices>
+  <defenses mitigation="0" defense="0" armor="0" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
+</monster>

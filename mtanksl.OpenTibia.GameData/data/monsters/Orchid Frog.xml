@@ -1,17 +1,42 @@
-<?xml version="1.0"?>
-<monster name="Orchid Frog" nameDescription="an orchid frog" speed="230" experience="20" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Orchid Frog" nameDescription="an orchid frog" race="blood" speed="320" experience="20" manacost="305">
   <health now="60" max="60" />
-  <look typeex="0" type="226" head="109" body="14" legs="109" feet="114" corpse="6079" />
+  <look typeex="0" type="226" head="71" body="14" legs="71" feet="70" corpse="6079" />
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
     <flag hostile="1" />
     <flag illusionable="0" />
-    <flag convinceable="0" />
+    <flag convinceable="1" />
     <flag pushable="1" />
     <flag canpushitems="0" />
     <flag canpushcreatures="0" />
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="0" />
+    <element firePercent="-10" />
+    <element energyPercent="0" />
+    <element icePercent="10" />
+    <element deathPercent="0" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Ribbit!" />
+    <voice yell="0" sentence="Ribbit! Ribbit!" />
+  </voices>
+  <defenses mitigation="0.28" defense="0" armor="8" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

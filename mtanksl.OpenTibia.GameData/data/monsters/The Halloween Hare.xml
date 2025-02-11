@@ -1,17 +1,39 @@
-<?xml version="1.0"?>
-<monster name="The Halloween Hare" nameDescription="The Halloween Hare" speed="150" experience="0" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="The Halloween Hare" nameDescription="The Halloween Hare" race="blood" speed="180" experience="0" manacost="0">
   <health now="2000" max="2000" />
-  <look typeex="0" type="74" head="0" body="0" legs="0" feet="0" corpse="3058" />
+  <look typeex="0" type="74" head="0" body="0" legs="0" feet="0" corpse="6017" />
+  <flags>
+    <flag summonable="0" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="0" />
+    <flag convinceable="0" />
+    <flag pushable="0" />
+    <flag canpushitems="1" />
+    <flag canpushcreatures="1" />
+    <flag targetdistance="4" />
+    <flag runonhealth="0" />
+  </flags>
   <immunities>
-    <immunity name="physical" />
-    <immunity name="energy" />
-    <immunity name="fire" />
-    <immunity name="poison" />
-    <immunity name="drown" />
-    <immunity name="lifedrain" />
-    <immunity name="paralyze" />
-    <immunity name="outfit" />
-    <immunity name="drunk" />
-    <immunity name="invisible" />
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
   </immunities>
+  <elements>
+    <element physicalPercent="100" />
+    <element earthpercent="100" />
+    <element firePercent="100" />
+    <element energyPercent="100" />
+    <element icePercent="100" />
+    <element deathPercent="100" />
+    <element holyPercent="100" />
+    <element drownPercent="100" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="100" />
+  </elements>
+  <voices interval="5000" chance="10" />
+  <defenses mitigation="0" defense="0" armor="0" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

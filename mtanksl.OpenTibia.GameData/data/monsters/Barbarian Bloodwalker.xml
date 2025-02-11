@@ -1,21 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Barbarian Bloodwalker" nameDescription="a barbarian bloodwalker" speed="205" experience="195" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Barbarian Bloodwalker" nameDescription="a barbarian bloodwalker" race="blood" speed="236" experience="195" manacost="590">
   <health now="305" max="305" />
-  <look typeex="0" type="255" head="114" body="132" legs="132" feet="132" corpse="6080" />
-  <voices interval="5000" chance="10">
-    <voice sentence="YAAAHEEE!" />
-    <voice sentence="SLAUGHTER!" />
-    <voice sentence="CARNAGE!" />
-    <voice sentence="You can run but you can't hide" />
-  </voices>
-  <elements>
-    <element physicalPercent="5" />
-    <element holyPercent="20" />
-    <element energyPercent="10" />
-    <element icePercent="50" />
-    <element deathPercent="-7" />
-    <element earthPercent="-5" />
-  </elements>
+  <look typeex="0" type="255" head="114" body="113" legs="132" feet="94" corpse="6080" />
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -24,9 +10,35 @@
     <flag convinceable="1" />
     <flag pushable="0" />
     <flag canpushitems="1" />
-    <flag lightlevel="0" />
-    <flag lightcolor="0" />
+    <flag canpushcreatures="1" />
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="10" />
+    <element earthpercent="-5" />
+    <element firePercent="0" />
+    <element energyPercent="10" />
+    <element icePercent="50" />
+    <element deathPercent="-10" />
+    <element holyPercent="20" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="CARNAGE!" />
+    <voice yell="0" sentence="YAAAHEEE!" />
+    <voice yell="0" sentence="SLAUGHTER!" />
+    <voice yell="0" sentence="You can run but you can't hide" />
+  </voices>
+  <defenses mitigation="0.25" defense="0" armor="9" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

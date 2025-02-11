@@ -1,24 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Hellspawn" nameDescription="a hellspawn" speed="360" experience="2550" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Hellspawn" nameDescription="a hellspawn" race="fire" speed="344" experience="2550" manacost="0">
   <health now="3500" max="3500" />
   <look typeex="0" type="322" head="0" body="0" legs="0" feet="0" corpse="9923" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Your fragile bones are like toothpicks to me." />
-    <voice sentence="You little weasel will not live to see another day." />
-    <voice sentence="I'm just a messenger of what's yet to come." />
-  </voices>
-  <elements>
-    <element physicalPercent="15" />
-    <element energyPercent="15" />
-    <element firePercent="20" />
-    <element deathPercent="-5" />
-    <element icePercent="-10" />
-    <element holyPercent="10" />
-  </elements>
-  <immunities>
-    <immunity paralyze="1" />
-    <immunity invisible="1" /> 
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -31,4 +14,32 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="10" />
+    <element earthpercent="80" />
+    <element firePercent="40" />
+    <element energyPercent="10" />
+    <element icePercent="-10" />
+    <element deathPercent="-5" />
+    <element holyPercent="30" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="1" sentence="HRAAAAAAAAAAAAAAAARRRR" />
+    <voice yell="0" sentence="I'm taking you down with me!" />
+    <voice yell="0" sentence="I'm just a messenger of what's yet to come." />
+    <voice yell="0" sentence="Your fragile bones are like toothpicks to me." />
+    <voice yell="0" sentence="You little weasel will not live to see another day." />
+  </voices>
+  <defenses mitigation="1.32" defense="0" armor="44" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

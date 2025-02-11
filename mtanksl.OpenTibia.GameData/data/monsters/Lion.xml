@@ -1,16 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Lion" nameDescription="a lion" speed="180" experience="30" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Lion" nameDescription="a lion" race="blood" speed="190" experience="30" manacost="320">
   <health now="80" max="80" />
   <look typeex="0" type="41" head="0" body="0" legs="0" feet="0" corpse="5986" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Groarrr!" />
-  </voices>
-  <elements>
-    <element earthPercent="22" />
-    <element holyPercent="17" />
-    <element icePercent="-8" />
-    <element deathPercent="-5" />
-  </elements>
   <flags>
     <flag summonable="1" />
     <flag attackable="1" />
@@ -23,4 +14,28 @@
     <flag targetdistance="1" />
     <flag runonhealth="10" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="20" />
+    <element firePercent="0" />
+    <element energyPercent="0" />
+    <element icePercent="-15" />
+    <element deathPercent="-8" />
+    <element holyPercent="20" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Groarrr!" />
+  </voices>
+  <defenses mitigation="0.33" defense="0" armor="6" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

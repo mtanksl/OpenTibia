@@ -1,25 +1,12 @@
-<?xml version="1.0"?>
-<monster name="Quara Predator Scout" nameDescription="a quara predator scout" speed="290" experience="400" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Quara Predator Scout" nameDescription="a quara predator scout" race="blood" speed="170" experience="400" manacost="0">
   <health now="890" max="890" />
   <look typeex="0" type="20" head="0" body="0" legs="0" feet="0" corpse="6067" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Gnarrr!" />
-  </voices>
-  <elements>
-    <element energyPercent="-25" />
-  </elements>
-  <immunities>
-    <immunity ice="1" />
-    <immunity fire="1" />
-    <immunity lifedrain="1" />
-    <immunity paralyze="1" />
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
     <flag hostile="1" />
-    <flag illusionable="0" />
+    <flag illusionable="1" />
     <flag convinceable="0" />
     <flag pushable="0" />
     <flag canpushitems="1" />
@@ -27,4 +14,31 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="-10" />
+    <element firePercent="100" />
+    <element energyPercent="-10" />
+    <element icePercent="100" />
+    <element deathPercent="0" />
+    <element holyPercent="0" />
+    <element drownPercent="100" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="100" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Rrrah!" />
+    <voice yell="0" sentence="Gnarrr!" />
+    <voice yell="0" sentence="Rraaar!" />
+    <voice yell="0" sentence="Tcharrr!" />
+  </voices>
+  <defenses mitigation="1.04" defense="0" armor="30" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

@@ -1,28 +1,42 @@
-<?xml version="1.0"?>
-<monster name="Slick Water Elemental" nameDescription="a slick water elemental" speed="280" experience="450" race="undead">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Slick Water Elemental" nameDescription="a slick water elemental" race="undead" speed="280" experience="450" manacost="0">
   <health now="550" max="550" />
-  <look typeex="0" type="286" head="0" body="0" legs="0" feet="0" corpse="8965" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Blubb" />
-    <voice sentence="Splipsh Splash" />
-  </voices>
-  <elements>
-    <element physicalPercent="40" />
-  </elements>
-  <immunities>
-    <immunity ice="1" />
-  </immunities>
+  <look typeex="0" type="286" head="0" body="0" legs="0" feet="0" corpse="2025" />
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
     <flag hostile="1" />
-    <flag illusionable="0" />
+    <flag illusionable="1" />
     <flag convinceable="0" />
     <flag pushable="0" />
     <flag canpushitems="1" />
-    <flag lightlevel="0" />
-    <flag lightcolor="0" />
+    <flag canpushcreatures="0" />
     <flag targetdistance="1" />
-    <flag runonhealth="1" />
+    <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="45" />
+    <element earthpercent="100" />
+    <element firePercent="100" />
+    <element energyPercent="0" />
+    <element icePercent="100" />
+    <element deathPercent="100" />
+    <element holyPercent="40" />
+    <element drownPercent="100" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Blubb" />
+    <voice yell="0" sentence="Splipsh Splash" />
+  </voices>
+  <defenses mitigation="0" defense="0" armor="0" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

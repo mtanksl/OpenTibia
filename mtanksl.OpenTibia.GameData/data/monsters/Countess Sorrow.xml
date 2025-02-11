@@ -1,24 +1,12 @@
-<?xml version="1.0"?>
-<monster name="Countess Sorrow" nameDescription="Countess Sorrow" speed="250" experience="5150" race="undead">
-  <health now="7200" max="7200" />
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Countess Sorrow" nameDescription="Countess Sorrow" race="undead" speed="400" experience="13000" manacost="0">
+  <health now="6500" max="6500" />
   <look typeex="0" type="241" head="20" body="0" legs="0" feet="0" corpse="6344" />
-  <immunities>
-    <immunity physical="1" />
-    <immunity energy="0" />
-    <immunity fire="0" />
-    <immunity poison="1" />
-    <immunity ice="1" />
-    <immunity lifedrain="1" />
-    <immunity paralyze="1" />
-    <immunity outfit="1" />
-    <immunity drunk="1" />
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
     <flag hostile="1" />
-    <flag illusionable="1" />
+    <flag illusionable="0" />
     <flag convinceable="0" />
     <flag pushable="0" />
     <flag canpushitems="1" />
@@ -26,4 +14,26 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="100" />
+    <element earthpercent="100" />
+    <element firePercent="-10" />
+    <element energyPercent="10" />
+    <element icePercent="50" />
+    <element deathPercent="100" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="100" />
+  </elements>
+  <voices interval="5000" chance="10" />
+  <defenses mitigation="0" defense="0" armor="0" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

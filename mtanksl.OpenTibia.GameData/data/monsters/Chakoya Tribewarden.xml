@@ -1,20 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Chakoya Tribewarden" nameDescription="a chakoya tribewarden" speed="270" experience="40" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Chakoya Tribewarden" nameDescription="a chakoya tribewarden" race="blood" speed="124" experience="40" manacost="305">
   <health now="68" max="68" />
-  <look typeex="0" type="259" head="0" body="0" legs="0" feet="0" corpse="7320" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Quisavu tukavi!" />
-    <voice sentence="Si siyoqua jamjam!" />
-    <voice sentence="Achuq! jinuma!" />
-    <voice sentence="Si ji jusipa!" />
-  </voices>
-  <elements>
-    <element icePercent="100" />
-    <element firePercent="25" />
-    <element holyPercent="10" />
-    <element energyPercent="-15" />
-    <element deathPercent="-5" />
-  </elements>
+  <look typeex="0" type="249" head="0" body="0" legs="0" feet="0" corpse="7320" />
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -23,9 +10,35 @@
     <flag convinceable="1" />
     <flag pushable="0" />
     <flag canpushitems="1" />
-    <flag lightlevel="0" />
-    <flag lightcolor="0" />
+    <flag canpushcreatures="0" />
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="0" />
+    <element firePercent="25" />
+    <element energyPercent="-15" />
+    <element icePercent="100" />
+    <element deathPercent="-5" />
+    <element holyPercent="10" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Si ji jusipa!" />
+    <voice yell="0" sentence="Achuq! jinuma!" />
+    <voice yell="0" sentence="Quisavu tukavi!" />
+    <voice yell="0" sentence="Si siyoqua jamjam!" />
+  </voices>
+  <defenses mitigation="0.33" defense="0" armor="9" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

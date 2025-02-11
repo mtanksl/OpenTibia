@@ -1,14 +1,49 @@
-<?xml version="1.0"?>
-<monster name="Valkyrie" nameDescription="a valkyrie" speed="176" experience="85" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Valkyrie" nameDescription="a valkyrie" race="blood" speed="176" experience="85" manacost="450">
   <health now="190" max="190" />
-  <look typeex="0" type="139" head="113" body="57" legs="95" feet="113" corpse="6081" />
+  <look typeex="0" type="139" head="113" body="38" legs="76" feet="96" corpse="6081" />
+  <flags>
+    <flag summonable="1" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="1" />
+    <flag convinceable="1" />
+    <flag pushable="0" />
+    <flag canpushitems="1" />
+    <flag canpushcreatures="1" />
+    <flag targetdistance="1" />
+    <flag runonhealth="10" />
+  </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="-10" />
+    <element earthpercent="0" />
+    <element firePercent="10" />
+    <element energyPercent="0" />
+    <element icePercent="10" />
+    <element deathPercent="-5" />
+    <element holyPercent="5" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
   <voices interval="5000" chance="10">
-    <voice sentence="Another head for me!" />
-    <voice sentence="Head off!" />
-    <voice sentence="Your head will be mine!" />
-    <voice sentence="Stand still!" />
-    <voice sentence="One more head for me!" />
+    <voice yell="0" sentence="Head off!" />
+    <voice yell="0" sentence="Stand still!" />
+    <voice yell="0" sentence="Another head for me!" />
+    <voice yell="0" sentence="One more head for me!" />
+    <voice yell="0" sentence="Your head will be mine!" />
   </voices>
+  <defenses mitigation="0.36" defense="0" armor="12" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks>
+    <attack name="melee" interval="2000" chance="90" min="0" max="70" />
+    <attack name="spears" interval="2000" chance="90" min="0" max="50" />
+  </attacks>
 	<loot>
 		<item id="2389" countmax="3" killsToGetOne="2" />	  <!-- spear -->
 		<item id="2148" countmax="12" killsToGetOne="4" />  <!-- gold coin -->
@@ -23,28 +58,4 @@
 		<item id="2387" killsToGetOne="252" />              <!-- double axe -->
     <item id="2145" countmax="1" killsToGetOne="926" /> <!-- small diamond -->
 	</loot>
-  <elements>
-    <element icePercent="10" />
-    <element firePercent="10" />
-    <element holyPercent="7" />
-    <element deathPercent="-7" />
-    <element physicalPercent="-6" />
-  </elements>
-  <flags>
-    <flag summonable="1" />
-    <flag attackable="1" />
-    <flag hostile="1" />
-    <flag illusionable="1" />
-    <flag convinceable="1" />
-    <flag pushable="0" />
-    <flag canpushitems="1" />
-    <flag canpushcreatures="0" />
-    <flag targetdistance="1" />
-    <flag runonhealth="10" />
-  </flags>
-  <defenses defense="0" armor="12" />
-  <attacks>
-    <attack name="melee" interval="2000" chance="100" min="0" max="70" />
-    <attack name="spears" interval="2000" chance="15" min="0" max="50" />
-  </attacks>
 </monster>

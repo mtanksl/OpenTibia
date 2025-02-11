@@ -1,22 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Eye of the Seven" nameDescription="an eye of the seven" speed="0" experience="0" race="venom">
-  <health now="1" max="1" />
-  <look typeex="2199" type="0" head="0" body="0" legs="0" feet="0" corpse="3058" />
-  <immunities>
-    <immunity physical="1" />
-    <immunity energy="1" />
-    <immunity fire="1" />
-    <immunity poison="1" />
-    <immunity ice="1" />
-    <immunity holy="1" />
-    <immunity death="1" />
-    <immunity lifedrain="1" />
-    <immunity manadrain="1" />
-    <immunity paralyze="1" />
-    <immunity drunk="1" />
-    <immunity outfit="1" />
-    <immunity invisible="0" />
-  </immunities>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Eye of the Seven" nameDescription="an eye of the seven" race="venom" speed="80" experience="0" manacost="0">
+  <health now="120" max="120" />
+  <look typeex="0" type="109" head="0" body="0" legs="0" feet="0" corpse="0" />
   <flags>
     <flag summonable="0" />
     <flag attackable="0" />
@@ -29,4 +14,26 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="100" />
+    <element earthpercent="100" />
+    <element firePercent="100" />
+    <element energyPercent="100" />
+    <element icePercent="100" />
+    <element deathPercent="100" />
+    <element holyPercent="100" />
+    <element drownPercent="100" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="100" />
+  </elements>
+  <voices interval="5000" chance="10" />
+  <defenses mitigation="0" defense="0" armor="0" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

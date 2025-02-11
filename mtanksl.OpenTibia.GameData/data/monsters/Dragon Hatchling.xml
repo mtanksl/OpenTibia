@@ -1,21 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Dragon Hatchling" nameDescription="a dragon hatchling" speed="170" experience="185" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Dragon Hatchling" nameDescription="a dragon hatchling" race="blood" speed="170" experience="185" manacost="0">
   <health now="380" max="380" />
   <look typeex="0" type="271" head="0" body="0" legs="0" feet="0" corpse="7621" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Fchu?" />
-    <voice sentence="Rooawwrr" />
-  </voices>
-  <elements>
-    <element firePercent="100" />
-    <element earthPercent="60" />
-    <element icePercent="-10" />
-    <element energyPercent="-6" />
-  </elements>
-  <immunities>
-    <immunity paralyze="1" />
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -26,6 +12,31 @@
     <flag canpushitems="1" />
     <flag canpushcreatures="1" />
     <flag targetdistance="1" />
-    <flag runonhealth="80" />
+    <flag runonhealth="20" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="75" />
+    <element firePercent="100" />
+    <element energyPercent="-5" />
+    <element icePercent="-10" />
+    <element deathPercent="0" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Fchu?" />
+    <voice yell="0" sentence="Rooawwrr" />
+  </voices>
+  <defenses mitigation="0" defense="0" armor="0" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

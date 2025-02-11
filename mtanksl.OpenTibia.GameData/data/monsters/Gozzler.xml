@@ -1,21 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Gozzler" nameDescription="a gozzler" speed="200" experience="180" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Gozzler" nameDescription="a gozzler" race="undead" speed="240" experience="180" manacost="800">
   <health now="240" max="240" />
   <look typeex="0" type="313" head="0" body="0" legs="0" feet="0" corpse="9938" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Huhuhuhuuu!" />
-    <voice sentence="Let the fun begin!" />
-    <voice sentence="Yihahaha!" />
-    <voice sentence="I'll bite you! Nyehehehehe!" />
-  </voices>
-  <elements>
-    <element deathPercent="50" />
-    <element holyPercent="50" />
-    <element physicalPercent="-30" />
-  </elements>
-  <immunities>
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="1" />
     <flag attackable="1" />
@@ -25,7 +11,34 @@
     <flag pushable="0" />
     <flag canpushitems="1" />
     <flag canpushcreatures="1" />
-    <flag targetdistance="4" />
+    <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="-5" />
+    <element earthpercent="0" />
+    <element firePercent="0" />
+    <element energyPercent="0" />
+    <element icePercent="0" />
+    <element deathPercent="50" />
+    <element holyPercent="50" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Yihahaha!" />
+    <voice yell="0" sentence="Huhuhuhuuu!" />
+    <voice yell="0" sentence="Let the fun begin!" />
+    <voice yell="0" sentence="I'll bite you! Nyehehehehe!" />
+  </voices>
+  <defenses mitigation="1.37" defense="0" armor="25" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

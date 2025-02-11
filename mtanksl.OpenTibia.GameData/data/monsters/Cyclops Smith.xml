@@ -1,24 +1,12 @@
-<?xml version="1.0"?>
-<monster name="Cyclops Smith" nameDescription="a cyclops smith" speed="220" experience="255" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Cyclops Smith" nameDescription="a cyclops smith" race="blood" speed="204" experience="255" manacost="695">
   <health now="435" max="435" />
   <look typeex="0" type="277" head="0" body="0" legs="0" feet="0" corpse="7740" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Outis emoi g' onoma." />
-    <voice sentence="Whack da humy!" />
-    <voice sentence="Ai humy phary ty kaynon" />
-  </voices>
-  <elements>
-    <element energyPercent="20" />
-    <element firePercent="10" />
-    <element holyPercent="10" />
-    <element earthPercent="-10" />
-    <element deathPercent="-5" />
-  </elements>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
     <flag hostile="1" />
-    <flag illusionable="0" />
+    <flag illusionable="1" />
     <flag convinceable="1" />
     <flag pushable="0" />
     <flag canpushitems="1" />
@@ -26,4 +14,30 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="-10" />
+    <element firePercent="10" />
+    <element energyPercent="20" />
+    <element icePercent="0" />
+    <element deathPercent="-5" />
+    <element holyPercent="20" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Whack da humy!" />
+    <voice yell="0" sentence="Outis emoi g' onoma." />
+    <voice yell="0" sentence="Ai humy phary ty kaynon" />
+  </voices>
+  <defenses mitigation="0.96" defense="0" armor="28" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

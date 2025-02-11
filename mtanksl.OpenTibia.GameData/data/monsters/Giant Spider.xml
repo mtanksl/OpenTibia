@@ -1,20 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Giant Spider" nameDescription="a giant spider" speed="280" experience="900" race="venom">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Giant Spider" nameDescription="a giant spider" race="venom" speed="240" experience="900" manacost="0">
   <health now="1300" max="1300" />
   <look typeex="0" type="38" head="0" body="0" legs="0" feet="0" corpse="5977" />
-  <elements>
-    <element earthPercent="100" />
-    <element energyPercent="20" />
-    <element icePercent="20" />
-    <element firePercent="-10" />
-  </elements>
-  <immunities>
-    <immunity lifedrain="0" />
-    <immunity paralyze="0" />
-    <immunity outfit="1" />
-    <immunity drunk="1" />
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -27,4 +14,26 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="100" />
+    <element firePercent="-10" />
+    <element energyPercent="20" />
+    <element icePercent="20" />
+    <element deathPercent="0" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10" />
+  <defenses mitigation="1.04" defense="0" armor="30" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

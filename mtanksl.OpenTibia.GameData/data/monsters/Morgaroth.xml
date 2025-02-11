@@ -1,25 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Morgaroth" nameDescription="Morgaroth" speed="400" experience="15000" race="undead">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Morgaroth" nameDescription="Morgaroth" race="fire" speed="610" experience="15000" manacost="0">
   <health now="55000" max="55000" />
-  <look typeex="0" type="12" head="0" body="94" legs="79" feet="79" corpse="6068" />
-  <voices interval="5000" chance="10">
-    <voice sentence="I AM MORGAROTH, LORD OF THE TRIANGLE... AND YOU ARE LOST!" />
-    <voice sentence="MY SEED IS FEAR AND MY HARVEST ARE YOUR SOULS!" />
-    <voice sentence="THE TRIANGLE OF TERROR WILL RISE!" />
-    <voice sentence="ZATHROTH! LOOK AT THE DESTRUCTION I AM CAUSING IN YOUR NAME!" />
-  </voices>
-  <elements>
-    <element firePercent="100" />
-    <element earthPercent="100" />
-    <element energyPercent="100" />
-    <element deathPercent="60" />
-    <element physicalPercent="40" />
-    <element icePercent="-25" />
-  </elements>
-  <immunities>
-    <immunity paralyze="1" />
-    <immunity invisible="1" />
-  </immunities>
+  <look typeex="0" type="12" head="1" body="75" legs="59" feet="1" corpse="6068" />
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -30,6 +12,33 @@
     <flag canpushitems="1" />
     <flag canpushcreatures="1" />
     <flag targetdistance="1" />
-    <flag runonhealth="0" />
+    <flag runonhealth="2500" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="50" />
+    <element earthpercent="100" />
+    <element firePercent="100" />
+    <element energyPercent="80" />
+    <element icePercent="-5" />
+    <element deathPercent="100" />
+    <element holyPercent="-5" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="30">
+    <voice yell="1" sentence="THE TRIANGLE OF TERROR WILL RISE!" />
+    <voice yell="1" sentence="MY SEED IS FEAR AND MY HARVEST ARE YOUR SOULS!" />
+    <voice yell="1" sentence="I AM MORGAROTH, LORD OF THE TRIANGLE... AND YOU ARE LOST!" />
+    <voice yell="1" sentence="ZATHROTH! LOOK AT THE DESTRUCTION I AM CAUSING IN YOUR NAME!" />
+  </voices>
+  <defenses mitigation="0" defense="0" armor="130" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

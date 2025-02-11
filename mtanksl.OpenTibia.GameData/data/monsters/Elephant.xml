@@ -1,18 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Elephant" nameDescription="an elephant" speed="240" experience="160" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Elephant" nameDescription="an elephant" race="blood" speed="190" experience="160" manacost="500">
   <health now="320" max="320" />
   <look typeex="0" type="211" head="0" body="0" legs="0" feet="0" corpse="6052" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Hooooot-Toooooot!" />
-    <voice sentence="Tooooot." />
-    <voice sentence="Troooooot!" />
-  </voices>
-  <elements>
-    <element physicalPercent="15" />
-    <element icePercent="20" />
-    <element firePercent="20" />
-    <element energyPercent="-10" />
-  </elements>
   <flags>
     <flag summonable="1" />
     <flag attackable="1" />
@@ -25,4 +14,30 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="25" />
+    <element earthpercent="0" />
+    <element firePercent="0" />
+    <element energyPercent="-10" />
+    <element icePercent="20" />
+    <element deathPercent="0" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Tooooot!" />
+    <voice yell="0" sentence="Trooooot!" />
+    <voice yell="0" sentence="Hooooot-Toooooot!" />
+  </voices>
+  <defenses mitigation="0.41" defense="0" armor="20" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

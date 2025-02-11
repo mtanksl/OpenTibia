@@ -1,14 +1,53 @@
-<?xml version="1.0"?>
-<monster name="Demon" nameDescription="a demon" speed="280" experience="6000" race="fire">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Demon" nameDescription="a demon" race="fire" speed="256" experience="6000" manacost="0">
   <health now="8200" max="8200" />
   <look typeex="0" type="35" head="0" body="0" legs="0" feet="0" corpse="5995" />
+  <flags>
+    <flag summonable="0" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="0" />
+    <flag convinceable="0" />
+    <flag pushable="0" />
+    <flag canpushitems="1" />
+    <flag canpushcreatures="1" />
+    <flag targetdistance="1" />
+    <flag runonhealth="0" />
+  </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="25" />
+    <element earthpercent="40" />
+    <element firePercent="100" />
+    <element energyPercent="50" />
+    <element icePercent="-12" />
+    <element deathPercent="20" />
+    <element holyPercent="-12" />
+    <element drownPercent="100" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="100" />
+  </elements>
   <voices interval="5000" chance="10">
-    <voice sentence="MUHAHAHAHA!" yell="1" />
-    <voice sentence="I SMELL FEEEEEAAAR!" yell="1" />
-    <voice sentence="CHAMEK ATH UTHUL ARAK!" yell="1" />
-    <voice sentence="Your resistance is futile!" />
-    <voice sentence="Your soul will be mine!" />
+    <voice yell="1" sentence="MUHAHAHAHA!" />
+    <voice yell="1" sentence="I SMELL FEEEEAAAAAR!" />
+    <voice yell="1" sentence="CHAMEK ATH UTHUL ARAK!" />
+    <voice yell="1" sentence="Your soul will be mine!" />
+    <voice yell="0" sentence="Your resistance is futile!" />
   </voices>
+  <defenses mitigation="1.74" defense="0" armor="44" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks>
+    <attack name="melee" interval="2000" chance="90" min="0" max="500" />
+    <attack name="great fireball" interval="2000" chance="90" min="150" max="250" />
+    <attack name="energy beam" interval="2000" chance="90" min="300" max="480" />
+    <attack name="mana drain" interval="2000" chance="90" min="30" max="120" />
+    <attack name="self healing" interval="2000" chance="90" min="80" max="250" />
+    <attack name="fire field" interval="2000" chance="90" />
+  </attacks>
 	<loot>
 		<item id="2148" countmax="200" killsToGetOne="2" /> <!-- gold coin -->
 		<item id="2152" countmax="8" killsToGetOne="2" /> <!-- platinum coin -->
@@ -38,39 +77,4 @@
 		<item id="2472" killsToGetOne="1251" /> <!-- magic plate armor -->
     <item id="7382" killsToGetOne="1752" /> <!-- demonrage sword -->
 	</loot>
-  <elements>
-    <element firePercent="100" />
-    <element physicalPercent="25" />
-    <element earthpercent="20" />
-    <element energyPercent="20" />
-    <element deathPercent="20" />
-    <element icePercent="-25" />
-    <element holyPercent="-10" />
-  </elements>
-  <immunities>
-    <immunity lifedrain="1" />
-    <immunity paralyze="1" />
-    <immunity invisible="1" />
-  </immunities>
-  <flags>
-    <flag summonable="0" />
-    <flag attackable="1" />
-    <flag hostile="1" />
-    <flag illusionable="0" />
-    <flag convinceable="0" />
-    <flag pushable="0" />
-    <flag canpushitems="1" />
-    <flag canpushcreatures="1" />
-    <flag targetdistance="1" />
-    <flag runonhealth="0" />
-  </flags>
-  <defenses defense="0" armor="44" />
-  <attacks>
-    <attack name="melee" interval="2000" chance="100" min="0" max="500" />
-    <attack name="great fireball" interval="2000" chance="15" min="150" max="250" />
-    <attack name="energy beam" interval="2000" chance="15" min="300" max="480" />
-    <attack name="mana drain" interval="2000" chance="15" min="30" max="120" />
-    <attack name="self healing" interval="2000" chance="15" min="80" max="250" />
-    <attack name="fire field" interval="2000" chance="15" />
-  </attacks>
 </monster>

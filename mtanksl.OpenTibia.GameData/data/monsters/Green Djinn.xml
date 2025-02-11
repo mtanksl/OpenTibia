@@ -1,25 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Green Djinn" nameDescription="a green djinn" speed="220" experience="215" race="blood">
+<?xml version="1.0" encoding="utf-8"?>
+<monster name="Green Djinn" nameDescription="a green djinn" race="blood" speed="220" experience="215" manacost="0">
   <health now="330" max="330" />
   <look typeex="0" type="51" head="0" body="0" legs="0" feet="0" corpse="6016" />
-  <voices interval="5000" chance="10">
-    <voice sentence="I grant you a deathwish!" />
-    <voice sentence="Muhahahaha!" />
-    <voice sentence="I wish you a merry trip to hell!" />
-    <voice sentence="Good wishes are for fairytales" />
-  </voices>
-  <elements>
-    <element firePercent="80" />
-    <element energyPercent="50" />
-    <element physicalPercent="30" />
-    <element deathPercent="20" />
-    <element icePercent="-10" />
-    <element holyPercent="-10" />
-  </elements>
-  <immunities>
-    <immunity paralyze="1" />
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -32,4 +14,31 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="0" />
+    <element firePercent="80" />
+    <element energyPercent="50" />
+    <element icePercent="-10" />
+    <element deathPercent="-13" />
+    <element holyPercent="20" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Muhahahaha!" />
+    <voice yell="0" sentence="I grant you a deathwish!" />
+    <voice yell="0" sentence="Good wishes are for fairytales" />
+    <voice yell="0" sentence="I wish you a merry trip to hell!" />
+  </voices>
+  <defenses mitigation="0.78" defense="0" armor="20" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

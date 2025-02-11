@@ -1,27 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Rahemos" nameDescription="a rahemos" speed="320" experience="3100" race="undead">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Rahemos" nameDescription="Rahemos" race="undead" speed="440" experience="3100" manacost="0">
   <health now="3700" max="3700" />
   <look typeex="0" type="87" head="0" body="0" legs="0" feet="0" corpse="6031" />
-  <voices interval="5000" chance="10">
-    <voice sentence="It's a kind of magic." />
-    <voice sentence="Abrah Kadabrah!" />
-    <voice sentence="Nothing hidden in my wrappings." />
-    <voice sentence="It's not a trick, it's Rahemos." />
-    <voice sentence="Meet my friend from hell." />
-    <voice sentence="I will make you believe in magic." />
-  </voices>
-  <elements>
-    <element icePercent="100" />
-    <element earthPercent="100" />
-    <element deathPercent="100" />
-    <element firePercent="94" />
-    <element energyPercent="92" />
-    <element holyPercent="-25" />
-  </elements>
-  <immunities>
-    <immunity paralyze="1" />
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -34,4 +14,33 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="-40" />
+    <element earthpercent="100" />
+    <element firePercent="95" />
+    <element energyPercent="95" />
+    <element icePercent="100" />
+    <element deathPercent="100" />
+    <element holyPercent="100" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Abrah Kadabrah!" />
+    <voice yell="0" sentence="It's a kind of magic." />
+    <voice yell="0" sentence="Meet my friend from hell!" />
+    <voice yell="0" sentence="Nothing hidden in my wrappings." />
+    <voice yell="0" sentence="It's not a trick, it's Rahemos." />
+    <voice yell="0" sentence="I will make you believe in magic." />
+  </voices>
+  <defenses mitigation="0" defense="0" armor="40" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

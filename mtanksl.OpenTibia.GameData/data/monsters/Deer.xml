@@ -1,22 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Deer" nameDescription="a deer" speed="150" experience="0" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Deer" nameDescription="a deer" race="blood" speed="196" experience="0" manacost="260">
   <health now="25" max="25" />
   <look typeex="0" type="31" head="0" body="0" legs="0" feet="0" corpse="5970" />
-	<loot>
-		<item id="2666" countmax="10" killsToGetOne="2" /> <!-- meat -->
-    <item id="2671" countmax="4" killsToGetOne="2" />  <!-- ham -->
-	</loot>
-  <immunities>
-    <immunity physical="0" />
-    <immunity energy="0" />
-    <immunity fire="0" />
-    <immunity poison="0" />
-    <immunity lifedrain="0" />
-    <immunity paralyze="0" />
-    <immunity outfit="0" />
-    <immunity drunk="0" />
-    <immunity invisible="0" />
-  </immunities>
   <flags>
     <flag summonable="1" />
     <flag attackable="1" />
@@ -29,8 +14,31 @@
     <flag targetdistance="1" />
     <flag runonhealth="25" />
   </flags>
-  <defenses defense="0" armor="2" />
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="0" />
+    <element firePercent="0" />
+    <element energyPercent="0" />
+    <element icePercent="0" />
+    <element deathPercent="0" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10" />
+  <defenses mitigation="0.05" defense="0" armor="2" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
   <attacks>
-    <attack name="melee" interval="2000" chance="100" min="0" max="1" />
+    <attack name="melee" interval="2000" chance="90" min="0" max="1" />
   </attacks>
+	<loot>
+		<item id="2666" countmax="10" killsToGetOne="2" /> <!-- meat -->
+    <item id="2671" countmax="4" killsToGetOne="2" />  <!-- ham -->
+	</loot>
 </monster>

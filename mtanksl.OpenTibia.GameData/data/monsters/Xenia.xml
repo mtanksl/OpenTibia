@@ -1,36 +1,43 @@
-<?xml version="1.0"?>
-<monster name="Xenia" nameDescription="Xenia" speed="176" experience="255" race="blood">
-  <health now="290" max="290" />
-  <look typeex="0" type="139" head="113" body="57" legs="95" feet="113" corpse="6081" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Stand still!" />
-    <voice sentence="One more head for me!" />
-    <voice sentence="Head off!" />
-  </voices>
-  <elements>
-    <element icePercent="10" />
-    <element firePercent="10" />
-    <element holyPercent="7" />
-    <element deathPercent="-7" />
-    <element physicalPercent="-6" />
-  </elements>
-  <immunities>
-    <immunity lifedrain="0" />
-    <immunity paralyze="0" />
-    <immunity outfit="0" />
-    <immunity drunk="0" />
-    <immunity invisible="0" />
-  </immunities>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Xenia" nameDescription="Xenia" race="blood" speed="176" experience="255" manacost="0">
+  <health now="200" max="200" />
+  <look typeex="0" type="137" head="95" body="115" legs="115" feet="95" corpse="6081" />
   <flags>
-    <flag summonable="1" />
+    <flag summonable="0" />
     <flag attackable="1" />
     <flag hostile="1" />
-    <flag illusionable="1" />
-    <flag convinceable="1" />
+    <flag illusionable="0" />
+    <flag convinceable="0" />
     <flag pushable="0" />
     <flag canpushitems="1" />
     <flag canpushcreatures="0" />
     <flag targetdistance="1" />
     <flag runonhealth="10" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="0" />
+    <element firePercent="0" />
+    <element energyPercent="0" />
+    <element icePercent="0" />
+    <element deathPercent="0" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Head off!" />
+    <voice yell="0" sentence="Stand still!" />
+    <voice yell="0" sentence="One more head for me!" />
+  </voices>
+  <defenses mitigation="0" defense="0" armor="0" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

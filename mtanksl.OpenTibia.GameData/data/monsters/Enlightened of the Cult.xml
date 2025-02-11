@@ -1,17 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Enlightened of the Cult" nameDescription="a enlightened of the cult" speed="220" experience="500" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Enlightened of the Cult" nameDescription="an enlightened of the cult" race="blood" speed="200" experience="500" manacost="0">
   <health now="700" max="700" />
   <look typeex="0" type="193" head="0" body="0" legs="0" feet="0" corpse="6080" />
-  <elements>
-    <element holyPercent="20" />
-    <element icePercent="10" />
-    <element physicalPercent="-10" />
-    <element energyPercent="-7" />
-    <element deathPercent="-5" />
-  </elements>
-  <immunities>
-    <immunity paralyze="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -21,7 +11,34 @@
     <flag pushable="0" />
     <flag canpushitems="1" />
     <flag canpushcreatures="1" />
-    <flag targetdistance="5" />
+    <flag targetdistance="4" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="-5" />
+    <element earthpercent="0" />
+    <element firePercent="0" />
+    <element energyPercent="-5" />
+    <element icePercent="20" />
+    <element deathPercent="-5" />
+    <element holyPercent="20" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Praise to my master Urgith!" />
+    <voice yell="0" sentence="You will rise as my servant!" />
+    <voice yell="0" sentence="You will die in the name of the triangle!" />
+    <voice yell="0" sentence="Praise to my masters! Long live the triangle!" />
+  </voices>
+  <defenses mitigation="1.18" defense="0" armor="40" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

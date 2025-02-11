@@ -1,29 +1,43 @@
-<?xml version="1.0"?>
-<monster name="Nomad" nameDescription="a nomad" speed="215" experience="60" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Nomad" nameDescription="a nomad" race="blood" speed="190" experience="60" manacost="420">
   <health now="160" max="160" />
-  <look typeex="0" type="146" head="114" body="20" legs="22" feet="2" corpse="6080" />
-  <voices interval="5000" chance="10">
-    <voice sentence="We are the true sons of the desert!" />
-    <voice sentence="I will leave your remains to the vultures!" />
-    <voice sentence="We are swift as the wind of the desert!" />
-  </voices>
-  <elements>
-    <element firePercent="20" />
-    <element holyPercent="10" />
-    <element physicalPercent="-12" />
-    <element icePercent="-10" />
-    <element deathPercent="-5" />
-  </elements>
+  <look typeex="0" type="146" head="97" body="39" legs="40" feet="3" corpse="6080" />
   <flags>
     <flag summonable="1" />
     <flag attackable="1" />
     <flag hostile="1" />
     <flag illusionable="1" />
     <flag convinceable="1" />
-    <flag pushable="0" />
+    <flag pushable="1" />
     <flag canpushitems="1" />
     <flag canpushcreatures="0" />
     <flag targetdistance="1" />
-    <flag runonhealth="18" />
+    <flag runonhealth="15" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="-10" />
+    <element earthpercent="0" />
+    <element firePercent="20" />
+    <element energyPercent="0" />
+    <element icePercent="-10" />
+    <element deathPercent="-10" />
+    <element holyPercent="20" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="We are the true sons of the desert!" />
+    <voice yell="0" sentence="We are swift as the wind of the desert!" />
+    <voice yell="0" sentence="I will leave your remains to the vultures!" />
+  </voices>
+  <defenses mitigation="0.41" defense="0" armor="6" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

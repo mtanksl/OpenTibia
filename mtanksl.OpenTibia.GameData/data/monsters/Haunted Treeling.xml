@@ -1,16 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Haunted Treeling" nameDescription="a haunted treeling" speed="260" experience="310" race="undead">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Haunted Treeling" nameDescription="a haunted treeling" race="undead" speed="230" experience="310" manacost="0">
   <health now="450" max="450" />
   <look typeex="0" type="310" head="0" body="0" legs="0" feet="0" corpse="9867" />
-  <elements>
-    <element firePercent="-15" />
-    <element deathPercent="10" />
-    <element icePercent="10" />
-    <element holyPercent="20" />
-  </elements>
-  <immunities>
-    <immunity earth="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -23,4 +14,30 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="100" />
+    <element firePercent="-5" />
+    <element energyPercent="0" />
+    <element icePercent="10" />
+    <element deathPercent="10" />
+    <element holyPercent="20" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Knarrrz" />
+    <voice yell="0" sentence="Knorrrrrr" />
+    <voice yell="0" sentence="Huuhuuhuuuhuuaarrr" />
+  </voices>
+  <defenses mitigation="0.91" defense="0" armor="20" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

@@ -1,23 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Hydra" nameDescription="a hydra" speed="260" experience="2100" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Hydra" nameDescription="a hydra" race="blood" speed="360" experience="2100" manacost="0">
   <health now="2350" max="2350" />
   <look typeex="0" type="121" head="0" body="0" legs="0" feet="0" corpse="6048" />
-  <voices interval="5000" chance="10">
-    <voice sentence="FCHHHHH" />
-    <voice sentence="HISSSS" />
-  </voices>
-  <elements>
-    <element earthPercent="100" />
-    <element icePercent="40" />
-    <element holyPercent="25" />
-    <element physicalPercent="-15" />
-    <element energyPercent="-10" />
-	</elements>
-  <immunities>
-    <immunity lifedrain="1" />
-    <immunity paralyze="1" />
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -30,4 +14,29 @@
     <flag targetdistance="1" />
     <flag runonhealth="300" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="-5" />
+    <element earthpercent="100" />
+    <element firePercent="0" />
+    <element energyPercent="-10" />
+    <element icePercent="50" />
+    <element deathPercent="0" />
+    <element holyPercent="30" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="100" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="1" sentence="HISSSS" />
+    <voice yell="1" sentence="FCHHHHH" />
+  </voices>
+  <defenses mitigation="1.18" defense="0" armor="27" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

@@ -1,15 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Dreadbeast" nameDescription="a dreadbeast" speed="200" experience="580" race="undead">
-  <health now="515" max="515" />
-  <look typeex="0" type="101" head="20" body="30" legs="40" feet="50" corpse="3031" />
-  <elements>
-    <element firePercent="70" />
-    <element physicalPercent="-25" />
-  </elements>
-  <immunities>
-    <immunity poison="1" />
-    <immunity paralyze="1" />
-  </immunities>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Dreadbeast" nameDescription="a dreadbeast" race="undead" speed="136" experience="250" manacost="800">
+  <health now="800" max="800" />
+  <look typeex="0" type="101" head="0" body="0" legs="0" feet="0" corpse="3031" />
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -18,9 +10,30 @@
     <flag convinceable="1" />
     <flag pushable="0" />
     <flag canpushitems="1" />
-    <flag lightlevel="0" />
-    <flag lightcolor="0" />
+    <flag canpushcreatures="0" />
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="30" />
+    <element earthpercent="100" />
+    <element firePercent="55" />
+    <element energyPercent="15" />
+    <element icePercent="40" />
+    <element deathPercent="100" />
+    <element holyPercent="-50" />
+    <element drownPercent="75" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="100" />
+  </elements>
+  <voices interval="5000" chance="10" />
+  <defenses mitigation="0" defense="0" armor="0" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

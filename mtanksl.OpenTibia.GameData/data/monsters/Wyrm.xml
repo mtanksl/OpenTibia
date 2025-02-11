@@ -1,27 +1,42 @@
-<?xml version="1.0"?>
-<monster name="Wyrm" nameDescription="a wyrm" speed="300" experience="1450" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Wyrm" nameDescription="a wyrm" race="blood" speed="280" experience="1550" manacost="0">
   <health now="1825" max="1825" />
   <look typeex="0" type="291" head="0" body="0" legs="0" feet="0" corpse="8941" />
-  <voices interval="5000" chance="10">
-    <voice sentence="GRRR!" />
-    <voice sentence="GROOOOAAAAAAAAR!" />
-  </voices>
-  <immunities>
-    <immunity energy="1" />
-    <immunity paralyze="1" />
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
     <flag hostile="1" />
-    <flag illusionable="0" />
+    <flag illusionable="1" />
     <flag convinceable="0" />
     <flag pushable="0" />
     <flag canpushitems="1" />
-    <flag lightlevel="0" />
-    <flag lightcolor="0" />
+    <flag canpushcreatures="0" />
     <flag targetdistance="1" />
-    <flag runonhealth="1" />
+    <flag runonhealth="150" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="75" />
+    <element firePercent="20" />
+    <element energyPercent="100" />
+    <element icePercent="-5" />
+    <element deathPercent="-5" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="100" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="GRRR" />
+    <voice yell="0" sentence="GRROARR" />
+  </voices>
+  <defenses mitigation="0.83" defense="0" armor="34" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

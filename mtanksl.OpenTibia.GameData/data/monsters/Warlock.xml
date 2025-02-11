@@ -1,24 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Warlock" nameDescription="a warlock" speed="220" experience="4000" race="blood">
+<?xml version="1.0" encoding="utf-8"?>
+<monster name="Warlock" nameDescription="a warlock" race="blood" speed="230" experience="4000" manacost="0">
   <health now="3500" max="3500" />
   <look typeex="0" type="130" head="19" body="71" legs="128" feet="128" corpse="6080" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Learn the secret of our magic! YOUR death!" />
-    <voice sentence="Even a rat is a better mage than you." />
-    <voice sentence="We don't like intruders!" />
-  </voices>
-  <elements>
-    <element firePercent="100" />
-    <element energyPercent="100" />
-    <element icePercent="100" />
-    <element earthPercent="90" />
-    <element holyPercent="-25" />
-    <element physicalPercent="-33" />
-  </elements>
-  <immunities>
-    <immunity paralyze="1" />
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -31,4 +14,30 @@
     <flag targetdistance="4" />
     <flag runonhealth="800" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="0" />
+    <element firePercent="0" />
+    <element energyPercent="0" />
+    <element icePercent="0" />
+    <element deathPercent="0" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="We don't like intruders!" />
+	<voice yell="0" sentence="Even a rat is a better mage than you." />
+	<voice yell="0" sentence="Learn the secret of our magic! YOUR death!" />
+  </voices>
+  <defenses mitigation="1.32" defense="0" armor="33" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

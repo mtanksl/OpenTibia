@@ -1,12 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Cat" nameDescription="a cat" speed="124" experience="0" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Cat" nameDescription="a cat" race="blood" speed="124" experience="0" manacost="220">
   <health now="20" max="20" />
   <look typeex="0" type="276" head="0" body="0" legs="0" feet="0" corpse="7637" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Mew!" />
-    <voice sentence="Meow!" />
-    <voice sentence="Meow meow!" />
-  </voices>
   <flags>
     <flag summonable="1" />
     <flag attackable="1" />
@@ -19,4 +14,30 @@
     <flag targetdistance="1" />
     <flag runonhealth="8" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="0" />
+    <element firePercent="0" />
+    <element energyPercent="0" />
+    <element icePercent="0" />
+    <element deathPercent="0" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Mew!" />
+    <voice yell="0" sentence="Meow!" />
+    <voice yell="0" sentence="Meow meow!" />
+  </voices>
+  <defenses mitigation="0.05" defense="0" armor="1" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

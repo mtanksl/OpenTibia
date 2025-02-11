@@ -1,10 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Bat" nameDescription="a bat" speed="200" experience="10" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Bat" nameDescription="a bat" race="blood" speed="200" experience="10" manacost="250">
   <health now="30" max="30" />
   <look typeex="0" type="122" head="0" body="0" legs="0" feet="0" corpse="6053" />
-  <elements>
-    <element earthPercent="-20" />
-  </elements>
   <flags>
     <flag summonable="1" />
     <flag attackable="1" />
@@ -17,4 +14,28 @@
     <flag targetdistance="1" />
     <flag runonhealth="3" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="-10" />
+    <element firePercent="0" />
+    <element energyPercent="0" />
+    <element icePercent="0" />
+    <element deathPercent="0" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Flap! Flap!" />
+  </voices>
+  <defenses mitigation="0.15" defense="0" armor="1" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

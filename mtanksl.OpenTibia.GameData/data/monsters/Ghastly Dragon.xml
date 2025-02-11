@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Ghastly Dragon" nameDescription="a ghastly dragon" race="undead" speed="320" experience="4600" manacost="0">
+  <health now="7800" max="7800" />
+  <look typeex="0" type="351" head="0" body="0" legs="0" feet="0" corpse="11362" />
+  <flags>
+    <flag summonable="0" />
+    <flag attackable="1" />
+    <flag hostile="1" />
+    <flag illusionable="1" />
+    <flag convinceable="0" />
+    <flag pushable="0" />
+    <flag canpushitems="1" />
+    <flag canpushcreatures="1" />
+    <flag targetdistance="1" />
+    <flag runonhealth="366" />
+  </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="-10" />
+    <element earthpercent="100" />
+    <element firePercent="10" />
+    <element energyPercent="-10" />
+    <element icePercent="50" />
+    <element deathPercent="100" />
+    <element holyPercent="-15" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="1" sentence="EMBRACE MY GIFTS!" />
+    <voice yell="1" sentence="I WILL FEAST ON YOUR SOUL!" />
+  </voices>
+  <defenses mitigation="1.24" defense="0" armor="30" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
+</monster>

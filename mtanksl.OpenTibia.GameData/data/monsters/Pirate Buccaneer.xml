@@ -1,34 +1,43 @@
-<?xml version="1.0"?>
-<monster name="Pirate Buccaneer" nameDescription="a pirate buccaneer" speed="230" experience="250" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Pirate Buccaneer" nameDescription="a pirate buccaneer" race="blood" speed="218" experience="250" manacost="595">
   <health now="425" max="425" />
   <look typeex="0" type="97" head="0" body="0" legs="0" feet="0" corpse="6080" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Give up!" />
-    <voice sentence="Hiyaa" />
-    <voice sentence="Plundeeeeer!" />
-  </voices>
-  <elements>
-    <element earthPercent="25" />
-    <element holyPercent="20" />
-    <element deathPercent="-7" />
-    <element firePercent="-10" />
-    <element energyPercent="-10" />
-    <element icePercent="-10" />
-    <element physicalPercent="-11" />
-  </elements>
-  <immunities>
-    <immunity invisible="1" />
-  </immunities>
   <flags>
-    <flag summonable="1" />
+    <flag summonable="0" />
     <flag attackable="1" />
     <flag hostile="1" />
-    <flag illusionable="0" />
-    <flag convinceable="0" />
+    <flag illusionable="1" />
+    <flag convinceable="1" />
     <flag pushable="0" />
     <flag canpushitems="1" />
     <flag canpushcreatures="1" />
     <flag targetdistance="1" />
     <flag runonhealth="50" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="-5" />
+    <element earthpercent="10" />
+    <element firePercent="-5" />
+    <element energyPercent="-5" />
+    <element icePercent="-5" />
+    <element deathPercent="-5" />
+    <element holyPercent="10" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Hiyaa" />
+    <voice yell="0" sentence="Give up!" />
+    <voice yell="0" sentence="Plundeeeeer!" />
+  </voices>
+  <defenses mitigation="1.04" defense="0" armor="16" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

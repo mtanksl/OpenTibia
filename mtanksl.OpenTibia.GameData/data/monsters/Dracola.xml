@@ -1,17 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Dracola" nameDescription="Dracola" speed="410" experience="7750" race="undead">
-  <health now="15850" max="15850" />
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Dracola" nameDescription="Dracola" race="undead" speed="370" experience="11000" manacost="0">
+  <health now="16200" max="16200" />
   <look typeex="0" type="231" head="0" body="0" legs="0" feet="0" corpse="6307" />
-  <voices interval="5000" chance="10">
-    <voice sentence="DEATH CAN'T STOP MY HUNGER!" />
-  </voices>
-  <elements>
-    <element earthPercent="100" />
-  </elements>
-  <immunities>
-    <immunity paralyze="1" />
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -24,4 +14,28 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="100" />
+    <element firePercent="100" />
+    <element energyPercent="100" />
+    <element icePercent="100" />
+    <element deathPercent="100" />
+    <element holyPercent="-10" />
+    <element drownPercent="100" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="2000" chance="5">
+    <voice yell="1" sentence="DEATH CAN'T STOP MY HUNGER!" />
+  </voices>
+  <defenses mitigation="0" defense="0" armor="0" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

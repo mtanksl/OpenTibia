@@ -1,29 +1,43 @@
-<?xml version="1.0"?>
-<monster name="Dworc Venomsniper" nameDescription="a dworc venomsniper" speed="240" experience="30" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Dworc Venomsniper" nameDescription="a dworc venomsniper" race="blood" speed="152" experience="35" manacost="0">
   <health now="80" max="80" />
   <look typeex="0" type="216" head="0" body="0" legs="0" feet="0" corpse="6059" />
-  <voices interval="5000" chance="10">
-    <voice sentence="grak brrretz!" />
-    <voice sentence="grow truk grrrrr." />
-    <voice sentence="prek tars, dekklep zurk." />
-  </voices>
-  <elements>
-    <element earthPercent="100" />
-    <element holyPercent="18" />
-    <element firePercent="-15" />
-    <element deathPercent="-9" />
-    <element icePercent="-6" />
-  </elements>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
     <flag hostile="1" />
     <flag illusionable="1" />
-    <flag convinceable="1" />
+    <flag convinceable="0" />
     <flag pushable="1" />
     <flag canpushitems="0" />
     <flag canpushcreatures="0" />
     <flag targetdistance="4" />
     <flag runonhealth="15" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="100" />
+    <element firePercent="-13" />
+    <element energyPercent="0" />
+    <element icePercent="-13" />
+    <element deathPercent="-8" />
+    <element holyPercent="15" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Brak brrretz!" />
+    <voice yell="0" sentence="Grow truk grrrrr." />
+    <voice yell="0" sentence="Prek tars, dekklep zurk." />
+  </voices>
+  <defenses mitigation="0.38" defense="0" armor="3" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

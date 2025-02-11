@@ -1,24 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Ice Witch" nameDescription="an ice witch" speed="188" experience="580" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Ice Witch" nameDescription="an ice witch" race="blood" speed="228" experience="580" manacost="0">
   <health now="650" max="650" />
-  <look typeex="0" type="149" head="0" body="47" legs="105" feet="105" corpse="6081" />
-  <voices interval="5000" chance="10">
-    <voice sentence="So you think you are cool?" />
-    <voice sentence="I hope it is not too cold for you! HeHeHe." />
-    <voice sentence="Freeze!" />
-  </voices>
-  <elements>
-    <element icePercent="100" />
-    <element firePercent="50" />
-    <element earthPercent="40" />
-    <element holyPercent="26" />
-    <element energyPercent="-10" />
-    <element deathPercent="-10" />
-  </elements>
-  <immunities>
-    <immunity paralyze="1" />
-    <immunity invisible="1" />
-  </immunities>
+  <look typeex="0" type="149" head="0" body="9" legs="86" feet="86" corpse="6081" />
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -27,9 +10,34 @@
     <flag convinceable="0" />
     <flag pushable="0" />
     <flag canpushitems="1" />
-    <flag lightlevel="0" />
-    <flag lightcolor="0" />
+    <flag canpushcreatures="0" />
     <flag targetdistance="4" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="40" />
+    <element firePercent="50" />
+    <element energyPercent="-10" />
+    <element icePercent="100" />
+    <element deathPercent="-10" />
+    <element holyPercent="30" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Freeze!" />
+    <voice yell="0" sentence="So you think you are cool?" />
+    <voice yell="0" sentence="I hope it is not too cold for you! HeHeHe." />
+  </voices>
+  <defenses mitigation="0.91" defense="0" armor="70" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

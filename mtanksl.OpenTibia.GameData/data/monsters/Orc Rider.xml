@@ -1,17 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Orc Rider" nameDescription="an orc rider" speed="340" experience="110" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Orc Rider" nameDescription="an orc rider" race="blood" speed="260" experience="110" manacost="490">
   <health now="180" max="180" />
   <look typeex="0" type="4" head="0" body="0" legs="0" feet="0" corpse="6010" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Grrrrrrr" />
-    <voice sentence="Orc arga Huummmak!" />
-  </voices>
-  <elements>
-    <element energyPercent="20" />
-    <element holyPercent="10" />
-    <element earthPercent="-10" />
-    <element deathPercent="-5" />
-  </elements>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -24,4 +14,29 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="-10" />
+    <element firePercent="0" />
+    <element energyPercent="20" />
+    <element icePercent="0" />
+    <element deathPercent="-10" />
+    <element holyPercent="10" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Grrrrrrr" />
+    <voice yell="0" sentence="Orc arga Huummmak!" />
+  </voices>
+  <defenses mitigation="0.51" defense="0" armor="9" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

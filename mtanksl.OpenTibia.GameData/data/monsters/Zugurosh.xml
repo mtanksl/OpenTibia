@@ -1,23 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Zugurosh" nameDescription="Zugurosh" speed="340" experience="10000" race="fire">
-  <health now="95000" max="95000" />
-  <look typeex="0" type="12" head="2" body="35" legs="57" feet="91" corpse="6068" />
-  <voices interval="5000" chance="10">
-    <voice sentence="You will run out of resources soon enough!!" />
-    <voice sentence="One little mistake and your all are mine!" />
-    <voice sentence="I sense your strength fading!" />
-  </voices>
-  <elements>
-    <element icePercent="-15" />
-    <element energyPercent="-5" />
-    <element earthPercent="-8" />
-    <element firePercent="25" />
-  </elements>
-  <immunities>
-    <immunity death="1" />
-    <immunity paralyze="1" />
-    <immunity invisible="1" />
-  </immunities>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Zugurosh" nameDescription="Zugurosh" race="fire" speed="330" experience="10000" manacost="0">
+  <health now="90500" max="90500" />
+  <look typeex="0" type="12" head="3" body="18" legs="38" feet="72" corpse="6068" />
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -28,6 +12,32 @@
     <flag canpushitems="1" />
     <flag canpushcreatures="1" />
     <flag targetdistance="1" />
-    <flag runonhealth="0" />
+    <flag runonhealth="4500" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="50" />
+    <element earthpercent="30" />
+    <element firePercent="30" />
+    <element energyPercent="30" />
+    <element icePercent="30" />
+    <element deathPercent="100" />
+    <element holyPercent="30" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="I sense your strength fading!" />
+    <voice yell="0" sentence="One little mistake and your all are mine!" />
+    <voice yell="1" sentence="You will run out of resources soon enough!!" />
+  </voices>
+  <defenses mitigation="0" defense="0" armor="0" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

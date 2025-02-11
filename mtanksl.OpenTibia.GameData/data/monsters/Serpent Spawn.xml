@@ -1,23 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Serpent Spawn" nameDescription="a serpent spawn" speed="240" experience="2350" race="venom">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Serpent Spawn" nameDescription="a serpent spawn" race="blood" speed="234" experience="3050" manacost="0">
   <health now="3000" max="3000" />
   <look typeex="0" type="220" head="0" body="0" legs="0" feet="0" corpse="4323" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Sssssouls for the one" />
-    <voice sentence="HISSSS" />
-    <voice sentence="Tsssse one will risssse again" />
-    <voice sentence="I bring your deathhh, mortalssss" />
-  </voices>
-  <elements>
-    <element earthPercent="100" />
-    <element icePercent="30" />
-    <element firePercent="-6" />
-    <element energyPercent="-10" />
-  </elements>
-  <immunities>
-    <immunity paralyze="1" />
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -30,4 +14,31 @@
     <flag targetdistance="1" />
     <flag runonhealth="275" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="100" />
+    <element firePercent="-10" />
+    <element energyPercent="-10" />
+    <element icePercent="20" />
+    <element deathPercent="0" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="1" sentence="HISSSS" />
+    <voice yell="0" sentence="Sssssouls for the one" />
+    <voice yell="0" sentence="Tsssse one will risssse again" />
+    <voice yell="0" sentence="I bring your deathhh, mortalssss" />
+  </voices>
+  <defenses mitigation="1.04" defense="0" armor="35" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

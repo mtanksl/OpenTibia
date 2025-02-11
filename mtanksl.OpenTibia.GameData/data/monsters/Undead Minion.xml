@@ -1,18 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Undead Minion" nameDescription="Undead Minion" speed="230" experience="550" race="undead">
+<?xml version="1.0" encoding="utf-8"?>
+<monster name="Undead Minion" nameDescription="Undead Minion" race="undead" speed="230" experience="550" manacost="0">
   <health now="850" max="850" />
   <look typeex="0" type="37" head="0" body="0" legs="0" feet="0" corpse="5963" />
-  <immunities>
-    <immunity physical="0" />
-    <immunity energy="0" />
-    <immunity fire="1" />
-    <immunity poison="1" />
-    <immunity lifedrain="1" />
-    <immunity paralyze="0" />
-    <immunity outfit="0" />
-    <immunity drunk="1" />
-    <immunity invisible="0" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -25,4 +14,26 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="0" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="0" />
+    <element firePercent="0" />
+    <element energyPercent="0" />
+    <element icePercent="0" />
+    <element deathPercent="0" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10" />
+  <defenses mitigation="0" defense="0" armor="0" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

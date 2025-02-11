@@ -1,24 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Werewolf" nameDescription="a werewolf" speed="320" experience="1450" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Werewolf" nameDescription="a werewolf" race="blood" speed="280" experience="1900" manacost="0">
   <health now="1955" max="1955" />
-  <look typeex="0" type="308" head="0" body="0" legs="0" feet="0" corpse="6080" />
-  <voices interval="5000" chance="10">
-    <voice sentence="BLOOD!" />
-    <voice sentence="HRAAAAAAAAAARRRRRR!" />
-  </voices>
-  <elements>
-    <element physicalPercent="5" />
-    <element energyPercent="15" />
-    <element earthPercent="20" />
-    <element firePercent="-10" />
-    <element deathPercent="20" />
-    <element icePercent="-10" />
-    <element holyPercent="-10" />
-  </elements>
-  <immunities>
-    <immunity paralyze="1" />
-    <immunity invisible="1" /> 
-  </immunities>
+  <look typeex="0" type="308" head="0" body="0" legs="0" feet="0" corpse="2826" />
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -29,6 +12,31 @@
     <flag canpushitems="1" />
     <flag canpushcreatures="1" />
     <flag targetdistance="1" />
-    <flag runonhealth="100" />
+    <flag runonhealth="300" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="75" />
+    <element firePercent="-5" />
+    <element energyPercent="15" />
+    <element icePercent="-5" />
+    <element deathPercent="55" />
+    <element holyPercent="-5" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="1" sentence="BLOOD!" />
+    <voice yell="1" sentence="HRAAAAAAAAAARRRRRR!" />
+  </voices>
+  <defenses mitigation="0.83" defense="0" armor="36" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

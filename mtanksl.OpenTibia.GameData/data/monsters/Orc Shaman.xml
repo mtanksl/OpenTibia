@@ -1,19 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Orc Shaman" nameDescription="an orc shaman" speed="180" experience="110" race="blood">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Orc Shaman" nameDescription="an orc shaman" race="blood" speed="140" experience="110" manacost="0">
   <health now="115" max="115" />
   <look typeex="0" type="6" head="0" body="0" legs="0" feet="0" corpse="5978" />
-  <voices interval="5000" chance="10">
-    <voice sentence="Huumans stinkk!" />
-  </voices>
-  <elements>
-    <element energyPercent="50" />
-    <element holyPercent="25" />
-    <element earthPercent="-5" />
-    <element deathPercent="-5" />
-  </elements>
-  <immunities>
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -26,4 +14,29 @@
     <flag targetdistance="4" />
     <flag runonhealth="15" />
   </flags>
+  <immunities>
+    <immunity paralyze="0" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="0" />
+    <element earthpercent="-10" />
+    <element firePercent="0" />
+    <element energyPercent="50" />
+    <element icePercent="0" />
+    <element deathPercent="-5" />
+    <element holyPercent="10" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10">
+    <voice yell="0" sentence="Huumans stinkk!" />
+    <voice yell="0" sentence="Grak brrretz gulu." />
+  </voices>
+  <defenses mitigation="0.25" defense="0" armor="8" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>

@@ -1,18 +1,7 @@
-<?xml version="1.0"?>
-<monster name="Hellfire Fighter" nameDescription="a hellfire fighter" speed="260" experience="3900" race="fire">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<monster name="Hellfire Fighter" nameDescription="a hellfire fighter" race="fire" speed="330" experience="3120" manacost="0">
   <health now="3800" max="3800" />
   <look typeex="0" type="243" head="0" body="0" legs="0" feet="0" corpse="6324" />
-  <elements>
-    <element firePercent="100" />
-    <element energyPercent="40" />
-    <element physicalPercent="24" />
-    <element deathPercent="22" />
-    <element icePercent="-20" />
-  </elements>
-  <immunities>
-    <immunity paralyze="1" />
-    <immunity invisible="1" />
-  </immunities>
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
@@ -25,4 +14,26 @@
     <flag targetdistance="1" />
     <flag runonhealth="0" />
   </flags>
+  <immunities>
+    <immunity paralyze="1" />
+    <immunity invisible="1" />
+  </immunities>
+  <elements>
+    <element physicalPercent="50" />
+    <element earthpercent="0" />
+    <element firePercent="100" />
+    <element energyPercent="20" />
+    <element icePercent="-25" />
+    <element deathPercent="20" />
+    <element holyPercent="0" />
+    <element drownPercent="0" />
+    <element manaDrainPercent="100" />
+    <element lifeDrainPercent="0" />
+  </elements>
+  <voices interval="5000" chance="10" />
+  <defenses mitigation="1.6" defense="0" armor="62" />
+  <changetargetstrategy interval="5000" chance="10" />
+  <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
+  <attacks />
+  <loot />
 </monster>
