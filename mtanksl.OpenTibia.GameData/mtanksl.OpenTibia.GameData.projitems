@@ -416,6 +416,7 @@
     <Content Include="$(MSBuildThisFileDirectory)data\monsters\Panda.xml" />
     <Content Include="$(MSBuildThisFileDirectory)data\monsters\Parrot.xml" />
     <Content Include="$(MSBuildThisFileDirectory)data\monsters\Penguin.xml" />
+    <Content Include="$(MSBuildThisFileDirectory)data\monsters\Phantasm %28Weak%29.xml" />
     <Content Include="$(MSBuildThisFileDirectory)data\monsters\Phantasm.xml" />
     <Content Include="$(MSBuildThisFileDirectory)data\monsters\Pig.xml" />
     <Content Include="$(MSBuildThisFileDirectory)data\monsters\Pillar.xml" />

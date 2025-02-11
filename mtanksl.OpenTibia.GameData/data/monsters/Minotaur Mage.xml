@@ -37,6 +37,11 @@
   <defenses mitigation="1.04" defense="0" armor="18" />
   <changetargetstrategy interval="5000" chance="10" />
   <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
-  <attacks />
+  <attacks>
+    <attack name="melee" interval="2000" chance="90" min="0" max="21" />
+    <attack name="energy strike" interval="2000" chance="90" min="15" max="45" />
+    <attack name="flame strike" interval="2000" chance="90" min="35" max="95" />
+    <attack name="energy field" interval="2000" chance="90" />
+  </attacks>
   <loot />
 </monster>
