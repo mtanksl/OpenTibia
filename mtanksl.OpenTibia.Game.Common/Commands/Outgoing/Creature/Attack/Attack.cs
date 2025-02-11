@@ -44,17 +44,33 @@ namespace OpenTibia.Game.Commands
 
                     blockType = BlockType.None;
 
-                    if (damage > 0)
+                    if (monster.Metadata.Mitigation > 0)
                     {
-                        int defense = Formula.DefenseFormula(monster.Metadata.Defense, FightMode.Balanced);
+                        double mitigationPercent = (100 - monster.Metadata.Mitigation) / 100.0;
 
-                        damage -= defense;
+                        damage = (int)(damage * mitigationPercent);
 
                         if (damage <= 0)
                         {
                             damage = 0;
 
                             blockType = BlockType.Shield;
+                        }
+                    }
+                    else
+                    {
+                        if (damage > 0)
+                        {
+                            int defense = Formula.DefenseFormula(monster.Metadata.Defense, FightMode.Balanced);
+
+                            damage -= defense;
+
+                            if (damage <= 0)
+                            {
+                                damage = 0;
+
+                                blockType = BlockType.Shield;
+                            }
                         }
                     }
 

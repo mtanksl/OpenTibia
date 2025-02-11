@@ -31,15 +31,17 @@ namespace OpenTibia.Game.Common.ServerObjects
             {
                 MonsterMetadata monsterMetadata = new MonsterMetadata()
                 {
-                        Name = xmlMonster.Name,
+                    Name = xmlMonster.Name,
 
                     Description = xmlMonster.NameDescription,
+
+                    Race = xmlMonster.Race,
 
                     Speed = (ushort)xmlMonster.Speed,
 
                     Experience = xmlMonster.Experience,
 
-                    Race = xmlMonster.Race,
+                    ManaCost = (ushort)xmlMonster.ManaCost,
 
                     Health = (ushort)xmlMonster.Health.Now,
 
@@ -86,9 +88,11 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     Attacks = xmlMonster.Attacks?.Select(a => new AttackItem() { Name = a.Name, Interval = a.Interval, Chance = a.Chance, Min = a.Min ?? 0, Max = a.Max ?? 0 } ).ToArray(),
 
-                    Armor = xmlMonster.Defenses?.Armor ?? 0,
+                    Mitigation = xmlMonster.Defenses?.Mitigation ?? 0,
 
                     Defense = xmlMonster.Defenses?.Defense ?? 0,
+
+                    Armor = xmlMonster.Defenses?.Armor ?? 0,
 
                     Defenses = xmlMonster.Defenses?.Items?.Select(d => new DefenseItem() { Name = d.Name, Interval = d.Interval, Chance = d.Chance, Min = d.Min ?? 0, Max = d.Max ?? 0 } ).ToArray(),
 
@@ -255,7 +259,7 @@ namespace OpenTibia.Game.Common.ServerObjects
             {
                 if (plugin.OnStart(monster).Result)
                 {
-
+                    //
                 }
             }
         }
@@ -277,7 +281,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 {
                     if (plugin.OnStop(monster).Result)
                     {
-
+                        //
                     }
                 }
 

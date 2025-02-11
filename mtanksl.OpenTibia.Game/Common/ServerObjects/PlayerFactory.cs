@@ -54,7 +54,7 @@ namespace OpenTibia.Game.Common.ServerObjects
             {
                 if (plugin.OnStart(player).Result)
                 {
-                    
+                    //
                 }
             }
         }
@@ -76,7 +76,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 {
                     if (plugin.OnStop(player).Result)
                     {
-                        
+                        //
                     }
                 }
 

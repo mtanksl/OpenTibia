@@ -104,7 +104,7 @@ namespace OpenTibia.Game.Common.ServerObjects
             {
                 if (plugin.OnStart(npc).Result)
                 {
-
+                    //
                 }
             }
         }
@@ -126,7 +126,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 {
                     if (plugin.OnStop(npc).Result)
                     {
-
+                        //
                     }
                 }
 

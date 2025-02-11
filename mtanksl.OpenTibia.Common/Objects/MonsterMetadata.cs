@@ -9,11 +9,13 @@ namespace OpenTibia.Common.Objects
 
         public string Description { get; set; }
 
+        public Race Race { get; set; }
+
         public ushort Speed { get; set; }
 
         public uint Experience { get; set; }
-
-        public Race Race { get; set; }
+                
+        public ushort ManaCost { get; set; }
 
         public ushort Health { get; set; }
 
@@ -53,9 +55,11 @@ namespace OpenTibia.Common.Objects
 
         public AttackItem[] Attacks { get; set; }
 
-        public int Armor { get; set; }
+        public double Mitigation { get; set; }
 
         public int Defense { get; set; }
+
+        public int Armor { get; set; }
 
         public DefenseItem[] Defenses { get; set; }
 

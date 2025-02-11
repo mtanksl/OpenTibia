@@ -6,7 +6,6 @@ using System.Xml.Serialization;
 
 namespace OpenTibia.FileFormats.Xml.Monsters
 {
-    [XmlRoot("monster")]
     public class Monster
     {
         public static Monster Load(XElement monsterNode)
@@ -16,10 +15,6 @@ namespace OpenTibia.FileFormats.Xml.Monsters
             monster.Name = (string)monsterNode.Attribute("name");
 
             monster.NameDescription = (string)monsterNode.Attribute("nameDescription");
-
-            monster.Speed = (int)monsterNode.Attribute("speed");
-
-            monster.Experience = (uint)monsterNode.Attribute("experience");
 
             switch ( (string)monsterNode.Attribute("race") )
             {
@@ -53,6 +48,12 @@ namespace OpenTibia.FileFormats.Xml.Monsters
 
                     break;
             }
+
+            monster.Speed = (int)monsterNode.Attribute("speed");
+
+            monster.Experience = (uint)monsterNode.Attribute("experience");
+
+            monster.ManaCost = (int)monsterNode.Attribute("manacost");
 
             XElement healthNode = monsterNode.Element("health");
 
@@ -101,7 +102,7 @@ namespace OpenTibia.FileFormats.Xml.Monsters
                     { 
                         Sentence = (string)voiceNode.Attribute("sentence"),
 
-                        Yell = (int?)voiceNode.Attribute("yell")
+                        Yell = (int)voiceNode.Attribute("yell")
                     } );
                 }
             }
@@ -255,9 +256,11 @@ namespace OpenTibia.FileFormats.Xml.Monsters
             {
                 monster.Defenses = new DefenseCollection()
                 {
-                    Armor = (int)defensesNode.Attribute("armor"),
-                    
+                    Mitigation = (double)defensesNode.Attribute("mitigation"),
+
                     Defense = (int)defensesNode.Attribute("defense"),
+
+                    Armor = (int)defensesNode.Attribute("armor"),
 
                     Items = new List<DefenseItem>()
                 };
@@ -310,57 +313,38 @@ namespace OpenTibia.FileFormats.Xml.Monsters
             return monster;
         }
 
-        [XmlAttribute("name")]
         public string Name { get; set; }
 
-        [XmlAttribute("nameDescription")]
         public string NameDescription { get; set; }
 
-        [XmlAttribute("speed")]
-        public int Speed { get; set; }
-
-        [XmlAttribute("experience")]
-        public uint Experience { get; set; }
-
-        [XmlAttribute("race")]
         public Race Race { get; set; }
 
-        [XmlElement("health")]
+        public int Speed { get; set; }
+
+        public uint Experience { get; set; }
+
+        public int ManaCost { get; set; }
+
         public Health Health { get; set; }
 
-        [XmlElement("look")]
         public Look Look { get; set; }
 
-        [XmlElement("voices")]
         public VoiceCollection Voices { get; set; }
 
-        [XmlArray("loot")]
-        [XmlArrayItem("item")]
         public List<LootItem> Loot { get; set; }
 
-        [XmlArray("immunities")]
-        [XmlArrayItem("immunity")]
         public List<ImmunityItem> Immunities { get; set; }
 
-        [XmlArray("elements")]
-        [XmlArrayItem("element")]
         public List<ElementItem> Elements { get; set; }
 
-        [XmlArray("flags")]
-        [XmlArrayItem("flag")]
         public List<FlagItem> Flags { get; set; }
 
-        [XmlArray("attacks")]
-        [XmlArrayItem("attack")]
         public List<AttackItem> Attacks { get; set; }
 
-        [XmlElement("defenses")]
         public DefenseCollection Defenses { get; set; }
 
-        [XmlElement("changetargetstrategy")]
         public ChangeTargetStrategy ChangeTargetStrategy { get; set; }
 
-        [XmlElement("targetstrategy")]
         public TargetStrategy TargetStrategy { get; set; }
     }
 }

@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
-using System.Xml.Serialization;
 
 namespace OpenTibia.FileFormats.Xml.Npcs
 {
-    [XmlRoot("npc")]
     public class Npc
     {
         public static Npc Load(XElement npcNode)
@@ -69,22 +67,16 @@ namespace OpenTibia.FileFormats.Xml.Npcs
             return npc;
         }
 
-        [XmlAttribute("name")]
         public string Name { get; set; }
 
-        [XmlAttribute("nameDescription")]
         public string NameDescription { get; set; }
 
-        [XmlAttribute("speed")]
         public int Speed { get; set; }
 
-        [XmlElement("health")]
         public Health Health { get; set; }
 
-        [XmlElement("look")]
         public Look Look { get; set; }
 
-        [XmlElement("voices")]
         public VoiceCollection Voices { get; set; }
     }
 }

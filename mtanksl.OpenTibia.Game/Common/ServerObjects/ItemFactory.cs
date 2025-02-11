@@ -450,7 +450,7 @@ namespace OpenTibia.Game.Common.ServerObjects
             {
                 if (plugin.OnStart(item).Result)
                 {
-                    
+                    //
                 }
             }
         }
@@ -472,7 +472,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 {
                     if (plugin.OnStop(item).Result)
                     {
-                        
+                        //
                     }
                 }
 
