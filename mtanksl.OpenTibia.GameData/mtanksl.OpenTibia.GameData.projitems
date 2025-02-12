@@ -27,6 +27,7 @@
     <None Include="$(MSBuildThisFileDirectory)data\plugins\globalevents\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\globalevents\record.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\items\lib.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\monsterattacks\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\monsters\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\players\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\raids\rats.lua" />

@@ -2,18 +2,25 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Plugins;
 using System;
+using System.Collections.Generic;
 
-namespace OpenTibia.Game.Components
+namespace OpenTibia.Plugins.MonsterAttacks
 {
-    public class SpellHasteAttackStrategy : IAttackStrategy
+    public class HasteMonsterAttackPlugin : MonsterAttackPlugin
     {
-        public PromiseResult<bool> CanAttack(int ticks, Creature attacker, Creature target)
+        public HasteMonsterAttackPlugin()
+        {
+            
+        }
+
+        public override PromiseResult<bool> OnAttacking(Monster attacker, Creature target)
         {
             return Promise.FromResultAsBooleanTrue;
         }
 
-        public Promise Attack(Creature attacker, Creature target)
+        public override Promise OnAttack(Monster attacker, Creature target, int min, int max, Dictionary<string, string> attributes)
         {
             var speed = Formula.HasteFormula(attacker.BaseSpeed);
 
@@ -23,6 +30,6 @@ namespace OpenTibia.Game.Components
                             
                     new HasteCondition(speed, new TimeSpan(0, 0, 33) ) ) );
             } );  
-        }
+        }        
     }
 }

@@ -2,10 +2,12 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Plugins;
+using System.Collections.Generic;
 
-namespace OpenTibia.Game.Components
+namespace OpenTibia.Plugins.MonsterAttacks
 {
-    public class DistanceAttackStrategy : IAttackStrategy
+    public abstract class BaseDistanceMonsterAttackPlugin : MonsterAttackPlugin
     {
         private ProjectileType projectileType;
 
@@ -13,24 +15,16 @@ namespace OpenTibia.Game.Components
 
         private DamageType damageType;
 
-        private int min;
-
-        private int max;
-
-        public DistanceAttackStrategy(ProjectileType projectileType, MagicEffectType? magicEffectType, DamageType damageType, int min, int max)
+        public BaseDistanceMonsterAttackPlugin(ProjectileType projectileType, MagicEffectType? magicEffectType, DamageType damageType)
         {
             this.projectileType = projectileType;
 
             this.magicEffectType = magicEffectType;
 
             this.damageType = damageType;
-
-            this.min = min;
-
-            this.max = max;
         }
 
-        public PromiseResult<bool> CanAttack(int ticks, Creature attacker, Creature target)
+        public override PromiseResult<bool> OnAttacking(Monster attacker, Creature target)
         {
             if (Context.Current.Server.Pathfinding.CanThrow(attacker.Tile.Position, target.Tile.Position) )
             {
@@ -40,8 +34,8 @@ namespace OpenTibia.Game.Components
             return Promise.FromResultAsBooleanFalse;
         }
 
-        public Promise Attack(Creature attacker, Creature target)
-        {            
+        public override Promise OnAttack(Monster attacker, Creature target, int min, int max, Dictionary<string, string> attributes)
+        {
             return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target, 
                 
                 new DamageAttack(projectileType, magicEffectType, damageType, min, max) ) );

@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Components;
+using OpenTibia.Game.Plugins;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.GameObjectScripts
@@ -19,11 +20,11 @@ namespace OpenTibia.Game.GameObjectScripts
             {
                 foreach (var attack in monster.Metadata.Attacks)
                 {
-                    IAttackStrategy attackStrategy = AttackStrategyFactory.Create(attack.Name, attack.Min, attack.Max);
+                    MonsterAttackPlugin monsterAttackPlugin = Context.Server.Plugins.GetMonsterAttackPlugin(attack.Name);
 
-                    if (attackStrategy != null)
+                    if (monsterAttackPlugin != null)
                     {
-                        attackStrategies.Add(new IntervalAndChanceAttackStrategy(attack.Interval, attack.Chance, attackStrategy) );
+                        attackStrategies.Add(new IntervalAndChanceAttackStrategy(attack.Interval, attack.Chance, new MonsterAttackPluginAttackStrategy(attack.Name, attack.Min, attack.Max, attack.Attributes) ) );
                     }
                 }
             }
@@ -32,11 +33,11 @@ namespace OpenTibia.Game.GameObjectScripts
             {
                 foreach (var defense in monster.Metadata.Defenses)
                 {
-                    IAttackStrategy attackStrategy = AttackStrategyFactory.Create(defense.Name, defense.Min, defense.Max);
+                    MonsterAttackPlugin monsterAttackPlugin = Context.Server.Plugins.GetMonsterAttackPlugin(defense.Name);
 
-                    if (attackStrategy != null)
+                    if (monsterAttackPlugin != null)
                     {
-                        attackStrategies.Add(new IntervalAndChanceAttackStrategy(defense.Interval, defense.Chance, attackStrategy) );
+                        attackStrategies.Add(new IntervalAndChanceAttackStrategy(defense.Interval, defense.Chance, new MonsterAttackPluginAttackStrategy(defense.Name, defense.Min, defense.Max, defense.Attributes) ) );
                     }
                 }
             }

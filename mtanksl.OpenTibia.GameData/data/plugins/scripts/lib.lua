@@ -289,3 +289,11 @@ function registerraid(name, repeatable, interval, chance, enabled, onraid)
 	    onraid = onraid
     } )
 end
+
+function registermonsterattack(name, onattacking, onattack)
+    registerplugin("monsterattacks", {
+        name = name,
+        onattacking = onattacking,
+        onattack = onattack
+    } )
+end

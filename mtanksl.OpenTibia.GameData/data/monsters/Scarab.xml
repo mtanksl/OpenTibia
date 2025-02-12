@@ -37,7 +37,7 @@
   <attacks>
     <attack name="melee" interval="2000" chance="90" min="0" max="65" />
     <attack name="terra strike" interval="2000" chance="90" min="15" max="25" />
-    <attack name="poison field" interval="2000" chance="90" />
+    <attack name="poison field" interval="2000" chance="90" min="5" max="5" />
     <attack name="haste" interval="2000" chance="90" />
   </attacks>
   <loot />

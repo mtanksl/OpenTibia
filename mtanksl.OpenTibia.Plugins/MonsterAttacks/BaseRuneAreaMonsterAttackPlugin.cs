@@ -2,10 +2,12 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Plugins;
+using System.Collections.Generic;
 
-namespace OpenTibia.Game.Components
+namespace OpenTibia.Plugins.MonsterAttacks
 {
-    public class RuneAreaAttackStrategy : IAttackStrategy
+    public abstract class BaseRuneAreaMonsterAttackPlugin : MonsterAttackPlugin
     {
         private Offset[] area;
 
@@ -19,20 +21,16 @@ namespace OpenTibia.Game.Components
 
         private DamageType damageType;
 
-        private int min;
-
-        private int max;
-
         private Condition condition;
 
-        public RuneAreaAttackStrategy(Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, DamageType damageType, int min, int max)
+        public BaseRuneAreaMonsterAttackPlugin(Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, DamageType damageType)
 
-            : this(area, projectileType, magicEffectType, damageType, min, max, null)
+            : this(area, projectileType, magicEffectType, damageType, null)
         {
 
         }
 
-        public RuneAreaAttackStrategy(Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, DamageType damageType, int min, int max, Condition condition)
+        public BaseRuneAreaMonsterAttackPlugin(Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, DamageType damageType, Condition condition)
         {
             this.area = area;
 
@@ -42,21 +40,17 @@ namespace OpenTibia.Game.Components
 
             this.damageType = damageType;
 
-            this.min = min;
-
-            this.max = max;
-
             this.condition = condition;
         }
 
-        public RuneAreaAttackStrategy(Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count, DamageType damageType, int min, int max)
+        public BaseRuneAreaMonsterAttackPlugin(Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count, DamageType damageType)
         
-            : this(area, projectileType, magicEffectType, openTibiaId, count, damageType, min, max, null)
+            : this(area, projectileType, magicEffectType, openTibiaId, count, damageType, null)
         {
 
         }
 
-        public RuneAreaAttackStrategy(Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count, DamageType damageType, int min, int max, Condition condition)
+        public BaseRuneAreaMonsterAttackPlugin(Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count, DamageType damageType, Condition condition)
         {
             this.area = area;
 
@@ -70,14 +64,10 @@ namespace OpenTibia.Game.Components
 
             this.damageType = damageType;
 
-            this.min = min;
-
-            this.max = max;
-
             this.condition = condition;
         }
 
-        public PromiseResult<bool> CanAttack(int ticks, Creature attacker, Creature target)
+        public override PromiseResult<bool> OnAttacking(Monster attacker, Creature target)
         {
             if (Context.Current.Server.Pathfinding.CanThrow(attacker.Tile.Position, target.Tile.Position) )
             {
@@ -87,7 +77,7 @@ namespace OpenTibia.Game.Components
             return Promise.FromResultAsBooleanFalse;
         }
 
-        public Promise Attack(Creature attacker, Creature target)
+        public override Promise OnAttack(Monster attacker, Creature target, int min, int max, Dictionary<string, string> attributes)
         {
             if (openTibiaId != null && count != null)
             {

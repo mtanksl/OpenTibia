@@ -98,7 +98,7 @@ namespace OpenTibia.FileFormats.Xml.Monsters
                     Items = new List<VoiceItem>()
                 };
 
-                foreach (var voiceNode in voicesNode.Elements() )
+                foreach (var voiceNode in voicesNode.Elements("voice") )
                 {
                     monster.Voices.Items.Add(new VoiceItem() 
                     { 
@@ -115,7 +115,7 @@ namespace OpenTibia.FileFormats.Xml.Monsters
             {
                 monster.Loot = new List<LootItem>();
 
-                foreach (var itemNode in lootNode.Elements() )
+                foreach (var itemNode in lootNode.Elements("item") )
                 {
                     monster.Loot.Add(new LootItem() 
                     { 
@@ -136,7 +136,7 @@ namespace OpenTibia.FileFormats.Xml.Monsters
             {
                 monster.Immunities = new List<ImmunityItem>();
 
-                foreach (var immunityNode in immunities.Elements() )
+                foreach (var immunityNode in immunities.Elements("immunity") )
                 {
                     monster.Immunities.Add(new ImmunityItem() 
                     {
@@ -169,7 +169,7 @@ namespace OpenTibia.FileFormats.Xml.Monsters
             {
                 monster.Elements = new List<ElementItem>();
 
-                foreach (var elementNode in elementsNode.Elements() )
+                foreach (var elementNode in elementsNode.Elements("element") )
                 {
                     monster.Elements.Add(new ElementItem() 
                     {
@@ -202,7 +202,7 @@ namespace OpenTibia.FileFormats.Xml.Monsters
             {
                 monster.Flags = new List<FlagItem>();
 
-                foreach (var flagNode in flagsNode.Elements() )
+                foreach (var flagNode in flagsNode.Elements("flag") )
                 {
                     monster.Flags.Add(new FlagItem() 
                     {
@@ -235,8 +235,15 @@ namespace OpenTibia.FileFormats.Xml.Monsters
             {
                 monster.Attacks = new List<AttackItem>();
 
-                foreach (var attackNode in attacksNode.Elements() )
+                foreach (var attackNode in attacksNode.Elements("attack") )
                 {
+                    Dictionary<string, string> attributes = new Dictionary<string, string>();
+
+                    foreach (var attributeNode in attackNode.Elements("attribute") )
+                    {
+                        attributes.Add( (string)attributeNode.Attribute("key"), (string)attributeNode.Attribute("value") );
+                    }
+
                     monster.Attacks.Add(new AttackItem() 
                     {
                         Name = (string)attackNode.Attribute("name"),
@@ -247,7 +254,9 @@ namespace OpenTibia.FileFormats.Xml.Monsters
 
                         Min = (int?)attackNode.Attribute("min"),
 
-                        Max = (int?)attackNode.Attribute("max")
+                        Max = (int?)attackNode.Attribute("max"),
+
+                        Attributes = attributes
                     } );
                 }
             }
@@ -267,8 +276,15 @@ namespace OpenTibia.FileFormats.Xml.Monsters
                     Items = new List<DefenseItem>()
                 };
 
-                foreach (var defenseNode in defensesNode.Elements() )
+                foreach (var defenseNode in defensesNode.Elements("defense") )
                 {
+                    Dictionary<string, string> attributes = new Dictionary<string, string>();
+
+                    foreach (var attributeNode in defenseNode.Elements("attribute") )
+                    {
+                        attributes.Add( (string)attributeNode.Attribute("key"), (string)attributeNode.Attribute("value") );
+                    }
+
                     monster.Defenses.Items.Add(new DefenseItem() 
                     {
                         Name = (string)defenseNode.Attribute("name"),
@@ -279,7 +295,9 @@ namespace OpenTibia.FileFormats.Xml.Monsters
 
                         Min = (int?)defenseNode.Attribute("min"),
 
-                        Max = (int?)defenseNode.Attribute("max")
+                        Max = (int?)defenseNode.Attribute("max"),
+
+                        Attributes = attributes
                     } );
                 }
             }

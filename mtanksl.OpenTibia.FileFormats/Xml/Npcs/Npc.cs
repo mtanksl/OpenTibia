@@ -57,7 +57,7 @@ namespace OpenTibia.FileFormats.Xml.Npcs
                     Items = new List<VoiceItem>()
                 };
 
-                foreach (var voiceNode in voicesNode.Elements() )
+                foreach (var voiceNode in voicesNode.Elements("voice") )
                 {
                     npc.Voices.Items.Add(new VoiceItem() 
                     { 

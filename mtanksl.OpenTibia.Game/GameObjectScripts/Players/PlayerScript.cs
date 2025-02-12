@@ -8,7 +8,7 @@ namespace OpenTibia.Game.GameObjectScripts
         public override void Start(Player player)
         {
             Context.Server.GameObjectComponents.AddComponent(player, new PlayerThinkBehaviour(
-                new IntervalAndChanceAttackStrategy(1000, 100, InventoryWeaponAttackStrategy.Instance), 
+                new IntervalAndChanceAttackStrategy(1000, 100, PlayerInventoryAttackStrategy.Instance), 
                 FollowWalkStrategy.Instance) );
 
             Context.Server.GameObjectComponents.AddComponent(player, new PlayerMuteBehaviour() );

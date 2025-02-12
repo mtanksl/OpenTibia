@@ -139,6 +139,10 @@ namespace OpenTibia.Game.Common.ServerObjects
         void AddRaidPlugin(string fileName, LuaTable parameters, Raid raid);
         RaidPlugin GetRaidPlugin(string name);
 
+        void AddMonsterAttackPlugin(string name, ILuaScope script, LuaTable parameters);
+        void AddMonsterAttackPlugin(string name, string fileName, LuaTable parameters);
+        MonsterAttackPlugin GetMonsterAttackPlugin(string name);
+
         List<Spell> Spells { get; }
 
         List<Rune> Runes { get; }

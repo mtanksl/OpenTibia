@@ -8,11 +8,11 @@ using System.Linq;
 
 namespace OpenTibia.Game.Components
 {
-    public class InventoryWeaponAttackStrategy : IAttackStrategy
+    public class PlayerInventoryAttackStrategy : IAttackStrategy
     {
-        public static readonly InventoryWeaponAttackStrategy Instance = new InventoryWeaponAttackStrategy();
+        public static readonly PlayerInventoryAttackStrategy Instance = new PlayerInventoryAttackStrategy();
 
-        private InventoryWeaponAttackStrategy()
+        private PlayerInventoryAttackStrategy()
         {
            
         }

@@ -1,4 +1,6 @@
-﻿namespace OpenTibia.Common.Objects
+﻿using System.Collections.Generic;
+
+namespace OpenTibia.Common.Objects
 {
     public class AttackItem
     {
@@ -11,5 +13,7 @@
         public int Min { get; set; }
 
         public int Max { get; set; }
+
+        public Dictionary<string, string> Attributes { get; set; }
     }
 }

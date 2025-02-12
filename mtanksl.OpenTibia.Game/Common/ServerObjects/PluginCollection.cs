@@ -477,6 +477,12 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                         pluginCollection.AddRaidPlugin(script, initialization.Parameters, raid);
                     }
+                    else if (initialization.Type == "monsterattacks")
+                    {
+                        string name = LuaScope.GetString(initialization.Parameters["name"] );
+
+                        pluginCollection.AddMonsterAttackPlugin(name, script, initialization.Parameters);
+                    }
                 }
             }
 
@@ -929,6 +935,15 @@ namespace OpenTibia.Game.Common.ServerObjects
                 };
 
                 AddRaidPlugin(fileName, plugin, raid);
+            }
+
+            foreach (LuaTable plugin in ( (LuaTable)script["plugins.monsterattacks"] ).Values)
+            {
+                string fileName = LuaScope.GetString(plugin["filename"] );
+
+                string name = LuaScope.GetString(plugin["name"] );
+
+                AddMonsterAttackPlugin(name, fileName, plugin);
             }
 
             foreach (var filePath in Directory.GetFiles(server.PathResolver.GetFullPath("data/plugins/scripts"), "*.lua", SearchOption.AllDirectories) )
@@ -1952,6 +1967,35 @@ namespace OpenTibia.Game.Common.ServerObjects
             return raidPlugins.GetPlugin(name);
         }
 
+        private PluginDictionaryCached<string, MonsterAttackPlugin> monsterAttackPlugins = new PluginDictionaryCached<string, MonsterAttackPlugin>();
+
+        private void AddMonsterAttackPlugin(string name, MonsterAttackPlugin monsterAttackPlugin)
+        {
+            monsterAttackPlugins.AddPlugin(name, monsterAttackPlugin);
+        }
+
+        public void AddMonsterAttackPlugin(string name, string fileName, LuaTable parameters)
+        {
+            if (fileName.EndsWith(".lua") )
+            {
+                AddMonsterAttackPlugin(name, new LuaScriptingMonsterAttackPlugin(fileName, parameters) );
+            }
+            else
+            {
+                AddMonsterAttackPlugin(name, (MonsterAttackPlugin)Activator.CreateInstance(server.PluginLoader.GetType(fileName) ) );
+            }
+        }
+
+        public void AddMonsterAttackPlugin(string name, ILuaScope script, LuaTable parameters)
+        {
+            AddMonsterAttackPlugin(name, new LuaScriptingMonsterAttackPlugin(script, parameters) );
+        }
+
+        public MonsterAttackPlugin GetMonsterAttackPlugin(string name)
+        {
+            return monsterAttackPlugins.GetPlugin(name);
+        }
+
         private List<Spell> spells = new List<Spell>();
 
         public List<Spell> Spells
@@ -2076,7 +2120,9 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                 ammunitionPlugins.GetPlugins(),
 
-                raidPlugins.GetPlugins()
+                raidPlugins.GetPlugins(),
+
+                monsterAttackPlugins.GetPlugins()
             };
 
             foreach (var pluginList in pluginLists)

@@ -1,4 +1,6 @@
-﻿namespace OpenTibia.FileFormats.Xml.Monsters
+﻿using System.Collections.Generic;
+
+namespace OpenTibia.FileFormats.Xml.Monsters
 {
     public class DefenseItem
     {
@@ -11,5 +13,7 @@
         public int? Min { get; set; }
 
         public int? Max { get; set; }
+
+        public Dictionary<string, string> Attributes { get; set; }
     }
 }

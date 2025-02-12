@@ -2,31 +2,25 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Plugins;
+using System.Collections.Generic;
 
-namespace OpenTibia.Game.Components
+namespace OpenTibia.Plugins.MonsterAttacks
 {
-    public class MeleeAttackStrategy : IAttackStrategy
+    public abstract class BaseMeleeMonsterAttackPlugin : MonsterAttackPlugin
     {
         private MagicEffectType? magicEffectType;
 
         private DamageType damageType;
 
-        private int min;
-
-        private int max;
-
-        public MeleeAttackStrategy(MagicEffectType? magicEffectType, DamageType damageType, int min, int max)
+        public BaseMeleeMonsterAttackPlugin(MagicEffectType? magicEffectType, DamageType damageType)
         {
             this.magicEffectType = magicEffectType;
 
             this.damageType = damageType;
-
-            this.min = min;
-
-            this.max = max;
         }
 
-        public PromiseResult<bool> CanAttack(int ticks, Creature attacker, Creature target)
+        public override PromiseResult<bool> OnAttacking(Monster attacker, Creature target)
         {
             if (attacker.Tile.Position.IsNextTo(target.Tile.Position) )
             {
@@ -36,11 +30,11 @@ namespace OpenTibia.Game.Components
             return Promise.FromResultAsBooleanFalse;
         }
 
-        public Promise Attack(Creature attacker, Creature target)
+        public override Promise OnAttack(Monster attacker, Creature target, int min, int max, Dictionary<string, string> attributes)
         {
             return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target,
-                
-                new DamageAttack(null, magicEffectType, damageType, min, max) ) );            
+
+                new DamageAttack(null, magicEffectType, damageType, min, max) ) );
         }
     }
 }

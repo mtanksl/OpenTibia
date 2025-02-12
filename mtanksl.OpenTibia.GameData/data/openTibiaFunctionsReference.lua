@@ -111,123 +111,123 @@ return {
 		args = "(ushort opentibiaid, Func<Inventory, Item, byte, bool> ondeequipping, Action<Inventory, Item, byte> ondeequip)",
 		returns = "void"
 	},
-	-- void registertalkactionsplayersay(message, onsay)
+	-- void registertalkactionsplayersay(string message, Func<Player, string, bool> onsay)
 	registertalkactionsplayersay = {
 		type = "function",
 		description = "",
-		args = "(message, onsay)",
+		args = "(string message, Func<Player, string, bool> onsay)",
 		returns = "void"
 	},
-	-- void registercreaturescriptsplayerlogin(onlogin)
+	-- void registercreaturescriptsplayerlogin(Action<Player> onlogin)
 	registercreaturescriptsplayerlogin = {
 		type = "function",
 		description = "",
-		args = "(onlogin)",
+		args = "(Action<Player> onlogin)",
 		returns = "void"
 	},
-	-- void registercreaturescriptsplayerlogout(onlogout)
+	-- void registercreaturescriptsplayerlogout(Action<Player> onlogout)
 	registercreaturescriptsplayerlogout = {
 		type = "function",
 		description = "",
-		args = "(onlogout)",
+		args = "(Action<Player> onlogout)",
 		returns = "void"
 	},
-	-- void registercreaturescriptsplayeradvancelevel(onadvancelevel)
+	-- void registercreaturescriptsplayeradvancelevel(Action<Player, ushort, ushort> onadvancelevel)
 	registercreaturescriptsplayeradvancelevel = {
 		type = "function",
 		description = "",
-		args = "(onadvancelevel)",
+		args = "(Action<Player, ushort, ushort> onadvancelevel)",
 		returns = "void"
 	},
-	-- void registercreaturescriptsplayeradvanceskill(onadvanceskill)
+	-- void registercreaturescriptsplayeradvanceskill(Action<Player, Skill, byte, byte> onadvanceskill)
 	registercreaturescriptsplayeradvanceskill = {
 		type = "function",
 		description = "",
-		args = "(onadvanceskill)",
+		args = "(Action<Player, Skill, byte, byte> onadvanceskill)",
 		returns = "void"
 	},
-	-- void registercreaturescriptscreaturedeath(ondeath)
+	-- void registercreaturescriptscreaturedeath(Action<Creature, Creature, Creature> ondeath)
 	registercreaturescriptscreaturedeath = {
 		type = "function",
 		description = "",
-		args = "(ondeath)",
+		args = "(Action<Creature, Creature, Creature> ondeath)",
 		returns = "void"
 	},
-	-- void registercreaturescriptscreaturekill(onkill)
+	-- void registercreaturescriptscreaturekill(Action<Creature, Creature> onkill)
 	registercreaturescriptscreaturekill = {
 		type = "function",
 		description = "",
-		args = "(onkill)",
+		args = "(Action<Creature, Creature> onkill)",
 		returns = "void"
 	},
-	-- void registercreaturescriptsplayerearnachievement(onearnachievement)
+	-- void registercreaturescriptsplayerearnachievement(Action<Player, string> onearnachievement)
 	registercreaturescriptsplayerearnachievement = {
 		type = "function",
 		description = "",
-		args = "(onearnachievement)",
+		args = "(Action<Player, string> onearnachievement)",
 		returns = "void"
 	},
-	-- void registerglobaleventsserverstartup(onstartup)
+	-- void registerglobaleventsserverstartup(Action onstartup)
 	registerglobaleventsserverstartup = {
 		type = "function",
 		description = "",
-		args = "(onstartup)",
+		args = "(Action onstartup)",
 		returns = "void"
 	},
-	-- void registerglobaleventsservershutdown(onshutdown)
+	-- void registerglobaleventsservershutdown(Action onshutdown)
 	registerglobaleventsservershutdown = {
 		type = "function",
 		description = "",
-		args = "(onshutdown)",
+		args = "(Action onshutdown)",
 		returns = "void"
 	},
-	-- void registerglobaleventsserversave(onsave)
+	-- void registerglobaleventsserversave(Action onsave)
 	registerglobaleventsserversave = {
 		type = "function",
 		description = "",
-		args = "(onsave)",
+		args = "(Action onsave)",
 		returns = "void"
 	},
-	-- void registerglobaleventsserverrecord(onrecord)
+	-- void registerglobaleventsserverrecord(Action<uint> onrecord)
 	registerglobaleventsserverrecord = {
 		type = "function",
 		description = "",
-		args = "(onrecord)",
+		args = "(Action<uint> onrecord)",
 		returns = "void"
 	},
-	-- void registernpcsdialogue(name, handler)
+	-- void registernpcsdialogue(string name, npchandler handler)
 	registernpcsdialogue = {
 		type = "function",
 		description = "",
-		args = "(name, handler)",
+		args = "(string name, npchandler handler)",
 		returns = "void"
 	},
-	-- void registeritemsitemcreation(opentibiaid, onstart, onstop)
+	-- void registeritemsitemcreation(ushort opentibiaid, Action<Item> onstart, Action<Item> onstop)
 	registeritemsitemcreation = {
 		type = "function",
 		description = "",
-		args = "(opentibiaid, onstart, onstop)",
+		args = "(ushort opentibiaid, Action<Item> onstart, Action<Item> onstop)",
 		returns = "void"
 	},
-	-- void registermonstersmonstercreation(name, onstart, onstop)
+	-- void registermonstersmonstercreation(string name, Action<Monster> onstart, Action<Monster> onstop)
 	registermonstersmonstercreation = {
 		type = "function",
 		description = "",
-		args = "(name, onstart, onstop)",
+		args = "(string name, Action<Monster> onstart, Action<Monster> onstop)",
 		returns = "void"
 	},
-	-- void registernpcsnpccreation(name, onstart, onstop)
+	-- void registernpcsnpccreation(string name, Action<Npc> onstart, Action<Npc> onstop)
 	registernpcsnpccreation = {
 		type = "function",
 		description = "",
-		args = "(name, onstart, onstop)",
+		args = "(string name, Action<Npc> onstart, Action<Npc> onstop)",
 		returns = "void"
 	},
-	-- void registerplayersplayercreation(name, onstart, onstop)
+	-- void registerplayersplayercreation(string name, Action<Player> onstart, Action<Player> onstop)
 	registerplayersplayercreation = {
 		type = "function",
 		description = "",
-		args = "(name, onstart, onstop)",
+		args = "(string name, Action<Player> onstart, Action<Player> onstop)",
 		returns = "void"
 	},
 	-- void registerspell(words, name, group, cooldown, groupcooldown, level, mana, soul, premium, vocations, requirestarget, oncasting, oncast)
@@ -263,6 +263,13 @@ return {
 		type = "function",
 		description = "",
 		args = "(name, repeatable, interval, chance, enabled, onraid)",
+		returns = "void"
+	},
+	-- void registermonsterattack(string name, Func<Monster, Creature, bool> onattacking, Action<Monster, Creature, int, int, Dictionary<string, string>> onattack)
+	registermonsterattack = {
+		type = "function",
+		description = "",
+		args = "(string name, Func<Monster, Creature, bool> onattacking, Action<Monster, Creature, int, int, Dictionary<string, string>> onattack)",
 		returns = "void"
 	},
 	debugger = {

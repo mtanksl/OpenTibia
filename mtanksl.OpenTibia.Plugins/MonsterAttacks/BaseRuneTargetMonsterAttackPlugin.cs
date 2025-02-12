@@ -2,10 +2,12 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Plugins;
+using System.Collections.Generic;
 
-namespace OpenTibia.Game.Components
+namespace OpenTibia.Plugins.MonsterAttacks
 {
-    public class RuneTargetSimpleAttackStrategy : IAttackStrategy
+    public abstract class BaseRuneTargetMonsterAttackPlugin : MonsterAttackPlugin
     {
         private ProjectileType? projectileType;
 
@@ -13,20 +15,16 @@ namespace OpenTibia.Game.Components
 
         private DamageType damageType;
 
-        private int min;
-
-        private int max;
-
         private Condition condition;
 
-        public RuneTargetSimpleAttackStrategy(ProjectileType? projectileType, MagicEffectType? magicEffectType, DamageType damageType, int min, int max)
+        public BaseRuneTargetMonsterAttackPlugin(ProjectileType? projectileType, MagicEffectType? magicEffectType, DamageType damageType)
 
-            : this(projectileType, magicEffectType, damageType, min, max, null)
+            : this(projectileType, magicEffectType, damageType, null)
         {
 
         }
 
-        public RuneTargetSimpleAttackStrategy(ProjectileType? projectileType, MagicEffectType? magicEffectType, DamageType damageType, int min, int max, Condition condition)
+        public BaseRuneTargetMonsterAttackPlugin(ProjectileType? projectileType, MagicEffectType? magicEffectType, DamageType damageType, Condition condition)
         {
             this.projectileType = projectileType;
 
@@ -34,14 +32,10 @@ namespace OpenTibia.Game.Components
 
             this.damageType = damageType;
 
-            this.min = min;
-
-            this.max = max;
-
             this.condition = condition;
         }
 
-        public PromiseResult<bool> CanAttack(int ticks, Creature attacker, Creature target)
+        public override PromiseResult<bool> OnAttacking(Monster attacker, Creature target)
         {
             if (Context.Current.Server.Pathfinding.CanThrow(attacker.Tile.Position, target.Tile.Position) )
             {
@@ -51,7 +45,7 @@ namespace OpenTibia.Game.Components
             return Promise.FromResultAsBooleanFalse;
         }
 
-        public Promise Attack(Creature attacker, Creature target)
+        public override Promise OnAttack(Monster attacker, Creature target, int min, int max, Dictionary<string, string> attributes)
         {            
             return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target, 
                 

@@ -46,7 +46,7 @@
 
 
     <attack name="great fireball" interval="2000" chance="90" min="310" max="600" />
-    <attack name="fire field" interval="2000" chance="90" />
+    <attack name="fire field" interval="2000" chance="90" min="20" max="20" />
     <attack name="energy beam" interval="2000" chance="90" min="500" max="850" />
     <attack name="self healing" interval="2000" chance="90" min="1500" max="2500" />
     <attack name="haste" interval="2000" chance="90" />

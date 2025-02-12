@@ -1,7 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.FileFormats.Xml.Monsters;
-using OpenTibia.Game.Components;
 using OpenTibia.Game.GameObjectScripts;
 using OpenTibia.Game.Plugins;
 using System.Collections.Generic;
@@ -24,20 +23,8 @@ namespace OpenTibia.Game.Common.ServerObjects
             this.server = server;
         }
 
-        private List<string> warnings = new List<string>();
-
-        public List<string> Warnings
-        {
-            get
-            {
-                return warnings;
-            }
-        }
-
         public void Start(MonsterFile monsterFile)
         {
-            warnings.Clear();
-
             metadatas = new Dictionary<string, MonsterMetadata>(monsterFile.Monsters.Count);
 
             foreach (var xmlMonster in monsterFile.Monsters)
@@ -101,7 +88,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     RunOnHealth = xmlMonster.Flags?.Where(f => f.RunOnHealth != null).Select(f => f.RunOnHealth.Value).FirstOrDefault() ?? 0,
 
-                    Attacks = xmlMonster.Attacks?.Select(a => new AttackItem() { Name = a.Name, Interval = a.Interval, Chance = a.Chance, Min = a.Min ?? 0, Max = a.Max ?? 0 } ).ToArray(),
+                    Attacks = xmlMonster.Attacks?.Select(a => new AttackItem() { Name = a.Name, Interval = a.Interval, Chance = a.Chance, Min = a.Min ?? 0, Max = a.Max ?? 0, Attributes = a.Attributes } ).ToArray(),
 
                     Mitigation = xmlMonster.Defenses?.Mitigation ?? 0,
 
@@ -109,7 +96,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     Armor = xmlMonster.Defenses?.Armor ?? 0,
 
-                    Defenses = xmlMonster.Defenses?.Items?.Select(d => new DefenseItem() { Name = d.Name, Interval = d.Interval, Chance = d.Chance, Min = d.Min ?? 0, Max = d.Max ?? 0 } ).ToArray(),
+                    Defenses = xmlMonster.Defenses?.Items?.Select(d => new DefenseItem() { Name = d.Name, Interval = d.Interval, Chance = d.Chance, Min = d.Min ?? 0, Max = d.Max ?? 0, Attributes = d.Attributes } ).ToArray(),
 
                     ChangeTargetInterval = xmlMonster.ChangeTargetStrategy?.Interval ?? 1000,
 
@@ -215,14 +202,6 @@ namespace OpenTibia.Game.Common.ServerObjects
                         {
                             monsterMetadata.DamageTakenFromElements[DamageType.LifeDrain] = (100 - elementItem.LifeDrainPercent.Value) / 100.0;
                         }
-                    }
-                }
-
-                foreach (var attack in monsterMetadata.Attacks)
-                {
-                    if ( !AttackStrategyFactory.Exists(attack.Name) )
-                    {
-                        warnings.Add("Attack " + attack.Name + " not found for " + monsterMetadata.Name + ".");
                     }
                 }
 

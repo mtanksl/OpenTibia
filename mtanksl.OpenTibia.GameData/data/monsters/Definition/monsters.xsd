@@ -112,6 +112,14 @@
             <xs:sequence>
               <xs:element name="attack" minOccurs="0" maxOccurs="unbounded">
                 <xs:complexType>
+                  <xs:sequence minOccurs="0">
+                    <xs:element name="attribute" maxOccurs="unbounded">
+                      <xs:complexType>
+                        <xs:attribute name="key" type="xs:string" use="required" />
+                        <xs:attribute name="value" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
                   <xs:attribute name="name" type="xs:string" use="required" />
                   <xs:attribute name="interval" type="xs:unsignedShort" use="required" />
                   <xs:attribute name="chance" type="xs:unsignedByte" use="required" />

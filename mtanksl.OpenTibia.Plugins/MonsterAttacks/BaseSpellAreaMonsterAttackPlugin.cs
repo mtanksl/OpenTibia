@@ -2,10 +2,12 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Plugins;
+using System.Collections.Generic;
 
-namespace OpenTibia.Game.Components
+namespace OpenTibia.Plugins.MonsterAttacks
 {
-    public class SpellAreaAttackStrategy : IAttackStrategy
+    public abstract class BaseSpellAreaMonsterAttackPlugin : MonsterAttackPlugin
     {
         private Offset[] area;
 
@@ -13,20 +15,16 @@ namespace OpenTibia.Game.Components
 
         private DamageType damageType;
 
-        private int min;
-
-        private int max;
-
         private Condition condition;
 
-        public SpellAreaAttackStrategy(Offset[] area, MagicEffectType? magicEffectType, DamageType damageType, int min, int max)
+        public BaseSpellAreaMonsterAttackPlugin(Offset[] area, MagicEffectType? magicEffectType, DamageType damageType)
 
-            :this(area, magicEffectType, damageType, min, max, null)
+            :this(area, magicEffectType, damageType, null)
         {
 
 
         }
-        public SpellAreaAttackStrategy(Offset[] area, MagicEffectType? magicEffectType, DamageType damageType, int min, int max, Condition condition)
+        public BaseSpellAreaMonsterAttackPlugin(Offset[] area, MagicEffectType? magicEffectType, DamageType damageType, Condition condition)
         {
             this.area = area;
 
@@ -34,19 +32,15 @@ namespace OpenTibia.Game.Components
 
             this.damageType = damageType;
 
-            this.min = min;
-
-            this.max = max;
-
             this.condition = condition;
         }
 
-        public PromiseResult<bool> CanAttack(int ticks, Creature attacker, Creature target)
+        public override PromiseResult<bool> OnAttacking(Monster attacker, Creature target)
         {
             return Promise.FromResultAsBooleanTrue;
         }
 
-        public Promise Attack(Creature attacker, Creature target)
+        public override Promise OnAttack(Monster attacker, Creature target, int min, int max, Dictionary<string, string> attributes)
         {
             return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, attacker.Tile.Position, area, null, magicEffectType, 
                         
