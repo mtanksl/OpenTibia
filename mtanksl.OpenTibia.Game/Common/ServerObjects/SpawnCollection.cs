@@ -23,6 +23,10 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         public void Start(SpawnFile spawnFile)
         {
+            unknownMonsters.Clear();
+
+            unknownNpcs.Clear();
+
             foreach (var xmlSpawn in spawnFile.Spawns)
             {
                 foreach (var xmlMonster in xmlSpawn.Monsters)

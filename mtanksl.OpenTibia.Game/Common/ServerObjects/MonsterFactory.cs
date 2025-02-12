@@ -36,6 +36,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         public void Start(MonsterFile monsterFile)
         {
+            warnings.Clear();
+
             metadatas = new Dictionary<string, MonsterMetadata>(monsterFile.Monsters.Count);
 
             foreach (var xmlMonster in monsterFile.Monsters)

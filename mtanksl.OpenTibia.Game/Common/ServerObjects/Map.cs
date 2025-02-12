@@ -118,6 +118,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         public void Start(OtbmFile otbmFile, HouseFile houseFile)
         {
+            warnings.Clear();
+
             width = otbmFile.OtbmInfo.Width;
 
             height = otbmFile.OtbmInfo.Height;
