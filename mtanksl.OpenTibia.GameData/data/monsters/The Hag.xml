@@ -30,7 +30,7 @@
     <element manaDrainPercent="100" />
     <element lifeDrainPercent="0" />
   </elements>
-  <voices interval="2000" chance="5">
+  <voices interval="5000" chance="10">
     <voice yell="0" sentence="I'll teach you respect for the old!" />
     <voice yell="0" sentence="Let me teach you a few things youngster!" />
     <voice yell="0" sentence="If you think I am to old to fight then you're wrong!" />

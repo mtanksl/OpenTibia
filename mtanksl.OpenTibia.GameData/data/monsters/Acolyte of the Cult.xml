@@ -40,9 +40,9 @@
   <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
   <attacks>
     <attack name="melee" interval="2000" chance="90" min="0" max="100" />
-    <attack name="life drain" interval="2000" chance="90" min="60" max="120" />
+    <attack name="life drain" interval="2000" chance="70" min="60" max="120" />
 
-    <attack name="self healing" interval="2000" chance="90" min="50" max="50" />
+    <attack name="self healing" interval="2000" chance="50" min="50" max="50" />
   </attacks>
   <loot />
 </monster>

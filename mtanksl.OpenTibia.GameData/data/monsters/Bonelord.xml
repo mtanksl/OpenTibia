@@ -42,12 +42,12 @@
   <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
   <attacks>
     <attack name="melee" interval="2000" chance="90" min="0" max="28" />
-    <attack name="flame strike" interval="2000" chance="90" min="25" max="45" />
-    <attack name="energy strike" interval="2000" chance="90" min="15" max="45" />
-    <attack name="terra strike" interval="2000" chance="90" min="5" max="45" />
-    <attack name="death strike" interval="2000" chance="90" min="30" max="50" />
-    <attack name="life drain" interval="2000" chance="90" min="35" max="45" />
-    <attack name="mana drain" interval="2000" chance="90" min="5" max="25" />
+    <attack name="flame strike" interval="2000" chance="70" min="25" max="45" />
+    <attack name="energy strike" interval="2000" chance="70" min="15" max="45" />
+    <attack name="terra strike" interval="2000" chance="70" min="5" max="45" />
+    <attack name="death strike" interval="2000" chance="70" min="30" max="50" />
+    <attack name="life drain" interval="2000" chance="70" min="35" max="45" />
+    <attack name="mana drain" interval="2000" chance="70" min="5" max="25" />
   </attacks>
   <loot />
 </monster>

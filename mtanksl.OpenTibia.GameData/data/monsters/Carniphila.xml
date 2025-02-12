@@ -37,7 +37,7 @@
   <attacks>
     <attack name="melee" interval="2000" chance="90" min="0" max="100" />
     <attack name="paralyse" interval="2000" chance="90" />
-    <attack name="terra strike" interval="2000" chance="90" min="60" max="90" />
+    <attack name="terra strike" interval="2000" chance="70" min="60" max="90" />
 
   </attacks>
   <loot />

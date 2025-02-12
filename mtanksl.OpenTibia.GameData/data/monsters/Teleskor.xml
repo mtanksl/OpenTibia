@@ -30,7 +30,7 @@
     <element manaDrainPercent="100" />
     <element lifeDrainPercent="0" />
   </elements>
-  <voices interval="1000" chance="2">
+  <voices interval="5000" chance="10">
     <voice yell="0" sentence="Who disturbs my slumber?" />
     <voice yell="0" sentence="Mourn the dead, do not hunt them!" />
   </voices>

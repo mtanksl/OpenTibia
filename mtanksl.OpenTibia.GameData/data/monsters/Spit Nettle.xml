@@ -35,9 +35,9 @@
   <changetargetstrategy interval="5000" chance="10" />
   <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
   <attacks>
-    <attack name="terra strike" interval="2000" chance="90" min="17" max="37" />
+    <attack name="terra strike" interval="2000" chance="70" min="17" max="37" />
 
-    <attack name="self healing" interval="2000" chance="90" min="8" max="16" />
+    <attack name="self healing" interval="2000" chance="50" min="8" max="16" />
   </attacks>
   <loot />
 </monster>

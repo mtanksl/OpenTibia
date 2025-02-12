@@ -30,7 +30,7 @@
     <element manaDrainPercent="100" />
     <element lifeDrainPercent="0" />
   </elements>
-  <voices interval="2500" chance="10">
+  <voices interval="5000" chance="10">
     <voice yell="0" sentence="Engaging Enemy!" />
     <voice yell="0" sentence="Klonk klonk klonk" />
     <voice yell="0" sentence="Rrrtttarrrttarrrtta" />

@@ -30,7 +30,7 @@
     <element manaDrainPercent="100" />
     <element lifeDrainPercent="0" />
   </elements>
-  <voices interval="2000" chance="5">
+  <voices interval="5000" chance="10">
     <voice yell="0" sentence="Snow will be your death shroud." />
     <voice yell="0" sentence="Feel the wrath of father chyll!" />
     <voice yell="0" sentence="I am like the merciless northwind." />

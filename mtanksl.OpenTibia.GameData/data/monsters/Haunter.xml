@@ -30,7 +30,7 @@
     <element manaDrainPercent="100" />
     <element lifeDrainPercent="0" />
   </elements>
-  <voices interval="2000" chance="9">
+  <voices interval="5000" chance="10">
     <voice yell="0" sentence="Surrender and I'll end it quick!" />
   </voices>
   <defenses mitigation="0" defense="0" armor="0" />

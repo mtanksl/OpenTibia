@@ -30,7 +30,7 @@
     <element manaDrainPercent="100" />
     <element lifeDrainPercent="0" />
   </elements>
-  <voices interval="1000" chance="2">
+  <voices interval="5000" chance="10">
     <voice yell="0" sentence="Time to test my newest spells!" />
     <voice yell="0" sentence="Killing is such a splendid diversion from my studies." />
   </voices>

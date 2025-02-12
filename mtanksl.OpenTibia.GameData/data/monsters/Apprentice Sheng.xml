@@ -30,7 +30,7 @@
     <element manaDrainPercent="100" />
     <element lifeDrainPercent="0" />
   </elements>
-  <voices interval="1000" chance="5">
+  <voices interval="5000" chance="10">
     <voice yell="0" sentence="Kaplar!" />
     <voice yell="0" sentence="You already know too much." />
     <voice yell="0" sentence="This isle will become ours alone" />

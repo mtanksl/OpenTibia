@@ -46,8 +46,8 @@
 
 
 
-    <attack name="life drain" interval="2000" chance="90" min="45" max="170" />
-    <attack name="self healing" interval="2000" chance="90" min="100" max="120" />
+    <attack name="life drain" interval="2000" chance="70" min="45" max="170" />
+    <attack name="self healing" interval="2000" chance="50" min="100" max="120" />
     <attack name="paralyse" interval="2000" chance="90" />
   </attacks>
   <loot />

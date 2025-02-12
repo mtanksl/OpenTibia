@@ -39,12 +39,12 @@
   <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
   <attacks>
     <attack name="melee" interval="2000" chance="90" min="0" max="200" />
-    <attack name="life drain" interval="2000" chance="90" min="25" max="47" />
-    <attack name="terra strike" interval="2000" chance="90" min="50" max="90" />
+    <attack name="life drain" interval="2000" chance="70" min="25" max="47" />
+    <attack name="terra strike" interval="2000" chance="70" min="50" max="90" />
 
 
     <attack name="paralyse" interval="2000" chance="90" />
-    <attack name="self healing" interval="2000" chance="90" min="30" max="60" />
+    <attack name="self healing" interval="2000" chance="50" min="30" max="60" />
   </attacks>
   <loot />
 </monster>

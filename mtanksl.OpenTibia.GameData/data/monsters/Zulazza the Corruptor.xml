@@ -30,7 +30,7 @@
     <element manaDrainPercent="100" />
     <element lifeDrainPercent="0" />
   </elements>
-  <voices interval="2000" chance="10">
+  <voices interval="5000" chance="10">
     <voice yell="0" sentence="I'm Zulazza, and you won't forget me that fazzt." />
     <voice yell="0" sentence="Oh, HE will take revenge on zzizz azzault when you zztep in front of HIZZ fazze!" />
   </voices>

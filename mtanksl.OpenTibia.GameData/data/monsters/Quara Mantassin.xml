@@ -40,7 +40,7 @@
   <attacks>
     <attack name="melee" interval="2000" chance="90" min="0" max="140" />
 
-    <attack name="haste" interval="2000" chance="90" />
+    <attack name="haste" interval="2000" chance="50" />
   </attacks>
   <loot />
 </monster>

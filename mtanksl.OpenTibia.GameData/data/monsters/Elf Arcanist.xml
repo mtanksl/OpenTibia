@@ -42,10 +42,10 @@
   <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
   <attacks>
     <attack name="melee" interval="2000" chance="90" min="0" max="35" />
-    <attack name="arrows" interval="2000" chance="90" min="15" max="45" />
-    <attack name="energy strike" interval="2000" chance="90" min="30" max="50" />
-    <attack name="death strike" interval="2000" chance="90" min="60" max="80" />
-    <attack name="self healing" interval="2000" chance="90" min="42" max="68" />
+    <attack name="arrows" interval="2000" chance="70" min="15" max="45" />
+    <attack name="energy strike" interval="2000" chance="70" min="30" max="50" />
+    <attack name="death strike" interval="2000" chance="70" min="60" max="80" />
+    <attack name="self healing" interval="2000" chance="50" min="42" max="68" />
   </attacks>
   <loot />
 </monster>

@@ -206,6 +206,7 @@
         { name = "small stones", filename = "OpenTibia.Plugins.MonsterAttacks.SmallStonesMonsterAttackPlugin, mtanksl.OpenTibia.Plugins" },
         { name = "spears", filename = "OpenTibia.Plugins.MonsterAttacks.SpearsMonsterAttackPlugin, mtanksl.OpenTibia.Plugins" },
         { name = "stars", filename = "OpenTibia.Plugins.MonsterAttacks.StarsMonsterAttackPlugin, mtanksl.OpenTibia.Plugins" },
+        { name = "strong haste", filename = "OpenTibia.Plugins.MonsterAttacks.StrongHasteMonsterAttackPlugin, mtanksl.OpenTibia.Plugins" },
         { name = "snowballs", filename = "OpenTibia.Plugins.MonsterAttacks.SnowballsMonsterAttackPlugin, mtanksl.OpenTibia.Plugins" },
 
         { name = "avalanche", filename = "OpenTibia.Plugins.MonsterAttacks.AvalancheMonsterAttackPlugin, mtanksl.OpenTibia.Plugins" },

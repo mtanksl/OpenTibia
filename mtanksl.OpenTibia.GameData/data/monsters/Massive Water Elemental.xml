@@ -38,8 +38,8 @@
     <attack name="melee" interval="2000" chance="90" min="0" max="230" />
 
 
-    <attack name="ice strike" interval="2000" chance="90" min="170" max="210" />
-    <attack name="self healing" interval="2000" chance="90" min="25" max="40" />
+    <attack name="ice strike" interval="2000" chance="70" min="170" max="210" />
+    <attack name="self healing" interval="2000" chance="50" min="25" max="40" />
   </attacks>
   <loot />
 </monster>

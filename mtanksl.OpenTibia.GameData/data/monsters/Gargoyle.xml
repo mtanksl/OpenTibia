@@ -42,7 +42,7 @@
   <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
   <attacks>
     <attack name="melee" interval="2000" chance="90" min="0" max="65" />
-    <attack name="self healing" interval="2000" chance="90" min="5" max="15" />
+    <attack name="self healing" interval="2000" chance="50" min="5" max="15" />
   </attacks>
   <loot />
 </monster>

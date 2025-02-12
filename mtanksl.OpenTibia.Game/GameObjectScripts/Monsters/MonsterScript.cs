@@ -67,7 +67,7 @@ namespace OpenTibia.Game.GameObjectScripts
             Context.Server.GameObjectComponents.AddComponent(monster, new MonsterThinkBehaviour(
 
                 (attackStrategies.Count > 0 ? 
-                    new CombineRandomAttackStrategy(attackStrategies.ToArray() ) :
+                    new CombineComboRandomAttackStrategy(attackStrategies.ToArray() ) :
                     DoNotAttackStrategy.Instance),
 
                 (monster.Metadata.Speed > 0 ?

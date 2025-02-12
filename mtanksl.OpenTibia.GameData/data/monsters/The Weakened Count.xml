@@ -30,7 +30,7 @@
     <element manaDrainPercent="100" />
     <element lifeDrainPercent="100" />
   </elements>
-  <voices interval="1000" chance="2">
+  <voices interval="5000" chance="10">
     <voice yell="0" sentence="1... 2... 2... Uh, can't concentrate." />
   </voices>
   <defenses mitigation="0" defense="0" armor="0" />

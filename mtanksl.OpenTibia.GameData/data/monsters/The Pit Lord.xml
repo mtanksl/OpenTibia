@@ -30,7 +30,7 @@
     <element manaDrainPercent="100" />
     <element lifeDrainPercent="0" />
   </elements>
-  <voices interval="2000" chance="5">
+  <voices interval="5000" chance="10">
     <voice yell="1" sentence="I'LL GET YOU ALL!" />
     <voice yell="0" sentence="I won't let you escape!" />
     <voice yell="0" sentence="I'll crush you beneath my feet!" />

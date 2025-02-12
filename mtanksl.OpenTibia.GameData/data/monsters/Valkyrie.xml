@@ -42,7 +42,7 @@
   <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
   <attacks>
     <attack name="melee" interval="2000" chance="90" min="0" max="70" />
-    <attack name="spears" interval="2000" chance="90" min="0" max="50" />
+    <attack name="spears" interval="2000" chance="70" min="0" max="50" />
   </attacks>
 	<loot>
 		<item id="2389" countmax="3" killsToGetOne="2" />	  <!-- spear -->

@@ -39,9 +39,9 @@
   <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
   <attacks>
     <attack name="melee" interval="2000" chance="90" min="0" max="20" />
-    <attack name="energy strike" interval="2000" chance="90" min="20" max="30" />
-    <attack name="flame strike" interval="2000" chance="90" min="5" max="45" />
-    <attack name="self healing" interval="2000" chance="90" min="27" max="43" />
+    <attack name="energy strike" interval="2000" chance="70" min="20" max="30" />
+    <attack name="flame strike" interval="2000" chance="70" min="5" max="45" />
+    <attack name="self healing" interval="2000" chance="50" min="27" max="43" />
   </attacks>
   <loot />
 </monster>

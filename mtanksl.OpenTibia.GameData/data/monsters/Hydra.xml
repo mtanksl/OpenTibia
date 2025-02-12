@@ -42,8 +42,8 @@
 
 
     <attack name="paralyse" interval="2000" chance="90" />
-    <attack name="ice strike" interval="2000" chance="90" min="70" max="155" />
-    <attack name="self healing" interval="2000" chance="90" min="200" max="400" />
+    <attack name="ice strike" interval="2000" chance="70" min="70" max="155" />
+    <attack name="self healing" interval="2000" chance="50" min="200" max="400" />
   </attacks>
   <loot />
 </monster>

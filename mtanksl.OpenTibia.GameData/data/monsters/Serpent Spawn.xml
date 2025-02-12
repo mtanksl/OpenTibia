@@ -45,8 +45,8 @@
 
 
     <attack name="paralyse" interval="2000" chance="90" />
-    <attack name="haste" interval="2000" chance="90" />
-    <attack name="self healing" interval="2000" chance="90" min="300" max="400" />
+    <attack name="haste" interval="2000" chance="50" />
+    <attack name="self healing" interval="2000" chance="50" min="300" max="400" />
 
   </attacks>
   <loot />

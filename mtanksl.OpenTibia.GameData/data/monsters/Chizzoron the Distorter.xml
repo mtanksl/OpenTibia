@@ -30,7 +30,7 @@
     <element manaDrainPercent="100" />
     <element lifeDrainPercent="0" />
   </elements>
-  <voices interval="2000" chance="10">
+  <voices interval="5000" chance="10">
     <voice yell="0" sentence="Humanzzz! Leave Zzaion at onzzzze!" />
     <voice yell="0" sentence="I pray to my mazzterzz, the mighty dragonzzz!" />
     <voice yell="0" sentence="You are not worzzy to touch zzizz zzacred ground!" />

@@ -40,7 +40,7 @@
   <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
   <attacks>
     <attack name="melee" interval="2000" chance="90" min="0" max="455" />
-    <attack name="boulder throw" interval="2000" chance="90" min="0" max="200" />
+    <attack name="boulder throw" interval="2000" chance="70" min="0" max="200" />
   </attacks>
 	<loot>
 		<item id="2148" countmax="200" killsToGetOne="1" />  <!-- gold coin -->

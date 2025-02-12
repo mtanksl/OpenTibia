@@ -30,7 +30,7 @@
     <element manaDrainPercent="100" />
     <element lifeDrainPercent="0" />
   </elements>
-  <voices interval="2000" chance="7">
+  <voices interval="5000" chance="10">
     <voice yell="0" sentence="Your intrusion can't be tolerated!" />
     <voice yell="0" sentence="I will bring peace to your misguided soul!" />
   </voices>

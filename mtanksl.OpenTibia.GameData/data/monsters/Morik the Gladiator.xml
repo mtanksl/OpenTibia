@@ -30,7 +30,7 @@
     <element manaDrainPercent="100" />
     <element lifeDrainPercent="0" />
   </elements>
-  <voices interval="1000" chance="2">
+  <voices interval="5000" chance="10">
     <voice yell="0" sentence="I am the best!" />
     <voice yell="0" sentence="I'll take your ears as a trophy!" />
     <voice yell="0" sentence="To be the one you'll have to beat the one!" />
