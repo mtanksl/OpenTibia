@@ -44,9 +44,11 @@
     <attack name="melee" interval="2000" chance="90" min="0" max="500" />
     <attack name="great fireball" interval="2000" chance="90" min="150" max="250" />
     <attack name="energy beam" interval="2000" chance="90" min="300" max="480" />
+    <attack name="energy strike" interval="2000" chance="90" min="210" max="300" />
     <attack name="mana drain" interval="2000" chance="90" min="30" max="120" />
     <attack name="self healing" interval="2000" chance="90" min="80" max="250" />
     <attack name="fire field" interval="2000" chance="90" />
+    <attack name="paralyse" interval="2000" chance="90" />
   </attacks>
 	<loot>
 		<item id="2148" countmax="200" killsToGetOne="2" /> <!-- gold coin -->

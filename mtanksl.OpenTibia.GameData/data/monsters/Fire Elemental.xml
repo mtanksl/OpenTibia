@@ -37,7 +37,7 @@
   <attacks>
     <attack name="melee" interval="2000" chance="90" min="0" max="100" />
     <attack name="fire field" interval="2000" chance="90" />
-    <attack name="fire ball" interval="2000" chance="90" min="55" max="155" />
+    <attack name="fireball" interval="2000" chance="90" min="55" max="155" />
   </attacks>
   <loot />
 </monster>
