@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="items">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="item" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence minOccurs="0">
+              <xs:element name="attribute" maxOccurs="unbounded">
+                <xs:complexType>                 
+                  <xs:attribute name="key" type="AttributeKey" use="required" />
+                  <xs:attribute name="value" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:unsignedShort" use="required" />
+            <xs:attribute name="article" type="xs:string" use="optional" />
+            <xs:attribute name="name" type="xs:string" use="optional" />
+            <xs:attribute name="plural" type="xs:string" use="optional" />
+            <xs:attribute name="editorsuffix" type="xs:string" use="optional" />
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:simpleType name="AttributeKey">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="article"/>
+      <xs:enumeration value="name"/>
+      <xs:enumeration value="plural"/>
+      <xs:enumeration value="description"/>
+      <xs:enumeration value="runeSpellName"/>
+      <xs:enumeration value="weight"/>
+      <xs:enumeration value="armor"/>
+      <xs:enumeration value="defense"/>
+      <xs:enumeration value="extradef"/>
+      <xs:enumeration value="attack"/>
+      <xs:enumeration value="blockprojectile"/>
+      <xs:enumeration value="floorchange"/>
+      <xs:enumeration value="corpsetype"/>
+      <xs:enumeration value="containerSize"/>
+      <xs:enumeration value="weaponType"/>
+      <xs:enumeration value="ammoType"/>
+      <xs:enumeration value="shootType"/>
+      <xs:enumeration value="effect"/>
+      <xs:enumeration value="range"/>
+      <xs:enumeration value="charges"/>
+      <xs:enumeration value="slotType"/>
+      <xs:enumeration value="breakChance"/>
+      <xs:enumeration value="ammoAction"/>
+      <xs:enumeration value="hitChance"/>
+      <xs:enumeration value="maxHitChance"/>
+      <xs:enumeration value="readable"/>
+      <xs:enumeration value="writeable"/>
+      <xs:enumeration value="absorbPercentAllElements"/>
+      <xs:enumeration value="absorbPercentPhysical"/>
+      <xs:enumeration value="absorbPercentEarth"/>
+      <xs:enumeration value="absorbPercentFire"/>
+      <xs:enumeration value="absorbPercentEnergy"/>
+      <xs:enumeration value="absorbPercentIce"/>
+      <xs:enumeration value="absorbPercentDeath"/>
+      <xs:enumeration value="absorbPercentHoly"/>
+      <xs:enumeration value="absorbPercentManaDrain"/>
+      <xs:enumeration value="absorbPercentLifeDrain"/>
+
+      <!-- Unused -->
+      <xs:enumeration value="allowpickupable"/>
+      <xs:enumeration value="corpseType"/>
+      <xs:enumeration value="currency"/>
+      <xs:enumeration value="decayTo"/>
+      <xs:enumeration value="duration"/>
+      <xs:enumeration value="elementEarth"/>
+      <xs:enumeration value="elementEnergy"/>
+      <xs:enumeration value="elementFire"/>
+      <xs:enumeration value="elementIce"/>
+      <xs:enumeration value="femaleSleeper"/>
+      <xs:enumeration value="field"/>
+      <xs:enumeration value="fluidSource"/>
+      <xs:enumeration value="fluidsource"/>
+      <xs:enumeration value="healthGain"/>
+      <xs:enumeration value="healthTicks"/>
+      <xs:enumeration value="invisible"/>
+      <xs:enumeration value="magicpoints"/>
+      <xs:enumeration value="maleSleeper"/>
+      <xs:enumeration value="manaGain"/>
+      <xs:enumeration value="manaTicks"/>
+      <xs:enumeration value="manashield"/>
+      <xs:enumeration value="maxTextLen"/>
+      <xs:enumeration value="partnerDirection"/>
+      <xs:enumeration value="preventItemloss"/>
+      <xs:enumeration value="replaceable"/>
+      <xs:enumeration value="rotateTo"/>
+      <xs:enumeration value="showCharges"/>
+      <xs:enumeration value="showcount"/>
+      <xs:enumeration value="showduration"/>
+      <xs:enumeration value="skillAxe"/>
+      <xs:enumeration value="skillClub"/>
+      <xs:enumeration value="skillDist"/>
+      <xs:enumeration value="skillFist"/>
+      <xs:enumeration value="skillShield"/>
+      <xs:enumeration value="skillSword"/>
+      <xs:enumeration value="speed"/>
+      <xs:enumeration value="stopduration"/>
+      <xs:enumeration value="suppressDrown"/>
+      <xs:enumeration value="suppressDrunk"/>
+      <xs:enumeration value="suppresspoison"/>
+      <xs:enumeration value="transformDeEquipTo"/>
+      <xs:enumeration value="transformEquipTo"/>
+      <xs:enumeration value="type"/>
+      <xs:enumeration value="writeOnceItemId"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

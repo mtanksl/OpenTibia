@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="monster">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="health" minOccurs="1">
+          <xs:complexType>
+            <xs:attribute name="now" type="xs:unsignedShort" use="required" />
+            <xs:attribute name="max" type="xs:unsignedShort" use="required" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="look" minOccurs="1">
+          <xs:complexType>
+            <xs:attribute name="typeex" type="xs:unsignedShort" use="required" />
+            <xs:attribute name="type" type="xs:unsignedByte" use="required" />
+            <xs:attribute name="head" type="xs:unsignedByte" use="required" />
+            <xs:attribute name="body" type="xs:unsignedByte" use="required" />
+            <xs:attribute name="legs" type="xs:unsignedByte" use="required" />
+            <xs:attribute name="feet" type="xs:unsignedByte" use="required" />
+            <xs:attribute name="corpse" type="xs:unsignedShort" use="required" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="flags" minOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="flag" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:attribute name="summonable" type="xs:unsignedByte" use="optional" />
+                  <xs:attribute name="attackable" type="xs:unsignedByte" use="optional" />
+                  <xs:attribute name="hostile" type="xs:unsignedByte" use="optional" />
+                  <xs:attribute name="illusionable" type="xs:unsignedByte" use="optional" />
+                  <xs:attribute name="convinceable" type="xs:unsignedByte" use="optional" />
+                  <xs:attribute name="pushable" type="xs:unsignedByte" use="optional" />
+                  <xs:attribute name="canpushitems" type="xs:unsignedByte" use="optional" />
+                  <xs:attribute name="canpushcreatures" type="xs:unsignedByte" use="optional" />
+                  <xs:attribute name="targetdistance" type="xs:unsignedByte" use="optional" />
+                  <xs:attribute name="runonhealth" type="xs:unsignedByte" use="optional" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="immunities" minOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="immunity" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:attribute name="paralyze" type="xs:unsignedByte" use="optional" />
+                  <xs:attribute name="invisible" type="xs:unsignedByte" use="optional" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="elements" minOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="element" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:attribute name="physicalPercent" type="xs:byte" use="optional" />
+                  <xs:attribute name="earthpercent" type="xs:byte" use="optional" />
+                  <xs:attribute name="firePercent" type="xs:byte" use="optional" />
+                  <xs:attribute name="energyPercent" type="xs:byte" use="optional" />
+                  <xs:attribute name="icePercent" type="xs:byte" use="optional" />
+                  <xs:attribute name="deathPercent" type="xs:byte" use="optional" />
+                  <xs:attribute name="holyPercent" type="xs:byte" use="optional" />
+                  <xs:attribute name="drownPercent" type="xs:byte" use="optional" />
+                  <xs:attribute name="manaDrainPercent" type="xs:byte" use="optional" />
+                  <xs:attribute name="lifeDrainPercent" type="xs:byte" use="optional" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="voices" minOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="voice" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:attribute name="yell" type="xs:unsignedByte" use="required" />
+                  <xs:attribute name="sentence" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="interval" type="xs:unsignedShort" use="required" />
+            <xs:attribute name="chance" type="xs:unsignedByte" use="required" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="defenses" minOccurs="1">
+          <xs:complexType>
+            <xs:attribute name="mitigation" type="xs:decimal" use="required" />
+            <xs:attribute name="defense" type="xs:unsignedByte" use="required" />
+            <xs:attribute name="armor" type="xs:unsignedByte" use="required" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="changetargetstrategy" minOccurs="1">
+          <xs:complexType>
+            <xs:attribute name="interval" type="xs:unsignedShort" use="required" />
+            <xs:attribute name="chance" type="xs:unsignedByte" use="required" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="targetstrategy" minOccurs="1">
+          <xs:complexType>
+            <xs:attribute name="nearest" type="xs:unsignedByte" use="required" />
+            <xs:attribute name="weakest" type="xs:unsignedByte" use="required" />
+            <xs:attribute name="mostdamage" type="xs:unsignedByte" use="required" />
+            <xs:attribute name="random" type="xs:unsignedByte" use="required" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="attacks" minOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="attack" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:attribute name="name" type="xs:string" use="required" />
+                  <xs:attribute name="interval" type="xs:unsignedShort" use="required" />
+                  <xs:attribute name="chance" type="xs:unsignedByte" use="required" />
+                  <xs:attribute name="min" type="xs:unsignedByte" use="optional" />
+                  <xs:attribute name="max" type="xs:unsignedByte" use="optional" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="loot" minOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="item" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:attribute name="id" type="xs:unsignedShort" use="required" />
+                  <xs:attribute name="countmin" type="xs:unsignedByte" use="optional" />
+                  <xs:attribute name="countmax" type="xs:unsignedByte" use="optional" />
+                  <xs:attribute name="killsToGetOne" type="xs:unsignedShort" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="name" type="xs:string" use="required" />
+      <xs:attribute name="nameDisplayed" type="xs:string" use="optional" />
+      <xs:attribute name="nameDescription" type="xs:string" use="required" />
+      <xs:attribute name="race" type="xs:string" use="required" />
+      <xs:attribute name="speed" type="xs:unsignedShort" use="required" />
+      <xs:attribute name="experience" type="xs:unsignedByte" use="required" />
+      <xs:attribute name="manacost" type="xs:unsignedShort" use="required" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

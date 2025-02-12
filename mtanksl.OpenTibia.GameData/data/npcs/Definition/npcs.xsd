@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="npc">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="health">
+          <xs:complexType>
+            <xs:attribute name="now" type="xs:unsignedShort" use="required" />
+            <xs:attribute name="max" type="xs:unsignedShort" use="required" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="look">
+          <xs:complexType>
+            <xs:attribute name="typeex" type="xs:unsignedShort" use="optional" />
+            <xs:attribute name="type" type="xs:unsignedByte" use="required" />
+            <xs:attribute name="head" type="xs:unsignedByte" use="required" />
+            <xs:attribute name="body" type="xs:unsignedByte" use="required" />
+            <xs:attribute name="legs" type="xs:unsignedByte" use="required" />
+            <xs:attribute name="feet" type="xs:unsignedByte" use="required" />
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="name" type="xs:string" use="required" />
+      <xs:attribute name="nameDisplayed" type="xs:string" use="optional" />
+      <xs:attribute name="nameDescription" type="xs:string" use="required" />
+      <xs:attribute name="speed" type="xs:unsignedShort" use="required" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

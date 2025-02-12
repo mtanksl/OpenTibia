@@ -11,9 +11,18 @@
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)data\database.db" />
     <None Include="$(MSBuildThisFileDirectory)data\dlls\mtanksl.OpenTibia.Plugins\mtanksl.OpenTibia.Plugins.dll" />
+    <None Include="$(MSBuildThisFileDirectory)data\items\Definition\items.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="$(MSBuildThisFileDirectory)data\items\items.otb" />
     <None Include="$(MSBuildThisFileDirectory)data\items\tibia.dat" />
     <None Include="$(MSBuildThisFileDirectory)data\lib.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\monsters\Definition\monsters.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)data\npcs\Definition\npcs.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="$(MSBuildThisFileDirectory)data\openTibiaFunctionsReference.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\creaturescripts\kill.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\creaturescripts\earnachievement.lua" />

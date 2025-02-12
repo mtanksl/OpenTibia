@@ -1054,28 +1054,13 @@
 	<item id="1421" article="a" name="campfire"/>
 	<item id="1422" article="a" name="campfire"/>
 	<item id="1423" article="a" name="campfire">
-		<attribute key="field" value="fire">
-			<attribute key="damage" value="20"/>
-			<attribute key="ticks" value="4000"/>
-			<attribute key="count" value="2"/>
-			<attribute key="damage" value="10"/>
-		</attribute>
+		<attribute key="field" value="fire"/>
 	</item>
 	<item id="1424" article="a" name="campfire">
-		<attribute key="field" value="fire">
-			<attribute key="damage" value="20"/>
-			<attribute key="ticks" value="4000"/>
-			<attribute key="count" value="2"/>
-			<attribute key="damage" value="10"/>
-		</attribute>
+		<attribute key="field" value="fire"/>
 	</item>
 	<item id="1425" article="a" name="campfire">
-		<attribute key="field" value="fire">
-			<attribute key="damage" value="20"/>
-			<attribute key="ticks" value="4000"/>
-			<attribute key="count" value="2"/>
-			<attribute key="damage" value="10"/>
-		</attribute>
+		<attribute key="field" value="fire"/>
 	</item>
 	<item id="1426" article="an" name="unlit campfire"/>
 	<item id="1427" article="a" name="campfire"/>
@@ -1164,20 +1149,11 @@
 	<item id="1486" article="a" name="stone coal basin"/>
 	<item id="1487" article="a" name="fire field" editorsuffix=" (Not decaying)">
 		<attribute key="type" value="magicfield"/>
-		<attribute key="field" value="fire">
-			<attribute key="damage" value="20"/>
-			<attribute key="ticks" value="10000"/>
-			<attribute key="count" value="7"/>
-			<attribute key="damage" value="10"/>
-		</attribute>
+		<attribute key="field" value="fire"/>
 	</item>
 	<item id="1488" article="a" name="fire field" editorsuffix=" (Not decaying)">
 		<attribute key="type" value="magicfield"/>
-		<attribute key="field" value="fire">
-			<attribute key="ticks" value="10000"/>
-			<attribute key="count" value="7"/>
-			<attribute key="damage" value="10"/>
-		</attribute>
+		<attribute key="field" value="fire"/>
 	</item>
 	<item id="1489" article="a" name="fire field" editorsuffix=" (Not decaying)">
 		<attribute key="type" value="magicfield"/>
@@ -1185,40 +1161,23 @@
 	</item>
 	<item id="1490" article="a" name="poison field" editorsuffix=" (Not decaying)">
 		<attribute key="type" value="magicfield"/>
-		<attribute key="field" value="poison">
-			<attribute key="ticks" value="5000"/>
-			<attribute key="start" value="5"/>
-			<attribute key="damage" value="100"/>
-		</attribute>
+		<attribute key="field" value="poison"/>
 	</item>
 	<item id="1491" article="an" name="energy field" editorsuffix=" (Not decaying)">
 		<attribute key="type" value="magicfield"/>
-		<attribute key="field" value="energy">
-			<attribute key="damage" value="30"/>
-			<attribute key="ticks" value="10000"/>
-			<attribute key="damage" value="25"/>
-		</attribute>
+		<attribute key="field" value="energy"/>
 	</item>
 	<item id="1492" article="a" name="fire field">
 		<attribute key="type" value="magicfield"/>
 		<attribute key="decayTo" value="1493"/>
 		<attribute key="duration" value="120"/>
-		<attribute key="field" value="fire">
-			<attribute key="damage" value="20"/>
-			<attribute key="ticks" value="10000"/>
-			<attribute key="count" value="7"/>
-			<attribute key="damage" value="10"/>
-		</attribute>
+		<attribute key="field" value="fire"/>
 	</item>
 	<item id="1493" article="a" name="fire field">
 		<attribute key="type" value="magicfield"/>
 		<attribute key="decayTo" value="1494"/>
 		<attribute key="duration" value="120"/>
-		<attribute key="field" value="fire">
-			<attribute key="ticks" value="10000"/>
-			<attribute key="count" value="7"/>
-			<attribute key="damage" value="10"/>
-		</attribute>
+		<attribute key="field" value="fire"/>
 	</item>
 	<item id="1494" article="a" name="fire field">
 		<attribute key="type" value="magicfield"/>
@@ -1230,21 +1189,13 @@
 		<attribute key="type" value="magicfield"/>
 		<attribute key="decayTo" value="0"/>
 		<attribute key="duration" value="120"/>
-		<attribute key="field" value="energy">
-			<attribute key="damage" value="30"/>
-			<attribute key="ticks" value="10000"/>
-			<attribute key="damage" value="25"/>
-		</attribute>
+		<attribute key="field" value="energy"/>
 	</item>
 	<item id="1496" article="a" name="poison field">
 		<attribute key="type" value="magicfield"/>
 		<attribute key="decayTo" value="0"/>
 		<attribute key="duration" value="120"/>
-		<attribute key="field" value="poison">
-			<attribute key="ticks" value="5000"/>
-			<attribute key="start" value="5"/>
-			<attribute key="damage" value="100"/>
-		</attribute>
+		<attribute key="field" value="poison"/>
 	</item>
 	<item id="1497" article="a" name="magic wall">
 		<attribute key="type" value="magicfield"/>
@@ -1263,22 +1214,13 @@
 		<attribute key="type" value="magicfield"/>
 		<attribute key="decayTo" value="1501"/>
 		<attribute key="duration" value="10"/>
-		<attribute key="field" value="fire">
-			<attribute key="damage" value="20"/>
-			<attribute key="ticks" value="10000"/>
-			<attribute key="count" value="7"/>
-			<attribute key="damage" value="10"/>
-		</attribute>
+		<attribute key="field" value="fire"/>
 	</item>
 	<item id="1501" article="a" name="fire field" editorsuffix=" (Non PvP)">
 		<attribute key="type" value="magicfield"/>
 		<attribute key="decayTo" value="1502"/>
 		<attribute key="duration" value="10"/>
-		<attribute key="field" value="fire">
-			<attribute key="ticks" value="10000"/>
-			<attribute key="count" value="7"/>
-			<attribute key="damage" value="10"/>
-		</attribute>
+		<attribute key="field" value="fire"/>
 	</item>
 	<item id="1502" article="a" name="fire field" editorsuffix=" (Non PvP)">
 		<attribute key="type" value="magicfield"/>
@@ -1290,21 +1232,13 @@
 		<attribute key="type" value="magicfield"/>
 		<attribute key="decayTo" value="0"/>
 		<attribute key="duration" value="10"/>
-		<attribute key="field" value="poison">
-			<attribute key="ticks" value="5000"/>
-			<attribute key="start" value="5"/>
-			<attribute key="damage" value="100"/>
-		</attribute>
+		<attribute key="field" value="poison"/>
 	</item>
 	<item id="1504" article="an" name="energy field" editorsuffix=" (Non PvP)">
 		<attribute key="type" value="magicfield"/>
 		<attribute key="decayTo" value="0"/>
 		<attribute key="duration" value="10"/>
-		<attribute key="field" value="energy">
-			<attribute key="damage" value="30"/>
-			<attribute key="ticks" value="10000"/>
-			<attribute key="damage" value="25"/>
-		</attribute>
+		<attribute key="field" value="energy"/>
 	</item>
 	<item id="1505" name="smoke">
 		<attribute key="type" value="magicfield"/>
@@ -1315,18 +1249,14 @@
 		<attribute key="decayTo" value="1507"/>
 		<attribute key="duration" value="10"/>
 		<attribute key="replaceable" value="0"/>
-		<attribute key="field" value="fire">
-			<attribute key="damage" value="300"/>
-		</attribute>
+		<attribute key="field" value="fire"/>
 	</item>
 	<item id="1507" article="a" name="searing fire">
 		<attribute key="type" value="magicfield"/>
 		<attribute key="decayTo" value="1508"/>
 		<attribute key="duration" value="10"/>
 		<attribute key="replaceable" value="0"/>
-		<attribute key="field" value="fire">
-			<attribute key="damage" value="300"/>
-		</attribute>
+		<attribute key="field" value="fire"/>
 	</item>
 	<item id="1508" name="ashes">
 		<attribute key="type" value="magicfield"/>
@@ -1818,91 +1748,91 @@
 	</item>
 	<item id="1754" article="a" name="bed">
 		<attribute key="type" value="bed"/>
-		<attribute key="partnerDirection" value="south" />
-		<attribute key="maleSleeper" value="1762" />
-		<attribute key="femaleSleeper" value="7778" />
+		<attribute key="partnerDirection" value="south"/>
+		<attribute key="maleSleeper" value="1762"/>
+		<attribute key="femaleSleeper" value="7778"/>
 	</item>
 	<item id="1755" article="a" name="bed">
 		<attribute key="type" value="bed"/>
-		<attribute key="partnerDirection" value="north" />
-		<attribute key="maleSleeper" value="1763" />
-		<attribute key="femaleSleeper" value="8075" />
+		<attribute key="partnerDirection" value="north"/>
+		<attribute key="maleSleeper" value="1763"/>
+		<attribute key="femaleSleeper" value="8075"/>
 	</item>
 	<item id="1756" article="a" name="cot">
 		<attribute key="type" value="bed"/>
-		<attribute key="partnerDirection" value="east" />
-		<attribute key="maleSleeper" value="1768" />
-		<attribute key="femaleSleeper" value="7783" />
+		<attribute key="partnerDirection" value="east"/>
+		<attribute key="maleSleeper" value="1768"/>
+		<attribute key="femaleSleeper" value="7783"/>
 	</item>
 	<item id="1757" article="a" name="cot">
 		<attribute key="type" value="bed"/>
-		<attribute key="partnerDirection" value="west" />
-		<attribute key="maleSleeper" value="1769" />
-		<attribute key="femaleSleeper" value="7784" />
+		<attribute key="partnerDirection" value="west"/>
+		<attribute key="maleSleeper" value="1769"/>
+		<attribute key="femaleSleeper" value="7784"/>
 	</item>
 	<item id="1758" article="a" name="cot">
 		<attribute key="type" value="bed"/>
 		<attribute key="partnerDirection" value="south"/>
-		<attribute key="maleSleeper" value="1766" />
-		<attribute key="femaleSleeper" value="7781" />
+		<attribute key="maleSleeper" value="1766"/>
+		<attribute key="femaleSleeper" value="7781"/>
 	</item>
 	<item id="1759" article="a" name="cot">
 		<attribute key="type" value="bed"/>
-		<attribute key="partnerDirection" value="north" />
-		<attribute key="maleSleeper" value="1767" />
-		<attribute key="femaleSleeper" value="7782" />
+		<attribute key="partnerDirection" value="north"/>
+		<attribute key="maleSleeper" value="1767"/>
+		<attribute key="femaleSleeper" value="7782"/>
 	</item>
 	<item id="1760" article="a" name="bed">
 		<attribute key="type" value="bed"/>
-		<attribute key="partnerDirection" value="east" />
-		<attribute key="maleSleeper" value="1764" />
-		<attribute key="femaleSleeper" value="7779" />
+		<attribute key="partnerDirection" value="east"/>
+		<attribute key="maleSleeper" value="1764"/>
+		<attribute key="femaleSleeper" value="7779"/>
 	</item>
 	<item id="1761" article="a" name="bed">
 		<attribute key="type" value="bed"/>
-		<attribute key="partnerDirection" value="west" />
-		<attribute key="maleSleeper" value="1765" />
-		<attribute key="femaleSleeper" value="7780" />
+		<attribute key="partnerDirection" value="west"/>
+		<attribute key="maleSleeper" value="1765"/>
+		<attribute key="femaleSleeper" value="7780"/>
 	</item>
 	<item id="1762" article="a" name="bed">
 		<attribute key="type" value="bed"/>
-		<attribute key="partnerDirection" value="south" />
-		<attribute key="maleSleeper" value="1754" />
+		<attribute key="partnerDirection" value="south"/>
+		<attribute key="maleSleeper" value="1754"/>
 	</item>
 	<item id="1763" article="a" name="bed">
 		<attribute key="type" value="bed"/>
-		<attribute key="partnerDirection" value="north" />
-		<attribute key="maleSleeper" value="1755" />
+		<attribute key="partnerDirection" value="north"/>
+		<attribute key="maleSleeper" value="1755"/>
 	</item>
 	<item id="1764" article="a" name="bed">
 		<attribute key="type" value="bed"/>
-		<attribute key="partnerDirection" value="east" />
-		<attribute key="maleSleeper" value="1760" />
+		<attribute key="partnerDirection" value="east"/>
+		<attribute key="maleSleeper" value="1760"/>
 	</item>
 	<item id="1765" article="a" name="bed">
 		<attribute key="type" value="bed"/>
-		<attribute key="partnerDirection" value="west" />
-		<attribute key="maleSleeper" value="1761" />
+		<attribute key="partnerDirection" value="west"/>
+		<attribute key="maleSleeper" value="1761"/>
 	</item>
 	<item id="1766" article="a" name="cot">
 		<attribute key="type" value="bed"/>
-		<attribute key="partnerDirection" value="south" />
-		<attribute key="maleSleeper" value="1758" />
+		<attribute key="partnerDirection" value="south"/>
+		<attribute key="maleSleeper" value="1758"/>
 	</item>
 	<item id="1767" article="a" name="cot">
 		<attribute key="type" value="bed"/>
-		<attribute key="partnerDirection" value="north" />
-		<attribute key="maleSleeper" value="1759" />
+		<attribute key="partnerDirection" value="north"/>
+		<attribute key="maleSleeper" value="1759"/>
 	</item>
 	<item id="1768" article="a" name="cot">
 		<attribute key="type" value="bed"/>
-		<attribute key="partnerDirection" value="east" />
-		<attribute key="maleSleeper" value="1756" />
+		<attribute key="partnerDirection" value="east"/>
+		<attribute key="maleSleeper" value="1756"/>
 	</item>
 	<item id="1769" article="a" name="cot">
 		<attribute key="type" value="bed"/>
-		<attribute key="partnerDirection" value="west" />
-		<attribute key="maleSleeper" value="1757" />
+		<attribute key="partnerDirection" value="west"/>
+		<attribute key="maleSleeper" value="1757"/>
 	</item>
 	<item id="1770" article="a" name="barrel">
 		<attribute key="containerSize" value="25"/>
@@ -2925,7 +2855,7 @@
 		<attribute key="weight" value="290"/>
 		<attribute key="slotType" value="necklace"/>
 		<attribute key="charges" value="200"/>
-		<attribute key="showcharges" value="1"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="absorbPercentEnergy" value="10"/>
 	</item>
 	<item id="2162" article="a" name="magic lightwand">
@@ -2943,7 +2873,7 @@
 		<attribute key="weight" value="100"/>
 		<attribute key="slotType" value="ring"/>
 		<attribute key="charges" value="20"/>
-		<attribute key="showcharges" value="1"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="absorbPercentAllElements" value="20"/>
 	</item>
 	<item id="2165" article="a" name="stealth ring">
@@ -2985,7 +2915,7 @@
 		<attribute key="weight" value="500"/>
 		<attribute key="slotType" value="necklace"/>
 		<attribute key="charges" value="200"/>
-		<attribute key="showcharges" value="1"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="absorbPercentEarth" value="10"/>
 	</item>
 	<item id="2171" article="a" name="platinum amulet">
@@ -2998,7 +2928,7 @@
 		<attribute key="weight" value="500"/>
 		<attribute key="slotType" value="necklace"/>
 		<attribute key="charges" value="200"/>
-		<attribute key="showcharges" value="1"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="absorbPercentManaDrain" value="20"/>
 	</item>
 	<item id="2173" article="an" name="amulet of loss">
@@ -3125,7 +3055,7 @@
 		<attribute key="weight" value="700"/>
 		<attribute key="slotType" value="necklace"/>
 		<attribute key="charges" value="5"/>
-		<attribute key="showcharges" value="1"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="absorbPercentPhysical" value="80"/>
 		<attribute key="absorbPercentDeath" value="80"/>
 	</item>
@@ -3133,7 +3063,7 @@
 		<attribute key="weight" value="270"/>
 		<attribute key="slotType" value="necklace"/>
 		<attribute key="charges" value="50"/>
-		<attribute key="showcharges" value="1"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="absorbPercentPhysical" value="5"/>
 		<attribute key="absorbPercentFire" value="5"/>
 		<attribute key="absorbPercentDeath" value="5"/>
@@ -3146,21 +3076,21 @@
 		<attribute key="weight" value="380"/>
 		<attribute key="slotType" value="necklace"/>
 		<attribute key="charges" value="150"/>
-		<attribute key="showcharges" value="1"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="absorbPercentLifeDrain" value="20"/>
 	</item>
 	<item id="2200" article="a" name="protection amulet">
 		<attribute key="weight" value="550"/>
 		<attribute key="slotType" value="necklace"/>
 		<attribute key="charges" value="250"/>
-		<attribute key="showcharges" value="1"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="absorbPercentPhysical" value="6"/>
 	</item>
 	<item id="2201" article="a" name="dragon necklace">
 		<attribute key="weight" value="630"/>
 		<attribute key="slotType" value="necklace"/>
 		<attribute key="charges" value="200"/>
-		<attribute key="showcharges" value="1"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="absorbPercentFire" value="8"/>
 	</item>
 	<item id="2202" article="a" name="stealth ring (invisibility)">
@@ -3427,14 +3357,14 @@
 		<attribute key="runeSpellName" value="adito grav"/>
 		<attribute key="weight" value="70"/>
 		<attribute key="charges" value="3"/>
-		<attribute key="showcharges" value="1"/>
+		<attribute key="showCharges" value="1"/>
 	</item>
 	<item id="2262" article="an" name="energy bomb rune">
 		<attribute key="type" value="rune"/>
 		<attribute key="runeSpellName" value="adevo mas vis"/>
 		<attribute key="weight" value="105"/>
 		<attribute key="charges" value="2"/>
-		<attribute key="showcharges" value="1"/>
+		<attribute key="showCharges" value="1"/>
 	</item>
 	<item id="2263" article="a" name="spell rune">
 		<attribute key="type" value="rune"/>
@@ -3465,14 +3395,14 @@
 		<attribute key="runeSpellName" value="adori gran mort"/>
 		<attribute key="weight" value="70"/>
 		<attribute key="charges" value="3"/>
-		<attribute key="showcharges" value="1"/>
+		<attribute key="showCharges" value="1"/>
 	</item>
 	<item id="2269" article="a" name="wild growth rune">
 		<attribute key="type" value="rune"/>
 		<attribute key="runeSpellName" value="adevo grav vita"/>
 		<attribute key="weight" value="105"/>
 		<attribute key="charges" value="2"/>
-		<attribute key="showcharges" value="1"/>
+		<attribute key="showCharges" value="1"/>
 	</item>
 	<item id="2270" article="a" name="spell rune">
 		<attribute key="type" value="rune"/>
@@ -3499,7 +3429,7 @@
 		<attribute key="runeSpellName" value="adori mas frigo"/>
 		<attribute key="weight" value="52"/>
 		<attribute key="charges" value="4"/>
-		<attribute key="showcharges" value="1"/>
+		<attribute key="showCharges" value="1"/>
 	</item>
 	<item id="2275" article="a" name="spell rune">
 		<attribute key="type" value="rune"/>
@@ -3514,7 +3444,7 @@
 		<attribute key="runeSpellName" value="adevo grav vis"/>
 		<attribute key="weight" value="70"/>
 		<attribute key="charges" value="3"/>
-		<attribute key="showcharges" value="1"/>
+		<attribute key="showCharges" value="1"/>
 	</item>
 	<item id="2278" article="a" name="paralyze rune">
 		<attribute key="type" value="rune"/>
@@ -3527,7 +3457,7 @@
 		<attribute key="runeSpellName" value="adevo mas grav vis"/>
 		<attribute key="weight" value="52"/>
 		<attribute key="charges" value="4"/>
-		<attribute key="showcharges" value="1"/>
+		<attribute key="showCharges" value="1"/>
 	</item>
 	<item id="2280" article="a" name="spell rune">
 		<attribute key="type" value="rune"/>
@@ -3554,35 +3484,35 @@
 		<attribute key="runeSpellName" value="adevo grav pox"/>
 		<attribute key="weight" value="70"/>
 		<attribute key="charges" value="3"/>
-		<attribute key="showcharges" value="1"/>
+		<attribute key="showCharges" value="1"/>
 	</item>
 	<item id="2286" article="a" name="poison bomb rune">
 		<attribute key="type" value="rune"/>
 		<attribute key="runeSpellName" value="adevo mas pox"/>
 		<attribute key="weight" value="105"/>
 		<attribute key="charges" value="2"/>
-		<attribute key="showcharges" value="1"/>
+		<attribute key="showCharges" value="1"/>
 	</item>
 	<item id="2287" article="a" name="light magic missile rune">
 		<attribute key="type" value="rune"/>
 		<attribute key="runeSpellName" value="adori min vis"/>
 		<attribute key="weight" value="21"/>
 		<attribute key="charges" value="10"/>
-		<attribute key="showcharges" value="1"/>
+		<attribute key="showCharges" value="1"/>
 	</item>
 	<item id="2288" article="a" name="stone shower rune">
 		<attribute key="type" value="rune"/>
 		<attribute key="runeSpellName" value="adori mas tera"/>
 		<attribute key="weight" value="52"/>
 		<attribute key="charges" value="4"/>
-		<attribute key="showcharges" value="1"/>
+		<attribute key="showCharges" value="1"/>
 	</item>
 	<item id="2289" article="a" name="poison wall rune">
 		<attribute key="type" value="rune"/>
 		<attribute key="runeSpellName" value="adevo mas grav pox"/>
 		<attribute key="weight" value="52"/>
 		<attribute key="charges" value="4"/>
-		<attribute key="showcharges" value="1"/>
+		<attribute key="showCharges" value="1"/>
 	</item>
 	<item id="2290" article="a" name="convince creature rune">
 		<attribute key="type" value="rune"/>
@@ -3601,14 +3531,14 @@
 		<attribute key="runeSpellName" value="adori tera"/>
 		<attribute key="weight" value="21"/>
 		<attribute key="charges" value="10"/>
-		<attribute key="showcharges" value="1"/>
+		<attribute key="showCharges" value="1"/>
 	</item>
 	<item id="2293" article="a" name="magic wall rune">
 		<attribute key="type" value="rune"/>
 		<attribute key="runeSpellName" value="adevo grav tera"/>
 		<attribute key="weight" value="70"/>
 		<attribute key="charges" value="3"/>
-		<attribute key="showcharges" value="1"/>
+		<attribute key="showCharges" value="1"/>
 	</item>
 	<item id="2294" article="a" name="spell rune">
 		<attribute key="type" value="rune"/>
@@ -3619,7 +3549,7 @@
 		<attribute key="runeSpellName" value="adori san"/>
 		<attribute key="weight" value="42"/>
 		<attribute key="charges" value="5"/>
-		<attribute key="showcharges" value="1"/>
+		<attribute key="showCharges" value="1"/>
 	</item>
 	<item id="2296" article="a" name="spell rune">
 		<attribute key="type" value="rune"/>
@@ -3646,35 +3576,35 @@
 		<attribute key="runeSpellName" value="adevo grav flam"/>
 		<attribute key="weight" value="70"/>
 		<attribute key="charges" value="3"/>
-		<attribute key="showcharges" value="1"/>
+		<attribute key="showCharges" value="1"/>
 	</item>
 	<item id="2302" article="a" name="fireball rune">
 		<attribute key="type" value="rune"/>
 		<attribute key="runeSpellName" value="adori flam"/>
 		<attribute key="weight" value="42"/>
 		<attribute key="charges" value="5"/>
-		<attribute key="showcharges" value="1"/>
+		<attribute key="showCharges" value="1"/>
 	</item>
 	<item id="2303" article="a" name="fire wall rune">
 		<attribute key="type" value="rune"/>
 		<attribute key="runeSpellName" value="adevo mas grav flam"/>
 		<attribute key="weight" value="52"/>
 		<attribute key="charges" value="4"/>
-		<attribute key="showcharges" value="1"/>
+		<attribute key="showCharges" value="1"/>
 	</item>
 	<item id="2304" article="a" name="great fireball rune">
 		<attribute key="type" value="rune"/>
 		<attribute key="runeSpellName" value="adori mas flam"/>
 		<attribute key="weight" value="52"/>
 		<attribute key="charges" value="4"/>
-		<attribute key="showcharges" value="1"/>
+		<attribute key="showCharges" value="1"/>
 	</item>
 	<item id="2305" article="a" name="fire bomb rune">
 		<attribute key="type" value="rune"/>
 		<attribute key="runeSpellName" value="adevo mas flam"/>
 		<attribute key="weight" value="105"/>
 		<attribute key="charges" value="2"/>
-		<attribute key="showcharges" value="1"/>
+		<attribute key="showCharges" value="1"/>
 	</item>
 	<item id="2306" article="a" name="spell rune">
 		<attribute key="type" value="rune"/>
@@ -3689,7 +3619,7 @@
 		<attribute key="runeSpellName" value="adevo res flam"/>
 		<attribute key="weight" value="70"/>
 		<attribute key="charges" value="3"/>
-		<attribute key="showcharges" value="1"/>
+		<attribute key="showCharges" value="1"/>
 	</item>
 	<item id="2309" article="a" name="spell rune">
 		<attribute key="type" value="rune"/>
@@ -3700,14 +3630,14 @@
 		<attribute key="runeSpellName" value="adito tera"/>
 		<attribute key="weight" value="70"/>
 		<attribute key="charges" value="3"/>
-		<attribute key="showcharges" value="1"/>
+		<attribute key="showCharges" value="1"/>
 	</item>
 	<item id="2311" article="a" name="heavy magic missile rune">
 		<attribute key="type" value="rune"/>
 		<attribute key="runeSpellName" value="adori vis"/>
 		<attribute key="weight" value="21"/>
 		<attribute key="charges" value="10"/>
-		<attribute key="showcharges" value="1"/>
+		<attribute key="showCharges" value="1"/>
 	</item>
 	<item id="2312" article="a" name="spell rune">
 		<attribute key="type" value="rune"/>
@@ -3718,7 +3648,7 @@
 		<attribute key="runeSpellName" value="adevo mas hur"/>
 		<attribute key="weight" value="35"/>
 		<attribute key="charges" value="6"/>
-		<attribute key="showcharges" value="1"/>
+		<attribute key="showCharges" value="1"/>
 	</item>
 	<item id="2314" article="a" name="spell rune">
 		<attribute key="type" value="rune"/>
@@ -3729,7 +3659,7 @@
 		<attribute key="runeSpellName" value="adori mas vis"/>
 		<attribute key="weight" value="52"/>
 		<attribute key="charges" value="4"/>
-		<attribute key="showcharges" value="1"/>
+		<attribute key="showCharges" value="1"/>
   </item>
   <item id="2316" article="an" name="animate dead rune">
 		<attribute key="type" value="rune"/>
@@ -8577,43 +8507,43 @@
 	</item>
 	<item id="3836" article="a" name="hammock">
 		<attribute key="type" value="bed"/>
-		<attribute key="partnerDirection" value="south" />
-		<attribute key="maleSleeper" value="3840" />
+		<attribute key="partnerDirection" value="south"/>
+		<attribute key="maleSleeper" value="3840"/>
 	</item>
 	<item id="3837" article="a" name="hammock">
 		<attribute key="type" value="bed"/>
-		<attribute key="partnerDirection" value="north" />
-		<attribute key="maleSleeper" value="3841" />
+		<attribute key="partnerDirection" value="north"/>
+		<attribute key="maleSleeper" value="3841"/>
 	</item>
 	<item id="3838" article="a" name="hammock">
 		<attribute key="type" value="bed"/>
-		<attribute key="partnerDirection" value="east" />
-		<attribute key="maleSleeper" value="3842" />
+		<attribute key="partnerDirection" value="east"/>
+		<attribute key="maleSleeper" value="3842"/>
 	</item>
 	<item id="3839" article="a" name="hammock">
 		<attribute key="type" value="bed"/>
-		<attribute key="partnerDirection" value="west" />
-		<attribute key="maleSleeper" value="3843" />
+		<attribute key="partnerDirection" value="west"/>
+		<attribute key="maleSleeper" value="3843"/>
 	</item>
 	<item id="3840" article="a" name="hammock">
 		<attribute key="type" value="bed"/>
-		<attribute key="partnerDirection" value="south" />
-		<attribute key="maleSleeper" value="3836" />
+		<attribute key="partnerDirection" value="south"/>
+		<attribute key="maleSleeper" value="3836"/>
 	</item>
 	<item id="3841" article="a" name="hammock">
 		<attribute key="type" value="bed"/>
-		<attribute key="partnerDirection" value="north" />
-		<attribute key="maleSleeper" value="3837" />
+		<attribute key="partnerDirection" value="north"/>
+		<attribute key="maleSleeper" value="3837"/>
 	</item>
 	<item id="3842" article="a" name="hammock">
 		<attribute key="type" value="bed"/>
-		<attribute key="partnerDirection" value="east" />
-		<attribute key="maleSleeper" value="3838" />
+		<attribute key="partnerDirection" value="east"/>
+		<attribute key="maleSleeper" value="3838"/>
 	</item>
 	<item id="3843" article="a" name="hammock">
 		<attribute key="type" value="bed"/>
-		<attribute key="partnerDirection" value="west" />
-		<attribute key="maleSleeper" value="3839" />
+		<attribute key="partnerDirection" value="west"/>
+		<attribute key="maleSleeper" value="3839"/>
 	</item>
 	<item id="3844" article="a" name="grass mat"/>
 	<item id="3845" article="a" name="grass mat"/>
@@ -10079,7 +10009,7 @@
 		<attribute key="allowpickupable" value="1"/>
 		<attribute key="fluidSource" value="water"/>
 	</item>
-	<!-- Items from ID 4626 to ID 4631 are blank -->
+	<!-- from 4626 to 4631 -->
 	<item id="4632" name="shallow water">
 		<attribute key="fluidSource" value="water"/>
 	</item>
@@ -13991,8 +13921,8 @@
 	<item id="6272" name="leaves"/>
 	<item id="6273" name="leaves"/>
 	<item id="6274" name="leaves"/>
-	<item id="6275" articles="a" name="tree archway"/>
-	<item id="6276" articles="an" name="archway" editorsuffix=" (Needs recheck)"/>
+	<item id="6275" article="a" name="tree archway"/>
+	<item id="6276" article="an" name="archway" editorsuffix=" (Needs recheck)"/>
 	<item id="6277" article="a" name="lump of cake dough" plural="lumps of cake dough">
 		<attribute key="weight" value="500"/>
 	</item>
@@ -16971,65 +16901,47 @@
 	<item id="7465" article="a" name="searing fire">
 		<attribute key="type" value="magicfield"/>
 		<attribute key="replaceable" value="0"/>
-		<attribute key="field" value="fire">
-			<attribute key="damage" value="300"/>
-		</attribute>
+		<attribute key="field" value="fire"/>
 	</item>
 	<item id="7466" article="a" name="searing fire">
 		<attribute key="type" value="magicfield"/>
 		<attribute key="replaceable" value="0"/>
-		<attribute key="field" value="fire">
-			<attribute key="damage" value="300"/>
-		</attribute>
+		<attribute key="field" value="fire"/>
 	</item>
 	<item id="7467" article="a" name="searing fire">
 		<attribute key="type" value="magicfield"/>
 		<attribute key="replaceable" value="0"/>
-		<attribute key="field" value="fire">
-			<attribute key="damage" value="300"/>
-		</attribute>
+		<attribute key="field" value="fire"/>
 	</item>
 	<item id="7468" article="a" name="searing fire">
 		<attribute key="type" value="magicfield"/>
 		<attribute key="replaceable" value="0"/>
-		<attribute key="field" value="fire">
-			<attribute key="damage" value="300"/>
-		</attribute>
+		<attribute key="field" value="fire"/>
 	</item>
 	<item id="7469" article="a" name="searing fire">
 		<attribute key="type" value="magicfield"/>
 		<attribute key="replaceable" value="0"/>
-		<attribute key="field" value="fire">
-			<attribute key="damage" value="300"/>
-		</attribute>
+		<attribute key="field" value="fire"/>
 	</item>
 	<item id="7470" article="a" name="searing fire">
 		<attribute key="type" value="magicfield"/>
 		<attribute key="replaceable" value="0"/>
-		<attribute key="field" value="fire">
-			<attribute key="damage" value="300"/>
-		</attribute>
+		<attribute key="field" value="fire"/>
 	</item>
 	<item id="7471" article="a" name="searing fire">
 		<attribute key="type" value="magicfield"/>
 		<attribute key="replaceable" value="0"/>
-		<attribute key="field" value="fire">
-			<attribute key="damage" value="300"/>
-		</attribute>
+		<attribute key="field" value="fire"/>
 	</item>
 	<item id="7472" article="a" name="searing fire">
 		<attribute key="type" value="magicfield"/>
 		<attribute key="replaceable" value="0"/>
-		<attribute key="field" value="fire">
-			<attribute key="damage" value="300"/>
-		</attribute>
+		<attribute key="field" value="fire"/>
 	</item>
 	<item id="7473" article="a" name="searing fire">
 		<attribute key="type" value="magicfield"/>
 		<attribute key="replaceable" value="0"/>
-		<attribute key="field" value="fire">
-			<attribute key="damage" value="300"/>
-		</attribute>
+		<attribute key="field" value="fire"/>
 	</item>
 	<item id="7474" article="a" name="sarcophagus"/>
 	<item id="7475" article="a" name="sarcophagus"/>
@@ -17217,13 +17129,13 @@
 		<attribute key="description" value="This poor guy has been wrapped up in spider silk."/>
 	</item>
 	<item id="7555" article="a" name="spider victim">
-		<attribute key="description" value="This poor guy has been wrapped up in spider silk."/>"/>
+		<attribute key="description" value="This poor guy has been wrapped up in spider silk."/>
 	</item>
 	<item id="7556" article="a" name="spider victim">
 		<attribute key="description" value="This poor guy has been wrapped up in spider silk."/>
 	</item>
 	<item id="7557" article="a" name="spider victim">
-		<attribute key="description" value="This poor guy has been wrapped up in spider silk."/>"/>
+		<attribute key="description" value="This poor guy has been wrapped up in spider silk."/>
 	</item>
 	<item id="7558" article="a" name="stone"/>
 	<item id="7559" article="a" name="stone"/>
@@ -17705,7 +17617,7 @@
 		<attribute key="extradef" value="2"/>
 		<attribute key="elementFire" value="4"/>
 		<attribute key="charges" value="1000"/>
-		<attribute key="showcharges" value="1"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="2383"/>
 	</item>
 	<item id="7745" article="a" name="fiery relic sword">
@@ -17715,8 +17627,8 @@
 		<attribute key="weaponType" value="sword"/>
 		<attribute key="extradef" value="1"/>
 		<attribute key="elementFire" value="8"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="7383"/>
 	</item>
 	<item id="7746" article="a" name="fiery mystic blade">
@@ -17727,8 +17639,8 @@
 		<attribute key="weaponType" value="sword"/>
 		<attribute key="extradef" value="2"/>
 		<attribute key="elementFire" value="8"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="7384"/>
 	</item>
 	<item id="7747" article="a" name="fiery blacksteel sword">
@@ -17739,8 +17651,8 @@
 		<attribute key="weaponType" value="sword"/>
 		<attribute key="slotType" value="two-handed"/>
 		<attribute key="elementFire" value="7"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="7406"/>
 	</item>
 	<item id="7748" article="a" name="fiery dragonslayer">
@@ -17750,8 +17662,8 @@
 		<attribute key="weaponType" value="sword"/>
 		<attribute key="slotType" value="two-handed"/>
 		<attribute key="elementFire" value="9"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="7402"/>
 	</item>
 	<item id="7749" article="a" name="fiery barbarian axe">
@@ -17760,8 +17672,8 @@
 		<attribute key="attack" value="23"/>
 		<attribute key="weaponType" value="axe"/>
 		<attribute key="elementFire" value="5"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="2429"/>
 	</item>
 	<item id="7750" article="a" name="fiery knight axe">
@@ -17770,8 +17682,8 @@
 		<attribute key="attack" value="23"/>
 		<attribute key="weaponType" value="axe"/>
 		<attribute key="elementFire" value="6"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="2430"/>
 	</item>
 	<item id="7751" article="a" name="fiery heroic axe">
@@ -17783,7 +17695,7 @@
 		<attribute key="extradef" value="1"/>
 		<attribute key="elementFire" value="9"/>
 		<attribute key="charges" value="1000"/>
-		<attribute key="showcharges" value="1"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="7389"/>
 	</item>
 	<item id="7752" article="a" name="fiery headchopper">
@@ -17794,8 +17706,8 @@
 		<attribute key="weaponType" value="axe"/>
 		<attribute key="slotType" value="two-handed"/>
 		<attribute key="elementFire" value="8"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="7380"/>
 	</item>
 	<item id="7753" article="a" name="fiery war axe">
@@ -17805,8 +17717,8 @@
 		<attribute key="weaponType" value="axe"/>
 		<attribute key="slotType" value="two-handed"/>
 		<attribute key="elementFire" value="9"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="2454"/>
 	</item>
 	<item id="7754" article="a" name="fiery clerical mace">
@@ -17816,8 +17728,8 @@
 		<attribute key="weaponType" value="club"/>
 		<attribute key="extradef" value="1"/>
 		<attribute key="elementFire" value="5"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="2423"/>
 	</item>
 	<item id="7755" article="a" name="fiery crystal mace">
@@ -17827,8 +17739,8 @@
 		<attribute key="weaponType" value="club"/>
 		<attribute key="extradef" value="1"/>
 		<attribute key="elementFire" value="7"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="2445"/>
 	</item>
 	<item id="7756" article="a" name="fiery cranial basher">
@@ -17839,8 +17751,8 @@
 		<attribute key="weaponType" value="club"/>
 		<attribute key="extradef" value="-2"/>
 		<attribute key="elementFire" value="8"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="7415"/>
 	</item>
 	<item id="7757" article="a" name="fiery orcish maul">
@@ -17851,10 +17763,10 @@
 		<attribute key="weaponType" value="club"/>
 		<attribute key="slotType" value="two-handed"/>
 		<attribute key="elementFire" value="7"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="7392"/>
-		<attribute key="showcharges" value="1"/>
+		<attribute key="showCharges" value="1"/>
 	</item>
 	<item id="7758" article="a" name="fiery war hammer">
 		<attribute key="weight" value="5400"/>
@@ -17863,8 +17775,8 @@
 		<attribute key="weaponType" value="club"/>
 		<attribute key="slotType" value="two-handed"/>
 		<attribute key="elementFire" value="9"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="2391"/>
 	</item>
 	<item id="7759" article="a" name="small enchanted sapphire" plural="small enchanted sapphires">
@@ -17886,8 +17798,8 @@
 		<attribute key="weaponType" value="sword"/>
 		<attribute key="extradef" value="2"/>
 		<attribute key="elementIce" value="4"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="2383"/>
 	</item>
 	<item id="7764" article="an" name="icy relic sword">
@@ -17897,8 +17809,8 @@
 		<attribute key="weaponType" value="sword"/>
 		<attribute key="extradef" value="1"/>
 		<attribute key="elementIce" value="8"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="7383"/>
 	</item>
 	<item id="7765" article="an" name="icy mystic blade">
@@ -17909,8 +17821,8 @@
 		<attribute key="weaponType" value="sword"/>
 		<attribute key="extradef" value="2"/>
 		<attribute key="elementIce" value="8"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="7384"/>
 	</item>
 	<item id="7766" article="an" name="icy blacksteel sword">
@@ -17921,8 +17833,8 @@
 		<attribute key="weaponType" value="sword"/>
 		<attribute key="slotType" value="two-handed"/>
 		<attribute key="elementIce" value="7"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="7406"/>
 	</item>
 	<item id="7767" article="an" name="icy dragonslayer">
@@ -17932,8 +17844,8 @@
 		<attribute key="weaponType" value="sword"/>
 		<attribute key="slotType" value="two-handed"/>
 		<attribute key="elementIce" value="9"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="7402"/>
 	</item>
 	<item id="7768" article="an" name="icy barbarian axe">
@@ -17942,10 +17854,10 @@
 		<attribute key="attack" value="23"/>
 		<attribute key="weaponType" value="axe"/>
 		<attribute key="elementIce" value="5"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="2429"/>
-		<attribute key="showcharges" value="1"/>
+		<attribute key="showCharges" value="1"/>
 	</item>
 	<item id="7769" article="an" name="icy knight axe">
 		<attribute key="weight" value="5900"/>
@@ -17953,8 +17865,8 @@
 		<attribute key="attack" value="23"/>
 		<attribute key="weaponType" value="axe"/>
 		<attribute key="elementIce" value="6"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="2430"/>
 	</item>
 	<item id="7770" article="an" name="icy heroic axe">
@@ -17965,8 +17877,8 @@
 		<attribute key="weaponType" value="axe"/>
 		<attribute key="extradef" value="1"/>
 		<attribute key="elementIce" value="9"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="7389"/>
 	</item>
 	<item id="7771" article="an" name="icy headchopper">
@@ -17977,8 +17889,8 @@
 		<attribute key="weaponType" value="axe"/>
 		<attribute key="slotType" value="two-handed"/>
 		<attribute key="elementIce" value="8"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="7380"/>
 	</item>
 	<item id="7772" article="an" name="icy war axe">
@@ -17988,8 +17900,8 @@
 		<attribute key="weaponType" value="axe"/>
 		<attribute key="slotType" value="two-handed"/>
 		<attribute key="elementIce" value="9"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="2454"/>
 	</item>
 	<item id="7773" article="an" name="icy clerical mace">
@@ -17999,8 +17911,8 @@
 		<attribute key="weaponType" value="club"/>
 		<attribute key="extradef" value="1"/>
 		<attribute key="elementIce" value="5"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="2423"/>
 	</item>
 	<item id="7774" article="an" name="icy crystal mace">
@@ -18010,8 +17922,8 @@
 		<attribute key="weaponType" value="club"/>
 		<attribute key="extradef" value="1"/>
 		<attribute key="elementIce" value="7"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="2445"/>
 	</item>
 	<item id="7775" article="an" name="icy cranial basher">
@@ -18022,8 +17934,8 @@
 		<attribute key="weaponType" value="club"/>
 		<attribute key="extradef" value="-2"/>
 		<attribute key="elementIce" value="8"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="7415"/>
 	</item>
 	<item id="7776" article="an" name="icy orcish maul">
@@ -18034,8 +17946,8 @@
 		<attribute key="weaponType" value="club"/>
 		<attribute key="slotType" value="two-handed"/>
 		<attribute key="elementIce" value="7"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="7392"/>
 	</item>
 	<item id="7777" article="an" name="icy war hammer">
@@ -18045,8 +17957,8 @@
 		<attribute key="weaponType" value="club"/>
 		<attribute key="slotType" value="two-handed"/>
 		<attribute key="elementIce" value="9"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="2391"/>
 	</item>
 	<item id="7778" article="a" name="bed">
@@ -18216,75 +18128,75 @@
 	</item>
 	<item id="7811" article="a" name="bed">
 		<attribute key="type" value="bed"/>
-		<attribute key="partnerDirection" value="south" />
-		<attribute key="maleSleeper" value="7787" />
-		<attribute key="femaleSleeper" value="7799" />
+		<attribute key="partnerDirection" value="south"/>
+		<attribute key="maleSleeper" value="7787"/>
+		<attribute key="femaleSleeper" value="7799"/>
 	</item>
 	<item id="7812" article="a" name="bed">
 		<attribute key="type" value="bed"/>
-		<attribute key="partnerDirection" value="north" />
-		<attribute key="maleSleeper" value="7788" />
-		<attribute key="femaleSleeper" value="7800" />
+		<attribute key="partnerDirection" value="north"/>
+		<attribute key="maleSleeper" value="7788"/>
+		<attribute key="femaleSleeper" value="7800"/>
 	</item>
 	<item id="7813" article="a" name="bed">
 		<attribute key="type" value="bed"/>
-		<attribute key="partnerDirection" value="east" />
-		<attribute key="maleSleeper" value="7789" />
-		<attribute key="femaleSleeper" value="7801" />
+		<attribute key="partnerDirection" value="east"/>
+		<attribute key="maleSleeper" value="7789"/>
+		<attribute key="femaleSleeper" value="7801"/>
 	</item>
 	<item id="7814" article="a" name="bed">
 		<attribute key="type" value="bed"/>
-		<attribute key="partnerDirection" value="west" />
-		<attribute key="maleSleeper" value="7790" />
-		<attribute key="femaleSleeper" value="7802" />
+		<attribute key="partnerDirection" value="west"/>
+		<attribute key="maleSleeper" value="7790"/>
+		<attribute key="femaleSleeper" value="7802"/>
 	</item>
 	<item id="7815" article="a" name="bed">
 		<attribute key="type" value="bed"/>
-		<attribute key="partnerDirection" value="south" />
-		<attribute key="maleSleeper" value="7791" />
-		<attribute key="femaleSleeper" value="7803" />
+		<attribute key="partnerDirection" value="south"/>
+		<attribute key="maleSleeper" value="7791"/>
+		<attribute key="femaleSleeper" value="7803"/>
 	</item>
 	<item id="7816" article="a" name="bed">
 		<attribute key="type" value="bed"/>
-		<attribute key="partnerDirection" value="north" />
-		<attribute key="maleSleeper" value="7792" />
-		<attribute key="femaleSleeper" value="7804" />
+		<attribute key="partnerDirection" value="north"/>
+		<attribute key="maleSleeper" value="7792"/>
+		<attribute key="femaleSleeper" value="7804"/>
 	</item>
 	<item id="7817" article="a" name="bed">
 		<attribute key="type" value="bed"/>
-		<attribute key="partnerDirection" value="east" />
-		<attribute key="maleSleeper" value="7793" />
-		<attribute key="femaleSleeper" value="7805" />
+		<attribute key="partnerDirection" value="east"/>
+		<attribute key="maleSleeper" value="7793"/>
+		<attribute key="femaleSleeper" value="7805"/>
 	</item>
 	<item id="7818" article="a" name="bed">
 		<attribute key="type" value="bed"/>
-		<attribute key="partnerDirection" value="west" />
-		<attribute key="maleSleeper" value="7794" />
-		<attribute key="femaleSleeper" value="7806" />
+		<attribute key="partnerDirection" value="west"/>
+		<attribute key="maleSleeper" value="7794"/>
+		<attribute key="femaleSleeper" value="7806"/>
 	</item>
 	<item id="7819" article="a" name="bed">
 		<attribute key="type" value="bed"/>
-		<attribute key="partnerDirection" value="south" />
-		<attribute key="maleSleeper" value="7795" />
-		<attribute key="femaleSleeper" value="7807" />
+		<attribute key="partnerDirection" value="south"/>
+		<attribute key="maleSleeper" value="7795"/>
+		<attribute key="femaleSleeper" value="7807"/>
 	</item>
 	<item id="7820" article="a" name="bed">
 		<attribute key="type" value="bed"/>
-		<attribute key="partnerDirection" value="north" />
-		<attribute key="maleSleeper" value="7796" />
-		<attribute key="femaleSleeper" value="7808" />
+		<attribute key="partnerDirection" value="north"/>
+		<attribute key="maleSleeper" value="7796"/>
+		<attribute key="femaleSleeper" value="7808"/>
 	</item>
 	<item id="7821" article="a" name="bed">
 		<attribute key="type" value="bed"/>
-		<attribute key="partnerDirection" value="east" />
-		<attribute key="maleSleeper" value="7797" />
-		<attribute key="femaleSleeper" value="7809" />
+		<attribute key="partnerDirection" value="east"/>
+		<attribute key="maleSleeper" value="7797"/>
+		<attribute key="femaleSleeper" value="7809"/>
 	</item>
 	<item id="7822" article="a" name="bed">
 		<attribute key="type" value="bed"/>
-		<attribute key="partnerDirection" value="west" />
-		<attribute key="maleSleeper" value="7798" />
-		<attribute key="femaleSleeper" value="7810" />
+		<attribute key="partnerDirection" value="west"/>
+		<attribute key="maleSleeper" value="7798"/>
+		<attribute key="femaleSleeper" value="7810"/>
 	</item>
 	<item id="7823" article="an" name="obsidian statue"/>
 	<item id="7824" article="a" name="dragon statue"/>
@@ -18390,8 +18302,8 @@
 		<attribute key="weaponType" value="sword"/>
 		<attribute key="extradef" value="2"/>
 		<attribute key="elementEarth" value="4"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="2383"/>
 	</item>
 	<item id="7855" article="an" name="earth relic sword">
@@ -18401,8 +18313,8 @@
 		<attribute key="weaponType" value="sword"/>
 		<attribute key="extradef" value="1"/>
 		<attribute key="elementEarth" value="8"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="7383"/>
 	</item>
 	<item id="7856" article="an" name="earth mystic blade">
@@ -18413,8 +18325,8 @@
 		<attribute key="weaponType" value="sword"/>
 		<attribute key="extradef" value="2"/>
 		<attribute key="elementEarth" value="8"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="7384"/>
 	</item>
 	<item id="7857" article="an" name="earth blacksteel sword">
@@ -18425,8 +18337,8 @@
 		<attribute key="weaponType" value="sword"/>
 		<attribute key="slotType" value="two-handed"/>
 		<attribute key="elementEarth" value="7"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="7406"/>
 	</item>
 	<item id="7858" article="an" name="earth dragonslayer">
@@ -18436,8 +18348,8 @@
 		<attribute key="weaponType" value="sword"/>
 		<attribute key="slotType" value="two-handed"/>
 		<attribute key="elementEarth" value="9"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="7402"/>
 	</item>
 	<item id="7859" article="an" name="earth barbarian axe">
@@ -18446,8 +18358,8 @@
 		<attribute key="attack" value="23"/>
 		<attribute key="weaponType" value="axe"/>
 		<attribute key="elementEarth" value="5"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="2429"/>
 	</item>
 	<item id="7860" article="an" name="earth knight axe">
@@ -18456,8 +18368,8 @@
 		<attribute key="attack" value="23"/>
 		<attribute key="weaponType" value="axe"/>
 		<attribute key="elementEarth" value="6"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="2430"/>
 	</item>
 	<item id="7861" article="an" name="earth heroic axe">
@@ -18468,8 +18380,8 @@
 		<attribute key="weaponType" value="axe"/>
 		<attribute key="extradef" value="1"/>
 		<attribute key="elementEarth" value="9"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="7389"/>
 	</item>
 	<item id="7862" article="an" name="earth headchopper">
@@ -18480,8 +18392,8 @@
 		<attribute key="weaponType" value="axe"/>
 		<attribute key="slotType" value="two-handed"/>
 		<attribute key="elementEarth" value="8"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="7380"/>
 	</item>
 	<item id="7863" article="an" name="earth war axe">
@@ -18491,8 +18403,8 @@
 		<attribute key="weaponType" value="axe"/>
 		<attribute key="slotType" value="two-handed"/>
 		<attribute key="elementEarth" value="9"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="2454"/>
 	</item>
 	<item id="7864" article="an" name="earth clerical mace">
@@ -18502,8 +18414,8 @@
 		<attribute key="weaponType" value="club"/>
 		<attribute key="extradef" value="1"/>
 		<attribute key="elementEarth" value="5"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="2423"/>
 	</item>
 	<item id="7865" article="an" name="earth crystal mace">
@@ -18513,8 +18425,8 @@
 		<attribute key="weaponType" value="club"/>
 		<attribute key="extradef" value="1"/>
 		<attribute key="elementEarth" value="7"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="2445"/>
 	</item>
 	<item id="7866" article="an" name="earth cranial basher">
@@ -18525,8 +18437,8 @@
 		<attribute key="weaponType" value="club"/>
 		<attribute key="extradef" value="-2"/>
 		<attribute key="elementEarth" value="8"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="7415"/>
 	</item>
 	<item id="7867" article="an" name="earth orcish maul">
@@ -18537,8 +18449,8 @@
 		<attribute key="weaponType" value="club"/>
 		<attribute key="slotType" value="two-handed"/>
 		<attribute key="elementEarth" value="7"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="7392"/>
 	</item>
 	<item id="7868" article="an" name="earth war hammer">
@@ -18548,8 +18460,8 @@
 		<attribute key="weaponType" value="club"/>
 		<attribute key="slotType" value="two-handed"/>
 		<attribute key="elementEarth" value="9"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="2391"/>
 	</item>
 	<item id="7869" article="an" name="energy spike sword">
@@ -18559,8 +18471,8 @@
 		<attribute key="weaponType" value="sword"/>
 		<attribute key="extradef" value="2"/>
 		<attribute key="elementEnergy" value="4"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="2383"/>
 	</item>
 	<item id="7870" article="an" name="energy relic sword">
@@ -18570,8 +18482,8 @@
 		<attribute key="weaponType" value="sword"/>
 		<attribute key="extradef" value="1"/>
 		<attribute key="elementEnergy" value="8"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="7383"/>
 	</item>
 	<item id="7871" article="an" name="energy mystic blade">
@@ -18582,8 +18494,8 @@
 		<attribute key="weaponType" value="sword"/>
 		<attribute key="extradef" value="2"/>
 		<attribute key="elementEnergy" value="8"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="7384"/>
 	</item>
 	<item id="7872" article="an" name="energy blacksteel sword">
@@ -18594,8 +18506,8 @@
 		<attribute key="weaponType" value="sword"/>
 		<attribute key="slotType" value="two-handed"/>
 		<attribute key="elementEnergy" value="7"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="7406"/>
 	</item>
 	<item id="7873" article="an" name="energy dragonslayer">
@@ -18605,8 +18517,8 @@
 		<attribute key="weaponType" value="sword"/>
 		<attribute key="slotType" value="two-handed"/>
 		<attribute key="elementEnergy" value="9"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="7402"/>
 	</item>
 	<item id="7874" article="an" name="energy barbarian axe">
@@ -18615,8 +18527,8 @@
 		<attribute key="attack" value="23"/>
 		<attribute key="weaponType" value="axe"/>
 		<attribute key="elementEnergy" value="5"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="2429"/>
 	</item>
 	<item id="7875" article="an" name="energy knight axe">
@@ -18625,8 +18537,8 @@
 		<attribute key="attack" value="23"/>
 		<attribute key="weaponType" value="axe"/>
 		<attribute key="elementEnergy" value="6"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="2430"/>
 	</item>
 	<item id="7876" article="an" name="energy heroic axe">
@@ -18637,8 +18549,8 @@
 		<attribute key="weaponType" value="axe"/>
 		<attribute key="extradef" value="1"/>
 		<attribute key="elementEnergy" value="9"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="7389"/>
 	</item>
 	<item id="7877" article="an" name="energy headchopper">
@@ -18649,8 +18561,8 @@
 		<attribute key="weaponType" value="axe"/>
 		<attribute key="slotType" value="two-handed"/>
 		<attribute key="elementEnergy" value="8"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="7380"/>
 	</item>
 	<item id="7878" article="an" name="energy war axe">
@@ -18660,8 +18572,8 @@
 		<attribute key="weaponType" value="axe"/>
 		<attribute key="slotType" value="two-handed"/>
 		<attribute key="elementEnergy" value="9"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="2454"/>
 	</item>
 	<item id="7879" article="an" name="energy clerical mace">
@@ -18671,8 +18583,8 @@
 		<attribute key="weaponType" value="club"/>
 		<attribute key="extradef" value="1"/>
 		<attribute key="elementEnergy" value="5"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="2423"/>
 	</item>
 	<item id="7880" article="an" name="energy crystal mace">
@@ -18682,8 +18594,8 @@
 		<attribute key="weaponType" value="club"/>
 		<attribute key="extradef" value="1"/>
 		<attribute key="elementEnergy" value="7"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="2445"/>
 	</item>
 	<item id="7881" article="an" name="energy cranial basher">
@@ -18694,8 +18606,8 @@
 		<attribute key="weaponType" value="club"/>
 		<attribute key="extradef" value="-2"/>
 		<attribute key="elementEnergy" value="8"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="7415"/>
 	</item>
 	<item id="7882" article="an" name="energy orcish maul">
@@ -18706,8 +18618,8 @@
 		<attribute key="weaponType" value="club"/>
 		<attribute key="slotType" value="two-handed"/>
 		<attribute key="elementEnergy" value="7"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="7392"/>
 	</item>
 	<item id="7883" article="an" name="energy war hammer">
@@ -18717,8 +18629,8 @@
 		<attribute key="weaponType" value="club"/>
 		<attribute key="slotType" value="two-handed"/>
 		<attribute key="elementEnergy" value="9"/>
-		<attribute key="charges" value="1000" />
-		<attribute key="showcharges" value="1"/>
+		<attribute key="charges" value="1000"/>
+		<attribute key="showCharges" value="1"/>
 		<attribute key="decayTo" value="2391"/>
 	</item>
 	<item id="7884" article="a" name="terra mantle">
@@ -18754,14 +18666,14 @@
 		<attribute key="charges" value="200"/>
 		<attribute key="absorbPercentIce" value="20"/>
 		<attribute key="absorbPercentEnergy" value="-10"/>
-		<attribute key="showcharges" value="1"/>
+		<attribute key="showCharges" value="1"/>
 	</item>
 	<item id="7889" article="a" name="lightning pendant">
 		<attribute key="weight" value="500"/>
 		<attribute key="slotType" value="necklace"/>
 		<attribute key="absorbPercentEnergy" value="20"/>
 		<attribute key="absorbPercentEarth" value="-10"/>
-		<attribute key="showcharges" value="1"/>
+		<attribute key="showCharges" value="1"/>
 	</item>
 	<item id="7890" article="a" name="magma amulet">
 		<attribute key="weight" value="500"/>
@@ -18769,7 +18681,7 @@
 		<attribute key="charges" value="200"/>
 			<attribute key="absorbPercentFire" value="20"/>
 		<attribute key="absorbPercentIce" value="-10"/>
-		<attribute key="showcharges" value="1"/>
+		<attribute key="showCharges" value="1"/>
 	</item>
 	<item id="7891" name="magma boots">
 		<attribute key="weight" value="750"/>
@@ -19180,13 +19092,7 @@
 	<item id="8062" article="a" name="poison field" editorsuffix=" (Slime Corpse)">
 		<attribute key="type" value="magicfield"/>
 		<attribute key="replaceable" value="0"/>
-		<attribute key="field" value="poison">
-		<attribute key="ticks" value="7"/>
-		<attribute key="start" value="5"/>
-		<attribute key="damage" value="5"/>
-		<attribute key="decayTo" value="1490"/>
-		<attribute key="duration" value="10"/>
-		</attribute>
+		<attribute key="field" value="poison"/>
 	</item>
 	<item id="8063" editorsuffix=" (Blank)"/>
 	<item id="8064" editorsuffix=" (Blank)"/>
@@ -19204,11 +19110,11 @@
 	<item id="8074" editorsuffix=" (Blank)"/>
 	<item id="8075" article="a" name="bed">
 		<attribute key="type" value="bed"/>
-		<attribute key="partnerDirection" value="north" />
+		<attribute key="partnerDirection" value="north"/>
 	</item>
 	<item id="8076" article="a" name="bed">
 		<attribute key="type" value="bed"/>
-		<attribute key="partnerDirection" value="west" />
+		<attribute key="partnerDirection" value="west"/>
 		<attribute key="maleSleeper" value="1761"/>
 	</item>
 	<item id="8077" article="a" name="hammock">
@@ -22495,15 +22401,15 @@
 		<attribute key="armor" value="1"/>
 		<attribute key="slotType" value="legs"/>
 	</item>
-	<item id="9814" article="a" name="rusty shield" />
-	<item id="9815" article="a" name="rusty shield" />
-	<item id="9816" article="a" name="rusty shield" />
-	<item id="9817" article="a" name="rusty boots" />
-	<item id="9818" article="a" name="rusty boots" />
-	<item id="9819" article="a" name="rusty boots" />
-	<item id="9820" article="a" name="rusty helmet" />
-	<item id="9821" article="a" name="rusty helmet" />
-	<item id="9822" article="a" name="rusty helmet" />
+	<item id="9814" article="a" name="rusty shield"/>
+	<item id="9815" article="a" name="rusty shield"/>
+	<item id="9816" article="a" name="rusty shield"/>
+	<item id="9817" article="a" name="rusty boots"/>
+	<item id="9818" article="a" name="rusty boots"/>
+	<item id="9819" article="a" name="rusty boots"/>
+	<item id="9820" article="a" name="rusty helmet"/>
+	<item id="9821" article="a" name="rusty helmet"/>
+	<item id="9822" article="a" name="rusty helmet"/>
 	<item id="9823" article="a" name="slain undead gladiator">
 		<attribute key="containerSize" value="10"/>
 		<attribute key="decayTo" value="9824"/>
@@ -22804,7 +22710,7 @@
 	</item>
 	<item id="9931" article="a" name="coconut shoes">
 		<attribute key="weight" value="600"/>
-		<attribute key="slottype" value="feet"/>
+		<attribute key="slotType" value="feet"/>
 		<attribute key="armor" value="0"/>
 	</item>
 	<item id="9932" article="a" name="firewalker boots">
@@ -22902,7 +22808,7 @@
 		<attribute key="duration" value="3600"/>
 		<attribute key="decayTo" value="0"/>
 		<attribute key="defense" value="25"/>
-		<attribute key="speed" value="25" />
+		<attribute key="speed" value="25"/>
 		<attribute key="weight" value="1500"/>
 		<attribute key="showduration" value="1"/>
 	</item>
@@ -23206,8 +23112,8 @@
 	<item id="10118" article="a" name="stone pile"/>
 	<item id="10119" article="a" name="heated worm punisher">
 		<attribute key="weight" value="6450"/>
-		<attribute key="duration" value="10" />
-		<attribute key="decayTo" value="10152" />
+		<attribute key="duration" value="10"/>
+		<attribute key="decayTo" value="10152"/>
 		<attribute key="description" value="This hammer is a worm's worst nightmare."/>
 	</item>
 	<item id="10124" article="a" name="champion's cup">
@@ -23319,7 +23225,7 @@
 	<item id="10217" article="a" name="limestone pedestal"/>
 	<!--
 	<item id="10218" article="a" name="<name>">
-		<attribute key="slottype" value="necklace"/>
+		<attribute key="slotType" value="necklace"/>
 		<attribute key="absorbPercentPhysical" value="60"/>
 		<attribute key="absorbPercentFire" value="40"/>
 		<attribute key="charges" value="5"/>
@@ -23329,7 +23235,7 @@
 	-->
 	<item id="10219" article="a" name="sacred tree amulet">
 		<attribute key="description" value="It's leaves stretch out to cover your whole body if you receive earth damage."/>
-		<attribute key="slottype" value="necklace"/>
+		<attribute key="slotType" value="necklace"/>
 		<attribute key="absorbPercentPhysical" value="60"/>
 		<attribute key="absorbPercentEarth" value="40"/>
 		<attribute key="charges" value="5"/>
@@ -23337,7 +23243,7 @@
 		<attribute key="weight" value="700"/>
 	</item>
 	<item id="10220" article="a" name="Leviathan's amulet">
-		<attribute key="slottype" value="necklace"/>
+		<attribute key="slotType" value="necklace"/>
 		<attribute key="absorbPercentPhysical" value="60"/>
 		<attribute key="absorbPercentIce" value="40"/>
 		<attribute key="charges" value="5"/>
@@ -23346,7 +23252,7 @@
 	</item>
 	<item id="10221" article="a" name="shockwave amulet">
 		<attribute key="description" value="It tickles your neck in a rather pleasant way and absorbs loads of damage."/>
-		<attribute key="slottype" value="necklace"/>
+		<attribute key="slotType" value="necklace"/>
 		<attribute key="absorbPercentPhysical" value="60"/>
 		<attribute key="absorbPercentEnergy" value="40"/>
 		<attribute key="charges" value="5"/>
@@ -23489,7 +23395,7 @@
 	</item> 
 	<item id="10291" article="an" name="odd hat">
 		<attribute key="description" value="It has to be one of the fabled helmets of light."/>
-		<attribute key="slottype" value="head"/>
+		<attribute key="slotType" value="head"/>
 		<attribute key="armor" value="5"/>
 		<attribute key="weight" value="700"/>
 	</item>
@@ -23535,7 +23441,7 @@
 	</item> 
 	<item id="10298" article="a" name="helmet of ultimate terror">
 		<attribute key="description" value="There is evil inside."/>
-		<attribute key="slottype" value="head"/>
+		<attribute key="slotType" value="head"/>
 		<attribute key="armor" value="3"/>
 		<attribute key="weight" value="1250"/>
 	</item>
@@ -23591,14 +23497,14 @@
 	</item> 
 	<item id="10309" article="a" name="claw of 'The Noxious Spawn'">
 		<attribute key="description" value="It's like a glove and you can't wear a ring on it. You are not sure if you should really put it on."/>
-		<attribute key="slottype" value="hand"/>
+		<attribute key="slotType" value="hand"/>
 		<attribute key="transformDeEquipTo" value="10310"/>
 		<attribute key="suppresspoison" value="1"/>
 		<attribute key="weight" value="500"/>
 	</item>
 	<item id="10310" article="a" name="claw of 'The Noxious Spawn'">
 		<attribute key="description" value="It's like a glove and you can't wear a ring on it. You are not sure if you should really put it on."/>
-		<attribute key="slottype" value="hand"/>
+		<attribute key="slotType" value="hand"/>
 		<attribute key="transformEquipTo" value="10309"/>
 		<attribute key="weight" value="500"/>
 	</item>
@@ -23611,7 +23517,7 @@
 	</item>
 	<item id="10316" article="a" name="mighty helm of green sparks">
 		<attribute key="description" value="This helmet spawns green stars. Awesome."/>
-		<attribute key="slottype" value="head"/>
+		<attribute key="slotType" value="head"/>
 		<attribute key="armor" value="6"/>
 		<attribute key="weight" value="4600"/>
 	</item>
@@ -24150,20 +24056,20 @@
 		<attribute key="description" value="The special carrying device Spetulus gave you now contains a mirror crystal."/>
 		<attribute key="weight" value="3500"/>
 	</item>
-	<!-- 10718 & 10719 - Tibia Friends amulet -->
-	<item id="10728" article="a" name="dragonbone tree" />
-	<item id="10732" article="a" name="jade spike plant" />
-	<item id="10734" article="a" name="thornpeak grass" />
-	<item id="10735" name="pepper roots grass" />
-	<item id="10736" name="pepper roots grass" />
-	<item id="10741" name="trollhair plants" />
-	<item id="10742" name="trollhair plants" />
-	<item id="10743" name="trollhair plants" />	
-	<item id="10757" article="a" name="diabolic hedge" />
-	<item id="10761" name="wild vine" />
-	<item id="10762" name="wild vine" />
-	<item id="10763" name="pepper roots grass" />
-	<item id="10764" name="trollhair plants" />	
+	<!-- from 10718 to 10719 -->
+	<item id="10728" article="a" name="dragonbone tree"/>
+	<item id="10732" article="a" name="jade spike plant"/>
+	<item id="10734" article="a" name="thornpeak grass"/>
+	<item id="10735" name="pepper roots grass"/>
+	<item id="10736" name="pepper roots grass"/>
+	<item id="10741" name="trollhair plants"/>
+	<item id="10742" name="trollhair plants"/>
+	<item id="10743" name="trollhair plants"/>	
+	<item id="10757" article="a" name="diabolic hedge"/>
+	<item id="10761" name="wild vine"/>
+	<item id="10762" name="wild vine"/>
+	<item id="10763" name="pepper roots grass"/>
+	<item id="10764" name="trollhair plants"/>	
 	<item id="10775" article="a" name="closed door">
 		<attribute key="type" value="door"/>
 		<attribute key="blockprojectile" value="1"/>
@@ -24216,20 +24122,20 @@
 	<item id="10792" article="a" name="open door">
 		<attribute key="type" value="door"/>
 	</item>
-	<item id="10793" article="a" name="tainted plant" />
-	<item id="10803" article="a" name="witches cauldron plant (rotten)" />
-	<item id="10806" article="a" name="pestilent fern" />
-	<item id="10807" article="a" name="necrotic grass" />
-	<item id="10808" article="a" name="necrotic grass" />
-	<item id="10809" article="a" name="necrotic grass" />
-	<item id="10811" article="an" name="apocalypse mushroom" />
-	<item id="10813" article="a" name="mourning mushroom" />
-	<item id="10816" article="an" name="infected throne" />
-	<item id="10817" article="a" name="pestbringer" />
-	<item id="10913" article="a" name="dry solstice tree" />
-	<item id="10914" article="a" name="high grass" />
-	<item id="10915" article="a" name="high grass" />
-	<item id="10916" article="a" name="high grass" />
+	<item id="10793" article="a" name="tainted plant"/>
+	<item id="10803" article="a" name="witches cauldron plant (rotten)"/>
+	<item id="10806" article="a" name="pestilent fern"/>
+	<item id="10807" article="a" name="necrotic grass"/>
+	<item id="10808" article="a" name="necrotic grass"/>
+	<item id="10809" article="a" name="necrotic grass"/>
+	<item id="10811" article="an" name="apocalypse mushroom"/>
+	<item id="10813" article="a" name="mourning mushroom"/>
+	<item id="10816" article="an" name="infected throne"/>
+	<item id="10817" article="a" name="pestbringer"/>
+	<item id="10913" article="a" name="dry solstice tree"/>
+	<item id="10914" article="a" name="high grass"/>
+	<item id="10915" article="a" name="high grass"/>
+	<item id="10916" article="a" name="high grass"/>
 	<item id="10942" article="an" name="almanac of magic">
 		<attribute key="description" value="Invaluable for all magic research."/>
 		<attribute key="weight" value="5555"/>
@@ -24246,14 +24152,14 @@
 		<attribute key="description" value="A contract in which some desperate person has sold his soul."/>
 		<attribute key="weight" value="150"/>
 	</item>
-	<item id="10946" article="a" name="dragon statue" />
-	<item id="10947" article="a" name="dragon statue" />
-	<item id="10948" article="a" name="dragon statue" />
-	<item id="10949" article="a" name="dragon statue" />
-	<item id="10950" article="a" name="dragon banner" />
-	<item id="10951" article="a" name="dragon banner" />
-	<item id="10952" article="a" name="dragon banner" />
-	<item id="10953" article="a" name="dragon banner" />
+	<item id="10946" article="a" name="dragon statue"/>
+	<item id="10947" article="a" name="dragon statue"/>
+	<item id="10948" article="a" name="dragon statue"/>
+	<item id="10949" article="a" name="dragon statue"/>
+	<item id="10950" article="a" name="dragon banner"/>
+	<item id="10951" article="a" name="dragon banner"/>
+	<item id="10952" article="a" name="dragon banner"/>
+	<item id="10953" article="a" name="dragon banner"/>
 	<item id="10971" name="wall lamp">
 	</item>
 	<item id="10972" name="wall lamp">
@@ -24749,16 +24655,16 @@
 		<attribute key="corpseType" value="blood"/>
 		<attribute key="fluidSource" value="blood"/>
 	</item>
-	<item id="11289" article="a" name="banner" />
-	<item id="11290" article="a" name="banner" />
-	<item id="11291" article="a" name="banner" />
-	<item id="11292" article="a" name="banner" />
-	<item id="11293" article="a" name="banner" />
-	<item id="11294" article="a" name="banner" />
-	<item id="11295" article="a" name="banner" />
-	<item id="11296" article="a" name="banner" />
-	<item id="11297" article="a" name="banner" />
-	<item id="11298" article="a" name="banner" />
+	<item id="11289" article="a" name="banner"/>
+	<item id="11290" article="a" name="banner"/>
+	<item id="11291" article="a" name="banner"/>
+	<item id="11292" article="a" name="banner"/>
+	<item id="11293" article="a" name="banner"/>
+	<item id="11294" article="a" name="banner"/>
+	<item id="11295" article="a" name="banner"/>
+	<item id="11296" article="a" name="banner"/>
+	<item id="11297" article="a" name="banner"/>
+	<item id="11298" article="a" name="banner"/>
 	<item id="11301" name="zaoan armor">
 		<attribute key="armor" value="13"/>
 		<attribute key="slotType" value="body"/>
@@ -25087,14 +24993,14 @@
 		<attribute key="duration" value="60"/>
 		<attribute key="corpseType" value="blood"/>
 	</item>
-	<item id="11385" article="a" name="part of a giant stone dragon" />
-	<item id="11386" article="a" name="part of a giant stone dragon" />
-	<item id="11387" article="a" name="part of a giant stone dragon" />
-	<item id="11388" article="a" name="part of a giant stone dragon" />
-	<item id="11389" article="a" name="part of a giant stone dragon" />
-	<item id="11390" article="a" name="part of a giant stone dragon" />
-	<item id="11391" article="a" name="part of a giant stone dragon" />
-	<item id="11392" article="a" name="part of a giant stone dragon" />
+	<item id="11385" article="a" name="part of a giant stone dragon"/>
+	<item id="11386" article="a" name="part of a giant stone dragon"/>
+	<item id="11387" article="a" name="part of a giant stone dragon"/>
+	<item id="11388" article="a" name="part of a giant stone dragon"/>
+	<item id="11389" article="a" name="part of a giant stone dragon"/>
+	<item id="11390" article="a" name="part of a giant stone dragon"/>
+	<item id="11391" article="a" name="part of a giant stone dragon"/>
+	<item id="11392" article="a" name="part of a giant stone dragon"/>
 	<item id="11393" name="lucky clover amulet">
 		<attribute key="description" value="It is rumoured to bring you good luck! Luck sponsored by TibiaLottery."/>
 		<attribute key="weight" value="150"/>
