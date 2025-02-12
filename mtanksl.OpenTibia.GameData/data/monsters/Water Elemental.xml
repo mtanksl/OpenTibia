@@ -40,7 +40,7 @@
     <attack name="ice strike" interval="3000" chance="70" min="88" max="150" />
 
     <attack name="self healing" interval="2000" chance="50" min="25" max="40" />
-    <attack name="paralyse" interval="2000" chance="90" />
+    <attack name="paralyse" interval="3000" chance="70" />
     <attack name="haste" interval="2000" chance="50" />
   </attacks>
   <loot />

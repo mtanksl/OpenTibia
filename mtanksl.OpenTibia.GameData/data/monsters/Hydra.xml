@@ -41,7 +41,7 @@
     <attack name="melee" interval="2000" chance="90" min="0" max="270" />
 
 
-    <attack name="paralyse" interval="2000" chance="90" />
+    <attack name="paralyse" interval="3000" chance="70" />
     <attack name="ice strike" interval="3000" chance="70" min="70" max="155" />
     <attack name="self healing" interval="2000" chance="50" min="200" max="400" />
   </attacks>

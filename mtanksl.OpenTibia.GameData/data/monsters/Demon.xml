@@ -48,7 +48,7 @@
     <attack name="mana drain" interval="3000" chance="70" min="30" max="120" />
     <attack name="self healing" interval="2000" chance="50" min="80" max="250" />
     <attack name="fire field" interval="3000" chance="70" min="20" max="20" />
-    <attack name="paralyse" interval="2000" chance="90" />
+    <attack name="paralyse" interval="3000" chance="70" />
   </attacks>
 	<loot>
 		<item id="2148" countmax="200" killsToGetOne="2" /> <!-- gold coin -->

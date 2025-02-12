@@ -44,7 +44,7 @@
 
 
 
-    <attack name="paralyse" interval="2000" chance="90" />
+    <attack name="paralyse" interval="3000" chance="70" />
     <attack name="haste" interval="2000" chance="50" />
     <attack name="self healing" interval="2000" chance="50" min="300" max="400" />
 

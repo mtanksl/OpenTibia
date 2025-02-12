@@ -43,7 +43,7 @@
     <attack name="melee" interval="2000" chance="90" min="0" max="100" />
     <attack name="life drain" interval="3000" chance="70" min="70" max="185" />
 
-    <attack name="paralyse" interval="2000" chance="90" />
+    <attack name="paralyse" interval="3000" chance="70" />
     <attack name="self healing" interval="2000" chance="50" min="50" max="50" />
   </attacks>
   <loot />
