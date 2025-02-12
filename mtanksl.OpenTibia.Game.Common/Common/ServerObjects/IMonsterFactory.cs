@@ -1,11 +1,14 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.FileFormats.Xml.Monsters;
+using System.Collections.Generic;
 using Monster = OpenTibia.Common.Objects.Monster;
 
 namespace OpenTibia.Game.Common.ServerObjects
 {
     public interface IMonsterFactory
     {
+        List<string> Warnings { get; }
+
         void Start(MonsterFile monsterFile);
 
         MonsterMetadata GetMonsterMetadata(string name);

@@ -48,7 +48,7 @@
 
     <attack name="life drain" interval="2000" chance="90" min="45" max="170" />
     <attack name="self healing" interval="2000" chance="90" min="100" max="120" />
-    <attack name="parlayse" interval="2000" chance="90" />
+    <attack name="paralyse" interval="2000" chance="90" />
   </attacks>
   <loot />
 </monster>

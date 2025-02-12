@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.FileFormats.Xml.Monsters;
+using OpenTibia.Game.Components;
 using OpenTibia.Game.GameObjectScripts;
 using OpenTibia.Game.Plugins;
 using System.Collections.Generic;
@@ -21,6 +22,16 @@ namespace OpenTibia.Game.Common.ServerObjects
         public MonsterFactory(IServer server)
         {
             this.server = server;
+        }
+
+        private List<string> warnings = new List<string>();
+
+        public List<string> Warnings
+        {
+            get
+            {
+                return warnings;
+            }
         }
 
         public void Start(MonsterFile monsterFile)
@@ -202,6 +213,14 @@ namespace OpenTibia.Game.Common.ServerObjects
                         {
                             monsterMetadata.DamageTakenFromElements[DamageType.LifeDrain] = (100 - elementItem.LifeDrainPercent.Value) / 100.0;
                         }
+                    }
+                }
+
+                foreach (var attack in monsterMetadata.Attacks)
+                {
+                    if ( !AttackStrategyFactory.Exists(attack.Name) )
+                    {
+                        warnings.Add("Attack " + attack.Name + " not found for " + monsterMetadata.Name + ".");
                     }
                 }
 

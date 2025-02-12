@@ -352,6 +352,11 @@ namespace OpenTibia.Game.Common
                     MonsterFactory.Start(MonsterFile.Load(PathResolver.GetFullPath("data/monsters") ) );
                 }
 
+                if (MonsterFactory.Warnings.Count > 0)
+                {
+                    Logger.WriteLine("Monsters warnings: " + string.Join(", ", MonsterFactory.Warnings), LogLevel.Warning);
+                }
+
                 using (Logger.Measure("Loading npcs") )
                 {
                     NpcFactory.Start(NpcFile.Load(PathResolver.GetFullPath("data/npcs") ) );

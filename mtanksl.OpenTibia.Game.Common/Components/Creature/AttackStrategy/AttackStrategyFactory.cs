@@ -135,6 +135,19 @@ namespace OpenTibia.Game.Components
             ("wrath of nature", AttackType.WrathOfNature, (min, max) => new SpellAreaAttackStrategy(Offset.Circle11, MagicEffectType.PlantAttack, DamageType.Earth, min, max) )
         };
 
+        public static bool Exists(string name)
+        {
+            foreach (var item in items)
+            {
+                if (item.Name == name)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public static IAttackStrategy Create(string name, int min = 0, int max = 0)
         {
             foreach (var item in items)
