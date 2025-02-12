@@ -131,11 +131,63 @@ namespace OpenTibia.Game.Commands
 
                 Tile toTile = Context.Server.Map.GetTile(Center.Offset(offset) );
 
-                if (toTile != null)
+                if (toTile != null && !toTile.NotWalkable && Context.Server.Pathfinding.CanThrow(Center, toTile.Position) )
                 {
-                    if (toTile.NotWalkable || toTile.ProtectionZone || !Context.Server.Pathfinding.CanThrow(Center, toTile.Position) )
+                    if (Attack is DamageAttack)
                     {
+                        if ( !toTile.ProtectionZone)
+                        {
+                            if (MagicEffectType != null)
+                            {
+                                await Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Value) );
+                            }
 
+                            if (OpenTibiaId != null)
+                            {
+                                var item = await Context.AddCommand(new TileCreateItemCommand(toTile, OpenTibiaId.Value, Count.Value) );
+                            
+                                       _ = Context.AddCommand(new ItemDecayDestroyCommand(item, TimeSpan.FromSeconds(10) ) );
+                            }
+
+                            if (Attack != null || Condition != null)
+                            {
+                                foreach (var monster in toTile.GetMonsters().ToArray() )
+                                {
+                                    await Context.AddCommand(new CreatureAttackCreatureCommand(Attacker, monster, Attack, Condition) );
+
+                                    hit = true;
+                                }
+
+                                if (Attacker is Monster)
+                                {
+                                    foreach (var player in toTile.GetPlayers()
+                                        .Where(p => p.Rank != Rank.Gamemaster && 
+                                                    p.Rank != Rank.AccountManager)
+                                        .ToArray() )
+                                    {
+                                        await Context.AddCommand(new CreatureAttackCreatureCommand(Attacker, player, Attack, Condition) );
+                                
+                                        hit = true;
+                                    }
+                                }
+                                else if (Attacker is Player attacker)
+                                {
+                                    if (Context.Server.Config.GameplayWorldType != WorldType.NonPvp && attacker.Level > Context.Server.Config.GameplayProtectionLevel)
+                                    {
+                                        foreach (var player in toTile.GetPlayers()
+                                            .Where(p => p.Rank != Rank.Gamemaster && 
+                                                        p.Rank != Rank.AccountManager &&
+                                                        p.Level > Context.Server.Config.GameplayProtectionLevel)
+                                            .ToArray() )
+                                        {
+                                            await Context.AddCommand(new CreatureAttackCreatureCommand(Attacker, player, Attack, Condition) );
+                                
+                                            hit = true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                     else
                     {
@@ -143,49 +195,29 @@ namespace OpenTibia.Game.Commands
                         {
                             await Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Value) );
                         }
-                        
-                        if (OpenTibiaId != null)
-                        {
-                            var item = await Context.AddCommand(new TileCreateItemCommand(toTile, OpenTibiaId.Value, Count.Value) );
-                            
-                                   _ = Context.AddCommand(new ItemDecayDestroyCommand(item, TimeSpan.FromSeconds(10) ) );
-                        }
 
                         if (Attack != null || Condition != null)
                         {
-                            if (Attacker is Monster)
-                            {
-                                foreach (var player in toTile.GetPlayers().Where(p => p.Rank != Rank.Gamemaster && p.Rank != Rank.AccountManager).ToArray() )
-                                {
-                                    await Context.AddCommand(new CreatureAttackCreatureCommand(Attacker, player, Attack, Condition) );
-                                
-                                    hit = true;
-                                }
-                            }
-                            
-                            if (Attacker is Player attacker && Context.Server.Config.GameplayWorldType != WorldType.NonPvp && attacker.Level > Context.Server.Config.GameplayProtectionLevel)
-                            {
-                                foreach (var player in toTile.GetPlayers().Where(p => p.Rank != Rank.Gamemaster && p.Rank != Rank.AccountManager && p.Level > Context.Server.Config.GameplayProtectionLevel).ToArray() )
-                                {
-                                    await Context.AddCommand(new CreatureAttackCreatureCommand(Attacker, player, Attack, Condition) );
-                               
-                                    hit = true;
-                                }
-                            }
-
                             foreach (var monster in toTile.GetMonsters().ToArray() )
                             {
                                 await Context.AddCommand(new CreatureAttackCreatureCommand(Attacker, monster, Attack, Condition) );
+                            }
 
-                                hit = true;
+                            foreach (var player in toTile.GetPlayers()
+                                .Where(p => p.Rank != Rank.Gamemaster && 
+                                            p.Rank != Rank.AccountManager)
+                                .ToArray() )
+                            {
+                                await Context.AddCommand(new CreatureAttackCreatureCommand(Attacker, player, Attack, Condition) );
                             }
                         }
                     }
                 }
             }
 
+            if ( !hit)
             {
-                if ( !hit && Attack is DamageAttack && Attacker is Player attacker)
+                if (Attack is DamageAttack && Attacker is Player attacker)
                 {
                     await Context.AddCommand(new CreatureAddConditionCommand(attacker, new LogoutBlockCondition(TimeSpan.FromSeconds(Context.Server.Config.GameplayLogoutBlockSeconds) ) ) );
                 }
