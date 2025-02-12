@@ -1379,13 +1379,13 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                 switch (LuaScope.GetString(table["type"] ) )
                 {
-                    case "healing":
-
-                        return new HealingAttack(LuaScope.GetInt32(table["min"] ), LuaScope.GetInt32(table["max"] ) );
-
-                    case "simple":
+                    case "damage":
 
                         return new DamageAttack( (ProjectileType?)(long?)table["projectiletype"], (MagicEffectType?)(long?)table["magiceffecttype"], (DamageType)(long)table["damagetype"], LuaScope.GetInt32(table["min"] ), LuaScope.GetInt32(table["max"] ) );
+                    
+                    case "healing":
+                    
+                        return new HealingAttack(LuaScope.GetInt32(table["min"] ), LuaScope.GetInt32(table["max"] ) );
                 }
             }
 

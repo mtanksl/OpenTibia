@@ -107,6 +107,8 @@ namespace OpenTibia.Game.Components
                             await Context.AddCommand(new ShowMagicEffectCommand(monster, MagicEffectType.Puff) );
 
                             await Context.AddCommand(new CreatureDestroyCommand(monster) );
+
+                            break;
                         }
                         else
                         {
