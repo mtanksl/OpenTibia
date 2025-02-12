@@ -40,11 +40,11 @@
   <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
   <attacks>
     <attack name="melee" interval="2000" chance="90" min="0" max="130" />
-    <attack name="burst arrows" interval="2000" chance="70" min="0" max="180" />
-    <attack name="fire field" interval="2000" chance="70" min="20" max="20" />
-    <attack name="energy strike" interval="2000" chance="70" min="90" max="180" />
+    <attack name="burst arrows" interval="3000" chance="70" min="0" max="180" />
+    <attack name="fire field" interval="3000" chance="70" min="20" max="20" />
+    <attack name="energy strike" interval="3000" chance="70" min="90" max="180" />
     
-    <attack name="mana drain" interval="2000" chance="70" min="0" max="120" />
+    <attack name="mana drain" interval="3000" chance="70" min="0" max="120" />
     <attack name="paralyse" interval="2000" chance="90" />
 
     <attack name="self healing" interval="2000" chance="50" min="100" max="225" />

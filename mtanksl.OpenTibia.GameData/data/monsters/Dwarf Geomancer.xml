@@ -40,8 +40,8 @@
   <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
   <attacks>
     <attack name="melee" interval="2000" chance="90" min="0" max="100" />
-    <attack name="mana drain" interval="2000" chance="70" min="25" max="80" />
-    <attack name="stalagmite" interval="2000" chance="70" min="50" max="110" />
+    <attack name="mana drain" interval="3000" chance="70" min="25" max="80" />
+    <attack name="stalagmite" interval="3000" chance="70" min="50" max="110" />
     <attack name="self healing" interval="2000" chance="50" min="25" max="130" />
   </attacks>
   <loot />

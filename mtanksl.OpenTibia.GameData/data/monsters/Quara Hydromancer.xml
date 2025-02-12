@@ -46,7 +46,7 @@
 
 
 
-    <attack name="life drain" interval="2000" chance="70" min="0" max="170" />
+    <attack name="life drain" interval="3000" chance="70" min="0" max="170" />
   </attacks>
   <loot />
 </monster>

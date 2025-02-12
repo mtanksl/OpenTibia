@@ -39,8 +39,8 @@
   <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
   <attacks>
     <attack name="melee" interval="2000" chance="90" min="0" max="35" />
-    <attack name="flame strike" interval="2000" chance="70" min="60" max="95" />
-    <attack name="fireball" interval="2000" chance="70" min="60" max="95" />
+    <attack name="flame strike" interval="3000" chance="70" min="60" max="95" />
+    <attack name="fireball" interval="3000" chance="70" min="60" max="95" />
   </attacks>
   <loot />
 </monster>

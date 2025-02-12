@@ -36,8 +36,8 @@
   <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
   <attacks>
     <attack name="melee" interval="2000" chance="90" min="0" max="300" />
-    <attack name="terra strike" interval="2000" chance="70" min="40" max="70" />
-    <attack name="poison field" interval="2000" chance="70" min="5" max="5" />
+    <attack name="terra strike" interval="3000" chance="70" min="40" max="70" />
+    <attack name="poison field" interval="3000" chance="70" min="5" max="5" />
     <attack name="strong haste" interval="2000" chance="50" />
   </attacks>
   <loot />

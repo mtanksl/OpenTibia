@@ -41,7 +41,7 @@
   <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
   <attacks>
     <attack name="melee" interval="2000" chance="90" min="0" max="130" />
-    <attack name="life drain" interval="2000" chance="70" min="0" max="80" />
+    <attack name="life drain" interval="3000" chance="70" min="0" max="80" />
   </attacks>
   <loot />
 </monster>

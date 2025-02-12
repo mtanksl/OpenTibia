@@ -40,8 +40,8 @@
   <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
   <attacks>
     <attack name="melee" interval="2000" chance="90" min="0" max="75" />
-    <attack name="death strike" interval="2000" chance="70" min="0" max="120" />
-    <attack name="mana drain" interval="2000" chance="70" min="2" max="170" />
+    <attack name="death strike" interval="3000" chance="70" min="0" max="120" />
+    <attack name="mana drain" interval="3000" chance="70" min="2" max="170" />
     <attack name="self healing" interval="2000" chance="50" min="34" max="56" />
 
   </attacks>
