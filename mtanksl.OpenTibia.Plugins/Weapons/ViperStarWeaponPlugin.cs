@@ -21,7 +21,7 @@ namespace OpenTibia.Plugins.Weapons
 
         public override Promise OnUseWeapon(Player player, Creature target, Item weapon)
         {
-             var formula = Formula.DistanceFormula(player.Level, player.Skills.GetSkillLevel(Skill.Distance), weapon.Metadata.Attack.Value, player.Client.FightMode, weapon.Metadata.HitChance, weapon.Metadata.MaxHitChance, player.Tile.Position.ChebyshevDistance(target.Tile.Position) );
+            var formula = Formula.DistanceFormula(player.Level, player.Skills.GetSkillLevel(Skill.Distance), weapon.Metadata.Attack.Value, player.Client.FightMode, weapon.Metadata.HitChance, weapon.Metadata.MaxHitChance, player.Tile.Position.ChebyshevDistance(target.Tile.Position) );
 
             return Context.AddCommand(new CreatureAttackCreatureCommand(player, target,
 

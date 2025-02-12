@@ -1,30 +1,13 @@
-﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
-using OpenTibia.Game.Commands;
-using OpenTibia.Game.Common;
+﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game.Plugins;
 
 namespace OpenTibia.Plugins.Weapons
 {
-    public class WandOfCosmicEnergyWeaponPlugin : WeaponPlugin
+    public class WandOfCosmicEnergyWeaponPlugin : BaseWandAndRodWeaponPlugin
     {
-        public WandOfCosmicEnergyWeaponPlugin(Weapon weapon) : base(weapon)
+        public WandOfCosmicEnergyWeaponPlugin(Weapon weapon) : base(weapon, 45, 8, DamageType.Energy)
         {
 
-        }
-
-        public override PromiseResult<bool> OnUsingWeapon(Player player, Creature target, Item weapon)
-        {
-            return Promise.FromResultAsBooleanTrue;
-        }
-
-        public override Promise OnUseWeapon(Player player, Creature target, Item weapon)
-        {
-           var formula = Formula.WandFormula(45, 8);
-
-            return Context.AddCommand(new CreatureAttackCreatureCommand(player, target,
-
-                new DamageAttack(weapon.Metadata.ProjectileType.Value, null, DamageType.Energy, formula.Min, formula.Max) ) );
         }
     }
 }

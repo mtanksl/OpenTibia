@@ -21,7 +21,7 @@ namespace OpenTibia.Plugins.Ammunitions
 
         public override Promise OnUseAmmunition(Player player, Creature target, Item weapon, Item ammunition)
         {
-           var formula = Formula.DistanceFormula(player.Level, player.Skills.GetSkillLevel(Skill.Distance), ammunition.Metadata.Attack.Value, player.Client.FightMode, weapon.Metadata.HitChance, weapon.Metadata.MaxHitChance, player.Tile.Position.ChebyshevDistance(target.Tile.Position) );
+            var formula = Formula.DistanceFormula(player.Level, player.Skills.GetSkillLevel(Skill.Distance), ammunition.Metadata.Attack.Value, player.Client.FightMode, weapon.Metadata.HitChance, weapon.Metadata.MaxHitChance, player.Tile.Position.ChebyshevDistance(target.Tile.Position) );
 
             return Context.AddCommand(new CreatureAttackCreatureCommand(player, target, 
 

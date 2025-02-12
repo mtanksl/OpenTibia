@@ -1,30 +1,13 @@
-﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
-using OpenTibia.Game.Commands;
-using OpenTibia.Game.Common;
+﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game.Plugins;
 
 namespace OpenTibia.Plugins.Weapons
 {
-    public class VolcanicRodWeaponPlugin : WeaponPlugin
+    public class VolcanicRodWeaponPlugin : BaseWandAndRodWeaponPlugin
     {
-        public VolcanicRodWeaponPlugin(Weapon weapon) : base(weapon)
+        public VolcanicRodWeaponPlugin(Weapon weapon) : base(weapon, 30, 7, DamageType.Fire)
         {
 
-        }
-
-        public override PromiseResult<bool> OnUsingWeapon(Player player, Creature target, Item weapon)
-        {
-            return Promise.FromResultAsBooleanTrue;
-        }
-
-        public override Promise OnUseWeapon(Player player, Creature target, Item weapon)
-        {
-           var formula = Formula.WandFormula(30, 7);
-
-            return Context.AddCommand(new CreatureAttackCreatureCommand(player, target,
-
-                new DamageAttack(weapon.Metadata.ProjectileType.Value, null, DamageType.Fire, formula.Min, formula.Max) ) );
         }
     }
 }
