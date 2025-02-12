@@ -34,7 +34,7 @@
     <voice yell="1" sentence="MUHAHAHAHA!" />
     <voice yell="1" sentence="I SMELL FEEEEAAAAAR!" />
     <voice yell="1" sentence="CHAMEK ATH UTHUL ARAK!" />
-    <voice yell="1" sentence="Your soul will be mine!" />
+    <voice yell="0" sentence="Your soul will be mine!" />
     <voice yell="0" sentence="Your resistance is futile!" />
   </voices>
   <defenses mitigation="1.74" defense="0" armor="44" />

@@ -20,6 +20,7 @@ namespace OpenTibia.Game.Components
         SmallStones,
         Spears,
         Stars,
+        Snowballs,
 
         // Runes
         Avalanche,
@@ -85,6 +86,7 @@ namespace OpenTibia.Game.Components
             ("small stones", AttackType.SmallStones, (min, max) => new DistanceAttackStrategy(ProjectileType.SmallStone, null, DamageType.Physical, min, max) ),
             ("spears", AttackType.Spears, (min, max) => new DistanceAttackStrategy(ProjectileType.Spear, null, DamageType.Physical, min, max) ),
             ("stars", AttackType.Stars, (min, max) => new DistanceAttackStrategy(ProjectileType.ThrowingStar, null, DamageType.Physical, min, max) ),
+            ("snowballs", AttackType.Snowballs, (min, max) => new DistanceAttackStrategy(ProjectileType.Snowball, null, DamageType.Physical, min, max) ),
 
             // Runes
             ("avalanche", AttackType.Avalanche, (min, max) => new RuneAreaAttackStrategy(Offset.Circle7, ProjectileType.Ice, MagicEffectType.IceArea, DamageType.Ice, min, max) ),

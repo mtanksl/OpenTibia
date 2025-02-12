@@ -19,27 +19,37 @@
     <immunity invisible="1" />
   </immunities>
   <elements>
-    <element physicalPercent="100" />
+    <element physicalPercent="20" />
     <element earthpercent="100" />
     <element firePercent="100" />
     <element energyPercent="80" />
-    <element icePercent="100" />
+    <element icePercent="0" />
     <element deathPercent="50" />
-    <element holyPercent="100" />
+    <element holyPercent="0" />
     <element drownPercent="0" />
     <element manaDrainPercent="100" />
     <element lifeDrainPercent="100" />
   </elements>
   <voices interval="5000" chance="10">
-    <voice yell="0" sentence="YOU ARE DOOMED!" />
-    <voice yell="0" sentence="ORSHABAAL IS BACK!" />
-    <voice yell="0" sentence="SOULS FOR ORSHABAAL!" />
-    <voice yell="0" sentence="PRAISED BE MY MASTERS, THE RUTHLESS SEVEN!" />
+    <voice yell="1" sentence="YOU ARE DOOMED!" />
+    <voice yell="1" sentence="ORSHABAAL IS BACK!" />
+    <voice yell="1" sentence="SOULS FOR ORSHABAAL!" />
+    <voice yell="1" sentence="PRAISED BE MY MASTERS, THE RUTHLESS SEVEN!" />
     <voice yell="0" sentence="Be prepared for the day my masters will come for you!" />
   </voices>
   <defenses mitigation="0" defense="0" armor="90" />
   <changetargetstrategy interval="5000" chance="10" />
   <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
-  <attacks />
+  <attacks>
+    <attack name="melee" interval="2000" chance="90" min="0" max="1991" />
+    <attack name="mana drain" interval="2000" chance="90" min="300" max="600" />
+
+
+    <attack name="great fireball" interval="2000" chance="90" min="310" max="600" />
+    <attack name="fire field" interval="2000" chance="90" />
+    <attack name="energy beam" interval="2000" chance="90" min="500" max="850" />
+    <attack name="self healing" interval="2000" chance="90" min="1500" max="2500" />
+    <attack name="haste" interval="2000" chance="90" />
+  </attacks>
   <loot />
 </monster>
