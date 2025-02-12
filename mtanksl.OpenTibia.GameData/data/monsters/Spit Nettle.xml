@@ -34,6 +34,10 @@
   <defenses mitigation="0.86" defense="0" armor="12" />
   <changetargetstrategy interval="5000" chance="10" />
   <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
-  <attacks />
+  <attacks>
+    <attack name="terra strike" interval="2000" chance="90" min="17" max="37" />
+
+    <attack name="self healing" interval="2000" chance="90" min="8" max="16" />
+  </attacks>
   <loot />
 </monster>

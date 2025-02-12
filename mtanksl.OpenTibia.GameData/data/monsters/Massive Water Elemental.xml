@@ -34,6 +34,12 @@
   <defenses mitigation="1.32" defense="0" armor="45" />
   <changetargetstrategy interval="5000" chance="10" />
   <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
-  <attacks />
+  <attacks>
+    <attack name="melee" interval="2000" chance="90" min="0" max="230" />
+
+
+    <attack name="ice strike" interval="2000" chance="90" min="170" max="210" />
+    <attack name="self healing" interval="2000" chance="90" min="25" max="40" />
+  </attacks>
   <loot />
 </monster>
