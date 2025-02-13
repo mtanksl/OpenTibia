@@ -19,18 +19,6 @@ namespace OpenTibia.Common.Objects
             }
         }
 
-        private byte[] skillLevels = new byte[] { 0, 10, 10, 10, 10, 10, 10, 10 };
-
-        public byte GetSkillLevel(Skill skill)
-        {
-            return skillLevels[ (byte)skill];
-        }
-
-        public void SetSkillLevel(Skill skill, byte skillLevel)
-        {
-            skillLevels[ (byte)skill] = skillLevel;
-        }
-
         private ulong[] skillPoints = new ulong[8];
 
         public ulong GetSkillPoints(Skill skill)
@@ -41,6 +29,18 @@ namespace OpenTibia.Common.Objects
         public void SetSkillPoints(Skill skill, ulong skillPoint)
         {
             skillPoints[ (byte)skill] = skillPoint;
+        }
+
+        private byte[] skillLevels = new byte[] { 0, 10, 10, 10, 10, 10, 10, 10 };
+
+        public byte GetSkillLevel(Skill skill)
+        {
+            return skillLevels[ (byte)skill];
+        }
+
+        public void SetSkillLevel(Skill skill, byte skillLevel)
+        {
+            skillLevels[ (byte)skill] = skillLevel;
         }
 
         private byte[] skillPercents = new byte[8];

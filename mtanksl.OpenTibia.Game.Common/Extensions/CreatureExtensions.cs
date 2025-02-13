@@ -164,7 +164,7 @@ namespace OpenTibia.Game.Extensions
 
         /// <exception cref="InvalidOperationException"></exception>
 
-        public static Promise UpdateHealth(this Creature creature, int health, int maxHealth)
+        public static Promise UpdateHealth(this Creature creature, int health)
         {
             Context context = Context.Current;
 
@@ -173,7 +173,7 @@ namespace OpenTibia.Game.Extensions
                 throw new InvalidOperationException("Context not found.");
             }
 
-            return context.AddCommand(new CreatureUpdateHealthCommand(creature, health, maxHealth) );
+            return context.AddCommand(new CreatureUpdateHealthCommand(creature, health) );
         }
 
         /// <exception cref="InvalidOperationException"></exception>
@@ -206,7 +206,7 @@ namespace OpenTibia.Game.Extensions
 
         /// <exception cref="InvalidOperationException"></exception>
 
-        public static Promise UpdateSpeed(this Creature creature, ushort baseSpeed, ushort speed)
+        public static Promise UpdateSpeed(this Creature creature, ushort speed)
         {
             Context context = Context.Current;
 
@@ -215,7 +215,7 @@ namespace OpenTibia.Game.Extensions
                 throw new InvalidOperationException("Context not found.");
             }
 
-            return context.AddCommand(new CreatureUpdateSpeedCommand(creature, baseSpeed, speed) );
+            return context.AddCommand(new CreatureUpdateSpeedCommand(creature, speed) );
         }
 
         /// <exception cref="InvalidOperationException"></exception>

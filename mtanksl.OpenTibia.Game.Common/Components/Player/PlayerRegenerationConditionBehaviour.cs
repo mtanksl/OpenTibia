@@ -130,10 +130,7 @@ namespace OpenTibia.Game.Components
                     {
                         soul = vocationConfig.RegenerateSoulInSeconds;
 
-                        if (player.Soul < vocationConfig.SoulMax)
-                        {
-                            await Context.AddCommand(new PlayerUpdateSoulCommand(player, player.Soul + vocationConfig.RegenerateSoul, vocationConfig.SoulMax) );
-                        }
+                        await Context.AddCommand(new PlayerUpdateSoulCommand(player, player.Soul + vocationConfig.RegenerateSoul, vocationConfig.SoulMax) );
                     }
                 }
 

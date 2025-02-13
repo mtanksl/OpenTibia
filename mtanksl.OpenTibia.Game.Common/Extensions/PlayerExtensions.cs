@@ -234,7 +234,7 @@ namespace OpenTibia.Game.Extensions
 
         /// <exception cref="InvalidOperationException"></exception>
 
-        public static Promise UpdateMana(this Player player, int mana, int maxMana)
+        public static Promise UpdateMana(this Player player, int mana)
         {
             Context context = Context.Current;
 
@@ -243,7 +243,7 @@ namespace OpenTibia.Game.Extensions
                 throw new InvalidOperationException("Context not found.");
             }
 
-            return context.AddCommand(new PlayerUpdateManaCommand(player, mana, maxMana) );
+            return context.AddCommand(new PlayerUpdateManaCommand(player, mana) );
         }
 
         /// <exception cref="InvalidOperationException"></exception>

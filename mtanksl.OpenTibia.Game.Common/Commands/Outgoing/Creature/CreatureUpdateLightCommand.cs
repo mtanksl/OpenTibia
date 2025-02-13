@@ -23,7 +23,8 @@ namespace OpenTibia.Game.Commands
         {
             if (Creature.Light != Light)
             {
-                Creature.Light = Light;
+                //TODO: Custom stats
+                //Creature.Light = Light; 
 
                 foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Creature.Tile.Position) )
                 {

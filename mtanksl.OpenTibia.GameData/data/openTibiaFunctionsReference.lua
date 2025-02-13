@@ -474,11 +474,11 @@ return {
 				args = "(Creature creature, Outfit baseOutfit, Outfit outfit)",
 				returns = "void"
 			},
-			-- void command.creatureupdatespeed(Creature creature, ushort baseSpeed, ushort speed)
+			-- void command.creatureupdatespeed(Creature creature, ushort speed)
 			creatureupdatespeed = {
 				type = "function",
 				description = "",
-				args = "(Creature creature, ushort baseSpeed, ushort speed)",
+				args = "(Creature creature, ushort speed)",
 				returns = "void"
 			},
 			-- void command.creaturemove(Creature creature, Tile toTile)

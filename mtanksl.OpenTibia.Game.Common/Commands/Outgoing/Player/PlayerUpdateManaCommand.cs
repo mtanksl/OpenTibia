@@ -9,35 +9,24 @@ namespace OpenTibia.Game.Commands
 {
     public class PlayerUpdateManaCommand : Command
     {
-        public PlayerUpdateManaCommand(Player player, int mana) : this(player, mana, player.MaxMana)
-        {
-
-        }
-
-        public PlayerUpdateManaCommand(Player player, int mana, int maxMana)
+        public PlayerUpdateManaCommand(Player player, int mana)
         {
             Player = player;
 
             Mana = (ushort)Math.Max(0, Math.Min(player.MaxMana, mana) );
-
-            MaxMana = (ushort)Math.Max(0, Math.Min(player.MaxMana, maxMana) );
         }
 
         public Player Player { get; set; }
 
         public ushort Mana { get; set; }
 
-        public ushort MaxMana { get; set; }
-
         public override Promise Execute()
         {
             if (Player.Rank != Rank.Gamemaster && Player.Rank != Rank.AccountManager)
             {
-                if (Player.Mana != Mana || Player.MaxMana != MaxMana)
+                if (Player.Mana != Mana)
                 {
                     Player.Mana = Mana;
-
-                    Player.MaxMana = MaxMana;
 
                     Context.AddPacket(Player, new SendStatusOutgoingPacket(
                         Player.Health, Player.MaxHealth, 

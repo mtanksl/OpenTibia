@@ -495,11 +495,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                                             BaseOutfitId = accountManagerState.PlayerGender == Gender.Male ? 128 : 136,
 
-                                            OutfitId = accountManagerState.PlayerGender == Gender.Male ? 128 : 136,
-
                                             BaseSpeed = 220,
-                        
-                                            Speed = 220,
 
                                             SkillFist = 10,
 
@@ -526,7 +522,9 @@ namespace OpenTibia.Game.CommandHandlers
                                             Soul = 100, 
                         
                                             Capacity = 40000, 
-                        
+
+                                            MaxCapacity = 40000,
+
                                             Stamina = 2520, 
 
                                             Gender = (int)accountManagerState.PlayerGender,

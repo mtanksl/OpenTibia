@@ -9,18 +9,11 @@ namespace OpenTibia.Game.Commands
 {
     public class CreatureUpdateHealthCommand : Command
     {
-        public CreatureUpdateHealthCommand(Creature creature, int health) : this(creature, health, creature.MaxHealth)
-        {
-            
-        }
-
-        public CreatureUpdateHealthCommand(Creature creature, int health, int maxHealth)
+        public CreatureUpdateHealthCommand(Creature creature, int health)
         {
             Creature = creature;
 
             Health = (ushort)Math.Max(0, Math.Min(creature.MaxHealth, health) );
-
-            MaxHealth = (ushort)Math.Max(0, Math.Min(creature.MaxHealth, maxHealth) );
         }
 
         public Creature Creature { get; set; }
@@ -33,11 +26,9 @@ namespace OpenTibia.Game.Commands
         {
             if ( !(Creature is Npc || (Creature is Player player && (player.Rank == Rank.Gamemaster || player.Rank == Rank.AccountManager) ) || Creature.IsDestroyed) )
             {
-                if (Creature.Health != Health || Creature.MaxHealth != MaxHealth)
+                if (Creature.Health != Health)
                 {
                     Creature.Health = Health;
-
-                    Creature.MaxHealth = MaxHealth;
 
                     foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Creature.Tile.Position) )
                     {

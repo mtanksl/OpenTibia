@@ -357,3 +357,46 @@ CREATE INDEX `IX_RuleViolationReports_StatmentPlayerId` ON `RuleViolationReports
 ALTER TABLE `RuleViolationReports` ADD CONSTRAINT `FK_RuleViolationReports_Players_StatmentPlayerId` FOREIGN KEY (`StatmentPlayerId`) REFERENCES `Players` (`Id`);
 
 COMMIT;
+
+--
+
+ALTER TABLE `Players` ADD `MaxCapacity` int NOT NULL DEFAULT 0;
+
+UPDATE `Players` SET `MaxCapacity` = 139000
+WHERE `Id` = 1;
+
+UPDATE `Players` SET `MaxCapacity` = 139000
+WHERE `Id` = 2;
+
+UPDATE `Players` SET `MaxCapacity` = 139000
+WHERE `Id` = 3;
+
+UPDATE `Players` SET `MaxCapacity` = 139000
+WHERE `Id` = 4;
+
+UPDATE `Players` SET `MaxCapacity` = 139000
+WHERE `Id` = 5;
+
+COMMIT;
+
+--
+
+START TRANSACTION;
+
+ALTER TABLE `Players` DROP COLUMN `OutfitAddon`;
+
+ALTER TABLE `Players` DROP COLUMN `OutfitBody`;
+
+ALTER TABLE `Players` DROP COLUMN `OutfitFeet`;
+
+ALTER TABLE `Players` DROP COLUMN `OutfitHead`;
+
+ALTER TABLE `Players` DROP COLUMN `OutfitId`;
+
+ALTER TABLE `Players` DROP COLUMN `OutfitItemId`;
+
+ALTER TABLE `Players` DROP COLUMN `OutfitLegs`;
+
+ALTER TABLE `Players` DROP COLUMN `Speed`;
+
+COMMIT;

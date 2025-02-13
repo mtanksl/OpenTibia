@@ -36,7 +36,7 @@ namespace OpenTibia.Common.Objects
 
             Soul = 100;
 
-            Capacity = 400 * 100;
+            MaxCapacity = Capacity = 400 * 100;
 
             Stamina = 42 * 60;
         }
@@ -106,6 +106,8 @@ namespace OpenTibia.Common.Objects
         public byte Soul { get; set; }
 
         public uint Capacity { get; set; }
+
+        public uint MaxCapacity { get; set; }
 
         public ushort Stamina { get; set; }
 

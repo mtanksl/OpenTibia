@@ -337,7 +337,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             lua.RegisterCoFunction("creatureupdatespeed", (luaScope, parameters) =>
             {
-                return Context.Current.AddCommand(new CreatureUpdateSpeedCommand( (Creature)parameters[0], LuaScope.GetUInt16(parameters[1] ), LuaScope.GetUInt16(parameters[2] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new CreatureUpdateSpeedCommand( (Creature)parameters[0], LuaScope.GetUInt16(parameters[1] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );

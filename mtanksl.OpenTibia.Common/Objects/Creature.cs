@@ -11,11 +11,11 @@ namespace OpenTibia.Common.Objects
 
             Direction = Direction.South;
 
-            Light = Light.None;
+            BaseLight = Light.None;
 
-            BaseOutfit = Outfit = Outfit.MaleCitizen;
+            BaseOutfit = Outfit.MaleCitizen;
 
-            BaseSpeed = Speed = 220;
+            BaseSpeed = 220;
 
             Block = true;
         }
@@ -54,15 +54,35 @@ namespace OpenTibia.Common.Objects
 
         public Direction Direction { get; set; }
 
-        public Light Light { get; set; }
+        public Light BaseLight { get; set; }
+
+        public Light Light
+        {
+            get
+            {
+                return BaseLight;
+            }
+        }
 
         public Outfit BaseOutfit { get; set; }
 
-        public Outfit Outfit { get; set; }
+        public Outfit Outfit
+        {
+            get
+            {
+                return BaseOutfit;
+            }
+        }
 
         public ushort BaseSpeed { get; set; }
 
-        public ushort Speed { get; set; }
+        public ushort Speed
+        {
+            get
+            {
+                return BaseSpeed;
+            }
+        }
 
         public bool Block { get; set; }
 

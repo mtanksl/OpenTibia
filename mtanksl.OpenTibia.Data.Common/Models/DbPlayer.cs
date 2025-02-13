@@ -35,23 +35,7 @@ namespace OpenTibia.Data.Models
 
         public int BaseOutfitAddon { get; set; }
 
-        public int OutfitItemId { get; set; }
-
-        public int OutfitId { get; set; }
-
-        public int OutfitHead { get; set; }
-
-        public int OutfitBody { get; set; }
-
-        public int OutfitLegs { get; set; }
-
-        public int OutfitFeet { get; set; }
-
-        public int OutfitAddon { get; set; }
-
         public int BaseSpeed { get; set; }
-
-        public int Speed { get; set; }
 
         public bool Invisible { get; set; }
 
@@ -98,6 +82,8 @@ namespace OpenTibia.Data.Models
         public int Soul { get; set; }
 
         public int Capacity { get; set; }
+
+        public int MaxCapacity { get; set; }
 
         public int Stamina { get; set; }
 

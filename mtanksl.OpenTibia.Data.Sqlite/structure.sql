@@ -455,3 +455,111 @@ CREATE INDEX "IX_RuleViolationReports_PlayerId" ON "RuleViolationReports" ("Play
 CREATE INDEX "IX_RuleViolationReports_StatmentPlayerId" ON "RuleViolationReports" ("StatmentPlayerId");
 
 COMMIT;
+
+--
+
+BEGIN TRANSACTION;
+
+ALTER TABLE "Players" ADD "MaxCapacity" INTEGER NOT NULL DEFAULT 0;
+
+UPDATE "Players" SET "MaxCapacity" = 139000
+WHERE "Id" = 1;
+
+UPDATE "Players" SET "MaxCapacity" = 139000
+WHERE "Id" = 2;
+
+UPDATE "Players" SET "MaxCapacity" = 139000
+WHERE "Id" = 3;
+
+UPDATE "Players" SET "MaxCapacity" = 139000
+WHERE "Id" = 4;
+
+UPDATE "Players" SET "MaxCapacity" = 139000
+WHERE "Id" = 5;
+
+COMMIT;
+
+--
+
+BEGIN TRANSACTION;
+
+CREATE TABLE "ef_temp_Players" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_Players" PRIMARY KEY AUTOINCREMENT,
+    "AccountId" INTEGER NOT NULL,
+    "BankAccount" INTEGER NOT NULL,
+    "BaseOutfitAddon" INTEGER NOT NULL,
+    "BaseOutfitBody" INTEGER NOT NULL,
+    "BaseOutfitFeet" INTEGER NOT NULL,
+    "BaseOutfitHead" INTEGER NOT NULL,
+    "BaseOutfitId" INTEGER NOT NULL,
+    "BaseOutfitItemId" INTEGER NOT NULL,
+    "BaseOutfitLegs" INTEGER NOT NULL,
+    "BaseSpeed" INTEGER NOT NULL,
+    "Capacity" INTEGER NOT NULL,
+    "Direction" INTEGER NOT NULL,
+    "Experience" INTEGER NOT NULL,
+    "Gender" INTEGER NOT NULL,
+    "Health" INTEGER NOT NULL,
+    "Invisible" INTEGER NOT NULL,
+    "Level" INTEGER NOT NULL,
+    "Mana" INTEGER NOT NULL,
+    "MaxCapacity" INTEGER NOT NULL,
+    "MaxHealth" INTEGER NOT NULL,
+    "MaxMana" INTEGER NOT NULL,
+    "Name" TEXT NOT NULL,
+    "Rank" INTEGER NOT NULL,
+    "SkillAxe" INTEGER NOT NULL,
+    "SkillAxePoints" INTEGER NOT NULL,
+    "SkillClub" INTEGER NOT NULL,
+    "SkillClubPoints" INTEGER NOT NULL,
+    "SkillDistance" INTEGER NOT NULL,
+    "SkillDistancePoints" INTEGER NOT NULL,
+    "SkillFish" INTEGER NOT NULL,
+    "SkillFishPoints" INTEGER NOT NULL,
+    "SkillFist" INTEGER NOT NULL,
+    "SkillFistPoints" INTEGER NOT NULL,
+    "SkillMagicLevel" INTEGER NOT NULL,
+    "SkillMagicLevelPoints" INTEGER NOT NULL,
+    "SkillShield" INTEGER NOT NULL,
+    "SkillShieldPoints" INTEGER NOT NULL,
+    "SkillSword" INTEGER NOT NULL,
+    "SkillSwordPoints" INTEGER NOT NULL,
+    "Soul" INTEGER NOT NULL,
+    "SpawnX" INTEGER NOT NULL,
+    "SpawnY" INTEGER NOT NULL,
+    "SpawnZ" INTEGER NOT NULL,
+    "Stamina" INTEGER NOT NULL,
+    "TownX" INTEGER NOT NULL,
+    "TownY" INTEGER NOT NULL,
+    "TownZ" INTEGER NOT NULL,
+    "Vocation" INTEGER NOT NULL,
+    "WorldId" INTEGER NOT NULL,
+    CONSTRAINT "FK_Players_Accounts_AccountId" FOREIGN KEY ("AccountId") REFERENCES "Accounts" ("Id") ON DELETE CASCADE,
+    CONSTRAINT "FK_Players_Worlds_WorldId" FOREIGN KEY ("WorldId") REFERENCES "Worlds" ("Id") ON DELETE CASCADE
+);
+
+INSERT INTO "ef_temp_Players" ("Id", "AccountId", "BankAccount", "BaseOutfitAddon", "BaseOutfitBody", "BaseOutfitFeet", "BaseOutfitHead", "BaseOutfitId", "BaseOutfitItemId", "BaseOutfitLegs", "BaseSpeed", "Capacity", "Direction", "Experience", "Gender", "Health", "Invisible", "Level", "Mana", "MaxCapacity", "MaxHealth", "MaxMana", "Name", "Rank", "SkillAxe", "SkillAxePoints", "SkillClub", "SkillClubPoints", "SkillDistance", "SkillDistancePoints", "SkillFish", "SkillFishPoints", "SkillFist", "SkillFistPoints", "SkillMagicLevel", "SkillMagicLevelPoints", "SkillShield", "SkillShieldPoints", "SkillSword", "SkillSwordPoints", "Soul", "SpawnX", "SpawnY", "SpawnZ", "Stamina", "TownX", "TownY", "TownZ", "Vocation", "WorldId")
+SELECT "Id", "AccountId", "BankAccount", "BaseOutfitAddon", "BaseOutfitBody", "BaseOutfitFeet", "BaseOutfitHead", "BaseOutfitId", "BaseOutfitItemId", "BaseOutfitLegs", "BaseSpeed", "Capacity", "Direction", "Experience", "Gender", "Health", "Invisible", "Level", "Mana", "MaxCapacity", "MaxHealth", "MaxMana", "Name", "Rank", "SkillAxe", "SkillAxePoints", "SkillClub", "SkillClubPoints", "SkillDistance", "SkillDistancePoints", "SkillFish", "SkillFishPoints", "SkillFist", "SkillFistPoints", "SkillMagicLevel", "SkillMagicLevelPoints", "SkillShield", "SkillShieldPoints", "SkillSword", "SkillSwordPoints", "Soul", "SpawnX", "SpawnY", "SpawnZ", "Stamina", "TownX", "TownY", "TownZ", "Vocation", "WorldId"
+FROM "Players";
+
+COMMIT;
+
+PRAGMA foreign_keys = 0;
+
+BEGIN TRANSACTION;
+
+DROP TABLE "Players";
+
+ALTER TABLE "ef_temp_Players" RENAME TO "Players";
+
+COMMIT;
+
+PRAGMA foreign_keys = 1;
+
+BEGIN TRANSACTION;
+
+CREATE INDEX "IX_Players_AccountId" ON "Players" ("AccountId");
+
+CREATE INDEX "IX_Players_WorldId" ON "Players" ("WorldId");
+
+COMMIT;

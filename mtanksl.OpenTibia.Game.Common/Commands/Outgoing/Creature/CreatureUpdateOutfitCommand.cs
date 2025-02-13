@@ -29,7 +29,8 @@ namespace OpenTibia.Game.Commands
             {
                 Creature.BaseOutfit = BaseOutfit;
 
-                Creature.Outfit = Outfit;
+                //TODO: Custom stats
+                //Creature.Outfit = Outfit;
 
                 if (Creature.Tile != null)
                 {

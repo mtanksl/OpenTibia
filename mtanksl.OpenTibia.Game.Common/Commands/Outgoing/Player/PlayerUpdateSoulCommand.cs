@@ -11,7 +11,7 @@ namespace OpenTibia.Game.Commands
     {
         public PlayerUpdateSoulCommand(Player player, int soul) : this(player, soul, 200)
         {
-            
+
         }
 
         public PlayerUpdateSoulCommand(Player player, int soul, int maxSoul)

@@ -138,11 +138,7 @@ namespace OpenTibia.Game.Commands
                          
                         BaseOutfitItemId = 2031, 
                         
-                        OutfitItemId = 2031, 
-                        
                         BaseSpeed = 220,
-                        
-                        Speed = 220, 
                         
                         Experience = 0, 
                         
@@ -155,7 +151,9 @@ namespace OpenTibia.Game.Commands
                         Soul = 100, 
                         
                         Capacity = 40000, 
-                        
+
+                        MaxCapacity = 40000,
+
                         Stamina = 2520, 
 
                         Rank = 3,

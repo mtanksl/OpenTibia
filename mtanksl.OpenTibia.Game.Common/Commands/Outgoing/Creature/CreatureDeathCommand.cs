@@ -145,11 +145,13 @@ namespace OpenTibia.Game.Commands
                 {
                     player.BaseSpeed = 220;
 
-                    player.Capacity = 40000;
+                    player.MaxHealth = player.Health = 150;
 
-                    player.MaxHealth = 150;
+                    player.MaxMana = player.Mana = 55;
 
-                    player.MaxMana = 55;
+                    player.Soul = 100;
+
+                    player.MaxCapacity = player.Capacity = 40000;
 
                     player.Vocation = Vocation.None;
 
@@ -160,8 +162,6 @@ namespace OpenTibia.Game.Commands
                         player.Town = tile;
                     }
                 }
-
-                player.Speed = player.BaseSpeed;
 
                 if (player.Combat.GetSkullIcon(null) == SkullIcon.Black)
                 {
