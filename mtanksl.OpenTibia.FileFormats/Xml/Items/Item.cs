@@ -1126,16 +1126,58 @@ namespace OpenTibia.FileFormats.Xml.Items
                         item.Writeable = true;
 
                         break;
+                        
+                    case "attackmodifierearth":
 
-                    case "absorbpercentallelements":
+                        item.AttackModifierEarth = (int)value;
 
-                        item.AbsorbPhysicalPercent = (int)value;
-                        item.AbsorbEarthpercent = (int)value;
-                        item.AbsorbFirePercent = (int)value;
-                        item.AbsorbEnergyPercent = (int)value;
-                        item.AbsorbIcePercent = (int)value;
-                        item.AbsorbDeathPercent = (int)value;
-                        item.AbsorbHolyPercent = (int)value;
+                        break;
+
+                    case "attackmodifierfire":
+
+                        item.AttackModifierFire = (int)value;
+
+                        break;
+
+                    case "attackmodifierenergy":
+
+                        item.AttackModifierEnergy = (int)value;
+
+                        break;
+
+                    case "attackmodifierice":
+
+                        item.AttackModifierIce = (int)value;
+
+                        break;
+
+                    case "attackmodifierdeath":
+
+                        item.AttackModifierDeath = (int)value;
+
+                        break;
+
+                    case "attackmodifierholy":
+
+                        item.AttackModifierHoly = (int)value;
+
+                        break;
+
+                    case "attackmodifierdrown":
+
+                        item.AttackModifierDrown = (int)value;
+
+                        break;
+
+                    case "attackmodifiermanadrain":
+
+                        item.AttackModifierManaDrain = (int)value;
+
+                        break;
+
+                    case "attackmodifierlifedrain":
+
+                        item.AttackModifierLifeDrain = (int)value;
 
                         break;
 
@@ -1192,6 +1234,60 @@ namespace OpenTibia.FileFormats.Xml.Items
                         item.AbsorbLifeDrainPercent = (int)value;
 
                         break;
+
+                    case "speedmodifier":
+
+                        item.SpeedModifier = (int)value;
+
+                        break;
+
+                    case "skillmodifiermagiclevel":
+
+                        item.SkillModifierMagicLevel = (int)value;
+
+                        break;
+
+                    case "skillmodifierfist":
+
+                        item.SkillModifierFist = (int)value;
+
+                        break;
+
+                    case "skillmodifiersword":
+
+                        item.SkillModifierSword = (int)value;
+
+                        break;
+
+                    case "skillmodifieraxe":
+
+                        item.SkillModifierAxe = (int)value;
+
+                        break;
+
+                    case "skillmodifierclub":
+
+                        item.SkillModifierClub = (int)value;
+
+                        break;
+
+                    case "skillmodifierdistance":
+
+                        item.SkillModifierDistance = (int)value;
+
+                        break;
+
+                    case "skillmodifiershield":
+
+                        item.SkillModifierShield = (int)value;
+
+                        break;
+
+                    case "skillmodifierfish":
+
+                        item.SkillModifierFish = (int)value;
+
+                        break;
                 }
             }
 
@@ -1219,6 +1315,24 @@ namespace OpenTibia.FileFormats.Xml.Items
         public int? DefenseModifier { get; set; }
 
         public byte? Attack { get; set; }
+
+        public int? AttackModifierEarth { get; set; }
+
+        public int? AttackModifierFire { get; set; }
+
+        public int? AttackModifierEnergy { get; set; }
+
+        public int? AttackModifierIce { get; set; }
+
+        public int? AttackModifierDeath { get; set; }
+
+        public int? AttackModifierHoly { get; set; }
+
+        public int? AttackModifierDrown { get; set; }
+
+        public int? AttackModifierManaDrain { get; set; }
+
+        public int? AttackModifierLifeDrain { get; set; }
 
         public bool? BlockProjectile { get; set; }
 
@@ -1273,5 +1387,25 @@ namespace OpenTibia.FileFormats.Xml.Items
         public int? AbsorbManaDrainPercent { get; set; }
 
         public int? AbsorbLifeDrainPercent { get; set; }
+
+        public int? SpeedModifier { get; set; }
+
+        public int? SkillModifier { get; set; }
+
+        public int? SkillModifierMagicLevel { get; set; }
+
+        public int? SkillModifierFist { get; set; }
+
+        public int? SkillModifierSword { get; set; }
+
+        public int? SkillModifierAxe { get; set; }
+
+        public int? SkillModifierClub { get; set; }
+
+        public int? SkillModifierDistance { get; set; }
+
+        public int? SkillModifierShield { get; set; }
+
+        public int? SkillModifierFish { get; set; }
     }
 }

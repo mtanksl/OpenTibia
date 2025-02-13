@@ -35,6 +35,15 @@
       <xs:enumeration value="defense"/>
       <xs:enumeration value="defensemodifier"/>
       <xs:enumeration value="attack"/>
+      <xs:enumeration value="attackmodifierearth"/>
+      <xs:enumeration value="attackmodifierfire"/>
+      <xs:enumeration value="attackmodifierenergy"/>
+      <xs:enumeration value="attackmodifierice"/>
+      <xs:enumeration value="attackmodifierdeath"/>
+      <xs:enumeration value="attackmodifierholy"/>
+      <xs:enumeration value="attackmodifierdrown"/>
+      <xs:enumeration value="attackmodifiermanadrain"/>
+      <xs:enumeration value="attackmodifierlifedrain"/>
       <xs:enumeration value="blockprojectile"/>
       <xs:enumeration value="floorchange"/>
       <xs:enumeration value="corpsetype"/>
@@ -52,7 +61,6 @@
       <xs:enumeration value="maxhitchance"/>
       <xs:enumeration value="readable"/>
       <xs:enumeration value="writeable"/>
-      <xs:enumeration value="absorbpercentallelements"/>
       <xs:enumeration value="absorbpercentphysical"/>
       <xs:enumeration value="absorbpercentearth"/>
       <xs:enumeration value="absorbpercentfire"/>
@@ -60,27 +68,31 @@
       <xs:enumeration value="absorbpercentice"/>
       <xs:enumeration value="absorbpercentdeath"/>
       <xs:enumeration value="absorbpercentholy"/>
+      <xs:enumeration value="absorbpercentdrown"/>
       <xs:enumeration value="absorbpercentmanadrain"/>
       <xs:enumeration value="absorbpercentlifedrain"/>
-
+      <xs:enumeration value="speedmodifier"/>
+      <xs:enumeration value="skillmodifiermagiclevel"/>
+      <xs:enumeration value="skillmodifierfist"/>
+      <xs:enumeration value="skillmodifiersword"/>
+      <xs:enumeration value="skillmodifieraxe"/>
+      <xs:enumeration value="skillmodifierclub"/>
+      <xs:enumeration value="skillmodifierdistance"/>
+      <xs:enumeration value="skillmodifiershield"/>
+      <xs:enumeration value="skillmodifierfish"/>
+      
       <!-- unused -->
       <xs:enumeration value="allowpickupable"/>
       <xs:enumeration value="corpsetype"/>
       <xs:enumeration value="currency"/>
       <xs:enumeration value="decayto"/>
       <xs:enumeration value="duration"/>
-      <xs:enumeration value="elementearth"/>
-      <xs:enumeration value="elementenergy"/>
-      <xs:enumeration value="elementfire"/>
-      <xs:enumeration value="elementice"/>
       <xs:enumeration value="femalesleeper"/>
       <xs:enumeration value="field"/>
-      <xs:enumeration value="fluidsource"/>
       <xs:enumeration value="fluidsource"/>
       <xs:enumeration value="healthgain"/>
       <xs:enumeration value="healthticks"/>
       <xs:enumeration value="invisible"/>
-      <xs:enumeration value="magicpoints"/>
       <xs:enumeration value="malesleeper"/>
       <xs:enumeration value="managain"/>
       <xs:enumeration value="manaticks"/>
@@ -93,13 +105,6 @@
       <xs:enumeration value="showcharges"/>
       <xs:enumeration value="showcount"/>
       <xs:enumeration value="showduration"/>
-      <xs:enumeration value="skillaxe"/>
-      <xs:enumeration value="skillclub"/>
-      <xs:enumeration value="skilldist"/>
-      <xs:enumeration value="skillfist"/>
-      <xs:enumeration value="skillshield"/>
-      <xs:enumeration value="skillsword"/>
-      <xs:enumeration value="speed"/>
       <xs:enumeration value="stopduration"/>
       <xs:enumeration value="suppressdrown"/>
       <xs:enumeration value="suppressdrunk"/>

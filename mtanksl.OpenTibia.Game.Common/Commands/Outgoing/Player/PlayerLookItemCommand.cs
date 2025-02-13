@@ -73,7 +73,21 @@ namespace OpenTibia.Game.Commands
 
             if (ItemMetadata.Attack != null)
             {
-                attributes.Add("Atk: " + ItemMetadata.Attack);
+                if (ItemMetadata.AttackModifier.Count > 0)
+                {
+                    StringBuilder modifiers = new StringBuilder();
+
+                    foreach (var item in ItemMetadata.AttackModifier)
+                    {
+                        modifiers.Append( (item.Value > 0 ? "+" + item.Value : item.Value) + " " + item.Key.GetDescription() + " ");
+                    }
+
+                    attributes.Add("Atk: " + ItemMetadata.Attack + " physical " + modifiers.Remove(modifiers.Length - 1, 1).ToString() );
+                }
+                else
+                {
+                    attributes.Add("Atk: " + ItemMetadata.Attack);
+                }
             }
 
             if (ItemMetadata.Range != null)
@@ -95,14 +109,35 @@ namespace OpenTibia.Game.Commands
 
             if (ItemMetadata.Armor != null)
             {
-                attributes.Add("Arm: " + ItemMetadata.Armor);
+                if (ItemMetadata.DamageTakenFromElements.Count > 0)
+                {
+                    StringBuilder modifiers = new StringBuilder();
+
+                    foreach (var item in ItemMetadata.DamageTakenFromElements)
+                    {
+                        var value = 100 - item.Value * 100;
+
+                        modifiers.Append( (value > 0 ? "+" + value : value) + "% " + item.Key.GetDescription() + " ");
+                    }
+
+                    attributes.Add("Arm: " + ItemMetadata.Armor + " protection " + modifiers.Remove(modifiers.Length - 1, 1).ToString() );
+                }
+                else
+                {
+                    attributes.Add("Arm: " + ItemMetadata.Armor);
+                }
             }
 
-            if (ItemMetadata.DamageTakenFromElements.Count > 0)
+            if (ItemMetadata.SpeedModifier != null)
             {
-                foreach (var item in ItemMetadata.DamageTakenFromElements)
+                attributes.Add("speed " + (ItemMetadata.SpeedModifier.Value > 0 ? "+" + ItemMetadata.SpeedModifier.Value : ItemMetadata.SpeedModifier.Value) );
+            }
+
+            if (ItemMetadata.SkillModifier.Count > 0)
+            {
+                foreach (var item in ItemMetadata.SkillModifier)
                 {
-                    attributes.Add(item.Key.GetDescription() + " " + (item.Value > 0 ? "+" + item.Value * 100 : item.Value * 100) + "%");
+                    attributes.Add(item.Key.GetDescription() + " " + (item.Value > 0 ? "+" + item.Value : item.Value) );
                 }
             }
 

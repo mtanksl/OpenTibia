@@ -67,6 +67,10 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                         OpenTibiaId = otbItem.OpenTibiaId,
 
+                        AttackModifier = new Dictionary<DamageType, int>(),
+
+                        SkillModifier = new Dictionary<Skill, int>(),
+
                         DamageTakenFromElements = new Dictionary<DamageType, double>()
                     };
 
@@ -308,46 +312,142 @@ namespace OpenTibia.Game.Common.ServerObjects
                     {
                         metadata.Flags |= ItemMetadataFlags.Writeable;
                     }
-
+                                      
                     if (xmlItem.AbsorbPhysicalPercent != null)
                     {
                         metadata.DamageTakenFromElements[DamageType.Physical] = (100 - xmlItem.AbsorbPhysicalPercent.Value) / 100.0;
                     }
-                    else if (xmlItem.AbsorbEarthpercent != null)
+                    
+                    if (xmlItem.AbsorbEarthpercent != null)
                     {
                         metadata.DamageTakenFromElements[DamageType.Earth] = (100 - xmlItem.AbsorbEarthpercent.Value) / 100.0;
                     }
-                    else if (xmlItem.AbsorbFirePercent != null)
+                    
+                    if (xmlItem.AbsorbFirePercent != null)
                     {
                         metadata.DamageTakenFromElements[DamageType.Fire] = (100 - xmlItem.AbsorbFirePercent.Value) / 100.0;
                     }
-                    else if (xmlItem.AbsorbEnergyPercent != null)
+                    
+                    if (xmlItem.AbsorbEnergyPercent != null)
                     {
                         metadata.DamageTakenFromElements[DamageType.Energy] = (100 - xmlItem.AbsorbEnergyPercent.Value) / 100.0;
                     }
-                    else if (xmlItem.AbsorbIcePercent != null)
+                    
+                    if (xmlItem.AbsorbIcePercent != null)
                     {
                         metadata.DamageTakenFromElements[DamageType.Ice] = (100 - xmlItem.AbsorbIcePercent.Value) / 100.0;
                     }
-                    else if (xmlItem.AbsorbDeathPercent != null)
+                    
+                    if (xmlItem.AbsorbDeathPercent != null)
                     {
                         metadata.DamageTakenFromElements[DamageType.Death] = (100 - xmlItem.AbsorbDeathPercent.Value) / 100.0;
                     }
-                    else if (xmlItem.AbsorbHolyPercent != null)
+                    
+                    if (xmlItem.AbsorbHolyPercent != null)
                     {
                         metadata.DamageTakenFromElements[DamageType.Holy] = (100 - xmlItem.AbsorbHolyPercent.Value) / 100.0;
                     }
-                    else if (xmlItem.AbsorbDrownPercent != null)
+                    
+                    if (xmlItem.AbsorbDrownPercent != null)
                     {
                         metadata.DamageTakenFromElements[DamageType.Drown] = (100 - xmlItem.AbsorbDrownPercent.Value) / 100.0;
                     }
-                    else if (xmlItem.AbsorbManaDrainPercent != null)
+                    
+                    if (xmlItem.AbsorbManaDrainPercent != null)
                     {
                         metadata.DamageTakenFromElements[DamageType.ManaDrain] = (100 - xmlItem.AbsorbManaDrainPercent.Value) / 100.0;
                     }
-                    else if (xmlItem.AbsorbLifeDrainPercent != null)
+                    
+                    if (xmlItem.AbsorbLifeDrainPercent != null)
                     {
                         metadata.DamageTakenFromElements[DamageType.LifeDrain] = (100 - xmlItem.AbsorbLifeDrainPercent.Value) / 100.0;
+                    }
+
+                    if (xmlItem.AttackModifierEarth != null)
+                    {
+                        metadata.AttackModifier[DamageType.Earth] = xmlItem.AttackModifierEarth.Value;
+                    }
+                    
+                    if (xmlItem.AttackModifierFire != null)
+                    {
+                        metadata.AttackModifier[DamageType.Fire] = xmlItem.AttackModifierFire.Value;
+                    }
+                    
+                    if (xmlItem.AttackModifierEnergy != null)
+                    {
+                        metadata.AttackModifier[DamageType.Energy] = xmlItem.AttackModifierEnergy.Value;
+                    }
+                    
+                    if (xmlItem.AttackModifierIce != null)
+                    {
+                        metadata.AttackModifier[DamageType.Ice] = xmlItem.AttackModifierIce.Value;
+                    }
+                    
+                    if (xmlItem.AttackModifierDeath != null)
+                    {
+                        metadata.AttackModifier[DamageType.Death] = xmlItem.AttackModifierDeath.Value;
+                    }
+                    
+                    if (xmlItem.AttackModifierHoly != null)
+                    {
+                        metadata.AttackModifier[DamageType.Holy] = xmlItem.AttackModifierHoly.Value;
+                    }
+                    
+                    if (xmlItem.AttackModifierDrown != null)
+                    {
+                        metadata.AttackModifier[DamageType.Drown] = xmlItem.AttackModifierDrown.Value;
+                    }
+                    
+                    if (xmlItem.AttackModifierManaDrain != null)
+                    {
+                        metadata.AttackModifier[DamageType.ManaDrain] = xmlItem.AttackModifierManaDrain.Value;
+                    }
+                    
+                    if (xmlItem.AttackModifierLifeDrain != null)
+                    {
+                        metadata.AttackModifier[DamageType.LifeDrain] = xmlItem.AttackModifierLifeDrain.Value;
+                    }
+
+                    metadata.SpeedModifier = xmlItem.SpeedModifier;
+
+                    if (xmlItem.SkillModifierMagicLevel != null)
+                    {
+                        metadata.SkillModifier[Skill.MagicLevel] = xmlItem.SkillModifierMagicLevel.Value;
+                    }
+                    
+                    if (xmlItem.SkillModifierFist != null)
+                    {
+                        metadata.SkillModifier[Skill.Fist] = xmlItem.SkillModifierFist.Value;
+                    }
+                    
+                    if (xmlItem.SkillModifierClub != null)
+                    {
+                        metadata.SkillModifier[Skill.Club] = xmlItem.SkillModifierClub.Value;
+                    }
+                    
+                    if (xmlItem.SkillModifierSword != null)
+                    {
+                        metadata.SkillModifier[Skill.Sword] = xmlItem.SkillModifierSword.Value;
+                    }
+                    
+                    if (xmlItem.SkillModifierAxe != null)
+                    {
+                        metadata.SkillModifier[Skill.Axe] = xmlItem.SkillModifierAxe.Value;
+                    }
+                    
+                    if (xmlItem.SkillModifierDistance != null)
+                    {
+                        metadata.SkillModifier[Skill.Distance] = xmlItem.SkillModifierDistance.Value;
+                    }
+                    
+                    if (xmlItem.SkillModifierShield != null)
+                    {
+                        metadata.SkillModifier[Skill.Shield] = xmlItem.SkillModifierShield.Value;
+                    }
+                    
+                    if (xmlItem.SkillModifierFish != null)
+                    {
+                        metadata.SkillModifier[Skill.Fish] = xmlItem.SkillModifierFish.Value;
                     }
                 }
             }
