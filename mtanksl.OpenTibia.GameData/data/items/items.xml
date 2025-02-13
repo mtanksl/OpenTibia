@@ -3903,7 +3903,7 @@
 		<attribute key="defense" value="12"/>
 		<attribute key="attack" value="14"/>
 		<attribute key="weapontype" value="sword"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 	</item>
 	<item id="2377" article="a" name="two handed sword">
 		<attribute key="weight" value="7000"/>
@@ -3949,21 +3949,21 @@
 		<attribute key="defense" value="21"/>
 		<attribute key="attack" value="24"/>
 		<attribute key="weapontype" value="sword"/>
-		<attribute key="extradef" value="2"/>
+		<attribute key="defensemodifier" value="2"/>
 	</item>
 	<item id="2384" article="a" name="rapier">
 		<attribute key="weight" value="1500"/>
 		<attribute key="defense" value="8"/>
 		<attribute key="attack" value="10"/>
 		<attribute key="weapontype" value="sword"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 	</item>
 	<item id="2385" article="a" name="sabre">
 		<attribute key="weight" value="2500"/>
 		<attribute key="defense" value="10"/>
 		<attribute key="attack" value="12"/>
 		<attribute key="weapontype" value="sword"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 	</item>
 	<item id="2386" article="an" name="axe">
 		<attribute key="weight" value="4000"/>
@@ -4015,7 +4015,7 @@
 		<attribute key="attack" value="35"/>
 		<attribute key="elementfire" value="11"/>
 		<attribute key="weapontype" value="sword"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 	</item>
 	<item id="2393" article="a" name="giant sword">
 		<attribute key="description" value="This sword has been forged by ancient giants."/>
@@ -4036,7 +4036,7 @@
 		<attribute key="defense" value="13"/>
 		<attribute key="attack" value="15"/>
 		<attribute key="weapontype" value="sword"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 	</item>
 	<item id="2396" article="an" name="ice rapier">
 		<attribute key="description" value="A deadly but fragile weapon."/>
@@ -4074,7 +4074,7 @@
 		<attribute key="defense" value="35"/>
 		<attribute key="attack" value="48"/>
 		<attribute key="weapontype" value="sword"/>
-		<attribute key="extradef" value="3"/>
+		<attribute key="defensemodifier" value="3"/>
 	</item>
 	<item id="2401" article="a" name="staff">
 		<attribute key="weight" value="3800"/>
@@ -4119,7 +4119,7 @@
 		<attribute key="defense" value="30"/>
 		<attribute key="attack" value="36"/>
 		<attribute key="weapontype" value="sword"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 	</item>
 	<item id="2408" article="a" name="warlord sword">
 		<attribute key="description" value="Strong powers flow in this magic sword."/>
@@ -4134,7 +4134,7 @@
 		<attribute key="defense" value="15"/>
 		<attribute key="attack" value="26"/>
 		<attribute key="weapontype" value="sword"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 		<attribute key="elementearth" value="8"/>
 	</item>
 	<item id="2410" article="a" name="throwing knife" plural="throwing knives">
@@ -4158,7 +4158,7 @@
 		<attribute key="defense" value="12"/>
 		<attribute key="attack" value="16"/>
 		<attribute key="weapontype" value="sword"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 	</item>
 	<item id="2413" article="a" name="broad sword">
 		<attribute key="weight" value="5250"/>
@@ -4207,7 +4207,7 @@
 		<attribute key="defense" value="13"/>
 		<attribute key="attack" value="19"/>
 		<attribute key="weapontype" value="sword"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 	</item>
 	<item id="2420" article="a" name="machete">
 		<attribute key="weight" value="1650"/>
@@ -4221,7 +4221,7 @@
 		<attribute key="defense" value="35"/>
 		<attribute key="attack" value="49"/>
 		<attribute key="weapontype" value="club"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 	</item>
 	<item id="2422" article="an" name="iron hammer">
 		<attribute key="weight" value="6600"/>
@@ -4241,7 +4241,7 @@
 		<attribute key="defense" value="30"/>
 		<attribute key="attack" value="41"/>
 		<attribute key="weapontype" value="club"/>
-		<attribute key="extradef" value="2"/>
+		<attribute key="defensemodifier" value="2"/>
 	</item>
 	<item id="2425" article="an" name="obsidian lance">
 		<attribute key="weight" value="8000"/>
@@ -4275,14 +4275,14 @@
 		<attribute key="defense" value="18"/>
 		<attribute key="attack" value="28"/>
 		<attribute key="weapontype" value="axe"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 	</item>
 	<item id="2430" article="a" name="knight axe">
 		<attribute key="weight" value="5900"/>
 		<attribute key="defense" value="21"/>
 		<attribute key="attack" value="33"/>
 		<attribute key="weapontype" value="axe"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 	</item>
 	<item id="2431" article="a" name="stonecutter axe">
 		<attribute key="description" value="You feel the power of this mighty axe."/>
@@ -4290,7 +4290,7 @@
 		<attribute key="defense" value="30"/>
 		<attribute key="attack" value="50"/>
 		<attribute key="weapontype" value="axe"/>
-		<attribute key="extradef" value="3"/>
+		<attribute key="defensemodifier" value="3"/>
 	</item>
 	<item id="2432" article="a" name="fire axe">
 		<attribute key="description" value="The blade is a magic flame."/>
@@ -4299,7 +4299,7 @@
 		<attribute key="attack" value="38"/>
 		<attribute key="elementfire" value="11"/>
 		<attribute key="weapontype" value="axe"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 	</item>
 	<item id="2433" article="an" name="enchanted staff">
 		<attribute key="description" value="Temporary magic powers enchant this staff."/>
@@ -4322,7 +4322,7 @@
 		<attribute key="defense" value="19"/>
 		<attribute key="attack" value="31"/>
 		<attribute key="weapontype" value="axe"/>
-		<attribute key="extradef" value="2"/>
+		<attribute key="defensemodifier" value="2"/>
 	</item>
 	<item id="2436" article="a" name="skull staff">
 		<attribute key="description" value="The staff longs for death."/>
@@ -4330,7 +4330,7 @@
 		<attribute key="defense" value="12"/>
 		<attribute key="attack" value="36"/>
 		<attribute key="weapontype" value="club"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 	</item>
 	<item id="2437" article="a" name="golden mace">
 		<attribute key="weight" value="5000"/>
@@ -4382,7 +4382,7 @@
 		<attribute key="weight" value="8000"/>
 		<attribute key="defense" value="16"/>
 		<attribute key="attack" value="38"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 		<attribute key="weapontype" value="club"/>
 	</item>
 	<item id="2446" article="a" name="pharaoh sword">
@@ -4390,7 +4390,7 @@
 		<attribute key="defense" value="23"/>
 		<attribute key="attack" value="41"/>
 		<attribute key="weapontype" value="sword"/>
-		<attribute key="extradef" value="2"/>
+		<attribute key="defensemodifier" value="2"/>
 	</item>
 	<item id="2447" article="a" name="twin axe">
 		<attribute key="weight" value="6400"/>
@@ -4424,7 +4424,7 @@
 		<attribute key="defense" value="22"/>
 		<attribute key="attack" value="38"/>
 		<attribute key="weapontype" value="sword"/>
-		<attribute key="extradef" value="2"/>
+		<attribute key="defensemodifier" value="2"/>
 	</item>
 	<item id="2452" article="a" name="heavy mace">
 		<attribute key="description" value="Its tip is made of extremely solid steel."/>
@@ -8826,14 +8826,14 @@
 		<attribute key="defense" value="12"/>
 		<attribute key="attack" value="35"/>
 		<attribute key="weapontype" value="axe"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 	</item>
 	<item id="3963" article="a" name="templar scytheblade">
 		<attribute key="weight" value="2900"/>
 		<attribute key="defense" value="15"/>
 		<attribute key="attack" value="23"/>
 		<attribute key="weapontype" value="sword"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 	</item>
 	<item id="3964" article="a" name="ripper lance">
 		<attribute key="weight" value="8000"/>
@@ -8856,7 +8856,7 @@
 		<attribute key="defense" value="15"/>
 		<attribute key="attack" value="25"/>
 		<attribute key="weapontype" value="club"/>
-		<attribute key="extradef" value="2"/>
+		<attribute key="defensemodifier" value="2"/>
 	</item>
 	<item id="3967" article="a" name="tribal mask">
 		<attribute key="weight" value="2500"/>
@@ -16410,21 +16410,21 @@
 		<attribute key="defense" value="24"/>
 		<attribute key="attack" value="42"/>
 		<attribute key="weapontype" value="sword"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 	</item>
 	<item id="7384" article="a" name="mystic blade">
 		<attribute key="weight" value="3500"/>
 		<attribute key="defense" value="25"/>
 		<attribute key="attack" value="44"/>
 		<attribute key="weapontype" value="sword"/>
-		<attribute key="extradef" value="2"/>
+		<attribute key="defensemodifier" value="2"/>
 	</item>
 	<item id="7385" article="a" name="crimson sword">
 		<attribute key="weight" value="3600"/>
 		<attribute key="defense" value="20"/>
 		<attribute key="attack" value="28"/>
 		<attribute key="weapontype" value="sword"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 	</item>
 	<item id="7386" article="a" name="mercenary sword">
 		<attribute key="weight" value="6800"/>
@@ -16445,14 +16445,14 @@
 		<attribute key="defense" value="19"/>
 		<attribute key="attack" value="43"/>
 		<attribute key="weapontype" value="axe"/>
-		<attribute key="extradef" value="3"/>
+		<attribute key="defensemodifier" value="3"/>
 	</item>
 	<item id="7389" article="a" name="heroic axe">
 		<attribute key="weight" value="6100"/>
 		<attribute key="defense" value="24"/>
 		<attribute key="attack" value="44"/>
 		<attribute key="weapontype" value="axe"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 		<attribute key="description" value="This axe is only granted to a scrapper of the Svargrond Arena."/>
 	</item>
 	<item id="7390" article="the" name="justice seeker">
@@ -16460,7 +16460,7 @@
 		<attribute key="defense" value="24"/>
 		<attribute key="attack" value="47"/>
 		<attribute key="weapontype" value="sword"/>
-		<attribute key="extradef" value="3"/>
+		<attribute key="defensemodifier" value="3"/>
 		<attribute key="description" value="This sword is only granted to a warlord of the Svargrond Arena."/>
 	</item>
 	<item id="7391" article="a" name="Thaian sword">
@@ -16524,7 +16524,7 @@
 		<attribute key="defense" value="12"/>
 		<attribute key="attack" value="40"/>
 		<attribute key="weapontype" value="sword"/>
-		<attribute key="extradef" value="-2"/>
+		<attribute key="defensemodifier" value="-2"/>
 	</item>
 	<item id="7405" article="a" name="havoc blade">
 		<attribute key="weight" value="7200"/>
@@ -16553,7 +16553,7 @@
 		<attribute key="defense" value="19"/>
 		<attribute key="attack" value="32"/>
 		<attribute key="weapontype" value="sword"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 	</item>
 	<item id="7409" article="an" name="imaginary staff" editorsuffix=" (Rumour)">
 		<attribute key="weight" value="7500"/>
@@ -16573,14 +16573,14 @@
 		<attribute key="defense" value="22"/>
 		<attribute key="attack" value="42"/>
 		<attribute key="weapontype" value="axe"/>
-		<attribute key="extradef" value="2"/>
+		<attribute key="defensemodifier" value="2"/>
 	</item>
 	<item id="7412" article="a" name="butcher's axe">
 		<attribute key="weight" value="6300"/>
 		<attribute key="defense" value="24"/>
 		<attribute key="attack" value="41"/>
 		<attribute key="weapontype" value="axe"/>
-		<attribute key="extradef" value="-2"/>
+		<attribute key="defensemodifier" value="-2"/>
 	</item>
 	<item id="7413" article="a" name="titan axe">
 		<attribute key="weight" value="8100"/>
@@ -16602,7 +16602,7 @@
 		<attribute key="defense" value="20"/>
 		<attribute key="attack" value="44"/>
 		<attribute key="weapontype" value="club"/>
-		<attribute key="extradef" value="-2"/>
+		<attribute key="defensemodifier" value="-2"/>
 		<attribute key="description" value="This club is only granted to a scrapper of the Svargrond Arena."/>
 	</item>
 	<item id="7416" article="a" name="bloody edge">
@@ -16610,35 +16610,35 @@
 		<attribute key="defense" value="21"/>
 		<attribute key="attack" value="43"/>
 		<attribute key="weapontype" value="sword"/>
-		<attribute key="extradef" value="-3"/>
+		<attribute key="defensemodifier" value="-3"/>
 	</item>
 	<item id="7417" article="a" name="runed sword">
 		<attribute key="weight" value="4600"/>
 		<attribute key="defense" value="32"/>
 		<attribute key="attack" value="45"/>
 		<attribute key="weapontype" value="sword"/>
-		<attribute key="extradef" value="2"/>
+		<attribute key="defensemodifier" value="2"/>
 	</item>
 	<item id="7418" article="a" name="nightmare blade">
 		<attribute key="weight" value="4600"/>
 		<attribute key="defense" value="23"/>
 		<attribute key="attack" value="46"/>
 		<attribute key="weapontype" value="axe"/>
-		<attribute key="extradef" value="-3"/>
+		<attribute key="defensemodifier" value="-3"/>
 	</item>
 	<item id="7419" article="a" name="dreaded cleaver">
 		<attribute key="weight" value="3800"/>
 		<attribute key="defense" value="19"/>
 		<attribute key="attack" value="40"/>
 		<attribute key="weapontype" value="axe"/>
-		<attribute key="extradef" value="-3"/>
+		<attribute key="defensemodifier" value="-3"/>
 	</item>
 	<item id="7420" article="a" name="reaper's axe">
 		<attribute key="weight" value="3300"/>
 		<attribute key="weight" value="5900"/>
 		<attribute key="defense" value="25"/>
 		<attribute key="attack" value="46"/>
-		<attribute key="extradef" value="2"/>
+		<attribute key="defensemodifier" value="2"/>
 	</item>
 	<item id="7421" article="an" name="onyx flail">
 		<attribute key="weight" value="2600"/>
@@ -16651,7 +16651,7 @@
 		<attribute key="defense" value="20"/>
 		<attribute key="attack" value="46"/>
 		<attribute key="weapontype" value="club"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 	</item>
 	<item id="7423" article="a" name="skullcrusher">
 		<attribute key="weight" value="3200"/>
@@ -16702,7 +16702,7 @@
 		<attribute key="defense" value="21"/>
 		<attribute key="attack" value="47"/>
 		<attribute key="weapontype" value="club"/>
-		<attribute key="extradef" value="3"/>
+		<attribute key="defensemodifier" value="3"/>
 		<attribute key="description" value="This club is only granted to a warlord of the Svargrond Arena."/>
 	</item>
 	<item id="7430" article="a" name="dragonbone staff">
@@ -16715,7 +16715,7 @@
 	<item id="7431" article="a" name="demonbone">
 		<attribute key="weight" value="18000"/>
 		<attribute key="defense" value="38"/>
-		<attribute key="extradef" value="-2"/>
+		<attribute key="defensemodifier" value="-2"/>
 		<attribute key="attack" value="48"/>
 		<attribute key="weapontype" value="club"/>
 	</item>
@@ -16724,28 +16724,28 @@
 		<attribute key="defense" value="19"/>
 		<attribute key="attack" value="31"/>
 		<attribute key="weapontype" value="club"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 	</item>
 	<item id="7433" article="a" name="ravenwing">
 		<attribute key="weight" value="5500"/>
 		<attribute key="defense" value="22"/>
 		<attribute key="attack" value="45"/>
 		<attribute key="weapontype" value="axe"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 	</item>
 	<item id="7434" article="a" name="royal axe">
 		<attribute key="weight" value="9200"/>
 		<attribute key="defense" value="25"/>
 		<attribute key="attack" value="47"/>
 		<attribute key="weapontype" value="axe"/>
-		<attribute key="extradef" value="3"/>
+		<attribute key="defensemodifier" value="3"/>
 		<attribute key="description" value="This axe is only granted to a warlord of the Svargrond Arena."/>
 	</item>
 	<item id="7435" article="an" name="impaler" editorsuffix=" (Unknown Weight)">
 		<attribute key="defense" value="25"/>
 		<attribute key="attack" value="49"/>
 		<attribute key="weapontype" value="axe"/>
-		<attribute key="extradef" value="-2"/>
+		<attribute key="defensemodifier" value="-2"/>
 	</item>
 	<item id="7436" article="an" name="angelic axe">
 		<attribute key="weight" value="5600"/>
@@ -16845,7 +16845,7 @@
 		<attribute key="defense" value="28"/>
 		<attribute key="attack" value="48"/>
 		<attribute key="weapontype" value="axe"/>
-		<attribute key="extradef" value="2"/>
+		<attribute key="defensemodifier" value="2"/>
 	</item>
 	<item id="7456" article="a" name="noble axe">
 		<attribute key="weight" value="3800"/>
@@ -17614,7 +17614,7 @@
 		<attribute key="defense" value="21"/>
 		<attribute key="attack" value="20"/>
 		<attribute key="weapontype" value="sword"/>
-		<attribute key="extradef" value="2"/>
+		<attribute key="defensemodifier" value="2"/>
 		<attribute key="elementfire" value="4"/>
 		<attribute key="charges" value="1000"/>
 		<attribute key="showcharges" value="1"/>
@@ -17625,7 +17625,7 @@
 		<attribute key="defense" value="21"/>
 		<attribute key="attack" value="34"/>
 		<attribute key="weapontype" value="sword"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 		<attribute key="elementfire" value="8"/>
 		<attribute key="charges" value="1000"/>
 		<attribute key="showcharges" value="1"/>
@@ -17637,7 +17637,7 @@
 		<attribute key="defense" value="25"/>
 		<attribute key="attack" value="36"/>
 		<attribute key="weapontype" value="sword"/>
-		<attribute key="extradef" value="2"/>
+		<attribute key="defensemodifier" value="2"/>
 		<attribute key="elementfire" value="8"/>
 		<attribute key="charges" value="1000"/>
 		<attribute key="showcharges" value="1"/>
@@ -17692,7 +17692,7 @@
 		<attribute key="defense" value="24"/>
 		<attribute key="attack" value="35"/>
 		<attribute key="weapontype" value="axe"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 		<attribute key="elementfire" value="9"/>
 		<attribute key="charges" value="1000"/>
 		<attribute key="showcharges" value="1"/>
@@ -17726,7 +17726,7 @@
 		<attribute key="defense" value="15"/>
 		<attribute key="attack" value="23"/>
 		<attribute key="weapontype" value="club"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 		<attribute key="elementfire" value="5"/>
 		<attribute key="charges" value="1000"/>
 		<attribute key="showcharges" value="1"/>
@@ -17737,7 +17737,7 @@
 		<attribute key="defense" value="16"/>
 		<attribute key="attack" value="31"/>
 		<attribute key="weapontype" value="club"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 		<attribute key="elementfire" value="7"/>
 		<attribute key="charges" value="1000"/>
 		<attribute key="showcharges" value="1"/>
@@ -17749,7 +17749,7 @@
 		<attribute key="defense" value="20"/>
 		<attribute key="attack" value="36"/>
 		<attribute key="weapontype" value="club"/>
-		<attribute key="extradef" value="-2"/>
+		<attribute key="defensemodifier" value="-2"/>
 		<attribute key="elementfire" value="8"/>
 		<attribute key="charges" value="1000"/>
 		<attribute key="showcharges" value="1"/>
@@ -17796,7 +17796,7 @@
 		<attribute key="defense" value="21"/>
 		<attribute key="attack" value="20"/>
 		<attribute key="weapontype" value="sword"/>
-		<attribute key="extradef" value="2"/>
+		<attribute key="defensemodifier" value="2"/>
 		<attribute key="elementice" value="4"/>
 		<attribute key="charges" value="1000"/>
 		<attribute key="showcharges" value="1"/>
@@ -17807,7 +17807,7 @@
 		<attribute key="defense" value="21"/>
 		<attribute key="attack" value="34"/>
 		<attribute key="weapontype" value="sword"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 		<attribute key="elementice" value="8"/>
 		<attribute key="charges" value="1000"/>
 		<attribute key="showcharges" value="1"/>
@@ -17819,7 +17819,7 @@
 		<attribute key="defense" value="25"/>
 		<attribute key="attack" value="36"/>
 		<attribute key="weapontype" value="sword"/>
-		<attribute key="extradef" value="2"/>
+		<attribute key="defensemodifier" value="2"/>
 		<attribute key="elementice" value="8"/>
 		<attribute key="charges" value="1000"/>
 		<attribute key="showcharges" value="1"/>
@@ -17875,7 +17875,7 @@
 		<attribute key="defense" value="24"/>
 		<attribute key="attack" value="35"/>
 		<attribute key="weapontype" value="axe"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 		<attribute key="elementice" value="9"/>
 		<attribute key="charges" value="1000"/>
 		<attribute key="showcharges" value="1"/>
@@ -17909,7 +17909,7 @@
 		<attribute key="defense" value="15"/>
 		<attribute key="attack" value="23"/>
 		<attribute key="weapontype" value="club"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 		<attribute key="elementice" value="5"/>
 		<attribute key="charges" value="1000"/>
 		<attribute key="showcharges" value="1"/>
@@ -17920,7 +17920,7 @@
 		<attribute key="defense" value="16"/>
 		<attribute key="attack" value="31"/>
 		<attribute key="weapontype" value="club"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 		<attribute key="elementice" value="7"/>
 		<attribute key="charges" value="1000"/>
 		<attribute key="showcharges" value="1"/>
@@ -17932,7 +17932,7 @@
 		<attribute key="defense" value="20"/>
 		<attribute key="attack" value="36"/>
 		<attribute key="weapontype" value="club"/>
-		<attribute key="extradef" value="-2"/>
+		<attribute key="defensemodifier" value="-2"/>
 		<attribute key="elementice" value="8"/>
 		<attribute key="charges" value="1000"/>
 		<attribute key="showcharges" value="1"/>
@@ -18300,7 +18300,7 @@
 		<attribute key="defense" value="21"/>
 		<attribute key="attack" value="20"/>
 		<attribute key="weapontype" value="sword"/>
-		<attribute key="extradef" value="2"/>
+		<attribute key="defensemodifier" value="2"/>
 		<attribute key="elementearth" value="4"/>
 		<attribute key="charges" value="1000"/>
 		<attribute key="showcharges" value="1"/>
@@ -18311,7 +18311,7 @@
 		<attribute key="defense" value="21"/>
 		<attribute key="attack" value="34"/>
 		<attribute key="weapontype" value="sword"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 		<attribute key="elementearth" value="8"/>
 		<attribute key="charges" value="1000"/>
 		<attribute key="showcharges" value="1"/>
@@ -18323,7 +18323,7 @@
 		<attribute key="defense" value="25"/>
 		<attribute key="attack" value="36"/>
 		<attribute key="weapontype" value="sword"/>
-		<attribute key="extradef" value="2"/>
+		<attribute key="defensemodifier" value="2"/>
 		<attribute key="elementearth" value="8"/>
 		<attribute key="charges" value="1000"/>
 		<attribute key="showcharges" value="1"/>
@@ -18378,7 +18378,7 @@
 		<attribute key="defense" value="24"/>
 		<attribute key="attack" value="35"/>
 		<attribute key="weapontype" value="axe"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 		<attribute key="elementearth" value="9"/>
 		<attribute key="charges" value="1000"/>
 		<attribute key="showcharges" value="1"/>
@@ -18412,7 +18412,7 @@
 		<attribute key="defense" value="15"/>
 		<attribute key="attack" value="23"/>
 		<attribute key="weapontype" value="club"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 		<attribute key="elementearth" value="5"/>
 		<attribute key="charges" value="1000"/>
 		<attribute key="showcharges" value="1"/>
@@ -18423,7 +18423,7 @@
 		<attribute key="defense" value="16"/>
 		<attribute key="attack" value="31"/>
 		<attribute key="weapontype" value="club"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 		<attribute key="elementearth" value="7"/>
 		<attribute key="charges" value="1000"/>
 		<attribute key="showcharges" value="1"/>
@@ -18435,7 +18435,7 @@
 		<attribute key="defense" value="20"/>
 		<attribute key="attack" value="36"/>
 		<attribute key="weapontype" value="club"/>
-		<attribute key="extradef" value="-2"/>
+		<attribute key="defensemodifier" value="-2"/>
 		<attribute key="elementearth" value="8"/>
 		<attribute key="charges" value="1000"/>
 		<attribute key="showcharges" value="1"/>
@@ -18469,7 +18469,7 @@
 		<attribute key="defense" value="21"/>
 		<attribute key="attack" value="20"/>
 		<attribute key="weapontype" value="sword"/>
-		<attribute key="extradef" value="2"/>
+		<attribute key="defensemodifier" value="2"/>
 		<attribute key="elementenergy" value="4"/>
 		<attribute key="charges" value="1000"/>
 		<attribute key="showcharges" value="1"/>
@@ -18480,7 +18480,7 @@
 		<attribute key="defense" value="21"/>
 		<attribute key="attack" value="34"/>
 		<attribute key="weapontype" value="sword"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 		<attribute key="elementenergy" value="8"/>
 		<attribute key="charges" value="1000"/>
 		<attribute key="showcharges" value="1"/>
@@ -18492,7 +18492,7 @@
 		<attribute key="defense" value="25"/>
 		<attribute key="attack" value="36"/>
 		<attribute key="weapontype" value="sword"/>
-		<attribute key="extradef" value="2"/>
+		<attribute key="defensemodifier" value="2"/>
 		<attribute key="elementenergy" value="8"/>
 		<attribute key="charges" value="1000"/>
 		<attribute key="showcharges" value="1"/>
@@ -18547,7 +18547,7 @@
 		<attribute key="defense" value="24"/>
 		<attribute key="attack" value="35"/>
 		<attribute key="weapontype" value="axe"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 		<attribute key="elementenergy" value="9"/>
 		<attribute key="charges" value="1000"/>
 		<attribute key="showcharges" value="1"/>
@@ -18581,7 +18581,7 @@
 		<attribute key="defense" value="15"/>
 		<attribute key="attack" value="23"/>
 		<attribute key="weapontype" value="club"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 		<attribute key="elementenergy" value="5"/>
 		<attribute key="charges" value="1000"/>
 		<attribute key="showcharges" value="1"/>
@@ -18592,7 +18592,7 @@
 		<attribute key="defense" value="16"/>
 		<attribute key="attack" value="31"/>
 		<attribute key="weapontype" value="club"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 		<attribute key="elementenergy" value="7"/>
 		<attribute key="charges" value="1000"/>
 		<attribute key="showcharges" value="1"/>
@@ -18604,7 +18604,7 @@
 		<attribute key="defense" value="20"/>
 		<attribute key="attack" value="36"/>
 		<attribute key="weapontype" value="club"/>
-		<attribute key="extradef" value="-2"/>
+		<attribute key="defensemodifier" value="-2"/>
 		<attribute key="elementenergy" value="8"/>
 		<attribute key="charges" value="1000"/>
 		<attribute key="showcharges" value="1"/>
@@ -19309,7 +19309,7 @@
 		<attribute key="defense" value="20"/>
 		<attribute key="attack" value="28"/>
 		<attribute key="weapontype" value="sword"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 	</item>
 	<item id="8210" article="a" name="cave entrance">
 		<attribute key="floorchange" value="down"/>
@@ -19979,7 +19979,7 @@
 		<attribute key="defense" value="14"/>
 		<attribute key="attack" value="21"/>
 		<attribute key="weapontype" value="sword"/>
-		<attribute key="extradef" value="1"/>
+		<attribute key="defensemodifier" value="1"/>
 	</item>
 	<item id="8603" article="a" name="wheel"/>
 	<item id="8604" article="a" name="wheel"/>
@@ -20800,14 +20800,14 @@
 		<attribute key="defense" value="28"/>
 		<attribute key="attack" value="51"/>
 		<attribute key="weapontype" value="axe"/>
-		<attribute key="extradef" value="2"/>
+		<attribute key="defensemodifier" value="2"/>
 	</item>
 	<item id="8925" article="a" name="solar axe">
 		<attribute key="weight" value="11000"/>
 		<attribute key="defense" value="29"/>
 		<attribute key="attack" value="52"/>
 		<attribute key="weapontype" value="axe"/>
-		<attribute key="extradef" value="3"/>
+		<attribute key="defensemodifier" value="3"/>
 	</item>
 	<item id="8926" article="a" name="demonwing axe">
 		<attribute key="weight" value="12000"/>
@@ -20821,14 +20821,14 @@
 		<attribute key="defense" value="32"/>
 		<attribute key="attack" value="51"/>
 		<attribute key="weapontype" value="club"/>
-		<attribute key="extradef" value="-1"/>
+		<attribute key="defensemodifier" value="-1"/>
 	</item>
 	<item id="8928" article="an" name="obsidian truncheon">
 		<attribute key="weight" value="6500"/>
 		<attribute key="defense" value="30"/>
 		<attribute key="attack" value="50"/>
 		<attribute key="weapontype" value="club"/>
-		<attribute key="extradef" value="2"/>
+		<attribute key="defensemodifier" value="2"/>
 	</item>
 	<item id="8929" name="the stomper">
 		<attribute key="weight" value="11500"/>
@@ -20836,14 +20836,14 @@
 		<attribute key="attack" value="51"/>
 		<attribute key="weapontype" value="club"/>
 		<attribute key="slottype" value="two-handed"/>
-		<attribute key="extradef" value="3"/>
+		<attribute key="defensemodifier" value="3"/>
 	</item>
 	<item id="8930" article="an" name="emerald sword">
 		<attribute key="weight" value="4100"/>
 		<attribute key="defense" value="33"/>
 		<attribute key="attack" value="49"/>
 		<attribute key="weapontype" value="sword"/>
-		<attribute key="extradef" value="3"/>
+		<attribute key="defensemodifier" value="3"/>
 	</item>
 	<item id="8932" article="the" name="calamity">
 		<attribute key="weight" value="6800"/>
@@ -24708,7 +24708,7 @@
 		<attribute key="attack" value="46"/>
 		<attribute key="weapontype" value="sword"/>
 		<attribute key="weight" value="4900"/>
-		<attribute key="extradef" value="2"/>
+		<attribute key="defensemodifier" value="2"/>
 	</item>
 	<item id="11308" name="drachaku">
 		<attribute key="defense" value="25"/>

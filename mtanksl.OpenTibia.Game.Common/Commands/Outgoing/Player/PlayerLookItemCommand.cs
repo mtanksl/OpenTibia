@@ -83,9 +83,9 @@ namespace OpenTibia.Game.Commands
 
             if (ItemMetadata.Defense != null)
             {
-                if (ItemMetadata.ExtraDefense != null)
+                if (ItemMetadata.DefenseModifier != null)
                 {
-                    attributes.Add("Def: " + ItemMetadata.Defense + " " + (ItemMetadata.ExtraDefense > 0 ? "+" + ItemMetadata.ExtraDefense : ItemMetadata.ExtraDefense) );
+                    attributes.Add("Def: " + ItemMetadata.Defense + " " + (ItemMetadata.DefenseModifier > 0 ? "+" + ItemMetadata.DefenseModifier : ItemMetadata.DefenseModifier) );
                 }
                 else
                 {

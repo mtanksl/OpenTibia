@@ -235,7 +235,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     metadata.Defense = xmlItem.Defense;
 
-                    metadata.ExtraDefense = xmlItem.ExtraDefense;
+                    metadata.DefenseModifier = xmlItem.DefenseModifier;
 
                     metadata.Attack = xmlItem.Attack;
 

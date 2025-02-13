@@ -197,14 +197,14 @@ namespace OpenTibia.Common.Objects
             {
                 defense = weapon.Metadata.Defense ?? 0;
 
-                extraDefense = weapon.Metadata.ExtraDefense ?? 0;
+                extraDefense = weapon.Metadata.DefenseModifier ?? 0;
             }
 
             if (shield != null)
             {
                 defense = shield.Metadata.Defense ?? 0;
 
-                extraDefense = Math.Max(extraDefense, shield.Metadata.ExtraDefense ?? 0);
+                extraDefense = Math.Max(extraDefense, shield.Metadata.DefenseModifier ?? 0);
             }
 
             return defense + extraDefense;

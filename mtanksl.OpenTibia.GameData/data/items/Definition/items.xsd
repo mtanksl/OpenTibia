@@ -33,7 +33,7 @@
       <xs:enumeration value="weight"/>
       <xs:enumeration value="armor"/>
       <xs:enumeration value="defense"/>
-      <xs:enumeration value="extradef"/>
+      <xs:enumeration value="defensemodifier"/>
       <xs:enumeration value="attack"/>
       <xs:enumeration value="blockprojectile"/>
       <xs:enumeration value="floorchange"/>
