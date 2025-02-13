@@ -39,6 +39,12 @@
   <defenses mitigation="0.38" defense="0" armor="7" />
   <changetargetstrategy interval="5000" chance="10" />
   <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
-  <attacks />
+  <attacks>
+    <attack name="melee" interval="2000" chance="90" min="0" max="22" />
+    <attack name="ice strike" interval="3000" chance="70" min="16" max="32" />
+    <attack name="ice wave" interval="3000" chance="70" min="9" max="20" />
+
+
+  </attacks>
   <loot />
 </monster>

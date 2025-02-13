@@ -37,6 +37,17 @@
   <defenses mitigation="2.75" defense="0" armor="60" />
   <changetargetstrategy interval="5000" chance="10" />
   <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
-  <attacks />
+  <attacks>
+    <attack name="melee" interval="2000" chance="90" min="0" max="508" />
+
+    <attack name="terra wave" interval="3000" chance="70" min="300" max="700" />
+    <attack name="life drain" interval="3000" chance="70" min="250" max="657" />
+    <attack name="fire wave" interval="3000" chance="70" min="50" max="662" />
+    <attack name="death strike" interval="3000" chance="70" min="395" max="498" />
+    <attack name="terra strike" interval="3000" chance="70" min="100" max="549" />
+    <attack name="flame strike" interval="3000" chance="70" min="100" max="403" />
+    <attack name="self healing" interval="2000" chance="50" min="250" max="450" />
+    <attack name="haste" interval="2000" chance="50" />
+  </attacks>
   <loot />
 </monster>

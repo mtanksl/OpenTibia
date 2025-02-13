@@ -39,6 +39,13 @@
   <defenses mitigation="1.32" defense="0" armor="30" />
   <changetargetstrategy interval="5000" chance="10" />
   <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
-  <attacks />
+  <attacks>
+    <attack name="melee" interval="2000" chance="90" min="0" max="400" />
+
+    <attack name="paralyse" interval="3000" chance="70" />
+    <attack name="life drain" interval="3000" chance="70" min="100" max="350" />
+    <attack name="haste" interval="2000" chance="50" />
+    <attack name="self healing" interval="2000" chance="50" min="200" max="280" />
+  </attacks>
   <loot />
 </monster>

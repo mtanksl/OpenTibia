@@ -36,6 +36,13 @@
   <defenses mitigation="1.32" defense="0" armor="48" />
   <changetargetstrategy interval="5000" chance="10" />
   <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
-  <attacks />
+  <attacks>
+    <attack name="melee" interval="2000" chance="90" min="0" max="460" />
+    <attack name="terra strike" interval="3000" chance="70" min="150" max="200" />
+
+
+
+    <attack name="self healing" interval="2000" chance="50" min="250" max="350" />
+  </attacks>
   <loot />
 </monster>

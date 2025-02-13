@@ -40,6 +40,10 @@
   <defenses mitigation="0.67" defense="0" armor="20" />
   <changetargetstrategy interval="5000" chance="10" />
   <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
-  <attacks />
+  <attacks>
+    <attack name="melee" interval="2000" chance="90" min="0" max="60" />
+    <attack name="boulder throw" interval="3000" chance="70" min="0" max="90" />
+    <attack name="haste" interval="2000" chance="50" />
+  </attacks>
   <loot />
 </monster>

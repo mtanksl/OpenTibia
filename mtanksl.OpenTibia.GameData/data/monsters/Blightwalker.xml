@@ -38,6 +38,12 @@
   <defenses mitigation="1.18" defense="0" armor="63" />
   <changetargetstrategy interval="5000" chance="10" />
   <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
-  <attacks />
+  <attacks>
+    <attack name="melee" interval="2000" chance="90" min="0" max="490" />
+    <attack name="terra strike" interval="3000" chance="70" min="220" max="405" />
+
+
+    <attack name="paralyse" interval="3000" chance="70" />
+  </attacks>
   <loot />
 </monster>

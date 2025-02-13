@@ -34,6 +34,12 @@
   <defenses mitigation="1.6" defense="0" armor="62" />
   <changetargetstrategy interval="5000" chance="10" />
   <targetstrategy nearest="0" weakest="0" mostdamage="0" random="100" />
-  <attacks />
+  <attacks>
+    <attack name="melee" interval="2000" chance="90" min="0" max="520" />
+
+
+
+
+  </attacks>
   <loot />
 </monster>
