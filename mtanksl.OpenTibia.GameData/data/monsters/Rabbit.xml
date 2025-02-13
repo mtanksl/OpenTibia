@@ -12,7 +12,7 @@
     <flag canpushitems="0" />
     <flag canpushcreatures="0" />
     <flag targetdistance="1" />
-    <flag runonhealth="0" />
+    <flag runonhealth="15" />
   </flags>
   <immunities>
     <immunity paralyze="0" />

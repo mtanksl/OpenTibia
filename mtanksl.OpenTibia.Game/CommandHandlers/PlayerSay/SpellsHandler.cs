@@ -128,7 +128,7 @@ namespace OpenTibia.Game.CommandHandlers
                         await Promise.Break;
                     }
 
-                    if (target is Npc || (target is Player player && (player.Rank == Rank.Gamemaster || player.Rank == Rank.AccountManager || Context.Server.Config.GameplayWorldType == WorldType.NonPvp || player.Level <= Context.Server.Config.GameplayProtectionLevel || command.Player.Level <= Context.Server.Config.GameplayProtectionLevel) ) )
+                    if (target is Npc || (target is Monster monster && !monster.Metadata.Attackable) || (target is Player player && (player.Rank == Rank.Gamemaster || player.Rank == Rank.AccountManager || Context.Server.Config.GameplayWorldType == WorldType.NonPvp || player.Level <= Context.Server.Config.GameplayProtectionLevel || command.Player.Level <= Context.Server.Config.GameplayProtectionLevel) ) )
                     {
                         Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackThisCreature) );
 

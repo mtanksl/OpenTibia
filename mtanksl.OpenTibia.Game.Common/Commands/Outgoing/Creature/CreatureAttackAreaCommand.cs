@@ -151,7 +151,9 @@ namespace OpenTibia.Game.Commands
 
                             if (Attack != null || Condition != null)
                             {
-                                foreach (var monster in toTile.GetMonsters().ToArray() )
+                                foreach (var monster in toTile.GetMonsters()
+                                    .Where(m => m.Metadata.Attackable)
+                                    .ToArray() )
                                 {
                                     await Context.AddCommand(new CreatureAttackCreatureCommand(Attacker, monster, Attack, Condition) );
 
@@ -198,7 +200,9 @@ namespace OpenTibia.Game.Commands
 
                         if (Attack != null || Condition != null)
                         {
-                            foreach (var monster in toTile.GetMonsters().ToArray() )
+                            foreach (var monster in toTile.GetMonsters()
+                                .Where(m => m.Metadata.Attackable)
+                                .ToArray() )
                             {
                                 await Context.AddCommand(new CreatureAttackCreatureCommand(Attacker, monster, Attack, Condition) );
                             }

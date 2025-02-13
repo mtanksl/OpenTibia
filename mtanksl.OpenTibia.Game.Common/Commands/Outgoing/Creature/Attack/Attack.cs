@@ -193,7 +193,7 @@ namespace OpenTibia.Game.Commands
                 return (damage, blockType);
             }
 
-            throw new NotImplementedException();
+            return (0, BlockType.None);
         }
 
         public abstract Promise Missed(Creature attacker, Creature target, BlockType blockType);

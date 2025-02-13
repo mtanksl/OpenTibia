@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <monster name="Dwarf Dispenser" nameDescription="a dwarf dispenser" race="undead" speed="0" experience="0" manacost="0">
-  <health now="100" max="100" />
+  <health now="0" max="0" />
   <look typeex="6116" type="0" head="0" body="0" legs="0" feet="0" corpse="0" />
   <flags>
     <flag summonable="0" />
