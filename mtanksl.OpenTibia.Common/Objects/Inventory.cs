@@ -187,7 +187,7 @@ namespace OpenTibia.Common.Objects
 
             int defense = 0;
 
-            int extraDefense = 0;
+            int defenseModifier = 0;
 
             Item weapon = GetWeapon();
 
@@ -197,17 +197,17 @@ namespace OpenTibia.Common.Objects
             {
                 defense = weapon.Metadata.Defense ?? 0;
 
-                extraDefense = weapon.Metadata.DefenseModifier ?? 0;
+                defenseModifier = weapon.Metadata.DefenseModifier ?? 0;
             }
 
             if (shield != null)
             {
                 defense = shield.Metadata.Defense ?? 0;
 
-                extraDefense = Math.Max(extraDefense, shield.Metadata.DefenseModifier ?? 0);
+                defenseModifier = Math.Max(defenseModifier, shield.Metadata.DefenseModifier ?? 0);
             }
 
-            return defense + extraDefense;
+            return defense + defenseModifier;
         }
 
         public double GetArmorReductionPercent(DamageType damageType)

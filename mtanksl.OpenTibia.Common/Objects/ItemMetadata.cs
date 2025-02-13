@@ -37,7 +37,7 @@ namespace OpenTibia.Common.Objects
 
         public byte? Defense { get; set; }
 
-        public byte? DefenseModifier { get; set; }
+        public int? DefenseModifier { get; set; }
 
         public byte? Attack { get; set; }
 

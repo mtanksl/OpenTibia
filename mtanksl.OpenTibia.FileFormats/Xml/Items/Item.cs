@@ -76,7 +76,7 @@ namespace OpenTibia.FileFormats.Xml.Items
 
                     case "defensemodifier":
 
-                        item.DefenseModifier = (byte)(int)value;
+                        item.DefenseModifier = (int)value;
 
                         break;
 
@@ -1216,7 +1216,7 @@ namespace OpenTibia.FileFormats.Xml.Items
 
         public byte? Defense { get; set; }
 
-        public byte? DefenseModifier { get; set; }
+        public int? DefenseModifier { get; set; }
 
         public byte? Attack { get; set; }
 
