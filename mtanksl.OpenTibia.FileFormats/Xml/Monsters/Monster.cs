@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Structures;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
@@ -160,6 +161,7 @@ namespace OpenTibia.FileFormats.Xml.Monsters
 
                         LifeDrain = (int?)immunityNode.Attribute("lifeDrain"),
 
+
                         Paralyze = (int?)immunityNode.Attribute("paralyze"),
 
                         Invisible = (int?)immunityNode.Attribute("invisible")
@@ -243,9 +245,24 @@ namespace OpenTibia.FileFormats.Xml.Monsters
                 {
                     Dictionary<string, string> attributes = new Dictionary<string, string>();
 
+                    foreach (var attributeNode in attackNode.Attributes().Where(a => a.Name != "name" && a.Name != "interval" && a.Name != "chance" && a.Name != "min" && a.Name != "max") )
+                    {
+                        var key = attributeNode.Name.LocalName;
+
+                        if ( !attributes.ContainsKey(key) )
+                        {
+                            attributes.Add(key, attributeNode.Value);
+                        }
+                    }
+
                     foreach (var attributeNode in attackNode.Elements("attribute") )
                     {
-                        attributes.Add( (string)attributeNode.Attribute("key"), (string)attributeNode.Attribute("value") );
+                        var key = (string)attributeNode.Attribute("key");
+
+                        if ( !attributes.ContainsKey(key) )
+                        {
+                            attributes.Add(key, (string)attributeNode.Attribute("value") );
+                        }
                     }
 
                     monster.Attacks.Add(new AttackItem() 
@@ -284,9 +301,24 @@ namespace OpenTibia.FileFormats.Xml.Monsters
                 {
                     Dictionary<string, string> attributes = new Dictionary<string, string>();
 
+                    foreach (var attributeNode in defenseNode.Attributes().Where(a => a.Name != "name" && a.Name != "interval" && a.Name != "chance" && a.Name != "min" && a.Name != "max") )
+                    {
+                        var key = attributeNode.Name.LocalName;
+
+                        if ( !attributes.ContainsKey(key) )
+                        {
+                            attributes.Add(key, attributeNode.Value);
+                        }
+                    }
+
                     foreach (var attributeNode in defenseNode.Elements("attribute") )
                     {
-                        attributes.Add( (string)attributeNode.Attribute("key"), (string)attributeNode.Attribute("value") );
+                        var key = (string)attributeNode.Attribute("key");
+
+                        if ( !attributes.ContainsKey(key) )
+                        {
+                            attributes.Add(key, (string)attributeNode.Attribute("value") );
+                        }
                     }
 
                     monster.Defenses.Items.Add(new DefenseItem() 
