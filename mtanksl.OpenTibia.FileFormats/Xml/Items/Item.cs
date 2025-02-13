@@ -50,7 +50,7 @@ namespace OpenTibia.FileFormats.Xml.Items
 
                         break;
 
-                    case "runeSpellName":
+                    case "runespellname":
 
                         item.RuneSpellName = (string)value;
 
@@ -177,13 +177,13 @@ namespace OpenTibia.FileFormats.Xml.Items
 
                         break;
 
-                    case "containerSize":
+                    case "containersize":
 
                         item.ContainerSize = (byte)(uint)value;
 
                         break;
 
-                    case "weaponType":
+                    case "weapontype":
 
                         switch ( (string)value)
                         {
@@ -233,7 +233,7 @@ namespace OpenTibia.FileFormats.Xml.Items
 
                         break;
 
-                    case "ammoType":
+                    case "ammotype":
 
                         switch ( (string)value)
                         {
@@ -299,7 +299,7 @@ namespace OpenTibia.FileFormats.Xml.Items
 
                         break;
 
-                    case "shootType":
+                    case "shoottype":
 
                         switch ( (string)value)
                         {
@@ -992,7 +992,7 @@ namespace OpenTibia.FileFormats.Xml.Items
 
                         break;
 
-                    case "slotType":
+                    case "slottype":
 
                         SlotType slotType = Common.Structures.SlotType.None;
 
@@ -1071,13 +1071,13 @@ namespace OpenTibia.FileFormats.Xml.Items
 
                         break;
 
-                    case "breakChance":
+                    case "breakchance":
 
                         item.BreakChance = (byte)Math.Max(0, Math.Min(100, (int)value) );
 
                         break;
 
-                    case "ammoAction":
+                    case "ammoaction":
 
                         switch ( (string)value)
                         {
@@ -1103,13 +1103,13 @@ namespace OpenTibia.FileFormats.Xml.Items
 
                         break;
 
-                    case "hitChance":
+                    case "hitchance":
 
                         item.HitChance = (byte)Math.Max(0, Math.Min(100, (int)value) );
 
                         break;
 
-                    case "maxHitChance":
+                    case "maxhitchance":
 
                         item.MaxHitChance = (byte)Math.Max(0, Math.Min(100, (int)value) );
 
@@ -1127,7 +1127,7 @@ namespace OpenTibia.FileFormats.Xml.Items
 
                         break;
 
-                    case "absorbPercentAllElements":
+                    case "absorbpercentallelements":
 
                         item.AbsorbPhysicalPercent = (int)value;
                         item.AbsorbEarthpercent = (int)value;
@@ -1139,55 +1139,55 @@ namespace OpenTibia.FileFormats.Xml.Items
 
                         break;
 
-                    case "absorbPercentPhysical":
+                    case "absorbpercentphysical":
 
                         item.AbsorbPhysicalPercent = (int)value;
 
                         break;
 
-                    case "absorbPercentEarth":
+                    case "absorbpercentearth":
 
                         item.AbsorbEarthpercent = (int)value;
 
                         break;
 
-                    case "absorbPercentFire":
+                    case "absorbpercentfire":
 
                         item.AbsorbFirePercent = (int)value;
 
                         break;
 
-                    case "absorbPercentEnergy":
+                    case "absorbpercentenergy":
 
                         item.AbsorbEnergyPercent = (int)value;
 
                         break;
 
-                    case "absorbPercentIce":
+                    case "absorbpercentice":
 
                         item.AbsorbIcePercent = (int)value;
 
                         break;
 
-                    case "absorbPercentDeath":
+                    case "absorbpercentdeath":
 
                         item.AbsorbDeathPercent = (int)value;
 
                         break;
 
-                    case "absorbPercentHoly":
+                    case "absorbpercentholy":
 
                         item.AbsorbHolyPercent = (int)value;
 
                         break;
 
-                    case "absorbPercentManaDrain":
+                    case "absorbpercentmanadrain":
 
                         item.AbsorbManaDrainPercent = (int)value;
 
                         break;
 
-                    case "absorbPercentLifeDrain":
+                    case "absorbpercentlifedrain":
 
                         item.AbsorbLifeDrainPercent = (int)value;
 
