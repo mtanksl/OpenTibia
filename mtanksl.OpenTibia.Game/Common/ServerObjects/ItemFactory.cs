@@ -200,7 +200,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                         metadata.Flags |= ItemMetadataFlags.HasHeight;
                     }
 
-                    metadata.Speed = datItem.Speed;
+                    metadata.GroundSpeed = datItem.Speed;
 
                     metadata.MaxWriteChars = datItem.MaxWriteChars;
 

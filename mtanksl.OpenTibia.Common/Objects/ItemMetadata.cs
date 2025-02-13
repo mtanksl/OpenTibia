@@ -13,7 +13,7 @@ namespace OpenTibia.Common.Objects
 
         public ItemMetadataFlags Flags { get; set; }
 
-        public ushort Speed { get; set; }
+        public ushort GroundSpeed { get; set; }
 
         public ushort MaxWriteChars { get; set; }
 

@@ -117,7 +117,7 @@ namespace OpenTibia.Game.Components
                         {
                             await Context.AddCommand(new CreatureMoveCommand(npc, toTile) );
 
-                            nextWalk = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / npc.Speed);
+                            nextWalk = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.GroundSpeed / npc.Speed);
                         }
                         else
                         {

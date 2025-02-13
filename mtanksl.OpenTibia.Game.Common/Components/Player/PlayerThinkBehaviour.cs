@@ -228,7 +228,7 @@ namespace OpenTibia.Game.Components
                                                     moveDirection == MoveDirection.SouthWest ||
                                                     moveDirection == MoveDirection.SouthEast) ? 2 : 1;
 
-                                nextWalk = DateTime.UtcNow.AddMilliseconds(diagonalCost * 1000 * toTile.Ground.Metadata.Speed / player.Speed);
+                                nextWalk = DateTime.UtcNow.AddMilliseconds(diagonalCost * 1000 * toTile.Ground.Metadata.GroundSpeed / player.Speed);
                             }
                             else
                             {
