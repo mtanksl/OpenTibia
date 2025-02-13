@@ -75,9 +75,7 @@ namespace OpenTibia.Game.Common
 
         private IItemStore itemStore;
 
-        public Pool(int maxCount, Func<Pool<T>, T> factory)
-
-            : this(maxCount, factory, LoadingMode.Lazy, AccessMode.FIFO)
+        public Pool(int maxCount, Func<Pool<T>, T> factory) : this(maxCount, factory, LoadingMode.Lazy, AccessMode.FIFO)
         {
 
         }

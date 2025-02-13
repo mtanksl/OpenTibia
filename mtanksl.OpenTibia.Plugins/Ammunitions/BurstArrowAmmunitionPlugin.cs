@@ -36,7 +36,7 @@ namespace OpenTibia.Plugins.Ammunitions
 
             return Context.AddCommand(new CreatureAttackAreaCommand(player, false, target.Tile.Position, area, ammunition.Metadata.ProjectileType.Value, MagicEffectType.FireArea,
 
-                new DamageAttack(null, null, DamageType.Fire, formula.Min, formula.Max) ) );
+                new DamageAttack(null, null, DamageType.Physical, formula.Min, formula.Max) ) );
         }     
     }
 }

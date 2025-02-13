@@ -7,9 +7,7 @@ namespace OpenTibia.Game.Commands
 {
     public class PlayerLogoutCommand : Command
     {
-        public PlayerLogoutCommand(Player player) 
-            
-            : this(player, false)
+        public PlayerLogoutCommand(Player player) : this(player, false)
         {
 
         }

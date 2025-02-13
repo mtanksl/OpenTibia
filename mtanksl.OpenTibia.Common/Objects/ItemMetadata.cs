@@ -41,7 +41,9 @@ namespace OpenTibia.Common.Objects
 
         public byte? Attack { get; set; }
 
-        public Dictionary<DamageType, int> AttackModifier { get; set; }
+        public int? AttackModifier { get; set; }
+
+        public DamageType? AttackDamageType { get; set; }
 
         public int? SpeedModifier { get; set; }
 

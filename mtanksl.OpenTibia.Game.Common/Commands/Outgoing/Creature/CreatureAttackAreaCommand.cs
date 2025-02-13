@@ -191,7 +191,7 @@ namespace OpenTibia.Game.Commands
                             }
                         }
                     }
-                    else
+                    else if (Attack is HealingAttack)
                     {
                         if (MagicEffectType != null)
                         {

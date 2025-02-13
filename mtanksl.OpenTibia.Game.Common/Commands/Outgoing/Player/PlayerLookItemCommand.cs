@@ -73,16 +73,9 @@ namespace OpenTibia.Game.Commands
 
             if (ItemMetadata.Attack != null)
             {
-                if (ItemMetadata.AttackModifier.Count > 0)
+                if (ItemMetadata.AttackModifier != null && ItemMetadata.AttackDamageType != null)
                 {
-                    StringBuilder modifiers = new StringBuilder();
-
-                    foreach (var item in ItemMetadata.AttackModifier)
-                    {
-                        modifiers.Append( (item.Value > 0 ? "+" + item.Value : item.Value) + " " + item.Key.GetDescription() + " ");
-                    }
-
-                    attributes.Add("Atk: " + ItemMetadata.Attack + " physical " + modifiers.Remove(modifiers.Length - 1, 1).ToString() );
+                    attributes.Add("Atk: " + ItemMetadata.Attack + " physical " + (ItemMetadata.AttackModifier.Value > 0 ? "+" + ItemMetadata.AttackModifier.Value : ItemMetadata.AttackModifier.Value) + " " + ItemMetadata.AttackDamageType.Value.GetDescription() );
                 }
                 else
                 {

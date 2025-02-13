@@ -14,7 +14,16 @@ namespace OpenTibia.Game.Commands
 
         private MagicEffectType? magicEffectType;
 
-        public DamageAttack(ProjectileType? projectileType, MagicEffectType? magicEffectType, DamageType damageType, int min, int max) : base(damageType, min, max)
+        public DamageAttack(ProjectileType? projectileType, MagicEffectType? magicEffectType, DamageType damageType, int min, int max) 
+            
+            : this(projectileType, magicEffectType, damageType, min, max, null, null, null)
+        {
+
+        }
+
+        public DamageAttack(ProjectileType? projectileType, MagicEffectType? magicEffectType, DamageType damageType, int min, int max, DamageType? attackModifierDamageType, int? attackModifierMin, int? attackModifierMax) 
+            
+            : base(damageType, min, max, attackModifierDamageType, attackModifierMin, attackModifierMax)
         {
             this.projectileType = projectileType;
 

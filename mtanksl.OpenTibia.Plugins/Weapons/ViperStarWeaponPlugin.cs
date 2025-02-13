@@ -31,5 +31,3 @@ namespace OpenTibia.Plugins.Weapons
         }
     }
 }
-
-//TODO: More weapon damage types

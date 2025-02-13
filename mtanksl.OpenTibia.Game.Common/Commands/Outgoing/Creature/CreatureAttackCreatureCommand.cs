@@ -8,9 +8,7 @@ namespace OpenTibia.Game.Commands
 {
     public class CreatureAttackCreatureCommand : Command
     {
-        public CreatureAttackCreatureCommand(Creature attacker, Creature target, Attack attack)
-
-            : this(attacker, target, attack, null)
+        public CreatureAttackCreatureCommand(Creature attacker, Creature target, Attack attack) : this(attacker, target, attack, null)
         {
            
         }

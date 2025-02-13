@@ -67,8 +67,6 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                         OpenTibiaId = otbItem.OpenTibiaId,
 
-                        AttackModifier = new Dictionary<DamageType, int>(),
-
                         SkillModifier = new Dictionary<Skill, int>(),
 
                         DamageTakenFromElements = new Dictionary<DamageType, double>()
@@ -365,47 +363,57 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     if (xmlItem.AttackModifierEarth != null)
                     {
-                        metadata.AttackModifier[DamageType.Earth] = xmlItem.AttackModifierEarth.Value;
+                        metadata.AttackDamageType = DamageType.Earth;
+
+                        metadata.AttackModifier = xmlItem.AttackModifierEarth.Value;
                     }
-                    
-                    if (xmlItem.AttackModifierFire != null)
+                    else if (xmlItem.AttackModifierFire != null)
                     {
-                        metadata.AttackModifier[DamageType.Fire] = xmlItem.AttackModifierFire.Value;
+                        metadata.AttackDamageType = DamageType.Fire;
+
+                        metadata.AttackModifier = xmlItem.AttackModifierFire.Value;
                     }
-                    
-                    if (xmlItem.AttackModifierEnergy != null)
+                    else if (xmlItem.AttackModifierEnergy != null)
                     {
-                        metadata.AttackModifier[DamageType.Energy] = xmlItem.AttackModifierEnergy.Value;
+                        metadata.AttackDamageType = DamageType.Energy;
+
+                        metadata.AttackModifier = xmlItem.AttackModifierEnergy.Value;
                     }
-                    
-                    if (xmlItem.AttackModifierIce != null)
+                    else if (xmlItem.AttackModifierIce != null)
                     {
-                        metadata.AttackModifier[DamageType.Ice] = xmlItem.AttackModifierIce.Value;
+                        metadata.AttackDamageType = DamageType.Ice;
+
+                        metadata.AttackModifier = xmlItem.AttackModifierIce.Value;
                     }
-                    
-                    if (xmlItem.AttackModifierDeath != null)
+                    else if (xmlItem.AttackModifierDeath != null)
                     {
-                        metadata.AttackModifier[DamageType.Death] = xmlItem.AttackModifierDeath.Value;
+                        metadata.AttackDamageType = DamageType.Death;
+
+                        metadata.AttackModifier = xmlItem.AttackModifierDeath.Value;
                     }
-                    
-                    if (xmlItem.AttackModifierHoly != null)
+                    else if (xmlItem.AttackModifierHoly != null)
                     {
-                        metadata.AttackModifier[DamageType.Holy] = xmlItem.AttackModifierHoly.Value;
+                        metadata.AttackDamageType = DamageType.Holy;
+                            
+                        metadata.AttackModifier = xmlItem.AttackModifierHoly.Value;
                     }
-                    
-                    if (xmlItem.AttackModifierDrown != null)
+                    else if (xmlItem.AttackModifierDrown != null)
                     {
-                        metadata.AttackModifier[DamageType.Drown] = xmlItem.AttackModifierDrown.Value;
+                        metadata.AttackDamageType = DamageType.Drown;
+
+                        metadata.AttackModifier  = xmlItem.AttackModifierDrown.Value;
                     }
-                    
-                    if (xmlItem.AttackModifierManaDrain != null)
+                    else if (xmlItem.AttackModifierManaDrain != null)
                     {
-                        metadata.AttackModifier[DamageType.ManaDrain] = xmlItem.AttackModifierManaDrain.Value;
+                        metadata.AttackDamageType = DamageType.ManaDrain;
+
+                        metadata.AttackModifier = xmlItem.AttackModifierManaDrain.Value;
                     }
-                    
-                    if (xmlItem.AttackModifierLifeDrain != null)
+                    else if (xmlItem.AttackModifierLifeDrain != null)
                     {
-                        metadata.AttackModifier[DamageType.LifeDrain] = xmlItem.AttackModifierLifeDrain.Value;
+                        metadata.AttackDamageType = DamageType.LifeDrain;
+                                                                         
+                        metadata.AttackModifier = xmlItem.AttackModifierLifeDrain.Value;
                     }
 
                     metadata.SpeedModifier = xmlItem.SpeedModifier;

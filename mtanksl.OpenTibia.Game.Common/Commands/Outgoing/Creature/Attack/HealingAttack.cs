@@ -6,7 +6,7 @@ namespace OpenTibia.Game.Commands
 {
     public class HealingAttack : Attack
     {
-        public HealingAttack(int min, int max) : base(DamageType.Healing, min, max)
+        public HealingAttack(int min, int max) : base(DamageType.Healing, min, max, null, null, null)
         {
 
         }

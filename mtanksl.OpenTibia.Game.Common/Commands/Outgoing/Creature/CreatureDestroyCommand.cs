@@ -5,9 +5,7 @@ namespace OpenTibia.Game.Commands
 {
     public class CreatureDestroyCommand : Command
     {
-        public CreatureDestroyCommand(Creature creature)
-
-            : this(creature, false)
+        public CreatureDestroyCommand(Creature creature) : this(creature, false)
         {
 
         }
