@@ -120,5 +120,43 @@ namespace OpenTibia.Common.Objects
         public bool Premium { get; set; }
 
         public ulong BankAccount { get; set; }
+
+        public override Light Light
+        {
+            get 
+            {
+                if (ConditionLight != null)
+                {
+                    return ConditionLight;
+                }
+
+                foreach (var item in Inventory.GetItems() )
+                {
+                    if (item.Metadata.Light != null)
+                    {
+                        return item.Metadata.Light;
+                    }
+                }
+
+                return BaseLight;
+            }
+        }
+
+        public override ushort Speed
+        {
+            get
+            {
+                int sum = BaseSpeed;
+
+                if (ConditionSpeed != null)
+                {
+                    sum += ConditionSpeed.Value;
+                }
+
+                //TODO: Speed + -
+
+                return (ushort)(sum);
+            }
+        }
     }
 }

@@ -7,14 +7,14 @@ namespace OpenTibia.Game.Commands
 {
     public class OutfitCondition : Condition
     {
-        public OutfitCondition(Outfit outfit, TimeSpan duration) : base(ConditionSpecialCondition.Outfit)
+        public OutfitCondition(Outfit conditionOutfit, TimeSpan duration) : base(ConditionSpecialCondition.Outfit)
         {
-            Outfit = outfit;
+            ConditionOutfit = conditionOutfit;
 
             Duration = duration;
         }
 
-        public Outfit Outfit { get; set; }
+        public Outfit ConditionOutfit { get; set; }
 
         public TimeSpan Duration { get; set; }
 
@@ -22,7 +22,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise OnStart(Creature creature)
         {
-            return Context.Current.AddCommand(new CreatureUpdateOutfitCommand(creature, creature.BaseOutfit, Outfit) ).Then( () =>
+            return Context.Current.AddCommand(new CreatureUpdateOutfitCommand(creature, creature.BaseOutfit, ConditionOutfit, creature.Swimming, creature.Stealth) ).Then( () =>
             {
                 return Promise.Delay(key, Duration);
             } );
@@ -35,7 +35,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise OnStop(Creature creature)
         {
-            return Context.Current.AddCommand(new CreatureUpdateOutfitCommand(creature, creature.BaseOutfit, creature.BaseOutfit) );
+            return Context.Current.AddCommand(new CreatureUpdateOutfitCommand(creature, creature.BaseOutfit, null, creature.Swimming, creature.Stealth) );
         }
     }
 }

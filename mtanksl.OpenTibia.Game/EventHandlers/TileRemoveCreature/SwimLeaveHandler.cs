@@ -17,20 +17,17 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override Promise Handle(TileRemoveCreatureEventArgs e)
         {
-            if ( !e.Creature.Invisible)
+            Tile fromTile = e.FromTile;
+
+            Tile toTile = e.ToTile;
+
+            if (fromTile != null && toTile == null)
             {
-                Tile fromTile = e.FromTile;
-
-                Tile toTile = e.ToTile;
-
-                if (fromTile != null && toTile == null)
+                if (fromTile.Ground != null)
                 {
-                    if (fromTile.Ground != null)
+                    if (shallowWaters.Contains(fromTile.Ground.Metadata.OpenTibiaId) )
                     {
-                        if (shallowWaters.Contains(fromTile.Ground.Metadata.OpenTibiaId) )
-                        {
-                            return Context.AddCommand(new CreatureUpdateOutfitCommand(e.Creature, e.Creature.BaseOutfit, e.Creature.BaseOutfit) );
-                        }
+                        return Context.AddCommand(new CreatureUpdateOutfitCommand(e.Creature, e.Creature.BaseOutfit, e.Creature.ConditionOutfit, false, e.Creature.Stealth) );
                     }
                 }
             }

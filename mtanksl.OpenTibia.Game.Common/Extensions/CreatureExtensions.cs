@@ -178,7 +178,7 @@ namespace OpenTibia.Game.Extensions
 
         /// <exception cref="InvalidOperationException"></exception>
 
-        public static Promise UpdateLight(this Creature creature, Light light)
+        public static Promise UpdateLight(this Creature creature, Light conditionLight)
         {
             Context context = Context.Current;
 
@@ -187,12 +187,12 @@ namespace OpenTibia.Game.Extensions
                 throw new InvalidOperationException("Context not found.");
             }
 
-            return context.AddCommand(new CreatureUpdateLightCommand(creature, light) );
+            return context.AddCommand(new CreatureUpdateLightCommand(creature, conditionLight) );
         }
 
         /// <exception cref="InvalidOperationException"></exception>
 
-        public static Promise UpdateOutfit(this Creature creature, Outfit baseOutfit, Outfit outfit)
+        public static Promise UpdateOutfit(this Creature creature, Outfit baseOutfit, Outfit conditionOutfit, bool swimming, bool stealth)
         {
             Context context = Context.Current;
 
@@ -201,12 +201,12 @@ namespace OpenTibia.Game.Extensions
                 throw new InvalidOperationException("Context not found.");
             }
 
-            return context.AddCommand(new CreatureUpdateOutfitCommand(creature, baseOutfit, outfit) );
+            return context.AddCommand(new CreatureUpdateOutfitCommand(creature, baseOutfit, conditionOutfit, swimming, stealth) );
         }
 
         /// <exception cref="InvalidOperationException"></exception>
 
-        public static Promise UpdateSpeed(this Creature creature, ushort speed)
+        public static Promise UpdateSpeed(this Creature creature, int? conditionSpeed)
         {
             Context context = Context.Current;
 
@@ -215,7 +215,7 @@ namespace OpenTibia.Game.Extensions
                 throw new InvalidOperationException("Context not found.");
             }
 
-            return context.AddCommand(new CreatureUpdateSpeedCommand(creature, speed) );
+            return context.AddCommand(new CreatureUpdateSpeedCommand(creature, conditionSpeed) );
         }
 
         /// <exception cref="InvalidOperationException"></exception>

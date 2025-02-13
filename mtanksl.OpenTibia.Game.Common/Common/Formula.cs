@@ -235,27 +235,27 @@ namespace OpenTibia.Game.Common
 
         public static ushort HasteFormula(ushort baseSpeed)
         {
-            return (ushort)(1.3 * (baseSpeed - 40) + 40);
+            return (ushort)(0.3 * (baseSpeed - 40) );
         }
 
         public static ushort StrongHasteFormula(ushort baseSpeed)
         {
-            return (ushort)(1.7 * (baseSpeed - 40) + 40);
+            return (ushort)(0.7 * (baseSpeed - 40) );
         }
 
         public static ushort SwiftFootFormula(int level, ushort baseSpeed)
         {
-            return (ushort)(1.8 * (baseSpeed - 40) + 40);
+            return (ushort)(0.8 * (baseSpeed - 40) );
         }
 
         public static ushort ChargeFormula(int level, ushort baseSpeed)
         {                        
-            return (ushort)(1.9 * (baseSpeed - 40) + 40);
+            return (ushort)(0.9 * (baseSpeed - 40) );
         }
 
         public static ushort AdrenalineBurst(int level, ushort baseSpeed)
         {                        
-            return (ushort)(2.5 * (baseSpeed - 40) + 40);
+            return (ushort)(1.5 * (baseSpeed - 40) );
         }
 
         public static (int Min, int Max) GenericFormula(int level, int magicLevel, double minx, double miny, double maxx, double maxy)

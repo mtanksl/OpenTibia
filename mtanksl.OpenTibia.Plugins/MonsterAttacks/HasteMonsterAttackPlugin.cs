@@ -22,13 +22,13 @@ namespace OpenTibia.Plugins.MonsterAttacks
 
         public override Promise OnAttack(Monster attacker, Creature target, int min, int max, Dictionary<string, string> attributes)
         {
-            var speed = Formula.HasteFormula(attacker.BaseSpeed);
+            var conditionSpeed = Formula.HasteFormula(attacker.BaseSpeed);
 
             return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker, MagicEffectType.GreenShimmer) ).Then( () =>
             {
                 return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, 
                             
-                    new HasteCondition(speed, new TimeSpan(0, 0, 33) ) ) );
+                    new HasteCondition(conditionSpeed, new TimeSpan(0, 0, 33) ) ) );
             } );  
         }        
     }

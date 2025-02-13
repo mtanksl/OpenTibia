@@ -24,7 +24,7 @@ namespace OpenTibia.Game.Commands
                 return Promise.Break;
             }
 
-            return Context.AddCommand(new CreatureUpdateOutfitCommand(Player, Outfit, Outfit) );
+            return Context.AddCommand(new CreatureUpdateOutfitCommand(Player, Outfit, Player.ConditionOutfit, Player.Swimming, Player.Stealth) );
         }
     }
 }

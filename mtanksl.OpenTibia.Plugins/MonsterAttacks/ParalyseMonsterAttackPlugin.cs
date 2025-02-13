@@ -30,7 +30,7 @@ namespace OpenTibia.Plugins.MonsterAttacks
             {
                 return Context.Current.AddCommand(new ShowMagicEffectCommand(target, MagicEffectType.GreenShimmer) ).Then( () =>
                 {
-                    return Context.Current.AddCommand(new CreatureAddConditionCommand(target, new SlowedCondition( (ushort)(target.BaseSpeed - 101), TimeSpan.FromSeconds(10) ) ) );
+                    return Context.Current.AddCommand(new CreatureAddConditionCommand(target, new SlowedCondition(-101, TimeSpan.FromSeconds(10) ) ) );
                 } );
             }
         }

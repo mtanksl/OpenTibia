@@ -16,10 +16,6 @@ namespace OpenTibia.Game.CommandHandlers
                     return Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) ).Then( () =>
                     {
                         return Context.AddCommand(new CreatureUpdateInvisibleCommand(command.Player, true) );
-
-                    } ).Then( () =>
-                    {
-                        return Context.AddCommand(new CreatureUpdateOutfitCommand(command.Player, command.Player.BaseOutfit, Outfit.Invisible) );
                     } );
                 }
                 else
@@ -27,10 +23,6 @@ namespace OpenTibia.Game.CommandHandlers
                     return Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Teleport) ).Then( () =>
                     {
                         return Context.AddCommand(new CreatureUpdateInvisibleCommand(command.Player, false) );
-
-                    } ).Then( () =>
-                    {
-                        return Context.AddCommand(new CreatureUpdateOutfitCommand(command.Player, command.Player.BaseOutfit, command.Player.BaseOutfit) );
                     } );
                 }
             }

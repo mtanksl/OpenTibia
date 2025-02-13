@@ -18,40 +18,37 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override Promise Handle(TileAddCreatureEventArgs e)
         {
-            if ( !e.Creature.Invisible)
+            Tile fromTile = e.FromTile;
+
+            Tile toTile = e.ToTile;
+
+            if (fromTile == null && toTile != null)
             {
-                Tile fromTile = e.FromTile;
-
-                Tile toTile = e.ToTile;
-
-                if (fromTile == null && toTile != null)
+                if (toTile.Ground != null)
                 {
-                    if (toTile.Ground != null)
+                    if (shallowWaters.Contains(toTile.Ground.Metadata.OpenTibiaId) )
                     {
-                        if (shallowWaters.Contains(toTile.Ground.Metadata.OpenTibiaId) )
+                        return Context.AddCommand(new CreatureUpdateOutfitCommand(e.Creature, e.Creature.BaseOutfit, e.Creature.ConditionOutfit, true, e.Creature.Stealth) ).Then( () =>
                         {
-                            return Context.AddCommand(new CreatureUpdateOutfitCommand(e.Creature, e.Creature.BaseOutfit, Outfit.Swimming) ).Then( () =>
-                            {
-                                return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.WaterSplash) );
-                            } );
-                        }
+                            return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.WaterSplash) );
+                        } );
                     }
                 }
-                else if (fromTile != null && toTile != null)
+            }
+            else if (fromTile != null && toTile != null)
+            {
+                if (fromTile.Ground != null && toTile.Ground != null)
                 {
-                    if (fromTile.Ground != null && toTile.Ground != null)
+                    if ( !shallowWaters.Contains(fromTile.Ground.Metadata.OpenTibiaId) && shallowWaters.Contains(toTile.Ground.Metadata.OpenTibiaId) )
                     {
-                        if ( !shallowWaters.Contains(fromTile.Ground.Metadata.OpenTibiaId) && shallowWaters.Contains(toTile.Ground.Metadata.OpenTibiaId) )
+                        return Context.AddCommand(new CreatureUpdateOutfitCommand(e.Creature, e.Creature.BaseOutfit, e.Creature.ConditionOutfit, true, e.Creature.Stealth) ).Then( () =>
                         {
-                            return Context.AddCommand(new CreatureUpdateOutfitCommand(e.Creature, e.Creature.BaseOutfit, Outfit.Swimming) ).Then( () =>
-                            {
-                                return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.WaterSplash) );
-                            } );
-                        }
-                        else if (shallowWaters.Contains(fromTile.Ground.Metadata.OpenTibiaId) && !shallowWaters.Contains(toTile.Ground.Metadata.OpenTibiaId) )
-                        {
-                            return Context.AddCommand(new CreatureUpdateOutfitCommand(e.Creature, e.Creature.BaseOutfit, e.Creature.BaseOutfit) );
-                        }
+                            return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.WaterSplash) );
+                        } );
+                    }
+                    else if (shallowWaters.Contains(fromTile.Ground.Metadata.OpenTibiaId) && !shallowWaters.Contains(toTile.Ground.Metadata.OpenTibiaId) )
+                    {
+                        return Context.AddCommand(new CreatureUpdateOutfitCommand(e.Creature, e.Creature.BaseOutfit, e.Creature.ConditionOutfit, false, e.Creature.Stealth) );
                     }
                 }
             }

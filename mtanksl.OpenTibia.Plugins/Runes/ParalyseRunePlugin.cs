@@ -29,7 +29,7 @@ namespace OpenTibia.Plugins.Runes
             {
                 return Context.AddCommand(new ShowMagicEffectCommand(target, MagicEffectType.GreenShimmer) ).Then( () =>
                 {
-                    return Context.AddCommand(new CreatureAddConditionCommand(target, new SlowedCondition( (ushort)(target.BaseSpeed - 101), TimeSpan.FromSeconds(10) ) ) );
+                    return Context.AddCommand(new CreatureAddConditionCommand(target, new SlowedCondition(-101, TimeSpan.FromSeconds(10) ) ) );
                 } );
             }
         }

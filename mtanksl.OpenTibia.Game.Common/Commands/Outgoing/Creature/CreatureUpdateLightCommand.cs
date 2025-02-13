@@ -8,23 +8,22 @@ namespace OpenTibia.Game.Commands
 {
     public class CreatureUpdateLightCommand : Command
     {
-        public CreatureUpdateLightCommand(Creature creature, Light light)
+        public CreatureUpdateLightCommand(Creature creature, Light conditionLight)
         {
             Creature = creature;
 
-            Light = light;
+            ConditionLight = conditionLight;
         }
 
         public Creature Creature { get; set; }
 
-        public Light Light { get; set; }
+        public Light ConditionLight { get; set; }
 
         public override Promise Execute()
         {
-            if (Creature.Light != Light)
+            if (Creature.ConditionLight != ConditionLight)
             {
-                //TODO: Custom stats
-                //Creature.Light = Light; 
+                Creature.ConditionLight = ConditionLight; 
 
                 foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Creature.Tile.Position) )
                 {
@@ -36,7 +35,7 @@ namespace OpenTibia.Game.Commands
                     }
                 }
 
-                Context.AddEvent(new CreatureUpdateLightEventArgs(Creature, Light) );
+                Context.AddEvent(new CreatureUpdateLightEventArgs(Creature, ConditionLight) );
             }
 
             return Promise.Completed;

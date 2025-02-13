@@ -82,6 +82,13 @@ namespace OpenTibia.Game.Commands
                     }
                 }
 
+                {
+                    if (Creature is Player player)
+                    {
+                        Context.AddPacket(player, new SetOutfitOutgoingPacket(player.Id, player.Outfit) );
+                    }
+                }
+
                 foreach (var observer in observerCanSeeFrom.Keys.Except(observerCanSeeTo.Keys) )
                 {
                     if (observer != Creature)

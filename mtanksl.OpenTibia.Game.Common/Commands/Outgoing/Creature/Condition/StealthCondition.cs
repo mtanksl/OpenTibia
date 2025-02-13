@@ -4,9 +4,9 @@ using System;
 
 namespace OpenTibia.Game.Commands
 {
-    public class InvisibleCondition : Condition
+    public class StealthCondition : Condition
     {
-        public InvisibleCondition(TimeSpan duration) : base(ConditionSpecialCondition.Invisible)
+        public StealthCondition(TimeSpan duration) : base(ConditionSpecialCondition.Invisible)
         {
             Duration = duration;
         }
@@ -17,7 +17,10 @@ namespace OpenTibia.Game.Commands
 
         public override Promise OnStart(Creature creature)
         {
-            return Promise.Delay(key, Duration);
+            return Context.Current.AddCommand(new CreatureUpdateOutfitCommand(creature, creature.BaseOutfit, creature.ConditionOutfit, creature.Swimming, true) ).Then( () =>
+            {
+                return Promise.Delay(key, Duration);
+            } );
         }
 
         public override void Cancel()
@@ -27,7 +30,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise OnStop(Creature creature)
         {
-            return Promise.Completed;
+            return Context.Current.AddCommand(new CreatureUpdateOutfitCommand(creature, creature.BaseOutfit, creature.ConditionOutfit, creature.Swimming, false) );
         }
     }
 }

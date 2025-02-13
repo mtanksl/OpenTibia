@@ -5,15 +5,15 @@ namespace OpenTibia.Game.Events
 {
     public class CreatureUpdateLightEventArgs : GameEventArgs
     {
-        public CreatureUpdateLightEventArgs(Creature creature, Light light)
+        public CreatureUpdateLightEventArgs(Creature creature, Light conditionLight)
         {
             Creature = creature;
 
-            Light = light;
+            ConditionLight = conditionLight;
         }
 
         public Creature Creature { get; }
 
-        public Light Light { get; }
+        public Light ConditionLight { get; }
     }
 }

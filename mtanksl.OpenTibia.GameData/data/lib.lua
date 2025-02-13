@@ -372,14 +372,14 @@ condition = {
 	drunk = function(duration)
 		return { type = "drunk", duration = duration }
 	end,
-	haste = function(speed, duration)
-		return { type = "haste", speed = speed, duration = duration }
+	haste = function(conditionspeed, duration)
+		return { type = "haste", conditionspeed = conditionspeed, duration = duration }
 	end,
-	invisible = function(duration)
-		return { type = "invisible", duration = duration }
+	stealth = function(duration)
+		return { type = "stealth", duration = duration }
 	end,
-	light = function(light, duration)
-		return { type = "light", light = light, duration = duration }
+	light = function(conditionlight, duration)
+		return { type = "light", conditionlight = conditionlight, duration = duration }
 	end,
 	logoutblock = function(duration)
 		return { type = "logoutblock", duration = duration }
@@ -387,13 +387,13 @@ condition = {
 	magicshield = function(duration)
 		return { type = "magicshield", duration = duration }
 	end,
-	outfit = function(outfit, duration)
-		return { type = "outfit", outfit = outfit, duration = duration }
+	outfit = function(conditionoutfit, duration)
+		return { type = "outfit", conditionoutfit = conditionoutfit, duration = duration }
 	end,
 	protectionzoneblock = function(duration)
 		return { type = "protectionzoneblock", duration = duration }
 	end,
-	slowed = function(speed, duration)
-		return { type = "slowed", speed = speed, duration = duration }
+	slowed = function(conditionspeed, duration)
+		return { type = "slowed", conditionspeed = conditionspeed, duration = duration }
 	end
 }

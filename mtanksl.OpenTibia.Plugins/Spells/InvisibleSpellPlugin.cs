@@ -25,7 +25,7 @@ namespace OpenTibia.Plugins.Spells
             {
                 return Context.AddCommand(new CreatureAddConditionCommand(player, 
                             
-                    new InvisibleCondition(new TimeSpan(0, 3, 20) ) ) );
+                    new StealthCondition(new TimeSpan(0, 3, 20) ) ) );
             } );
         }
     }

@@ -4,15 +4,15 @@ namespace OpenTibia.Game.Events
 {
     public class CreatureUpdateSpeedEventArgs : GameEventArgs
     {
-        public CreatureUpdateSpeedEventArgs(Creature creature, ushort speed)
+        public CreatureUpdateSpeedEventArgs(Creature creature, int? conditionSpeed)
         {
             Creature = creature;
 
-            Speed = speed;
+            ConditionSpeed = conditionSpeed;
         }
 
         public Creature Creature { get; }
 
-        public ushort Speed { get; }
+        public int? ConditionSpeed { get; }
     }
 }

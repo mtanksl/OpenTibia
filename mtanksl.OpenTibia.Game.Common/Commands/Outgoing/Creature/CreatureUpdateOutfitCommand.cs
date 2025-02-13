@@ -8,29 +8,37 @@ namespace OpenTibia.Game.Commands
 {
     public class CreatureUpdateOutfitCommand : Command
     {
-        public CreatureUpdateOutfitCommand(Creature creature, Outfit baseOutfit, Outfit outfit)
+        public CreatureUpdateOutfitCommand(Creature creature, Outfit baseOutfit, Outfit conditionOutfit, bool swimming, bool stealth)
         {
             Creature = creature;
 
             BaseOutfit = baseOutfit;
 
-            Outfit = outfit;
+            ConditionOutfit = conditionOutfit;
+
+            Swimming = swimming;
+
+            Stealth = stealth;
         }
 
         public Creature Creature { get; set; }
 
         public Outfit BaseOutfit { get; set; }
 
-        public Outfit Outfit { get; set; }
+        public Outfit ConditionOutfit { get; set; }
+
+        public bool Swimming { get; set; }
+
+        public bool Stealth { get; set; }
 
         public override Promise Execute()
         {
-            if (Creature.BaseOutfit != BaseOutfit || Creature.Outfit != Outfit)
+            if (Creature.BaseOutfit != BaseOutfit || Creature.ConditionOutfit != ConditionOutfit || Creature.Swimming != Swimming || Creature.Stealth != Stealth)
             {
                 Creature.BaseOutfit = BaseOutfit;
-
-                //TODO: Custom stats
-                //Creature.Outfit = Outfit;
+                Creature.ConditionOutfit = ConditionOutfit;
+                Creature.Swimming = Swimming;
+                Creature.Stealth = Stealth;
 
                 if (Creature.Tile != null)
                 {
@@ -45,7 +53,7 @@ namespace OpenTibia.Game.Commands
                     }
                 }
 
-                Context.AddEvent(new CreatureUpdateOutfitEventArgs(Creature, BaseOutfit, Outfit) );
+                Context.AddEvent(new CreatureUpdateOutfitEventArgs(Creature, BaseOutfit, ConditionOutfit, Swimming, Stealth) );
             }
 
             return Promise.Completed;

@@ -7,14 +7,14 @@ namespace OpenTibia.Game.Commands
 {
     public class LightCondition : Condition
     {
-        public LightCondition(Light light, TimeSpan duration) : base(ConditionSpecialCondition.Light)
+        public LightCondition(Light conditionLight, TimeSpan duration) : base(ConditionSpecialCondition.Light)
         {
-            Light = light;
+            ConditionLight = conditionLight;
 
             Duration = duration;
         }
 
-        public Light Light { get; set; }
+        public Light ConditionLight { get; set; }
 
         public TimeSpan Duration { get; set; }
 
@@ -22,7 +22,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise OnStart(Creature creature)
         {
-            return Context.Current.AddCommand(new CreatureUpdateLightCommand(creature, Light) ).Then( () =>
+            return Context.Current.AddCommand(new CreatureUpdateLightCommand(creature, ConditionLight) ).Then( () =>
             {
                 return Promise.Delay(key, Duration);
             } );
@@ -35,7 +35,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise OnStop(Creature creature)
         {
-            return Context.Current.AddCommand(new CreatureUpdateLightCommand(creature, Light.None) );
+            return Context.Current.AddCommand(new CreatureUpdateLightCommand(creature, null) );
         }
     }
 }

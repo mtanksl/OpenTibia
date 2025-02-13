@@ -329,7 +329,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             lua.RegisterCoFunction("creatureupdateoutfit", (luaScope, parameters) =>
             {
-                return Context.Current.AddCommand(new CreatureUpdateOutfitCommand( (Creature)parameters[0], ToOutfit(parameters[1] ), ToOutfit(parameters[2] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new CreatureUpdateOutfitCommand( (Creature)parameters[0], ToOutfit(parameters[1] ), ToOutfit(parameters[2] ), LuaScope.GetBoolean(parameters[3] ), LuaScope.GetBoolean(parameters[4] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
@@ -337,7 +337,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             lua.RegisterCoFunction("creatureupdatespeed", (luaScope, parameters) =>
             {
-                return Context.Current.AddCommand(new CreatureUpdateSpeedCommand( (Creature)parameters[0], LuaScope.GetUInt16(parameters[1] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new CreatureUpdateSpeedCommand( (Creature)parameters[0], LuaScope.GetNullableInt32(parameters[1] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
@@ -1426,15 +1426,15 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     case "haste":
 
-                        return new HasteCondition(LuaScope.GetUInt16(table["speed"] ), TimeSpan.FromSeconds(LuaScope.GetInt32(table["duration"] ) ) );
+                        return new HasteCondition(LuaScope.GetUInt16(table["conditionspeed"] ), TimeSpan.FromSeconds(LuaScope.GetInt32(table["duration"] ) ) );
 
-                    case "invisible":
+                    case "stealth":
 
-                        return new InvisibleCondition(TimeSpan.FromSeconds(LuaScope.GetInt32(table["duration"] ) ) );
+                        return new StealthCondition(TimeSpan.FromSeconds(LuaScope.GetInt32(table["duration"] ) ) );
 
                     case "light":
 
-                        return new LightCondition(ToLight(table["light"] ), TimeSpan.FromSeconds(LuaScope.GetInt32(table["duration"] ) ) );
+                        return new LightCondition(ToLight(table["conditionlight"] ), TimeSpan.FromSeconds(LuaScope.GetInt32(table["duration"] ) ) );
 
                     case "logoutblock":
 
@@ -1446,7 +1446,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     case "outfit":
 
-                        return new OutfitCondition(ToOutfit(table["outfit"] ), TimeSpan.FromSeconds(LuaScope.GetInt32(table["duration"] ) ) );
+                        return new OutfitCondition(ToOutfit(table["conditionoutfit"] ), TimeSpan.FromSeconds(LuaScope.GetInt32(table["duration"] ) ) );
                                
                     case "protectionzoneblock":
 
@@ -1454,11 +1454,11 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     case "slowed":
 
-                        return new SlowedCondition(LuaScope.GetUInt16(table["speed"] ), TimeSpan.FromSeconds(LuaScope.GetInt32(table["duration"] ) ) );
+                        return new SlowedCondition(LuaScope.GetUInt16(table["conditionspeed"] ), TimeSpan.FromSeconds(LuaScope.GetInt32(table["duration"] ) ) );
                 }
             }
          
-            throw new ArgumentException("Parameter must be Condition or LuaTable with type, specialcondition, magiceffecttype, animatedtextcolor, damages, interval, damage, speed, duration, light and/or outfit.");
+            throw new ArgumentException("Parameter must be Condition or LuaTable with type, specialcondition, magiceffecttype, animatedtextcolor, damages, interval, damage, conditionspeed, duration, conditionlight and/or conditionoutfit.");
         }
 
         public string GetChunk(string path)

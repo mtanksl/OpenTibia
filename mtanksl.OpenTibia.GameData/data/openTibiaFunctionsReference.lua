@@ -460,25 +460,25 @@ return {
 				args = "(Creature creature, bool invisible)",
 				returns = "void"
 			},
-			-- void command.creatureupdatelight(Creature creature, Light light)
+			-- void command.creatureupdatelight(Creature creature, Light conditionLight)
 			creatureupdatelight = {
 				type = "function",
 				description = "",
-				args = "(Creature creature, Light light)",
+				args = "(Creature creature, Light conditionLight)",
 				returns = "void"
 			},
-			-- void command.creatureupdateoutfit(Creature creature, Outfit baseOutfit, Outfit outfit)
+			-- void command.creatureupdateoutfit(Creature creature, Outfit baseOutfit, Outfit conditionOutfit, bool swimming, bool stealth)
 			creatureupdateoutfit = {
 				type = "function",
 				description = "",
-				args = "(Creature creature, Outfit baseOutfit, Outfit outfit)",
+				args = "(Creature creature, Outfit baseOutfit, Outfit conditionOutfit, bool swimming, bool stealth)",
 				returns = "void"
 			},
-			-- void command.creatureupdatespeed(Creature creature, ushort speed)
+			-- void command.creatureupdatespeed(Creature creature, int? conditionSpeed)
 			creatureupdatespeed = {
 				type = "function",
 				description = "",
-				args = "(Creature creature, ushort speed)",
+				args = "(Creature creature, int? conditionSpeed)",
 				returns = "void"
 			},
 			-- void command.creaturemove(Creature creature, Tile toTile)

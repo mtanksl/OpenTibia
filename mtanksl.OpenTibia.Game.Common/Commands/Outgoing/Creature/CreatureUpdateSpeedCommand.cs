@@ -7,23 +7,22 @@ namespace OpenTibia.Game.Commands
 {
     public class CreatureUpdateSpeedCommand : Command
     {
-        public CreatureUpdateSpeedCommand(Creature creature, ushort speed)
+        public CreatureUpdateSpeedCommand(Creature creature, int? conditionSpeed)
         {
             Creature = creature;
 
-            Speed = speed;
+            ConditionSpeed = conditionSpeed;
         }
 
         public Creature Creature { get; set; }
 
-        public ushort Speed { get; set; }
+        public int? ConditionSpeed { get; set; }
 
         public override Promise Execute()
         {
-            if (Creature.Speed != Speed)
+            if (Creature.ConditionSpeed != ConditionSpeed)
             {
-                //TODO: Custom stats
-                //Creature.Speed = Speed;
+                Creature.ConditionSpeed = ConditionSpeed;
 
                 foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Creature.Tile.Position) )
                 {
@@ -35,7 +34,7 @@ namespace OpenTibia.Game.Commands
                     }
                 }
 
-                Context.AddEvent(new CreatureUpdateSpeedEventArgs(Creature, Speed) );
+                Context.AddEvent(new CreatureUpdateSpeedEventArgs(Creature, ConditionSpeed) );
             }
 
             return Promise.Completed;
