@@ -10,7 +10,7 @@
                 <xs:complexType>                 
                   <xs:attribute name="key" type="AttributeKey" use="required" />
                   <xs:attribute name="value" type="xs:string" use="required" />
-                </xs:complexType>
+                </xs:complexType>                
               </xs:element>
             </xs:sequence>
             <xs:attribute name="id" type="xs:unsignedShort" use="required" />
@@ -19,6 +19,10 @@
             <xs:attribute name="plural" type="xs:string" use="optional" />
             <xs:attribute name="editorsuffix" type="xs:string" use="optional" />
           </xs:complexType>
+          <!--<xs:unique name="uniqueKey">
+            <xs:selector xpath="attribute"/>
+            <xs:field xpath="@key"/>
+          </xs:unique>-->
         </xs:element>
       </xs:sequence>
     </xs:complexType>

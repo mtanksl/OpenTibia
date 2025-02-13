@@ -16640,7 +16640,6 @@
 		<attribute key="defensemodifier" value="-3"/>
 	</item>
 	<item id="7420" article="a" name="reaper's axe">
-		<attribute key="weight" value="3300"/>
 		<attribute key="weight" value="5900"/>
 		<attribute key="defense" value="25"/>
 		<attribute key="attack" value="46"/>
@@ -17326,7 +17325,6 @@
 		<attribute key="fluidsource" value="blood"/>
 	</item>
 	<item id="7638" article="a" name="dead cat">
-		<attribute key="containersize" value="10"/>
 		<attribute key="containersize" value="5"/>
 		<attribute key="decayto" value="7639"/>
 		<attribute key="duration" value="900"/>
@@ -17772,7 +17770,6 @@
 		<attribute key="charges" value="1000"/>
 		<attribute key="showcharges" value="1"/>
 		<attribute key="decayto" value="7392"/>
-		<attribute key="showcharges" value="1"/>
 	</item>
 	<item id="7758" article="a" name="fiery war hammer">
 		<attribute key="weight" value="5400"/>
@@ -17863,7 +17860,6 @@
 		<attribute key="charges" value="1000"/>
 		<attribute key="showcharges" value="1"/>
 		<attribute key="decayto" value="2429"/>
-		<attribute key="showcharges" value="1"/>
 	</item>
 	<item id="7769" article="an" name="icy knight axe">
 		<attribute key="weight" value="5900"/>
@@ -20506,7 +20502,6 @@
 		<attribute key="weight" value="2650"/>
 		<attribute key="armor" value="8"/>
 		<attribute key="slottype" value="body"/>
-		<attribute key="weight" value="2650"/>
 		<attribute key="skillmodifiermagiclevel" value="1"/>
 	</item>
 	<item id="8871" article="a" name="focus cape">
