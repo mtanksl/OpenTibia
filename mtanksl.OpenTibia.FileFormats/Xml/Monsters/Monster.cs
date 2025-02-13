@@ -60,30 +60,42 @@ namespace OpenTibia.FileFormats.Xml.Monsters
 
             XElement healthNode = monsterNode.Element("health");
 
-            monster.Health = new Health()
+            monster.Health = new HealthItem()
             {
                 Now = (int)healthNode.Attribute("now"),
 
                 Max = (int)healthNode.Attribute("max")
             };
 
-            XElement outfitNode = monsterNode.Element("look");
+            XElement lightNode = monsterNode.Element("light");
 
-            monster.Look = new Look()
+            if (lightNode != null)
             {
-                TypeEx = (int?)outfitNode.Attribute("typeex") ?? 0,
+                monster.Light = new LightItem()
+                {
+                    Level = (int?)lightNode.Attribute("level") ?? 0,
 
-                Type = (int?)outfitNode.Attribute("type") ?? 0,
+                    Color = (int?)lightNode.Attribute("color") ?? 0
+                };
+            }
 
-                Head = (int?)outfitNode.Attribute("head") ?? 0,
+            XElement lookNode = monsterNode.Element("look");
 
-                Body = (int?)outfitNode.Attribute("body") ?? 0,
+            monster.Look = new LookItem()
+            {
+                TypeEx = (int?)lookNode.Attribute("typeex") ?? 0,
 
-                Legs = (int?)outfitNode.Attribute("legs") ?? 0,
+                Type = (int?)lookNode.Attribute("type") ?? 0,
 
-                Feet = (int?)outfitNode.Attribute("feet") ?? 0,
+                Head = (int?)lookNode.Attribute("head") ?? 0,
 
-                Corpse = (int?)outfitNode.Attribute("corpse") ?? 3058
+                Body = (int?)lookNode.Attribute("body") ?? 0,
+
+                Legs = (int?)lookNode.Attribute("legs") ?? 0,
+
+                Feet = (int?)lookNode.Attribute("feet") ?? 0,
+
+                Corpse = (int?)lookNode.Attribute("corpse") ?? 3058
             };
  
             XElement voicesNode = monsterNode.Element("voices");
@@ -383,9 +395,11 @@ namespace OpenTibia.FileFormats.Xml.Monsters
 
         public int ManaCost { get; set; }
 
-        public Health Health { get; set; }
+        public HealthItem Health { get; set; }
 
-        public Look Look { get; set; }
+        public LightItem Light { get; set; }
+
+        public LookItem Look { get; set; }
 
         public VoiceCollection Voices { get; set; }
 

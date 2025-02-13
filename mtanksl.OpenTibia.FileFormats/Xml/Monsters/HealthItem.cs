@@ -1,6 +1,6 @@
-﻿namespace OpenTibia.FileFormats.Xml.Npcs
+﻿namespace OpenTibia.FileFormats.Xml.Monsters
 {
-    public class Health
+    public class HealthItem
     {
         public int Now { get; set; }
 

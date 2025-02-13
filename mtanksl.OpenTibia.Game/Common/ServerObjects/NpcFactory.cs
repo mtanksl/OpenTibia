@@ -40,6 +40,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     MaxHealth = (ushort)xmlNpc.Health.Max,
 
+                    Light = xmlNpc.Light == null ? Light.None : new Light( (byte)xmlNpc.Light.Level, (byte)xmlNpc.Light.Color),
+
                     Outfit = xmlNpc.Look.TypeEx != 0 ? new Outfit(xmlNpc.Look.TypeEx) : new Outfit(xmlNpc.Look.Type, xmlNpc.Look.Head, xmlNpc.Look.Body, xmlNpc.Look.Legs, xmlNpc.Look.Feet, Addon.None),
 
                     Voices = (xmlNpc.Voices == null || xmlNpc.Voices.Items == null || xmlNpc.Voices.Items.Count == 0) ? null : new VoiceCollection()

@@ -1,6 +1,6 @@
-﻿namespace OpenTibia.FileFormats.Xml.Npcs
+﻿namespace OpenTibia.FileFormats.Xml.Monsters
 {
-    public class Look
+    public class LookItem
     {
         public int TypeEx { get; set; }
 
@@ -13,5 +13,7 @@
         public int Legs { get; set; }
 
         public int Feet { get; set; }
+
+        public int Corpse { get; set; }
     }
 }

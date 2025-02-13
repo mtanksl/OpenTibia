@@ -7,7 +7,7 @@
         public static readonly Light Day = new Light(250, 215);
 
         public static readonly Light Night = new Light(40, 215);
-        
+
         public Light(byte level, byte color)
         {
             this.level = level;

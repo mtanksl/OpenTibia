@@ -20,28 +20,40 @@ namespace OpenTibia.FileFormats.Xml.Npcs
 
             XElement healthNode = npcNode.Element("health");
 
-            npc.Health = new Health()
+            npc.Health = new HealthItem()
             {
                 Now = (int)healthNode.Attribute("now"),
 
                 Max = (int)healthNode.Attribute("max")
             };
 
-            XElement outfitNode = npcNode.Element("look");
+            XElement lightNode = npcNode.Element("light");
 
-            npc.Look = new Look()
+            if (lightNode != null)
             {
-                TypeEx = (int?)outfitNode.Attribute("typeex") ?? 0,
+                npc.Light = new LightItem()
+                {
+                    Level = (int?)lightNode.Attribute("level") ?? 0,
 
-                Type = (int?)outfitNode.Attribute("type") ?? 0,
+                    Color = (int?)lightNode.Attribute("color") ?? 0
+                };
+            }
 
-                Head = (int?)outfitNode.Attribute("head") ?? 0,
+            XElement lookNode = npcNode.Element("look");
 
-                Body = (int?)outfitNode.Attribute("body") ?? 0,
+            npc.Look = new LookItem()
+            {
+                TypeEx = (int?)lookNode.Attribute("typeex") ?? 0,
 
-                Legs = (int?)outfitNode.Attribute("legs") ?? 0,
+                Type = (int?)lookNode.Attribute("type") ?? 0,
 
-                Feet = (int?)outfitNode.Attribute("feet") ?? 0
+                Head = (int?)lookNode.Attribute("head") ?? 0,
+
+                Body = (int?)lookNode.Attribute("body") ?? 0,
+
+                Legs = (int?)lookNode.Attribute("legs") ?? 0,
+
+                Feet = (int?)lookNode.Attribute("feet") ?? 0
             };
 
             XElement voicesNode = npcNode.Element("voices");
@@ -77,9 +89,11 @@ namespace OpenTibia.FileFormats.Xml.Npcs
 
         public int Speed { get; set; }
 
-        public Health Health { get; set; }
+        public HealthItem Health { get; set; }
 
-        public Look Look { get; set; }
+        public LightItem Light { get; set; }
+
+        public LookItem Look { get; set; }
 
         public VoiceCollection Voices { get; set; }
     }

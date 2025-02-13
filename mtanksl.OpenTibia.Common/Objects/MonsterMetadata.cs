@@ -23,6 +23,8 @@ namespace OpenTibia.Common.Objects
 
         public ushort MaxHealth { get; set; }
 
+        public Light Light { get; set; }
+
         public Outfit Outfit { get; set; }
 
         public ushort Corpse { get; set; }

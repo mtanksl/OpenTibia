@@ -10,6 +10,8 @@
 
             MaxHealth = metadata.MaxHealth;
 
+            BaseLight = metadata.Light;
+
             BaseOutfit = metadata.Outfit;
 
             BaseSpeed = metadata.Speed;
