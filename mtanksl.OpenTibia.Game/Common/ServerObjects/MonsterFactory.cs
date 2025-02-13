@@ -67,7 +67,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                     Immunities = new HashSet<DamageType>(),
 
                     DamageTakenFromElements = new Dictionary<DamageType, double>(),
-
+    
                     Summonable = xmlMonster.Flags?.Any(f => f.Summonable == 1) ?? false,
 
                     Attackable = xmlMonster.Flags?.Any(f => f.Attackable == 1) ?? false,
@@ -154,6 +154,14 @@ namespace OpenTibia.Game.Common.ServerObjects
                         else if (immunityItem.LifeDrain == 1)
                         {
                             monsterMetadata.Immunities.Add(DamageType.LifeDrain);
+                        }
+                        else if (immunityItem.Paralyze == 1)
+                        {
+                            monsterMetadata.ImmuneToParalyse = true;
+                        }
+                        else if (immunityItem.Invisible == 1)
+                        {
+                            monsterMetadata.ImmuneToInvisible = true;
                         }
                     }
                 }

@@ -158,7 +158,11 @@ namespace OpenTibia.FileFormats.Xml.Monsters
 
                         ManaDrain = (int?)immunityNode.Attribute("manaDrain"),
 
-                        LifeDrain = (int?)immunityNode.Attribute("lifeDrain")
+                        LifeDrain = (int?)immunityNode.Attribute("lifeDrain"),
+
+                        Paralyze = (int?)immunityNode.Attribute("paralyze"),
+
+                        Invisible = (int?)immunityNode.Attribute("invisible")
                     } );
                 }
             }

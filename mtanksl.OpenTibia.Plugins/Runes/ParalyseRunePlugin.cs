@@ -21,10 +21,17 @@ namespace OpenTibia.Plugins.Runes
 
         public override Promise OnUseRune(Player player, Creature target, Tile toTile, Item rune)
         {
-            return Context.AddCommand(new ShowMagicEffectCommand(target, MagicEffectType.GreenShimmer) ).Then( () =>
+            if (target is Monster monster && monster.Metadata.ImmuneToParalyse)
             {
-                return Context.AddCommand(new CreatureAddConditionCommand(target, new SlowedCondition( (ushort)(target.BaseSpeed - 101), TimeSpan.FromSeconds(10) ) ) );
-            } );
+                return Context.AddCommand(new ShowMagicEffectCommand(target, MagicEffectType.GreenShimmer) );
+            }
+            else
+            {
+                return Context.AddCommand(new ShowMagicEffectCommand(target, MagicEffectType.GreenShimmer) ).Then( () =>
+                {
+                    return Context.AddCommand(new CreatureAddConditionCommand(target, new SlowedCondition( (ushort)(target.BaseSpeed - 101), TimeSpan.FromSeconds(10) ) ) );
+                } );
+            }
         }
     }
 }

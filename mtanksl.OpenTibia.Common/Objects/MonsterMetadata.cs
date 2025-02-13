@@ -33,6 +33,10 @@ namespace OpenTibia.Common.Objects
 
         public HashSet<DamageType> Immunities { get; set; }
 
+        public bool ImmuneToParalyse { get; set; }
+
+        public bool ImmuneToInvisible { get; set; }
+
         public Dictionary<DamageType, double> DamageTakenFromElements { get; set; }
 
         public bool Summonable { get; set; }

@@ -23,5 +23,9 @@
         public int? ManaDrain { get; set; }
 
         public int? LifeDrain { get; set; }
+     
+        public int? Paralyze { get; set; }
+
+        public int? Invisible { get; set; }
     }
 }

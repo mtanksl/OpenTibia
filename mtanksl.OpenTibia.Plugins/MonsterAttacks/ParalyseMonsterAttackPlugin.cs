@@ -22,10 +22,17 @@ namespace OpenTibia.Plugins.MonsterAttacks
 
         public override Promise OnAttack(Monster attacker, Creature target, int min, int max, Dictionary<string, string> attributes)
         {
-            return Context.Current.AddCommand(new ShowMagicEffectCommand(target, MagicEffectType.GreenShimmer) ).Then( () =>
+            if (target is Monster monster && monster.Metadata.ImmuneToParalyse)
             {
-                return Context.Current.AddCommand(new CreatureAddConditionCommand(target, new SlowedCondition( (ushort)(target.BaseSpeed - 101), TimeSpan.FromSeconds(10) ) ) );
-            } );
-        }        
+                return Context.Current.AddCommand(new ShowMagicEffectCommand(target, MagicEffectType.GreenShimmer) );
+            }
+            else
+            {
+                return Context.Current.AddCommand(new ShowMagicEffectCommand(target, MagicEffectType.GreenShimmer) ).Then( () =>
+                {
+                    return Context.Current.AddCommand(new CreatureAddConditionCommand(target, new SlowedCondition( (ushort)(target.BaseSpeed - 101), TimeSpan.FromSeconds(10) ) ) );
+                } );
+            }
+        }
     }
 }
