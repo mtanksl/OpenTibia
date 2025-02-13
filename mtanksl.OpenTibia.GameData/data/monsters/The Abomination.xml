@@ -31,8 +31,8 @@
     <element lifeDrainPercent="100" />
   </elements>
   <voices interval="5000" chance="10">
-    <voice yell="0" sentence="DEATH IS INEVITABLE!" />
-    <voice yell="0" sentence="I AM THE ESSENCE OF DEATH!" />
+    <voice yell="1" sentence="DEATH IS INEVITABLE!" />
+    <voice yell="1" sentence="I AM THE ESSENCE OF DEATH!" />
   </voices>
   <defenses mitigation="0" defense="0" armor="0" />
   <changetargetstrategy interval="5000" chance="10" />

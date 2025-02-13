@@ -31,9 +31,9 @@
     <element lifeDrainPercent="0" />
   </elements>
   <voices interval="5000" chance="10">
-    <voice yell="0" sentence="REVENGE!" />
+    <voice yell="1" sentence="REVENGE!" />
     <voice yell="0" sentence="Far too hot." />
-    <voice yell="0" sentence="DISGUSTING WARMBLOODS!" />
+    <voice yell="1" sentence="DISGUSTING WARMBLOODS!" />
     <voice yell="0" sentence="I'll extinguish you warmbloods." />
     <voice yell="0" sentence="Revenge is sweetest when served cold." />
   </voices>

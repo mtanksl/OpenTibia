@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <monster name="Butterfly (Yellow)" nameDisplayed="Butterfly" nameDescription="a butterfly" race="venom" speed="320" experience="0" manacost="0">
   <health now="2" max="2" />
   <look typeex="0" type="10" head="0" body="0" legs="0" feet="0" corpse="5014" />

@@ -33,7 +33,7 @@
   <voices interval="5000" chance="10">
     <voice yell="0" sentence="I sense your strength fading!" />
     <voice yell="0" sentence="One little mistake and your all are mine!" />
-    <voice yell="1" sentence="You will run out of resources soon enough!!" />
+    <voice yell="0" sentence="You will run out of resources soon enough!!" />
   </voices>
   <defenses mitigation="0" defense="0" armor="0" />
   <changetargetstrategy interval="5000" chance="10" />

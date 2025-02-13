@@ -32,7 +32,7 @@
   </elements>
   <voices interval="5000" chance="10">
     <voice yell="0" sentence="Destructiooooon!" />
-    <voice yell="0" sentence="COME HERE AND DIE!" />
+    <voice yell="1" sentence="COME HERE AND DIE!" />
     <voice yell="0" sentence="It's a good day to destroy!" />
   </voices>
   <defenses mitigation="1.74" defense="0" armor="35" />

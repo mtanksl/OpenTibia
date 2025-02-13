@@ -33,7 +33,7 @@
   <voices interval="5000" chance="10">
     <voice yell="0" sentence="Feel my wrath!" />
     <voice yell="0" sentence="You will all die!" />
-    <voice yell="1" sentence="I am going to play with yourself!" />
+    <voice yell="0" sentence="I am going to play with yourself!" />
     <voice yell="0" sentence="No one matches my battle prowess!" />
   </voices>
   <defenses mitigation="0" defense="0" armor="0" />

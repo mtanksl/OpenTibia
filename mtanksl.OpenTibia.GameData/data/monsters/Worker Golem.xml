@@ -31,7 +31,7 @@
     <element lifeDrainPercent="0" />
   </elements>
   <voices interval="5000" chance="10">
-    <voice yell="0" sentence="INTRUDER ALARM!" />
+    <voice yell="1" sentence="INTRUDER ALARM!" />
     <voice yell="0" sentence="Awaiting orders." />
     <voice yell="0" sentence="klonk klonk klonk" />
     <voice yell="0" sentence="Rrrtttarrrttarrrtta" />

@@ -32,7 +32,7 @@
   </elements>
   <voices interval="5000" chance="10">
     <voice yell="1" sentence="DEESTRUCTIOON!" />
-    <voice yell="1" sentence="Blood! Carnage! Muhahaha!" />
+    <voice yell="0" sentence="Blood! Carnage! Muhahaha!" />
   </voices>
   <defenses mitigation="0" defense="0" armor="0" />
   <changetargetstrategy interval="5000" chance="10" />

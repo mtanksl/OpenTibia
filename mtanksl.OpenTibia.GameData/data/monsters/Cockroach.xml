@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <monster name="Cockroach" nameDescription="a cockroach" race="venom" speed="100" experience="0" manacost="0">
   <health now="1" max="1" />
   <look typeex="0" type="284" head="0" body="0" legs="0" feet="0" corpse="8593" />

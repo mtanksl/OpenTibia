@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <monster name="Fire Devil" nameDescription="a fire devil" race="blood" speed="196" experience="145" manacost="530">
   <health now="200" max="200" />
   <look typeex="0" type="40" head="0" body="0" legs="0" feet="0" corpse="5985" />

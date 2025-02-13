@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <monster name="Minishabaal" nameDescription="Minishabaal" race="blood" speed="700" experience="4000" manacost="0">
   <health now="6000" max="6000" />
   <look typeex="0" type="237" head="0" body="0" legs="0" feet="0" corpse="6364" />
@@ -33,7 +33,7 @@
   <voices interval="5000" chance="10">
     <voice yell="0" sentence="Muahaha!" />
     <voice yell="0" sentence="He He He!" />
-    <voice yell="0" sentence="WHERE'S FLUFFY?" />
+    <voice yell="1" sentence="WHERE'S FLUFFY?" />
     <voice yell="0" sentence="Get them Fluffy!" />
     <voice yell="0" sentence="Naaa-Nana-Naaa-Naaa!" />
     <voice yell="0" sentence="My other dragon is a red one!" />

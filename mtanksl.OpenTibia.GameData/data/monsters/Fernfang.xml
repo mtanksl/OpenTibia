@@ -32,7 +32,7 @@
   </elements>
   <voices interval="5000" chance="10">
     <voice yell="0" sentence="Grrrrrrr" />
-    <voice yell="1" sentence="Yoooohhuuuu!" />
+    <voice yell="0" sentence="Yoooohhuuuu!" />
     <voice yell="0" sentence="I will cleanse this isle!" />
     <voice yell="0" sentence="You desecrated this place!" />
   </voices>

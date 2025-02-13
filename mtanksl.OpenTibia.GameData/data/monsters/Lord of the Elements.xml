@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <monster name="Lord of the Elements" nameDescription="Lord of the Elements" race="undead" speed="196" experience="8000" manacost="0">
   <health now="8000" max="8000" />
   <look typeex="0" type="290" head="0" body="0" legs="0" feet="0" corpse="8966" />
@@ -31,8 +31,8 @@
     <element lifeDrainPercent="0" />
   </elements>
   <voices interval="5000" chance="10">
-    <voice yell="0" sentence="WHO DARES CALLING ME?"/>
-    <voice yell="0" sentence="I'LL FREEZE YOU THEN I CRUSH YOU!"/>
+    <voice yell="1" sentence="WHO DARES CALLING ME?" />
+    <voice yell="1" sentence="I'LL FREEZE YOU THEN I CRUSH YOU!" />
   </voices>
   <defenses mitigation="0" defense="0" armor="0" />
   <changetargetstrategy interval="5000" chance="10" />

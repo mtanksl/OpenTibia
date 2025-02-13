@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <monster name="Green Djinn" nameDescription="a green djinn" race="blood" speed="220" experience="215" manacost="0">
   <health now="330" max="330" />
   <look typeex="0" type="51" head="0" body="0" legs="0" feet="0" corpse="6016" />

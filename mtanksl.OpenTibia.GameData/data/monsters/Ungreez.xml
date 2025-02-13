@@ -31,8 +31,8 @@
     <element lifeDrainPercent="0" />
   </elements>
   <voices interval="5000" chance="10">
-    <voice yell="1" sentence="I'll teach you that even heros can die" />
-    <voice yell="1" sentence="You wil die Begging like the others did" />
+    <voice yell="0" sentence="I'll teach you that even heros can die" />
+    <voice yell="0" sentence="You wil die Begging like the others did" />
   </voices>
   <defenses mitigation="0" defense="0" armor="0" />
   <changetargetstrategy interval="5000" chance="10" />

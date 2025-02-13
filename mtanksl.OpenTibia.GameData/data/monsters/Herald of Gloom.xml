@@ -31,9 +31,9 @@
     <element lifeDrainPercent="0" />
   </elements>
   <voices interval="5000" chance="10">
-    <voice yell="1" sentence="The powers of light are waning." />
-    <voice yell="1" sentence="You will join us in eternal night!" />
-    <voice yell="1" sentence="The shadows will engulf the world." />
+    <voice yell="0" sentence="The powers of light are waning." />
+    <voice yell="0" sentence="You will join us in eternal night!" />
+    <voice yell="0" sentence="The shadows will engulf the world." />
   </voices>
   <defenses mitigation="1.32" defense="0" armor="25" />
   <changetargetstrategy interval="5000" chance="10" />

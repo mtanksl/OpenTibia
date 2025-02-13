@@ -34,7 +34,7 @@
     <voice yell="0" sentence="Golgordan you fool!" />
     <voice yell="0" sentence="Colateral damage is so fun!" />
     <voice yell="0" sentence="We are the brothers of fear!" />
-    <voice yell="1" sentence="I might reward you for killing my brother ~ with a swift dead!" />
+    <voice yell="0" sentence="I might reward you for killing my brother ~ with a swift dead!" />
   </voices>
   <defenses mitigation="0" defense="0" armor="0" />
   <changetargetstrategy interval="5000" chance="10" />

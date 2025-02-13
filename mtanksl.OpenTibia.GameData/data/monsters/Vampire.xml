@@ -31,7 +31,7 @@
     <element lifeDrainPercent="100" />
   </elements>
   <voices interval="5000" chance="10">
-    <voice yell="0" sentence="BLOOD!" />
+    <voice yell="1" sentence="BLOOD!" />
     <voice yell="0" sentence="I smell warm blood!" />
     <voice yell="0" sentence="Let me kiss your neck" />
     <voice yell="0" sentence="I call you, my bats! Come!" />

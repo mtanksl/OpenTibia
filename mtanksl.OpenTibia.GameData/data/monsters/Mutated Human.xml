@@ -31,7 +31,7 @@
     <element lifeDrainPercent="100" />
   </elements>
   <voices interval="5000" chance="10">
-    <voice yell="0" sentence="HEEEEEEEELP!" />
+    <voice yell="1" sentence="HEEEEEEEELP!" />
     <voice yell="0" sentence="Science... is a curse." />
     <voice yell="0" sentence="Run as fast as you can." />
     <voice yell="0" sentence="Oh by the gods! What is this... aaaaaargh!" />

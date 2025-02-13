@@ -31,11 +31,11 @@
     <element lifeDrainPercent="100" />
   </elements>
   <voices interval="5000" chance="10">
-    <voice yell="0" sentence="YOU ARRRRRE DOOMED!" />
-    <voice yell="0" sentence="I SHHMELL FEEAARRR!" />
+    <voice yell="1" sentence="YOU ARRRRRE DOOMED!" />
+    <voice yell="1" sentence="I SHHMELL FEEAARRR!" />
     <voice yell="0" sentence="Your shhoooul will be mineee!" />
-    <voice yell="0" sentence="ISHH THAT THE BESHHT YOU HAVE TO OFFERRR?" />
-    <voice yell="0" sentence="MY SHHEED IS FEARRR AND MY HARRRVEST ISHH YOURRR SHHOUL!" />
+    <voice yell="1" sentence="ISHH THAT THE BESHHT YOU HAVE TO OFFERRR?" />
+    <voice yell="1" sentence="MY SHHEED IS FEARRR AND MY HARRRVEST ISHH YOURRR SHHOUL!" />
   </voices>
   <defenses mitigation="0.48" defense="0" armor="18" />
   <changetargetstrategy interval="5000" chance="10" />

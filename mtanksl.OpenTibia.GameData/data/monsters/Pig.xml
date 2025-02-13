@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <monster name="Pig" nameDescription="a pig" race="blood" speed="114" experience="0" manacost="255">
   <health now="25" max="25" />
   <look typeex="0" type="60" head="0" body="0" legs="0" feet="0" corpse="6000" />

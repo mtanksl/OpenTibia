@@ -10,6 +10,8 @@
 	- Splash
 	- Summon
 	- Convince
+	- Invisible condition (utana vid, stealth ring)
+	- Invisible monster
 	- ...
 - Bed
 - Guild

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <monster name="Avalanche" nameDescription="Avalanche" race="undead" speed="208" experience="305" manacost="0">
   <health now="25" max="25" />
   <look typeex="0" type="261" head="0" body="0" legs="0" feet="0" corpse="7282" />

@@ -31,10 +31,10 @@
     <element lifeDrainPercent="0" />
   </elements>
   <voices interval="5000" chance="10">
-    <voice yell="0" sentence="FCHHHHHHHH!" />
-    <voice yell="0" sentence="GROOOOAAAAAAAAR!" />
-    <voice yell="0" sentence="DIRTY LITTLE HUMANS" />
-    <voice yell="0" sentence="YOU CAN'T KEEP ME HERE FOREVER" />
+    <voice yell="1" sentence="FCHHHHHHHH!" />
+    <voice yell="1" sentence="GROOOOAAAAAAAAR!" />
+    <voice yell="1" sentence="DIRTY LITTLE HUMANS" />
+    <voice yell="1" sentence="YOU CAN'T KEEP ME HERE FOREVER" />
   </voices>
   <defenses mitigation="0" defense="0" armor="0" />
   <changetargetstrategy interval="5000" chance="10" />

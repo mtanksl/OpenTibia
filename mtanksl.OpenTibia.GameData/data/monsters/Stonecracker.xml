@@ -31,7 +31,7 @@
     <element lifeDrainPercent="0" />
   </elements>
   <voices interval="5000" chance="10">
-    <voice yell="0" sentence="HUAHAHA!" />
+    <voice yell="1" sentence="HUAHAHA!" />
   </voices>
   <defenses mitigation="0" defense="0" armor="0" />
   <changetargetstrategy interval="5000" chance="10" />

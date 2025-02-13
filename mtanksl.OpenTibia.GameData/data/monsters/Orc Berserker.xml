@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <monster name="Orc Berserker" nameDescription="an orc berserker" race="blood" speed="250" experience="195" manacost="590">
   <health now="210" max="210" />
   <look typeex="0" type="8" head="0" body="0" legs="0" feet="0" corpse="5980" />
@@ -31,7 +31,7 @@
     <element lifeDrainPercent="0" />
   </elements>
   <voices interval="5000" chance="10">
-    <voice yell="0" sentence="KRAK ORRRRRRK!" />
+    <voice yell="1" sentence="KRAK ORRRRRRK!" />
   </voices>
   <defenses mitigation="0.30" defense="0" armor="12" />
   <changetargetstrategy interval="5000" chance="10" />

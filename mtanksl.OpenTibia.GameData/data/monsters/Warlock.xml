@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <monster name="Warlock" nameDescription="a warlock" race="blood" speed="230" experience="4000" manacost="0">
   <health now="3500" max="3500" />
   <look typeex="0" type="130" head="19" body="71" legs="128" feet="128" corpse="6080" />

@@ -31,7 +31,7 @@
     <element lifeDrainPercent="0" />
   </elements>
   <voices interval="5000" chance="10">
-    <voice yell="0" sentence="653768764!" />
+    <voice yell="1" sentence="653768764!" />
     <voice yell="0" sentence="Inferior creatures, bow before my power!" />
   </voices>
   <defenses mitigation="0" defense="0" armor="0" />

@@ -31,7 +31,7 @@
     <element lifeDrainPercent="0" />
   </elements>
   <voices interval="5000" chance="10">
-    <voice yell="0" sentence="DIE!!!" />
+    <voice yell="1" sentence="DIE!!!" />
     <voice yell="0" sentence="Slice! Slice!" />
   </voices>
   <defenses mitigation="1.02" defense="0" armor="15" />

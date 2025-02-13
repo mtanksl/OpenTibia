@@ -31,9 +31,9 @@
     <element lifeDrainPercent="0" />
   </elements>
   <voices interval="5000" chance="10">
-    <voice yell="0" sentence="MINE!" />
-    <voice yell="0" sentence="NO MERCY!" />
-    <voice yell="0" sentence="NO PRISONERS!" />
+    <voice yell="1" sentence="MINE!" />
+    <voice yell="1" sentence="NO MERCY!" />
+    <voice yell="1" sentence="NO PRISONERS!" />
     <voice yell="0" sentence="By Bolg's blood!" />
     <voice yell="0" sentence="You're no match for me!" />
   </voices>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <monster name="Tibia Bug" nameDescription="Tibia Bug" race="venom" speed="240" experience="50" manacost="0">
   <health now="270" max="270" />
   <look typeex="0" type="45" head="0" body="0" legs="0" feet="0" corpse="5990" />

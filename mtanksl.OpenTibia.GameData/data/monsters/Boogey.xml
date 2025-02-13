@@ -31,11 +31,11 @@
     <element lifeDrainPercent="100" />
   </elements>
   <voices interval="5000" chance="10">
-    <voice yell="1" sentence="You better had believe in me!" />
-    <voice yell="1" sentence="I'll take you into the darkness ... forever!" />
-    <voice yell="1" sentence="Since you didn't eat your spinach Bogey comes to get you!" />
-    <voice yell="1" sentence="Too bad you did not eat your lunch, now I have to punish you!" />
-    <voice yell="1" sentence="Even if you beat me, I'll hide in your closet until you one day drop your guard!" />
+    <voice yell="0" sentence="You better had believe in me!" />
+    <voice yell="0" sentence="I'll take you into the darkness ... forever!" />
+    <voice yell="0" sentence="Since you didn't eat your spinach Bogey comes to get you!" />
+    <voice yell="0" sentence="Too bad you did not eat your lunch, now I have to punish you!" />
+    <voice yell="0" sentence="Even if you beat me, I'll hide in your closet until you one day drop your guard!" />
   </voices>
   <defenses mitigation="0" defense="0" armor="0" />
   <changetargetstrategy interval="5000" chance="10" />

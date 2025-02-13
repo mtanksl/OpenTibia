@@ -31,9 +31,9 @@
     <element lifeDrainPercent="0" />
   </elements>
   <voices interval="5000" chance="10">
-    <voice yell="0" sentence="CARNAGE!" />
-    <voice yell="0" sentence="YAAAHEEE!" />
-    <voice yell="0" sentence="SLAUGHTER!" />
+    <voice yell="1" sentence="CARNAGE!" />
+    <voice yell="1" sentence="YAAAHEEE!" />
+    <voice yell="1" sentence="SLAUGHTER!" />
     <voice yell="0" sentence="You can run but you can't hide" />
   </voices>
   <defenses mitigation="0.25" defense="0" armor="9" />

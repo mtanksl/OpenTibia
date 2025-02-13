@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <monster name="Primitive" nameDescription="a primitive" race="blood" speed="300" experience="45" manacost="0">
   <health now="200" max="200" />
   <look typeex="0" type="143" head="1" body="1" legs="1" feet="1" corpse="6080" />

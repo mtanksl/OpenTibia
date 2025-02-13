@@ -32,7 +32,7 @@
   </elements>
   <voices interval="5000" chance="30">
     <voice yell="1" sentence="FLAWLESS VICTORY!" />
-    <voice yell="0" sentence="COME AND GIVE ME SOME AMUSEMENT" />
+    <voice yell="1" sentence="COME AND GIVE ME SOME AMUSEMENT" />
     <voice yell="1" sentence="IS THAT THE BEST YOU HAVE TO OFFER?" />
     <voice yell="1" sentence="I AM GHAZBARAN OF THE TRIANGLE... AND I AM HERE TO CHALLENGE YOU ALL." />
   </voices>

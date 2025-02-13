@@ -32,7 +32,7 @@
   </elements>
   <voices interval="5000" chance="10">
     <voice yell="0" sentence="Grrrrrrr" />
-    <voice yell="1" sentence="Yoooohhuuuu!" />
+    <voice yell="0" sentence="Yoooohhuuuu!" />
   </voices>
   <defenses mitigation="0" defense="0" armor="0" />
   <changetargetstrategy interval="5000" chance="10" />

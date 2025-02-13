@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <monster name="Wild Warrior" nameDescription="a wild warrior" race="blood" speed="190" experience="60" manacost="420">
   <health now="135" max="135" />
   <look typeex="0" type="131" head="57" body="57" legs="57" feet="57" corpse="6080" />

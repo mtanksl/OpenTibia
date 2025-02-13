@@ -31,7 +31,7 @@
     <element lifeDrainPercent="0" />
   </elements>
   <voices interval="5000" chance="10">
-    <voice yell="0" sentence="CRAAAHHH!" />
+    <voice yell="1" sentence="CRAAAHHH!" />
     <voice yell="0" sentence="Gruuuh Gruuuh." />
     <voice yell="0" sentence="Carrah Carrah!" />
   </voices>

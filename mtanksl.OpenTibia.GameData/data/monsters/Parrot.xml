@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <monster name="Parrot" nameDescription="a parrot" race="blood" speed="196" experience="0" manacost="250">
   <health now="25" max="25" />
   <look typeex="0" type="217" head="0" body="0" legs="0" feet="0" corpse="6056" />
@@ -33,7 +33,7 @@
   <voices interval="5000" chance="10">
     <voice yell="0" sentence="Tarrrrp?" />
     <voice yell="0" sentence="Screeech!" />
-    <voice yell="0" sentence="BR? PL? SWE?" />
+    <voice yell="1" sentence="BR? PL? SWE?" />
     <voice yell="0" sentence="Neeeewbiiieee!" />
     <voice yell="0" sentence="Hunterrr ish PK!" />
     <voice yell="0" sentence="Leeave orrr hunted!!" />

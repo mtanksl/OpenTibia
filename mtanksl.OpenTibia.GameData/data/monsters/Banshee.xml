@@ -32,7 +32,7 @@
   </elements>
   <voices interval="5000" chance="10">
     <voice yell="0" sentence="Let the music play!" />
-    <voice yell="1" sentence="IIIIEEEeeeeeehhhHHHH!" />
+    <voice yell="0" sentence="IIIIEEEeeeeeehhhHHHH!" />
     <voice yell="0" sentence="Are you ready to rock?" />
     <voice yell="0" sentence="I will mourn your death!" />
     <voice yell="0" sentence="Feel my gentle kiss of death." />
