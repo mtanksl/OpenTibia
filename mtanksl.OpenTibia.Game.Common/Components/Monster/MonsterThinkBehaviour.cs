@@ -27,6 +27,18 @@ namespace OpenTibia.Game.Components
             this.targetStrategy = targetStrategy;
         }
 
+        public Creature Target
+        {
+            get
+            {
+                return target;
+            }
+            set
+            {
+                target = value;
+            }
+        }
+
         private Monster monster;
 
         private Guid creatureAppearEventArgs;

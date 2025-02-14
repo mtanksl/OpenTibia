@@ -79,11 +79,11 @@ namespace OpenTibia.Game.Commands
 
             if (damage == 0)
             {
-                await Attack.Missed(Attacker, Target, blockType);
+                await Attack.NoDamage(Attacker, Target, blockType);
             }
             else
             {
-                await Attack.Hit(Attacker, Target, damage);
+                await Attack.Damage(Attacker, Target, damage);
 
                 if (Condition != null)
                 {

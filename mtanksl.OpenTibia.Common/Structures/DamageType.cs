@@ -4,8 +4,6 @@ namespace OpenTibia.Common.Structures
 {
     public enum DamageType : byte
     {
-        Healing = 0,
-
         Physical = 1,
 
         Earth = 2,
@@ -81,10 +79,6 @@ namespace OpenTibia.Common.Structures
         {
             switch (damageType)
             {
-                case DamageType.Healing:
-
-                    return MagicEffectType.BlueShimmer;
-
                 case DamageType.Physical:
 
                     switch (race)
@@ -156,10 +150,6 @@ namespace OpenTibia.Common.Structures
         {
             switch (damageType)
             {
-                case DamageType.Healing:
-
-                    return null;
-
                 case DamageType.Physical:
 
                     switch (race)

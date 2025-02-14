@@ -6,17 +6,28 @@ namespace OpenTibia.Game.Commands
 {
     public class HealingAttack : Attack
     {
-        public HealingAttack(int min, int max) : base(DamageType.Healing, min, max, null, null, null)
-        {
+        private int min;
 
+        private int max;
+
+        public HealingAttack(int min, int max)
+        {
+            this.min = min;
+
+            this.max = max;
         }
 
-        public override Promise Missed(Creature attacker, Creature target, BlockType blockType)
+        public override (int Damage, BlockType BlockType) Calculate(Creature attacker, Creature target)
+        {
+            return (Context.Current.Server.Randomization.Take(min, max), BlockType.None);
+        }
+
+        public override Promise NoDamage(Creature attacker, Creature target, BlockType blockType)
         {
             return Promise.Completed;
         }
 
-        public override async Promise Hit(Creature attacker, Creature target, int damage)
+        public override async Promise Damage(Creature attacker, Creature target, int damage)
         {
             await Context.Current.AddCommand(new ShowMagicEffectCommand(target, MagicEffectType.BlueShimmer) );
 

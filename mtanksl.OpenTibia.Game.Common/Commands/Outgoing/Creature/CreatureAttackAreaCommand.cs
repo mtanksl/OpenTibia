@@ -191,7 +191,7 @@ namespace OpenTibia.Game.Commands
                             }
                         }
                     }
-                    else if (Attack is HealingAttack)
+                    else // if (Attack is HealingAttack || Attack is CancelInvisibilityAttack || Attack is ChallengeAttack)
                     {
                         if (MagicEffectType != null)
                         {
