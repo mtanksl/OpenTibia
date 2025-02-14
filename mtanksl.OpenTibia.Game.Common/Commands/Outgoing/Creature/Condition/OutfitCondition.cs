@@ -22,7 +22,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise OnStart(Creature creature)
         {
-            return Context.Current.AddCommand(new CreatureUpdateOutfitCommand(creature, creature.BaseOutfit, ConditionOutfit, creature.Swimming, creature.Stealth) ).Then( () =>
+            return Context.Current.AddCommand(new CreatureUpdateOutfitCommand(creature, creature.BaseOutfit, ConditionOutfit, creature.Swimming, creature.ConditionStealth) ).Then( () =>
             {
                 return Promise.Delay(key, Duration);
             } );
@@ -35,7 +35,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise OnStop(Creature creature)
         {
-            return Context.Current.AddCommand(new CreatureUpdateOutfitCommand(creature, creature.BaseOutfit, null, creature.Swimming, creature.Stealth) );
+            return Context.Current.AddCommand(new CreatureUpdateOutfitCommand(creature, creature.BaseOutfit, null, creature.Swimming, creature.ConditionStealth) );
         }
     }
 }

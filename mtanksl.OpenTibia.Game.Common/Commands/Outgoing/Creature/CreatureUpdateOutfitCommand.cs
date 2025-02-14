@@ -8,7 +8,7 @@ namespace OpenTibia.Game.Commands
 {
     public class CreatureUpdateOutfitCommand : Command
     {
-        public CreatureUpdateOutfitCommand(Creature creature, Outfit baseOutfit, Outfit conditionOutfit, bool swimming, bool stealth)
+        public CreatureUpdateOutfitCommand(Creature creature, Outfit baseOutfit, Outfit conditionOutfit, bool swimming, bool conditionStealth)
         {
             Creature = creature;
 
@@ -18,7 +18,7 @@ namespace OpenTibia.Game.Commands
 
             Swimming = swimming;
 
-            Stealth = stealth;
+            ConditionStealth = conditionStealth;
         }
 
         public Creature Creature { get; set; }
@@ -29,16 +29,16 @@ namespace OpenTibia.Game.Commands
 
         public bool Swimming { get; set; }
 
-        public bool Stealth { get; set; }
+        public bool ConditionStealth { get; set; }
 
         public override Promise Execute()
         {
-            if (Creature.BaseOutfit != BaseOutfit || Creature.ConditionOutfit != ConditionOutfit || Creature.Swimming != Swimming || Creature.Stealth != Stealth)
+            if (Creature.BaseOutfit != BaseOutfit || Creature.ConditionOutfit != ConditionOutfit || Creature.Swimming != Swimming || Creature.ConditionStealth != ConditionStealth)
             {
                 Creature.BaseOutfit = BaseOutfit;
                 Creature.ConditionOutfit = ConditionOutfit;
                 Creature.Swimming = Swimming;
-                Creature.Stealth = Stealth;
+                Creature.ConditionStealth = ConditionStealth;
 
                 if (Creature.Tile != null)
                 {
@@ -53,7 +53,7 @@ namespace OpenTibia.Game.Commands
                     }
                 }
 
-                Context.AddEvent(new CreatureUpdateOutfitEventArgs(Creature, BaseOutfit, ConditionOutfit, Swimming, Stealth) );
+                Context.AddEvent(new CreatureUpdateOutfitEventArgs(Creature, BaseOutfit, ConditionOutfit, Swimming, ConditionStealth) );
             }
 
             return Promise.Completed;

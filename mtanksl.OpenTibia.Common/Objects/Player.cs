@@ -130,13 +130,7 @@ namespace OpenTibia.Common.Objects
                     return ConditionLight;
                 }
 
-                foreach (var item in Inventory.GetItems() )
-                {
-                    if (item.Metadata.Light != null)
-                    {
-                        return item.Metadata.Light;
-                    }
-                }
+                //TODO: Item light from inventory
 
                 return BaseLight;
             }
@@ -153,7 +147,7 @@ namespace OpenTibia.Common.Objects
                     sum += ConditionSpeed.Value;
                 }
 
-                //TODO: Speed + -
+                //TODO: Item speed from inventory
 
                 return (ushort)(sum);
             }

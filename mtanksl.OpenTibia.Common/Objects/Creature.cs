@@ -77,7 +77,7 @@ namespace OpenTibia.Common.Objects
 
         public bool Swimming { get; set; }
 
-        public bool Stealth { get; set; }
+        public bool ConditionStealth { get; set; }
 
         public Outfit Outfit
         {
@@ -88,7 +88,7 @@ namespace OpenTibia.Common.Objects
                     return Outfit.Invisible;
                 }
 
-                if (Stealth)
+                if (ConditionStealth)
                 {
                     return Outfit.Invisible;
                 }

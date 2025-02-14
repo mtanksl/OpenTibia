@@ -192,7 +192,7 @@ namespace OpenTibia.Game.Extensions
 
         /// <exception cref="InvalidOperationException"></exception>
 
-        public static Promise UpdateOutfit(this Creature creature, Outfit baseOutfit, Outfit conditionOutfit, bool swimming, bool stealth)
+        public static Promise UpdateOutfit(this Creature creature, Outfit baseOutfit, Outfit conditionOutfit, bool swimming, bool conditionStealth)
         {
             Context context = Context.Current;
 
@@ -201,7 +201,7 @@ namespace OpenTibia.Game.Extensions
                 throw new InvalidOperationException("Context not found.");
             }
 
-            return context.AddCommand(new CreatureUpdateOutfitCommand(creature, baseOutfit, conditionOutfit, swimming, stealth) );
+            return context.AddCommand(new CreatureUpdateOutfitCommand(creature, baseOutfit, conditionOutfit, swimming, conditionStealth) );
         }
 
         /// <exception cref="InvalidOperationException"></exception>

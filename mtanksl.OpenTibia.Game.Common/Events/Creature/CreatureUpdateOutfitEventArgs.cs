@@ -5,7 +5,7 @@ namespace OpenTibia.Game.Events
 {
     public class CreatureUpdateOutfitEventArgs : GameEventArgs
     {
-        public CreatureUpdateOutfitEventArgs(Creature creature, Outfit baseOutfit, Outfit conditionOutfit, bool swimming, bool stealth)
+        public CreatureUpdateOutfitEventArgs(Creature creature, Outfit baseOutfit, Outfit conditionOutfit, bool swimming, bool conditionStealth)
         {
             Creature = creature;
 
@@ -15,7 +15,7 @@ namespace OpenTibia.Game.Events
 
             Swimming = swimming;
 
-            Stealth = stealth;
+            ConditionStealth = conditionStealth;
         }
 
         public Creature Creature { get; }
@@ -26,6 +26,6 @@ namespace OpenTibia.Game.Events
 
         public bool Swimming { get; set; }
 
-        public bool Stealth { get; set; }
+        public bool ConditionStealth { get; set; }
     }
 }
