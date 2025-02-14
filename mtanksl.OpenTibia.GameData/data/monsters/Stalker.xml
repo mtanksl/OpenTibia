@@ -37,7 +37,7 @@
   <attacks>
     <attack name="melee" interval="2000" chance="90" min="0" max="70" />
     <attack name="life drain" interval="3000" chance="70" min="20" max="30" />
-
+    <attack name="invisible" interval="3000" chance="30" />
   </attacks>
   <loot />
 </monster>

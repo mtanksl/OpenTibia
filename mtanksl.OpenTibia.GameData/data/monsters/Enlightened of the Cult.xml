@@ -45,6 +45,7 @@
 
     <attack name="paralyse" interval="3000" chance="70" />
     <attack name="self healing" interval="2000" chance="50" min="50" max="50" />
+    <attack name="invisible" interval="3000" chance="30" />
   </attacks>
   <loot />
 </monster>

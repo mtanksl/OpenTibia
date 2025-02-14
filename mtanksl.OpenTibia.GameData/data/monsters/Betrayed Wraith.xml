@@ -41,7 +41,7 @@
   <attacks>
     <attack name="melee" interval="2000" chance="90" min="0" max="455" />
     <attack name="self healing" interval="2000" chance="50" min="350" max="600" />
-
+    <attack name="invisible" interval="3000" chance="30" />
 
     <attack name="paralyse" interval="3000" chance="70" />
     <attack name="haste" interval="2000" chance="50" />
