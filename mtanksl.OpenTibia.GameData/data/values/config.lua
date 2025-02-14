@@ -107,7 +107,7 @@
 				[2208] = 2211, -- Axe ring
 				[2209] = 2212, -- Club ring
 				[2210] = 2213, -- Dwarven ring
-				[2211] = 2214 -- Ring of healing
+				[2214] = 2216 -- Ring of healing
 			},
 			ringDeEquip = {
 				[2202] = 2165, -- Stealth ring
@@ -119,7 +119,13 @@
 				[2211] = 2208, -- Axe ring
 				[2212] = 2209, -- Club ring
 				[2213] = 2210, -- Dwarven ring
-				[2214] = 2211 -- Ring of healing
+				[2216] = 2214 -- Ring of healing
+			},
+			feetEquip = {
+				[6132] = 2640 -- Pair of soft boots
+			},
+			feetDeEquip = {
+				[2640] = 6132 -- Pair of soft boots
 			},
 			rotate = {
 				[1647] = 1648, [1648] = 1649, [1649] = 1646, [1646] = 1647, -- Throne				
@@ -571,6 +577,14 @@
 		staff = 2401,
 		stampedLetter = 2598,
 		stampedParcel = 2596,
+		stealthRing = { 2165, 2202 },
+		lifeRing = { 2168, 2205 },
+		ringOfHealing = { 2214, 2216 },
+		energyRing = { 2167, 2204 },
+		timeRing = { 2169, 2206 },
+		dwarvenRing = { 2210, 2213 },
+		pairOfSoftBoots = { 6132, 2640 },
+		terranRainbowShield = 8909,
 		strongEmptyPotionFlask = 7634,
 		strongHealthPotion = 7588,
 		strongHealthPotions = { 7588 },
