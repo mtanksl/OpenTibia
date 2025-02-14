@@ -56,7 +56,7 @@
 	- Logout
 - Interacting with other players
 	- Say
-		- Gamemaster in-game commands
+		- Gamemaster in-game commands (kick, ban, ghost, etc)
 		- Player in-game commands
 		- Spells
 			- Database for storing spells
@@ -97,6 +97,11 @@
 		- AOL
 		- Bless
 			- Database for storing blesses
+		- Walk, change target, select target and attack strategies 
+		- Immunity, mitigation, defense and armor
+		- Damage type and weapon attack modifier
+		- Sense invisible
+		- Paralysable
 	- Weapon attributes (range, atk, def, arm)
 	- Ammunition
 	- Bow and arrow
@@ -137,6 +142,7 @@
 	- Logout block
 	- Protection zone block
 	- Protection zone
+	- Swimming
 - Systems
 	- Server status info protocol
 		- Player's peek record
@@ -147,7 +153,7 @@
 	- Map clean routine
 - Plugins
 	- C# dll plugins
-	- Lua scripting (actions, ammunitions, creaturescripts, globalevents, movements, npcs, raids, runes, spells, talkactions, weapons)
+	- Lua scripting (actions, ammunitions, creaturescripts, globalevents, movements, npcs, raids, runes, spells, talkactions, weapons, monsterattacks)
 	- Lua debugging with ZeroBrane
 	- Lua autocomplete intellisense
 - Security and Connection

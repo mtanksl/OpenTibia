@@ -122,12 +122,25 @@ namespace OpenTibia.Game.Components
                         target = null;
                     }
 
-                    if (target == null || target.Tile == null || target.IsDestroyed || target.Tile.ProtectionZone || !monster.Tile.Position.CanHearSay(target.Tile.Position) || changeTargetStrategy.ShouldChange(1000, monster, target) )
+                    if (target == null || target.Tile == null || target.IsDestroyed || target.Tile.ProtectionZone || !monster.Tile.Position.CanHearSay(target.Tile.Position) || ( !monster.Metadata.ImmuneToInvisible && target.Stealth) || changeTargetStrategy.ShouldChange(1000, monster, target) )
                     {
-                        Player[] players = near
-                            .Where(p => !p.Tile.ProtectionZone && 
-                                        monster.Tile.Position.CanHearSay(p.Tile.Position) )
-                            .ToArray();
+                        Player[] players;
+
+                        if (monster.Metadata.ImmuneToInvisible)
+                        {
+                            players = near
+                                .Where(p => !p.Tile.ProtectionZone && 
+                                            monster.Tile.Position.CanHearSay(p.Tile.Position) )
+                                .ToArray();
+                        }
+                        else
+                        {
+                            players = near
+                                .Where(p => !p.Stealth &&
+                                            !p.Tile.ProtectionZone && 
+                                            monster.Tile.Position.CanHearSay(p.Tile.Position) )
+                                .ToArray();
+                        }
 
                         if (players.Length > 0)
                         {

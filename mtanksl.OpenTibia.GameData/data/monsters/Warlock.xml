@@ -16,7 +16,7 @@
   </flags>
   <immunities>
     <immunity paralyze="0" />
-    <immunity invisible="0" />
+    <immunity invisible="1" />
   </immunities>
   <elements>
     <element physicalPercent="0" />

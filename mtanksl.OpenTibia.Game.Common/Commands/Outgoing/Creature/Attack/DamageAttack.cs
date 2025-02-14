@@ -92,11 +92,7 @@ namespace OpenTibia.Game.Commands
                     }
                     else
                     {
-                        CreatureConditionBehaviour creatureConditionBehaviour = Context.Current.Server.GameObjectComponents.GetComponents<CreatureConditionBehaviour>(target)
-                            .Where(c => c.Condition.ConditionSpecialCondition == ConditionSpecialCondition.MagicShield)
-                            .FirstOrDefault();
-
-                        if (creatureConditionBehaviour != null)
+                        if (player.HasSpecialCondition(SpecialCondition.MagicShield) )
                         {
                             manaDamage = Math.Min(player.Mana, damage);
 
