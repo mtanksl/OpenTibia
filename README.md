@@ -93,8 +93,10 @@ If you want to know what is implemented and how it works, please, visit the [Pro
 
 # Support Us
 
-If you enjoy using open source projects and would like to support our work, consider making a donation! Your contributions help us maintain and improve the project. You can support us by sending Bitcoin to the following address:
+If you enjoy using open source projects and would like to support our work, consider making a donation! Your contributions help us maintain and improve the project. You can support us by sending directly to the following address:
 
-__Bitcoin Address:__ bc1qc2p79gtjhnpff78su86u8vkynukt8pmfnr43lf
+__Bitcoin (BTC) Address:__ bc1qc2p79gtjhnpff78su86u8vkynukt8pmfnr43lf
+
+__Monero (XMR) Address:__ 87KefRhqaf72bYBUF3EsUjY89iVRH72GsRsEYZmKou9ZPFhGaGzc1E4URbCV9oxtdTYNcGXkhi9XsRhd2ywtt1bq7PoBfd4
 
 Thank you for your support! Every contribution, no matter the size, makes a difference.

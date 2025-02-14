@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using OpenTibia.Common.Structures;
+﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game.Common;
 using OpenTibia.Game.Common.ServerObjects;
 using OpenTibia.Network.Packets.Outgoing;
@@ -27,7 +26,8 @@ namespace mtanksl.OpenTibia.Host
             ILogger logger = new Logger(new ConsoleLoggerProvider(), LogLevel.Information);
 #endif
 
-            logger.WriteLine("Available commands: help, clear, reload-plugins, broadcast, maintenance, kick, save, clean, stop, stats, about.");
+            logger.WriteLine("Available commands:");
+            logger.WriteLine("help, clear, reload-plugins, broadcast, maintenance, kick, save, clean, stop, stats, about, support");
             logger.WriteLine();
 
             try
@@ -48,16 +48,17 @@ namespace mtanksl.OpenTibia.Host
                         {
                             case "help":
 
-                                logger.WriteLine("clear \t\t Clear the console screen. Alternative commands: cls.");
-                                logger.WriteLine("reload-plugins \t Reload plugins.");
-                                logger.WriteLine("broadcast \t Broadcast message to all the players.");
-                                logger.WriteLine("maintenance \t Start or stop the server maintenance.");
-                                logger.WriteLine("kick \t\t Kick all the players.");
-                                logger.WriteLine("save \t\t Save the server.");
-                                logger.WriteLine("clean \t\t Clean the server.");
-                                logger.WriteLine("stop \t\t Stop the server. Alternative commands: exit.");
-                                logger.WriteLine("stats \t\t Display server statistics.");
-                                logger.WriteLine("about \t\t Display license.");
+                                logger.WriteLine("clear\t\tClear the console screen. Alternative commands: cls.");
+                                logger.WriteLine("reload-plugins\tReload plugins.");
+                                logger.WriteLine("broadcast\tBroadcast message to all the players.");
+                                logger.WriteLine("maintenance\tStart or stop the server maintenance.");
+                                logger.WriteLine("kick\t\tKick all the players.");
+                                logger.WriteLine("save\t\tSave the server.");
+                                logger.WriteLine("clean\t\tClean the server.");
+                                logger.WriteLine("stop\t\tStop the server. Alternative commands: exit.");
+                                logger.WriteLine("stats\t\tDisplay server statistics.");
+                                logger.WriteLine("about\t\tDisplay license.");
+                                logger.WriteLine("support\t\tDisplay donation address.");
                                 logger.WriteLine();
 
                                 break;
@@ -170,6 +171,22 @@ namespace mtanksl.OpenTibia.Host
                                 logger.WriteLine("You should have received a copy of the GNU General Public License");
                                 logger.WriteLine("along with this program. If not, see <https://www.gnu.org/licenses/>.");
                                 logger.WriteLine();
+
+                                break;
+
+                            case "support":
+
+                                logger.WriteLine("If you enjoy using open source projects and would like to support our work,");
+                                logger.WriteLine("consider making a donation! Your contributions help us maintain and improve");
+                                logger.WriteLine("the project. You can support us by sending directly to the following address:");
+                                logger.WriteLine("");
+                                logger.WriteLine("Bitcoin (BTC) Address: bc1qc2p79gtjhnpff78su86u8vkynukt8pmfnr43lf");
+                                logger.WriteLine("");
+                                logger.WriteLine("Monero (XMR) Address: 87KefRhqaf72bYBUF3EsUjY89iVRH72GsRsEYZmKou9ZPFhGaGzc1E4URbCV9oxtdTYNcGXkhi9XsRhd2ywtt1bq7PoBfd4");
+                                logger.WriteLine("");
+                                logger.WriteLine("Thank you for your support!");
+                                logger.WriteLine("Every contribution, no matter the size, makes a difference.");
+                                logger.WriteLine("");
 
                                 break;
                         }

@@ -49,14 +49,14 @@ namespace mtanksl.OpenTibia.Host.GUI
             {
                 Enabled = false;
 
-                await Task.Run( () =>
+                await Task.Run(() =>
                 {
                     server = new Server();
 
                     server.Logger = logger;
 
                     server.Start();
-                } );
+                });
 
                 startToolStripMenuItem.Enabled = false;
 
@@ -103,10 +103,10 @@ namespace mtanksl.OpenTibia.Host.GUI
             {
                 Enabled = false;
 
-                await Task.Run( () =>
+                await Task.Run(() =>
                 {
                     server.ReloadPlugins();
-                } );
+                });
             }
             catch (Exception ex)
             {
@@ -131,7 +131,7 @@ namespace mtanksl.OpenTibia.Host.GUI
             {
                 Enabled = false;
 
-                await Task.Run( () =>
+                await Task.Run(() =>
                 {
                     server.KickAll();
 
@@ -148,7 +148,7 @@ namespace mtanksl.OpenTibia.Host.GUI
                     server.Logger = logger;
 
                     server.Start();
-                } );
+                });
 
                 maintenanceToolStripMenuItem.Checked = false;
             }
@@ -177,7 +177,7 @@ namespace mtanksl.OpenTibia.Host.GUI
             {
                 Enabled = false;
 
-                await Task.Run( () =>
+                await Task.Run(() =>
                 {
                     server.KickAll();
 
@@ -188,7 +188,7 @@ namespace mtanksl.OpenTibia.Host.GUI
                     server.Dispose();
 
                     server = null;
-                } );
+                });
 
                 startToolStripMenuItem.Enabled = true;
 
@@ -236,17 +236,17 @@ namespace mtanksl.OpenTibia.Host.GUI
                 return;
             }
 
-            server.QueueForExecution( () =>
+            server.QueueForExecution(() =>
             {
                 ShowWindowTextOutgoingPacket showTextOutgoingPacket = new ShowWindowTextOutgoingPacket(TextColor.RedCenterGameWindowAndServerLog, promptForm.Message);
 
-                foreach (var observer in Context.Current.Server.GameObjects.GetPlayers() )
+                foreach (var observer in Context.Current.Server.GameObjects.GetPlayers())
                 {
                     Context.Current.AddPacket(observer, showTextOutgoingPacket);
                 }
 
                 return Promise.Completed;
-            } );
+            });
         }
 
         private void maintenanceToolStripMenuItem_Click(object sender, EventArgs e)
@@ -285,10 +285,10 @@ namespace mtanksl.OpenTibia.Host.GUI
             {
                 Enabled = false;
 
-                await Task.Run( () =>
+                await Task.Run(() =>
                 {
                     server.KickAll();
-                } );
+                });
             }
             catch (Exception ex)
             {
@@ -313,10 +313,10 @@ namespace mtanksl.OpenTibia.Host.GUI
             {
                 Enabled = false;
 
-                await Task.Run( () =>
+                await Task.Run(() =>
                 {
                     server.Save();
-                } );
+                });
             }
             catch (Exception ex)
             {
@@ -341,10 +341,10 @@ namespace mtanksl.OpenTibia.Host.GUI
             {
                 Enabled = false;
 
-                await Task.Run( () =>
+                await Task.Run(() =>
                 {
                     server.Clean();
-                } );
+                });
             }
             catch (Exception ex)
             {
@@ -380,7 +380,7 @@ namespace mtanksl.OpenTibia.Host.GUI
                     {
                         Enabled = false;
 
-                        await Task.Run( () =>
+                        await Task.Run(() =>
                         {
                             server.KickAll();
 
@@ -391,7 +391,7 @@ namespace mtanksl.OpenTibia.Host.GUI
                             server.Dispose();
 
                             server = null;
-                        } );
+                        });
 
                         startToolStripMenuItem.Enabled = true;
 
@@ -435,7 +435,7 @@ namespace mtanksl.OpenTibia.Host.GUI
         {
             if (statisticsForm == null)
             {
-                statisticsForm = new StatisticsForm( () => server);
+                statisticsForm = new StatisticsForm(() => server);
 
                 statisticsForm.FormClosed += (s, e) =>
                 {
@@ -462,7 +462,7 @@ namespace mtanksl.OpenTibia.Host.GUI
         {
             if (onlinePlayersForm == null)
             {
-                onlinePlayersForm = new OnlinePlayersForm( () => server);
+                onlinePlayersForm = new OnlinePlayersForm(() => server);
 
                 onlinePlayersForm.FormClosed += (s, e) =>
                 {
@@ -501,6 +501,21 @@ namespace mtanksl.OpenTibia.Host.GUI
             logger.WriteLine("You should have received a copy of the GNU General Public License");
             logger.WriteLine("along with this program. If not, see <https://www.gnu.org/licenses/>.");
             logger.WriteLine();
+        }
+
+        private void supportUsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            logger.WriteLine("If you enjoy using open source projects and would like to support our work,");
+            logger.WriteLine("consider making a donation! Your contributions help us maintain and improve");
+            logger.WriteLine("the project. You can support us by sending directly to the following address:");
+            logger.WriteLine("");
+            logger.WriteLine("Bitcoin (BTC) Address: bc1qc2p79gtjhnpff78su86u8vkynukt8pmfnr43lf");
+            logger.WriteLine("");
+            logger.WriteLine("Monero (XMR) Address: 87KefRhqaf72bYBUF3EsUjY89iVRH72GsRsEYZmKou9ZPFhGaGzc1E4URbCV9oxtdTYNcGXkhi9XsRhd2ywtt1bq7PoBfd4");
+            logger.WriteLine("");
+            logger.WriteLine("Thank you for your support!");
+            logger.WriteLine("Every contribution, no matter the size, makes a difference.");
+            logger.WriteLine("");
         }
     }
 }

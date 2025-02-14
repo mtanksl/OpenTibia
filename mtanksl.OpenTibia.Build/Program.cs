@@ -24,7 +24,8 @@ namespace mtanksl.OpenTibia.Build
                 tcs.SetResult(null);
             };
 
-            WriteLine("Available commands: help, publish, migration-config, migration-add, migration-remove, migration-script, clear, exit, about.");
+            WriteLine("Available commands:");
+            WriteLine("help, publish, migration-config, migration-add, migration-remove, migration-script, clear, exit, about, support");
             WriteLine();
 
             var configDirectoryPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "MTOTS");
@@ -51,6 +52,7 @@ namespace mtanksl.OpenTibia.Build
                             WriteLine("clear\t\t\tClear the console screen. Alternative commands: cls.");
                             WriteLine("exit\t\t\tExit this build tool.");
                             WriteLine("about\t\t\tDisplay license.");
+                            WriteLine("support\t\t\tDisplay donation address.");
                             WriteLine();
 
                             break;
@@ -400,6 +402,22 @@ namespace mtanksl.OpenTibia.Build
                             WriteLine();
 
                             break;
+
+                        case "support":
+
+                            WriteLine("If you enjoy using open source projects and would like to support our work,");
+                            WriteLine("consider making a donation! Your contributions help us maintain and improve");
+                            WriteLine("the project. You can support us by sending directly to the following address:");
+                            WriteLine("");
+                            WriteLine("Bitcoin (BTC) Address: bc1qc2p79gtjhnpff78su86u8vkynukt8pmfnr43lf");
+                            WriteLine("");
+                            WriteLine("Monero (XMR) Address: 87KefRhqaf72bYBUF3EsUjY89iVRH72GsRsEYZmKou9ZPFhGaGzc1E4URbCV9oxtdTYNcGXkhi9XsRhd2ywtt1bq7PoBfd4");
+                            WriteLine("");
+                            WriteLine("Thank you for your support!");
+                            WriteLine("Every contribution, no matter the size, makes a difference.");
+                            WriteLine("");
+
+                            break;  
                     }
                 }
             }
