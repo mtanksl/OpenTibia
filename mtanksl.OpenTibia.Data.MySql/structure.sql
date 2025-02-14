@@ -360,6 +360,8 @@ COMMIT;
 
 --
 
+START TRANSACTION;
+
 ALTER TABLE `Players` ADD `MaxCapacity` int NOT NULL DEFAULT 0;
 
 UPDATE `Players` SET `MaxCapacity` = 139000
