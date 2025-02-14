@@ -17,7 +17,6 @@
 - Guild
 - Rings and amulets charges
 - Party shared experience
-- Chameleon rune
 - X-Logging
 - Stamina
 - Configure monster voices, loots and attacks
