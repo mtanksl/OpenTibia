@@ -10,8 +10,6 @@
 	- Splash
 	- Summon
 	- Convince
-	- Invisible condition (stealth ring)
-	- Invisible monster
 	- ...
 - Bed
 - Guild
@@ -101,6 +99,7 @@
 		- Damage type and weapon attack modifier
 		- Sense invisible
 		- Paralysable
+		- Become invisible
 	- Weapon attributes (range, atk, def, arm)
 	- Ammunition
 	- Bow and arrow

@@ -46,7 +46,7 @@
     
     <attack name="mana drain" interval="3000" chance="70" min="0" max="120" />
     <attack name="paralyse" interval="3000" chance="70" />
-
+    <attack name="invisible" interval="3000" chance="30" />
     <attack name="self healing" interval="2000" chance="50" min="100" max="225" />
   </attacks>
   <loot />

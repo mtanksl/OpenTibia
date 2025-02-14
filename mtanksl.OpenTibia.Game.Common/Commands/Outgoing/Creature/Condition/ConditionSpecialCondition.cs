@@ -40,11 +40,13 @@ namespace OpenTibia.Game.Commands
 
 
 
-        Outfit = 65536,
+        Light = 65536,
 
-        Invisible = 131072,
+        Outfit = 131072,
 
-        Light = 262144
+        Stealth = 262144,
+
+        Invisible = 524288
     }
 
     public static class SpecialConditionExtensions

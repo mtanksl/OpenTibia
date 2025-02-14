@@ -200,6 +200,7 @@
         { name = "boulder throw", filename = "OpenTibia.Plugins.MonsterAttacks.BoulderThrowMonsterAttackPlugin, mtanksl.OpenTibia.Plugins" },
         { name = "burst arrows", filename = "OpenTibia.Plugins.MonsterAttacks.BurstArrowsMonsterAttackPlugin, mtanksl.OpenTibia.Plugins" },
         { name = "haste", filename = "OpenTibia.Plugins.MonsterAttacks.HasteMonsterAttackPlugin, mtanksl.OpenTibia.Plugins" },
+        { name = "invisible", filename = "OpenTibia.Plugins.MonsterAttacks.InvisibleMonsterAttackPlugin, mtanksl.OpenTibia.Plugins" },
         { name = "knives", filename = "OpenTibia.Plugins.MonsterAttacks.KnivesMonsterAttackPlugin, mtanksl.OpenTibia.Plugins" },
         { name = "life drain", filename = "OpenTibia.Plugins.MonsterAttacks.LifeDrainMonsterAttackPlugin, mtanksl.OpenTibia.Plugins" },
         { name = "mana drain", filename = "OpenTibia.Plugins.MonsterAttacks.ManaDrainMonsterAttackPlugin, mtanksl.OpenTibia.Plugins" },

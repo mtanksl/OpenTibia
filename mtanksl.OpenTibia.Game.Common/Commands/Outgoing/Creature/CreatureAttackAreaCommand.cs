@@ -182,7 +182,7 @@ namespace OpenTibia.Game.Commands
                                                         p.Level > Context.Server.Config.GameplayProtectionLevel)
                                             .ToArray() )
                                         {
-                                            await Context.AddCommand(new CreatureAttackCreatureCommand(Attacker, player, Attack, Condition) );
+                                            await Context.AddCommand(new CreatureAttackCreatureCommand(attacker, player, Attack, Condition) );
                                 
                                             hit = true;
                                         }

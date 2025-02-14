@@ -1,10 +1,8 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Common;
-using OpenTibia.Game.Components;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
-using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
@@ -108,7 +106,7 @@ namespace OpenTibia.Game.Commands
 
                     if (attacker != null)
                     {
-                        Context.Current.Server.Combats.AddHitToTarget(attacker, target, damage);
+                        Context.Current.Server.Combats.AddHitToTarget(attacker, player, damage);
 
                         Context.Current.AddPacket(player, new SetFrameColorOutgoingPacket(attacker.Id, FrameColor.Black) );
                     }
@@ -124,9 +122,9 @@ namespace OpenTibia.Game.Commands
                             Context.Current.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + manaDamage + " mana.") );
                         }
 
-                        await Context.Current.AddCommand(new ShowMagicEffectCommand(target, MagicEffectType.BlueRings) );
+                        await Context.Current.AddCommand(new ShowMagicEffectCommand(player, MagicEffectType.BlueRings) );
 
-                        await Context.Current.AddCommand(new ShowAnimatedTextCommand(target, AnimatedTextColor.Blue, manaDamage.ToString() ) );
+                        await Context.Current.AddCommand(new ShowAnimatedTextCommand(player, AnimatedTextColor.Blue, manaDamage.ToString() ) );
 
                         await Context.Current.AddCommand(new PlayerUpdateManaCommand(player, player.Mana - manaDamage) );
                     }
@@ -146,24 +144,29 @@ namespace OpenTibia.Game.Commands
 
                         if (magicEffectType != null)
                         {
-                            await Context.Current.AddCommand(new ShowMagicEffectCommand(target, magicEffectType.Value) );
+                            await Context.Current.AddCommand(new ShowMagicEffectCommand(player, magicEffectType.Value) );
                         }
 
                         AnimatedTextColor? animatedTextColor = DamageType.ToAnimatedTextColor(Race.Blood);
 
                         if (animatedTextColor != null)
                         {
-                            await Context.Current.AddCommand(new ShowAnimatedTextCommand(target, animatedTextColor.Value, healthDamage.ToString() ) );
+                            await Context.Current.AddCommand(new ShowAnimatedTextCommand(player, animatedTextColor.Value, healthDamage.ToString() ) );
                         }
 
-                        await Context.Current.AddCommand(new CreatureUpdateHealthCommand(target, target.Health - healthDamage) );
+                        await Context.Current.AddCommand(new CreatureUpdateHealthCommand(player, player.Health - healthDamage) );
                     }
                 }
                 else if (target is Monster monster)
                 {
+                    if (monster.Invisible)
+                    {
+                        await Context.Current.AddCommand(new CreatureRemoveConditionCommand(monster, ConditionSpecialCondition.Invisible) );
+                    }
+
                     if (attacker != null)
                     {
-                        Context.Current.Server.Combats.AddHitToTarget(attacker, target, damage);
+                        Context.Current.Server.Combats.AddHitToTarget(attacker, monster, damage);
 
 
                     }
@@ -172,17 +175,17 @@ namespace OpenTibia.Game.Commands
                    
                     if (magicEffectType != null)
                     {
-                        await Context.Current.AddCommand(new ShowMagicEffectCommand(target, magicEffectType.Value) );
+                        await Context.Current.AddCommand(new ShowMagicEffectCommand(monster, magicEffectType.Value) );
                     }
 
                     AnimatedTextColor? animatedTextColor = DamageType.ToAnimatedTextColor(monster.Metadata.Race);
 
                     if (animatedTextColor != null)
                     {
-                        await Context.Current.AddCommand(new ShowAnimatedTextCommand(target, animatedTextColor.Value, damage.ToString() ) );
+                        await Context.Current.AddCommand(new ShowAnimatedTextCommand(monster, animatedTextColor.Value, damage.ToString() ) );
                     }
 
-                    await Context.Current.AddCommand(new CreatureUpdateHealthCommand(target, target.Health - damage) );
+                    await Context.Current.AddCommand(new CreatureUpdateHealthCommand(monster, monster.Health - damage) );
                 }
             }
             else
@@ -193,7 +196,7 @@ namespace OpenTibia.Game.Commands
 
                     if (magicEffectType != null)
                     {
-                        await Context.Current.AddCommand(new ShowMagicEffectCommand(target, magicEffectType.Value) );
+                        await Context.Current.AddCommand(new ShowMagicEffectCommand(player, magicEffectType.Value) );
                     }
                 }
                 else if (target is Monster monster)
@@ -202,7 +205,7 @@ namespace OpenTibia.Game.Commands
                    
                     if (magicEffectType != null)
                     {
-                        await Context.Current.AddCommand(new ShowMagicEffectCommand(target, magicEffectType.Value) );
+                        await Context.Current.AddCommand(new ShowMagicEffectCommand(monster, magicEffectType.Value) );
                     }
                 }
             }

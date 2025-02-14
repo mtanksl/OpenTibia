@@ -155,7 +155,7 @@ namespace OpenTibia.Game.Components
                 {
                     ticks += 1000;
 
-                    if (target == null || target.Tile == null || target.IsDestroyed || target.Tile.ProtectionZone || player.Tile.ProtectionZone)
+                    if (target == null || target.Tile == null || target.IsDestroyed || target.Invisible || target.Tile.ProtectionZone || player.Tile.ProtectionZone)
                     {
                         StopAttackAndFollow();
 
@@ -193,7 +193,7 @@ namespace OpenTibia.Game.Components
                 {
                     await Promise.Delay(walkingKey, nextWalk - DateTime.UtcNow);
 
-                    if (target == null || target.Tile == null || target.IsDestroyed || target.Tile.ProtectionZone || player.Tile.ProtectionZone)
+                    if (target == null || target.Tile == null || target.IsDestroyed || target.Invisible || target.Tile.ProtectionZone || player.Tile.ProtectionZone)
                     {
                         StopAttackAndFollow();
 
