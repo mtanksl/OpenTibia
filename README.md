@@ -90,3 +90,11 @@ You can use [ZeroBrane Studio IDE](https://studio.zerobrane.com).
 # Project's wiki
 
 If you want to know what is implemented and how it works, please, visit the [Project's wiki](https://github.com/mtanksl/OpenTibia/wiki).
+
+# Support Us
+
+If you enjoy using open source projects and would like to support our work, consider making a donation! Your contributions help us maintain and improve the project. You can support us by sending Bitcoin to the following address:
+
+__Bitcoin Address:__ bc1qc2p79gtjhnpff78su86u8vkynukt8pmfnr43lf
+
+Thank you for your support! Every contribution, no matter the size, makes a difference.
