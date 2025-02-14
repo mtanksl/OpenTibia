@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
 using OpenTibia.Game.Plugins;
 using OpenTibia.Network.Packets.Outgoing;
@@ -15,7 +16,7 @@ namespace OpenTibia.Plugins.Spells
 
         }
 
-        public override PromiseResult<bool> OnCasting(Player player, Creature target, string message)
+        public override PromiseResult<bool> OnCasting(Player player, Creature target, string message, string parameter)
         {
             if (target != null)
             {
@@ -25,7 +26,7 @@ namespace OpenTibia.Plugins.Spells
             return Promise.FromResultAsBooleanFalse;
         }
 
-        public override Promise OnCast(Player player, Creature target, string message)
+        public override Promise OnCast(Player player, Creature target, string message, string parameter)
         {
             int deltaZ = target.Tile.Position.Z - player.Tile.Position.Z;
 
@@ -90,10 +91,12 @@ namespace OpenTibia.Plugins.Spells
                     case MoveDirection.SouthEast: builder.Append("south-east."); break;
                 }
             }
+            return Context.AddCommand(new ShowMagicEffectCommand(player, MagicEffectType.BlueShimmer) ).Then( () =>
+            {
+                Context.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, builder.ToString() ) );
 
-            Context.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, builder.ToString() ) );
-
-            return Promise.Completed;
+                return Promise.Completed;
+            } );
         }
     }
 }

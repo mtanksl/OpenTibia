@@ -13,12 +13,12 @@ namespace OpenTibia.Plugins.Spells
 
         }
 
-        public override PromiseResult<bool> OnCasting(Player player, Creature target, string message)
+        public override PromiseResult<bool> OnCasting(Player player, Creature target, string message, string parameter)
         {
             return Promise.FromResultAsBooleanTrue;
         }
 
-        public override Promise OnCast(Player player, Creature target, string message)
+        public override Promise OnCast(Player player, Creature target, string message, string parameter)
         {
             var formula = Formula.GenericFormula(player.Level, player.Skills.GetSkillLevel(Skill.MagicLevel), 18.5, 0, 25, 0);
                     

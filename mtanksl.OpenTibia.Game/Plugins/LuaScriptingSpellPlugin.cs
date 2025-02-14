@@ -39,33 +39,33 @@ namespace OpenTibia.Game.Plugins
             }
         }
 
-        public override PromiseResult<bool> OnCasting(Player player, Creature target, string message)
+        public override PromiseResult<bool> OnCasting(Player player, Creature target, string message, string parameter)
         {
             if (fileName != null)
             {
-                return script.CallFunction("oncasting", player, target, message).Then(result =>
+                return script.CallFunction("oncasting", player, target, message, parameter).Then(result =>
                 {
                     return (bool)result[0] ? Promise.FromResultAsBooleanTrue : Promise.FromResultAsBooleanFalse;
                 } );
             }
             else
             {
-                return script.CallFunction( (LuaFunction)parameters["oncasting"], player, target, message).Then(result =>
+                return script.CallFunction( (LuaFunction)parameters["oncasting"], player, target, message, parameter).Then(result =>
                 {
                     return (bool)result[0] ? Promise.FromResultAsBooleanTrue : Promise.FromResultAsBooleanFalse;
                 } );
             }
         }
 
-        public override Promise OnCast(Player player, Creature target, string message)
+        public override Promise OnCast(Player player, Creature target, string message, string parameter)
         {
             if (fileName != null)
             {
-                return script.CallFunction("oncast", player, target, message);
+                return script.CallFunction("oncast", player, target, message, parameter);
             }
             else
             {
-                return script.CallFunction( (LuaFunction)parameters["oncast"], player, target, message);
+                return script.CallFunction( (LuaFunction)parameters["oncast"], player, target, message, parameter);
             }
         }
 

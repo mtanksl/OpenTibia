@@ -13,7 +13,7 @@ namespace OpenTibia.Plugins.Spells
 
         }
 
-        public override PromiseResult<bool> OnCasting(Player player, Creature target, string message)
+        public override PromiseResult<bool> OnCasting(Player player, Creature target, string message, string parameter)
         {
             Tile up = Context.Server.Map.GetTile(player.Tile.Position.Offset(0, 0, -1) );
 
@@ -27,7 +27,7 @@ namespace OpenTibia.Plugins.Spells
             return Promise.FromResultAsBooleanTrue;
         }
 
-        public override Promise OnCast(Player player, Creature target, string message)
+        public override Promise OnCast(Player player, Creature target, string message, string parameter)
         {
             Tile toTile = Context.Server.Map.GetTile(player.Tile.Position.Offset(0, 0, -1).Offset(player.Direction) );
 

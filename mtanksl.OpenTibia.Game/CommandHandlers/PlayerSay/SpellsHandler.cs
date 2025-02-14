@@ -15,34 +15,80 @@ namespace OpenTibia.Game.CommandHandlers
     {
         public override async Promise Handle(Func<Promise> next, PlayerSayCommand command)
         {
-            Creature target = null;
-
-            SpellPlugin plugin = null;
-
             int index = command.Message.IndexOf(" \"");
 
-            if (index == -1)
+            string message;
+
+            string parameter;
+
+            SpellPlugin plugin;
+
+            Creature target;
+
+            if (index != -1)
             {
-                PlayerThinkBehaviour playerThinkBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerThinkBehaviour>(command.Player);
+                message = command.Message.Substring(0, index);
 
-                if (playerThinkBehaviour != null)
+                parameter = command.Message.Substring(index + 2).TrimEnd('\"');
+
+                plugin = Context.Server.Plugins.GetSpellPlugin(true, message);
+
+                if (plugin != null)
                 {
-                    target = playerThinkBehaviour.Target;
-                }
+                    target = Context.Server.GameObjects.GetPlayerByName(parameter);
 
-                plugin = Context.Server.Plugins.GetSpellPlugin(false, command.Message);
+                    if (target == null)
+                    {
+                        plugin = null;
+                    }
+                }
+                else
+                {
+                    plugin = Context.Server.Plugins.GetSpellPlugin(false, message);
+
+                    if (plugin != null)
+                    {
+                        PlayerThinkBehaviour playerThinkBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerThinkBehaviour>(command.Player);
+
+                        if (playerThinkBehaviour != null)
+                        {
+                            target = playerThinkBehaviour.Target;
+                        }
+                        else
+                        {
+                            target = null;
+                        }
+                    }
+                    else
+                    {
+                        target = null;
+                    }
+                }
             }
             else
             {
-                string name = command.Message.Substring(index + 2).TrimEnd('\"');
+                message = command.Message;
 
-                Creature observer = Context.Server.GameObjects.GetPlayerByName(name);
+                parameter = null;
 
-                if (observer != null)
+                plugin = Context.Server.Plugins.GetSpellPlugin(false, message);
+
+                if (plugin != null)
                 {
-                    target = observer;
+                    PlayerThinkBehaviour playerThinkBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerThinkBehaviour>(command.Player);
 
-                    plugin = Context.Server.Plugins.GetSpellPlugin(true, command.Message.Substring(0, index) );
+                    if (playerThinkBehaviour != null)
+                    {
+                        target = playerThinkBehaviour.Target;
+                    }
+                    else
+                    {
+                        target = null;
+                    }
+                }
+                else
+                {
+                    target = null;
                 }
             }
 
@@ -161,7 +207,7 @@ namespace OpenTibia.Game.CommandHandlers
                     }
                 }
 
-                if ( !await plugin.OnCasting(command.Player, target, command.Message) )
+                if ( !await plugin.OnCasting(command.Player, target, message, parameter) )
                 {
                     Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
 
@@ -186,7 +232,7 @@ namespace OpenTibia.Game.CommandHandlers
                     await Context.AddCommand(new PlayerUpdateSoulCommand(command.Player, command.Player.Soul - plugin.Spell.Soul) );
                 }
 
-                await plugin.OnCast(command.Player, target, command.Message);
+                await plugin.OnCast(command.Player, target, message, parameter);
             }
 
             await next();

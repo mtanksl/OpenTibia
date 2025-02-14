@@ -15,7 +15,7 @@ namespace OpenTibia.Plugins.Spells
             blankRune = Context.Server.Values.GetUInt16("values.items.blankrune");
         }
 
-        public override PromiseResult<bool> OnCasting(Player player, Creature target, string message)
+        public override PromiseResult<bool> OnCasting(Player player, Creature target, string message, string parameter)
         {
             return Context.AddCommand(new PlayerCountItemsCommand(player, blankRune, 1) ).Then( (count) =>
             {
@@ -23,7 +23,7 @@ namespace OpenTibia.Plugins.Spells
             } );
         }
 
-        public override Promise OnCast(Player player, Creature target, string message)
+        public override Promise OnCast(Player player, Creature target, string message, string parameter)
         {
             ushort openTibiaId = Spell.ConjureOpenTibiaId.Value;
 

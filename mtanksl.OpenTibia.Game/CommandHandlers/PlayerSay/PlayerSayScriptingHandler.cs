@@ -15,13 +15,13 @@ namespace OpenTibia.Game.CommandHandlers
 
                 string message;
 
-                if (index == -1)
+                if (index != -1)
                 {
-                    message = command.Message;
+                    message = command.Message.Substring(0, index);
                 }
                 else
                 {
-                    message = command.Message.Substring(0, index);
+                    message = command.Message;
                 }
 
                 PlayerSayPlugin plugin = Context.Server.Plugins.GetPlayerSayPlugin(message);

@@ -12,8 +12,8 @@ namespace OpenTibia.Game.Plugins
 
         public Spell Spell { get; }
 
-        public abstract PromiseResult<bool> OnCasting(Player player, Creature target, string message);
+        public abstract PromiseResult<bool> OnCasting(Player player, Creature target, string message, string parameter);
 
-        public abstract Promise OnCast(Player player, Creature target, string message);
+        public abstract Promise OnCast(Player player, Creature target, string message, string parameter);
     }
 }

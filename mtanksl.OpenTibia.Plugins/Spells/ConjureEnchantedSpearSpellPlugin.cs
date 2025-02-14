@@ -17,7 +17,7 @@ namespace OpenTibia.Plugins.Spells
             enchantedSpear = Context.Server.Values.GetUInt16("values.items.enchantedspear");
         }
 
-        public override PromiseResult<bool> OnCasting(Player player, Creature target, string message)
+        public override PromiseResult<bool> OnCasting(Player player, Creature target, string message, string parameter)
         {
             return Context.AddCommand(new PlayerCountItemsCommand(player, spear, 1) ).Then( (count) =>
             {
@@ -25,7 +25,7 @@ namespace OpenTibia.Plugins.Spells
             } );
         }
 
-        public override Promise OnCast(Player player, Creature target, string message)
+        public override Promise OnCast(Player player, Creature target, string message, string parameter)
         {
             return Context.AddCommand(new ShowMagicEffectCommand(player, MagicEffectType.BlueShimmer) ).Then( () =>
             {

@@ -16,12 +16,12 @@ namespace OpenTibia.Plugins.Spells
             foods = Context.Server.Values.GetUInt16List("values.items.foods");
         }
 
-        public override PromiseResult<bool> OnCasting(Player player, Creature target, string message)
+        public override PromiseResult<bool> OnCasting(Player player, Creature target, string message, string parameter)
         {
             return Promise.FromResultAsBooleanTrue;
         }
 
-        public override Promise OnCast(Player player, Creature target, string message)
+        public override Promise OnCast(Player player, Creature target, string message, string parameter)
         {
             return Context.AddCommand(new ShowMagicEffectCommand(player, MagicEffectType.GreenShimmer) ).Then( () =>
             {

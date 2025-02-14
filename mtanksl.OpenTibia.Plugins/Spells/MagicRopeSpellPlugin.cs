@@ -16,7 +16,7 @@ namespace OpenTibia.Plugins.Spells
             ropeSpots = Context.Server.Values.GetUInt16HashSet("values.items.ropeSpots");
         }
 
-        public override PromiseResult<bool> OnCasting(Player player, Creature target, string message)
+        public override PromiseResult<bool> OnCasting(Player player, Creature target, string message, string parameter)
         {
             if (ropeSpots.Contains(player.Tile.Ground.Metadata.OpenTibiaId) )
             {
@@ -26,7 +26,7 @@ namespace OpenTibia.Plugins.Spells
             return Promise.FromResultAsBooleanFalse;
         }
 
-        public override Promise OnCast(Player player, Creature target, string message)
+        public override Promise OnCast(Player player, Creature target, string message, string parameter)
         {
             Tile toTile = Context.Server.Map.GetTile(player.Tile.Position.Offset(0, 1, -1) );
 

@@ -13,7 +13,7 @@ namespace OpenTibia.Plugins.Spells
 
         }
 
-        public override PromiseResult<bool> OnCasting(Player player, Creature target, string message)
+        public override PromiseResult<bool> OnCasting(Player player, Creature target, string message, string parameter)
         {
             if (target != null && player.Tile.Position.CanHearSay(target.Tile.Position) )
             {
@@ -23,7 +23,7 @@ namespace OpenTibia.Plugins.Spells
             return Promise.FromResultAsBooleanFalse;
         }
 
-        public override Promise OnCast(Player player, Creature target, string message)
+        public override Promise OnCast(Player player, Creature target, string message, string parameter)
         {
             var formula = Formula.GenericFormula(player.Level, player.Skills.GetSkillLevel(Skill.MagicLevel), 10, 0, 14, 0);
 
