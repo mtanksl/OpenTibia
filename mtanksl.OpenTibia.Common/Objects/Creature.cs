@@ -79,7 +79,7 @@ namespace OpenTibia.Common.Objects
 
         public bool ConditionStealth { get; set; }
 
-        public Outfit Outfit
+        public virtual Outfit Outfit
         {
             get
             {

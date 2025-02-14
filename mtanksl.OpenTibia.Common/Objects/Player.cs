@@ -136,6 +136,41 @@ namespace OpenTibia.Common.Objects
             }
         }
 
+        public bool StealthRing { get; set; }
+
+        public override Outfit Outfit
+        {
+            get
+            {
+                if (Invisible)
+                {
+                    return Outfit.Invisible;
+                }
+
+                if (ConditionStealth)
+                {
+                    return Outfit.Invisible;
+                }
+
+                if (StealthRing)
+                {
+                    return Outfit.Invisible;
+                }
+
+                if (Swimming)
+                {
+                    return Outfit.Swimming;
+                }
+
+                if (ConditionOutfit != null)
+                {
+                    return ConditionOutfit;
+                }
+
+                return BaseOutfit;
+            }
+        }
+
         public override ushort Speed
         {
             get
