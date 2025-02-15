@@ -19,31 +19,38 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            Container toContainer = Player.Inventory.GetContent( (byte)Slot.Container) as Container;
+            uint weight = Item.GetWeight();
+            
+            uint capacity = Player.Capacity;
 
-            if (toContainer != null)
+            if (weight <= capacity)
             {
-                if (toContainer.Count < toContainer.Metadata.Capacity)
+                Container toContainer = Player.Inventory.GetContent( (byte)Slot.Container) as Container;
+
+                if (toContainer != null)
                 {
-                    return Context.AddCommand(new ContainerAddItemCommand(toContainer, Item) );
+                    if (toContainer.Count < toContainer.Metadata.Capacity)
+                    {
+                        return Context.AddCommand(new ContainerAddItemCommand(toContainer, Item) );
+                    }
                 }
-            }
 
-            toContainer = Player.Inventory.GetContent( (byte)Slot.Extra) as Container;
+                toContainer = Player.Inventory.GetContent( (byte)Slot.Extra) as Container;
 
-            if (toContainer != null)
-            {
-                if (toContainer.Count < toContainer.Metadata.Capacity)
+                if (toContainer != null)
                 {
-                    return Context.AddCommand(new ContainerAddItemCommand(toContainer, Item) );
+                    if (toContainer.Count < toContainer.Metadata.Capacity)
+                    {
+                        return Context.AddCommand(new ContainerAddItemCommand(toContainer, Item) );
+                    }
                 }
-            }
 
-            Item toItem = (Item)Player.Inventory.GetContent( (byte)Slot.Extra);
+                Item toItem = (Item)Player.Inventory.GetContent( (byte)Slot.Extra);
 
-            if (toItem == null)
-            {
-                return Context.AddCommand(new InventoryAddItemCommand(Player.Inventory, (byte)Slot.Extra, Item) );
+                if (toItem == null)
+                {
+                    return Context.AddCommand(new InventoryAddItemCommand(Player.Inventory, (byte)Slot.Extra, Item) );
+                }
             }
 
             return Context.AddCommand(new TileAddItemCommand(Player.Tile, Item) );

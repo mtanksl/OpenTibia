@@ -23,31 +23,49 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            Container toContainer = Player.Inventory.GetContent( (byte)Slot.Container) as Container;
+            ItemMetadata itemMetadata = Context.Server.ItemFactory.GetItemMetadataByOpenTibiaId(OpenTibiaId);
 
-            if (toContainer != null)
+            uint weight;
+
+            if (itemMetadata.Flags.Is(ItemMetadataFlags.Stackable) )
             {
-                if (toContainer.Count < toContainer.Metadata.Capacity)
-                {
-                    return Context.AddCommand(new ContainerCreateItemCommand(toContainer, OpenTibiaId, Count) );
-                }
+                weight = Count * (itemMetadata.Weight ?? 0);
+            }
+            else
+            {
+                weight = (itemMetadata.Weight ?? 0);
             }
 
-            toContainer = Player.Inventory.GetContent( (byte)Slot.Extra) as Container;
+            uint capacity = Player.Capacity;
 
-            if (toContainer != null)
+            if (weight <= capacity)
             {
-                if (toContainer.Count < toContainer.Metadata.Capacity)
+                Container toContainer = Player.Inventory.GetContent( (byte)Slot.Container) as Container;
+
+                if (toContainer != null)
                 {
-                    return Context.AddCommand(new ContainerCreateItemCommand(toContainer, OpenTibiaId, Count) );
+                    if (toContainer.Count < toContainer.Metadata.Capacity)
+                    {
+                        return Context.AddCommand(new ContainerCreateItemCommand(toContainer, OpenTibiaId, Count) );
+                    }
                 }
-            }
 
-            Item toItem = (Item)Player.Inventory.GetContent( (byte)Slot.Extra);
+                toContainer = Player.Inventory.GetContent( (byte)Slot.Extra) as Container;
 
-            if (toItem == null)
-            {
-                return Context.AddCommand(new InventoryCreateItemCommand(Player.Inventory, (byte)Slot.Extra, OpenTibiaId, Count) );
+                if (toContainer != null)
+                {
+                    if (toContainer.Count < toContainer.Metadata.Capacity)
+                    {
+                        return Context.AddCommand(new ContainerCreateItemCommand(toContainer, OpenTibiaId, Count) );
+                    }
+                }
+
+                Item toItem = (Item)Player.Inventory.GetContent( (byte)Slot.Extra);
+
+                if (toItem == null)
+                {
+                    return Context.AddCommand(new InventoryCreateItemCommand(Player.Inventory, (byte)Slot.Extra, OpenTibiaId, Count) );
+                }
             }
 
             return Context.AddCommand(new TileCreateItemOrIncrementCommand(Player.Tile, OpenTibiaId, Count) );
