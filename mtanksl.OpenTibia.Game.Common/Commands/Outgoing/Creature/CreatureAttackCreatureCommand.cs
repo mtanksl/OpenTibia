@@ -54,7 +54,7 @@ namespace OpenTibia.Game.Commands
 
                                     if (observer.Client.TryGetIndex(attacker1, out clientIndex) )
                                     {
-                                        Context.Current.AddPacket(observer, new SetSkullIconOutgoingPacket(attacker1.Id, observer.Client.GetSkullIcon(attacker1) ) );
+                                        Context.Current.AddPacket(observer, new SetSkullIconOutgoingPacket(attacker1.Id, observer.Client.GetClientSkullIcon(attacker1) ) );
                                     }
                                 }
                             }

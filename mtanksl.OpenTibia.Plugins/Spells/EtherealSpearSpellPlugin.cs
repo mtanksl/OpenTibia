@@ -25,7 +25,7 @@ namespace OpenTibia.Plugins.Spells
 
         public override Promise OnCast(Player player, Creature target, string message, string parameter)
         {
-            var formula = Formula.EtherealSpearFormula(player.Level, player.Skills.GetSkillLevel(Skill.Distance) );
+            var formula = Formula.EtherealSpearFormula(player.Level, player.Skills.GetClientSkillLevel(Skill.Distance) );
 
             return Context.AddCommand(new CreatureAttackCreatureCommand(player, target,
 

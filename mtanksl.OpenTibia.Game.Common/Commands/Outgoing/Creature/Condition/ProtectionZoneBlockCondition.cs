@@ -30,7 +30,7 @@ namespace OpenTibia.Game.Commands
 
                     if (observer.Client.TryGetIndex(player, out clientIndex) )
                     {
-                        Context.Current.AddPacket(observer, new SetSkullIconOutgoingPacket(player.Id, observer.Client.GetSkullIcon(player) ) );
+                        Context.Current.AddPacket(observer, new SetSkullIconOutgoingPacket(player.Id, observer.Client.GetClientSkullIcon(player) ) );
                     }
                 }
 

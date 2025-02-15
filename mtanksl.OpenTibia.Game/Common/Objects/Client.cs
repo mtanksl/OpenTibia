@@ -237,7 +237,7 @@ namespace OpenTibia.Common
             return false;
         }
 
-        public SkullIcon GetSkullIcon(Creature creature)
+        public SkullIcon GetClientSkullIcon(Creature creature)
         {
             if (creature is Player observer)
             {
@@ -247,7 +247,7 @@ namespace OpenTibia.Common
             return SkullIcon.None;
         }
 
-        public PartyIcon GetPartyIcon(Creature creature)
+        public PartyIcon GetClientPartyIcon(Creature creature)
         {
             if (creature is Player observer)
             {
@@ -305,7 +305,7 @@ namespace OpenTibia.Common
             return PartyIcon.None;
         }
         
-        public WarIcon GetWarIcon(Creature creature)
+        public WarIcon GetClientWarIcon(Creature creature)
         {
             //TODO: War
 

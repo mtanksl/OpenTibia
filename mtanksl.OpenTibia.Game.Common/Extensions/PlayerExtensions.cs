@@ -248,7 +248,7 @@ namespace OpenTibia.Game.Extensions
 
         /// <exception cref="InvalidOperationException"></exception>
 
-        public static Promise UpdateSkill(this Player player, Skill skill, ulong skillPoints, byte skillLevel, byte skillPercent)
+        public static Promise UpdateSkill(this Player player, Skill skill, ulong skillPoints, byte skillLevel, byte skillPercent, int conditionSkillLevel, int itemSkillLevel)
         {
             Context context = Context.Current;
 
@@ -257,7 +257,7 @@ namespace OpenTibia.Game.Extensions
                 throw new InvalidOperationException("Context not found.");
             }
 
-            return context.AddCommand(new PlayerUpdateSkillCommand(player, skill, skillPoints, skillLevel, skillPercent) );
+            return context.AddCommand(new PlayerUpdateSkillCommand(player, skill, skillPoints, skillLevel, skillPercent, conditionSkillLevel, itemSkillLevel) );
         }
 
         /// <exception cref="InvalidOperationException"></exception>

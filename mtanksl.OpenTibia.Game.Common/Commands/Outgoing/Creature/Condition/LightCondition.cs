@@ -22,7 +22,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise OnStart(Creature creature)
         {
-            return Context.Current.AddCommand(new CreatureUpdateLightCommand(creature, ConditionLight) ).Then( () =>
+            return Context.Current.AddCommand(new CreatureUpdateLightCommand(creature, ConditionLight, creature.ItemLight) ).Then( () =>
             {
                 return Promise.Delay(key, Duration);
             } );
@@ -35,7 +35,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise OnStop(Creature creature)
         {
-            return Context.Current.AddCommand(new CreatureUpdateLightCommand(creature, null) );
+            return Context.Current.AddCommand(new CreatureUpdateLightCommand(creature, null, creature.ItemLight) );
         }
     }
 }

@@ -116,11 +116,11 @@ namespace OpenTibia.Network.Packets.Outgoing
 
                         if (client.Battles.IsKnownCreature(creature.Id, out removeId) )
                         {
-                            writer.Write(creature, client.GetSkullIcon(creature), client.GetPartyIcon(creature) );
+                            writer.Write(creature, client.GetClientSkullIcon(creature), client.GetClientPartyIcon(creature) );
                         }
                         else
                         {
-                            writer.Write(removeId, creature, client.GetSkullIcon(creature), client.GetPartyIcon(creature), client.GetWarIcon(creature) );
+                            writer.Write(removeId, creature, client.GetClientSkullIcon(creature), client.GetClientPartyIcon(creature), client.GetClientWarIcon(creature) );
                         }
 
                         break;

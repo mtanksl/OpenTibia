@@ -6,14 +6,14 @@ namespace OpenTibia.Game.Commands
 {
     public class HasteCondition : Condition
     {
-        public HasteCondition(int? conditionSpeed, TimeSpan duration) : base(ConditionSpecialCondition.Haste)
+        public HasteCondition(int conditionSpeed, TimeSpan duration) : base(ConditionSpecialCondition.Haste)
         {
             ConditionSpeed = conditionSpeed;
 
             Duration = duration;
         }
 
-        public int? ConditionSpeed { get; set; }
+        public int ConditionSpeed { get; set; }
 
         public TimeSpan Duration { get; set; }
 
@@ -21,7 +21,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise OnStart(Creature creature)
         {
-            return Context.Current.AddCommand(new CreatureUpdateSpeedCommand(creature, ConditionSpeed) ).Then( () =>
+            return Context.Current.AddCommand(new CreatureUpdateSpeedCommand(creature, ConditionSpeed, creature.ItemSpeed) ).Then( () =>
             {
                 return Promise.Delay(key, Duration);
             } );
@@ -34,7 +34,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise OnStop(Creature creature)
         {
-            return Context.Current.AddCommand(new CreatureUpdateSpeedCommand(creature, null) );
+            return Context.Current.AddCommand(new CreatureUpdateSpeedCommand(creature, 0, creature.ItemSpeed) );
         }
     }
 }

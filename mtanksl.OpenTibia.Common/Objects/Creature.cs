@@ -58,13 +58,20 @@ namespace OpenTibia.Common.Objects
 
         public Light ConditionLight { get; set; }
 
-        public virtual Light Light
+        public Light ItemLight { get; set; }
+
+        public Light ClientLight
         {
             get
             {
                 if (ConditionLight != null)
                 {
                     return ConditionLight;
+                }
+
+                if (ItemLight != null)
+                {
+                    return ItemLight;
                 }
 
                 return BaseLight;
@@ -75,11 +82,13 @@ namespace OpenTibia.Common.Objects
 
         public Outfit ConditionOutfit { get; set; }
 
-        public bool Swimming { get; set; }
-
         public bool ConditionStealth { get; set; }
 
-        public virtual Outfit Outfit
+        public bool ItemStealth { get; set; }
+
+        public bool Swimming { get; set; }
+
+        public Outfit ClientOutfit
         {
             get
             {
@@ -89,6 +98,11 @@ namespace OpenTibia.Common.Objects
                 }
 
                 if (ConditionStealth)
+                {
+                    return Outfit.Invisible;
+                }
+
+                if (ItemStealth)
                 {
                     return Outfit.Invisible;
                 }
@@ -109,20 +123,15 @@ namespace OpenTibia.Common.Objects
 
         public ushort BaseSpeed { get; set; }
 
-        public int? ConditionSpeed { get; set; }
+        public int ConditionSpeed { get; set; }
 
-        public virtual ushort Speed
+        public int ItemSpeed { get; set; }
+
+        public ushort ClientSpeed
         {
             get
             {
-                int sum = BaseSpeed;
-
-                if (ConditionSpeed != null)
-                {
-                    sum += ConditionSpeed.Value;
-                }
-
-                return (ushort)(sum);
+                return (ushort)(BaseSpeed + ConditionSpeed + ItemSpeed);
             }
         }
 

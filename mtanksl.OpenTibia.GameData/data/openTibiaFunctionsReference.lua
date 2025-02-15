@@ -460,25 +460,25 @@ return {
 				args = "(Creature creature, bool invisible)",
 				returns = "void"
 			},
-			-- void command.creatureupdatelight(Creature creature, Light conditionLight)
+			-- void command.creatureupdatelight(Creature creature, Light conditionLight, Light itemLight)
 			creatureupdatelight = {
 				type = "function",
 				description = "",
-				args = "(Creature creature, Light conditionLight)",
+				args = "(Creature creature, Light conditionLight, Light itemLight)",
 				returns = "void"
 			},
-			-- void command.creatureupdateoutfit(Creature creature, Outfit baseOutfit, Outfit conditionOutfit, bool swimming, bool conditionStealth)
+			-- void command.creatureupdateoutfit(Creature creature, Outfit baseOutfit, Outfit conditionOutfit, bool swimming, bool conditionStealth, bool itemStealth)
 			creatureupdateoutfit = {
 				type = "function",
 				description = "",
-				args = "(Creature creature, Outfit baseOutfit, Outfit conditionOutfit, bool swimming, bool conditionStealth)",
+				args = "(Creature creature, Outfit baseOutfit, Outfit conditionOutfit, bool swimming, bool conditionStealth, bool itemStealth)",
 				returns = "void"
 			},
-			-- void command.creatureupdatespeed(Creature creature, int? conditionSpeed)
+			-- void command.creatureupdatespeed(Creature creature, int conditionSpeed, int itemSpeed)
 			creatureupdatespeed = {
 				type = "function",
 				description = "",
-				args = "(Creature creature, int? conditionSpeed)",
+				args = "(Creature creature, int conditionSpeed, int itemSpeed)",
 				returns = "void"
 			},
 			-- void command.creaturemove(Creature creature, Tile toTile)
@@ -698,11 +698,11 @@ return {
 				args = "(Player player, Skill skill, ulong skillPoints)",
 				returns = "void"
 			},
-			-- void command.playerupdateskill(Player player, Skill skill, ulong skillPoints, byte skillLevel, byte skillPercent)
+			-- void command.playerupdateskill(Player player, Skill skill, ulong skillPoints, byte skillLevel, byte skillPercent, int conditionSkillLevel, int itemSkillLevel)
 			playerupdateskill = {
 				type = "function",
 				description = "",
-				args = "(Player player, Skill skill, ulong skillPoints, byte skillLevel, byte skillPercent)",
+				args = "(Player player, Skill skill, ulong skillPoints, byte skillLevel, byte skillPercent, int conditionSkillLevel, int itemSkillLevel)",
 				returns = "void"
 			},
 			-- void command.playersay(Player player, string message)

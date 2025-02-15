@@ -25,7 +25,7 @@ namespace OpenTibia.Plugins.Ammunitions
 
         public override Promise OnUseAmmunition(Player player, Creature target, Item weapon, Item ammunition)
         {
-            var formula = Formula.DistanceFormula(player.Level, player.Skills.GetSkillLevel(Skill.Distance), ammunition.Metadata.Attack.Value, player.Client.FightMode);
+            var formula = Formula.DistanceFormula(player.Level, player.Skills.GetClientSkillLevel(Skill.Distance), ammunition.Metadata.Attack.Value, player.Client.FightMode);
 
             Offset[] area = new Offset[]
             {

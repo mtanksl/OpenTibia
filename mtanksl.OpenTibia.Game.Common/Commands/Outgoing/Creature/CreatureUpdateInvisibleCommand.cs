@@ -85,7 +85,7 @@ namespace OpenTibia.Game.Commands
                 {
                     if (Creature is Player player)
                     {
-                        Context.AddPacket(player, new SetOutfitOutgoingPacket(player.Id, player.Outfit) );
+                        Context.AddPacket(player, new SetOutfitOutgoingPacket(player.Id, player.ClientOutfit) );
                     }
                 }
 
@@ -122,11 +122,11 @@ namespace OpenTibia.Game.Commands
 
                         if (observer.Client.Battles.IsKnownCreature(Creature.Id, out removeId) )
                         {
-                            Context.AddPacket(observer, new ThingAddOutgoingPacket(Creature.Tile.Position, observerCanSeeTo[observer], Creature, observer.Client.GetSkullIcon(Creature), observer.Client.GetPartyIcon(Creature) ) );
+                            Context.AddPacket(observer, new ThingAddOutgoingPacket(Creature.Tile.Position, observerCanSeeTo[observer], Creature, observer.Client.GetClientSkullIcon(Creature), observer.Client.GetClientPartyIcon(Creature) ) );
                         }
                         else
                         {
-                            Context.AddPacket(observer, new ThingAddOutgoingPacket(Creature.Tile.Position, observerCanSeeTo[observer], removeId, Creature, observer.Client.GetSkullIcon(Creature), observer.Client.GetPartyIcon(Creature), observer.Client.GetWarIcon(Creature) ) );
+                            Context.AddPacket(observer, new ThingAddOutgoingPacket(Creature.Tile.Position, observerCanSeeTo[observer], removeId, Creature, observer.Client.GetClientSkullIcon(Creature), observer.Client.GetClientPartyIcon(Creature), observer.Client.GetClientWarIcon(Creature) ) );
                         }
 
                         Context.AddEvent(observer, new CreatureAppearEventArgs(Creature, Creature.Tile) );

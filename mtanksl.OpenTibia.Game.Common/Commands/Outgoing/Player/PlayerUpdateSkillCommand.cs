@@ -8,7 +8,7 @@ namespace OpenTibia.Game.Commands
 {
     public class PlayerUpdateSkillCommand : Command
     {
-        public PlayerUpdateSkillCommand(Player player, Skill skill, ulong skillPoints, byte skillLevel, byte skillPercent)
+        public PlayerUpdateSkillCommand(Player player, Skill skill, ulong skillPoints, byte skillLevel, byte skillPercent, int conditionSkillLevel, int itemSkillLevel)
         {
             Player = player;
 
@@ -19,6 +19,10 @@ namespace OpenTibia.Game.Commands
             SkillLevel = skillLevel;
 
             SkillPercent = skillPercent;
+
+            ConditionSkillLevel = conditionSkillLevel;
+
+            ItemSkillLevel = itemSkillLevel;
         }
 
         public Player Player { get; }
@@ -31,43 +35,44 @@ namespace OpenTibia.Game.Commands
 
         public byte SkillPercent { get; }
 
+        public int ConditionSkillLevel { get; }
+
+        public int ItemSkillLevel { get; }
+
         public override Promise Execute()
         {
-            if (Player.Skills.GetSkillPoints(Skill) != SkillPoints || Player.Skills.GetSkillLevel(Skill) != SkillLevel || Player.Skills.GetSkillPercent(Skill) != SkillPercent)
+            if (Player.Skills.GetSkillPoints(Skill) != SkillPoints || Player.Skills.GetSkillLevel(Skill) != SkillLevel || Player.Skills.GetSkillPercent(Skill) != SkillPercent || Player.Skills.GetConditionSkillLevel(Skill) != ConditionSkillLevel || Player.Skills.GetItemSkillLevel(Skill) != ItemSkillLevel)
             {
                 Player.Skills.SetSkillPoints(Skill, SkillPoints);
+                Player.Skills.SetSkillLevel(Skill, SkillLevel);
+                Player.Skills.SetSkillPercent(Skill, SkillPercent);
+                Player.Skills.SetConditionSkillLevel(Skill, ConditionSkillLevel);
+                Player.Skills.SetItemSkillLevel(Skill, ItemSkillLevel);
 
-                if (Player.Skills.GetSkillLevel(Skill) != SkillLevel || Player.Skills.GetSkillPercent(Skill) != SkillPercent)
+                if (Skill == Skill.MagicLevel)
                 {
-                    Player.Skills.SetSkillLevel(Skill, SkillLevel);
-
-                    Player.Skills.SetSkillPercent(Skill, SkillPercent);
-
-                    if (Skill == Skill.MagicLevel)
-                    {
-                        Context.AddPacket(Player, new SendStatusOutgoingPacket(
-                            Player.Health, Player.MaxHealth, 
-                            Player.Capacity, 
-                            Player.Experience, Player.Level, Player.LevelPercent, 
-                            Player.Mana, Player.MaxMana, 
-                            Player.Skills.GetSkillLevel(Skill.MagicLevel), Player.Skills.GetSkillPercent(Skill.MagicLevel), 
-                            Player.Soul, 
-                            Player.Stamina) );
-                    }
-                    else
-                    {
-                        Context.AddPacket(Player, new SendSkillsOutgoingPacket(
-                            Player.Skills.GetSkillLevel(Skill.Fist), Player.Skills.GetSkillPercent(Skill.Fist),
-                            Player.Skills.GetSkillLevel(Skill.Club), Player.Skills.GetSkillPercent(Skill.Club),
-                            Player.Skills.GetSkillLevel(Skill.Sword), Player.Skills.GetSkillPercent(Skill.Sword),
-                            Player.Skills.GetSkillLevel(Skill.Axe), Player.Skills.GetSkillPercent(Skill.Axe),
-                            Player.Skills.GetSkillLevel(Skill.Distance), Player.Skills.GetSkillPercent(Skill.Distance),
-                            Player.Skills.GetSkillLevel(Skill.Shield), Player.Skills.GetSkillPercent(Skill.Shield),
-                            Player.Skills.GetSkillLevel(Skill.Fish), Player.Skills.GetSkillPercent(Skill.Fish) ) );
-                    }
+                    Context.AddPacket(Player, new SendStatusOutgoingPacket(
+                        Player.Health, Player.MaxHealth, 
+                        Player.Capacity, 
+                        Player.Experience, Player.Level, Player.LevelPercent, 
+                        Player.Mana, Player.MaxMana, 
+                        Player.Skills.GetClientSkillLevel(Skill.MagicLevel), Player.Skills.GetSkillPercent(Skill.MagicLevel), 
+                        Player.Soul, 
+                        Player.Stamina) );
+                }
+                else
+                {
+                    Context.AddPacket(Player, new SendSkillsOutgoingPacket(
+                        Player.Skills.GetClientSkillLevel(Skill.Fist), Player.Skills.GetSkillPercent(Skill.Fist),
+                        Player.Skills.GetClientSkillLevel(Skill.Club), Player.Skills.GetSkillPercent(Skill.Club),
+                        Player.Skills.GetClientSkillLevel(Skill.Sword), Player.Skills.GetSkillPercent(Skill.Sword),
+                        Player.Skills.GetClientSkillLevel(Skill.Axe), Player.Skills.GetSkillPercent(Skill.Axe),
+                        Player.Skills.GetClientSkillLevel(Skill.Distance), Player.Skills.GetSkillPercent(Skill.Distance),
+                        Player.Skills.GetClientSkillLevel(Skill.Shield), Player.Skills.GetSkillPercent(Skill.Shield),
+                        Player.Skills.GetClientSkillLevel(Skill.Fish), Player.Skills.GetSkillPercent(Skill.Fish) ) );
                 }
 
-                Context.AddEvent(new PlayerUpdateSkillEventArgs(Player, Skill, SkillPoints, SkillLevel, SkillPercent) );
+                Context.AddEvent(new PlayerUpdateSkillEventArgs(Player, Skill, SkillPoints, SkillLevel, SkillPercent, ConditionSkillLevel, ItemSkillLevel) );
             }
 
             return Promise.Completed;

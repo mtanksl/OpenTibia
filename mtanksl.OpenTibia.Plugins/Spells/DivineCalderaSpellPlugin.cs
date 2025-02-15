@@ -31,7 +31,7 @@ namespace OpenTibia.Plugins.Spells
                                                         new Offset(-1, 3),  new Offset(0, 3),  new Offset(1, 3)
             };
 
-            var formula = Formula.GenericFormula(player.Level, player.Skills.GetSkillLevel(Skill.MagicLevel), 4, 0, 6, 0);
+            var formula = Formula.GenericFormula(player.Level, player.Skills.GetClientSkillLevel(Skill.MagicLevel), 4, 0, 6, 0);
 
             return Context.AddCommand(new CreatureAttackAreaCommand(player, false, player.Tile.Position, area, null, MagicEffectType.HolyDamage, 
                         

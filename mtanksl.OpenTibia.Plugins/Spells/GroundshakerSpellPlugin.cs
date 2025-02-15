@@ -36,7 +36,7 @@ namespace OpenTibia.Plugins.Spells
 
             if (itemWeapon == null)
             {
-                var formula = Formula.GroundshakerFormula(player.Level, player.Skills.GetSkillLevel(Skill.Fist), 7);
+                var formula = Formula.GroundshakerFormula(player.Level, player.Skills.GetClientSkillLevel(Skill.Fist), 7);
 
                 return Context.AddCommand(new CreatureAttackAreaCommand(player, false, player.Tile.Position, area, null, MagicEffectType.GroundShaker,
                         
@@ -44,7 +44,7 @@ namespace OpenTibia.Plugins.Spells
             }
             else if (itemWeapon.Metadata.WeaponType == WeaponType.Sword)
             {
-                var formula = Formula.GroundshakerFormula(player.Level, player.Skills.GetSkillLevel(Skill.Sword), itemWeapon.Metadata.Attack.Value);
+                var formula = Formula.GroundshakerFormula(player.Level, player.Skills.GetClientSkillLevel(Skill.Sword), itemWeapon.Metadata.Attack.Value);
 
                 return Context.AddCommand(new CreatureAttackAreaCommand(player, false, player.Tile.Position, area, null, MagicEffectType.GroundShaker,
                         
@@ -52,7 +52,7 @@ namespace OpenTibia.Plugins.Spells
             }
             else if (itemWeapon.Metadata.WeaponType == WeaponType.Axe)
             {
-                var formula = Formula.GroundshakerFormula(player.Level, player.Skills.GetSkillLevel(Skill.Axe), itemWeapon.Metadata.Attack.Value);
+                var formula = Formula.GroundshakerFormula(player.Level, player.Skills.GetClientSkillLevel(Skill.Axe), itemWeapon.Metadata.Attack.Value);
 
                 return Context.AddCommand(new CreatureAttackAreaCommand(player, false, player.Tile.Position, area, null, MagicEffectType.GroundShaker,
                         
@@ -60,7 +60,7 @@ namespace OpenTibia.Plugins.Spells
             }
             else if (itemWeapon.Metadata.WeaponType == WeaponType.Club)
             {
-                var formula = Formula.GroundshakerFormula(player.Level, player.Skills.GetSkillLevel(Skill.Club), itemWeapon.Metadata.Attack.Value);
+                var formula = Formula.GroundshakerFormula(player.Level, player.Skills.GetClientSkillLevel(Skill.Club), itemWeapon.Metadata.Attack.Value);
 
                 return Context.AddCommand(new CreatureAttackAreaCommand(player, false, player.Tile.Position, area, null, MagicEffectType.GroundShaker,
                         

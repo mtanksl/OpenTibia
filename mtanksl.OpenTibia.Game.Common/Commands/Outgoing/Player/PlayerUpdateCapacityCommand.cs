@@ -31,7 +31,7 @@ namespace OpenTibia.Game.Commands
                         Player.Capacity, 
                         Player.Experience, Player.Level, Player.LevelPercent, 
                         Player.Mana, Player.MaxMana, 
-                        Player.Skills.GetSkillLevel(Skill.MagicLevel), Player.Skills.GetSkillPercent(Skill.MagicLevel), 
+                        Player.Skills.GetClientSkillLevel(Skill.MagicLevel), Player.Skills.GetSkillPercent(Skill.MagicLevel), 
                         Player.Soul, 
                         Player.Stamina) );
 

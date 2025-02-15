@@ -321,7 +321,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             lua.RegisterCoFunction("creatureupdatelight", (luaScope, parameters) =>
             {
-                return Context.Current.AddCommand(new CreatureUpdateLightCommand( (Creature)parameters[0], ToLight(parameters[1] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new CreatureUpdateLightCommand( (Creature)parameters[0], ToLight(parameters[1] ), ToLight(parameters[2] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
@@ -329,7 +329,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             lua.RegisterCoFunction("creatureupdateoutfit", (luaScope, parameters) =>
             {
-                return Context.Current.AddCommand(new CreatureUpdateOutfitCommand( (Creature)parameters[0], ToOutfit(parameters[1] ), ToOutfit(parameters[2] ), LuaScope.GetBoolean(parameters[3] ), LuaScope.GetBoolean(parameters[4] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new CreatureUpdateOutfitCommand( (Creature)parameters[0], ToOutfit(parameters[1] ), ToOutfit(parameters[2] ), LuaScope.GetBoolean(parameters[3] ), LuaScope.GetBoolean(parameters[4] ), LuaScope.GetBoolean(parameters[5] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
@@ -337,7 +337,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             lua.RegisterCoFunction("creatureupdatespeed", (luaScope, parameters) =>
             {
-                return Context.Current.AddCommand(new CreatureUpdateSpeedCommand( (Creature)parameters[0], LuaScope.GetNullableInt32(parameters[1] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new CreatureUpdateSpeedCommand( (Creature)parameters[0], LuaScope.GetInt32(parameters[1] ), LuaScope.GetInt32(parameters[2] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
@@ -681,7 +681,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             lua.RegisterCoFunction("playerupdateskill", (luaScope, parameters) =>
             {
-                return Context.Current.AddCommand(new PlayerUpdateSkillCommand( (Player)parameters[0], (Skill)(long)parameters[1], LuaScope.GetUInt64(parameters[2] ), LuaScope.GetByte(parameters[3] ), LuaScope.GetByte(parameters[4] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new PlayerUpdateSkillCommand( (Player)parameters[0], (Skill)(long)parameters[1], LuaScope.GetUInt64(parameters[2] ), LuaScope.GetByte(parameters[3] ), LuaScope.GetByte(parameters[4] ), LuaScope.GetInt32(parameters[5] ), LuaScope.GetInt32(parameters[6] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );

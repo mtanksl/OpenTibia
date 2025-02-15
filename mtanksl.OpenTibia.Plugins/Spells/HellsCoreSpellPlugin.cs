@@ -36,7 +36,7 @@ namespace OpenTibia.Plugins.Spells
 
             };
 
-            var formula = Formula.GenericFormula(player.Level, player.Skills.GetSkillLevel(Skill.MagicLevel), 7, 0, 14, 0);
+            var formula = Formula.GenericFormula(player.Level, player.Skills.GetClientSkillLevel(Skill.MagicLevel), 7, 0, 14, 0);
 
             return Context.AddCommand(new CreatureAttackAreaCommand(player, false, player.Tile.Position, area, null, MagicEffectType.FireArea, 
                         

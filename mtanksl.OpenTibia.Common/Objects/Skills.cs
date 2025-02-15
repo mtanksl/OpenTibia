@@ -54,5 +54,34 @@ namespace OpenTibia.Common.Objects
         {
             skillPercents[ (byte)skill] = skillPercent;
         }
+
+        private int[] conditionSkillLevel = new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
+
+        public int GetConditionSkillLevel(Skill skill)
+        {
+            return conditionSkillLevel[ (byte)skill];
+        }
+
+        public void SetConditionSkillLevel(Skill skill, int skillModifier)
+        {
+            conditionSkillLevel[ (byte)skill] = skillModifier;
+        }
+
+        private int[] itemSkillLevel = new int[] { 0, 0, 0, 0, 0, 0, 0, 0 };
+
+        public int GetItemSkillLevel(Skill skill)
+        {
+            return itemSkillLevel[ (byte)skill];
+        }
+
+        public void SetItemSkillLevel(Skill skill, int skillModifier)
+        {
+            itemSkillLevel[ (byte)skill] = skillModifier;
+        }
+
+        public byte GetClientSkillLevel(Skill skill)
+        {
+            return (byte)(skillLevels[ (byte)skill ] + conditionSkillLevel[ (byte)skill] + itemSkillLevel[ (byte)skill] );
+        }
     }
 }

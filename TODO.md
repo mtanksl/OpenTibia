@@ -2,9 +2,6 @@
 
 - Player information
 	- Capacity
-	- Item that modifies player light (ex. torch)
-	- Item that modifies player speed (ex. BOH)
-	- Item, spell or party spells that modifies player skills
 - Fight	
 	- War
 	- Splash
@@ -111,7 +108,8 @@
 		- House doors
 	- Move item
 		- Stackable items
-		- Hangable items	
+		- Hangable items
+		- Item attributes (speed, stealth, skill modifier, etc)
 	- Rotate item
 	- Use item
 		- Containers

@@ -25,7 +25,7 @@ namespace OpenTibia.Plugins.Spells
 
         public override Promise OnCast(Player player, Creature target, string message, string parameter)
         {
-            var formula = Formula.GenericFormula(player.Level, player.Skills.GetSkillLevel(Skill.MagicLevel), 10, 0, 14, 0);
+            var formula = Formula.GenericFormula(player.Level, player.Skills.GetClientSkillLevel(Skill.MagicLevel), 10, 0, 14, 0);
 
             return Context.AddCommand(new CreatureAttackCreatureCommand(player, target, 
                         

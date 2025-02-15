@@ -26,15 +26,15 @@ namespace OpenTibia.Plugins.Runes
 
             if (player.Vocation == Vocation.Druid || player.Vocation == Vocation.Sorcerer || player.Vocation == Vocation.ElderDruid || player.Vocation == Vocation.MasterSorcerer)
             {
-                repeat = (player.Level + player.Skills.GetSkillLevel(Skill.MagicLevel) ) / 3;
+                repeat = (player.Level + player.Skills.GetClientSkillLevel(Skill.MagicLevel) ) / 3;
             }
             else if (player.Vocation == Vocation.Knight || player.Vocation == Vocation.EliteKnight)
             {
-                repeat = (player.Level + player.Skills.GetSkillLevel(Skill.MagicLevel) ) / 20;
+                repeat = (player.Level + player.Skills.GetClientSkillLevel(Skill.MagicLevel) ) / 20;
             }
             else if (player.Vocation == Vocation.Paladin || player.Vocation == Vocation.RoyalPaladin)
             {
-                repeat = (player.Level + player.Skills.GetSkillLevel(Skill.MagicLevel) ) / 15;
+                repeat = (player.Level + player.Skills.GetClientSkillLevel(Skill.MagicLevel) ) / 15;
             }
             else
             {

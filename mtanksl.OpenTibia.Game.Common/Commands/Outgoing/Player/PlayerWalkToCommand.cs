@@ -95,7 +95,7 @@ namespace OpenTibia.Game.Commands
 
                 int diagonalCost = (moveDirection == MoveDirection.NorthWest || moveDirection == MoveDirection.NorthEast || moveDirection == MoveDirection.SouthWest || moveDirection == MoveDirection.SouthEast)? 2 : 1;
 
-                await Context.Server.GameObjectComponents.AddComponent(Player, new PlayerWalkDelayBehaviour(TimeSpan.FromMilliseconds(diagonalCost * 1000 * toTile.Ground.Metadata.GroundSpeed / Player.Speed) ) ).Promise;
+                await Context.Server.GameObjectComponents.AddComponent(Player, new PlayerWalkDelayBehaviour(TimeSpan.FromMilliseconds(diagonalCost * 1000 * toTile.Ground.Metadata.GroundSpeed / Player.ClientSpeed) ) ).Promise;
                 
                 if (toTile.NotWalkable || toTile.Block)
                 {
@@ -110,7 +110,7 @@ namespace OpenTibia.Game.Commands
 
                 if (i == moveDirections.Length - 1)
                 {
-                    await Context.Server.GameObjectComponents.AddComponent(Player, new PlayerWalkDelayBehaviour(TimeSpan.FromMilliseconds(diagonalCost * 1000 * toTile.Ground.Metadata.GroundSpeed / Player.Speed) ) ).Promise;
+                    await Context.Server.GameObjectComponents.AddComponent(Player, new PlayerWalkDelayBehaviour(TimeSpan.FromMilliseconds(diagonalCost * 1000 * toTile.Ground.Metadata.GroundSpeed / Player.ClientSpeed) ) ).Promise;
                 }
             }
         }

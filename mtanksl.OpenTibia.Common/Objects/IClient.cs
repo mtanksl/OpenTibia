@@ -29,10 +29,10 @@ namespace OpenTibia.Common.Objects
 
         bool TryGetIndex(IContent content, out byte clientIndex);
 
-        SkullIcon GetSkullIcon(Creature creature);
+        SkullIcon GetClientSkullIcon(Creature creature);
 
-        PartyIcon GetPartyIcon(Creature creature);
+        PartyIcon GetClientPartyIcon(Creature creature);
 
-        WarIcon GetWarIcon(Creature creature);
+        WarIcon GetClientWarIcon(Creature creature);
     }
 }

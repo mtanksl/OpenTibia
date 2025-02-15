@@ -93,11 +93,11 @@ namespace OpenTibia.IO
 
              writer.Write( (byte)creature.Direction );
 
-             writer.Write(creature.Outfit);
+             writer.Write(creature.ClientOutfit);
 
-             writer.Write(creature.Light);
+             writer.Write(creature.ClientLight);
 
-             writer.Write(creature.Speed);
+             writer.Write(creature.ClientSpeed);
 
              writer.Write( (byte)skullIcon);
 
@@ -123,11 +123,11 @@ namespace OpenTibia.IO
 
             writer.Write( (byte)creature.Direction );
 
-            writer.Write(creature.Outfit);
+            writer.Write(creature.ClientOutfit);
 
-            writer.Write(creature.Light);
+            writer.Write(creature.ClientLight);
 
-            writer.Write(creature.Speed);
+            writer.Write(creature.ClientSpeed);
 
             writer.Write( (byte)skullIcon);
 

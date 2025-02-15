@@ -28,7 +28,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     if (shallowWaters.Contains(toTile.Ground.Metadata.OpenTibiaId) )
                     {
-                        return Context.AddCommand(new CreatureUpdateOutfitCommand(e.Creature, e.Creature.BaseOutfit, e.Creature.ConditionOutfit, true, e.Creature.ConditionStealth) ).Then( () =>
+                        return Context.AddCommand(new CreatureUpdateOutfitCommand(e.Creature, e.Creature.BaseOutfit, e.Creature.ConditionOutfit, true, e.Creature.ConditionStealth, e.Creature.ItemStealth) ).Then( () =>
                         {
                             return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.WaterSplash) );
                         } );
@@ -41,14 +41,14 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     if ( !shallowWaters.Contains(fromTile.Ground.Metadata.OpenTibiaId) && shallowWaters.Contains(toTile.Ground.Metadata.OpenTibiaId) )
                     {
-                        return Context.AddCommand(new CreatureUpdateOutfitCommand(e.Creature, e.Creature.BaseOutfit, e.Creature.ConditionOutfit, true, e.Creature.ConditionStealth) ).Then( () =>
+                        return Context.AddCommand(new CreatureUpdateOutfitCommand(e.Creature, e.Creature.BaseOutfit, e.Creature.ConditionOutfit, true, e.Creature.ConditionStealth, e.Creature.ItemStealth) ).Then( () =>
                         {
                             return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.WaterSplash) );
                         } );
                     }
                     else if (shallowWaters.Contains(fromTile.Ground.Metadata.OpenTibiaId) && !shallowWaters.Contains(toTile.Ground.Metadata.OpenTibiaId) )
                     {
-                        return Context.AddCommand(new CreatureUpdateOutfitCommand(e.Creature, e.Creature.BaseOutfit, e.Creature.ConditionOutfit, false, e.Creature.ConditionStealth) );
+                        return Context.AddCommand(new CreatureUpdateOutfitCommand(e.Creature, e.Creature.BaseOutfit, e.Creature.ConditionOutfit, false, e.Creature.ConditionStealth, e.Creature.ItemStealth) );
                     }
                 }
             }

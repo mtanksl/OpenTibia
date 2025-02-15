@@ -55,7 +55,7 @@ namespace OpenTibia.Game.CommandHandlers
                             await Promise.Break;
                         }
 
-                        if (command.Player.Skills.GetSkillLevel(Skill.MagicLevel) < plugin.Rune.MagicLevel)
+                        if (command.Player.Skills.GetClientSkillLevel(Skill.MagicLevel) < plugin.Rune.MagicLevel)
                         {
                             Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughMagicLevel) );
 

@@ -30,7 +30,7 @@ namespace OpenTibia.Plugins.Spells
 
             if (itemWeapon.Metadata.WeaponType == WeaponType.Sword)
             {
-                var formula = Formula.WhirlwindThrowFormula(player.Level, player.Skills.GetSkillLevel(Skill.Sword), itemWeapon.Metadata.Attack.Value);
+                var formula = Formula.WhirlwindThrowFormula(player.Level, player.Skills.GetClientSkillLevel(Skill.Sword), itemWeapon.Metadata.Attack.Value);
 
                 return Context.AddCommand(new CreatureAttackCreatureCommand(player, target,
 
@@ -38,7 +38,7 @@ namespace OpenTibia.Plugins.Spells
             }
             else if (itemWeapon.Metadata.WeaponType == WeaponType.Axe)
             {
-                var formula = Formula.WhirlwindThrowFormula(player.Level, player.Skills.GetSkillLevel(Skill.Axe), itemWeapon.Metadata.Attack.Value);
+                var formula = Formula.WhirlwindThrowFormula(player.Level, player.Skills.GetClientSkillLevel(Skill.Axe), itemWeapon.Metadata.Attack.Value);
             
                 return Context.AddCommand(new CreatureAttackCreatureCommand(player, target,
 
@@ -46,7 +46,7 @@ namespace OpenTibia.Plugins.Spells
             }
             else if (itemWeapon.Metadata.WeaponType == WeaponType.Club)
             {
-                var formula = Formula.WhirlwindThrowFormula(player.Level, player.Skills.GetSkillLevel(Skill.Club), itemWeapon.Metadata.Attack.Value);
+                var formula = Formula.WhirlwindThrowFormula(player.Level, player.Skills.GetClientSkillLevel(Skill.Club), itemWeapon.Metadata.Attack.Value);
                 
                 return Context.AddCommand(new CreatureAttackCreatureCommand(player, target,
 

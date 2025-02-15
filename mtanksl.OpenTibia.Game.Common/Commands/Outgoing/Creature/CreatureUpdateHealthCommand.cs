@@ -39,7 +39,7 @@ namespace OpenTibia.Game.Commands
                                 observer.Capacity,
                                 observer.Experience, observer.Level, observer.LevelPercent,
                                 observer.Mana, observer.MaxMana,
-                                observer.Skills.GetSkillLevel(Skill.MagicLevel), observer.Skills.GetSkillPercent(Skill.MagicLevel),
+                                observer.Skills.GetClientSkillLevel(Skill.MagicLevel), observer.Skills.GetSkillPercent(Skill.MagicLevel),
                                 observer.Soul,
                                 observer.Stamina) );
                         }

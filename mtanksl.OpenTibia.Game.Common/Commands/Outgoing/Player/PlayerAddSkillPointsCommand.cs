@@ -63,7 +63,7 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            await Context.AddCommand(new PlayerUpdateSkillCommand(Player, Skill, currentSkillPoints + SkillPoints, correctSkillLevel, correctSkillPercent) );
+            await Context.AddCommand(new PlayerUpdateSkillCommand(Player, Skill, currentSkillPoints + SkillPoints, correctSkillLevel, correctSkillPercent, Player.Skills.GetConditionSkillLevel(Skill), Player.Skills.GetItemSkillLevel(Skill) ) );
 
             if (correctSkillLevel > currentSkillLevel)
             {

@@ -226,9 +226,9 @@ namespace OpenTibia.Game.Components
                     {
                         if (itemWeapon.Metadata.AttackDamageType != null && itemWeapon.Metadata.AttackModifier != null)
                         {
-                            var formula = Formula.MeleeFormula(player.Level, player.Skills.GetSkillLevel(Skill.Sword), itemWeapon.Metadata.Attack.Value, player.Client.FightMode); 
+                            var formula = Formula.MeleeFormula(player.Level, player.Skills.GetClientSkillLevel(Skill.Sword), itemWeapon.Metadata.Attack.Value, player.Client.FightMode); 
 
-                            var formulaModifier = Formula.MeleeFormula(player.Level, player.Skills.GetSkillLevel(Skill.Sword), itemWeapon.Metadata.AttackModifier.Value, player.Client.FightMode); 
+                            var formulaModifier = Formula.MeleeFormula(player.Level, player.Skills.GetClientSkillLevel(Skill.Sword), itemWeapon.Metadata.AttackModifier.Value, player.Client.FightMode); 
 
                             await Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target,
                             
@@ -236,7 +236,7 @@ namespace OpenTibia.Game.Components
                         }
                         else
                         {
-                            var formula = Formula.MeleeFormula(player.Level, player.Skills.GetSkillLevel(Skill.Sword), itemWeapon.Metadata.Attack.Value, player.Client.FightMode); 
+                            var formula = Formula.MeleeFormula(player.Level, player.Skills.GetClientSkillLevel(Skill.Sword), itemWeapon.Metadata.Attack.Value, player.Client.FightMode); 
 
                             await Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target,
                             
@@ -258,9 +258,9 @@ namespace OpenTibia.Game.Components
                     {
                         if (itemWeapon.Metadata.AttackDamageType != null && itemWeapon.Metadata.AttackModifier != null)
                         {
-                            var formula = Formula.MeleeFormula(player.Level, player.Skills.GetSkillLevel(Skill.Club), itemWeapon.Metadata.Attack.Value, player.Client.FightMode);
+                            var formula = Formula.MeleeFormula(player.Level, player.Skills.GetClientSkillLevel(Skill.Club), itemWeapon.Metadata.Attack.Value, player.Client.FightMode);
 
-                            var formulaModifier = Formula.MeleeFormula(player.Level, player.Skills.GetSkillLevel(Skill.Club), itemWeapon.Metadata.AttackModifier.Value, player.Client.FightMode);
+                            var formulaModifier = Formula.MeleeFormula(player.Level, player.Skills.GetClientSkillLevel(Skill.Club), itemWeapon.Metadata.AttackModifier.Value, player.Client.FightMode);
 
                             await Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
                             
@@ -268,7 +268,7 @@ namespace OpenTibia.Game.Components
                         }
                         else
                         {
-                            var formula = Formula.MeleeFormula(player.Level, player.Skills.GetSkillLevel(Skill.Club), itemWeapon.Metadata.Attack.Value, player.Client.FightMode);
+                            var formula = Formula.MeleeFormula(player.Level, player.Skills.GetClientSkillLevel(Skill.Club), itemWeapon.Metadata.Attack.Value, player.Client.FightMode);
 
                             await Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
                             
@@ -290,9 +290,9 @@ namespace OpenTibia.Game.Components
                     {
                         if (itemWeapon.Metadata.AttackDamageType != null && itemWeapon.Metadata.AttackModifier != null)
                         {
-                            var formula = Formula.MeleeFormula(player.Level, player.Skills.GetSkillLevel(Skill.Axe), itemWeapon.Metadata.Attack.Value, player.Client.FightMode);
+                            var formula = Formula.MeleeFormula(player.Level, player.Skills.GetClientSkillLevel(Skill.Axe), itemWeapon.Metadata.Attack.Value, player.Client.FightMode);
 
-                            var formulaModifier = Formula.MeleeFormula(player.Level, player.Skills.GetSkillLevel(Skill.Axe), itemWeapon.Metadata.AttackModifier.Value, player.Client.FightMode);
+                            var formulaModifier = Formula.MeleeFormula(player.Level, player.Skills.GetClientSkillLevel(Skill.Axe), itemWeapon.Metadata.AttackModifier.Value, player.Client.FightMode);
 
                             await Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
                             
@@ -300,7 +300,7 @@ namespace OpenTibia.Game.Components
                         }
                         else
                         {
-                            var formula = Formula.MeleeFormula(player.Level, player.Skills.GetSkillLevel(Skill.Axe), itemWeapon.Metadata.Attack.Value, player.Client.FightMode); 
+                            var formula = Formula.MeleeFormula(player.Level, player.Skills.GetClientSkillLevel(Skill.Axe), itemWeapon.Metadata.Attack.Value, player.Client.FightMode); 
 
                             await Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
                             
@@ -379,9 +379,9 @@ namespace OpenTibia.Game.Components
                             {
                                 if (itemAmmunition.Metadata.AttackDamageType != null && itemAmmunition.Metadata.AttackModifier != null)
                                 {
-                                    var formula = Formula.DistanceFormula(player.Level, player.Skills.GetSkillLevel(Skill.Distance), (itemWeapon.Metadata.Attack ?? 0) + itemAmmunition.Metadata.Attack.Value, player.Client.FightMode, itemWeapon.Metadata.HitChance, itemWeapon.Metadata.MaxHitChance, attacker.Tile.Position.ChebyshevDistance(target.Tile.Position) );
+                                    var formula = Formula.DistanceFormula(player.Level, player.Skills.GetClientSkillLevel(Skill.Distance), (itemWeapon.Metadata.Attack ?? 0) + itemAmmunition.Metadata.Attack.Value, player.Client.FightMode, itemWeapon.Metadata.HitChance, itemWeapon.Metadata.MaxHitChance, attacker.Tile.Position.ChebyshevDistance(target.Tile.Position) );
 
-                                    var formulaModifier = Formula.DistanceFormula(player.Level, player.Skills.GetSkillLevel(Skill.Distance), itemAmmunition.Metadata.AttackModifier.Value, player.Client.FightMode, itemWeapon.Metadata.HitChance, itemWeapon.Metadata.MaxHitChance, attacker.Tile.Position.ChebyshevDistance(target.Tile.Position) );
+                                    var formulaModifier = Formula.DistanceFormula(player.Level, player.Skills.GetClientSkillLevel(Skill.Distance), itemAmmunition.Metadata.AttackModifier.Value, player.Client.FightMode, itemWeapon.Metadata.HitChance, itemWeapon.Metadata.MaxHitChance, attacker.Tile.Position.ChebyshevDistance(target.Tile.Position) );
 
                                     await Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
                                 
@@ -389,7 +389,7 @@ namespace OpenTibia.Game.Components
                                 }
                                 else
                                 {
-                                    var formula = Formula.DistanceFormula(player.Level, player.Skills.GetSkillLevel(Skill.Distance), (itemWeapon.Metadata.Attack ?? 0) + itemAmmunition.Metadata.Attack.Value, player.Client.FightMode, itemWeapon.Metadata.HitChance, itemWeapon.Metadata.MaxHitChance, attacker.Tile.Position.ChebyshevDistance(target.Tile.Position) );
+                                    var formula = Formula.DistanceFormula(player.Level, player.Skills.GetClientSkillLevel(Skill.Distance), (itemWeapon.Metadata.Attack ?? 0) + itemAmmunition.Metadata.Attack.Value, player.Client.FightMode, itemWeapon.Metadata.HitChance, itemWeapon.Metadata.MaxHitChance, attacker.Tile.Position.ChebyshevDistance(target.Tile.Position) );
 
                                     await Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
                                 
@@ -437,9 +437,9 @@ namespace OpenTibia.Game.Components
                         {
                             if (itemWeapon.Metadata.AttackDamageType != null && itemWeapon.Metadata.AttackModifier != null)
                             {
-                                var formula = Formula.DistanceFormula(player.Level, player.Skills.GetSkillLevel(Skill.Distance), itemWeapon.Metadata.Attack.Value, player.Client.FightMode, itemWeapon.Metadata.HitChance, itemWeapon.Metadata.MaxHitChance, attacker.Tile.Position.ChebyshevDistance(target.Tile.Position) );
+                                var formula = Formula.DistanceFormula(player.Level, player.Skills.GetClientSkillLevel(Skill.Distance), itemWeapon.Metadata.Attack.Value, player.Client.FightMode, itemWeapon.Metadata.HitChance, itemWeapon.Metadata.MaxHitChance, attacker.Tile.Position.ChebyshevDistance(target.Tile.Position) );
 
-                                var formulaModifier = Formula.DistanceFormula(player.Level, player.Skills.GetSkillLevel(Skill.Distance), itemWeapon.Metadata.AttackModifier.Value, player.Client.FightMode, itemWeapon.Metadata.HitChance, itemWeapon.Metadata.MaxHitChance, attacker.Tile.Position.ChebyshevDistance(target.Tile.Position) );
+                                var formulaModifier = Formula.DistanceFormula(player.Level, player.Skills.GetClientSkillLevel(Skill.Distance), itemWeapon.Metadata.AttackModifier.Value, player.Client.FightMode, itemWeapon.Metadata.HitChance, itemWeapon.Metadata.MaxHitChance, attacker.Tile.Position.ChebyshevDistance(target.Tile.Position) );
 
                                 await Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
                             
@@ -447,7 +447,7 @@ namespace OpenTibia.Game.Components
                             }
                             else
                             {
-                                var formula = Formula.DistanceFormula(player.Level, player.Skills.GetSkillLevel(Skill.Distance), itemWeapon.Metadata.Attack.Value, player.Client.FightMode, itemWeapon.Metadata.HitChance, itemWeapon.Metadata.MaxHitChance, attacker.Tile.Position.ChebyshevDistance(target.Tile.Position) );
+                                var formula = Formula.DistanceFormula(player.Level, player.Skills.GetClientSkillLevel(Skill.Distance), itemWeapon.Metadata.Attack.Value, player.Client.FightMode, itemWeapon.Metadata.HitChance, itemWeapon.Metadata.MaxHitChance, attacker.Tile.Position.ChebyshevDistance(target.Tile.Position) );
 
                                 await Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
                                 

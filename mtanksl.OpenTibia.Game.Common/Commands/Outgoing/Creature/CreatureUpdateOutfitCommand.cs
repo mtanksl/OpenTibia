@@ -8,7 +8,7 @@ namespace OpenTibia.Game.Commands
 {
     public class CreatureUpdateOutfitCommand : Command
     {
-        public CreatureUpdateOutfitCommand(Creature creature, Outfit baseOutfit, Outfit conditionOutfit, bool swimming, bool conditionStealth)
+        public CreatureUpdateOutfitCommand(Creature creature, Outfit baseOutfit, Outfit conditionOutfit, bool swimming, bool conditionStealth, bool itemStealth)
         {
             Creature = creature;
 
@@ -19,6 +19,8 @@ namespace OpenTibia.Game.Commands
             Swimming = swimming;
 
             ConditionStealth = conditionStealth;
+
+            ItemStealth = itemStealth;
         }
 
         public Creature Creature { get; set; }
@@ -31,14 +33,17 @@ namespace OpenTibia.Game.Commands
 
         public bool ConditionStealth { get; set; }
 
+        public bool ItemStealth { get; set; }
+
         public override Promise Execute()
         {
-            if (Creature.BaseOutfit != BaseOutfit || Creature.ConditionOutfit != ConditionOutfit || Creature.Swimming != Swimming || Creature.ConditionStealth != ConditionStealth)
+            if (Creature.BaseOutfit != BaseOutfit || Creature.ConditionOutfit != ConditionOutfit || Creature.Swimming != Swimming || Creature.ConditionStealth != ConditionStealth || Creature.ItemStealth != ItemStealth)
             {
                 Creature.BaseOutfit = BaseOutfit;
                 Creature.ConditionOutfit = ConditionOutfit;
                 Creature.Swimming = Swimming;
                 Creature.ConditionStealth = ConditionStealth;
+                Creature.ItemStealth = ItemStealth;
 
                 if (Creature.Tile != null)
                 {
@@ -48,12 +53,12 @@ namespace OpenTibia.Game.Commands
 
                         if (observer.Client.TryGetIndex(Creature, out clientIndex) )
                         {
-                            Context.AddPacket(observer, new SetOutfitOutgoingPacket(Creature.Id, Creature.Outfit) );
+                            Context.AddPacket(observer, new SetOutfitOutgoingPacket(Creature.Id, Creature.ClientOutfit) );
                         }
                     }
                 }
 
-                Context.AddEvent(new CreatureUpdateOutfitEventArgs(Creature, BaseOutfit, ConditionOutfit, Swimming, ConditionStealth) );
+                Context.AddEvent(new CreatureUpdateOutfitEventArgs(Creature, BaseOutfit, ConditionOutfit, Swimming, ConditionStealth, ItemStealth) );
             }
 
             return Promise.Completed;
