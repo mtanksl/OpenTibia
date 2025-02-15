@@ -1,4 +1,5 @@
-﻿using OpenTibia.Common.Structures;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
 using System;
@@ -32,7 +33,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {
-            if (suspiciousSurpriseBags.Contains(command.Item.Metadata.OpenTibiaId) )
+            if (suspiciousSurpriseBags.Contains(command.Item.Metadata.OpenTibiaId) && command.Item.Parent is Tile)
             {
                 if (Context.Server.Randomization.HasProbability(1.0 / 5)  )
                 {

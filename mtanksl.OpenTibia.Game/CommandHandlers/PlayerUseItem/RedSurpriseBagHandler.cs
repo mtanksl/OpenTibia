@@ -1,4 +1,5 @@
-﻿using OpenTibia.Common.Structures;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
 using System;
@@ -37,7 +38,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {
-            if (redSurpriseBags.Contains(command.Item.Metadata.OpenTibiaId) )
+            if (redSurpriseBags.Contains(command.Item.Metadata.OpenTibiaId) && command.Item.Parent is Tile)
             {
                 return Context.AddCommand(new ShowMagicEffectCommand(command.Item, MagicEffectType.GiftWraps) ).Then( () =>
                 {
