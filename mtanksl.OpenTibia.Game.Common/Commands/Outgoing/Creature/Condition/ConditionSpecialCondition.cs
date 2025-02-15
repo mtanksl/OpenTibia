@@ -46,7 +46,9 @@ namespace OpenTibia.Game.Commands
 
         Stealth = 262144,
 
-        Invisible = 524288
+        Invisible = 524288,
+
+        Skill = 1048576
     }
 
     public static class SpecialConditionExtensions
