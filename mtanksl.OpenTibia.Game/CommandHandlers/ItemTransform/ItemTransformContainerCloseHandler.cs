@@ -10,14 +10,11 @@ namespace OpenTibia.Game.CommandHandlers
     {  
         public override PromiseResult<Item> Handle(Func<PromiseResult<Item>> next, ItemTransformCommand command)
         {
-            if (command.FromItem is Container)
+            if (command.Item is Container container)
             {
                 return next().Then( (item) =>
                 {
-                    if (item is Container container)
-                    {
-                        CloseContainer(container);
-                    }
+                    CloseContainer(container);
 
                     return Promise.FromResult(item);
                 } );

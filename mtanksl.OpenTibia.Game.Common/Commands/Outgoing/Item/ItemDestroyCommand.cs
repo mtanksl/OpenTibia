@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Common;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -14,32 +15,63 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            if (Detach(Context, Item) )
+            switch (Item.Parent)
             {
-                Context.Server.QueueForExecution( () =>
-                {
-                    ClearComponentsAndEventHandlers(Context, Item);
+                case Tile tile:
 
-                    switch (Item.Parent)
+                    return Context.AddCommand(new TileRemoveItemCommand(tile, Item) ).Then( () =>
                     {
-                        case Tile tile:
+                        if (Detach(Context, Item) )
+                        {
+                            Context.Server.QueueForExecution( () =>
+                            {
+                                ClearComponentsAndEventHandlers(Context, Item);
 
-                            return Context.AddCommand(new TileRemoveItemCommand(tile, Item) );
+                                return Promise.Completed;
+                            } );
+                        }
 
-                        case Inventory inventory:
+                        return Promise.Completed;
+                    } );
 
-                            return Context.AddCommand(new InventoryRemoveItemCommand(inventory, Item) );
+                case Inventory inventory:
 
-                        case Container container:
+                    return Context.AddCommand(new InventoryRemoveItemCommand(inventory, Item) ).Then( () =>
+                    {
+                        if (Detach(Context, Item) )
+                        {
+                            Context.Server.QueueForExecution( () =>
+                            {
+                                ClearComponentsAndEventHandlers(Context, Item);
 
-                            return Context.AddCommand(new ContainerRemoveItemCommand(container, Item) );
-                    }
+                                return Promise.Completed;
+                            } );
+                        }
 
-                    return Promise.Completed;
-                } );
-            }
+                        return Promise.Completed;
+                    } );
 
-            return Promise.Completed;
+                case Container container:
+
+                    return Context.AddCommand(new ContainerRemoveItemCommand(container, Item) ).Then( () =>
+                    {
+                        if (Detach(Context, Item) )
+                        {
+                            Context.Server.QueueForExecution( () =>
+                            {
+                                ClearComponentsAndEventHandlers(Context, Item);
+
+                                return Promise.Completed;
+                            } );
+                        }
+
+                        return Promise.Completed;
+                    } );
+
+                default:
+
+                    throw new NotImplementedException();
+            }            
         }
 
         private static bool Detach(Context context, Item item)

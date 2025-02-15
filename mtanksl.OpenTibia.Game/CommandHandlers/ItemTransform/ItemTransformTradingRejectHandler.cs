@@ -16,7 +16,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 if (Context.Server.Tradings.Count > 0)
                 {
-                    RejectTrade(item);
+                    RejectTrade(command.Item);
                 }
 
                 return Promise.FromResult(item);

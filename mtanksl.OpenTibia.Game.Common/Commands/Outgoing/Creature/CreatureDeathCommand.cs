@@ -151,7 +151,7 @@ namespace OpenTibia.Game.Commands
 
                     player.Soul = 100;
 
-                    player.MaxCapacity = player.Capacity = 40000;
+                    player.MaxCapacity = player.Capacity = 400 * 100;
 
                     player.Vocation = Vocation.None;
 

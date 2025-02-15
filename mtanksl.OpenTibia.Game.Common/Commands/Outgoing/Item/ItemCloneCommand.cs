@@ -6,14 +6,14 @@ namespace OpenTibia.Game.Commands
 {
     public class ItemCloneCommand : CommandResult<Item>
     {
-        public ItemCloneCommand(Item fromItem, bool deepClone)
+        public ItemCloneCommand(Item item, bool deepClone)
         {
-            FromItem = fromItem;
+            Item = item;
 
             DeepClone = deepClone;
         }
 
-        public Item FromItem { get; set; }
+        public Item Item { get; set; }
 
         public bool DeepClone { get; set; }
 
@@ -21,30 +21,30 @@ namespace OpenTibia.Game.Commands
         {
             byte count = 1;
 
-            if (FromItem is StackableItem stackableItem)
+            if (Item is StackableItem stackableItem)
             {
                 count = stackableItem.Count;
             }
-            else if (FromItem is FluidItem fluidItem)
+            else if (Item is FluidItem fluidItem)
             {
                 count = (byte)fluidItem.FluidType;
             }
-            else if (FromItem is SplashItem splashItem)
+            else if (Item is SplashItem splashItem)
             {
                 count = (byte)splashItem.FluidType;
             }
 
-            Item toItem = Context.Server.ItemFactory.Create(FromItem.Metadata.OpenTibiaId, count);
+            Item toItem = Context.Server.ItemFactory.Create(Item.Metadata.OpenTibiaId, count);
 
             if (toItem != null)
             {
                 Context.Server.ItemFactory.Attach(toItem);
 
-                toItem.ActionId = FromItem.ActionId;
+                toItem.ActionId = Item.ActionId;
 
                 // toItem.UniqueId = FromItem.UniqueId;
 
-                if (FromItem is Container fromContainer)
+                if (Item is Container fromContainer)
                 {
                     if (toItem is Container toContainer)
                     {
@@ -63,7 +63,7 @@ namespace OpenTibia.Game.Commands
                         throw new InvalidOperationException("ToItem must be Container.");
                     }
                 }
-                else if (FromItem is DoorItem fromDoorItem)
+                else if (Item is DoorItem fromDoorItem)
                 {
                     if (toItem is DoorItem toDoorItem)
                     {
@@ -74,7 +74,7 @@ namespace OpenTibia.Game.Commands
                         throw new InvalidOperationException("ToItem must be DoorItem."); 
                     }                    
                 }
-                else if (FromItem is ReadableItem fromReadableItem)
+                else if (Item is ReadableItem fromReadableItem)
                 {
                     if (toItem is ReadableItem toReadableItem)
                     {
@@ -89,7 +89,7 @@ namespace OpenTibia.Game.Commands
                         throw new InvalidOperationException("ToItem must be ReadableItem."); 
                     }                    
                 }
-                else if (FromItem is TeleportItem fromTeleportItem)
+                else if (Item is TeleportItem fromTeleportItem)
                 {
                     if (toItem is TeleportItem toTeleportItem)
                     {

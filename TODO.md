@@ -1,7 +1,5 @@
 # To do
 
-- Player information
-	- Capacity
 - Fight	
 	- War
 	- Splash
@@ -41,6 +39,7 @@
 	- Report bug
 	- Report rule violation
 	- Debug assert
+	- Health, mana, soul, capacity, etc
 - Controlling the character
 	- Login
 	- Walking

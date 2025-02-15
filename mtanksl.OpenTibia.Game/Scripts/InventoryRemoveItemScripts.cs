@@ -10,7 +10,9 @@ namespace OpenTibia.Game.Scripts
         {
             Context.Server.CommandHandlers.AddCommandHandler<InventoryRemoveItemCommand>(new InventoryRemovingItemScriptingHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler<InventoryRemoveItemCommand>(new InventoryRemoveItemNpcTradingUpdateStatsHandler());
+            Context.Server.CommandHandlers.AddCommandHandler<InventoryRemoveItemCommand>(new InventoryRemoveItemNpcTradingUpdateStatsHandler() );
+
+            Context.Server.CommandHandlers.AddCommandHandler<InventoryRemoveItemCommand>(new InventoryRemoveItemUpdatePlayerCapacityHandler() );
 
 
             Context.Server.EventHandlers.Subscribe<InventoryRemoveItemEventArgs>(new InventoryRemoveItemScriptingHandler() );

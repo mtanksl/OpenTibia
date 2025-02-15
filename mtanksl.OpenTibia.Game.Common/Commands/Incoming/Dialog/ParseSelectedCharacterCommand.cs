@@ -150,9 +150,9 @@ namespace OpenTibia.Game.Commands
                         
                         Soul = 100, 
                         
-                        Capacity = 40000, 
+                        Capacity = 400 * 100, 
 
-                        MaxCapacity = 40000,
+                        MaxCapacity = 400 * 100,
 
                         Stamina = 2520, 
 

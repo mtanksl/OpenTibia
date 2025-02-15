@@ -22,11 +22,13 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            if (Player.Capacity != Capacity)
+            if ( !( Player.Rank == Rank.Gamemaster || Player.Rank == Rank.AccountManager || Player.IsDestroyed) )
             {
-                Player.Capacity = Capacity;
+                if (Player.Capacity != Capacity)
+                {
+                    Player.Capacity = Capacity;
 
-                Context.AddPacket(Player, new SendStatusOutgoingPacket(
+                    Context.AddPacket(Player, new SendStatusOutgoingPacket(
                         Player.Health, Player.MaxHealth, 
                         Player.Capacity, 
                         Player.Experience, Player.Level, Player.LevelPercent, 
@@ -35,7 +37,8 @@ namespace OpenTibia.Game.Commands
                         Player.Soul, 
                         Player.Stamina) );
 
-                Context.AddEvent(new PlayerUpdateCapacityEventArgs(Player, Capacity) );
+                    Context.AddEvent(new PlayerUpdateCapacityEventArgs(Player, Capacity) );
+                }
             }
 
             return Promise.Completed;

@@ -12,6 +12,8 @@ namespace OpenTibia.Game.Scripts
 
             Context.Server.CommandHandlers.AddCommandHandler<InventoryAddItemCommand>(new InventoryAddItemNpcTradingUpdateStatsHandler() );
 
+            Context.Server.CommandHandlers.AddCommandHandler<InventoryAddItemCommand>(new InventoryAddItemUpdatePlayerCapacityHandler() );
+
 
             Context.Server.EventHandlers.Subscribe<InventoryAddItemEventArgs>(new InventoryAddItemScriptingHandler() );
 

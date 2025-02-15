@@ -6,16 +6,16 @@ namespace OpenTibia.Game.Commands
 {
     public class ItemTransformCommand : CommandResult<Item>
     {
-        public ItemTransformCommand(Item fromItem, ushort openTibiaId, byte count)
+        public ItemTransformCommand(Item item, ushort openTibiaId, byte count)
         {
-            FromItem = fromItem;
+            Item = item;
 
             OpenTibiaId = openTibiaId;
 
             Count = count;
         }
 
-        public Item FromItem { get; set; }
+        public Item Item { get; set; }
 
         public ushort OpenTibiaId { get; set; }
 
@@ -29,11 +29,11 @@ namespace OpenTibia.Game.Commands
             {
                 Context.Server.ItemFactory.Attach(toItem);
 
-                toItem.ActionId = FromItem.ActionId;
+                toItem.ActionId = Item.ActionId;
 
-                toItem.UniqueId = FromItem.UniqueId;
+                toItem.UniqueId = Item.UniqueId;
 
-                if (FromItem is Container fromContainer)
+                if (Item is Container fromContainer)
                 {
                     if (toItem is Container toContainer)
                     {
@@ -51,7 +51,7 @@ namespace OpenTibia.Game.Commands
                         throw new InvalidOperationException("ToItem must be Container.");
                     }
                 }
-                else if (FromItem is DoorItem fromDoorItem)
+                else if (Item is DoorItem fromDoorItem)
                 {
                     if (toItem is DoorItem toDoorItem)
                     {
@@ -62,7 +62,7 @@ namespace OpenTibia.Game.Commands
                         throw new InvalidOperationException("ToItem must be DoorItem.");
                     }
                 }
-                else if (FromItem is ReadableItem fromReadableItem)
+                else if (Item is ReadableItem fromReadableItem)
                 {
                     if (toItem is ReadableItem toReadableItem)
                     {
@@ -77,7 +77,7 @@ namespace OpenTibia.Game.Commands
                         throw new InvalidOperationException("ToItem must be ReadableItem.");
                     }
                 }
-                else if (FromItem is TeleportItem fromTeleportItem)
+                else if (Item is TeleportItem fromTeleportItem)
                 {
                     if (toItem is TeleportItem toTeleportItem)
                     {
@@ -89,13 +89,23 @@ namespace OpenTibia.Game.Commands
                     }                    
                 }
 
-                switch (FromItem.Parent)
+                switch (Item.Parent)
                 {
                     case Tile tile:
 
-                        return Context.AddCommand(new TileReplaceItemCommand(tile, FromItem, toItem) ).Then( () =>
+                        return Context.AddCommand(new TileReplaceItemCommand(tile, Item, toItem) ).Then( () =>
                         {
-                            return Context.AddCommand(new ItemDestroyCommand(FromItem) );
+                            if (Detach(Context, Item) )
+                            {
+                                Context.Server.QueueForExecution( () =>
+                                {
+                                    ClearComponentsAndEventHandlers(Context, Item);
+
+                                    return Promise.Completed;
+                                } );
+                            }
+
+                            return Promise.Completed;
 
                         } ).Then( () =>
                         {
@@ -104,9 +114,19 @@ namespace OpenTibia.Game.Commands
 
                     case Inventory inventory:
 
-                        return Context.AddCommand(new InventoryReplaceItemCommand(inventory, FromItem, toItem) ).Then( () =>
+                        return Context.AddCommand(new InventoryReplaceItemCommand(inventory, Item, toItem) ).Then( () =>
                         {
-                            return Context.AddCommand(new ItemDestroyCommand(FromItem) );
+                            if (Detach(Context, Item) )
+                            {
+                                Context.Server.QueueForExecution( () =>
+                                {
+                                    ClearComponentsAndEventHandlers(Context, Item);
+
+                                    return Promise.Completed;
+                                } );
+                            }
+
+                            return Promise.Completed;
 
                         } ).Then( () =>
                         {
@@ -115,9 +135,19 @@ namespace OpenTibia.Game.Commands
 
                     case Container container:
 
-                        return Context.AddCommand(new ContainerReplaceItemCommand(container, FromItem, toItem) ).Then( () =>
+                        return Context.AddCommand(new ContainerReplaceItemCommand(container, Item, toItem) ).Then( () =>
                         {
-                            return Context.AddCommand(new ItemDestroyCommand(FromItem) );
+                            if (Detach(Context, Item) )
+                            {
+                                Context.Server.QueueForExecution( () =>
+                                {
+                                    ClearComponentsAndEventHandlers(Context, Item);
+
+                                    return Promise.Completed;
+                                } );
+                            }
+
+                            return Promise.Completed;
 
                         } ).Then( () =>
                         {
@@ -131,6 +161,37 @@ namespace OpenTibia.Game.Commands
             }
 
             return Promise.FromResult(toItem);
+        }
+
+        private static bool Detach(Context context, Item item)
+        {
+            if (context.Server.ItemFactory.Detach(item) )
+            {
+                if (item is Container container)
+                {
+                    foreach (var child in container.GetItems() )
+                    {
+                        Detach(context, child);
+                    }
+                }
+
+                return true;
+            }
+
+            return false;
+        }
+
+        private static void ClearComponentsAndEventHandlers(Context context, Item item)
+        {
+            context.Server.ItemFactory.ClearComponentsAndEventHandlers(item);
+
+            if (item is Container container)
+	        {
+		        foreach (var child in container.GetItems() )
+		        {
+                    ClearComponentsAndEventHandlers(context, child);
+		        }
+	        }
         }
     }
 }

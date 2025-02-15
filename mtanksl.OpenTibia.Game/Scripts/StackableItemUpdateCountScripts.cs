@@ -10,6 +10,8 @@ namespace OpenTibia.Game.Scripts
             Context.Server.CommandHandlers.AddCommandHandler<StackableItemUpdateCountCommand>(new StackableItemUpdateCountTradingRejectHandler() );        
             
             Context.Server.CommandHandlers.AddCommandHandler<StackableItemUpdateCountCommand>(new StackableItemUpdateCountNpcTradingUpdateStatsHandler() );
+
+            Context.Server.CommandHandlers.AddCommandHandler<StackableItemUpdateCountCommand>(new StackableItemUpdateCountUpdatePlayerCapacitytHandler() );
         }
 
         public override void Stop()

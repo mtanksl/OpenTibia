@@ -10,6 +10,8 @@ namespace OpenTibia.Game.Scripts
             Context.Server.CommandHandlers.AddCommandHandler<ContainerRemoveItemCommand>(new ContainerRemoveItemTradingRejectHandler() );       
             
             Context.Server.CommandHandlers.AddCommandHandler<ContainerRemoveItemCommand>(new ContainerRemoveItemNpcTradingUpdateStatsHandler() );
+
+            Context.Server.CommandHandlers.AddCommandHandler<ContainerRemoveItemCommand>(new ContainerRemoveItemUpdatePlayerCapacityHandler() );
         }
 
         public override void Stop()
