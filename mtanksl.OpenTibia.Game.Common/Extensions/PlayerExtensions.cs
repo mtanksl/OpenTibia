@@ -206,7 +206,7 @@ namespace OpenTibia.Game.Extensions
 
         /// <exception cref="InvalidOperationException"></exception>
 
-        public static Promise UpdateCapacity(this Player player, uint capacity)
+        public static Promise UpdateCapacity(this Player player, int capacity)
         {
             Context context = Context.Current;
 

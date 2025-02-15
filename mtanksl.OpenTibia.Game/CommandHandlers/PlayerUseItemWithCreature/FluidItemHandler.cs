@@ -68,7 +68,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     return Context.AddCommand(new FluidItemUpdateFluidTypeCommand(fromItem, FluidType.Empty) ).Then( () =>
                     {
-                        return Context.AddCommand(new PlayerUpdateManaCommand(toPlayer, (ushort)(toPlayer.Mana + Context.Server.Randomization.Take(50, 150) ) ) );
+                        return Context.AddCommand(new PlayerUpdateManaCommand(toPlayer, toPlayer.Mana + Context.Server.Randomization.Take(50, 150) ) );
 
                     } ).Then( () =>
                     {

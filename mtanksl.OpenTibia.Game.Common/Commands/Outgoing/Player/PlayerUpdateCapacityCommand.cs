@@ -9,11 +9,11 @@ namespace OpenTibia.Game.Commands
 {
     public class PlayerUpdateCapacityCommand : Command
     {
-        public PlayerUpdateCapacityCommand(Player player, uint capacity)
+        public PlayerUpdateCapacityCommand(Player player, int capacity)
         {
             Player = player;
 
-            Capacity = Math.Max(0, Math.Min(player.MaxCapacity, capacity) );
+            Capacity = (uint)Math.Max(0, Math.Min(player.MaxCapacity, capacity) );
         }
 
         public Player Player { get; set; }

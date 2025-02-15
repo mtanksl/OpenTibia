@@ -38,7 +38,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 return promise.Then( () =>
                 {
-                    return Context.AddCommand(new PlayerUpdateManaCommand(player, (ushort)(player.Mana + Context.Server.Randomization.Take(70, 130) ) ) );  
+                    return Context.AddCommand(new PlayerUpdateManaCommand(player, player.Mana + Context.Server.Randomization.Take(70, 130) ) );  
                     
                 } ).Then( () =>
                 {
