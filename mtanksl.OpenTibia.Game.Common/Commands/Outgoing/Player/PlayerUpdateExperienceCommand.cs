@@ -32,9 +32,7 @@ namespace OpenTibia.Game.Commands
             if (Player.Experience != Experience || Player.Level != Level || Player.LevelPercent != LevelPercent)
             {
                 Player.Experience = Experience;
-
                 Player.Level = Level;
-
                 Player.LevelPercent = LevelPercent;
 
                 Context.AddPacket(Player, new SendStatusOutgoingPacket(

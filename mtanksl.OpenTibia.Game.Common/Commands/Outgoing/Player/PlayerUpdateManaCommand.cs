@@ -22,7 +22,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            if (Player.Rank != Rank.Gamemaster && Player.Rank != Rank.AccountManager)
+            if ( !( Player.Rank == Rank.Gamemaster || Player.Rank == Rank.AccountManager || Player.IsDestroyed) )
             {
                 if (Player.Mana != Mana)
                 {

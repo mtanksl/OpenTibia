@@ -20,8 +20,6 @@ namespace OpenTibia.Game.Commands
 
         public ushort Health { get; set; }
 
-        public ushort MaxHealth { get; set; }
-
         public override Promise Execute()
         {
             if ( !(Creature is Npc || (Creature is Player player && (player.Rank == Rank.Gamemaster || player.Rank == Rank.AccountManager) ) || Creature.IsDestroyed) )

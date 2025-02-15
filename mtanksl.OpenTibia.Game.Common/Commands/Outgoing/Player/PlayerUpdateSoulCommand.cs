@@ -26,8 +26,8 @@ namespace OpenTibia.Game.Commands
         public byte Soul { get; set; }
 
         public override Promise Execute()
-        {
-            if (Player.Rank != Rank.Gamemaster && Player.Rank != Rank.AccountManager)
+        {                  
+            if ( !( Player.Rank == Rank.Gamemaster || Player.Rank == Rank.AccountManager || Player.IsDestroyed) )
             {
                 if (Player.Soul != Soul)
                 {

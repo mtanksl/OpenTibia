@@ -21,24 +21,21 @@ namespace OpenTibia.Game.Commands
         public ushort Stamina { get; set; }
 
         public override Promise Execute()
-        {
-            if (Player.Rank != Rank.Gamemaster && Player.Rank != Rank.AccountManager)
+        {                    
+            if (Player.Stamina != Stamina)
             {
-                if (Player.Stamina != Stamina)
-                {
-                    Player.Stamina = Stamina;
+                Player.Stamina = Stamina;
 
-                    Context.AddPacket(Player, new SendStatusOutgoingPacket(
-                        Player.Health, Player.MaxHealth, 
-                        Player.Capacity, 
-                        Player.Experience, Player.Level, Player.LevelPercent, 
-                        Player.Mana, Player.MaxMana, 
-                        Player.Skills.GetClientSkillLevel(Skill.MagicLevel), Player.Skills.GetSkillPercent(Skill.MagicLevel), 
-                        Player.Soul, 
-                        Player.Stamina) );
+                Context.AddPacket(Player, new SendStatusOutgoingPacket(
+                    Player.Health, Player.MaxHealth, 
+                    Player.Capacity, 
+                    Player.Experience, Player.Level, Player.LevelPercent, 
+                    Player.Mana, Player.MaxMana, 
+                    Player.Skills.GetClientSkillLevel(Skill.MagicLevel), Player.Skills.GetSkillPercent(Skill.MagicLevel), 
+                    Player.Soul, 
+                    Player.Stamina) );
                
-                    Context.AddEvent(new PlayerUpdateStaminaEventArgs(Player, Stamina) );
-                }
+                Context.AddEvent(new PlayerUpdateStaminaEventArgs(Player, Stamina) );
             }
 
             return Promise.Completed;

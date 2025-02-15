@@ -13,7 +13,7 @@ namespace OpenTibia.Game.Commands
         {
             Player = player;
 
-            Capacity = (ushort)Math.Max(0, Math.Min(player.MaxCapacity, capacity) );
+            Capacity = Math.Max(0, Math.Min(player.MaxCapacity, capacity) );
         }
 
         public Player Player { get; set; }

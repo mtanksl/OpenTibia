@@ -10,6 +10,7 @@
 - Bed
 - Guild
 - Rings and amulets charges
+- Party spells (Enchant Party, Heal Party, Protect Party, Train Party)
 - Party shared experience
 - X-Logging
 - Stamina

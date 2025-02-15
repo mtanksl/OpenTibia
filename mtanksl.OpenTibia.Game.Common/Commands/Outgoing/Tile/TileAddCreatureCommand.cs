@@ -76,7 +76,7 @@ namespace OpenTibia.Game.Commands
                 {
                     uint removeId;
 
-                    if (player.Client.Battles.IsKnownCreature(Creature.Id, out removeId))
+                    if (player.Client.Battles.IsKnownCreature(Creature.Id, out removeId) )
                     {
                         Context.AddPacket(player, new ThingAddOutgoingPacket(ToTile.Position, pair.Value, Creature, player.Client.GetClientSkullIcon(Creature), player.Client.GetClientPartyIcon(Creature)));
                     }
