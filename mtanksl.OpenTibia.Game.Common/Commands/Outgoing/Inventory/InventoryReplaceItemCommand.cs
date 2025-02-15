@@ -30,8 +30,6 @@ namespace OpenTibia.Game.Commands
 
         public override async Promise Execute()
         {
-            var currentLight = Inventory.Player.ClientLight;
-
             byte slot = (byte)Inventory.GetIndex(FromItem);
 
             Inventory.ReplaceContent(slot, ToItem);

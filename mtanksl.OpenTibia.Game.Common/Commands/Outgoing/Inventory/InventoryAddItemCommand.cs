@@ -30,8 +30,6 @@ namespace OpenTibia.Game.Commands
 
         public override async Promise Execute()
         {
-            var currentLight = Inventory.Player.ClientLight;
-
             Inventory.AddContent(Item, slot);
 
             Context.AddPacket(Inventory.Player, new SlotAddOutgoingPacket(slot, Item ) );
