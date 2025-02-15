@@ -794,11 +794,18 @@ namespace OpenTibia.Game.Common
         {
             QueueForExecution( () =>
             {
-                List<Promise> promises = new List<Promise>();
+                List<Player> players = new List<Player>();
 
                 foreach (var observer in Context.Current.Server.GameObjects.GetPlayers() )
                 {
-                    promises.Add(Context.Current.AddCommand(new CreatureDestroyCommand(observer) ) );
+                    players.Add(observer);
+                }
+
+                List<Promise> promises = new List<Promise>();
+
+                foreach (var player in players)
+                {
+                    promises.Add(Context.Current.AddCommand(new CreatureDestroyCommand(player) ) );
                 }
 
                 return Promise.WhenAll(promises.ToArray() );
@@ -983,7 +990,7 @@ namespace OpenTibia.Game.Common
         {
             QueueForExecution( () =>
             {
-                List<Promise> promises = new List<Promise>();
+                List<Item> items = new List<Item>();
 
                 foreach (var tile in Map.GetTiles() )
                 {
@@ -993,10 +1000,17 @@ namespace OpenTibia.Game.Common
                         {
                             if ( !item.LoadedFromMap && item.ActionId == 0 && item.UniqueId == 0 && item.Metadata.Flags.Is(ItemMetadataFlags.Pickupable) && !item.Metadata.Flags.Is(ItemMetadataFlags.NotMoveable) )
                             {
-                                promises.Add(Context.Current.AddCommand(new ItemDestroyCommand(item) ) );
+                                items.Add(item);
                             }
                         }
                     }
+                }
+
+                List<Promise> promises = new List<Promise>();
+
+                foreach (var item in items)
+                {
+                    promises.Add(Context.Current.AddCommand(new ItemDestroyCommand(item) ) );
                 }
 
                 return Promise.WhenAll(promises.ToArray() );
