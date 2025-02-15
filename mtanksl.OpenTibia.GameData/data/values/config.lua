@@ -106,7 +106,7 @@
 				[2207] = 2210, -- Sword ring
 				[2208] = 2211, -- Axe ring
 				[2209] = 2212, -- Club ring
-				[2210] = 2213, -- Dwarven ring
+				[2213] = 2215, -- Dwarven ring
 				[2214] = 2216 -- Ring of healing
 			},
 			ringDeEquip = {
@@ -118,7 +118,7 @@
 				[2210] = 2207, -- Sword ring
 				[2211] = 2208, -- Axe ring
 				[2212] = 2209, -- Club ring
-				[2213] = 2210, -- Dwarven ring
+				[2215] = 2213, -- Dwarven ring
 				[2216] = 2214 -- Ring of healing
 			},
 			feetEquip = {

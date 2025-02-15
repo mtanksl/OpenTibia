@@ -1034,7 +1034,6 @@ namespace OpenTibia.FileFormats.Xml.Items
 
                                 break;
 
-
                             case "necklace":
 
                                 slotType |= Common.Structures.SlotType.Amulet;

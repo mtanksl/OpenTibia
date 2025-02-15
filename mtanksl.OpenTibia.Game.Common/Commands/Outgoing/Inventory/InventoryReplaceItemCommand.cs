@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Common;
 using OpenTibia.Game.Events;
 using OpenTibia.Network.Packets.Outgoing;
@@ -45,34 +46,54 @@ namespace OpenTibia.Game.Commands
 
             await Context.AddCommand(new CreatureUpdateLightCommand(Inventory.Player, Inventory.Player.ConditionLight, maxLightLevel) );
 
-            if (FromItem.Metadata.OpenTibiaId == stealthRing && (OpenTibia.Common.Structures.Slot)slot == OpenTibia.Common.Structures.Slot.Ring)
+            if (FromItem.Metadata.SlotType == SlotType.Head && (Slot)slot == Slot.Head ||
+                FromItem.Metadata.SlotType == SlotType.Amulet && (Slot)slot == Slot.Amulet ||
+                FromItem.Metadata.SlotType == SlotType.Container && (Slot)slot == Slot.Container ||
+                FromItem.Metadata.SlotType == SlotType.Armor && (Slot)slot == Slot.Armor ||
+                (FromItem.Metadata.SlotType == SlotType.Hand || FromItem.Metadata.SlotType == SlotType.TwoHand) && ( (Slot)slot == Slot.Left || (Slot)slot == Slot.Right) ||
+                FromItem.Metadata.SlotType == SlotType.Feet && (Slot)slot == Slot.Feet ||
+                FromItem.Metadata.SlotType == SlotType.Ring && (Slot)slot == Slot.Ring ||
+                FromItem.Metadata.SlotType == SlotType.Extra && (Slot)slot == Slot.Extra)
             {
-                await Context.AddCommand(new CreatureUpdateOutfitCommand(Inventory.Player, Inventory.Player.BaseOutfit, Inventory.Player.ConditionOutfit, Inventory.Player.Swimming, Inventory.Player.ConditionStealth, false) );
+                if (FromItem.Metadata.OpenTibiaId == stealthRing)
+                {
+                    await Context.AddCommand(new CreatureUpdateOutfitCommand(Inventory.Player, Inventory.Player.BaseOutfit, Inventory.Player.ConditionOutfit, Inventory.Player.Swimming, Inventory.Player.ConditionStealth, false) );
+                }
+
+                if (FromItem.Metadata.SpeedModifier != null)
+                {
+                    await Context.AddCommand(new CreatureUpdateSpeedCommand(Inventory.Player, Inventory.Player.ConditionSpeed, Inventory.Player.ItemSpeed - FromItem.Metadata.SpeedModifier.Value) );
+                }
+
+                foreach (var skillModifier in FromItem.Metadata.SkillModifier)
+                {
+                    await Context.AddCommand(new PlayerUpdateSkillCommand(Inventory.Player, skillModifier.Key, Inventory.Player.Skills.GetSkillPoints(skillModifier.Key), Inventory.Player.Skills.GetSkillLevel(skillModifier.Key), Inventory.Player.Skills.GetSkillPercent(skillModifier.Key), Inventory.Player.Skills.GetConditionSkillLevel(skillModifier.Key), Inventory.Player.Skills.GetItemSkillLevel(skillModifier.Key) - skillModifier.Value) );
+                }
             }
 
-            if (FromItem.Metadata.SpeedModifier != null)
+            if (ToItem.Metadata.SlotType == SlotType.Head && (Slot)slot == Slot.Head ||
+                ToItem.Metadata.SlotType == SlotType.Amulet && (Slot)slot == Slot.Amulet ||
+                ToItem.Metadata.SlotType == SlotType.Container && (Slot)slot == Slot.Container ||
+                ToItem.Metadata.SlotType == SlotType.Armor && (Slot)slot == Slot.Armor ||
+                (ToItem.Metadata.SlotType == SlotType.Hand || ToItem.Metadata.SlotType == SlotType.TwoHand) && ( (Slot)slot == Slot.Left || (Slot)slot == Slot.Right) ||
+                ToItem.Metadata.SlotType == SlotType.Feet && (Slot)slot == Slot.Feet ||
+                ToItem.Metadata.SlotType == SlotType.Ring && (Slot)slot == Slot.Ring ||
+                ToItem.Metadata.SlotType == SlotType.Extra && (Slot)slot == Slot.Extra)
             {
-                await Context.AddCommand(new CreatureUpdateSpeedCommand(Inventory.Player, Inventory.Player.ConditionSpeed, 0) );
-            }
+                if (ToItem.Metadata.OpenTibiaId == stealthRing)
+                {
+                    await Context.AddCommand(new CreatureUpdateOutfitCommand(Inventory.Player, Inventory.Player.BaseOutfit, Inventory.Player.ConditionOutfit, Inventory.Player.Swimming, Inventory.Player.ConditionStealth, true) );
+                }
 
-            foreach (var skillModifier in FromItem.Metadata.SkillModifier)
-            {
-                await Context.AddCommand(new PlayerUpdateSkillCommand(Inventory.Player, skillModifier.Key, Inventory.Player.Skills.GetSkillPoints(skillModifier.Key), Inventory.Player.Skills.GetClientSkillLevel(skillModifier.Key), Inventory.Player.Skills.GetSkillPercent(skillModifier.Key), Inventory.Player.Skills.GetConditionSkillLevel(skillModifier.Key), 0) );
-            }
-            
-            if (ToItem.Metadata.OpenTibiaId == stealthRing && (OpenTibia.Common.Structures.Slot)slot == OpenTibia.Common.Structures.Slot.Ring)
-            {
-                await Context.AddCommand(new CreatureUpdateOutfitCommand(Inventory.Player, Inventory.Player.BaseOutfit, Inventory.Player.ConditionOutfit, Inventory.Player.Swimming, Inventory.Player.ConditionStealth, true) );
-            }
+                if (ToItem.Metadata.SpeedModifier != null)
+                {
+                    await Context.AddCommand(new CreatureUpdateSpeedCommand(Inventory.Player, Inventory.Player.ConditionSpeed, Inventory.Player.ItemSpeed + ToItem.Metadata.SpeedModifier.Value) );
+                }
 
-            if (ToItem.Metadata.SpeedModifier != null)
-            {
-                await Context.AddCommand(new CreatureUpdateSpeedCommand(Inventory.Player, Inventory.Player.ConditionSpeed, ToItem.Metadata.SpeedModifier.Value) );
-            }
-
-            foreach (var skillModifier in ToItem.Metadata.SkillModifier)
-            {
-                await Context.AddCommand(new PlayerUpdateSkillCommand(Inventory.Player, skillModifier.Key, Inventory.Player.Skills.GetSkillPoints(skillModifier.Key), Inventory.Player.Skills.GetClientSkillLevel(skillModifier.Key), Inventory.Player.Skills.GetSkillPercent(skillModifier.Key), Inventory.Player.Skills.GetConditionSkillLevel(skillModifier.Key), skillModifier.Value) );
+                foreach (var skillModifier in ToItem.Metadata.SkillModifier)
+                {
+                    await Context.AddCommand(new PlayerUpdateSkillCommand(Inventory.Player, skillModifier.Key, Inventory.Player.Skills.GetSkillPoints(skillModifier.Key), Inventory.Player.Skills.GetSkillLevel(skillModifier.Key), Inventory.Player.Skills.GetSkillPercent(skillModifier.Key), Inventory.Player.Skills.GetConditionSkillLevel(skillModifier.Key), Inventory.Player.Skills.GetItemSkillLevel(skillModifier.Key) + skillModifier.Value) );
+                }
             }
 
             Context.AddEvent(new InventoryReplaceItemEventArgs(Inventory, FromItem, ToItem, slot) );

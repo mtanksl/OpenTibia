@@ -13,7 +13,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (plugin != null)
             {
-                return plugin.OnEquipping(command.Inventory, command.Item, command.Slot).Then( (result) =>
+                return plugin.OnEquipping(command.Inventory, command.Item, command.slot).Then( (result) =>
                 {
                     if (result)
                     {
