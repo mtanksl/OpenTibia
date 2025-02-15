@@ -33,7 +33,7 @@ namespace OpenTibia.Game.Commands
 
             if (Player.Level == 1)
             {
-                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, "You may not yell as long as you are on level 1.") );
+                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotYellAsLongAsYouAreOnLevel1) );
 
                 return Promise.Break;
             }

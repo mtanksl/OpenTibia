@@ -17,7 +17,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     uint addWeight = toItem.GetWeight();
 
-                    return Context.AddCommand(new PlayerUpdateCapacityCommand(inventory.Player, (int)(inventory.Player.Capacity - addWeight + removeWeight) ) ).Then( () =>
+                    return Context.AddCommand(new PlayerUpdateCapacityCommand(inventory.Player, (int)(inventory.Player.Capacity + removeWeight - addWeight) ) ).Then( () =>
                     {
                         return Promise.FromResult(toItem);
                     } );

@@ -43,6 +43,8 @@ namespace OpenTibia.Game.Components
                         Context.Server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
                     }
                 } );
+                            
+                return Promise.Completed;
 
             } ).Catch( (ex) =>
             {

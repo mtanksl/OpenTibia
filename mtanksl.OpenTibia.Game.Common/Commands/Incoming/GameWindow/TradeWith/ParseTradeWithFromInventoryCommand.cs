@@ -32,7 +32,7 @@ namespace OpenTibia.Game.Commands
 
                 if (toPlayer != null && toPlayer != Player)
                 {
-                    if ( IsPickupable(fromItem) )
+                    if ( IsPickupable(fromItem) && IsMoveable(fromItem) )
                     {
                         return Context.AddCommand(new PlayerTradeWithCommand(Player, fromItem, toPlayer) );
                     }

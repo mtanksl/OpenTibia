@@ -93,6 +93,6 @@ namespace OpenTibia.Game.Commands
             }
 
             return true;
-        }        
+        }
     }
 }

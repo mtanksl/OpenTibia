@@ -21,23 +21,26 @@ namespace OpenTibia.Game.CommandHandlers
         }
 
         public override Promise Handle(Func<Promise> next, ContainerRemoveItemCommand command)
-        {
+        {            
             if (command.Container.Root() is Inventory inventory)
             {
-                return next().Then( () =>
+                if ( !command.Item.IsDestroyed) // Already handled by ItemDestroyNpcTradingUpdateStatsHandler
                 {
-                    if (Context.Server.NpcTradings.Count > 0)
+                    return next().Then( () =>
                     {
-                        NpcTrading trading = Context.Server.NpcTradings.GetTradingByCounterOfferPlayer(inventory.Player);
-
-                        if (trading != null && (command.Item.Metadata.OpenTibiaId == goldCoin || command.Item.Metadata.OpenTibiaId == platinumCoin || command.Item.Metadata.OpenTibiaId == crystalCoin || trading.Offers.Any(o => o.TibiaId == command.Item.Metadata.TibiaId) ) )
+                        if (Context.Server.NpcTradings.Count > 0)
                         {
-                            return Context.AddCommand(new NpcTradeUpdateStatsCommand(trading) );
-                        }
-                    }
+                            NpcTrading trading = Context.Server.NpcTradings.GetTradingByCounterOfferPlayer(inventory.Player);
 
-                    return Promise.Completed;
-                } );
+                            if (trading != null && (command.Item.Metadata.OpenTibiaId == goldCoin || command.Item.Metadata.OpenTibiaId == platinumCoin || command.Item.Metadata.OpenTibiaId == crystalCoin || trading.Offers.Any(o => o.TibiaId == command.Item.Metadata.TibiaId) ) )
+                            {
+                                return Context.AddCommand(new NpcTradeUpdateStatsCommand(trading) );
+                            }
+                        }
+
+                        return Promise.Completed;
+                    } );
+                }
             }
 
             return next();

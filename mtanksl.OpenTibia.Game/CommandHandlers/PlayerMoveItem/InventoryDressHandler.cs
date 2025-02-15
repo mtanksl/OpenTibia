@@ -7,7 +7,7 @@ using System;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class InventoryHandler : CommandHandler<PlayerMoveItemCommand>
+    public class InventoryDressHandler : CommandHandler<PlayerMoveItemCommand>
     {
         public override Promise Handle(Func<Promise> next, PlayerMoveItemCommand command)
         {

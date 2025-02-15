@@ -41,7 +41,7 @@ namespace OpenTibia.Game.Commands
 
                         if (toPlayer != null && toPlayer != Player)
                         {
-                            if ( IsPickupable(fromItem) )
+                            if ( IsPickupable(fromItem) && IsMoveable(fromItem) )
                             {
                                 if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
                                 {

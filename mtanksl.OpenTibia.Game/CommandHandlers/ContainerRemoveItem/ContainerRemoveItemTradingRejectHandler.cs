@@ -12,6 +12,8 @@ namespace OpenTibia.Game.CommandHandlers
     {
         public override Promise Handle(Func<Promise> next, ContainerRemoveItemCommand command)
         {
+            // Already handled by ItemDestroyTradingRejectHandler (?)
+
             return next().Then( () =>
             {
                 if (Context.Server.Tradings.Count > 0)

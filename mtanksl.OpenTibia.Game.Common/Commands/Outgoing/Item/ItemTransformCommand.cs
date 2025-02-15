@@ -92,67 +92,61 @@ namespace OpenTibia.Game.Commands
                 switch (Item.Parent)
                 {
                     case Tile tile:
-
-                        return Context.AddCommand(new TileReplaceItemCommand(tile, Item, toItem) ).Then( () =>
+                        
+                        if (Detach(Context, Item) )
                         {
-                            if (Detach(Context, Item) )
-                            {
+                            return Context.AddCommand(new TileReplaceItemCommand(tile, Item, toItem) ).Then( () =>
+                            {                            
                                 Context.Server.QueueForExecution( () =>
                                 {
                                     ClearComponentsAndEventHandlers(Context, Item);
 
                                     return Promise.Completed;
                                 } );
-                            }
+                            
+                                return Promise.FromResult(toItem);
+                            } );
+                        }
 
-                            return Promise.Completed;
-
-                        } ).Then( () =>
-                        {
-                            return Promise.FromResult(toItem);
-                        } );
+                        break;
 
                     case Inventory inventory:
 
-                        return Context.AddCommand(new InventoryReplaceItemCommand(inventory, Item, toItem) ).Then( () =>
+                        if (Detach(Context, Item) )
                         {
-                            if (Detach(Context, Item) )
-                            {
+                            return Context.AddCommand(new InventoryReplaceItemCommand(inventory, Item, toItem) ).Then( () =>
+                            {                            
                                 Context.Server.QueueForExecution( () =>
                                 {
                                     ClearComponentsAndEventHandlers(Context, Item);
 
                                     return Promise.Completed;
                                 } );
-                            }
 
-                            return Promise.Completed;
+                                return Promise.FromResult(toItem);
+                            } );
+                        }
 
-                        } ).Then( () =>
-                        {
-                            return Promise.FromResult(toItem);
-                        } );
+                        break;
 
                     case Container container:
 
-                        return Context.AddCommand(new ContainerReplaceItemCommand(container, Item, toItem) ).Then( () =>
+                        if (Detach(Context, Item) )
                         {
-                            if (Detach(Context, Item) )
-                            {
+                            return Context.AddCommand(new ContainerReplaceItemCommand(container, Item, toItem) ).Then( () =>
+                            {                           
                                 Context.Server.QueueForExecution( () =>
                                 {
                                     ClearComponentsAndEventHandlers(Context, Item);
 
                                     return Promise.Completed;
                                 } );
-                            }
 
-                            return Promise.Completed;
+                                return Promise.FromResult(toItem);
+                            } );
+                        }
 
-                        } ).Then( () =>
-                        {
-                            return Promise.FromResult(toItem);
-                        } );
+                        break;
 
                     default:
 

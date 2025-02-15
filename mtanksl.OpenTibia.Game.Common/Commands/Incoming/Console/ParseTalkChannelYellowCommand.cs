@@ -36,7 +36,7 @@ namespace OpenTibia.Game.Commands
 
             if (Player.Level == 1)
             {
-                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, "You may not speak into channels as long as you are on level 1.") );
+                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotSpeakIntoChannelsAsLongAsYouAreOnLevel1) );
 
                 return Promise.Break;
             }
@@ -99,7 +99,7 @@ namespace OpenTibia.Game.Commands
                             {
                                 if (playerCooldownBehaviour.HasCooldown("Trade") )
                                 {
-                                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, "You may only place one offer in two minutes.") );
+                                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayOnlyPlaceOneOfferInTwoMinutes) );
 
                                     return Promise.Break;
                                 }

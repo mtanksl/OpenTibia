@@ -19,9 +19,9 @@ namespace OpenTibia.Game.Commands
             {
                 case Tile tile:
 
-                    return Context.AddCommand(new TileRemoveItemCommand(tile, Item) ).Then( () =>
+                    if (Detach(Context, Item) )
                     {
-                        if (Detach(Context, Item) )
+                        return Context.AddCommand(new TileRemoveItemCommand(tile, Item) ).Then( () =>
                         {
                             Context.Server.QueueForExecution( () =>
                             {
@@ -29,16 +29,18 @@ namespace OpenTibia.Game.Commands
 
                                 return Promise.Completed;
                             } );
-                        }
 
-                        return Promise.Completed;
-                    } );
+                            return Promise.Completed;
+                        } );
+                    }
+
+                    break;
 
                 case Inventory inventory:
 
-                    return Context.AddCommand(new InventoryRemoveItemCommand(inventory, Item) ).Then( () =>
+                    if (Detach(Context, Item) )
                     {
-                        if (Detach(Context, Item) )
+                        return Context.AddCommand(new InventoryRemoveItemCommand(inventory, Item) ).Then( () =>
                         {
                             Context.Server.QueueForExecution( () =>
                             {
@@ -46,16 +48,18 @@ namespace OpenTibia.Game.Commands
 
                                 return Promise.Completed;
                             } );
-                        }
 
-                        return Promise.Completed;
-                    } );
+                            return Promise.Completed;
+                        } );
+                    }
+
+                    break;
 
                 case Container container:
 
-                    return Context.AddCommand(new ContainerRemoveItemCommand(container, Item) ).Then( () =>
+                    if (Detach(Context, Item) )
                     {
-                        if (Detach(Context, Item) )
+                        return Context.AddCommand(new ContainerRemoveItemCommand(container, Item) ).Then( () =>
                         {
                             Context.Server.QueueForExecution( () =>
                             {
@@ -63,15 +67,19 @@ namespace OpenTibia.Game.Commands
 
                                 return Promise.Completed;
                             } );
-                        }
 
-                        return Promise.Completed;
-                    } );
+                            return Promise.Completed;
+                        } );
+                    }
+
+                    break;
 
                 default:
 
                     throw new NotImplementedException();
-            }            
+            }       
+
+            return Promise.Completed;
         }
 
         private static bool Detach(Context context, Item item)

@@ -28,9 +28,9 @@ namespace OpenTibia.Game.Commands
 
                 if (total > 100)
                 { 
-                    return Context.AddCommand(new TileCreateItemCommand(Tile, OpenTibiaId, (byte)(total - 100) ) ).Then( (item) =>
+                    return Context.AddCommand(new StackableItemUpdateCountCommand(stackableItem, 100) ).Then( () =>
                     {
-                        return Context.AddCommand(new StackableItemUpdateCountCommand(stackableItem, 100) );
+                        return Context.AddCommand(new TileCreateItemCommand(Tile, OpenTibiaId, (byte)(total - 100) ) );
                     } );
                 }
 

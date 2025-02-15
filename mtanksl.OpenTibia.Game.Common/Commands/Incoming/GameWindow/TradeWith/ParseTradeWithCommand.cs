@@ -1,5 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Game.Common;
+using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
@@ -16,6 +18,18 @@ namespace OpenTibia.Game.Commands
         {
             if ( !fromItem.Metadata.Flags.Is(ItemMetadataFlags.Pickupable) )
             {
+                return false;
+            }
+
+            return true;
+        }
+
+        protected bool IsMoveable(Item fromItem)
+        {
+            if ( fromItem.Metadata.Flags.Is(ItemMetadataFlags.NotMoveable) )
+            {
+                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotMoveThisObject) );
+
                 return false;
             }
 

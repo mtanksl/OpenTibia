@@ -8,12 +8,17 @@ namespace OpenTibia.Game.CommandHandlers
     {
         public override Promise Handle(Func<Promise> next, InventoryRemoveItemCommand command)
         {
-            uint removeWeight = command.Item.GetWeight();
-
-            return next().Then( () =>
+            if ( !command.Item.IsDestroyed) // Already handled by ItemDestroyUpdatePlayerCapacityHandler
             {
-                return Context.AddCommand(new PlayerUpdateCapacityCommand(command.Inventory.Player, (int)(command.Inventory.Player.Capacity + removeWeight) ) );
-            } );
+                uint removeWeight = command.Item.GetWeight();
+
+                return next().Then( () =>
+                {
+                    return Context.AddCommand(new PlayerUpdateCapacityCommand(command.Inventory.Player, (int)(command.Inventory.Player.Capacity + removeWeight) ) );
+                } );
+            }
+
+            return next();
         }
     }
 }

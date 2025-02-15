@@ -11,12 +11,15 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (command.Container.Root() is Inventory inventory)
             {
-                uint removeWeight = command.Item.GetWeight();
-
-                return next().Then( () =>
+                if ( !command.Item.IsDestroyed) // Already handled by ItemDestroyUpdatePlayerCapacityHandler
                 {
-                    return Context.AddCommand(new PlayerUpdateCapacityCommand(inventory.Player, (int)(inventory.Player.Capacity + removeWeight) ) );
-                } );
+                    uint removeWeight = command.Item.GetWeight();
+
+                    return next().Then( () =>
+                    {
+                        return Context.AddCommand(new PlayerUpdateCapacityCommand(inventory.Player, (int)(inventory.Player.Capacity + removeWeight) ) );
+                    } );
+                }
             }
 
             return next();

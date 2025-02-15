@@ -11,13 +11,13 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (command.StackableItem.Root() is Inventory inventory)
             {
-                uint removeWeight = command.StackableItem.GetWeight();
+                uint removeWeight = command.StackableItem.Count * (command.StackableItem.Metadata.Weight ?? 0);
 
                 return next().Then( () =>
                 {
-                    uint addWeight = command.StackableItem.GetWeight();
+                    uint addWeight = command.Count * (command.StackableItem.Metadata.Weight ?? 0);
 
-                    return Context.AddCommand(new PlayerUpdateCapacityCommand(inventory.Player, (int)(inventory.Player.Capacity - addWeight + removeWeight) ) );
+                    return Context.AddCommand(new PlayerUpdateCapacityCommand(inventory.Player, (int)(inventory.Player.Capacity + removeWeight - addWeight) ) );
                 } );
             }
 

@@ -107,9 +107,11 @@ namespace OpenTibia.Game.Scripts
 
             Context.Server.CommandHandlers.AddCommandHandler<PlayerMoveItemCommand>(new SafeHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler<PlayerMoveItemCommand>(new InventoryHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerMoveItemCommand>(new InventoryDressHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler<PlayerMoveItemCommand>(new TapestryHandler() );
+
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerMoveItemCommand>(new InventoryCapacityHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler<PlayerMoveItemCommand>(new SplitStackableItemHandler() );
         }
