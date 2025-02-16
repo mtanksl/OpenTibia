@@ -35,21 +35,21 @@ namespace OpenTibia.Game.Commands
             Condition = condition;
         }
 
-        public CreatureAttackAreaCommand(Creature attacker, bool beam, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count)
+        public CreatureAttackAreaCommand(Creature attacker, bool beam, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte typeCount)
 
-            : this(attacker, beam, center, area, projectileType, magicEffectType, openTibiaId, count, null, null)
+            : this(attacker, beam, center, area, projectileType, magicEffectType, openTibiaId, typeCount, null, null)
         {
            
         }
 
-        public CreatureAttackAreaCommand(Creature attacker, bool beam, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count, Attack attack)
+        public CreatureAttackAreaCommand(Creature attacker, bool beam, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte typeCount, Attack attack)
 
-            : this(attacker, beam, center, area, projectileType, magicEffectType, openTibiaId, count, attack, null) 
+            : this(attacker, beam, center, area, projectileType, magicEffectType, openTibiaId, typeCount, attack, null) 
         {
         
         }
 
-        public CreatureAttackAreaCommand(Creature attacker, bool beam, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count, Attack attack, Condition condition)
+        public CreatureAttackAreaCommand(Creature attacker, bool beam, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte typeCount, Attack attack, Condition condition)
         {
             Attacker = attacker;
 
@@ -65,7 +65,7 @@ namespace OpenTibia.Game.Commands
                         
             OpenTibiaId = openTibiaId;
 
-            Count = count;
+            TypeCount = typeCount;
 
             Attack = attack;
 
@@ -86,7 +86,7 @@ namespace OpenTibia.Game.Commands
 
         public ushort? OpenTibiaId { get; set; }
 
-        public byte? Count { get; set; }
+        public byte? TypeCount { get; set; }
 
         public Attack Attack { get; set; }
 
@@ -144,7 +144,7 @@ namespace OpenTibia.Game.Commands
 
                             if (OpenTibiaId != null)
                             {
-                                var item = await Context.AddCommand(new TileCreateItemCommand(toTile, OpenTibiaId.Value, Count.Value) );
+                                var item = await Context.AddCommand(new TileCreateItemCommand(toTile, OpenTibiaId.Value, TypeCount.Value) );
                             
                                        _ = Context.AddCommand(new ItemDecayDestroyCommand(item, TimeSpan.FromSeconds(10) ) );
                             }

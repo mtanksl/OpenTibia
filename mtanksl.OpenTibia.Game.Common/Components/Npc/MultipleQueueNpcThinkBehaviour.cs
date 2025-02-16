@@ -197,12 +197,39 @@ namespace OpenTibia.Game.Components
             }
         }
 
-        private async Promise Buy(Player player, ushort openTibiaId, byte type, byte count, int price, bool ignoreCapacity, bool buyWithBackpacks)
+        private async Promise Buy(Player player, ushort openTibiaId, byte type, byte count, int price, bool ignoreCapacity, bool buyWithBackpacks /* unused */)
         {
-            await dialoguePlugin.OnBuy(npc, player, openTibiaId, type, count, price, ignoreCapacity, buyWithBackpacks);
+            if (ignoreCapacity)
+            {
+                await dialoguePlugin.OnBuy(npc, player, openTibiaId, type, count, price, ignoreCapacity, buyWithBackpacks);
+            }
+            else
+            {
+                ItemMetadata itemMetadata = Context.Server.ItemFactory.GetItemMetadataByOpenTibiaId(openTibiaId);
+
+                uint weight;
+
+                if (itemMetadata.Flags.Is(ItemMetadataFlags.Stackable) )
+                {
+                    weight = type * (itemMetadata.Weight ?? 0);
+                }
+                else
+                {
+                    weight = (itemMetadata.Weight ?? 0);
+                }
+
+                weight *= count;
+
+                uint capacity = player.Capacity;
+
+                if (weight <= capacity)
+                {
+                    await dialoguePlugin.OnBuy(npc, player, openTibiaId, type, count, price, ignoreCapacity, buyWithBackpacks);
+                }
+            }
         }
 
-        private async Promise Sell(Player player, ushort openTibiaId, byte type, byte count, int price, bool keepEquipped)
+        private async Promise Sell(Player player, ushort openTibiaId, byte type, byte count, int price, bool keepEquipped /* unused */)
         { 
             await dialoguePlugin.OnSell(npc, player, openTibiaId, type, count, price, keepEquipped);
         }

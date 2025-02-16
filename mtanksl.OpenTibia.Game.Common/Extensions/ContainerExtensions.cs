@@ -23,7 +23,7 @@ namespace OpenTibia.Game.Extensions
 
         /// <exception cref="InvalidOperationException"></exception>
 
-        public static PromiseResult<Item> CreateItem(this Container container, ushort openTibiaId, byte count)
+        public static PromiseResult<Item> CreateItem(this Container container, ushort openTibiaId, byte typeCount)
         {
             Context context = Context.Current;
 
@@ -32,7 +32,7 @@ namespace OpenTibia.Game.Extensions
                 throw new InvalidOperationException("Context not found.");
             }
 
-            return context.AddCommand(new ContainerCreateItemCommand(container, openTibiaId, count) );
+            return context.AddCommand(new ContainerCreateItemCommand(container, openTibiaId, typeCount) );
         }
 
         /// <exception cref="InvalidOperationException"></exception>

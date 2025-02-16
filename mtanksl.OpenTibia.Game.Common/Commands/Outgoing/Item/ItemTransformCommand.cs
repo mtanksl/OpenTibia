@@ -6,24 +6,24 @@ namespace OpenTibia.Game.Commands
 {
     public class ItemTransformCommand : CommandResult<Item>
     {
-        public ItemTransformCommand(Item item, ushort openTibiaId, byte count)
+        public ItemTransformCommand(Item item, ushort openTibiaId, byte typeCount)
         {
             Item = item;
 
             OpenTibiaId = openTibiaId;
 
-            Count = count;
+            TypeCount = typeCount;
         }
 
         public Item Item { get; set; }
 
         public ushort OpenTibiaId { get; set; }
 
-        public byte Count { get; set; }
+        public byte TypeCount { get; set; }
 
         public override PromiseResult<Item> Execute()
         {
-            Item toItem = Context.Server.ItemFactory.Create(OpenTibiaId, Count);
+            Item toItem = Context.Server.ItemFactory.Create(OpenTibiaId, TypeCount);
 
             if (toItem != null)
             {

@@ -14,7 +14,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         ItemMetadata GetItemMetadataByTibiaId(ushort tibiaId);
 
-        Item Create(ushort openTibiaId, byte count);
+        Item Create(ushort openTibiaId, byte typeCount);
 
         void Attach(Item item);
 

@@ -489,7 +489,7 @@ namespace OpenTibia.Game.Common.ServerObjects
             return null;
         }
 
-        public Item Create(ushort openTibiaId, byte count)
+        public Item Create(ushort openTibiaId, byte typeCount)
         {
             ItemMetadata metadata = GetItemMetadataByOpenTibiaId(openTibiaId);
 
@@ -520,21 +520,21 @@ namespace OpenTibia.Game.Common.ServerObjects
             {
                 item = new StackableItem(metadata)
                 {
-                    Count = count 
+                    Count = typeCount
                 };
             }
             else if (metadata.Flags.Is(ItemMetadataFlags.IsFluid) )
             {
                 item = new FluidItem(metadata)
                 {
-                    FluidType = (FluidType)count 
+                    FluidType = (FluidType)typeCount
                 };
             }
             else if (metadata.Flags.Is(ItemMetadataFlags.IsSplash) )
             {
                 item = new SplashItem(metadata)
                 {
-                    FluidType = (FluidType)count 
+                    FluidType = (FluidType)typeCount
                 };
             }
             else if (metadata.Flags.Is(ItemMetadataFlags.Writeable) || metadata.Flags.Is(ItemMetadataFlags.Readable) || metadata.Flags.Is(ItemMetadataFlags.AllowDistanceRead) )

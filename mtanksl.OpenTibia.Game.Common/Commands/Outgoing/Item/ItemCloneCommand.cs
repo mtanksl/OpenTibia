@@ -19,22 +19,22 @@ namespace OpenTibia.Game.Commands
 
         public override async PromiseResult<Item> Execute()
         {
-            byte count = 1;
+            byte typeCount = 1;
 
             if (Item is StackableItem stackableItem)
             {
-                count = stackableItem.Count;
+                typeCount = stackableItem.Count;
             }
             else if (Item is FluidItem fluidItem)
             {
-                count = (byte)fluidItem.FluidType;
+                typeCount = (byte)fluidItem.FluidType;
             }
             else if (Item is SplashItem splashItem)
             {
-                count = (byte)splashItem.FluidType;
+                typeCount = (byte)splashItem.FluidType;
             }
 
-            Item toItem = Context.Server.ItemFactory.Create(Item.Metadata.OpenTibiaId, count);
+            Item toItem = Context.Server.ItemFactory.Create(Item.Metadata.OpenTibiaId, typeCount);
 
             if (toItem != null)
             {

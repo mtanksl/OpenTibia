@@ -37,7 +37,7 @@ namespace OpenTibia.Game.Extensions
 
         /// <exception cref="InvalidOperationException"></exception>
 
-        public static PromiseResult<Item> CreateItem(this Tile tile, ushort openTibiaId, byte count)
+        public static PromiseResult<Item> CreateItem(this Tile tile, ushort openTibiaId, byte typeCount)
         {
             Context context = Context.Current;
 
@@ -46,12 +46,12 @@ namespace OpenTibia.Game.Extensions
                 throw new InvalidOperationException("Context not found.");
             }
 
-            return context.AddCommand(new TileCreateItemCommand(tile, openTibiaId, count) );
+            return context.AddCommand(new TileCreateItemCommand(tile, openTibiaId, typeCount) );
         }
 
         /// <exception cref="InvalidOperationException"></exception>
 
-        public static Promise CreateItemOrIncrement(this Tile tile, ushort openTibiaId, byte count)
+        public static Promise CreateItemOrIncrement(this Tile tile, ushort openTibiaId, byte typeCount)
         {
             Context context = Context.Current;
 
@@ -60,7 +60,7 @@ namespace OpenTibia.Game.Extensions
                 throw new InvalidOperationException("Context not found.");
             }
 
-            return context.AddCommand(new TileCreateItemOrIncrementCommand(tile, openTibiaId, count) );
+            return context.AddCommand(new TileCreateItemOrIncrementCommand(tile, openTibiaId, typeCount) );
         }
 
         /// <exception cref="InvalidOperationException"></exception>

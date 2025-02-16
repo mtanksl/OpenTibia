@@ -382,11 +382,11 @@ return {
 				args = "(Container container, Item item)",
 				returns = "void"
 			},	
-			-- Item command.containercreateitem(Container container, ushort openTibiaId, byte count)
+			-- Item command.containercreateitem(Container container, ushort openTibiaId, byte typeCount)
 			containercreateitem = {
 				type = "function",
 				description = "",
-				args = "(Container container, ushort openTibiaId, byte count)",
+				args = "(Container container, ushort openTibiaId, byte typeCount)",
 				returns = "Item"
 			},	
 			-- void command.containerremoveitem(Container container, Item item)
@@ -411,11 +411,11 @@ return {
 				returns = "void"
 			},	
 			-- void command.creatureattackarea(Creature attacker, bool beam, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, Attack attack, Condition condition)
-			-- void command.creatureattackarea(Creature attacker, bool beam, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count, Attack attack, Condition condition)
+			-- void command.creatureattackarea(Creature attacker, bool beam, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte typeCount, Attack attack, Condition condition)
 			creatureattackarea = {
 				type = "function",
 				description = "",
-				args = "(Creature attacker, bool beam, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType [, ushort openTibiaId, byte count], Attack attack, Condition condition)",
+				args = "(Creature attacker, bool beam, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType [, ushort openTibiaId, byte typeCount], Attack attack, Condition condition)",
 				returns = "void"
 			},	
 			-- void command.creatureattackcreature(Creature attacker, Creature target, Attack attack, Condition condition)
@@ -502,11 +502,11 @@ return {
 				args = "(Inventory inventory, byte slot, Item item)",
 				returns = "void"
 			},
-			-- Item command.inventorycreateitem(Inventory inventory, byte slot, ushort openTibiaId, byte count)
+			-- Item command.inventorycreateitem(Inventory inventory, byte slot, ushort openTibiaId, byte typeCount)
 			inventorycreateitem = {
 				type = "function",
 				description = "",
-				args = "(Inventory inventory, byte slot, ushort openTibiaId, byte count)",
+				args = "(Inventory inventory, byte slot, ushort openTibiaId, byte typeCount)",
 				returns = "Item"
 			},
 			-- void command.inventoryremoveitem(Inventory inventory, Item item)
@@ -551,11 +551,11 @@ return {
 				args = "(Item item, IContainer toContainer, byte toIndex)",
 				returns = "void"
 			},
-			-- Item command.itemtransform(Item item, ushort openTibiaId, byte count)
+			-- Item command.itemtransform(Item item, ushort openTibiaId, byte typeCount)
 			itemtransform = {
 				type = "function",
 				description = "",
-				args = "(Item item, ushort openTibiaId, byte count)",
+				args = "(Item item, ushort openTibiaId, byte typeCount)",
 				returns = "Item"
 			},
 			-- void command.monstersay(Monster monster, string message)
@@ -962,18 +962,18 @@ return {
 				args = "(Tile tile, Item item)",
 				returns = "void"
 			},
-			-- Item command.tilecreateitem(Tile tile, ushort openTibiaId, byte count)
+			-- Item command.tilecreateitem(Tile tile, ushort openTibiaId, byte typeCount)
 			tilecreateitem = {
 				type = "function",
 				description = "",
-				args = "(Tile tile, ushort openTibiaId, byte count)",
+				args = "(Tile tile, ushort openTibiaId, byte typeCount)",
 				returns = "Item"
 			},
-			-- void command.tilecreateitemorincrement(Tile tile, ushort openTibiaId, byte count)
+			-- void command.tilecreateitemorincrement(Tile tile, ushort openTibiaId, byte typeCount)
 			tilecreateitemorincrement = {
 				type = "function",
 				description = "",
-				args = "(Tile tile, ushort openTibiaId, byte count)",
+				args = "(Tile tile, ushort openTibiaId, byte typeCount)",
 				returns = "void"
 			},
 			-- Monster command.tilecreatemonster(Tile tile, string name)

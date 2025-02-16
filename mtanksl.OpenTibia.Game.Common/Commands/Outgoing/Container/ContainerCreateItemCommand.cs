@@ -5,24 +5,24 @@ namespace OpenTibia.Game.Commands
 {
     public class ContainerCreateItemCommand : CommandResult<Item>
     {
-        public ContainerCreateItemCommand(Container container, ushort openTibiaId, byte count)
+        public ContainerCreateItemCommand(Container container, ushort openTibiaId, byte typeCount)
         {
             Container = container;
 
             OpenTibiaId = openTibiaId;
 
-            Count = count;
+            TypeCount = typeCount;
         }
 
         public Container Container { get; set; }
 
         public ushort OpenTibiaId { get; set; }
 
-        public byte Count { get; set; }
+        public byte TypeCount { get; set; }
 
         public override PromiseResult<Item> Execute()
         {
-            Item item = Context.Server.ItemFactory.Create(OpenTibiaId, Count);
+            Item item = Context.Server.ItemFactory.Create(OpenTibiaId, TypeCount);
 
             if (item != null)
             {

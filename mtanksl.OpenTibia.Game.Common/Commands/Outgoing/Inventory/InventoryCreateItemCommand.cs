@@ -5,7 +5,7 @@ namespace OpenTibia.Game.Commands
 {
     public class InventoryCreateItemCommand : CommandResult<Item>
     {
-        public InventoryCreateItemCommand(Inventory inventory, byte slot, ushort openTibiaId, byte count)
+        public InventoryCreateItemCommand(Inventory inventory, byte slot, ushort openTibiaId, byte typeCount)
         {
             Inventory = inventory;
 
@@ -13,7 +13,7 @@ namespace OpenTibia.Game.Commands
 
             OpenTibiaId = openTibiaId;
 
-            Count = count;
+            TypeCount = typeCount;
         }
 
         public Inventory Inventory { get; set; }
@@ -22,11 +22,11 @@ namespace OpenTibia.Game.Commands
 
         public ushort OpenTibiaId { get; set; }
 
-        public byte Count { get; set; }
+        public byte TypeCount { get; set; }
 
         public override PromiseResult<Item> Execute()
         {
-            Item item = Context.Server.ItemFactory.Create(OpenTibiaId, Count);
+            Item item = Context.Server.ItemFactory.Create(OpenTibiaId, TypeCount);
 
             if (item != null)
             {

@@ -6,20 +6,20 @@ namespace OpenTibia.Game.Commands
 {
     public class PlayerCreateItemCommand : Command
     {
-        public PlayerCreateItemCommand(Player player, ushort openTibiaId, byte count)
+        public PlayerCreateItemCommand(Player player, ushort openTibiaId, byte typeCount)
         {
             Player = player;
 
             OpenTibiaId = openTibiaId;
 
-            Count = count;
+            TypeCount = typeCount;
         }
 
         public Player Player { get; set; }
 
         public ushort OpenTibiaId { get; set; }
 
-        public byte Count { get; set; }
+        public byte TypeCount { get; set; }
 
         public override Promise Execute()
         {
@@ -29,7 +29,7 @@ namespace OpenTibia.Game.Commands
 
             if (itemMetadata.Flags.Is(ItemMetadataFlags.Stackable) )
             {
-                weight = Count * (itemMetadata.Weight ?? 0);
+                weight = TypeCount * (itemMetadata.Weight ?? 0);
             }
             else
             {
@@ -46,7 +46,7 @@ namespace OpenTibia.Game.Commands
                 {
                     if (toContainer.Count < toContainer.Metadata.Capacity)
                     {
-                        return Context.AddCommand(new ContainerCreateItemCommand(toContainer, OpenTibiaId, Count) );
+                        return Context.AddCommand(new ContainerCreateItemCommand(toContainer, OpenTibiaId, TypeCount) );
                     }
                 }
 
@@ -56,7 +56,7 @@ namespace OpenTibia.Game.Commands
                 {
                     if (toContainer.Count < toContainer.Metadata.Capacity)
                     {
-                        return Context.AddCommand(new ContainerCreateItemCommand(toContainer, OpenTibiaId, Count) );
+                        return Context.AddCommand(new ContainerCreateItemCommand(toContainer, OpenTibiaId, TypeCount) );
                     }
                 }
 
@@ -64,11 +64,11 @@ namespace OpenTibia.Game.Commands
 
                 if (toItem == null)
                 {
-                    return Context.AddCommand(new InventoryCreateItemCommand(Player.Inventory, (byte)Slot.Extra, OpenTibiaId, Count) );
+                    return Context.AddCommand(new InventoryCreateItemCommand(Player.Inventory, (byte)Slot.Extra, OpenTibiaId, TypeCount) );
                 }
             }
 
-            return Context.AddCommand(new TileCreateItemOrIncrementCommand(Player.Tile, OpenTibiaId, Count) );
+            return Context.AddCommand(new TileCreateItemOrIncrementCommand(Player.Tile, OpenTibiaId, TypeCount) );
         }
     }
 }
