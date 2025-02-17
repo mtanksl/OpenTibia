@@ -4681,7 +4681,11 @@
     <attribute key="slottype" value="legs" />
     <attribute key="absorbpercentphysical" value="3" />
   </item>
-  <item id="2505" name="nothing special" />
+  <item id="2505" article="an" name="elven mail" editorcategory="Armors">
+    <attribute key="weight" value="900" />
+    <attribute key="armor" value="9" />
+    <attribute key="slottype" value="body" />
+  </item>
   <item id="2506" article="a" name="dragon scale helmet" editorcategory="Helmets">
     <attribute key="weight" value="3250" />
     <attribute key="armor" value="9" />
@@ -5289,7 +5293,13 @@
     <attribute key="armor" value="1" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="2664" name="nothing special" />
+  <item id="2664" article="a" name="wood cape" editorcategory="Helmets">
+    <attribute key="weight" value="1100" />
+    <attribute key="armor" value="3" />
+    <attribute key="slottype" value="head" />
+    <attribute key="absorbpercentearth" value="4" />
+    <attribute key="skillmodifierdistance" value="1" />
+  </item>
   <item id="2665" article="a" name="post officer's hat" editorcategory="Helmets">
     <attribute key="description" value="This hat is the insignia of all tibian post officers." />
     <attribute key="weight" value="700" />
@@ -23293,7 +23303,11 @@
     <attribute key="armor" value="6" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="10317" name="nothing special" />
+  <item id="10317" name="the rain coat" editorcategory="Armors">
+    <attribute key="weight" value="3200" />
+    <attribute key="armor" value="1" />
+    <attribute key="slottype" value="body" />
+  </item>
   <item id="10318" article="a" name="the shield nevermourn">
     <attribute key="description" value="It is said that the wearer of Nevermourn will never mourn. What a powerful shield." />
     <attribute key="weight" value="5200" />
@@ -26512,55 +26526,156 @@
   <item id="12556" name="nothing special" />
   <item id="12557" name="nothing special" />
   <item id="12558" name="nothing special" />
-  <item id="12559" name="nothing special" />
-  <item id="12560" name="nothing special" />
-  <item id="12561" name="nothing special" />
-  <item id="12562" name="nothing special" />
-  <item id="12563" name="nothing special" />
-  <item id="12564" name="nothing special" />
-  <item id="12565" name="nothing special" />
-  <item id="12566" name="nothing special" />
-  <item id="12567" name="nothing special" />
-  <item id="12568" name="nothing special" />
-  <item id="12569" name="nothing special" />
-  <item id="12570" name="nothing special" />
-  <item id="12571" name="nothing special" />
-  <item id="12572" name="nothing special" />
-  <item id="12573" name="nothing special" />
-  <item id="12574" name="nothing special" />
-  <item id="12575" name="nothing special" />
-  <item id="12576" name="nothing special" />
-  <item id="12577" name="nothing special" />
-  <item id="12578" name="nothing special" />
-  <item id="12579" name="nothing special" />
-  <item id="12580" name="nothing special" />
-  <item id="12581" name="nothing special" />
-  <item id="12582" name="nothing special" />
-  <item id="12583" name="nothing special" />
-  <item id="12584" name="nothing special" />
-  <item id="12585" name="nothing special" />
-  <item id="12586" name="nothing special" />
-  <item id="12587" name="nothing special" />
-  <item id="12588" name="nothing special" />
-  <item id="12589" name="nothing special" />
-  <item id="12590" name="nothing special" />
-  <item id="12591" name="nothing special" />
-  <item id="12592" name="nothing special" />
-  <item id="12593" name="nothing special" />
-  <item id="12594" name="nothing special" />
-  <item id="12595" name="nothing special" />
-  <item id="12596" name="nothing special" />
-  <item id="12597" name="nothing special" />
-  <item id="12598" name="nothing special" />
-  <item id="12599" name="nothing special" />
-  <item id="12600" name="nothing special" />
-  <item id="12601" name="nothing special" />
-  <item id="12602" name="nothing special" />
-  <item id="12603" name="nothing special" />
-  <item id="12604" name="nothing special" />
-  <item id="12605" name="nothing special" />
-  <item id="12606" name="nothing special" />
-  <item id="12607" name="nothing special" />
+  <item id="12559" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12560" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12561" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12562" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12563" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12564" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12565" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12566" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12567" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12568" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12569" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12570" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12571" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12572" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12573" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12574" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12575" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12576" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12577" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12578" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12579" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12580" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12581" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12582" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12583" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12584" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12585" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12586" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12587" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12588" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12589" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12590" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12591" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12592" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12593" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12594" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12595" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12596" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12597" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12598" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12599" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12600" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12601" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12602" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12603" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12604" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12605" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12606" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
+    <attribute key="weight" value="120" />
+  </item>
+  <item id="12607" article="an" name="elite draken mail" editorsuffix="Armors">
+    <attribute key="weight" value="1200" />
+    <attribute key="armor" value="15" />
+    <attribute key="slottype" value="body" />
+    <attribute key="speedmodifier" value="10" />
+  </item>
   <item id="12608" name="nothing special" />
   <item id="12609" name="nothing special" />
   <item id="12610" name="nothing special" />
