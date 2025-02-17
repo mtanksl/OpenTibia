@@ -4489,17 +4489,17 @@
     <attribute key="armor" value="4" />
     <attribute key="slottype" value="body" />
   </item>
-  <item id="2468" name="studded legs">
+  <item id="2468" name="studded legs" editorcategory="Legs">
     <attribute key="weight" value="2600" />
     <attribute key="armor" value="2" />
     <attribute key="slottype" value="legs" />
   </item>
-  <item id="2469" name="dragon scale legs">
+  <item id="2469" name="dragon scale legs" editorcategory="Legs">
     <attribute key="weight" value="4800" />
     <attribute key="armor" value="10" />
     <attribute key="slottype" value="legs" />
   </item>
-  <item id="2470" name="golden legs">
+  <item id="2470" name="golden legs" editorcategory="Legs">
     <attribute key="weight" value="5600" />
     <attribute key="armor" value="9" />
     <attribute key="slottype" value="legs" />
@@ -4536,12 +4536,12 @@
     <attribute key="armor" value="12" />
     <attribute key="slottype" value="body" />
   </item>
-  <item id="2477" name="knight legs">
+  <item id="2477" name="knight legs" editorcategory="Legs">
     <attribute key="weight" value="7000" />
     <attribute key="armor" value="8" />
     <attribute key="slottype" value="legs" />
   </item>
-  <item id="2478" name="brass legs">
+  <item id="2478" name="brass legs" editorcategory="Legs">
     <attribute key="weight" value="3800" />
     <attribute key="armor" value="5" />
     <attribute key="slottype" value="legs" />
@@ -4591,7 +4591,7 @@
     <attribute key="armor" value="13" />
     <attribute key="slottype" value="body" />
   </item>
-  <item id="2488" name="crown legs">
+  <item id="2488" name="crown legs" editorcategory="Legs">
     <attribute key="weight" value="6500" />
     <attribute key="armor" value="8" />
     <attribute key="slottype" value="legs" />
@@ -4627,7 +4627,7 @@
     <attribute key="armor" value="16" />
     <attribute key="slottype" value="body" />
   </item>
-  <item id="2495" name="demon legs">
+  <item id="2495" name="demon legs" editorcategory="Legs">
     <attribute key="weight" value="7000" />
     <attribute key="armor" value="9" />
     <attribute key="slottype" value="legs" />
@@ -4675,7 +4675,7 @@
     <attribute key="slottype" value="body" />
     <attribute key="absorbpercentphysical" value="5" />
   </item>
-  <item id="2504" name="dwarven legs">
+  <item id="2504" name="dwarven legs" editorcategory="Legs">
     <attribute key="weight" value="4900" />
     <attribute key="armor" value="7" />
     <attribute key="slottype" value="legs" />
@@ -4691,7 +4691,7 @@
     <attribute key="armor" value="9" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="2507" name="ranger legs">
+  <item id="2507" name="ranger legs" editorcategory="Legs">
     <attribute key="weight" value="3500" />
     <attribute key="armor" value="4" />
     <attribute key="slottype" value="legs" />
@@ -5067,7 +5067,7 @@
     <attribute key="containersize" value="30" />
     <attribute key="type" value="depot" />
   </item>
-  <item id="2593" article="a" name="mailbox">
+  <item id="2593" article="a" name="mailbox" editorcategory="Mailbox">
     <attribute key="type" value="mailbox" />
   </item>
   <item id="2594" article="a" name="depot chest">
@@ -5205,17 +5205,17 @@
     <attribute key="armor" value="4" />
     <attribute key="slottype" value="feet" />
   </item>
-  <item id="2647" name="plate legs">
+  <item id="2647" name="plate legs" editorcategory="Legs">
     <attribute key="weight" value="5000" />
     <attribute key="armor" value="7" />
     <attribute key="slottype" value="legs" />
   </item>
-  <item id="2648" name="chain legs">
+  <item id="2648" name="chain legs" editorcategory="Legs">
     <attribute key="weight" value="3500" />
     <attribute key="armor" value="3" />
     <attribute key="slottype" value="legs" />
   </item>
-  <item id="2649" name="leather legs">
+  <item id="2649" name="leather legs" editorcategory="Legs">
     <attribute key="weight" value="1800" />
     <attribute key="armor" value="1" />
     <attribute key="slottype" value="legs" />
@@ -8705,7 +8705,7 @@
   <item id="3978" article="a" name="crane" />
   <item id="3979" article="a" name="crane" />
   <item id="3980" article="a" name="crane" />
-  <item id="3981" article="a" name="mailbox">
+  <item id="3981" article="a" name="mailbox" editorcategory="Mailbox">
     <attribute key="type" value="mailbox" />
   </item>
   <item id="3982" name="crocodile boots">
@@ -8713,8 +8713,9 @@
     <attribute key="armor" value="1" />
     <attribute key="slottype" value="feet" />
   </item>
-  <item id="3983" article="a" name="bast skirt">
+  <item id="3983" article="a" name="bast skirt" editorcategory="Legs">
     <attribute key="weight" value="350" />
+    <attribute key="armor" value="0" />
     <attribute key="slottype" value="legs" />
   </item>
   <item id="3984" name="jungle grass">
@@ -12185,8 +12186,9 @@
     <attribute key="armor" value="1" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="5918" name="pirate knee breeches">
+  <item id="5918" name="pirate knee breeches" editorcategory="Legs">
     <attribute key="weight" value="1200" />
+    <attribute key="armor" value="1" />
     <attribute key="slottype" value="legs" />
   </item>
   <item id="5919" article="a" name="dragon claw">
@@ -16554,7 +16556,7 @@
     <attribute key="armor" value="10" />
     <attribute key="slottype" value="body" />
   </item>
-  <item id="7464" name="mammoth fur shorts">
+  <item id="7464" name="mammoth fur shorts" editorcategory="Legs">
     <attribute key="description" value="They offer little protection but will at least provide some comfort and warmth." />
     <attribute key="weight" value="150" />
     <attribute key="armor" value="0" />
@@ -16623,18 +16625,15 @@
   <item id="7480" article="a" name="bed">
     <attribute key="description" value="The dwarven emperor is sleeping there." />
   </item>
-  <item id="7481" article="a" name="crate">
+  <item id="7481" article="a" name="crate" editorsuffix="(Xodet)">
     <attribute key="description" value="It contains the daily supply for Xodet's shop." />
   </item>
-  <item id="7482" article="a" name="crate">
+  <item id="7482" article="a" name="crate" editorcategory="Unkown" />
+  <item id="7483" article="a" name="crate" editorsuffix="(Wine)">
     <attribute key="description" value="It contains a lot of wine flasks." />
     <attribute key="weight" value="8000" />
   </item>
-  <item id="7483" article="a" name="crate">
-    <attribute key="description" value="You swapped it with Bozo's crate of wine flasks." />
-    <attribute key="weight" value="8000" />
-  </item>
-  <item id="7484" article="a" name="box">
+  <item id="7484" article="a" name="box" editorsuffix="(Pies)">
     <attribute key="description" value="It is filled with delicious cream pies." />
     <attribute key="weight" value="4000" />
   </item>
@@ -17164,7 +17163,10 @@
   <item id="7706" article="a" name="barrel of beer" editorsuffix="(Secret Service Quest)">
     <attribute key="weight" value="8500" />
   </item>
-  <item id="7707" name="nothing special" />
+  <item id="7707" article="a" name="crate" editorsuffix="(Swapped)">
+    <attribute key="description" value="You swapped it with Bozo's crate of wine flasks." />
+    <attribute key="weight" value="8000" />
+  </item>
   <item id="7708" name="nothing special" />
   <item id="7709" name="grass" />
   <item id="7710" name="grass" />
@@ -17213,7 +17215,7 @@
   </item>
   <item id="7728" />
   <item id="7729" />
-  <item id="7730" name="blue legs">
+  <item id="7730" name="blue legs" editorcategory="Legs">
     <attribute key="weight" value="1800" />
     <attribute key="armor" value="8" />
     <attribute key="slottype" value="legs" />
@@ -17242,8 +17244,8 @@
   <item id="7737" article="a" name="bag" editorsuffix="(Common Costumebag)">
     <attribute key="weight" value="800" />
   </item>
-  <item id="7738" article="a" name="bag" editorsuffix="(Uncommon Costumebag)">
-    <attribute key="weight" value="800" />
+  <item id="7738" article="a" name="bag of screws">
+    <attribute key="weight" value="1900" />
   </item>
   <item id="7739" article="a" name="bag" editorsuffix="(Deluxe Costumebag)">
     <attribute key="weight" value="800" />
@@ -18302,7 +18304,7 @@
     <attribute key="absorbpercentearth" value="8" />
     <attribute key="absorbpercentfire" value="-8" />
   </item>
-  <item id="7885" name="terra legs">
+  <item id="7885" name="terra legs" editorcategory="Legs">
     <attribute key="weight" value="1900" />
     <attribute key="armor" value="8" />
     <attribute key="slottype" value="legs" />
@@ -18366,21 +18368,21 @@
     <attribute key="absorbpercentearth" value="-5" />
     <attribute key="absorbpercentenergy" value="5" />
   </item>
-  <item id="7894" name="magma legs">
+  <item id="7894" name="magma legs" editorcategory="Legs">
     <attribute key="weight" value="1900" />
     <attribute key="armor" value="8" />
     <attribute key="slottype" value="legs" />
     <attribute key="absorbpercentfire" value="6" />
     <attribute key="absorbpercentice" value="-6" />
   </item>
-  <item id="7895" name="lightning legs">
+  <item id="7895" name="lightning legs" editorcategory="Legs">
     <attribute key="weight" value="1900" />
     <attribute key="armor" value="8" />
     <attribute key="slottype" value="legs" />
     <attribute key="absorbpercentearth" value="-6" />
     <attribute key="absorbpercentenergy" value="6" />
   </item>
-  <item id="7896" article="a" name="glacier kilt">
+  <item id="7896" article="a" name="glacier kilt" editorcategory="Legs">
     <attribute key="weight" value="1900" />
     <attribute key="armor" value="8" />
     <attribute key="slottype" value="legs" />
@@ -20443,7 +20445,7 @@
     <attribute key="shoottype" value="skull" />
     <attribute key="range" value="3" />
   </item>
-  <item id="8923" name="ranger legs">
+  <item id="8923" name="ranger legs" editorcategory="Legs">
     <attribute key="weight" value="3500" />
     <attribute key="armor" value="4" />
     <attribute key="slottype" value="legs" />
@@ -20910,21 +20912,13 @@
   <item id="9074" article="a" name="reward box">
     <attribute key="weight" value="100" />
   </item>
-  <item id="9075" article="a" name="purple bag">
+  <item id="9075" name="nothing special">
     <attribute key="weight" value="800" />
-    <attribute key="containersize" value="8" />
-    <attribute key="slottype" value="backpack" />
   </item>
-  <item id="9076" article="a" name="purple bag">
+  <item id="9076" name="nothing special">
     <attribute key="weight" value="800" />
-    <attribute key="containersize" value="8" />
-    <attribute key="slottype" value="backpack" />
   </item>
-  <item id="9077" article="a" name="golden bag">
-    <attribute key="weight" value="800" />
-    <attribute key="containersize" value="8" />
-    <attribute key="slottype" value="backpack" />
-  </item>
+  <item id="9077" name="nothing special" />
   <item id="9078" article="a" name="vial">
     <attribute key="weight" value="170" />
   </item>
@@ -21711,7 +21705,9 @@
     <attribute key="decayto" value="9654" />
     <attribute key="duration" value="10" />
   </item>
-  <item id="9661" article="a" name="crate" editorsuffix="(Unmoveable)" />
+  <item id="9661" article="a" name="old crate">
+    <attribute key="description" value="This is a box full of yalahari gear wheels." />
+  </item>
   <item id="9662" article="a" name="ghost's tear">
     <attribute key="weight" value="1000" />
   </item>
@@ -21764,12 +21760,9 @@
   <item id="9683" article="a" name="drawbridge" />
   <item id="9684" article="a" name="drawbridge" />
   <item id="9685" article="a" name="drawbridge" />
-  <item id="9686" article="a" name="crate">
-    <attribute key="description" value="It contains food." />
-  </item>
-  <item id="9687" article="a" name="crate">
-    <attribute key="description" value="It contains food." />
-    <attribute key="weight" value="10000" />
+  <item id="9686" article="a" name="crate" editorsuffix="(Useable)" />
+  <item id="9687" article="a" name="weapons crate">
+    <attribute key="weight" value="7500" />
   </item>
   <item id="9688" article="a" name="chest">
     <attribute key="description" value="It's Iriana's chest." />
@@ -21961,7 +21954,7 @@
     <attribute key="slottype" value="body" />
     <attribute key="absorbpercentdeath" value="3" />
   </item>
-  <item id="9777" article="a" name="yalahari leg piece">
+  <item id="9777" article="a" name="yalahari leg piece" editorcategory="Legs">
     <attribute key="weight" value="6500" />
     <attribute key="armor" value="8" />
     <attribute key="slottype" value="legs" />
@@ -22036,45 +22029,66 @@
   <item id="9805" name="nothing special" />
   <item id="9806" name="nothing special" />
   <item id="9807" name="nothing special" />
-  <item id="9808" article="a" name="rusty armor" editorsuffix="(Common)">
+  <item id="9808" article="a" name="heavily rusted armor">
     <attribute key="description" value="If you can remove the rust layer and dirt from the armor you will be able to see what it is." />
-    <attribute key="weight" value="10000" />
+    <attribute key="weight" value="12000" />
   </item>
-  <item id="9809" article="a" name="rusty armor" editorsuffix="(Semi-Rare)">
+  <item id="9809" article="a" name="rusted armor">
     <attribute key="description" value="If you can remove the rust layer and dirt from the armor you will be able to see what it is." />
-    <attribute key="weight" value="10000" />
+    <attribute key="weight" value="12000" />
   </item>
-  <item id="9810" article="a" name="rusty armor" editorsuffix="(Rare)">
+  <item id="9810" article="a" name="sligthly rusted armor">
     <attribute key="description" value="If you can remove the rust layer and dirt from the armor you will be able to see what it is." />
-    <attribute key="weight" value="10000" />
+    <attribute key="weight" value="12000" />
   </item>
-  <item id="9811" article="a" name="rusty legs" editorsuffix="(Common)">
+  <item id="9811" article="a" name="rusted legs" editorsuffix="(Common)">
     <attribute key="description" value="If you can remove the rust layer and dirt from the legs you will be able to see what it is." />
-    <attribute key="weight" value="3500" />
-    <attribute key="armor" value="1" />
-    <attribute key="slottype" value="legs" />
+    <attribute key="weight" value="7000" />
   </item>
-  <item id="9812" article="a" name="rusty legs" editorsuffix="(Semi-Rare)">
+  <item id="9812" article="a" name="rusted legs" editorsuffix="(Semi-Rare)">
     <attribute key="description" value="If you can remove the rust layer and dirt from the legs you will be able to see what it is." />
-    <attribute key="weight" value="3500" />
-    <attribute key="armor" value="1" />
-    <attribute key="slottype" value="legs" />
+    <attribute key="weight" value="7000" />
   </item>
-  <item id="9813" article="a" name="rusty legs" editorsuffix="(Rare)">
+  <item id="9813" article="a" name="rusted legs" editorsuffix="(Rare)">
     <attribute key="description" value="If you can remove the rust layer and dirt from the legs you will be able to see what it is." />
-    <attribute key="weight" value="3500" />
-    <attribute key="armor" value="1" />
-    <attribute key="slottype" value="legs" />
+    <attribute key="weight" value="7000" />
   </item>
-  <item id="9814" article="a" name="rusty shield" />
-  <item id="9815" article="a" name="rusty shield" />
-  <item id="9816" article="a" name="rusty shield" />
-  <item id="9817" article="a" name="rusty boots" />
-  <item id="9818" article="a" name="rusty boots" />
-  <item id="9819" article="a" name="rusty boots" />
-  <item id="9820" article="a" name="rusty helmet" />
-  <item id="9821" article="a" name="rusty helmet" />
-  <item id="9822" article="a" name="rusty helmet" />
+  <item id="9814" article="a" name="rusted shield">
+    <attribute key="description" value="If you can remove the rust layer and dirt from the shield you will be able to see what it is." />
+    <attribute key="weight" value="6500" />
+  </item>
+  <item id="9815" article="a" name="rusted shield">
+    <attribute key="description" value="If you can remove the rust layer and dirt from the shield you will be able to see what it is." />
+    <attribute key="weight" value="6500" />
+  </item>
+  <item id="9816" article="a" name="rusted shield">
+    <attribute key="description" value="If you can remove the rust layer and dirt from the shield you will be able to see what it is." />
+    <attribute key="weight" value="6500" />
+  </item>
+  <item id="9817" article="a" name="rusty boots" editorsuffix="(Common)">
+    <attribute key="description" value="If you can remove the rust layer and dirt from the boots you will be able to see what it is." />
+    <attribute key="weight" value="1000" />
+  </item>
+  <item id="9818" article="a" name="rusty boots" editorsuffix="(Semi-Rare)">
+    <attribute key="description" value="If you can remove the rust layer and dirt from the boots you will be able to see what it is." />
+    <attribute key="weight" value="1000" />
+  </item>
+  <item id="9819" article="a" name="rusty boots" editorsuffix="(Rare)">
+    <attribute key="description" value="If you can remove the rust layer and dirt from the boots you will be able to see what it is." />
+    <attribute key="weight" value="1000" />
+  </item>
+  <item id="9820" article="a" name="heavily rusted helmet">
+    <attribute key="description" value="If you can remove the rust layer and dirt from the helmet you will be able to see what it is." />
+    <attribute key="weight" value="5200" />
+  </item>
+  <item id="9821" article="a" name="rusted helmet">
+    <attribute key="description" value="If you can remove the rust layer and dirt from the helmet you will be able to see what it is." />
+    <attribute key="weight" value="5200" />
+  </item>
+  <item id="9822" article="a" name="sligthly rusted helmet">
+    <attribute key="description" value="If you can remove the rust layer and dirt from the helmet you will be able to see what it is." />
+    <attribute key="weight" value="5200" />
+  </item>
   <item id="9823" article="a" name="slain undead gladiator">
     <attribute key="corpsetype" value="undead" />
     <attribute key="containersize" value="10" />
@@ -22358,7 +22372,7 @@
     <attribute key="armor" value="0" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="9928" article="a" name="leaf legs">
+  <item id="9928" article="a" name="leaf legs" editorcategory="Legs">
     <attribute key="weight" value="1200" />
     <attribute key="armor" value="0" />
     <attribute key="slottype" value="legs" />
@@ -22789,7 +22803,9 @@
   <item id="10067" name="nothing special" />
   <item id="10068" name="nothing special" />
   <item id="10069" name="nothing special" />
-  <item id="10070" name="nothing special" />
+  <item id="10070" article="a" name="scum bag">
+    <attribute key="weight" value="900" />
+  </item>
   <item id="10071" name="nothing special" />
   <item id="10072" name="nothing special" />
   <item id="10073" name="nothing special" />
@@ -22806,8 +22822,8 @@
   <item id="10084" name="nothing special" />
   <item id="10085" name="nothing special" />
   <item id="10086" name="nothing special" />
-  <item id="10087" name="nothing special" />
-  <item id="10088" name="nothing special" />
+  <item id="10087" article="a" name="box (Vol:10)" editorcategory="Quests" />
+  <item id="10088" article="a" name="crate (Vol:15)" editorcategory="Quests" />
   <item id="10089" name="nothing special" />
   <item id="10090" name="nothing special" />
   <item id="10091" article="a" name="crystal key">
@@ -23227,7 +23243,7 @@
     <attribute key="armor" value="3" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="10300" name="trousers of the ancients">
+  <item id="10300" name="trousers of the ancients" editorcategory="Legs">
     <attribute key="description" value="These atavistic trousers already served the forefathers of mankind." />
     <attribute key="weight" value="30" />
     <attribute key="armor" value="2" />
@@ -23268,7 +23284,9 @@
     <attribute key="description" value="The small label reads: For my greatest admirer." />
     <attribute key="weight" value="650" />
   </item>
-  <item id="10307" name="nothing special" />
+  <item id="10307" article="a" name="food crate">
+    <attribute key="weight" value="10000" />
+  </item>
   <item id="10308" article="a" name="fan club membership card">
     <attribute key="description" value="This king Tibianus fan club premium membership card is issued to 'The Evil Mastermind'." />
     <attribute key="weight" value="150" />
@@ -23909,7 +23927,7 @@
     <attribute key="description" value="An extremely rare crystal you recovered from the Lost Mines." />
     <attribute key="weight" value="180" />
   </item>
-  <item id="10615" name="carrying device">
+  <item id="10615" article="a" name="carrying device">
     <attribute key="description" value="The astronomer Spectulus gave you this device to safely transport the mirror crystal." />
     <attribute key="weight" value="3500" />
   </item>
@@ -24603,7 +24621,7 @@
   <item id="11161" name="nothing special" />
   <item id="11162" name="nothing special" />
   <item id="11163" name="nothing special" />
-  <item id="11164" name="nothing special" />
+  <item id="11164" article="a" name="crate" editorcategory="Unkown" />
   <item id="11165" name="nothing special" />
   <item id="11166" name="nothing special" />
   <item id="11167" name="nothing special" />
@@ -25027,7 +25045,7 @@
     <attribute key="slottype" value="feet" />
     <attribute key="speedmodifier" value="5" />
   </item>
-  <item id="11304" name="zaoan legs">
+  <item id="11304" name="Zaoan legs" editorcategory="Legs">
     <attribute key="weight" value="6600" />
     <attribute key="armor" value="8" />
     <attribute key="slottype" value="legs" />
