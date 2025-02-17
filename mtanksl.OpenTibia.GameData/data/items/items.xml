@@ -3021,8 +3021,9 @@
   <item id="2194" article="a" name="mysterious fetish">
     <attribute key="weight" value="490" />
   </item>
-  <item id="2195" name="boots of haste">
+  <item id="2195" name="boots of haste" editorcategory="Boots">
     <attribute key="weight" value="750" />
+    <attribute key="armor" value="0" />
     <attribute key="slottype" value="feet" />
     <attribute key="speedmodifier" value="20" />
   </item>
@@ -3811,8 +3812,9 @@
     <attribute key="weight" value="90" />
     <attribute key="slottype" value="ring" />
   </item>
-  <item id="2358" name="boots of waterwalking">
-    <attribute key="weight" value="800" />
+  <item id="2358" name="boots of waterwalking" editorcategory="Boots">
+    <attribute key="weight" value="770" />
+    <attribute key="armor" value="0" />
     <attribute key="slottype" value="feet" />
   </item>
   <item id="2359" article="a" name="small oil lamp">
@@ -5087,7 +5089,7 @@
     <attribute key="maxtextlen" value="512" />
   </item>
   <item id="2598" article="a" name="stamped letter">
-    <attribute key="weight" value="30" />
+    <attribute key="weight" value="50" />
     <attribute key="readable" value="1" />
   </item>
   <item id="2599" article="a" name="label">
@@ -5169,38 +5171,41 @@
   <item id="2639" article="a" name="tic-tac-toe token" plural="o tic-tac-toe tokens">
     <attribute key="weight" value="500" />
   </item>
-  <item id="2640" article="a" name="pair of soft boots (faster regeneration)">
+  <item id="2640" article="a" name="pair of soft boots (faster regeneration)" editorcategory="Boots">
     <attribute key="weight" value="800" />
+    <attribute key="armor" value="0" />
     <attribute key="slottype" value="feet" />
     <attribute key="decayto" value="10021" />
     <attribute key="duration" value="14400" />
     <attribute key="showduration" value="1" />
     <attribute key="transformdeequipto" value="6132" />
   </item>
-  <item id="2641" name="patched boots">
+  <item id="2641" name="patched boots" editorcategory="Boots">
     <attribute key="weight" value="1000" />
     <attribute key="armor" value="2" />
     <attribute key="slottype" value="feet" />
   </item>
-  <item id="2642" name="sandals">
+  <item id="2642" name="sandals" editorcategory="Boots">
     <attribute key="weight" value="600" />
+    <attribute key="armor" value="0" />
     <attribute key="slottype" value="feet" />
   </item>
-  <item id="2643" name="leather boots">
+  <item id="2643" name="leather boots" editorcategory="Boots">
     <attribute key="weight" value="900" />
     <attribute key="armor" value="1" />
     <attribute key="slottype" value="feet" />
   </item>
-  <item id="2644" name="bunnyslippers">
-    <attribute key="weight" value="680" />
+  <item id="2644" name="bunnyslippers" editorcategory="Boots">
+    <attribute key="weight" value="600" />
+    <attribute key="armor" value="0" />
     <attribute key="slottype" value="feet" />
   </item>
-  <item id="2645" name="steel boots">
+  <item id="2645" name="steel boots" editorcategory="Boots">
     <attribute key="weight" value="2900" />
     <attribute key="armor" value="3" />
     <attribute key="slottype" value="feet" />
   </item>
-  <item id="2646" name="golden boots">
+  <item id="2646" name="golden boots" editorcategory="Boots">
     <attribute key="weight" value="3100" />
     <attribute key="armor" value="4" />
     <attribute key="slottype" value="feet" />
@@ -8708,7 +8713,7 @@
   <item id="3981" article="a" name="mailbox" editorcategory="Mailbox">
     <attribute key="type" value="mailbox" />
   </item>
-  <item id="3982" name="crocodile boots">
+  <item id="3982" name="crocodile boots" editorcategory="Boots">
     <attribute key="weight" value="900" />
     <attribute key="armor" value="1" />
     <attribute key="slottype" value="feet" />
@@ -11154,7 +11159,7 @@
     <attribute key="slottype" value="head" />
     <attribute key="absorbpercentdrown" value="100" />
   </item>
-  <item id="5462" name="pirate boots">
+  <item id="5462" name="pirate boots" editorcategory="Boots">
     <attribute key="weight" value="800" />
     <attribute key="armor" value="2" />
     <attribute key="slottype" value="feet" />
@@ -13336,8 +13341,9 @@
     <attribute key="defense" value="26" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="6132" name="soft boots">
+  <item id="6132" article="a" name="pair of soft boots" editorcategory="Boots">
     <attribute key="weight" value="800" />
+    <attribute key="armor" value="0" />
     <attribute key="slottype" value="feet" />
     <attribute key="showduration" value="1" />
     <attribute key="stopduration" value="1" />
@@ -13586,7 +13592,7 @@
   <item id="6273" name="leaves" />
   <item id="6274" name="leaves" />
   <item id="6275" article="a" name="tree archway" />
-  <item id="6276" article="an" name="archway" editorsuffix="(Needs recheck)" />
+  <item id="6276" article="an" name="archway" />
   <item id="6277" article="a" name="lump of cake dough" plural="lumps of cake dough">
     <attribute key="weight" value="500" />
   </item>
@@ -16517,7 +16523,7 @@
     <attribute key="attack" value="39" />
     <attribute key="weapontype" value="axe" />
   </item>
-  <item id="7457" name="fur boots">
+  <item id="7457" name="fur boots" editorcategory="Boots">
     <attribute key="description" value="These boots keep your toes warm in even the iciest regions but they feel kind of heavy." />
     <attribute key="weight" value="1200" />
     <attribute key="armor" value="2" />
@@ -16628,7 +16634,7 @@
   <item id="7481" article="a" name="crate" editorsuffix="(Xodet)">
     <attribute key="description" value="It contains the daily supply for Xodet's shop." />
   </item>
-  <item id="7482" article="a" name="crate" editorcategory="Unkown" />
+  <item id="7482" name="nothing special" />
   <item id="7483" article="a" name="crate" editorsuffix="(Wine)">
     <attribute key="description" value="It contains a lot of wine flasks." />
     <attribute key="weight" value="8000" />
@@ -18311,7 +18317,7 @@
     <attribute key="absorbpercentearth" value="6" />
     <attribute key="absorbpercentfire" value="-6" />
   </item>
-  <item id="7886" name="terra boots">
+  <item id="7886" name="terra boots" editorcategory="Boots">
     <attribute key="weight" value="750" />
     <attribute key="armor" value="2" />
     <attribute key="slottype" value="feet" />
@@ -18347,21 +18353,21 @@
     <attribute key="absorbpercentice" value="-10" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7891" name="magma boots">
+  <item id="7891" name="magma boots" editorcategory="Boots">
     <attribute key="weight" value="750" />
     <attribute key="armor" value="2" />
     <attribute key="slottype" value="feet" />
     <attribute key="absorbpercentfire" value="5" />
     <attribute key="absorbpercentice" value="-5" />
   </item>
-  <item id="7892" name="glacier boots">
+  <item id="7892" name="glacier boots" editorcategory="Boots">
     <attribute key="weight" value="750" />
     <attribute key="armor" value="2" />
     <attribute key="slottype" value="feet" />
     <attribute key="absorbpercentenergy" value="-5" />
     <attribute key="absorbpercentice" value="5" />
   </item>
-  <item id="7893" name="lightning boots">
+  <item id="7893" name="lightning boots" editorcategory="Boots">
     <attribute key="weight" value="750" />
     <attribute key="armor" value="2" />
     <attribute key="slottype" value="feet" />
@@ -18913,7 +18919,7 @@
   <item id="8187" article="a" name="magical watch">
     <attribute key="weight" value="50" />
   </item>
-  <item id="8188" article="a" name="secret letter" editorsuffix="(Secret Service Quest)">
+  <item id="8188" article="a" name="secret letter">
     <attribute key="weight" value="50" />
   </item>
   <item id="8189" article="a" name="scroll" editorsuffix="(Secret Service Quest)">
@@ -19282,7 +19288,10 @@
     <attribute key="showcount" value="0" />
   </item>
   <item id="8369" name="earth" />
-  <item id="8370" name="nothing special" />
+  <item id="8370" article="a" name="letter to Chantalle">
+    <attribute key="description" value="Carina from Venore tells Chantalle that the 'precious necklace' she loved so much is still for sale." />
+    <attribute key="weight" value="10" />
+  </item>
   <item id="8371" name="earth" />
   <item id="8372" article="a" name="ramp">
     <attribute key="floorchange" value="east" />
@@ -19894,14 +19903,17 @@
     <attribute key="weight" value="10" />
   </item>
   <item id="8762" name="nothing special" />
-  <item id="8763" name="nothing special" />
+  <item id="8763" article="an" name="envelope from the wizards">
+    <attribute key="description" value="The sender on this letter reads: &quot;The Three Wizards, Skyward Lane 33 in 82335 Cloudstream&quot;." />
+    <attribute key="weight" value="50" />
+  </item>
   <item id="8764" article="a" name="goldfish bowl" />
   <item id="8765" name="nothing special" />
   <item id="8766" article="a" name="goldfish bowl">
     <attribute key="weight" value="3200" />
   </item>
   <item id="8767" name="nothing special" />
-  <item id="8768" article="a" name="letter">
+  <item id="8768" article="a" name="compromising letter">
     <attribute key="description" value="This letter from Carlin Proves that Arnold is a born Bonecrusher." />
     <attribute key="weight" value="10" />
   </item>
@@ -20788,8 +20800,8 @@
     <attribute key="description" value="It contains the scribings of many knowledgeable Tibians." />
     <attribute key="weight" value="7800" />
   </item>
-  <item id="8984" article="an" name="abacus">
-    <attribute key="description" value="If you use it wisely, you may write yourself into the history books." />
+  <item id="8984" article="an" name="abacus" editorsuffix="(Replica)">
+    <attribute key="description" value="Souvenir from Thais Museum." />
     <attribute key="weight" value="1200" />
   </item>
   <item id="8985" article="a" name="norseman doll">
@@ -22386,12 +22398,12 @@
     <attribute key="description" value="It can be used to clean and polish old and rusty armors." />
     <attribute key="weight" value="250" />
   </item>
-  <item id="9931" article="a" name="coconut shoes">
+  <item id="9931" name="coconut shoes" editorcategory="Boots">
     <attribute key="weight" value="600" />
     <attribute key="armor" value="0" />
     <attribute key="slottype" value="feet" />
   </item>
-  <item id="9932" article="a" name="firewalker boots">
+  <item id="9932" article="a" name="firewalker boots" editorcategory="Boots">
     <attribute key="description" value="Wearing these boots reduces the damage gotten from fiery ground." />
     <attribute key="weight" value="950" />
     <attribute key="armor" value="2" />
@@ -22401,7 +22413,7 @@
     <attribute key="showduration" value="1" />
     <attribute key="transformdeequipto" value="9933" />
   </item>
-  <item id="9933" article="a" name="firewalker boots">
+  <item id="9933" article="a" name="firewalker boots" editorcategory="Boots">
     <attribute key="description" value="Wearing these boots reduces the damage gotten from fiery ground." />
     <attribute key="weight" value="950" />
     <attribute key="armor" value="2" />
@@ -22410,9 +22422,10 @@
     <attribute key="stopduration" value="1" />
     <attribute key="transformequipto" value="9932" />
   </item>
-  <item id="9934" name="worn firewalker boots">
+  <item id="9934" name="worn firewalker boots" editorcategory="Boots">
     <attribute key="description" value="They can be recharged with an enchanted ruby." />
     <attribute key="weight" value="950" />
+    <attribute key="armor" value="0" />
     <attribute key="slottype" value="feet" />
   </item>
   <item id="9935" article="a" name="dead gozzler">
@@ -22906,15 +22919,33 @@
   <item id="10132" article="a" name="bronze trophy of excellence">
     <attribute key="weight" value="1300" />
   </item>
-  <item id="10133" name="nothing special" />
-  <item id="10134" name="nothing special" />
-  <item id="10135" name="nothing special" />
-  <item id="10136" name="nothing special" />
-  <item id="10137" name="nothing special" />
-  <item id="10138" name="nothing special" />
-  <item id="10139" name="nothing special" />
-  <item id="10140" name="nothing special" />
-  <item id="10141" name="nothing special" />
+  <item id="10133" article="a" name="gold medal" editorcategory="Contest Prizes">
+    <attribute key="weight" value="1240" />
+  </item>
+  <item id="10134" article="a" name="silver medal" editorcategory="Contest Prizes">
+    <attribute key="weight" value="1220" />
+  </item>
+  <item id="10135" article="a" name="bronze meral" editorcategory="Contest Prizes">
+    <attribute key="weight" value="1200" />
+  </item>
+  <item id="10136" article="a" name="badge of glory" editorcategory="Contest Prizes">
+    <attribute key="weight" value="1550" />
+  </item>
+  <item id="10137" article="an" name="arcane insignia" editorcategory="Contest Prizes">
+    <attribute key="weight" value="1350" />
+  </item>
+  <item id="10138" article="a" name="hero's medal" editorcategory="Contest Prizes">
+    <attribute key="weight" value="1670" />
+  </item>
+  <item id="10139" article="a" name="laurel wreath" editorcategory="Contest Prizes">
+    <attribute key="weight" value="900" />
+  </item>
+  <item id="10140" article="a" name="royal medal" editorcategory="Contest Prizes">
+    <attribute key="weight" value="1600" />
+  </item>
+  <item id="10141" article="a" name="heavy medal" editorcategory="Contest Prizes">
+    <attribute key="weight" value="5500" />
+  </item>
   <item id="10142" name="nothing special" />
   <item id="10143" article="a" name="cherry blossom tree" />
   <item id="10144" name="nothing special" />
@@ -24524,11 +24555,14 @@
     <attribute key="description" value="This crest seems important. You shouldn't lose it." />
     <attribute key="weight" value="500" />
   </item>
-  <item id="11117" name="crystal boots">
-    <attribute key="weight" value="2250" />
+  <item id="11117" name="crystal boots" editorcategory="Boots">
+    <attribute key="weight" value="1850" />
+    <attribute key="armor" value="3" />
     <attribute key="slottype" value="feet" />
+    <attribute key="absorbpercentenergy" value="-3" />
+    <attribute key="absorbpercentice" value="3" />
   </item>
-  <item id="11118" name="dragon scale boots">
+  <item id="11118" name="dragon scale boots" editorcategory="Boots">
     <attribute key="weight" value="1850" />
     <attribute key="armor" value="3" />
     <attribute key="slottype" value="feet" />
@@ -24621,7 +24655,7 @@
   <item id="11161" name="nothing special" />
   <item id="11162" name="nothing special" />
   <item id="11163" name="nothing special" />
-  <item id="11164" article="a" name="crate" editorcategory="Unkown" />
+  <item id="11164" name="nothing special" />
   <item id="11165" name="nothing special" />
   <item id="11166" name="nothing special" />
   <item id="11167" name="nothing special" />
@@ -24792,7 +24826,7 @@
     <attribute key="weight" value="600" />
   </item>
   <item id="11239" name="nothing special" />
-  <item id="11240" name="guardian boots">
+  <item id="11240" name="guardian boots" editorcategory="Boots">
     <attribute key="weight" value="2250" />
     <attribute key="armor" value="3" />
     <attribute key="slottype" value="feet" />
@@ -24878,11 +24912,26 @@
   <item id="11257" name="heavy ball">
     <attribute key="weight" value="670" />
   </item>
-  <item id="11258" name="nothing special" />
-  <item id="11259" name="nothing special" />
-  <item id="11260" name="nothing special" />
-  <item id="11261" name="nothing special" />
-  <item id="11262" name="nothing special" />
+  <item id="11258" article="a" name="phoenix charm" editorcategory="Blessing Charms">
+    <attribute key="description" value="The Spark of the Phoenix is contained in it." />
+    <attribute key="weight" value="1000" />
+  </item>
+  <item id="11259" article="a" name="unity charm" editorcategory="Blessing Charms">
+    <attribute key="description" value="The Embrace of Tibia is contained in it." />
+    <attribute key="weight" value="1000" />
+  </item>
+  <item id="11260" article="a" name="spiritual charm" editorcategory="Blessing Charms">
+    <attribute key="description" value="The Spiritual Shielding is contained in it." />
+    <attribute key="weight" value="1000" />
+  </item>
+  <item id="11261" article="a" name="twin sun charm" editorcategory="Blessing Charms">
+    <attribute key="description" value="The Fire of the Suns is contained in it." />
+    <attribute key="weight" value="1000" />
+  </item>
+  <item id="11262" article="a" name="solitude charm" editorcategory="Blessing Charms">
+    <attribute key="description" value="The Wisdom of Solitude is contained in it." />
+    <attribute key="weight" value="1000" />
+  </item>
   <item id="11263" article="a" name="santa backpack" editorcategory="Containers">
     <attribute key="weight" value="1650" />
     <attribute key="containersize" value="20" />
@@ -25039,7 +25088,7 @@
     <attribute key="slottype" value="head" />
     <attribute key="absorbpercentphysical" value="5" />
   </item>
-  <item id="11303" name="zaoan shoes">
+  <item id="11303" name="Zaoan shoes" editorcategory="Boots">
     <attribute key="weight" value="700" />
     <attribute key="armor" value="1" />
     <attribute key="slottype" value="feet" />
@@ -26268,7 +26317,10 @@
   <item id="12281" name="nothing special" />
   <item id="12282" name="nothing special" />
   <item id="12283" name="nothing special" />
-  <item id="12284" name="nothing special" />
+  <item id="12284" article="a" name="heavy crate">
+    <attribute key="description" value="It is covered with lizard symbols and the lid is tightly nailed shut." />
+    <attribute key="containersize" value="10" />
+  </item>
   <item id="12285" name="nothing special" />
   <item id="12286" name="nothing special" />
   <item id="12287" name="nothing special" />
@@ -26481,7 +26533,10 @@
   <item id="12494" name="nothing special" />
   <item id="12495" name="nothing special" />
   <item id="12496" name="nothing special" />
-  <item id="12497" name="nothing special" />
+  <item id="12497" name="Jean Pierre's Cookbook II" editorcategory="Books">
+    <attribute key="description" value="It was given to you by the djinn maître and contains new recipes you cooked." />
+    <attribute key="weight" value="1500" />
+  </item>
   <item id="12498" name="nothing special" />
   <item id="12499" name="nothing special" />
   <item id="12500" name="nothing special" />
@@ -26543,151 +26598,151 @@
   <item id="12556" name="nothing special" />
   <item id="12557" name="nothing special" />
   <item id="12558" name="nothing special" />
-  <item id="12559" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+  <item id="12559" article="a" name="silver rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
   <item id="12560" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
-  <item id="12561" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+  <item id="12561" article="a" name="silver rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
   <item id="12562" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
-  <item id="12563" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+  <item id="12563" article="a" name="silver rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
   <item id="12564" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
-  <item id="12565" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+  <item id="12565" article="a" name="silver rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
   <item id="12566" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
-  <item id="12567" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+  <item id="12567" article="a" name="silver rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
   <item id="12568" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
-  <item id="12569" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+  <item id="12569" article="a" name="silver rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
   <item id="12570" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
-  <item id="12571" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+  <item id="12571" article="a" name="silver rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
   <item id="12572" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
-  <item id="12573" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+  <item id="12573" article="a" name="silver rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
   <item id="12574" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
-  <item id="12575" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+  <item id="12575" article="a" name="silver rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
   <item id="12576" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
-  <item id="12577" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+  <item id="12577" article="a" name="silver rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
   <item id="12578" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
-  <item id="12579" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+  <item id="12579" article="a" name="silver rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
   <item id="12580" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
-  <item id="12581" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+  <item id="12581" article="a" name="silver rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
   <item id="12582" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
-  <item id="12583" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+  <item id="12583" article="a" name="silver rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
   <item id="12584" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
-  <item id="12585" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+  <item id="12585" article="a" name="silver rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
   <item id="12586" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
-  <item id="12587" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+  <item id="12587" article="a" name="silver rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
   <item id="12588" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
-  <item id="12589" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+  <item id="12589" article="a" name="silver rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
   <item id="12590" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
-  <item id="12591" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+  <item id="12591" article="a" name="silver rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
   <item id="12592" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
-  <item id="12593" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+  <item id="12593" article="a" name="silver rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
   <item id="12594" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
-  <item id="12595" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+  <item id="12595" article="a" name="silver rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
   <item id="12596" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
-  <item id="12597" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+  <item id="12597" article="a" name="silver rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
   <item id="12598" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
-  <item id="12599" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+  <item id="12599" article="a" name="silver rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
   <item id="12600" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
-  <item id="12601" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+  <item id="12601" article="a" name="silver rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
   <item id="12602" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
-  <item id="12603" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+  <item id="12603" article="a" name="silver rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
   <item id="12604" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
-  <item id="12605" article="a" name="a silver rune emblem" editorcategory="Rune Emblems">
+  <item id="12605" article="a" name="silver rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
   <item id="12606" article="a" name="golden rune emblem" editorcategory="Rune Emblems">
     <attribute key="weight" value="120" />
   </item>
-  <item id="12607" article="an" name="elite draken mail" editorsuffix="Armors">
+  <item id="12607" article="an" name="elite draken mail" editorcategory="Armors">
     <attribute key="weight" value="1200" />
     <attribute key="armor" value="15" />
     <attribute key="slottype" value="body" />
@@ -26698,7 +26753,13 @@
   <item id="12610" name="nothing special" />
   <item id="12611" name="nothing special" />
   <item id="12612" name="nothing special" />
-  <item id="12613" name="nothing special" />
+  <item id="12613" article="a" name="twiceslicer" editorcategory="Swords">
+    <attribute key="weight" value="18000" />
+    <attribute key="defense" value="30" />
+    <attribute key="attack" value="47" />
+    <attribute key="weapontype" value="sword" />
+    <attribute key="slottype" value="hand" />
+  </item>
   <item id="12614" name="nothing special" />
   <item id="12615" name="nothing special" />
   <item id="12616" name="nothing special" />
@@ -26715,7 +26776,14 @@
   <item id="12627" name="nothing special" />
   <item id="12628" name="nothing special" />
   <item id="12629" name="nothing special" />
-  <item id="12630" name="nothing special" />
+  <item id="12630" article="a" name="cobra crown" editorcategory="Helmets">
+    <attribute key="weight" value="850" />
+    <attribute key="armor" value="3" />
+    <attribute key="slottype" value="head" />
+    <attribute key="absorbpercentearth" value="5" />
+    <attribute key="absorbpercentfire" value="-5" />
+    <attribute key="skillmodifiermagiclevel" value="2" />
+  </item>
   <item id="12631" name="nothing special" />
   <item id="12632" name="nothing special" />
   <item id="12633" name="nothing special" />
@@ -26727,14 +26795,63 @@
   <item id="12639" name="nothing special" />
   <item id="12640" name="nothing special" />
   <item id="12641" name="nothing special" />
-  <item id="12642" name="nothing special" />
-  <item id="12643" name="nothing special" />
-  <item id="12644" name="nothing special" />
-  <item id="12645" name="nothing special" />
-  <item id="12646" name="nothing special" />
-  <item id="12647" name="nothing special" />
-  <item id="12648" name="nothing special" />
-  <item id="12649" name="nothing special" />
+  <item id="12642" article="a" name="royal draken mail" editorcategory="Armors">
+    <attribute key="weight" value="13000" />
+    <attribute key="armor" value="16" />
+    <attribute key="slottype" value="body" />
+    <attribute key="absorbpercentphysical" value="5" />
+    <attribute key="skillmodifiershield" value="3" />
+  </item>
+  <item id="12643" article="a" name="royal scale robe" editorcategory="Armors">
+    <attribute key="weight" value="4500" />
+    <attribute key="armor" value="12" />
+    <attribute key="slottype" value="body" />
+    <attribute key="absorbpercentfire" value="5" />
+    <attribute key="skillmodifiermagiclevel" value="2" />
+  </item>
+  <item id="12644" article="a" name="shield of corruption" editorcategory="Shields">
+    <attribute key="weight" value="4900" />
+    <attribute key="defense" value="36" />
+    <attribute key="weapontype" value="shield" />
+    <attribute key="slottype" value="hand" />
+    <attribute key="skillmodifiersword" value="3" />
+  </item>
+  <item id="12645" article="an" name="elite draken helmet" editorcategory="Helmets">
+    <attribute key="weight" value="4300" />
+    <attribute key="armor" value="9" />
+    <attribute key="slottype" value="head" />
+    <attribute key="absorbpercentdeath" value="3" />
+    <attribute key="skillmodifierdistance" value="1" />
+  </item>
+  <item id="12646" name="draken boots" editorcategory="Boots">
+    <attribute key="weight" value="2500" />
+    <attribute key="armor" value="3" />
+    <attribute key="slottype" value="feet" />
+    <attribute key="speedmodifier" value="15" />
+  </item>
+  <item id="12647" article="a" name="snake god's wristguard " editorcategory="Rings">
+    <attribute key="description" value="It shows your spells and can also shield against attacks when worn." />
+    <attribute key="weight" value="2800" />
+    <attribute key="defense" value="14" />
+    <attribute key="slottype" value="ring" />
+    <attribute key="skillmodifiermagiclevel" value="3" />
+  </item>
+  <item id="12648" article="a" name="snake god's sceptre" editorcategory="Clubs">
+    <attribute key="weight" value="1200" />
+    <attribute key="defense" value="29" />
+    <attribute key="defensemodifier" value="3" />
+    <attribute key="attack" value="48" />
+    <attribute key="weapontype" value="club" />
+    <attribute key="slottype" value="hand" />
+  </item>
+  <item id="12649" article="a" name="blade of corruption" editorcategory="Swords">
+    <attribute key="weight" value="6400" />
+    <attribute key="armor" value="48" />
+    <attribute key="defense" value="29" />
+    <attribute key="defensemodifier" value="2" />
+    <attribute key="weapontype" value="sword" />
+    <attribute key="slottype" value="hand" />
+  </item>
   <item id="12650" name="nothing special" />
   <item id="12651" name="nothing special" />
   <item id="12652" name="nothing special" />
@@ -26745,9 +26862,22 @@
     <attribute key="slottype" value="backpack" />
   </item>
   <item id="12655" name="nothing special" />
-  <item id="12656" name="nothing special" />
-  <item id="12657" name="nothing special" />
+  <item id="12656" article="a" name="sedge hat" editorcategory="Helmets">
+    <attribute key="description" value="This simple hat might be more worth than what it looks like." />
+    <attribute key="weight" value="1800" />
+    <attribute key="armor" value="2" />
+    <attribute key="slottype" value="head" />
+  </item>
+  <item id="12657" article="an" name="old cape" editorcategory="Armors">
+    <attribute key="description" value="This old cape might be worth more than what it looks like." />
+    <attribute key="weight" value="3500" />
+    <attribute key="armor" value="1" />
+    <attribute key="slottype" value="body" />
+  </item>
   <item id="12658" name="nothing special" />
   <item id="12659" name="nothing special" />
-  <item id="12660" name="nothing special" />
+  <item id="12660" name="trashed draken boots">
+    <attribute key="description" value="They will expire within a short time, sell them back to Esrik before they do." />
+    <attribute key="weight" value="2500" />
+  </item>
 </items>
