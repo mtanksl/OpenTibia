@@ -518,7 +518,7 @@ namespace OpenTibia.Game.Common
         {
             Item item = (Item)player.Inventory.GetContent( (byte)Slot.Ammo);
 
-            if (item != null && item.Metadata.WeaponType == WeaponType.Ammo)
+            if (item != null && item.Metadata.WeaponType == WeaponType.Ammunition)
             {
                 return item;
             }
