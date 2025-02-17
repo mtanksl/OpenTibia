@@ -842,12 +842,12 @@
   <item id="1293" article="a" name="stone">
     <attribute key="weight" value="41000" />
   </item>
-  <item id="1294" article="a" name="small stone" plural="small stones">
+  <item id="1294" article="a" name="small stone" plural="small stones" editorcategory="Distance Weapons">
     <attribute key="weight" value="360" />
     <attribute key="attack" value="5" />
     <attribute key="weapontype" value="distance" />
     <attribute key="shoottype" value="smallstone" />
-    <attribute key="range" value="5" />
+    <attribute key="range" value="4" />
     <attribute key="breakchance" value="7" />
     <attribute key="ammoaction" value="moveback" />
   </item>
@@ -2017,24 +2017,24 @@
   <item id="1881" article="a" name="cuckoo clock">
     <attribute key="weight" value="800" />
   </item>
-  <item id="1882" article="a" name="demon trophy" />
-  <item id="1883" article="a" name="demon trophy" />
-  <item id="1884" article="a" name="wolf trophy" />
-  <item id="1885" article="a" name="wolf trophy" />
-  <item id="1886" article="an" name="orc trophy" />
-  <item id="1887" article="an" name="orc trophy" />
-  <item id="1888" article="a" name="behemoth trophy" />
-  <item id="1889" article="a" name="behemoth trophy" />
-  <item id="1890" article="a" name="deer trophy" />
-  <item id="1891" article="a" name="deer trophy" />
-  <item id="1892" article="a" name="cyclops trophy" />
-  <item id="1893" article="a" name="cyclops trophy" />
-  <item id="1894" article="a" name="dragon trophy" />
-  <item id="1895" article="a" name="dragon trophy" />
-  <item id="1896" article="a" name="lion trophy" />
-  <item id="1897" article="a" name="lion trophy" />
-  <item id="1898" article="a" name="minotaur trophy" />
-  <item id="1899" article="a" name="minotaur trophy" />
+  <item id="1882" article="a" name="demon trophy" editorcategory="Trophies" />
+  <item id="1883" article="a" name="demon trophy" editorcategory="Trophies" />
+  <item id="1884" article="a" name="wolf trophy" editorcategory="Trophies" />
+  <item id="1885" article="a" name="wolf trophy" editorcategory="Trophies" />
+  <item id="1886" article="an" name="orc trophy" editorcategory="Trophies" />
+  <item id="1887" article="an" name="orc trophy" editorcategory="Trophies" />
+  <item id="1888" article="a" name="behemoth trophy" editorcategory="Trophies" />
+  <item id="1889" article="a" name="behemoth trophy" editorcategory="Trophies" />
+  <item id="1890" article="a" name="deer trophy" editorcategory="Trophies" />
+  <item id="1891" article="a" name="deer trophy" editorcategory="Trophies" />
+  <item id="1892" article="a" name="cyclops trophy" editorcategory="Trophies" />
+  <item id="1893" article="a" name="cyclops trophy" editorcategory="Trophies" />
+  <item id="1894" article="a" name="dragon trophy" editorcategory="Trophies" />
+  <item id="1895" article="a" name="dragon trophy" editorcategory="Trophies" />
+  <item id="1896" article="a" name="lion trophy" editorcategory="Trophies" />
+  <item id="1897" article="a" name="lion trophy" editorcategory="Trophies" />
+  <item id="1898" article="a" name="minotaur trophy" editorcategory="Trophies" />
+  <item id="1899" article="a" name="minotaur trophy" editorcategory="Trophies" />
   <item id="1900" article="a" name="bloodstain" />
   <item id="1901" article="a" name="bloodstain" />
   <item id="1902" article="a" name="bloodstain" />
@@ -2651,8 +2651,9 @@
   <item id="2110" article="a" name="doll">
     <attribute key="weight" value="650" />
   </item>
-  <item id="2111" article="a" name="snowball" plural="snowballs">
+  <item id="2111" article="a" name="snowball" plural="snowballs" editorcategory="Distance Weapons">
     <attribute key="weight" value="80" />
+    <attribute key="attack" value="0" />
     <attribute key="weapontype" value="distance" />
     <attribute key="shoottype" value="snowball" />
     <attribute key="range" value="5" />
@@ -3783,7 +3784,7 @@
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="86400" />
   </item>
-  <item id="2352" article="a" name="crystal arrow">
+  <item id="2352" article="a" name="crystal arrow" editorcategory="Quest Items">
     <attribute key="description" value="This arrow seems not suitable for the use with ordinary bows. It seems to be rotting rapidly." />
     <attribute key="weight" value="100" />
     <attribute key="decayto" value="0" />
@@ -3955,7 +3956,7 @@
     <attribute key="attack" value="15" />
     <attribute key="weapontype" value="axe" />
   </item>
-  <item id="2389" article="a" name="spear" plural="spears">
+  <item id="2389" article="a" name="spear" plural="spears" editorcategory="Distance Weapons">
     <attribute key="weight" value="2000" />
     <attribute key="attack" value="25" />
     <attribute key="weapontype" value="distance" />
@@ -4030,7 +4031,7 @@
     <attribute key="attack" value="16" />
     <attribute key="weapontype" value="club" />
   </item>
-  <item id="2399" article="a" name="throwing star" plural="throwing stars">
+  <item id="2399" article="a" name="throwing star" plural="throwing stars" editorcategory="Distance Weapons">
     <attribute key="weight" value="200" />
     <attribute key="attack" value="30" />
     <attribute key="weapontype" value="distance" />
@@ -4108,7 +4109,7 @@
     <attribute key="attackmodifierearth" value="8" />
     <attribute key="weapontype" value="sword" />
   </item>
-  <item id="2410" article="a" name="throwing knife" plural="throwing knives">
+  <item id="2410" article="a" name="throwing knife" plural="throwing knives" editorcategory="Distance Weapons">
     <attribute key="weight" value="500" />
     <attribute key="attack" value="25" />
     <attribute key="weapontype" value="distance" />
@@ -4421,15 +4422,17 @@
     <attribute key="weapontype" value="axe" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="2455" article="a" name="crossbow">
+  <item id="2455" article="a" name="crossbow" editorcategory="Distance Weapons">
     <attribute key="weight" value="4000" />
+    <attribute key="attack" value="0" />
     <attribute key="weapontype" value="distance" />
     <attribute key="ammotype" value="bolt" />
     <attribute key="range" value="5" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="2456" article="a" name="bow">
+  <item id="2456" article="a" name="bow" editorcategory="Distance Weapons">
     <attribute key="weight" value="3100" />
+    <attribute key="attack" value="0" />
     <attribute key="weapontype" value="distance" />
     <attribute key="ammotype" value="arrow" />
     <attribute key="range" value="6" />
@@ -4878,7 +4881,7 @@
     <attribute key="defense" value="36" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="2543" article="a" name="bolt" plural="bolts">
+  <item id="2543" article="a" name="bolt" plural="bolts" editorcategory="Ammunitions">
     <attribute key="weight" value="80" />
     <attribute key="attack" value="30" />
     <attribute key="weapontype" value="ammunition" />
@@ -4888,7 +4891,7 @@
     <attribute key="ammoaction" value="remove" />
     <attribute key="maxhitchance" value="90" />
   </item>
-  <item id="2544" article="an" name="arrow" plural="arrows">
+  <item id="2544" article="an" name="arrow" plural="arrows" editorcategory="Ammunitions">
     <attribute key="weight" value="70" />
     <attribute key="attack" value="25" />
     <attribute key="weapontype" value="ammunition" />
@@ -4898,9 +4901,9 @@
     <attribute key="ammoaction" value="remove" />
     <attribute key="maxhitchance" value="90" />
   </item>
-  <item id="2545" article="a" name="poison arrow" plural="poison arrows">
+  <item id="2545" article="a" name="poison arrow" plural="poison arrows" editorcategory="Ammunitions">
     <attribute key="weight" value="80" />
-    <attribute key="attack" value="22" />
+    <attribute key="attack" value="23" />
     <attribute key="weapontype" value="ammunition" />
     <attribute key="ammotype" value="arrow" />
     <attribute key="shoottype" value="poisonarrow" />
@@ -4908,9 +4911,9 @@
     <attribute key="ammoaction" value="remove" />
     <attribute key="maxhitchance" value="90" />
   </item>
-  <item id="2546" article="a" name="burst arrow" plural="burst arrows">
+  <item id="2546" article="a" name="burst arrow" plural="burst arrows" editorcategory="Ammunitions">
     <attribute key="weight" value="90" />
-    <attribute key="attack" value="28" />
+    <attribute key="attack" value="27" />
     <attribute key="weapontype" value="ammunition" />
     <attribute key="ammotype" value="arrow" />
     <attribute key="shoottype" value="burstarrow" />
@@ -4918,7 +4921,7 @@
     <attribute key="ammoaction" value="remove" />
     <attribute key="hitchance" value="100" />
   </item>
-  <item id="2547" article="a" name="power bolt" plural="power bolts">
+  <item id="2547" article="a" name="power bolt" plural="power bolts" editorcategory="Ammunitions">
     <attribute key="weight" value="80" />
     <attribute key="attack" value="40" />
     <attribute key="weapontype" value="ammunition" />
@@ -8642,12 +8645,12 @@
     <attribute key="weapontype" value="axe" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="3965" article="a" name="hunting spear" plural="hunting spears">
+  <item id="3965" article="a" name="hunting spear" plural="hunting spears" editorcategory="Distance Weapons">
     <attribute key="weight" value="2200" />
     <attribute key="attack" value="32" />
     <attribute key="weapontype" value="distance" />
     <attribute key="shoottype" value="huntingspear" />
-    <attribute key="range" value="5" />
+    <attribute key="range" value="3" />
     <attribute key="breakchance" value="6" />
     <attribute key="ammoaction" value="moveback" />
   </item>
@@ -11882,13 +11885,15 @@
     <attribute key="slottype" value="backpack" />
   </item>
   <item id="5802" article="a" name="message in a bottle" editorsuffix="(Unknown weight)" />
-  <item id="5803" article="an" name="arbalest">
+  <item id="5803" article="an" name="arbalest" editorcategory="Distance Weapons">
     <attribute key="description" value="It is a bit heavy due to the iron mounting, but very precise." />
     <attribute key="weight" value="9500" />
+    <attribute key="attack" value="2" />
     <attribute key="weapontype" value="distance" />
     <attribute key="ammotype" value="bolt" />
     <attribute key="range" value="6" />
     <attribute key="slottype" value="twohanded" />
+    <attribute key="hitchance" value="2" />
   </item>
   <item id="5804" article="a" name="nose ring">
     <attribute key="description" value="It was the favourite trinket of the famous Horned Fox." />
@@ -14124,7 +14129,7 @@
     <attribute key="weapontype" value="shield" />
   </item>
   <item id="6434" article="a" name="blue tapestry" />
-  <item id="6435" article="a" name="demon trophy" />
+  <item id="6435" article="a" name="demon trophy" editorcategory="Trophies" />
   <item id="6436" article="a" name="framework window">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
@@ -14399,9 +14404,9 @@
     <attribute key="weapontype" value="sword" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="6529" article="an" name="infernal bolt" plural="infernal bolts">
+  <item id="6529" article="an" name="infernal bolt" plural="infernal bolts" editorcategory="Ammunitions">
     <attribute key="weight" value="90" />
-    <attribute key="attack" value="43" />
+    <attribute key="attack" value="72" />
     <attribute key="weapontype" value="ammunition" />
     <attribute key="ammotype" value="bolt" />
     <attribute key="shoottype" value="infernalbolt" />
@@ -15947,7 +15952,7 @@
   </item>
   <item id="7361" article="a" name="sarcophagus" />
   <item id="7362" article="a" name="sarcophagus" />
-  <item id="7363" article="a" name="piercing bolt" plural="piercing bolts">
+  <item id="7363" article="a" name="piercing bolt" plural="piercing bolts" editorcategory="Ammunitions">
     <attribute key="weight" value="80" />
     <attribute key="attack" value="33" />
     <attribute key="weapontype" value="ammunition" />
@@ -15957,7 +15962,7 @@
     <attribute key="ammoaction" value="remove" />
     <attribute key="maxhitchance" value="90" />
   </item>
-  <item id="7364" article="a" name="sniper arrow" plural="sniper arrows">
+  <item id="7364" article="a" name="sniper arrow" plural="sniper arrows" editorcategory="Ammunitions">
     <attribute key="weight" value="70" />
     <attribute key="attack" value="28" />
     <attribute key="weapontype" value="ammunition" />
@@ -15967,7 +15972,7 @@
     <attribute key="ammoaction" value="remove" />
     <attribute key="maxhitchance" value="100" />
   </item>
-  <item id="7365" article="an" name="onyx arrow" plural="onyx arrows">
+  <item id="7365" article="an" name="onyx arrow" plural="onyx arrows" editorcategory="Ammunitions">
     <attribute key="weight" value="70" />
     <attribute key="attack" value="38" />
     <attribute key="weapontype" value="ammunition" />
@@ -15977,7 +15982,7 @@
     <attribute key="ammoaction" value="remove" />
     <attribute key="maxhitchance" value="90" />
   </item>
-  <item id="7366" article="a" name="viper star" plural="viper stars">
+  <item id="7366" article="a" name="viper star" plural="viper stars" editorcategory="Distance Weapons">
     <attribute key="weight" value="200" />
     <attribute key="attack" value="28" />
     <attribute key="weapontype" value="distance" />
@@ -15987,7 +15992,7 @@
     <attribute key="ammoaction" value="moveback" />
     <attribute key="hitchance" value="80" />
   </item>
-  <item id="7367" article="an" name="enchanted spear" plural="enchanted spears">
+  <item id="7367" article="an" name="enchanted spear" plural="enchanted spears" editorcategory="Distance Weapons">
     <attribute key="weight" value="2000" />
     <attribute key="attack" value="38" />
     <attribute key="weapontype" value="distance" />
@@ -15996,12 +16001,12 @@
     <attribute key="breakchance" value="1" />
     <attribute key="ammoaction" value="moveback" />
   </item>
-  <item id="7368" article="an" name="assassin star" plural="assassin stars">
+  <item id="7368" article="an" name="assassin star" plural="assassin stars" editorcategory="Distance Weapons">
     <attribute key="weight" value="200" />
     <attribute key="attack" value="65" />
     <attribute key="weapontype" value="distance" />
     <attribute key="shoottype" value="assassinstar" />
-    <attribute key="range" value="5" />
+    <attribute key="range" value="4" />
     <attribute key="breakchance" value="33" />
     <attribute key="ammoaction" value="moveback" />
   </item>
@@ -16036,12 +16041,12 @@
     <attribute key="description" value="It's the famous ''blue-barian'' flavour." />
     <attribute key="weight" value="100" />
   </item>
-  <item id="7378" article="a" name="royal spear" plural="royal spears">
+  <item id="7378" article="a" name="royal spear" plural="royal spears" editorcategory="Distance Weapons">
     <attribute key="weight" value="2500" />
     <attribute key="attack" value="35" />
     <attribute key="weapontype" value="distance" />
     <attribute key="shoottype" value="royalspear" />
-    <attribute key="range" value="5" />
+    <attribute key="range" value="3" />
     <attribute key="breakchance" value="2" />
     <attribute key="ammoaction" value="moveback" />
   </item>
@@ -16430,9 +16435,10 @@
     <attribute key="attack" value="37" />
     <attribute key="weapontype" value="club" />
   </item>
-  <item id="7438" article="an" name="elvish bow">
+  <item id="7438" article="an" name="elvish bow" editorcategory="Distance Weapons">
     <attribute key="description" value="This beautifully ornamented bow was made by a skilled elvish bowmaker." />
     <attribute key="weight" value="3900" />
+    <attribute key="attack" value="0" />
     <attribute key="weapontype" value="distance" />
     <attribute key="ammotype" value="arrow" />
     <attribute key="range" value="6" />
@@ -17883,9 +17889,10 @@
   <item id="7835" name="dirt" />
   <item id="7836" name="dirt" />
   <item id="7837" name="dirt" />
-  <item id="7838" article="a" name="flash arrow" plural="flash arrows">
+  <item id="7838" article="a" name="flash arrow" plural="flash arrows" editorcategory="Ammunitions">
     <attribute key="weight" value="70" />
-    <attribute key="attack" value="28" />
+    <attribute key="attack" value="14" />
+    <attribute key="attackmodifierenergy" value="14" />
     <attribute key="weapontype" value="ammunition" />
     <attribute key="ammotype" value="arrow" />
     <attribute key="shoottype" value="flasharrow" />
@@ -17893,9 +17900,10 @@
     <attribute key="ammoaction" value="remove" />
     <attribute key="maxhitchance" value="90" />
   </item>
-  <item id="7839" article="a" name="shiver arrow" plural="shiver arrows">
+  <item id="7839" article="a" name="shiver arrow" plural="shiver arrows" editorcategory="Ammunitions">
     <attribute key="weight" value="70" />
-    <attribute key="attack" value="28" />
+    <attribute key="attack" value="14" />
+    <attribute key="attackmodifierice" value="14" />
     <attribute key="weapontype" value="ammunition" />
     <attribute key="ammotype" value="arrow" />
     <attribute key="shoottype" value="shiverarrow" />
@@ -17903,9 +17911,10 @@
     <attribute key="ammoaction" value="remove" />
     <attribute key="maxhitchance" value="90" />
   </item>
-  <item id="7840" article="a" name="flaming arrow" plural="flaming arrows">
+  <item id="7840" article="a" name="flaming arrow" plural="flaming arrows" editorcategory="Ammunitions">
     <attribute key="weight" value="70" />
-    <attribute key="attack" value="28" />
+    <attribute key="attack" value="14" />
+    <attribute key="attackmodifierfire" value="14" />
     <attribute key="weapontype" value="ammunition" />
     <attribute key="ammotype" value="arrow" />
     <attribute key="shoottype" value="flamingarrow" />
@@ -17952,9 +17961,10 @@
     <attribute key="decayto" value="7743" />
     <attribute key="duration" value="600" />
   </item>
-  <item id="7850" article="an" name="earth arrow" plural="earth arrows">
+  <item id="7850" article="an" name="earth arrow" plural="earth arrows" editorcategory="Ammunitions">
     <attribute key="weight" value="70" />
-    <attribute key="attack" value="28" />
+    <attribute key="attack" value="14" />
+    <attribute key="attackmodifierearth" value="14" />
     <attribute key="weapontype" value="ammunition" />
     <attribute key="ammotype" value="arrow" />
     <attribute key="shoottype" value="eartharrow" />
@@ -20038,15 +20048,16 @@
     <attribute key="description" value="There is cookie dough on it." />
     <attribute key="weight" value="1200" />
   </item>
-  <item id="8849" article="a" name="modified crossbow">
+  <item id="8849" article="a" name="modified crossbow" editorcategory="Distance Weapons">
     <attribute key="weight" value="3500" />
+    <attribute key="attack" value="0" />
     <attribute key="weapontype" value="distance" />
     <attribute key="ammotype" value="bolt" />
     <attribute key="range" value="5" />
     <attribute key="slottype" value="twohanded" />
     <attribute key="hitchance" value="1" />
   </item>
-  <item id="8850" article="a" name="chain bolter">
+  <item id="8850" article="a" name="chain bolter" editorcategory="Distance Weapons">
     <attribute key="weight" value="5500" />
     <attribute key="attack" value="4" />
     <attribute key="weapontype" value="distance" />
@@ -20054,7 +20065,7 @@
     <attribute key="range" value="3" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="8851" article="a" name="royal crossbow">
+  <item id="8851" article="a" name="royal crossbow" editorcategory="Distance Weapons">
     <attribute key="weight" value="12000" />
     <attribute key="attack" value="5" />
     <attribute key="weapontype" value="distance" />
@@ -20063,24 +20074,24 @@
     <attribute key="slottype" value="twohanded" />
     <attribute key="hitchance" value="3" />
   </item>
-  <item id="8852" article="the" name="Devileye">
+  <item id="8852" article="the" name="Devileye" editorcategory="Distance Weapons">
     <attribute key="weight" value="5500" />
     <attribute key="attack" value="20" />
     <attribute key="weapontype" value="distance" />
     <attribute key="ammotype" value="bolt" />
     <attribute key="range" value="6" />
     <attribute key="slottype" value="twohanded" />
-    <attribute key="hitchance" value="0" />
+    <attribute key="hitchance" value="20" />
   </item>
-  <item id="8853" article="the" name="Ironworker">
-    <attribute key="weight" value="5500" />
+  <item id="8853" article="the" name="Ironworker" editorcategory="Distance Weapons">
+    <attribute key="weight" value="15000" />
     <attribute key="attack" value="4" />
     <attribute key="weapontype" value="distance" />
     <attribute key="ammotype" value="bolt" />
     <attribute key="range" value="5" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="8854" article="a" name="warsinger bow">
+  <item id="8854" article="a" name="warsinger bow" editorcategory="Distance Weapons">
     <attribute key="weight" value="4500" />
     <attribute key="attack" value="3" />
     <attribute key="weapontype" value="distance" />
@@ -20089,7 +20100,7 @@
     <attribute key="slottype" value="twohanded" />
     <attribute key="hitchance" value="5" />
   </item>
-  <item id="8855" article="a" name="composite hornbow">
+  <item id="8855" article="a" name="composite hornbow" editorcategory="Distance Weapons">
     <attribute key="weight" value="5200" />
     <attribute key="attack" value="3" />
     <attribute key="weapontype" value="distance" />
@@ -20098,23 +20109,25 @@
     <attribute key="slottype" value="twohanded" />
     <attribute key="hitchance" value="2" />
   </item>
-  <item id="8856" name="Yol's bow">
+  <item id="8856" name="Yol's bow" editorcategory="Distance Weapons">
     <attribute key="weight" value="3500" />
+    <attribute key="attack" value="0" />
     <attribute key="weapontype" value="distance" />
     <attribute key="ammotype" value="arrow" />
     <attribute key="range" value="7" />
     <attribute key="slottype" value="twohanded" />
     <attribute key="hitchance" value="7" />
   </item>
-  <item id="8857" article="a" name="silkweaver bow">
+  <item id="8857" article="a" name="silkweaver bow" editorcategory="Distance Weapons">
     <attribute key="weight" value="2200" />
+    <attribute key="attack" value="0" />
     <attribute key="weapontype" value="distance" />
     <attribute key="ammotype" value="arrow" />
     <attribute key="range" value="6" />
     <attribute key="slottype" value="twohanded" />
     <attribute key="hitchance" value="3" />
   </item>
-  <item id="8858" name="Elethriel's elemental bow">
+  <item id="8858" name="Elethriel's elemental bow" editorcategory="Distance Weapons">
     <attribute key="weight" value="4400" />
     <attribute key="attack" value="7" />
     <attribute key="weapontype" value="distance" />
@@ -21518,8 +21531,8 @@
   <item id="9500" article="a" name="banner" />
   <item id="9501" article="a" name="banner" />
   <item id="9502" article="a" name="banner" />
-  <item id="9503" article="an" name="orc trophy" />
-  <item id="9504" article="an" name="orc trophy" />
+  <item id="9503" article="an" name="orc trophy" editorsuffix="(Female)" editorcategory="Trophies" />
+  <item id="9504" article="an" name="orc trophy" editorsuffix="(Female)" editorcategory="Trophies" />
   <item id="9505" article="an" name="trophy of a strange fish" />
   <item id="9506" article="an" name="trophy of a strange fish" />
   <item id="9507" article="an" name="trophy of a strange being" />
@@ -21688,7 +21701,8 @@
   <item id="9650" article="a" name="small balcony" />
   <item id="9651" article="a" name="small balcony" />
   <item id="9652" article="a" name="small balcony" />
-  <item id="9653" article="a" name="CM token">
+  <item id="9653" article="a" name="CM token" editorcategory="Contest Prizes">
+    <attribute key="description" value="It was a gift from a community manager." />
     <attribute key="weight" value="1000" />
   </item>
   <item id="9654" article="a" name="dead vampire bride">
@@ -22892,31 +22906,31 @@
   <item id="10121" name="nothing special" />
   <item id="10122" name="nothing special" />
   <item id="10123" name="nothing special" />
-  <item id="10124" article="a" name="champion's cup">
+  <item id="10124" article="a" name="champion's cup" editorcategory="Contest Prizes">
     <attribute key="weight" value="1800" />
   </item>
-  <item id="10125" article="a" name="silver cup of honour">
+  <item id="10125" article="a" name="silver cup of honour" editorcategory="Contest Prizes">
     <attribute key="weight" value="1600" />
   </item>
-  <item id="10126" article="a" name="bronze cup of Honour">
+  <item id="10126" article="a" name="bronze cup of honour" editorcategory="Contest Prizes">
     <attribute key="weight" value="1600" />
   </item>
-  <item id="10127" article="a" name="golden warrior trophy">
-    <attribute key="weight" value="2000" />
+  <item id="10127" article="a" name="golden warrior trophy" editorcategory="Contest Prizes">
+    <attribute key="weight" value="1900" />
   </item>
-  <item id="10128" article="a" name="silver warrior trophy">
+  <item id="10128" article="a" name="silver warrior trophy" editorcategory="Contest Prizes">
     <attribute key="weight" value="1850" />
   </item>
-  <item id="10129" article="a" name="bronze warrior trophy">
+  <item id="10129" article="a" name="bronze warrior trophy" editorcategory="Contest Prizes">
     <attribute key="weight" value="1850" />
   </item>
-  <item id="10130" article="a" name="golden trophy of excellence">
-    <attribute key="weight" value="1850" />
-  </item>
-  <item id="10131" article="a" name="silver trophy of excellence">
+  <item id="10130" article="a" name="golden trophy of excellence" editorcategory="Contest Prizes">
     <attribute key="weight" value="1300" />
   </item>
-  <item id="10132" article="a" name="bronze trophy of excellence">
+  <item id="10131" article="a" name="silver trophy of excellence" editorcategory="Contest Prizes">
+    <attribute key="weight" value="1300" />
+  </item>
+  <item id="10132" article="a" name="bronze trophy of excellence" editorcategory="Contest Prizes">
     <attribute key="weight" value="1300" />
   </item>
   <item id="10133" article="a" name="gold medal" editorcategory="Contest Prizes">
@@ -23242,9 +23256,10 @@
     <attribute key="defense" value="8" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="10295" article="a" name="musician's bow">
+  <item id="10295" article="a" name="musician's bow" editorcategory="Distance Weapons">
     <attribute key="description" value="If you could only figure out how you are supposed to fire more arrows at once." />
     <attribute key="weight" value="1250" />
+    <attribute key="attack" value="0" />
     <attribute key="weapontype" value="distance" />
     <attribute key="ammotype" value="arrow" />
     <attribute key="range" value="4" />
@@ -23750,7 +23765,7 @@
   <item id="10529" article="a" name="sea serpent trophy" editorcategory="Trophies">
     <attribute key="weight" value="500" />
   </item>
-  <item id="10530" article="a" name="the famous golden bug">
+  <item id="10530" article="a" name="the famous golden bug" editorcategory="Contest Prizes">
     <attribute key="description" value="Its given to skilled discoverers of extra nasty bugs and to great scholars writing useful reports." />
     <attribute key="weight" value="1250" />
   </item>
@@ -23776,10 +23791,12 @@
   <item id="10539" name="nothing special" />
   <item id="10540" name="nothing special" />
   <item id="10541" article="a" name="statue of Fafnar" />
-  <item id="10542" article="a" name="golden lightbearer's trophy">
+  <item id="10542" article="a" name="golden Fafnar trophy" editorcategory="Valuables">
+    <attribute key="description" value="Player kept all ten fire basins burning and is one of the true lightbearers of this world." />
     <attribute key="weight" value="900" />
   </item>
-  <item id="10543" article="a" name="silver lightbearer's trophy">
+  <item id="10543" article="a" name="silver Fafnar trophy" editorcategory="Valuables">
+    <attribute key="description" value="Player helped to keep the fire basins burning and is one of the lightbearers of this world." />
     <attribute key="weight" value="900" />
   </item>
   <item id="10544" name="nothing special" />
