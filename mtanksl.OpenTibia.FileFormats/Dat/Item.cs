@@ -329,6 +329,54 @@ namespace OpenTibia.FileFormats.Dat
             }
 
             return bitmap;
-        }       
+        }    
+        
+        public Bitmap GetImage(List<Sprite> sprites, int animation, int z, int y, int x)
+        {
+            animation = Math.Min(Animations - 1, animation);
+
+            z = Math.Min(ZRepeat - 1, z);
+
+            y = Math.Min(YRepeat - 1, y);
+
+            x = Math.Min(XRepeat - 1, x);
+
+            Bitmap bitmap = new Bitmap(32 * Width, 32 * Height);
+
+            using ( Graphics graphics = Graphics.FromImage(bitmap) )
+            {
+                /*
+                int index = ZRepeat * YRepeat * XRepeat * Layers * Width * Height * animation +
+
+                            YRepeat * XRepeat * Layers * Width * Height * z +
+
+                            XRepeat * Layers * Width * Height * y +
+
+                            Layers * Width * Height * x +
+
+                            Width * Height * layer;
+                */
+
+                for (int l = 0; l < Layers; l++)
+                {
+                    int index = Width * Height * (Layers * (XRepeat * (YRepeat * (ZRepeat * animation + z) + y) + x) + l);
+
+                    for (int j = Height - 1; j >= 0; j--)
+                    {
+                        for (int i = Width - 1; i >= 0; i--)
+                        {
+                            ushort spriteId = spriteIds[index++];
+
+                            if (spriteId > 0)
+                            {
+                                graphics.DrawImage(sprites.First(sprite => sprite.Id == spriteId).GetImage(), 32 * i, 32 * j);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return bitmap;
+        }  
     }
 }
