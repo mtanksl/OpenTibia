@@ -38,10 +38,10 @@
   <item id="366" article="a" name="dirt wall" />
   <item id="367" article="a" name="dirt wall" />
   <item id="368" name="earth ground" />
-  <item id="369" article="a" name="trapdoor">
+  <item id="369" article="a" name="ladder">
     <attribute key="floorchange" value="down" />
   </item>
-  <item id="370" article="a" name="trapdoor">
+  <item id="370" article="a" name="ladder">
     <attribute key="floorchange" value="down" />
   </item>
   <item id="371" article="a" name="stone wall" />
@@ -84,13 +84,13 @@
   <item id="405" name="wooden floor" />
   <item id="406" name="white marble floor" />
   <item id="407" name="black marble floor" />
-  <item id="408" article="a" name="trapdoor">
+  <item id="408" article="a" name="ladder">
     <attribute key="floorchange" value="down" />
   </item>
-  <item id="409" article="a" name="trapdoor">
+  <item id="409" article="a" name="ladder">
     <attribute key="floorchange" value="down" />
   </item>
-  <item id="410" name="stairs">
+  <item id="410" article="a" name="trapdoor">
     <attribute key="floorchange" value="down" />
   </item>
   <item id="411" name="stairs">
@@ -123,7 +123,7 @@
   <item id="426" article="a" name="stone tile">
     <attribute key="description" value="It seems to be a switch." />
   </item>
-  <item id="427" article="a" name="trapdoor">
+  <item id="427" article="a" name="ladder">
     <attribute key="floorchange" value="down" />
   </item>
   <item id="428" article="a" name="ladder">
@@ -7510,7 +7510,7 @@
   <item id="3137" article="a" name="trapdoor">
     <attribute key="floorchange" value="down" />
   </item>
-  <item id="3138" article="a" name="stairway">
+  <item id="3138" name="stairs">
     <attribute key="floorchange" value="down" />
   </item>
   <item id="3139" name="wooden floor" />
@@ -11565,7 +11565,7 @@
   </item>
   <item id="5543" article="a" name="rope-ladder" />
   <item id="5544" article="a" name="cart" />
-  <item id="5545" article="a" name="trapdoor">
+  <item id="5545" article="a" name="ladder">
     <attribute key="floorchange" value="down" />
   </item>
   <item id="5546" article="a" name="cart" />
@@ -11949,7 +11949,7 @@
     <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
   </item>
-  <item id="5763" article="a" name="trapdoor">
+  <item id="5763" article="a" name="ladder">
     <attribute key="floorchange" value="down" />
   </item>
   <item id="5764" article="a" name="ventilation grille" />
@@ -19255,19 +19255,19 @@
     <attribute key="decayto" value="0" />
   </item>
   <item id="8275" article="a" name="void" />
-  <item id="8276" article="a" name="trapdoor">
+  <item id="8276" article="a" name="ladder">
     <attribute key="floorchange" value="down" />
   </item>
-  <item id="8277" article="a" name="trapdoor">
+  <item id="8277" article="a" name="ladder">
     <attribute key="floorchange" value="down" />
   </item>
   <item id="8278" name="dirt floor">
     <attribute key="description" value="There is a hole in the ceiling." />
   </item>
-  <item id="8279" article="a" name="trapdoor">
+  <item id="8279" article="a" name="ladder">
     <attribute key="floorchange" value="down" />
   </item>
-  <item id="8280" article="a" name="trapdoor">
+  <item id="8280" article="a" name="ladder">
     <attribute key="floorchange" value="down" />
   </item>
   <item id="8281" article="a" name="trapdoor">
@@ -19279,10 +19279,10 @@
   <item id="8283" name="stairs">
     <attribute key="floorchange" value="down" />
   </item>
-  <item id="8284" article="a" name="trapdoor">
+  <item id="8284" article="a" name="ladder">
     <attribute key="floorchange" value="down" />
   </item>
-  <item id="8285" article="a" name="trapdoor">
+  <item id="8285" article="a" name="ladder">
     <attribute key="floorchange" value="down" />
   </item>
   <item id="8286" article="a" name="trapdoor">
@@ -19723,7 +19723,7 @@
   <item id="8581" article="a" name="Zirella's cart" editorsuffix="(Tutorial)" />
   <item id="8577" />
   <item id="8578" name="grass" />
-  <item id="8579" article="a" name="hole" />
+  <item id="8579" article="a" name="stone pile" />
   <item id="8580" article="a" name="grate" />
   <item id="8581" article="a" name="wooden cart" />
   <item id="8582" article="a" name="branch" />
@@ -19757,7 +19757,7 @@
     <attribute key="fluidsource" value="slime" />
   </item>
   <item id="8594" name="dirt" />
-  <item id="8595" article="a" name="trapdoor">
+  <item id="8595" article="a" name="ladder">
     <attribute key="floorchange" value="down" />
   </item>
   <item id="8596" article="a" name="trapdoor">
