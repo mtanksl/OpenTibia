@@ -614,6 +614,6 @@
 		wineCasks = { 1773 },
 		worm = 3976,
 		woodens = { 5901 },
-		woodenTies = 2255 --TODO
+		woodenTies = 10033
 	}
 }
