@@ -56,7 +56,7 @@
 
         WhirlWindClub = 27,
 
-        EthernalSpear = 28,
+        EtherenalSpear = 28,
 
         Ice = 29,
 

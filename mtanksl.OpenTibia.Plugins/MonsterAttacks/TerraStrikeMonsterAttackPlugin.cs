@@ -4,7 +4,7 @@ namespace OpenTibia.Plugins.MonsterAttacks
 {
     public class TerraStrikeMonsterAttackPlugin : BaseRuneTargetMonsterAttackPlugin
     {
-        public TerraStrikeMonsterAttackPlugin() : base(ProjectileType.Poison, MagicEffectType.Carniphilia, DamageType.Earth)
+        public TerraStrikeMonsterAttackPlugin() : base(ProjectileType.Poison, MagicEffectType.Carniphila, DamageType.Earth)
         {
 
         }

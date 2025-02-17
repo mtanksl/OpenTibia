@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Structures;
 using System;
+using System.Collections.Generic;
 using System.Xml.Linq;
 
 namespace OpenTibia.FileFormats.Xml.Items
@@ -15,6 +16,12 @@ namespace OpenTibia.FileFormats.Xml.Items
             item.Article = (string)itemNode.Attribute("article");
 
             item.Name = (string)itemNode.Attribute("name");
+
+            item.Plural = (string)itemNode.Attribute("plural");
+
+            item.EditorSuffix = (string)itemNode.Attribute("editorsuffix");
+
+            item.EditorCategory = (string)itemNode.Attribute("editorcategory");
 
             item.Plural = (string)itemNode.Attribute("plural");
 
@@ -44,9 +51,15 @@ namespace OpenTibia.FileFormats.Xml.Items
 
                         break;
 
-                    case "editorSuffix":
+                    case "editorsuffix":
 
                         item.EditorSuffix = (string)value;
+
+                        break;
+
+                    case "editorcategory":
+
+                        item.EditorCategory = (string)value;
 
                         break;
 
@@ -133,7 +146,31 @@ namespace OpenTibia.FileFormats.Xml.Items
                                 floorChange |= Common.Structures.FloorChange.East;
 
                                 break;
-	                    }
+
+                            case "northeast":
+
+                                floorChange |= Common.Structures.FloorChange.NorthEast;
+
+                                break;
+
+                            case "northwest":
+
+                                floorChange |= Common.Structures.FloorChange.NorthWest;
+
+                                break;
+
+                            case "southwest":
+
+                                floorChange |= Common.Structures.FloorChange.SouthWest;
+
+                                break;
+
+                            case "southeast":
+
+                                floorChange |= Common.Structures.FloorChange.SouthEast;
+
+                                break;
+                        }
 
                         if (item.FloorChange == null)
                         {
@@ -370,12 +407,14 @@ namespace OpenTibia.FileFormats.Xml.Items
                                 break;
 
                             case "death":
+                            case "skull":
 
                                 item.ProjectileType = Common.Structures.ProjectileType.Skull;
 
                                 break;
 
                             case "largerock":
+                            case "bigstone":
 
                                 item.ProjectileType = Common.Structures.ProjectileType.BigStone;
 
@@ -418,12 +457,14 @@ namespace OpenTibia.FileFormats.Xml.Items
                                 break;
 
                             case "redstar":
+                            case "assassinstar":
 
                                 item.ProjectileType = Common.Structures.ProjectileType.AssassinStar;
 
                                 break;
 
                             case "greenstar":
+                            case "viperstar":
 
                                 item.ProjectileType = Common.Structures.ProjectileType.ViperStar;
 
@@ -473,7 +514,7 @@ namespace OpenTibia.FileFormats.Xml.Items
 
                             case "etherealspear":
 
-                                item.ProjectileType = Common.Structures.ProjectileType.EthernalSpear;
+                                item.ProjectileType = Common.Structures.ProjectileType.EtherenalSpear;
 
                                 break;
 
@@ -507,7 +548,6 @@ namespace OpenTibia.FileFormats.Xml.Items
 
                                 break;
 
-                            case "flammingarrow":
                             case "flamingarrow":
 
                                 item.ProjectileType = Common.Structures.ProjectileType.FlamingArrow;
@@ -521,24 +561,28 @@ namespace OpenTibia.FileFormats.Xml.Items
                                 break;
 
                             case "energyball":
+                            case "energysmall":
 
                                 item.ProjectileType = Common.Structures.ProjectileType.EnergySmall;
 
                                 break;
 
                             case "smallice":
+                            case "icesmall":
 
                                 item.ProjectileType = Common.Structures.ProjectileType.IceSmall;
 
                                 break;
 
                             case "smallholy":
+                            case "holysmall":
 
                                 item.ProjectileType = Common.Structures.ProjectileType.HolySmall;
 
                                 break;
 
                             case "smallearth":
+                            case "earthsmall":
 
                                 item.ProjectileType = Common.Structures.ProjectileType.EarthSmall;
 
@@ -576,13 +620,15 @@ namespace OpenTibia.FileFormats.Xml.Items
                                 break;
                             
                             case "bluebubble":
-                            
+                            case "bluerings":
+
                                 item.MagicEffectType = Common.Structures.MagicEffectType.BlueRings;
                                 
                                 break;
                             
                             case "poff":
-                            
+                            case "puff":
+
                                 item.MagicEffectType = Common.Structures.MagicEffectType.Puff;
                                 
                                 break;
@@ -600,7 +646,8 @@ namespace OpenTibia.FileFormats.Xml.Items
                                 break;
                             
                             case "explosion":
-                            
+                            case "explosiondamage":
+
                                 item.MagicEffectType = Common.Structures.MagicEffectType.ExplosionDamage;
                                 
                                 break;
@@ -612,13 +659,15 @@ namespace OpenTibia.FileFormats.Xml.Items
                                 break;
                             
                             case "yellowbubble":
-                            
+                            case "yellowrings":
+
                                 item.MagicEffectType = Common.Structures.MagicEffectType.YellowRings;
                                 
                                 break;
                             
                             case "greenbubble":
-                            
+                            case "greenrings":
+
                                 item.MagicEffectType = Common.Structures.MagicEffectType.GreenRings;
 
                                 break;
@@ -636,7 +685,8 @@ namespace OpenTibia.FileFormats.Xml.Items
                                 break;
                             
                             case "energy":
-                            
+                            case "energydamage":
+
                                 item.MagicEffectType = Common.Structures.MagicEffectType.EnergyDamage;
                                 
                                 break;
@@ -660,7 +710,8 @@ namespace OpenTibia.FileFormats.Xml.Items
                                 break;
                             
                             case "fire":
-                            
+                            case "firedamage":
+
                                 item.MagicEffectType = Common.Structures.MagicEffectType.FireDamage;
                                 
                                 break;
@@ -676,42 +727,52 @@ namespace OpenTibia.FileFormats.Xml.Items
                                 item.MagicEffectType = Common.Structures.MagicEffectType.MortArea;
                                 
                                 break;
+
                             case "greennote":
-                      
+                            case "greennotes":
+
                                 item.MagicEffectType = Common.Structures.MagicEffectType.GreenNotes;
                                 
                                 break;
                            
                             case "rednote":
-                          
+                            case "rednotes":
+
                                 item.MagicEffectType = Common.Structures.MagicEffectType.RedNotes;
                                 
                                 break;
                          
                             case "poison":
-                            
+                            case "poisonarea":
+
                                 item.MagicEffectType = Common.Structures.MagicEffectType.PoisonArea;
                                 
                                 break;
+
                             case "yellownote":
-                         
+                            case "yellownotes":
+
                                 item.MagicEffectType = Common.Structures.MagicEffectType.YellowNotes;
                                 
                                 break;
                          
                             case "purplenote":
-                            
+                            case "purplenotes":
+
                                 item.MagicEffectType = Common.Structures.MagicEffectType.PurpleNotes;
                                 
                                 break;
+
                             case "bluenote":
-                         
+                            case "bluenotes":
+
                                 item.MagicEffectType = Common.Structures.MagicEffectType.BlueNotes;
                                 
                                 break;
                       
                             case "whitenote":
-                            
+                            case "whitenotes":
+
                                 item.MagicEffectType = Common.Structures.MagicEffectType.WhiteNotes;
                                 
                                 break;
@@ -735,22 +796,26 @@ namespace OpenTibia.FileFormats.Xml.Items
                                 break;
                          
                             case "yellowfirework":
-                            
+                            case "fireworkyellow":
+
                                 item.MagicEffectType = Common.Structures.MagicEffectType.FireworkYellow;
                                 
                                 break;
                         
                             case "redfirework":
-                            
+                            case "fireworkred":
+
                                 item.MagicEffectType = Common.Structures.MagicEffectType.FireworkRed;
                                 
                                 break;
                         
                             case "bluefirework":
-                            
+                            case "fireworkblue":
+
                                 item.MagicEffectType = Common.Structures.MagicEffectType.FireworkBlue;
                                 
                                 break;
+
                             case "stun":
                         
                                 item.MagicEffectType = Common.Structures.MagicEffectType.Stun;
@@ -824,7 +889,8 @@ namespace OpenTibia.FileFormats.Xml.Items
                                 break;
                        
                             case "iceattack":
-                            
+                            case "icedamage":
+
                                 item.MagicEffectType = Common.Structures.MagicEffectType.IceDamage;
                                 
                                 break;
@@ -842,19 +908,21 @@ namespace OpenTibia.FileFormats.Xml.Items
                                 break;
                           
                             case "carniphila":
-                                
-                                item.MagicEffectType = Common.Structures.MagicEffectType.Carniphilia;
+
+                                item.MagicEffectType = Common.Structures.MagicEffectType.Carniphila;
                                 
                                 break;
                           
                             case "purpleenergy":
-                                
+                            case "purpleenergydamage":
+
                                 item.MagicEffectType = Common.Structures.MagicEffectType.PurpleEnergyDamage;
                                 
                                 break;
                           
                             case "yellowenergy":
-                          
+                            case "yellowenergydamage":
+
                                 item.MagicEffectType = Common.Structures.MagicEffectType.YellowEnergyDamage;
                                 
                                 break;
@@ -864,6 +932,7 @@ namespace OpenTibia.FileFormats.Xml.Items
                                 item.MagicEffectType = Common.Structures.MagicEffectType.HolyArea;
                                 
                                 break;
+
                             case "bigplants":
                          
                                 item.MagicEffectType = Common.Structures.MagicEffectType.BigPlants;
@@ -1011,6 +1080,7 @@ namespace OpenTibia.FileFormats.Xml.Items
                                 break;
 
                             case "body":
+                            case "armor":
 
                                 slotType |= Common.Structures.SlotType.Armor;
 
@@ -1029,18 +1099,21 @@ namespace OpenTibia.FileFormats.Xml.Items
                                 break;
 
                             case "backpack":
+                            case "container":
 
                                 slotType |= Common.Structures.SlotType.Container;
 
                                 break;
 
                             case "two-handed":
+                            case "twohanded":
 
                                 slotType |= Common.Structures.SlotType.TwoHand;
 
                                 break;
 
                             case "necklace":
+                            case "amulet":
 
                                 slotType |= Common.Structures.SlotType.Amulet;
 
@@ -1053,6 +1126,7 @@ namespace OpenTibia.FileFormats.Xml.Items
                                 break;
 
                             case "ammo":
+                            case "extra":
 
                                 slotType |= Common.Structures.SlotType.Extra;
 
@@ -1088,6 +1162,7 @@ namespace OpenTibia.FileFormats.Xml.Items
                         {
                             case "removecount":
                             case "removecharge":
+                            case "remove":
 
                                 item.AmmoAction = Common.Structures.AmmoAction.Remove;
 
@@ -1194,7 +1269,7 @@ namespace OpenTibia.FileFormats.Xml.Items
 
                     case "absorbpercentearth":
 
-                        item.AbsorbEarthpercent = (int)value;
+                        item.AbsorbEarthPercent = (int)value;
 
                         break;
 
@@ -1293,6 +1368,17 @@ namespace OpenTibia.FileFormats.Xml.Items
                         item.SkillModifierFish = (int)value;
 
                         break;
+
+                    default:
+
+                        if (item.Unused == null)
+                        {
+                            item.Unused = new Dictionary<string, string>();
+                        }
+
+                        item.Unused[key.Value] = value.Value;
+
+                        break;
                 }
             }
 
@@ -1308,6 +1394,8 @@ namespace OpenTibia.FileFormats.Xml.Items
         public string Plural { get; set; }
 
         public string EditorSuffix { get; set; }
+
+        public string EditorCategory { get; set; }
 
         public string Description { get; set; }
 
@@ -1377,7 +1465,7 @@ namespace OpenTibia.FileFormats.Xml.Items
 
         public int? AbsorbPhysicalPercent { get; set; }
 
-        public int? AbsorbEarthpercent { get; set; }
+        public int? AbsorbEarthPercent { get; set; }
 
         public int? AbsorbFirePercent { get; set; }
 
@@ -1414,5 +1502,7 @@ namespace OpenTibia.FileFormats.Xml.Items
         public int? SkillModifierShield { get; set; }
 
         public int? SkillModifierFish { get; set; }
+
+        public Dictionary<string, string> Unused { get; set; }
     }
 }

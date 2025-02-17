@@ -130,7 +130,7 @@
 
         SmallPlants = 46,
 
-        Carniphilia = 47,
+        Carniphila = 47,
 
         /// <summary>
         /// Physical Damage (energy race)

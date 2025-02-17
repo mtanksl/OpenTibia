@@ -4,7 +4,7 @@ namespace OpenTibia.Plugins.MonsterAttacks
 {
     public class EtherealSpearMonsterAttackPlugin : BaseRuneTargetMonsterAttackPlugin
     {
-        public EtherealSpearMonsterAttackPlugin() : base(ProjectileType.EthernalSpear, MagicEffectType.GroundShaker, DamageType.Physical)
+        public EtherealSpearMonsterAttackPlugin() : base(ProjectileType.EtherenalSpear, MagicEffectType.GroundShaker, DamageType.Physical)
         {
 
         }

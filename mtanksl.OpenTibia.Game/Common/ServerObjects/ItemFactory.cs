@@ -314,9 +314,9 @@ namespace OpenTibia.Game.Common.ServerObjects
                     metadata.DamageTakenFromElements[DamageType.Physical] = (100 - xmlItem.AbsorbPhysicalPercent.Value) / 100.0;
                 }
                     
-                if (xmlItem.AbsorbEarthpercent != null)
+                if (xmlItem.AbsorbEarthPercent != null)
                 {
-                    metadata.DamageTakenFromElements[DamageType.Earth] = (100 - xmlItem.AbsorbEarthpercent.Value) / 100.0;
+                    metadata.DamageTakenFromElements[DamageType.Earth] = (100 - xmlItem.AbsorbEarthPercent.Value) / 100.0;
                 }
                     
                 if (xmlItem.AbsorbFirePercent != null)
