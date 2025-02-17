@@ -9,11 +9,11 @@ namespace OpenTibia.Common.Structures
 
        Head = 1,
 
-       Amulet = 2,
+       Necklace = 2,
 
-       Container = 4,
+       Backpack = 4,
 
-       Armor = 8,
+       Body = 8,
 
        Right = 16,
 
@@ -27,11 +27,11 @@ namespace OpenTibia.Common.Structures
 
        Ring = 256,
 
-       Extra = 512,
+       Ammo = 512,
 
-       TwoHand = 1024,
+       TwoHanded = 1024,
 
-       Any = Head | Amulet | Container | Armor | Right | Left | Legs | Feet | Ring | Extra
+       Any = Head | Necklace | Backpack | Body | Right | Left | Legs | Feet | Ring | Ammo
     }
 
     public static class SlotTypeExtensions

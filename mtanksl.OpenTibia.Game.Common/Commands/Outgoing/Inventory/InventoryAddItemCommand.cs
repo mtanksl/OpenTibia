@@ -43,13 +43,13 @@ namespace OpenTibia.Game.Commands
             await Context.AddCommand(new CreatureUpdateLightCommand(Inventory.Player, Inventory.Player.ConditionLight, maxLightLevel) );
 
             if (Item.Metadata.SlotType == SlotType.Head && (Slot)slot == Slot.Head ||
-                Item.Metadata.SlotType == SlotType.Amulet && (Slot)slot == Slot.Amulet ||
-                Item.Metadata.SlotType == SlotType.Container && (Slot)slot == Slot.Container ||
-                Item.Metadata.SlotType == SlotType.Armor && (Slot)slot == Slot.Armor ||
-                (Item.Metadata.SlotType == SlotType.Hand || Item.Metadata.SlotType == SlotType.TwoHand) && ( (Slot)slot == Slot.Left || (Slot)slot == Slot.Right) ||
+                Item.Metadata.SlotType == SlotType.Necklace && (Slot)slot == Slot.Necklace ||
+                Item.Metadata.SlotType == SlotType.Backpack && (Slot)slot == Slot.Backpack ||
+                Item.Metadata.SlotType == SlotType.Body && (Slot)slot == Slot.Body ||
+                (Item.Metadata.SlotType == SlotType.Hand || Item.Metadata.SlotType == SlotType.TwoHanded) && ( (Slot)slot == Slot.Left || (Slot)slot == Slot.Right) ||
                 Item.Metadata.SlotType == SlotType.Feet && (Slot)slot == Slot.Feet ||
                 Item.Metadata.SlotType == SlotType.Ring && (Slot)slot == Slot.Ring ||
-                Item.Metadata.SlotType == SlotType.Extra && (Slot)slot == Slot.Extra)
+                Item.Metadata.SlotType == SlotType.Ammo && (Slot)slot == Slot.Ammo)
             {
                 if (Item.Metadata.OpenTibiaId == stealthRing)
                 {

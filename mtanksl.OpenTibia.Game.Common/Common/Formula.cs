@@ -516,7 +516,7 @@ namespace OpenTibia.Game.Common
 
         public static Item GetAmmunition(Player player)
         {
-            Item item = (Item)player.Inventory.GetContent( (byte)Slot.Extra);
+            Item item = (Item)player.Inventory.GetContent( (byte)Slot.Ammo);
 
             if (item != null && item.Metadata.WeaponType == WeaponType.Ammo)
             {

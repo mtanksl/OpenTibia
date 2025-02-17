@@ -21,11 +21,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                     if (command.Item.Metadata.SlotType == null)
                     {
-                        slotType = SlotType.Left | SlotType.Right | SlotType.Extra;
+                        slotType = SlotType.Left | SlotType.Right | SlotType.Ammo;
                     }
                     else
                     {
-                        slotType = command.Item.Metadata.SlotType.Value | SlotType.Left | SlotType.Right | SlotType.Extra;
+                        slotType = command.Item.Metadata.SlotType.Value | SlotType.Left | SlotType.Right | SlotType.Ammo;
                     }
 
                     bool proceed = false;
@@ -41,27 +41,27 @@ namespace OpenTibia.Game.CommandHandlers
 
                             break;
 
-                        case Slot.Amulet:
+                        case Slot.Necklace:
 
-                            if (slotType.Is(SlotType.Amulet) )
+                            if (slotType.Is(SlotType.Necklace) )
                             {
                                 proceed = true;
                             }
 
                             break;
 
-                        case Slot.Container:
+                        case Slot.Backpack:
 
-                            if (slotType.Is(SlotType.Container) )
+                            if (slotType.Is(SlotType.Backpack) )
                             {
                                 proceed = true;
                             }
 
                             break;
 
-                        case Slot.Armor:
+                        case Slot.Body:
 
-                            if (slotType.Is(SlotType.Armor) )
+                            if (slotType.Is(SlotType.Body) )
                             {
                                 proceed = true;
                             }
@@ -92,9 +92,9 @@ namespace OpenTibia.Game.CommandHandlers
                                         proceed = true;
                                     }
                                 }
-                                else if ( !slotType.Is(SlotType.TwoHand) && 
+                                else if ( !slotType.Is(SlotType.TwoHanded) && 
 
-                                          left.Metadata.SlotType != SlotType.TwoHand && 
+                                          left.Metadata.SlotType != SlotType.TwoHanded && 
 
                                           !(command.Item.Metadata.WeaponType == WeaponType.Shield && left.Metadata.WeaponType == WeaponType.Shield) &&
 
@@ -130,9 +130,9 @@ namespace OpenTibia.Game.CommandHandlers
                                         proceed = true;
                                     }
                                 }
-                                else if ( !slotType.Is(SlotType.TwoHand) &&
+                                else if ( !slotType.Is(SlotType.TwoHanded) &&
 
-                                          right.Metadata.SlotType != SlotType.TwoHand && 
+                                          right.Metadata.SlotType != SlotType.TwoHanded && 
 
                                           !(command.Item.Metadata.WeaponType == WeaponType.Shield && right.Metadata.WeaponType == WeaponType.Shield) &&
 
@@ -171,9 +171,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                             break;
 
-                        case Slot.Extra:
+                        case Slot.Ammo:
 
-                            if (slotType.Is(SlotType.Extra) )
+                            if (slotType.Is(SlotType.Ammo) )
                             {
                                 proceed = true;
                             }

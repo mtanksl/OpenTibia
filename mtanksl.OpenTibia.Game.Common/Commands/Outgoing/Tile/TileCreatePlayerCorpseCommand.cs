@@ -45,7 +45,7 @@ namespace OpenTibia.Game.Commands
 
                     if (DropAll)
                     {
-                        Item amulet = (Item)Player.Inventory.GetContent( (byte)Slot.Amulet);
+                        Item amulet = (Item)Player.Inventory.GetContent( (byte)Slot.Necklace);
 
                         if (amulet != null && amulet.Metadata.OpenTibiaId == amuletOfLoss)
                         {
@@ -62,7 +62,7 @@ namespace OpenTibia.Game.Commands
                     }
                     else
                     {
-                        Item amulet = (Item)Player.Inventory.GetContent( (byte)Slot.Amulet);
+                        Item amulet = (Item)Player.Inventory.GetContent( (byte)Slot.Necklace);
 
                         if (amulet != null && amulet.Metadata.OpenTibiaId == amuletOfLoss)
                         {

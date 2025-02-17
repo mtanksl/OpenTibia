@@ -45,13 +45,13 @@ namespace OpenTibia.Game.Commands
             await Context.AddCommand(new CreatureUpdateLightCommand(Inventory.Player, Inventory.Player.ConditionLight, maxLightLevel) );
 
             if (FromItem.Metadata.SlotType == SlotType.Head && (Slot)slot == Slot.Head ||
-                FromItem.Metadata.SlotType == SlotType.Amulet && (Slot)slot == Slot.Amulet ||
-                FromItem.Metadata.SlotType == SlotType.Container && (Slot)slot == Slot.Container ||
-                FromItem.Metadata.SlotType == SlotType.Armor && (Slot)slot == Slot.Armor ||
-                (FromItem.Metadata.SlotType == SlotType.Hand || FromItem.Metadata.SlotType == SlotType.TwoHand) && ( (Slot)slot == Slot.Left || (Slot)slot == Slot.Right) ||
+                FromItem.Metadata.SlotType == SlotType.Necklace && (Slot)slot == Slot.Necklace ||
+                FromItem.Metadata.SlotType == SlotType.Backpack && (Slot)slot == Slot.Backpack ||
+                FromItem.Metadata.SlotType == SlotType.Body && (Slot)slot == Slot.Body ||
+                (FromItem.Metadata.SlotType == SlotType.Hand || FromItem.Metadata.SlotType == SlotType.TwoHanded) && ( (Slot)slot == Slot.Left || (Slot)slot == Slot.Right) ||
                 FromItem.Metadata.SlotType == SlotType.Feet && (Slot)slot == Slot.Feet ||
                 FromItem.Metadata.SlotType == SlotType.Ring && (Slot)slot == Slot.Ring ||
-                FromItem.Metadata.SlotType == SlotType.Extra && (Slot)slot == Slot.Extra)
+                FromItem.Metadata.SlotType == SlotType.Ammo && (Slot)slot == Slot.Ammo)
             {
                 if (FromItem.Metadata.OpenTibiaId == stealthRing)
                 {
@@ -70,13 +70,13 @@ namespace OpenTibia.Game.Commands
             }
 
             if (ToItem.Metadata.SlotType == SlotType.Head && (Slot)slot == Slot.Head ||
-                ToItem.Metadata.SlotType == SlotType.Amulet && (Slot)slot == Slot.Amulet ||
-                ToItem.Metadata.SlotType == SlotType.Container && (Slot)slot == Slot.Container ||
-                ToItem.Metadata.SlotType == SlotType.Armor && (Slot)slot == Slot.Armor ||
-                (ToItem.Metadata.SlotType == SlotType.Hand || ToItem.Metadata.SlotType == SlotType.TwoHand) && ( (Slot)slot == Slot.Left || (Slot)slot == Slot.Right) ||
+                ToItem.Metadata.SlotType == SlotType.Necklace && (Slot)slot == Slot.Necklace ||
+                ToItem.Metadata.SlotType == SlotType.Backpack && (Slot)slot == Slot.Backpack ||
+                ToItem.Metadata.SlotType == SlotType.Body && (Slot)slot == Slot.Body ||
+                (ToItem.Metadata.SlotType == SlotType.Hand || ToItem.Metadata.SlotType == SlotType.TwoHanded) && ( (Slot)slot == Slot.Left || (Slot)slot == Slot.Right) ||
                 ToItem.Metadata.SlotType == SlotType.Feet && (Slot)slot == Slot.Feet ||
                 ToItem.Metadata.SlotType == SlotType.Ring && (Slot)slot == Slot.Ring ||
-                ToItem.Metadata.SlotType == SlotType.Extra && (Slot)slot == Slot.Extra)
+                ToItem.Metadata.SlotType == SlotType.Ammo && (Slot)slot == Slot.Ammo)
             {
                 if (ToItem.Metadata.OpenTibiaId == stealthRing)
                 {

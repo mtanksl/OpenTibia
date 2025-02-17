@@ -287,9 +287,9 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                 metadata.MaxHitChance = xmlItem.MaxHitChance;
 
-                if (metadata.WeaponType == WeaponType.Distance && metadata.SlotType != SlotType.Extra && metadata.MaxHitChance == null)
+                if (metadata.WeaponType == WeaponType.Distance && metadata.SlotType != SlotType.Ammo && metadata.MaxHitChance == null)
                 {
-                    if (metadata.SlotType == SlotType.TwoHand)
+                    if (metadata.SlotType == SlotType.TwoHanded)
                     {
                         metadata.MaxHitChance = 90;
                     }

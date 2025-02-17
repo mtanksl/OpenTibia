@@ -6,11 +6,11 @@
 
         Head = 1,
 
-        Amulet = 2,
+        Necklace = 2,
 
-        Container = 3,
+        Backpack = 3,
 
-        Armor = 4,
+        Body = 4,
 
         Right = 5,
 
@@ -22,6 +22,6 @@
 
         Ring = 9,
 
-        Extra = 10
+        Ammo = 10
     }
 }

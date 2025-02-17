@@ -65,7 +65,7 @@ namespace OpenTibia.Common.Objects
 
         public byte? Range { get; set; }
 
-        public byte? Charges { get; set; }
+        public int? Charges { get; set; }
 
         public SlotType? SlotType { get; set; }
 

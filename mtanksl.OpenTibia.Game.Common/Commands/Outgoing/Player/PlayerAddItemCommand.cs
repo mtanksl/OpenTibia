@@ -25,7 +25,7 @@ namespace OpenTibia.Game.Commands
 
             if (weight <= capacity)
             {
-                Container toContainer = Player.Inventory.GetContent( (byte)Slot.Container) as Container;
+                Container toContainer = Player.Inventory.GetContent( (byte)Slot.Backpack) as Container;
 
                 if (toContainer != null)
                 {
@@ -35,7 +35,7 @@ namespace OpenTibia.Game.Commands
                     }
                 }
 
-                toContainer = Player.Inventory.GetContent( (byte)Slot.Extra) as Container;
+                toContainer = Player.Inventory.GetContent( (byte)Slot.Ammo) as Container;
 
                 if (toContainer != null)
                 {
@@ -45,11 +45,11 @@ namespace OpenTibia.Game.Commands
                     }
                 }
 
-                Item toItem = (Item)Player.Inventory.GetContent( (byte)Slot.Extra);
+                Item toItem = (Item)Player.Inventory.GetContent( (byte)Slot.Ammo);
 
                 if (toItem == null)
                 {
-                    return Context.AddCommand(new InventoryAddItemCommand(Player.Inventory, (byte)Slot.Extra, Item) );
+                    return Context.AddCommand(new InventoryAddItemCommand(Player.Inventory, (byte)Slot.Ammo, Item) );
                 }
             }
 

@@ -1016,7 +1016,7 @@ namespace OpenTibia.FileFormats.Xml.Items
 
                     case "charges":
 
-                        item.Charges = (byte)(int)value;
+                        item.Charges = (int)value;
 
                         break;
 
@@ -1033,9 +1033,8 @@ namespace OpenTibia.FileFormats.Xml.Items
                                 break;
 
                             case "body":
-                            case "armor":
 
-                                slotType |= Common.Structures.SlotType.Armor;
+                                slotType |= Common.Structures.SlotType.Body;
 
                                 break;
 
@@ -1052,23 +1051,21 @@ namespace OpenTibia.FileFormats.Xml.Items
                                 break;
 
                             case "backpack":
-                            case "container":
 
-                                slotType |= Common.Structures.SlotType.Container;
+                                slotType |= Common.Structures.SlotType.Backpack;
 
                                 break;
 
                             case "two-handed":
                             case "twohanded":
 
-                                slotType |= Common.Structures.SlotType.TwoHand;
+                                slotType |= Common.Structures.SlotType.TwoHanded;
 
                                 break;
 
                             case "necklace":
-                            case "amulet":
 
-                                slotType |= Common.Structures.SlotType.Amulet;
+                                slotType |= Common.Structures.SlotType.Necklace;
 
                                 break;
 
@@ -1079,9 +1076,8 @@ namespace OpenTibia.FileFormats.Xml.Items
                                 break;
 
                             case "ammo":
-                            case "extra":
 
-                                slotType |= Common.Structures.SlotType.Extra;
+                                slotType |= Common.Structures.SlotType.Ammo;
 
                                 break;
 
@@ -1400,7 +1396,7 @@ namespace OpenTibia.FileFormats.Xml.Items
 
         public byte? Range { get; set; }
 
-        public byte? Charges { get; set; }
+        public int? Charges { get; set; }
 
         public SlotType? SlotType { get; set; }
 
@@ -1437,8 +1433,6 @@ namespace OpenTibia.FileFormats.Xml.Items
         public int? AbsorbLifeDrainPercent { get; set; }
 
         public int? SpeedModifier { get; set; }
-
-        public int? SkillModifier { get; set; }
 
         public int? SkillModifierMagicLevel { get; set; }
 
