@@ -44,6 +44,12 @@ namespace OpenTibia.FileFormats.Xml.Items
 
                         break;
 
+                    case "editorSuffix":
+
+                        item.EditorSuffix = (string)value;
+
+                        break;
+
                     case "description":
 
                         item.Description = (string)value;
@@ -1300,6 +1306,8 @@ namespace OpenTibia.FileFormats.Xml.Items
         public string Name { get; set; }
 
         public string Plural { get; set; }
+
+        public string EditorSuffix { get; set; }
 
         public string Description { get; set; }
 

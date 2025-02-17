@@ -2,6 +2,8 @@
 {
     public enum ExtraInfo : ushort
     {
+        None = 0,
+
         Ladder = 1100,
                 
         SewerGate = 1101,

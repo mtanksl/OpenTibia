@@ -34,7 +34,9 @@
 
         Lava = 26,
 
-        Rum = 27
+        Rum = 27,
+
+        Swamp = 28
     }
 
     public static class FluidTypeExtensions
@@ -106,6 +108,10 @@
                 case FluidType.Rum:
 
                     return "rum";
+
+                case FluidType.Swamp:
+
+                    return "swamp";
             }
 
             return null;
