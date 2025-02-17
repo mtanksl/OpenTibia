@@ -1960,33 +1960,33 @@
   <item id="1854" article="a" name="picture">
     <attribute key="weight" value="1000" />
   </item>
-  <item id="1855" article="a" name="purple tapestry" />
-  <item id="1856" article="a" name="purple tapestry" />
+  <item id="1855" article="a" name="purple tapestry" editorcategory="Decorations" />
+  <item id="1856" article="a" name="purple tapestry" editorcategory="Decorations" />
   <item id="1857" article="a" name="purple tapestry" editorcategory="Decorations">
     <attribute key="weight" value="1000" />
   </item>
-  <item id="1858" article="a" name="green tapestry" />
-  <item id="1859" article="a" name="green tapestry" />
+  <item id="1858" article="a" name="green tapestry" editorcategory="Decorations" />
+  <item id="1859" article="a" name="green tapestry" editorcategory="Decorations" />
   <item id="1860" article="a" name="green tapestry" editorcategory="Decorations">
     <attribute key="weight" value="1000" />
   </item>
-  <item id="1861" article="a" name="yellow tapestry" />
-  <item id="1862" article="a" name="yellow tapestry" />
+  <item id="1861" article="a" name="yellow tapestry" editorcategory="Decorations" />
+  <item id="1862" article="a" name="yellow tapestry" editorcategory="Decorations" />
   <item id="1863" article="a" name="yellow tapestry" editorcategory="Decorations">
     <attribute key="weight" value="1000" />
   </item>
-  <item id="1864" article="an" name="orange tapestry" />
-  <item id="1865" article="an" name="orange tapestry" />
+  <item id="1864" article="an" name="orange tapestry" editorcategory="Decorations" />
+  <item id="1865" article="an" name="orange tapestry" editorcategory="Decorations" />
   <item id="1866" article="an" name="orange tapestry" editorcategory="Decorations">
     <attribute key="weight" value="1000" />
   </item>
-  <item id="1867" article="a" name="red tapestry" />
-  <item id="1868" article="a" name="red tapestry" />
+  <item id="1867" article="a" name="red tapestry" editorcategory="Decorations" />
+  <item id="1868" article="a" name="red tapestry" editorcategory="Decorations" />
   <item id="1869" article="a" name="red tapestry" editorcategory="Decorations">
     <attribute key="weight" value="1000" />
   </item>
-  <item id="1870" article="a" name="blue tapestry" />
-  <item id="1871" article="a" name="blue tapestry" />
+  <item id="1870" article="a" name="blue tapestry" editorsuffix="Decorations" />
+  <item id="1871" article="a" name="blue tapestry" editorsuffix="Decorations" />
   <item id="1872" article="a" name="blue tapestry" editorcategory="Decorations">
     <attribute key="weight" value="1000" />
   </item>
@@ -2009,8 +2009,8 @@
   <item id="1877" article="a" name="cuckoo clock">
     <attribute key="weight" value="800" />
   </item>
-  <item id="1878" article="a" name="white tapestry" />
-  <item id="1879" article="a" name="white tapestry" />
+  <item id="1878" article="a" name="white tapestry" editorcategory="Decorations" />
+  <item id="1879" article="a" name="white tapestry" editorcategory="Decorations" />
   <item id="1880" article="a" name="white tapestry" editorcategory="Decorations">
     <attribute key="weight" value="1000" />
   </item>
@@ -2920,9 +2920,9 @@
   <item id="2174" article="a" name="strange symbol">
     <attribute key="weight" value="200" />
   </item>
-  <item id="2175" article="a" name="spellbook">
+  <item id="2175" article="a" name="spellbook" editorcategory="Spellbooks">
     <attribute key="description" value="It shows your spells and can also shield against attacks when worn." />
-    <attribute key="weight" value="5800" />
+    <attribute key="weight" value="1800" />
     <attribute key="defense" value="14" />
     <attribute key="weapontype" value="shield" />
   </item>
@@ -4706,177 +4706,181 @@
     <attribute key="armor" value="7" />
     <attribute key="slottype" value="body" />
   </item>
-  <item id="2509" article="a" name="steel shield">
+  <item id="2509" article="a" name="steel shield" editorcategory="Shields">
     <attribute key="weight" value="6900" />
     <attribute key="defense" value="21" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="2510" article="a" name="plate shield">
+  <item id="2510" article="a" name="plate shield" editorcategory="Shields">
     <attribute key="weight" value="6500" />
     <attribute key="defense" value="17" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="2511" article="a" name="brass shield">
+  <item id="2511" article="a" name="brass shield" editorcategory="Shields">
     <attribute key="weight" value="6000" />
     <attribute key="defense" value="16" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="2512" article="a" name="wooden shield">
+  <item id="2512" article="a" name="wooden shield" editorcategory="Shields">
     <attribute key="weight" value="4000" />
     <attribute key="defense" value="14" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="2513" article="a" name="battle shield">
+  <item id="2513" article="a" name="battle shield" editorcategory="Shields">
     <attribute key="weight" value="6200" />
     <attribute key="defense" value="23" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="2514" article="a" name="mastermind shield">
+  <item id="2514" article="a" name="mastermind shield" editorcategory="Shields">
     <attribute key="description" value="It is an enchanted shield." />
     <attribute key="weight" value="5700" />
     <attribute key="defense" value="37" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="2515" article="a" name="guardian shield">
+  <item id="2515" article="a" name="guardian shield" editorcategory="Shields">
     <attribute key="weight" value="5500" />
     <attribute key="defense" value="30" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="2516" article="a" name="dragon shield">
+  <item id="2516" article="a" name="dragon shield" editorcategory="Shields">
     <attribute key="weight" value="6000" />
     <attribute key="defense" value="31" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="2517" article="a" name="shield of honour">
+  <item id="2517" article="a" name="shield of honour" editorcategory="Shields">
     <attribute key="description" value="A mighty shield warded by the gods of Tibia." />
     <attribute key="weight" value="5400" />
     <attribute key="defense" value="33" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="2518" article="a" name="beholder shield">
+  <item id="2518" article="a" name="bonelord shield" editorcategory="Shields">
     <attribute key="weight" value="4700" />
     <attribute key="defense" value="28" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="2519" article="a" name="crown shield">
+  <item id="2519" article="a" name="crown shield" editorcategory="Shields">
     <attribute key="weight" value="6200" />
     <attribute key="defense" value="32" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="2520" article="a" name="demon shield">
+  <item id="2520" article="a" name="demon shield" editorcategory="Shields">
     <attribute key="description" value="This powerful shield seems to be as light as air." />
     <attribute key="weight" value="2600" />
     <attribute key="defense" value="35" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="2521" article="a" name="dark shield">
+  <item id="2521" article="a" name="dark shield" editorcategory="Shields">
     <attribute key="weight" value="5200" />
     <attribute key="defense" value="25" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="2522" article="a" name="great shield">
+  <item id="2522" article="a" name="great shield" editorcategory="Shields">
     <attribute key="description" value="The shield is made of dragon scales." />
     <attribute key="weight" value="8400" />
     <attribute key="defense" value="38" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="2523" article="a" name="blessed shield">
+  <item id="2523" article="a" name="blessed shield" editorcategory="Shields">
     <attribute key="description" value="The shield grants divine protection." />
     <attribute key="weight" value="6800" />
     <attribute key="defense" value="40" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="2524" article="an" name="ornamented shield">
+  <item id="2524" article="an" name="ornamented shield" editorcategory="Shields">
     <attribute key="description" value="Many gems sparkle on the shield." />
     <attribute key="weight" value="6700" />
     <attribute key="defense" value="22" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="2525" article="a" name="dwarven shield">
+  <item id="2525" article="a" name="dwarven shield" editorcategory="Shields">
     <attribute key="weight" value="5500" />
     <attribute key="defense" value="26" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="2526" article="a" name="studded shield">
+  <item id="2526" article="a" name="studded shield" editorcategory="Shields">
     <attribute key="weight" value="5900" />
     <attribute key="defense" value="15" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="2527" article="a" name="rose shield">
+  <item id="2527" article="a" name="rose shield" editorcategory="Shields">
     <attribute key="weight" value="5200" />
     <attribute key="defense" value="27" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="2528" article="a" name="tower shield">
+  <item id="2528" article="a" name="tower shield" editorcategory="Shields">
     <attribute key="weight" value="8200" />
     <attribute key="defense" value="32" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="2529" article="a" name="black shield">
+  <item id="2529" article="a" name="black shield" editorcategory="Shields">
     <attribute key="description" value="An unholy creature covers the shield." />
     <attribute key="weight" value="4200" />
     <attribute key="defense" value="18" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="2530" article="a" name="copper shield">
+  <item id="2530" article="a" name="copper shield" editorcategory="Shields">
     <attribute key="weight" value="6300" />
     <attribute key="defense" value="19" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="2531" article="a" name="viking shield">
+  <item id="2531" article="a" name="viking shield" editorcategory="Shields">
     <attribute key="weight" value="6600" />
     <attribute key="defense" value="22" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="2532" article="an" name="ancient shield">
+  <item id="2532" article="an" name="ancient shield" editorcategory="Shields">
     <attribute key="weight" value="6100" />
     <attribute key="defense" value="27" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="2533" article="a" name="griffin shield">
+  <item id="2533" article="a" name="griffin shield" editorcategory="Shields">
     <attribute key="weight" value="5000" />
     <attribute key="defense" value="29" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="2534" article="a" name="vampire shield">
+  <item id="2534" article="a" name="vampire shield" editorcategory="Shields">
     <attribute key="description" value="Dark powers enchant this shield." />
     <attribute key="weight" value="3800" />
     <attribute key="defense" value="34" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="2535" article="a" name="castle shield">
+  <item id="2535" article="a" name="castle shield" editorcategory="Shields">
     <attribute key="weight" value="4900" />
     <attribute key="defense" value="28" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="2536" article="a" name="medusa shield">
+  <item id="2536" article="a" name="medusa shield" editorcategory="Shields">
     <attribute key="weight" value="5800" />
     <attribute key="defense" value="33" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="2537" article="an" name="amazon shield">
+  <item id="2537" article="an" name="amazon shield" editorcategory="Shields">
     <attribute key="weight" value="6200" />
     <attribute key="defense" value="32" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="2538" name="nothing special" />
-  <item id="2539" article="a" name="phoenix shield">
+  <item id="2538" article="an" name="eagle shield " editorcategory="Shields">
+    <attribute key="weight" value="6200" />
+    <attribute key="defense" value="32" />
+    <attribute key="weapontype" value="shield" />
+  </item>
+  <item id="2539" article="a" name="phoenix shield" editorcategory="Shields">
     <attribute key="description" value="This shield feels warm to the touch." />
     <attribute key="weight" value="3500" />
     <attribute key="defense" value="34" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="2540" article="a" name="scarab shield">
+  <item id="2540" article="a" name="scarab shield" editorcategory="Shields">
     <attribute key="weight" value="4700" />
     <attribute key="defense" value="25" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="2541" article="a" name="bone shield">
+  <item id="2541" article="a" name="bone shield" editorcategory="Shields">
     <attribute key="weight" value="5500" />
     <attribute key="defense" value="20" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="2542" article="a" name="tempest shield">
+  <item id="2542" article="a" name="tempest shield" editorcategory="Shields">
     <attribute key="weight" value="5100" />
     <attribute key="defense" value="36" />
     <attribute key="weapontype" value="shield" />
@@ -8691,17 +8695,17 @@
     <attribute key="armor" value="7" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="3973" article="a" name="tusk shield">
+  <item id="3973" article="a" name="tusk shield" editorcategory="Shields">
     <attribute key="weight" value="6900" />
     <attribute key="defense" value="27" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="3974" article="a" name="sentinel shield">
+  <item id="3974" article="a" name="sentinel shield" editorcategory="Shields">
     <attribute key="weight" value="4900" />
     <attribute key="defense" value="22" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="3975" article="a" name="salamander shield">
+  <item id="3975" article="a" name="salamander shield" editorcategory="Shields">
     <attribute key="weight" value="5900" />
     <attribute key="defense" value="26" />
     <attribute key="weapontype" value="shield" />
@@ -11511,8 +11515,8 @@
   <item id="5611" article="a" name="catapult" />
   <item id="5612" article="a" name="catapult" />
   <item id="5613" article="a" name="catapult" />
-  <item id="5614" article="a" name="pirate flag" />
-  <item id="5615" article="a" name="pirate flag" />
+  <item id="5614" article="a" name="pirate tapestry" editorcategory="Decorations" />
+  <item id="5615" article="a" name="pirate tapestry" editorcategory="Decorations" />
   <item id="5616" article="a" name="pirate tapestry" editorcategory="Decorations">
     <attribute key="weight" value="1000" />
   </item>
@@ -13341,7 +13345,7 @@
   <item id="6130" article="a" name="ramp">
     <attribute key="floorchange" value="down" />
   </item>
-  <item id="6131" article="a" name="tortoise shield">
+  <item id="6131" article="a" name="tortoise shield" editorcategory="Shields">
     <attribute key="weight" value="5200" />
     <attribute key="defense" value="26" />
     <attribute key="weapontype" value="shield" />
@@ -14071,7 +14075,7 @@
   <item id="6390" article="an" name="ornamented fountain">
     <attribute key="fluidsource" value="water" />
   </item>
-  <item id="6391" article="a" name="nightmare shield">
+  <item id="6391" article="a" name="nightmare shield" editorcategory="Shields">
     <attribute key="description" value="It was crafted by the ancient order of the nightmare knights." />
     <attribute key="weight" value="3200" />
     <attribute key="defense" value="37" />
@@ -14122,7 +14126,7 @@
   <item id="6430" article="a" name="large branch" />
   <item id="6431" article="a" name="branch" />
   <item id="6432" article="a" name="branch" />
-  <item id="6433" article="a" name="necromancer shield">
+  <item id="6433" article="a" name="necromancer shield" editorcategory="Shields">
     <attribute key="description" value="It is enchanted with unholy, necromantic powers." />
     <attribute key="weight" value="3200" />
     <attribute key="defense" value="37" />
@@ -16547,7 +16551,7 @@
     <attribute key="slottype" value="head" />
     <attribute key="absorbpercentice" value="2" />
   </item>
-  <item id="7460" article="a" name="norse shield">
+  <item id="7460" article="a" name="norse shield" editorcategory="Shields">
     <attribute key="weight" value="4100" />
     <attribute key="defense" value="28" />
     <attribute key="weapontype" value="shield" />
@@ -20338,48 +20342,48 @@
   <item id="8897" article="a" name="mysterious machine" />
   <item id="8898" article="a" name="chalk board" />
   <item id="8899" article="a" name="chalk board" />
-  <item id="8900" article="a" name="spellbook of enlightenment">
+  <item id="8900" article="a" name="spellbook of enlightenment" editorcategory="Spellbooks">
     <attribute key="description" value="It shows your spells and can also shield against attacks when worn." />
-    <attribute key="weight" value="4500" />
+    <attribute key="weight" value="1950" />
     <attribute key="defense" value="18" />
     <attribute key="weapontype" value="shield" />
     <attribute key="skillmodifiermagiclevel" value="1" />
   </item>
-  <item id="8901" article="a" name="spellbook of warding">
+  <item id="8901" article="a" name="spellbook of warding" editorcategory="Spellbooks">
     <attribute key="description" value="It shows your spells and can also shield against attack when worn." />
-    <attribute key="weight" value="4500" />
+    <attribute key="weight" value="2100" />
     <attribute key="defense" value="22" />
     <attribute key="weapontype" value="shield" />
     <attribute key="skillmodifiermagiclevel" value="1" />
   </item>
-  <item id="8902" article="a" name="spellbook of mind control">
+  <item id="8902" article="a" name="spellbook of mind control" editorcategory="Spellbooks">
     <attribute key="description" value="It shows your spells and can also shield against attack when worn." />
-    <attribute key="weight" value="4500" />
+    <attribute key="weight" value="2450" />
     <attribute key="defense" value="16" />
     <attribute key="weapontype" value="shield" />
     <attribute key="skillmodifiermagiclevel" value="2" />
   </item>
-  <item id="8903" article="a" name="spellbook of lost souls">
+  <item id="8903" article="a" name="spellbook of lost souls" editorcategory="Spellbooks">
     <attribute key="description" value="It shows your spells and can also shield against attack when worn." />
-    <attribute key="weight" value="4650" />
+    <attribute key="weight" value="2560" />
     <attribute key="defense" value="20" />
     <attribute key="weapontype" value="shield" />
     <attribute key="skillmodifiermagiclevel" value="2" />
   </item>
-  <item id="8904" article="a" name="spellscroll of prophecies">
+  <item id="8904" article="a" name="spellscroll of prophecies" editorcategory="Spellbooks">
     <attribute key="description" value="It shows your spells and can also shield against attack when worn." />
-    <attribute key="weight" value="2850" />
+    <attribute key="weight" value="2650" />
     <attribute key="defense" value="12" />
     <attribute key="weapontype" value="shield" />
     <attribute key="skillmodifiermagiclevel" value="3" />
   </item>
-  <item id="8905" article="a" name="rainbow shield">
+  <item id="8905" article="a" name="rainbow shield" editorcategory="Shields">
     <attribute key="description" value="Strange elemental magic flows over this shield." />
     <attribute key="weight" value="6900" />
     <attribute key="defense" value="30" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="8906" article="a" name="fiery rainbow shield">
+  <item id="8906" article="a" name="fiery rainbow shield" editorcategory="Shields">
     <attribute key="description" value="It has been temporarily imbued with fire magic and boosts your shielding skill." />
     <attribute key="weight" value="6900" />
     <attribute key="defense" value="36" />
@@ -20388,7 +20392,7 @@
     <attribute key="decayto" value="8905" />
     <attribute key="duration" value="1200" />
   </item>
-  <item id="8907" article="an" name="icy rainbow shield">
+  <item id="8907" article="an" name="icy rainbow shield" editorcategory="Shields">
     <attribute key="description" value="It has been temporarily imbued with ice magic and has a greatly increased shielding value." />
     <attribute key="weight" value="6900" />
     <attribute key="defense" value="39" />
@@ -20396,7 +20400,7 @@
     <attribute key="decayto" value="8905" />
     <attribute key="duration" value="1200" />
   </item>
-  <item id="8908" article="a" name="sparking rainbow shield">
+  <item id="8908" article="a" name="sparking rainbow shield" editorcategory="Shields">
     <attribute key="description" value="It has been temporarily imbued with energy magic and increases your speed." />
     <attribute key="weight" value="6900" />
     <attribute key="defense" value="36" />
@@ -20405,7 +20409,7 @@
     <attribute key="decayto" value="8905" />
     <attribute key="duration" value="1200" />
   </item>
-  <item id="8909" article="a" name="terran rainbow shield (faster regeneration)">
+  <item id="8909" article="a" name="terran rainbow shield (faster regeneration)" editorcategory="Shields">
     <attribute key="description" value="It has been temporarily imbued with earth magic and boosts your regeneration." />
     <attribute key="weight" value="6900" />
     <attribute key="defense" value="37" />
@@ -20439,7 +20443,7 @@
   <item id="8915" name="earth" />
   <item id="8916" name="earth" />
   <item id="8917" name="earth" />
-  <item id="8918" article="a" name="spellbook of dark mysteries">
+  <item id="8918" article="a" name="spellbook of dark mysteries" editorcategory="Spellbooks">
     <attribute key="description" value="It shows your spells and can also shield against attack when worn." />
     <attribute key="weight" value="2850" />
     <attribute key="defense" value="16" />
@@ -22155,8 +22159,8 @@
   </item>
   <item id="9833" article="an" name="old carpet" />
   <item id="9834" article="an" name="old carpet" />
-  <item id="9835" article="a" name="velvet tapestry" />
-  <item id="9836" article="a" name="velvet tapestry" />
+  <item id="9835" article="a" name="velvet tapestry" editorcategory="Decorations" />
+  <item id="9836" article="a" name="velvet tapestry" editorcategory="Decorations" />
   <item id="9837" article="a" name="velvet tapestry" editorcategory="Decorations">
     <attribute key="weight" value="1000" />
   </item>
@@ -23217,7 +23221,7 @@
   <item id="10286" name="nothing special" />
   <item id="10287" name="nothing special" />
   <item id="10288" name="nothing special" />
-  <item id="10289" article="a" name="meat shield">
+  <item id="10289" article="a" name="meat shield" editorcategory="Shields">
     <attribute key="description" value="A sturdy shield made of old meat." />
     <attribute key="weight" value="500" />
     <attribute key="defense" value="10" />
@@ -23250,7 +23254,7 @@
     <attribute key="attack" value="18" />
     <attribute key="weapontype" value="club" />
   </item>
-  <item id="10294" article="a" name="shield of the white knight">
+  <item id="10294" article="a" name="shield of the white knight" editorcategory="Shields">
     <attribute key="description" value="It seems a bit chunky, but what was good enough for a white knight should be good for everyone." />
     <attribute key="weight" value="500" />
     <attribute key="defense" value="8" />
@@ -23271,7 +23275,7 @@
     <attribute key="armor" value="6" />
     <attribute key="slottype" value="body" />
   </item>
-  <item id="10297" article="a" name="shield of care">
+  <item id="10297" article="a" name="shield of care" editorcategory="Shields">
     <attribute key="description" value="This shield will surely care for anyone who can bear it." />
     <attribute key="weight" value="1700" />
     <attribute key="defense" value="8" />
@@ -23371,7 +23375,7 @@
     <attribute key="armor" value="1" />
     <attribute key="slottype" value="body" />
   </item>
-  <item id="10318" article="a" name="the shield nevermourn">
+  <item id="10318" article="a" name="the shield nevermourn" editorcategory="Shields">
     <attribute key="description" value="It is said that the wearer of Nevermourn will never mourn. What a powerful shield." />
     <attribute key="weight" value="5200" />
     <attribute key="defense" value="25" />
