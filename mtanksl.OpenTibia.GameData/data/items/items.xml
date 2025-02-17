@@ -2711,8 +2711,9 @@
   <item id="2127" article="an" name="emerald bangle">
     <attribute key="weight" value="170" />
   </item>
-  <item id="2128" article="a" name="crown">
-    <attribute key="weight" value="1500" />
+  <item id="2128" article="a" name="crown" editorcategory="Helmets">
+    <attribute key="weight" value="1900" />
+    <attribute key="armor" value="0" />
     <attribute key="slottype" value="head" />
   </item>
   <item id="2129" article="a" name="wolf tooth chain">
@@ -2754,8 +2755,8 @@
     <attribute key="armor" value="3" />
     <attribute key="slottype" value="necklace" />
   </item>
-  <item id="2139" article="an" name="ancient tiara">
-    <attribute key="weight" value="450" />
+  <item id="2139" article="an" name="ancient tiara" editorcategory="Helmets">
+    <attribute key="weight" value="820" />
     <attribute key="armor" value="0" />
     <attribute key="slottype" value="head" />
   </item>
@@ -3656,7 +3657,7 @@
     <attribute key="description" value="It looks like a little king." />
     <attribute key="weight" value="650" />
   </item>
-  <item id="2323" article="a" name="hat of the mad">
+  <item id="2323" article="a" name="hat of the mad" editorcategory="Helmets">
     <attribute key="description" value="You have a vague feeling that it looks somewhat silly." />
     <attribute key="weight" value="700" />
     <attribute key="armor" value="3" />
@@ -3714,10 +3715,11 @@
     <attribute key="description" value="This item seems to be a single part of a bigger object." />
     <attribute key="weight" value="140" />
   </item>
-  <item id="2339" article="a" name="damaged helmet">
+  <item id="2339" article="a" name="damaged helmet" editorcategory="Helmets">
     <attribute key="description" value="This item seems to have several parts missing." />
     <attribute key="weight" value="1800" />
     <attribute key="armor" value="5" />
+    <attribute key="slottype" value="head" />
   </item>
   <item id="2340" article="a" name="helmet piece">
     <attribute key="description" value="This item seems to be a single part of a bigger object." />
@@ -3727,13 +3729,13 @@
     <attribute key="description" value="This item seems to be a single part of a bigger object." />
     <attribute key="weight" value="180" />
   </item>
-  <item id="2342" article="a" name="helmet of the ancients">
+  <item id="2342" article="a" name="helmet of the ancients" editorcategory="Helmets">
     <attribute key="description" value="The gem of the helmet is burned out and should be replaced." />
     <attribute key="weight" value="2760" />
     <attribute key="armor" value="8" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="2343" article="a" name="helmet of the ancients">
+  <item id="2343" article="a" name="helmet of the ancients" editorcategory="Helmets">
     <attribute key="description" value="The gem is glowing with power." />
     <attribute key="weight" value="2760" />
     <attribute key="armor" value="11" />
@@ -4430,32 +4432,32 @@
     <attribute key="range" value="6" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="2457" article="a" name="steel helmet">
+  <item id="2457" article="a" name="steel helmet" editorcategory="Helmets">
     <attribute key="weight" value="4600" />
     <attribute key="armor" value="6" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="2458" article="a" name="chain helmet">
+  <item id="2458" article="a" name="chain helmet" editorcategory="Helmets">
     <attribute key="weight" value="4200" />
     <attribute key="armor" value="2" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="2459" article="an" name="iron helmet">
+  <item id="2459" article="an" name="iron helmet" editorcategory="Helmets">
     <attribute key="weight" value="3000" />
     <attribute key="armor" value="5" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="2460" article="a" name="brass helmet">
+  <item id="2460" article="a" name="brass helmet" editorcategory="Helmets">
     <attribute key="weight" value="2700" />
     <attribute key="armor" value="3" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="2461" article="a" name="leather helmet">
+  <item id="2461" article="a" name="leather helmet" editorcategory="Helmets">
     <attribute key="weight" value="2200" />
     <attribute key="armor" value="1" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="2462" article="a" name="devil helmet">
+  <item id="2462" article="a" name="devil helmet" editorcategory="Helmets">
     <attribute key="weight" value="5000" />
     <attribute key="armor" value="7" />
     <attribute key="slottype" value="head" />
@@ -4501,7 +4503,7 @@
     <attribute key="armor" value="9" />
     <attribute key="slottype" value="legs" />
   </item>
-  <item id="2471" article="a" name="golden helmet">
+  <item id="2471" article="a" name="golden helmet" editorcategory="Helmets">
     <attribute key="description" value="It is the famous Helmet of the Stars." />
     <attribute key="weight" value="3200" />
     <attribute key="armor" value="12" />
@@ -4512,18 +4514,18 @@
     <attribute key="armor" value="17" />
     <attribute key="slottype" value="body" />
   </item>
-  <item id="2473" article="a" name="viking helmet">
+  <item id="2473" article="a" name="viking helmet" editorcategory="Helmets">
     <attribute key="weight" value="3900" />
     <attribute key="armor" value="4" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="2474" article="a" name="winged helmet">
+  <item id="2474" article="a" name="winged helmet" editorcategory="Helmets">
     <attribute key="description" value="It is the Helmet of Hermes." />
     <attribute key="weight" value="1200" />
     <attribute key="armor" value="10" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="2475" article="a" name="warrior helmet">
+  <item id="2475" article="a" name="warrior helmet" editorcategory="Helmets">
     <attribute key="weight" value="6800" />
     <attribute key="armor" value="8" />
     <attribute key="slottype" value="head" />
@@ -4543,22 +4545,22 @@
     <attribute key="armor" value="5" />
     <attribute key="slottype" value="legs" />
   </item>
-  <item id="2479" article="a" name="strange helmet">
+  <item id="2479" article="a" name="strange helmet" editorcategory="Helmets">
     <attribute key="weight" value="4600" />
     <attribute key="armor" value="6" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="2480" article="a" name="legion helmet">
+  <item id="2480" article="a" name="legion helmet" editorcategory="Helmets">
     <attribute key="weight" value="3100" />
     <attribute key="armor" value="4" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="2481" article="a" name="soldier helmet">
+  <item id="2481" article="a" name="soldier helmet" editorcategory="Helmets">
     <attribute key="weight" value="3200" />
     <attribute key="armor" value="5" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="2482" article="a" name="studded helmet">
+  <item id="2482" article="a" name="studded helmet" editorcategory="Helmets">
     <attribute key="weight" value="2450" />
     <attribute key="armor" value="2" />
     <attribute key="slottype" value="head" />
@@ -4598,12 +4600,12 @@
     <attribute key="armor" value="10" />
     <attribute key="slottype" value="body" />
   </item>
-  <item id="2490" article="a" name="dark helmet">
+  <item id="2490" article="a" name="dark helmet" editorcategory="Helmets">
     <attribute key="weight" value="4600" />
     <attribute key="armor" value="6" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="2491" article="a" name="crown helmet">
+  <item id="2491" article="a" name="crown helmet" editorcategory="Helmets">
     <attribute key="weight" value="2950" />
     <attribute key="armor" value="7" />
     <attribute key="slottype" value="head" />
@@ -4613,7 +4615,7 @@
     <attribute key="armor" value="15" />
     <attribute key="slottype" value="body" />
   </item>
-  <item id="2493" article="a" name="demon helmet">
+  <item id="2493" article="a" name="demon helmet" editorcategory="Helmets">
     <attribute key="description" value="You hear an evil whispering from the inside." />
     <attribute key="weight" value="2950" />
     <attribute key="armor" value="10" />
@@ -4629,23 +4631,23 @@
     <attribute key="armor" value="9" />
     <attribute key="slottype" value="legs" />
   </item>
-  <item id="2496" article="a" name="horned helmet">
+  <item id="2496" article="a" name="horned helmet" editorcategory="Helmets">
     <attribute key="weight" value="5100" />
     <attribute key="armor" value="11" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="2497" article="a" name="crusader helmet">
+  <item id="2497" article="a" name="crusader helmet" editorcategory="Helmets">
     <attribute key="weight" value="5200" />
     <attribute key="armor" value="8" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="2498" article="a" name="royal helmet">
+  <item id="2498" article="a" name="royal helmet" editorcategory="Helmets">
     <attribute key="description" value="An excellent masterpiece of a smith." />
     <attribute key="weight" value="4800" />
     <attribute key="armor" value="9" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="2499" article="an" name="amazon helmet">
+  <item id="2499" article="an" name="amazon helmet" editorcategory="Helmets">
     <attribute key="weight" value="2950" />
     <attribute key="armor" value="7" />
     <attribute key="slottype" value="head" />
@@ -4656,12 +4658,12 @@
     <attribute key="slottype" value="body" />
     <attribute key="skillmodifierdistance" value="3" />
   </item>
-  <item id="2501" article="a" name="ceremonial mask">
-    <attribute key="weight" value="1200" />
+  <item id="2501" article="a" name="ceremonial mask" editorcategory="Helmets">
+    <attribute key="weight" value="4000" />
     <attribute key="armor" value="9" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="2502" article="a" name="dwarven helmet">
+  <item id="2502" article="a" name="dwarven helmet" editorcategory="Helmets">
     <attribute key="weight" value="4200" />
     <attribute key="armor" value="6" />
     <attribute key="slottype" value="head" />
@@ -4678,10 +4680,9 @@
     <attribute key="slottype" value="legs" />
     <attribute key="absorbpercentphysical" value="3" />
   </item>
-  <item id="2506" article="a" name="dragon scale helmet">
-    <attribute key="description" value="It is made of dragon scales." />
-    <attribute key="weight" value="6000" />
-    <attribute key="armor" value="10" />
+  <item id="2506" article="a" name="dragon scale helmet" editorcategory="Helmets">
+    <attribute key="weight" value="3250" />
+    <attribute key="armor" value="9" />
     <attribute key="slottype" value="head" />
   </item>
   <item id="2507" name="ranger legs">
@@ -5271,18 +5272,18 @@
     <attribute key="armor" value="1" />
     <attribute key="slottype" value="necklace" />
   </item>
-  <item id="2662" article="a" name="magician hat">
+  <item id="2662" article="a" name="magician hat" editorcategory="Helmets">
     <attribute key="weight" value="750" />
     <attribute key="armor" value="1" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="2663" article="a" name="mystic turban">
+  <item id="2663" article="a" name="mystic turban" editorcategory="Helmets">
     <attribute key="description" value="Something is strange about this turban." />
     <attribute key="weight" value="850" />
     <attribute key="armor" value="1" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="2665" article="a" name="post officers hat">
+  <item id="2665" article="a" name="post officer's hat" editorcategory="Helmets">
     <attribute key="description" value="This hat is the insignia of all tibian post officers." />
     <attribute key="weight" value="700" />
     <attribute key="armor" value="1" />
@@ -8821,7 +8822,7 @@
     <attribute key="attack" value="25" />
     <attribute key="weapontype" value="club" />
   </item>
-  <item id="3967" article="a" name="tribal mask">
+  <item id="3967" article="a" name="tribal mask" editorcategory="Helmets">
     <attribute key="weight" value="2500" />
     <attribute key="armor" value="2" />
     <attribute key="slottype" value="head" />
@@ -8831,7 +8832,7 @@
     <attribute key="armor" value="9" />
     <attribute key="slottype" value="body" />
   </item>
-  <item id="3969" article="a" name="horseman helmet">
+  <item id="3969" article="a" name="horseman helmet" editorcategory="Helmets">
     <attribute key="weight" value="4200" />
     <attribute key="armor" value="6" />
     <attribute key="slottype" value="head" />
@@ -8841,12 +8842,12 @@
     <attribute key="armor" value="2" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="3971" article="a" name="charmer's tiara">
+  <item id="3971" article="a" name="charmer's tiara" editorcategory="Helmets">
     <attribute key="weight" value="2200" />
     <attribute key="armor" value="2" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="3972" article="a" name="beholder helmet">
+  <item id="3972" article="a" name="beholder helmet" editorcategory="Helmets">
     <attribute key="weight" value="4600" />
     <attribute key="armor" value="7" />
     <attribute key="slottype" value="head" />
@@ -11305,10 +11306,11 @@
   <item id="5458" article="a" name="wrecked ship hull" />
   <item id="5459" article="a" name="wrecked ship hull" />
   <item id="5460" article="a" name="wrecked ventilation grill" />
-  <item id="5461" article="a" name="helmet of the deep">
+  <item id="5461" article="a" name="helmet of the deep" editorcategory="Helmets">
     <attribute key="weight" value="21000" />
     <attribute key="armor" value="2" />
     <attribute key="slottype" value="head" />
+    <attribute key="absorbpercentdrown" value="100" />
   </item>
   <item id="5462" name="pirate boots">
     <attribute key="weight" value="800" />
@@ -11904,7 +11906,7 @@
   <item id="5740" article="an" name="antic well">
     <attribute key="fluidsource" value="water" />
   </item>
-  <item id="5741" article="a" name="skull helmet">
+  <item id="5741" article="a" name="skull helmet" editorcategory="Helmets">
     <attribute key="weight" value="4200" />
     <attribute key="armor" value="9" />
     <attribute key="slottype" value="head" />
@@ -12290,7 +12292,7 @@
     <attribute key="description" value="Some people swear that honey makes excellent glue." />
     <attribute key="weight" value="80" />
   </item>
-  <item id="5903" name="ferumbras' hat">
+  <item id="5903" name="Ferumbras' hat" editorcategory="Helmets">
     <attribute key="description" value="It is the proof that Ferumbras has fallen. For now. The Edron Academy should be interested in this." />
     <attribute key="weight" value="850" />
     <attribute key="armor" value="1" />
@@ -12335,7 +12337,7 @@
   </item>
   <item id="5915" article="a" name="large throne" />
   <item id="5916" article="a" name="large throne" />
-  <item id="5917" article="a" name="bandana">
+  <item id="5917" article="a" name="bandana" editorcategory="Helmets">
     <attribute key="description" value="It is quite fashionable as well as useful for anyone spending huge amounts of time in the sun." />
     <attribute key="weight" value="850" />
     <attribute key="armor" value="1" />
@@ -13374,7 +13376,7 @@
     <attribute key="armor" value="3" />
     <attribute key="slottype" value="body" />
   </item>
-  <item id="6096" article="a" name="pirate hat">
+  <item id="6096" article="a" name="pirate hat" editorcategory="Helmets">
     <attribute key="weight" value="1250" />
     <attribute key="armor" value="3" />
     <attribute key="slottype" value="head" />
@@ -14563,7 +14565,7 @@
     <attribute key="description" value="Someone specialised in shoes might be able to repair them for you." />
     <attribute key="weight" value="800" />
   </item>
-  <item id="6531" article="a" name="santa hat">
+  <item id="6531" article="a" name="santa hat" editorcategory="Helmets">
     <attribute key="weight" value="750" />
     <attribute key="armor" value="1" />
     <attribute key="slottype" value="head" />
@@ -14724,8 +14726,8 @@
   <item id="6577" article="a" name="red balloon">
     <attribute key="weight" value="10" />
   </item>
-  <item id="6578" article="a" name="party hat">
-    <attribute key="weight" value="0" />
+  <item id="6578" article="a" name="party hat" editorcategory="Helmets">
+    <attribute key="weight" value="750" />
     <attribute key="armor" value="1" />
     <attribute key="slottype" value="head" />
   </item>
@@ -16694,12 +16696,12 @@
     <attribute key="defense" value="28" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="7461" article="a" name="krimhorn helmet">
+  <item id="7461" article="a" name="krimhorn helmet" editorcategory="Helmets">
     <attribute key="weight" value="5100" />
     <attribute key="armor" value="6" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="7462" article="a" name="ragnir helmet">
+  <item id="7462" article="a" name="ragnir helmet" editorcategory="Helmets">
     <attribute key="weight" value="3100" />
     <attribute key="armor" value="6" />
     <attribute key="slottype" value="head" />
@@ -16831,7 +16833,7 @@
   <item id="7496" article="a" name="beer bottle">
     <attribute key="description" value="It is filled with the legendary dwarvish brown ale." />
   </item>
-  <item id="7497" article="a" name="mining helmet">
+  <item id="7497" article="a" name="mining helmet" editorcategory="Helmets">
     <attribute key="description" value="This is Budriks old mining helmet." />
     <attribute key="weight" value="700" />
     <attribute key="armor" value="1" />
@@ -18560,28 +18562,28 @@
     <attribute key="absorbpercentfire" value="8" />
     <attribute key="absorbpercentice" value="-8" />
   </item>
-  <item id="7900" article="a" name="magma monocle">
+  <item id="7900" article="a" name="magma monocle" editorcategory="Helmets">
     <attribute key="weight" value="1000" />
     <attribute key="armor" value="5" />
     <attribute key="slottype" value="head" />
     <attribute key="absorbpercentfire" value="4" />
     <attribute key="absorbpercentice" value="-5" />
   </item>
-  <item id="7901" article="a" name="lightning headband">
+  <item id="7901" article="a" name="lightning headband" editorcategory="Helmets">
     <attribute key="weight" value="1000" />
     <attribute key="armor" value="5" />
     <attribute key="slottype" value="head" />
     <attribute key="absorbpercentearth" value="-5" />
     <attribute key="absorbpercentenergy" value="4" />
   </item>
-  <item id="7902" article="a" name="glacier mask">
+  <item id="7902" article="a" name="glacier mask" editorcategory="Helmets">
     <attribute key="weight" value="1000" />
     <attribute key="armor" value="5" />
     <attribute key="slottype" value="head" />
     <attribute key="absorbpercentenergy" value="-5" />
     <attribute key="absorbpercentice" value="4" />
   </item>
-  <item id="7903" article="a" name="terra hood">
+  <item id="7903" article="a" name="terra hood" editorcategory="Helmets">
     <attribute key="weight" value="1000" />
     <attribute key="armor" value="5" />
     <attribute key="slottype" value="head" />
@@ -18688,7 +18690,7 @@
   <item id="7938" article="a" name="large hole">
     <attribute key="floorchange" value="down" />
   </item>
-  <item id="7939" article="a" name="mining helmet">
+  <item id="7939" article="a" name="mining helmet" editorcategory="Helmets">
     <attribute key="description" value="This is your personal mining helmet." />
     <attribute key="weight" value="700" />
     <attribute key="armor" value="1" />
@@ -18744,7 +18746,7 @@
   <item id="7956" article="a" name="waterball">
     <attribute key="weight" value="200" />
   </item>
-  <item id="7957" article="a" name="jester hat">
+  <item id="7957" article="a" name="jester hat" editorcategory="Helmets">
     <attribute key="weight" value="1000" />
     <attribute key="armor" value="1" />
     <attribute key="slottype" value="head" />
@@ -20109,7 +20111,7 @@
     <attribute key="armor" value="6" />
     <attribute key="slottype" value="body" />
   </item>
-  <item id="8820" article="a" name="mage hat">
+  <item id="8820" article="a" name="mage hat" editorcategory="Helmets">
     <attribute key="weight" value="900" />
     <attribute key="armor" value="3" />
     <attribute key="slottype" value="head" />
@@ -20924,7 +20926,7 @@
     <attribute key="weight" value="2400" />
   </item>
   <item id="8982" article="a" name="norseman doll">
-    <attribute key="description" value="It is given to the winners of Tibia Nordic competitions." />
+    <attribute key="description" value="It is given to the winners of TibiaNordic competitions." />
     <attribute key="weight" value="1000" />
   </item>
   <item id="8983" article="a" name="heavily bound book">
@@ -22097,7 +22099,7 @@
     <attribute key="absorbpercentdeath" value="5" />
     <attribute key="skillmodifierdistance" value="2" />
   </item>
-  <item id="9778" article="a" name="yalahari mask">
+  <item id="9778" article="a" name="yalahari mask" editorcategory="Helmets">
     <attribute key="weight" value="3500" />
     <attribute key="armor" value="5" />
     <attribute key="slottype" value="head" />
@@ -22825,7 +22827,7 @@
   </item>
   <item id="10014" article="a" name="stand" editorsuffix="(Unmoveable)" />
   <item id="10015" article="a" name="crystal" />
-  <item id="10016" article="a" name="batwing hat">
+  <item id="10016" article="a" name="batwing hat" editorcategory="Helmets">
     <attribute key="weight" value="600" />
     <attribute key="armor" value="3" />
     <attribute key="slottype" value="head" />
@@ -23175,7 +23177,7 @@
     <attribute key="attack" value="10" />
     <attribute key="weapontype" value="club" />
   </item>
-  <item id="10291" article="an" name="odd hat">
+  <item id="10291" article="an" name="odd hat" editorcategory="Helmets">
     <attribute key="description" value="It has to be one of the fabled helmets of light." />
     <attribute key="weight" value="700" />
     <attribute key="armor" value="5" />
@@ -23221,7 +23223,7 @@
     <attribute key="defense" value="8" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="10298" article="a" name="helmet of ultimate terror">
+  <item id="10298" article="a" name="helmet of ultimate terror" editorcategory="Helmets">
     <attribute key="description" value="There is evil inside." />
     <attribute key="weight" value="1250" />
     <attribute key="armor" value="3" />
@@ -23738,7 +23740,7 @@
   <item id="10569" article="a" name="witch broom">
     <attribute key="weight" value="333" />
   </item>
-  <item id="10570" name="witch hat">
+  <item id="10570" article="a" name="witch hat" editorcategory="Helmets">
     <attribute key="weight" value="780" />
     <attribute key="armor" value="3" />
     <attribute key="slottype" value="head" />
@@ -24441,7 +24443,7 @@
     <attribute key="slottype" value="body" />
     <attribute key="speedmodifier" value="10" />
   </item>
-  <item id="11302" name="zaoan helmet">
+  <item id="11302" article="a" name="Zaoan helmet" editorcategory="Helmets">
     <attribute key="weight" value="6600" />
     <attribute key="armor" value="9" />
     <attribute key="slottype" value="head" />
@@ -24707,7 +24709,7 @@
   <item id="11367" article="a" name="undead heart">
     <attribute key="weight" value="80" />
   </item>
-  <item id="11368" name="jade hat">
+  <item id="11368" article="a" name="jade hat" editorcategory="Helmets">
     <attribute key="weight" value="900" />
     <attribute key="armor" value="4" />
     <attribute key="slottype" value="head" />
