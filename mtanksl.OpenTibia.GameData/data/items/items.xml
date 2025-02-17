@@ -1962,32 +1962,32 @@
   </item>
   <item id="1855" article="a" name="purple tapestry" />
   <item id="1856" article="a" name="purple tapestry" />
-  <item id="1857" article="a" name="purple tapestry">
+  <item id="1857" article="a" name="purple tapestry" editorcategory="Decorations">
     <attribute key="weight" value="1000" />
   </item>
   <item id="1858" article="a" name="green tapestry" />
   <item id="1859" article="a" name="green tapestry" />
-  <item id="1860" article="a" name="green tapestry">
+  <item id="1860" article="a" name="green tapestry" editorcategory="Decorations">
     <attribute key="weight" value="1000" />
   </item>
   <item id="1861" article="a" name="yellow tapestry" />
   <item id="1862" article="a" name="yellow tapestry" />
-  <item id="1863" article="a" name="yellow tapestry">
+  <item id="1863" article="a" name="yellow tapestry" editorcategory="Decorations">
     <attribute key="weight" value="1000" />
   </item>
   <item id="1864" article="an" name="orange tapestry" />
   <item id="1865" article="an" name="orange tapestry" />
-  <item id="1866" article="an" name="orange tapestry">
+  <item id="1866" article="an" name="orange tapestry" editorcategory="Decorations">
     <attribute key="weight" value="1000" />
   </item>
   <item id="1867" article="a" name="red tapestry" />
   <item id="1868" article="a" name="red tapestry" />
-  <item id="1869" article="a" name="red tapestry">
+  <item id="1869" article="a" name="red tapestry" editorcategory="Decorations">
     <attribute key="weight" value="1000" />
   </item>
   <item id="1870" article="a" name="blue tapestry" />
   <item id="1871" article="a" name="blue tapestry" />
-  <item id="1872" article="a" name="blue tapestry">
+  <item id="1872" article="a" name="blue tapestry" editorcategory="Decorations">
     <attribute key="weight" value="1000" />
   </item>
   <item id="1873" article="a" name="cuckoo clock">
@@ -2011,7 +2011,7 @@
   </item>
   <item id="1878" article="a" name="white tapestry" />
   <item id="1879" article="a" name="white tapestry" />
-  <item id="1880" article="a" name="white tapestry">
+  <item id="1880" article="a" name="white tapestry" editorcategory="Decorations">
     <attribute key="weight" value="1000" />
   </item>
   <item id="1881" article="a" name="cuckoo clock">
@@ -2832,12 +2832,12 @@
     <attribute key="absorbpercentenergy" value="10" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="2162" article="a" name="magic lightwand">
+  <item id="2162" article="a" name="magic lightwand" editorcategory="Tools">
     <attribute key="weight" value="1500" />
     <attribute key="showduration" value="1" />
     <attribute key="stopduration" value="1" />
   </item>
-  <item id="2163" article="a" name="magic lightwand">
+  <item id="2163" article="a" name="magic lightwand" editorcategory="Tools">
     <attribute key="weight" value="1500" />
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="3000" />
@@ -2939,75 +2939,75 @@
     <attribute key="slottype" value="ring" />
   </item>
   <item id="2180" article="an" name="orb of nature" />
-  <item id="2181" article="a" name="terra rod">
+  <item id="2181" article="a" name="terra rod" editorcategory="Rods">
     <attribute key="description" value="Small stones are flying from its tip." />
     <attribute key="weight" value="2500" />
     <attribute key="weapontype" value="wand" />
     <attribute key="shoottype" value="earthsmall" />
     <attribute key="range" value="3" />
   </item>
-  <item id="2182" article="a" name="snakebite rod">
+  <item id="2182" article="a" name="snakebite rod" editorcategory="Rods">
     <attribute key="description" value="It seems to twitch and quiver as if trying to escape your grip." />
     <attribute key="weight" value="1900" />
     <attribute key="weapontype" value="wand" />
     <attribute key="shoottype" value="earthsmall" />
     <attribute key="range" value="3" />
   </item>
-  <item id="2183" article="a" name="hailstorm rod">
+  <item id="2183" article="a" name="hailstorm rod" editorcategory="Rods">
     <attribute key="description" value="It grants you the power of striking your foes with furious hailstorms." />
     <attribute key="weight" value="2700" />
     <attribute key="weapontype" value="wand" />
     <attribute key="shoottype" value="icesmall" />
     <attribute key="range" value="3" />
   </item>
-  <item id="2184" article="a" name="crystal wand">
+  <item id="2184" article="a" name="crystal wand" editorcategory="Decorations">
     <attribute key="weight" value="2800" />
   </item>
-  <item id="2185" article="a" name="necrotic rod">
+  <item id="2185" article="a" name="necrotic rod" editorcategory="Rods">
     <attribute key="description" value="It was brought up from hell to deliver death." />
     <attribute key="weight" value="2300" />
     <attribute key="weapontype" value="wand" />
     <attribute key="shoottype" value="skull" />
     <attribute key="range" value="3" />
   </item>
-  <item id="2186" article="a" name="moonlight rod">
+  <item id="2186" article="a" name="moonlight rod" editorcategory="Rods">
     <attribute key="description" value="Icecold rays of moonlight shimmer on its tip." />
     <attribute key="weight" value="2100" />
     <attribute key="weapontype" value="wand" />
     <attribute key="shoottype" value="icesmall" />
     <attribute key="range" value="3" />
   </item>
-  <item id="2187" article="a" name="wand of inferno">
+  <item id="2187" article="a" name="wand of inferno" editorcategory="Wands">
     <attribute key="description" value="It unleashes the very fires of hell." />
     <attribute key="weight" value="2700" />
     <attribute key="weapontype" value="wand" />
     <attribute key="shoottype" value="fire" />
     <attribute key="range" value="3" />
   </item>
-  <item id="2188" article="a" name="wand of decay">
+  <item id="2188" article="a" name="wand of decay" editorcategory="Wands">
     <attribute key="description" value="It is half-rotten itself and reeks terribly." />
     <attribute key="weight" value="2300" />
     <attribute key="weapontype" value="wand" />
     <attribute key="shoottype" value="skull" />
     <attribute key="range" value="3" />
   </item>
-  <item id="2189" article="a" name="wand of cosmic energy">
+  <item id="2189" article="a" name="wand of cosmic energy" editorcategory="Wands">
     <attribute key="description" value="The energy of a radiant star is trapped inside its globe." />
     <attribute key="weight" value="2500" />
     <attribute key="weapontype" value="wand" />
     <attribute key="shoottype" value="energy" />
     <attribute key="range" value="3" />
   </item>
-  <item id="2190" article="a" name="wand of vortex">
+  <item id="2190" article="a" name="wand of vortex" editorcategory="Wands">
     <attribute key="description" value="Surges of energy rush through the tip of this wand." />
     <attribute key="weight" value="1900" />
     <attribute key="weapontype" value="wand" />
     <attribute key="shoottype" value="energy" />
     <attribute key="range" value="3" />
   </item>
-  <item id="2191" article="a" name="wand of dragonbreath">
+  <item id="2191" article="a" name="wand of dragonbreath" editorcategory="Wands">
     <attribute key="description" value="Legends say that this wand holds the soul of a young dragon." />
-    <attribute key="weight" value="2300" />
+    <attribute key="weight" value="2100" />
     <attribute key="weapontype" value="wand" />
     <attribute key="shoottype" value="fire" />
     <attribute key="range" value="3" />
@@ -5026,7 +5026,7 @@
   <item id="2579" article="an" name="open trap">
     <attribute key="weight" value="2100" />
   </item>
-  <item id="2580" article="a" name="fishing rod">
+  <item id="2580" article="a" name="fishing rod" editorcategory="Tools">
     <attribute key="weight" value="850" />
   </item>
   <item id="2581" article="a" name="telescope">
@@ -11510,7 +11510,7 @@
   <item id="5613" article="a" name="catapult" />
   <item id="5614" article="a" name="pirate flag" />
   <item id="5615" article="a" name="pirate flag" />
-  <item id="5616" article="a" name="pirate tapestry">
+  <item id="5616" article="a" name="pirate tapestry" editorcategory="Decorations">
     <attribute key="weight" value="1000" />
   </item>
   <item id="5617" article="a" name="pirate flag" />
@@ -16148,31 +16148,31 @@
     <attribute key="weapontype" value="club" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="7393" article="a" name="demon trophy">
+  <item id="7393" article="a" name="demon trophy" editorcategory="Trophies">
     <attribute key="weight" value="500" />
   </item>
-  <item id="7394" article="a" name="wolf trophy">
+  <item id="7394" article="a" name="wolf trophy" editorcategory="Trophies">
     <attribute key="weight" value="500" />
   </item>
-  <item id="7395" article="an" name="orc trophy">
+  <item id="7395" article="an" name="orc trophy" editorcategory="Trophies">
     <attribute key="weight" value="500" />
   </item>
-  <item id="7396" article="a" name="behemoth trophy">
+  <item id="7396" article="a" name="behemoth trophy" editorcategory="Trophies">
     <attribute key="weight" value="500" />
   </item>
-  <item id="7397" article="a" name="deer trophy">
+  <item id="7397" article="a" name="deer trophy" editorcategory="Trophies">
     <attribute key="weight" value="500" />
   </item>
-  <item id="7398" article="a" name="cyclops trophy">
+  <item id="7398" article="a" name="cyclops trophy" editorcategory="Trophies">
     <attribute key="weight" value="500" />
   </item>
-  <item id="7399" article="a" name="dragon lord trophy">
+  <item id="7399" article="a" name="dragon lord trophy" editorcategory="Trophies">
     <attribute key="weight" value="500" />
   </item>
-  <item id="7400" article="a" name="lion trophy">
+  <item id="7400" article="a" name="lion trophy" editorcategory="Trophies">
     <attribute key="weight" value="500" />
   </item>
-  <item id="7401" article="a" name="minotaur trophy">
+  <item id="7401" article="a" name="minotaur trophy" editorcategory="Trophies">
     <attribute key="weight" value="500" />
   </item>
   <item id="7402" article="a" name="dragon slayer">
@@ -17240,7 +17240,7 @@
   <item id="7734" article="a" name="watering can">
     <attribute key="weight" value="850" />
   </item>
-  <item id="7735" article="a" name="spellwand">
+  <item id="7735" article="a" name="spellwand" editorcategory="Tools">
     <attribute key="description" value="It might have some strange effects." />
     <attribute key="weight" value="200" />
   </item>
@@ -18608,7 +18608,7 @@
   <item id="7958" article="a" name="jester staff">
     <attribute key="weight" value="725" />
   </item>
-  <item id="7959" name="Firlefanz">
+  <item id="7959" name="Firlefanz" editorcategory="Decorations">
     <attribute key="weight" value="1000" />
   </item>
   <item id="7960" article="a" name="mysterious package" editorsuffix="(TBI)">
@@ -18627,7 +18627,7 @@
     <attribute key="description" value="This rare fish is almost too precious to simply be eaten. Maybe you can find a collector." />
     <attribute key="weight" value="1800" />
   </item>
-  <item id="7964" article="a" name="marlin trophy">
+  <item id="7964" article="a" name="marlin trophy" editorcategory="Trophies">
     <attribute key="weight" value="500" />
   </item>
   <item id="7965" article="a" name="badger fur" editorsuffix="(Unknown weight)" />
@@ -20400,21 +20400,21 @@
     <attribute key="decayto" value="8905" />
     <attribute key="duration" value="1200" />
   </item>
-  <item id="8910" article="an" name="underworld rod">
+  <item id="8910" article="an" name="underworld rod" editorcategory="Rods">
     <attribute key="description" value="No one knows which hell this unholy rod comes from." />
     <attribute key="weight" value="2900" />
     <attribute key="weapontype" value="wand" />
     <attribute key="shoottype" value="skull" />
     <attribute key="range" value="3" />
   </item>
-  <item id="8911" article="a" name="northwind rod">
+  <item id="8911" article="a" name="northwind rod" editorcategory="Rods">
     <attribute key="description" value="It was made by one of the shamans in Svargrond and symbolises an icy mammoth." />
     <attribute key="weight" value="2900" />
     <attribute key="weapontype" value="wand" />
     <attribute key="shoottype" value="ice" />
     <attribute key="range" value="3" />
   </item>
-  <item id="8912" article="a" name="springsprout rod">
+  <item id="8912" article="a" name="springsprout rod" editorcategory="Rods">
     <attribute key="description" value="It is filled with the energy of growing plants." />
     <attribute key="weight" value="2700" />
     <attribute key="weapontype" value="wand" />
@@ -20436,23 +20436,23 @@
   <item id="8919" article="a" name="spell rune" editorcategory="Runes">
     <attribute key="description" value="It is Yandur's healing rune. You can't remove it from his house, but you may use it." />
   </item>
-  <item id="8920" article="a" name="wand of starstorm">
+  <item id="8920" article="a" name="wand of starstorm" editorcategory="Wands">
     <attribute key="description" value="It is sparkling with universal energy." />
     <attribute key="weight" value="2550" />
     <attribute key="weapontype" value="wand" />
     <attribute key="shoottype" value="energy" />
     <attribute key="range" value="3" />
   </item>
-  <item id="8921" article="a" name="wand of draconia">
+  <item id="8921" article="a" name="wand of draconia" editorcategory="Wands">
     <attribute key="description" value="This wand holds the spirit and soul of a dragon lord." />
     <attribute key="weight" value="2700" />
     <attribute key="weapontype" value="wand" />
     <attribute key="shoottype" value="fire" />
     <attribute key="range" value="3" />
   </item>
-  <item id="8922" article="a" name="wand of voodoo">
+  <item id="8922" article="a" name="wand of voodoo" editorcategory="Wands">
     <attribute key="description" value="It is filled with the dark hatred and rage of a tormented demonic being." />
-    <attribute key="weight" value="2700" />
+    <attribute key="weight" value="2850" />
     <attribute key="weapontype" value="wand" />
     <attribute key="shoottype" value="skull" />
     <attribute key="range" value="3" />
@@ -22143,7 +22143,7 @@
   <item id="9834" article="an" name="old carpet" />
   <item id="9835" article="a" name="velvet tapestry" />
   <item id="9836" article="a" name="velvet tapestry" />
-  <item id="9837" article="a" name="velvet tapestry">
+  <item id="9837" article="a" name="velvet tapestry" editorcategory="Decorations">
     <attribute key="weight" value="1000" />
   </item>
   <item id="9838" article="a" name="wall lamp" />
@@ -22504,10 +22504,10 @@
     <attribute key="showduration" value="1" />
   </item>
   <item id="9957" name="nothing special" />
-  <item id="9958" article="a" name="royal tapestry">
+  <item id="9958" article="a" name="royal tapestry" editorcategory="Decorations">
     <attribute key="weight" value="1000" />
   </item>
-  <item id="9959" article="a" name="silky tapestry">
+  <item id="9959" article="a" name="silky tapestry" editorcategory="Decorations">
     <attribute key="weight" value="1000" />
   </item>
   <item id="9960" article="the" name="remains of a death glob" editorsuffix="(Unmoveable)">
@@ -23077,7 +23077,7 @@
     <attribute key="showcharges" value="1" />
   </item>
   <item id="10222" article="a" name="sandstone floor" />
-  <item id="10223" article="a" name="mechanical fishing rod">
+  <item id="10223" article="a" name="mechanical fishing rod" editorcategory="Tools">
     <attribute key="weight" value="920" />
   </item>
   <item id="10224" article="a" name="mechanical fish">
@@ -23534,7 +23534,7 @@
   <item id="10454" article="a" name="headache pill" plural="headache pills">
     <attribute key="weight" value="20" />
   </item>
-  <item id="10455" article="a" name="pigeon trophy">
+  <item id="10455" article="a" name="pigeon trophy" editorcategory="Trophies">
     <attribute key="description" value="It's a symbol of peace handed out by Tibia ML." />
     <attribute key="weight" value="400" />
   </item>
@@ -23747,7 +23747,7 @@
     <attribute key="duration" value="600" />
   </item>
   <item id="10528" name="nothing special" />
-  <item id="10529" article="a" name="sea serpent trophy">
+  <item id="10529" article="a" name="sea serpent trophy" editorcategory="Trophies">
     <attribute key="weight" value="500" />
   </item>
   <item id="10530" article="a" name="the famous golden bug">
@@ -24652,7 +24652,9 @@
   <item id="11158" name="nothing special" />
   <item id="11159" name="nothing special" />
   <item id="11160" name="nothing special" />
-  <item id="11161" name="nothing special" />
+  <item id="11161" article="a" name="bonebeast throphy" editorcategory="Trophies">
+    <attribute key="weight" value="500" />
+  </item>
   <item id="11162" name="nothing special" />
   <item id="11163" name="nothing special" />
   <item id="11164" name="nothing special" />
@@ -24937,7 +24939,7 @@
     <attribute key="containersize" value="20" />
     <attribute key="slottype" value="backpack" />
   </item>
-  <item id="11264" name="dragon tapestry">
+  <item id="11264" article="a" name="dragon tapestry" editorcategory="Decorations">
     <attribute key="weight" value="1000" />
   </item>
   <item id="11265" name="nothing special" />
@@ -25159,10 +25161,12 @@
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="60" />
   </item>
-  <item id="11314" name="weaver wandtip">
+  <item id="11314" article="a" name="weaver's wandtip" editorcategory="Creature Products">
     <attribute key="weight" value="170" />
   </item>
-  <item id="11315" name="nothing special" />
+  <item id="11315" article="a" name="draken trophy" editorcategory="Trophies">
+    <attribute key="weight" value="600" />
+  </item>
   <item id="11316" article="a" name="dead draken spellweaver" editorsuffix="(Unmoveable)">
     <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
@@ -25238,13 +25242,13 @@
   <item id="11335" article="a" name="broken halberd">
     <attribute key="weight" value="210" />
   </item>
-  <item id="11336" article="a" name="lizard trophy">
-    <attribute key="weight" value="1200" />
+  <item id="11336" article="a" name="lizard trophy" editorcategory="Trophies">
+    <attribute key="weight" value="550" />
   </item>
   <item id="11337" article="a" name="petrified scream" plural="petrified scream">
     <attribute key="weight" value="150" />
   </item>
-  <item id="11338" article="a" name="disgusting trophy">
+  <item id="11338" article="a" name="disgusting trophy" editorcategory="Trophies">
     <attribute key="weight" value="700" />
   </item>
   <item id="11339" article="a" name="clay lump" />
@@ -25324,7 +25328,7 @@
     <attribute key="duration" value="10" />
     <attribute key="fluidsource" value="slime" />
   </item>
-  <item id="11361" article="a" name="dragon priest wandtip">
+  <item id="11361" article="a" name="dragon priest wandtip" editorcategory="Creature Products">
     <attribute key="weight" value="155" />
   </item>
   <item id="11362" article="a" name="slain ghastly dragon" editorsuffix="(Unmoveable)">
