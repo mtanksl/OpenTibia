@@ -280,62 +280,15 @@ namespace OpenTibia.FileFormats.Xml.Items
 
                         switch ( (string)value)
                         {
-                            case "spear":
-                            case "huntingspear":
-                            case "royalspear":
-                            case "enchantedspear":
-                            case "etherealspear":
-
-                                item.AmmoType = Common.Structures.AmmoType.Spear;
-
-                                break;
-
                             case "arrow":
-                            case "poisonarrow":
-                            case "burstarrow":
-                            case "sniperarrow":
-                            case "onyxarrow":
-                            case "flasharrow":
-                            case "flammingarrow":
-                            case "flamingarrow":
-                            case "shiverarrow":
-                            case "eartharrow":
 
                                 item.AmmoType = Common.Structures.AmmoType.Arrow;
 
                                 break;
 
                             case "bolt":
-                            case "powerbolt":
-                            case "piercingbolt":
-                            case "infernalbolt":
 
                                 item.AmmoType = Common.Structures.AmmoType.Bolt;
-
-                                break;
-
-                            case "smallstone":
-                            case "largerock":
-
-                                item.AmmoType = Common.Structures.AmmoType.Stone;
-
-                                break;
-
-                            case "throwingstar":
-
-                                item.AmmoType = Common.Structures.AmmoType.ThrowingStar;
-
-                                break;
-
-                            case "throwingknife":
-                                
-                                item.AmmoType = Common.Structures.AmmoType.ThrowingKnife;
-
-                                break;
-
-                            case "snowball":
-
-                                item.AmmoType = Common.Structures.AmmoType.Snowball;
 
                                 break;
                         }
