@@ -1663,20 +1663,20 @@
   <item id="1737" article="a" name="mirror">
     <attribute key="rotateto" value="1736" />
   </item>
-  <item id="1738" article="a" name="box">
+  <item id="1738" article="a" name="box" editorcategory="Containers">
     <attribute key="weight" value="3500" />
     <attribute key="containersize" value="10" />
   </item>
-  <item id="1739" article="a" name="crate">
+  <item id="1739" article="a" name="crate" editorcategory="Containers">
     <attribute key="weight" value="8000" />
     <attribute key="containersize" value="15" />
   </item>
-  <item id="1740" article="a" name="chest">
+  <item id="1740" article="a" name="chest" editorcategory="Containers">
     <attribute key="weight" value="12000" />
     <attribute key="containersize" value="15" />
     <attribute key="rotateto" value="1748" />
   </item>
-  <item id="1741" article="a" name="box">
+  <item id="1741" article="a" name="box" editorcategory="Containers">
     <attribute key="weight" value="3500" />
     <attribute key="containersize" value="10" />
   </item>
@@ -1688,21 +1688,21 @@
     <attribute key="containersize" value="6" />
   </item>
   <item id="1745" article="a" name="wooden coffin" />
-  <item id="1746" article="a" name="treasure chest">
-    <attribute key="weight" value="12000" />
+  <item id="1746" article="a" name="treasure chest" editorcategory="Containers">
+    <attribute key="weight" value="9500" />
     <attribute key="containersize" value="10" />
   </item>
-  <item id="1747" article="a" name="chest">
+  <item id="1747" article="a" name="chest" editorcategory="Containers">
     <attribute key="weight" value="12000" />
     <attribute key="containersize" value="15" />
     <attribute key="rotateto" value="1749" />
   </item>
-  <item id="1748" article="a" name="chest">
+  <item id="1748" article="a" name="chest" editorcategory="Containers">
     <attribute key="weight" value="12000" />
     <attribute key="containersize" value="15" />
     <attribute key="rotateto" value="1747" />
   </item>
-  <item id="1749" article="a" name="chest">
+  <item id="1749" article="a" name="chest" editorcategory="Containers">
     <attribute key="weight" value="12000" />
     <attribute key="containersize" value="15" />
     <attribute key="rotateto" value="1740" />
@@ -2257,90 +2257,90 @@
     <attribute key="description" value="It is a volume of The Mystic Secrets of Tibia." />
     <attribute key="weight" value="1900" />
   </item>
-  <item id="1987" article="a" name="bag">
+  <item id="1987" article="a" name="bag" editorcategory="Containers">
     <attribute key="weight" value="800" />
     <attribute key="containersize" value="8" />
     <attribute key="slottype" value="backpack" />
   </item>
-  <item id="1988" article="a" name="backpack">
+  <item id="1988" article="a" name="backpack" editorcategory="Containers">
     <attribute key="weight" value="1800" />
     <attribute key="containersize" value="20" />
     <attribute key="slottype" value="backpack" />
   </item>
-  <item id="1989" article="a" name="basket">
+  <item id="1989" article="a" name="basket" editorcategory="Containers">
     <attribute key="weight" value="950" />
     <attribute key="containersize" value="5" />
   </item>
-  <item id="1990" article="a" name="present">
+  <item id="1990" article="a" name="present" editorcategory="Containers">
     <attribute key="weight" value="600" />
     <attribute key="containersize" value="5" />
   </item>
-  <item id="1991" article="a" name="green bag">
+  <item id="1991" article="a" name="green bag" editorcategory="Containers">
     <attribute key="weight" value="800" />
     <attribute key="containersize" value="8" />
     <attribute key="slottype" value="backpack" />
   </item>
-  <item id="1992" article="a" name="yellow bag">
+  <item id="1992" article="a" name="yellow bag" editorcategory="Containers">
     <attribute key="weight" value="800" />
     <attribute key="containersize" value="8" />
     <attribute key="slottype" value="backpack" />
   </item>
-  <item id="1993" article="a" name="red bag">
+  <item id="1993" article="a" name="red bag" editorcategory="Containers">
     <attribute key="weight" value="800" />
     <attribute key="containersize" value="8" />
     <attribute key="slottype" value="backpack" />
   </item>
-  <item id="1994" article="a" name="purple bag">
+  <item id="1994" article="a" name="purple bag" editorcategory="Containers">
     <attribute key="weight" value="800" />
     <attribute key="containersize" value="8" />
     <attribute key="slottype" value="backpack" />
   </item>
-  <item id="1995" article="a" name="blue bag">
+  <item id="1995" article="a" name="blue bag" editorcategory="Containers">
     <attribute key="weight" value="800" />
     <attribute key="containersize" value="8" />
     <attribute key="slottype" value="backpack" />
   </item>
-  <item id="1996" article="a" name="gray bag">
+  <item id="1996" article="a" name="gray bag" editorcategory="Containers">
     <attribute key="weight" value="800" />
     <attribute key="containersize" value="8" />
     <attribute key="slottype" value="backpack" />
   </item>
-  <item id="1997" article="a" name="golden bag">
+  <item id="1997" article="a" name="golden bag" editorcategory="Containers">
     <attribute key="weight" value="800" />
     <attribute key="containersize" value="8" />
     <attribute key="slottype" value="backpack" />
   </item>
-  <item id="1998" article="a" name="green backpack">
+  <item id="1998" article="a" name="green backpack" editorcategory="Containers">
     <attribute key="weight" value="1800" />
     <attribute key="containersize" value="20" />
     <attribute key="slottype" value="backpack" />
   </item>
-  <item id="1999" article="a" name="yellow backpack">
+  <item id="1999" article="a" name="yellow backpack" editorcategory="Containers">
     <attribute key="weight" value="1800" />
     <attribute key="containersize" value="20" />
     <attribute key="slottype" value="backpack" />
   </item>
-  <item id="2000" article="a" name="red backpack">
+  <item id="2000" article="a" name="red backpack" editorcategory="Containers">
     <attribute key="weight" value="1800" />
     <attribute key="containersize" value="20" />
     <attribute key="slottype" value="backpack" />
   </item>
-  <item id="2001" article="a" name="purple backpack">
+  <item id="2001" article="a" name="purple backpack" editorcategory="Containers">
     <attribute key="weight" value="1800" />
     <attribute key="containersize" value="20" />
     <attribute key="slottype" value="backpack" />
   </item>
-  <item id="2002" article="a" name="blue backpack">
+  <item id="2002" article="a" name="blue backpack" editorcategory="Containers">
     <attribute key="weight" value="1800" />
     <attribute key="containersize" value="20" />
     <attribute key="slottype" value="backpack" />
   </item>
-  <item id="2003" article="a" name="gray backpack">
+  <item id="2003" article="a" name="gray backpack" editorcategory="Containers">
     <attribute key="weight" value="1800" />
     <attribute key="containersize" value="20" />
     <attribute key="slottype" value="backpack" />
   </item>
-  <item id="2004" article="a" name="golden backpack">
+  <item id="2004" article="a" name="golden backpack" editorcategory="Containers">
     <attribute key="weight" value="1800" />
     <attribute key="containersize" value="20" />
     <attribute key="slottype" value="backpack" />
@@ -3689,7 +3689,7 @@
     <attribute key="description" value="This bag is nearly bursting from all the letters inside." />
     <attribute key="weight" value="50000" />
   </item>
-  <item id="2331" article="a" name="present">
+  <item id="2331" article="a" name="present" editorsuffix="(Postman)">
     <attribute key="weight" value="1200" />
   </item>
   <item id="2332" article="a" name="Waldo's posthorn">
@@ -3831,7 +3831,7 @@
   <item id="2364" article="a" name="post horn">
     <attribute key="weight" value="1500" />
   </item>
-  <item id="2365" article="a" name="backpack of holding">
+  <item id="2365" article="a" name="backpack of holding" editorcategory="Containers">
     <attribute key="weight" value="1500" />
     <attribute key="containersize" value="24" />
     <attribute key="slottype" value="backpack" />
@@ -5075,10 +5075,9 @@
   </item>
   <item id="2595" article="a" name="parcel">
     <attribute key="weight" value="1800" />
-    <attribute key="containersize" value="10" />
     <attribute key="type" value="container" />
   </item>
-  <item id="2596" article="a" name="stamped parcel">
+  <item id="2596" article="a" name="stamped parcel" editorcategory="Containers">
     <attribute key="weight" value="1800" />
     <attribute key="containersize" value="10" />
   </item>
@@ -8552,12 +8551,12 @@
     <attribute key="description" value="Use it in your house to construct a trunk." />
     <attribute key="weight" value="3500" />
   </item>
-  <item id="3939" article="a" name="camouflage bag">
+  <item id="3939" article="a" name="camouflage bag" editorcategory="Containers">
     <attribute key="weight" value="800" />
     <attribute key="containersize" value="8" />
     <attribute key="slottype" value="backpack" />
   </item>
-  <item id="3940" article="a" name="camouflage backpack">
+  <item id="3940" article="a" name="camouflage backpack" editorcategory="Containers">
     <attribute key="weight" value="1800" />
     <attribute key="containersize" value="20" />
     <attribute key="slottype" value="backpack" />
@@ -8605,7 +8604,7 @@
     <attribute key="decayto" value="3798" />
     <attribute key="duration" value="120" />
   </item>
-  <item id="3960" article="an" name="old and used backpack">
+  <item id="3960" article="an" name="old and used backpack" editorcategory="Containers">
     <attribute key="description" value="A label on the backpack reads: Property of Sam, Thais." />
     <attribute key="weight" value="1800" />
     <attribute key="containersize" value="20" />
@@ -11871,9 +11870,10 @@
     <attribute key="weight" value="1500" />
   </item>
   <item id="5800" article="a" name="grappling hook" />
-  <item id="5801" article="a" name="key ring">
-    <attribute key="weight" value="50" />
-    <attribute key="containersize" value="20" />
+  <item id="5801" article="a" name="jewelled backpack" editorcategory="Containers">
+    <attribute key="weight" value="1700" />
+    <attribute key="containersize" value="22" />
+    <attribute key="slottype" value="backpack" />
   </item>
   <item id="5802" article="a" name="message in a bottle" editorsuffix="(Unknown weight)" />
   <item id="5803" article="an" name="arbalest">
@@ -12209,12 +12209,12 @@
   <item id="5925" article="a" name="hardened bone" plural="hardened bones">
     <attribute key="weight" value="600" />
   </item>
-  <item id="5926" article="a" name="pirate backpack">
+  <item id="5926" article="a" name="pirate backpack" editorcategory="Containers">
     <attribute key="weight" value="1800" />
     <attribute key="containersize" value="20" />
     <attribute key="slottype" value="backpack" />
   </item>
-  <item id="5927" article="a" name="pirate bag">
+  <item id="5927" article="a" name="pirate bag" editorcategory="Containers">
     <attribute key="weight" value="800" />
     <attribute key="containersize" value="8" />
     <attribute key="slottype" value="backpack" />
@@ -12309,12 +12309,12 @@
     <attribute key="weight" value="60" />
     <attribute key="showcount" value="0" />
   </item>
-  <item id="5949" article="a" name="beach backpack">
+  <item id="5949" article="a" name="beach backpack" editorcategory="Containers">
     <attribute key="weight" value="1800" />
     <attribute key="containersize" value="20" />
     <attribute key="slottype" value="backpack" />
   </item>
-  <item id="5950" article="a" name="beach bag">
+  <item id="5950" article="a" name="beach bag" editorcategory="Containers">
     <attribute key="weight" value="800" />
     <attribute key="containersize" value="8" />
     <attribute key="slottype" value="backpack" />
@@ -13245,7 +13245,7 @@
   <item id="6103" article="an" name="unholy book">
     <attribute key="weight" value="1300" />
   </item>
-  <item id="6104" article="a" name="jewel case">
+  <item id="6104" article="a" name="jewel case" editorcategory="Containers">
     <attribute key="weight" value="170" />
     <attribute key="containersize" value="1" />
   </item>
@@ -14314,7 +14314,7 @@
   <item id="6505" article="a" name="blue christmas garland">
     <attribute key="weight" value="500" />
   </item>
-  <item id="6506" article="a" name="christmas present">
+  <item id="6506" article="a" name="christmas present" editorcategory="Containers">
     <attribute key="weight" value="600" />
     <attribute key="containersize" value="5" />
   </item>
@@ -14330,11 +14330,11 @@
     <attribute key="description" value="It contains random christmas decoration." />
     <attribute key="weight" value="2500" />
   </item>
-  <item id="6510" article="a" name="christmas present">
+  <item id="6510" article="a" name="christmas present" editorcategory="Containers">
     <attribute key="weight" value="600" />
     <attribute key="containersize" value="5" />
   </item>
-  <item id="6511" article="a" name="christmas present">
+  <item id="6511" article="a" name="christmas present" editorcategory="Containers">
     <attribute key="weight" value="600" />
     <attribute key="containersize" value="5" />
   </item>
@@ -15878,12 +15878,12 @@
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="600" />
   </item>
-  <item id="7342" article="a" name="fur backpack">
+  <item id="7342" article="a" name="fur backpack" editorcategory="Containers">
     <attribute key="weight" value="1800" />
     <attribute key="containersize" value="20" />
     <attribute key="slottype" value="backpack" />
   </item>
-  <item id="7343" article="a" name="fur bag">
+  <item id="7343" article="a" name="fur bag" editorcategory="Containers">
     <attribute key="weight" value="800" />
     <attribute key="containersize" value="8" />
     <attribute key="slottype" value="backpack" />
@@ -18585,7 +18585,7 @@
   <item id="7954" name="shallow water">
     <attribute key="fluidsource" value="water" />
   </item>
-  <item id="7955" article="a" name="parcel" editorsuffix="(Tibia Tales)">
+  <item id="7955" article="a" name="parcel" editorsuffix="(Watchtower)">
     <attribute key="description" value="It is the parcel for the watchtower on the Femor Hills." />
     <attribute key="weight" value="1800" />
   </item>
@@ -20907,9 +20907,8 @@
   <item id="9071" name="rock" />
   <item id="9072" name="rock" />
   <item id="9073" name="rock" />
-  <item id="9074" article="a" name="present">
-    <attribute key="weight" value="600" />
-    <attribute key="containersize" value="5" />
+  <item id="9074" article="a" name="reward box">
+    <attribute key="weight" value="100" />
   </item>
   <item id="9075" article="a" name="purple bag">
     <attribute key="weight" value="800" />
@@ -20931,7 +20930,7 @@
   </item>
   <item id="9079" name="nothing special" />
   <item id="9080" name="nothing special" />
-  <item id="9081" article="a" name="parcel">
+  <item id="9081" article="a" name="parcel" editorcategory="Containers">
     <attribute key="weight" value="1800" />
     <attribute key="containersize" value="10" />
   </item>
@@ -21946,12 +21945,12 @@
   <item id="9773" article="an" name="ghost charm">
     <attribute key="description" value="The ghost charm is pulsating with energy." />
   </item>
-  <item id="9774" article="a" name="brocade backpack">
+  <item id="9774" article="a" name="brocade backpack" editorcategory="Containers">
     <attribute key="weight" value="1800" />
     <attribute key="containersize" value="20" />
     <attribute key="slottype" value="backpack" />
   </item>
-  <item id="9775" article="a" name="brocade bag">
+  <item id="9775" article="a" name="brocade bag" editorcategory="Containers">
     <attribute key="weight" value="800" />
     <attribute key="containersize" value="8" />
     <attribute key="slottype" value="backpack" />
@@ -23648,27 +23647,27 @@
     <attribute key="duration" value="60" />
   </item>
   <item id="10517" name="nothing special" />
-  <item id="10518" article="a" name="demon backpack">
+  <item id="10518" article="a" name="demon backpack" editorcategory="Containers">
     <attribute key="weight" value="1800" />
     <attribute key="containersize" value="20" />
     <attribute key="slottype" value="backpack" />
   </item>
-  <item id="10519" article="an" name="orange backpack">
+  <item id="10519" article="an" name="orange backpack" editorcategory="Containers">
     <attribute key="weight" value="1800" />
     <attribute key="containersize" value="20" />
     <attribute key="slottype" value="backpack" />
   </item>
-  <item id="10520" article="an" name="orange bag">
+  <item id="10520" article="an" name="orange bag" editorcategory="Containers">
     <attribute key="weight" value="800" />
     <attribute key="containersize" value="8" />
     <attribute key="slottype" value="backpack" />
   </item>
-  <item id="10521" article="a" name="moon backpack">
+  <item id="10521" article="a" name="moon backpack" editorcategory="Containers">
     <attribute key="weight" value="1800" />
     <attribute key="containersize" value="20" />
     <attribute key="slottype" value="backpack" />
   </item>
-  <item id="10522" article="a" name="crown backpack">
+  <item id="10522" article="a" name="crown backpack" editorcategory="Containers">
     <attribute key="weight" value="1700" />
     <attribute key="containersize" value="20" />
     <attribute key="slottype" value="backpack" />
@@ -24518,7 +24517,7 @@
     <attribute key="absorbpercentfire" value="3" />
     <attribute key="absorbpercentice" value="-3" />
   </item>
-  <item id="11119" article="a" name="heart backpack">
+  <item id="11119" article="a" name="heart backpack" editorcategory="Containers">
     <attribute key="weight" value="1800" />
     <attribute key="containersize" value="20" />
     <attribute key="slottype" value="backpack" />
@@ -24782,22 +24781,22 @@
     <attribute key="absorbpercentphysical" value="2" />
     <attribute key="absorbpercentholy" value="-2" />
   </item>
-  <item id="11241" article="a" name="expedition backpack">
+  <item id="11241" article="a" name="expedition backpack" editorcategory="Containers">
     <attribute key="weight" value="1800" />
     <attribute key="containersize" value="20" />
     <attribute key="slottype" value="backpack" />
   </item>
-  <item id="11242" article="a" name="expedition bag">
+  <item id="11242" article="a" name="expedition bag" editorcategory="Containers">
     <attribute key="weight" value="800" />
     <attribute key="containersize" value="8" />
     <attribute key="slottype" value="backpack" />
   </item>
-  <item id="11243" article="a" name="lizard backpack">
+  <item id="11243" article="a" name="dragon backpack" editorcategory="Containers">
     <attribute key="weight" value="1700" />
     <attribute key="containersize" value="20" />
     <attribute key="slottype" value="backpack" />
   </item>
-  <item id="11244" article="a" name="minotaur backpack">
+  <item id="11244" article="a" name="minotaur backpack" editorcategory="Containers">
     <attribute key="weight" value="1800" />
     <attribute key="containersize" value="20" />
     <attribute key="slottype" value="backpack" />
@@ -24866,7 +24865,7 @@
   <item id="11260" name="nothing special" />
   <item id="11261" name="nothing special" />
   <item id="11262" name="nothing special" />
-  <item id="11263" article="a" name="fluffy santa backpack">
+  <item id="11263" article="a" name="santa backpack" editorcategory="Containers">
     <attribute key="weight" value="1650" />
     <attribute key="containersize" value="20" />
     <attribute key="slottype" value="backpack" />
@@ -26722,7 +26721,11 @@
   <item id="12651" name="nothing special" />
   <item id="12652" name="nothing special" />
   <item id="12653" name="nothing special" />
-  <item id="12654" name="nothing special" />
+  <item id="12654" article="a" name="bag" editorcategory="Containers">
+    <attribute key="weight" value="800" />
+    <attribute key="containersize" value="8" />
+    <attribute key="slottype" value="backpack" />
+  </item>
   <item id="12655" name="nothing special" />
   <item id="12656" name="nothing special" />
   <item id="12657" name="nothing special" />

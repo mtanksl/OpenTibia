@@ -508,7 +508,7 @@
 		oceanFloors = { 5405, 5406, 5407, 5408, 5409, 5410 },
 		ovens = { 1786, 1788, 1790, 1792, 6356, 6358, 6360, 6362 },
 		pandaTeddies = { 5080 },
-		parcel = 2595,
+		parcel = 9081,
 		partyCakes = { 6280 },
 		partyHats = { 6578 },
 		phoenixCharms = { 11258 },
