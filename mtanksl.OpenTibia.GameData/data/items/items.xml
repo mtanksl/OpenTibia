@@ -4462,28 +4462,28 @@
     <attribute key="armor" value="7" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="2463" article="a" name="plate armor">
+  <item id="2463" article="a" name="plate armor" editorcategory="Armors">
     <attribute key="weight" value="12000" />
     <attribute key="armor" value="10" />
     <attribute key="slottype" value="body" />
   </item>
-  <item id="2464" article="a" name="chain armor">
+  <item id="2464" article="a" name="chain armor" editorcategory="Armors">
     <attribute key="weight" value="10000" />
     <attribute key="armor" value="6" />
     <attribute key="slottype" value="body" />
   </item>
-  <item id="2465" article="a" name="brass armor">
+  <item id="2465" article="a" name="brass armor" editorcategory="Armors">
     <attribute key="weight" value="8000" />
     <attribute key="armor" value="8" />
     <attribute key="slottype" value="body" />
   </item>
-  <item id="2466" article="a" name="golden armor">
+  <item id="2466" article="a" name="golden armor" editorcategory="Armors">
     <attribute key="description" value="It's an enchanted armor." />
     <attribute key="weight" value="8000" />
     <attribute key="armor" value="14" />
     <attribute key="slottype" value="body" />
   </item>
-  <item id="2467" article="a" name="leather armor">
+  <item id="2467" article="a" name="leather armor" editorcategory="Armors">
     <attribute key="weight" value="6000" />
     <attribute key="armor" value="4" />
     <attribute key="slottype" value="body" />
@@ -4509,7 +4509,7 @@
     <attribute key="armor" value="12" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="2472" article="a" name="magic plate armor">
+  <item id="2472" article="a" name="magic plate armor" editorcategory="Armors">
     <attribute key="weight" value="8500" />
     <attribute key="armor" value="17" />
     <attribute key="slottype" value="body" />
@@ -4530,7 +4530,7 @@
     <attribute key="armor" value="8" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="2476" article="a" name="knight armor">
+  <item id="2476" article="a" name="knight armor" editorcategory="Armors">
     <attribute key="weight" value="12000" />
     <attribute key="armor" value="12" />
     <attribute key="slottype" value="body" />
@@ -4565,27 +4565,27 @@
     <attribute key="armor" value="2" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="2483" article="a" name="scale armor">
+  <item id="2483" article="a" name="scale armor" editorcategory="Armors">
     <attribute key="weight" value="10500" />
     <attribute key="armor" value="9" />
     <attribute key="slottype" value="body" />
   </item>
-  <item id="2484" article="a" name="studded armor">
+  <item id="2484" article="a" name="studded armor" editorcategory="Armors">
     <attribute key="weight" value="7100" />
     <attribute key="armor" value="5" />
     <attribute key="slottype" value="body" />
   </item>
-  <item id="2485" article="a" name="doublet">
+  <item id="2485" article="a" name="doublet" editorcategory="Armors">
     <attribute key="weight" value="2500" />
     <attribute key="armor" value="2" />
     <attribute key="slottype" value="body" />
   </item>
-  <item id="2486" article="a" name="noble armor">
+  <item id="2486" article="a" name="noble armor" editorcategory="Armors">
     <attribute key="weight" value="12000" />
     <attribute key="armor" value="11" />
     <attribute key="slottype" value="body" />
   </item>
-  <item id="2487" article="a" name="crown armor">
+  <item id="2487" article="a" name="crown armor" editorcategory="Armors">
     <attribute key="weight" value="9900" />
     <attribute key="armor" value="13" />
     <attribute key="slottype" value="body" />
@@ -4595,7 +4595,7 @@
     <attribute key="armor" value="8" />
     <attribute key="slottype" value="legs" />
   </item>
-  <item id="2489" article="a" name="dark armor">
+  <item id="2489" article="a" name="dark armor" editorcategory="Armors">
     <attribute key="weight" value="12000" />
     <attribute key="armor" value="10" />
     <attribute key="slottype" value="body" />
@@ -4610,7 +4610,7 @@
     <attribute key="armor" value="7" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="2492" article="a" name="dragon scale mail">
+  <item id="2492" article="a" name="dragon scale mail" editorcategory="Armors">
     <attribute key="weight" value="11400" />
     <attribute key="armor" value="15" />
     <attribute key="slottype" value="body" />
@@ -4621,7 +4621,7 @@
     <attribute key="armor" value="10" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="2494" article="a" name="demon armor">
+  <item id="2494" article="a" name="demon armor" editorcategory="Armors">
     <attribute key="weight" value="8000" />
     <attribute key="armor" value="16" />
     <attribute key="slottype" value="body" />
@@ -4652,8 +4652,8 @@
     <attribute key="armor" value="7" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="2500" article="an" name="amazon armor">
-    <attribute key="weight" value="9900" />
+  <item id="2500" article="an" name="amazon armor" editorcategory="Armors">
+    <attribute key="weight" value="4500" />
     <attribute key="armor" value="13" />
     <attribute key="slottype" value="body" />
     <attribute key="skillmodifierdistance" value="3" />
@@ -4668,7 +4668,7 @@
     <attribute key="armor" value="6" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="2503" article="a" name="dwarven armor">
+  <item id="2503" article="a" name="dwarven armor" editorcategory="Armors">
     <attribute key="weight" value="13000" />
     <attribute key="armor" value="10" />
     <attribute key="slottype" value="body" />
@@ -4690,7 +4690,8 @@
     <attribute key="armor" value="4" />
     <attribute key="slottype" value="legs" />
   </item>
-  <item id="2508" article="a" name="native armor" editorsuffix="(Unknown weight)">
+  <item id="2508" article="a" name="native armor" editorcategory="Armors">
+    <attribute key="weight" value="8000" />
     <attribute key="armor" value="7" />
     <attribute key="slottype" value="body" />
   </item>
@@ -5213,56 +5214,58 @@
     <attribute key="armor" value="1" />
     <attribute key="slottype" value="legs" />
   </item>
-  <item id="2650" article="a" name="jacket">
+  <item id="2650" article="a" name="jacket" editorcategory="Armors">
     <attribute key="weight" value="2400" />
     <attribute key="armor" value="1" />
     <attribute key="slottype" value="body" />
   </item>
-  <item id="2651" article="a" name="coat">
+  <item id="2651" article="a" name="coat" editorcategory="Armors">
     <attribute key="weight" value="2700" />
     <attribute key="armor" value="1" />
     <attribute key="slottype" value="body" />
   </item>
-  <item id="2652" article="a" name="green tunic">
+  <item id="2652" article="a" name="green tunic" editorcategory="Armors">
     <attribute key="weight" value="930" />
     <attribute key="armor" value="1" />
     <attribute key="slottype" value="body" />
   </item>
-  <item id="2653" article="a" name="red tunic">
-    <attribute key="weight" value="3000" />
+  <item id="2653" article="a" name="red tunic" editorcategory="Armors">
+    <attribute key="weight" value="1400" />
     <attribute key="armor" value="2" />
     <attribute key="slottype" value="body" />
   </item>
-  <item id="2654" article="a" name="cape">
+  <item id="2654" article="a" name="cape" editorcategory="Armors">
     <attribute key="weight" value="3200" />
     <attribute key="armor" value="1" />
     <attribute key="slottype" value="body" />
   </item>
-  <item id="2655" article="a" name="red robe">
+  <item id="2655" article="a" name="red robe" editorcategory="Armors">
     <attribute key="weight" value="2600" />
     <attribute key="armor" value="1" />
     <attribute key="slottype" value="body" />
   </item>
-  <item id="2656" article="a" name="blue robe">
+  <item id="2656" article="a" name="blue robe" editorcategory="Armors">
     <attribute key="description" value="It is a magic robe." />
     <attribute key="weight" value="2200" />
     <attribute key="armor" value="11" />
     <attribute key="slottype" value="body" />
   </item>
-  <item id="2657" article="a" name="simple dress">
+  <item id="2657" article="a" name="simple dress" editorcategory="Armors">
     <attribute key="weight" value="2400" />
+    <attribute key="armor" value="0" />
     <attribute key="slottype" value="body" />
   </item>
-  <item id="2658" article="a" name="white dress">
+  <item id="2658" article="a" name="white dress" editorcategory="Armors">
     <attribute key="weight" value="2400" />
-    <attribute key="armor" value="1" />
+    <attribute key="armor" value="0" />
     <attribute key="slottype" value="body" />
   </item>
-  <item id="2659" article="a" name="ball gown">
+  <item id="2659" article="a" name="ball gown" editorcategory="Armors">
     <attribute key="weight" value="2500" />
+    <attribute key="armor" value="0" />
     <attribute key="slottype" value="body" />
   </item>
-  <item id="2660" article="a" name="ranger's cloak">
+  <item id="2660" article="a" name="ranger's cloak" editorcategory="Armors">
     <attribute key="weight" value="4800" />
     <attribute key="armor" value="7" />
     <attribute key="slottype" value="body" />
@@ -8827,7 +8830,7 @@
     <attribute key="armor" value="2" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="3968" article="a" name="leopard armor">
+  <item id="3968" article="a" name="leopard armor" editorcategory="Armors">
     <attribute key="weight" value="9500" />
     <attribute key="armor" value="9" />
     <attribute key="slottype" value="body" />
@@ -10331,8 +10334,9 @@
     <attribute key="attack" value="18" />
     <attribute key="weapontype" value="club" />
   </item>
-  <item id="4847" article="a" name="simple dress">
+  <item id="4847" article="a" name="simple dress" editorcategory="Armors">
     <attribute key="weight" value="2400" />
+    <attribute key="armor" value="0" />
     <attribute key="slottype" value="body" />
   </item>
   <item id="4848" article="an" name="icicle">
@@ -13371,7 +13375,7 @@
     <attribute key="weight" value="90" />
   </item>
   <item id="6094" article="a" name="thread tree" />
-  <item id="6095" article="a" name="pirate shirt">
+  <item id="6095" article="a" name="pirate shirt" editorcategory="Armors">
     <attribute key="weight" value="2000" />
     <attribute key="armor" value="3" />
     <attribute key="slottype" value="body" />
@@ -16706,7 +16710,7 @@
     <attribute key="armor" value="6" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="7463" article="a" name="mammoth fur cape">
+  <item id="7463" article="a" name="mammoth fur cape" editorcategory="Armors">
     <attribute key="description" value="It is imbued with protective magic." />
     <attribute key="weight" value="2000" />
     <attribute key="armor" value="10" />
@@ -18449,7 +18453,7 @@
     <attribute key="decayto" value="2391" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7884" article="a" name="terra mantle">
+  <item id="7884" article="a" name="terra mantle" editorcategory="Armors">
     <attribute key="weight" value="2250" />
     <attribute key="armor" value="11" />
     <attribute key="slottype" value="body" />
@@ -18541,21 +18545,21 @@
     <attribute key="absorbpercentenergy" value="-6" />
     <attribute key="absorbpercentice" value="6" />
   </item>
-  <item id="7897" article="a" name="glacier robe">
+  <item id="7897" article="a" name="glacier robe" editorcategory="Armors">
     <attribute key="weight" value="2250" />
     <attribute key="armor" value="11" />
     <attribute key="slottype" value="body" />
     <attribute key="absorbpercentenergy" value="-8" />
     <attribute key="absorbpercentice" value="8" />
   </item>
-  <item id="7898" article="a" name="lightning robe">
+  <item id="7898" article="a" name="lightning robe" editorcategory="Armors">
     <attribute key="weight" value="2250" />
     <attribute key="armor" value="11" />
     <attribute key="slottype" value="body" />
     <attribute key="absorbpercentearth" value="-8" />
     <attribute key="absorbpercentenergy" value="8" />
   </item>
-  <item id="7899" article="a" name="magma coat">
+  <item id="7899" article="a" name="magma coat" editorcategory="Armors">
     <attribute key="weight" value="2250" />
     <attribute key="armor" value="11" />
     <attribute key="slottype" value="body" />
@@ -20105,7 +20109,7 @@
   <item id="8816" article="a" name="tree" />
   <item id="8817" article="a" name="tree" />
   <item id="8818" article="a" name="tree" />
-  <item id="8819" article="a" name="magician's robe">
+  <item id="8819" article="a" name="magician's robe" editorcategory="Armors">
     <attribute key="description" value="This robe feels soft and light as a feather." />
     <attribute key="weight" value="2500" />
     <attribute key="armor" value="6" />
@@ -20116,7 +20120,7 @@
     <attribute key="armor" value="3" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="8821" article="a" name="witchhunter's cloak">
+  <item id="8821" article="a" name="witchhunter's cloak" editorcategory="Armors">
     <attribute key="weight" value="2500" />
     <attribute key="armor" value="11" />
     <attribute key="slottype" value="body" />
@@ -20263,7 +20267,7 @@
   <item id="8862" article="an" name="energy fence" />
   <item id="8863" name="shallow water" editorsuffix="(Walkable)" />
   <item id="8864" article="a" name="dead tree" />
-  <item id="8865" article="a" name="dark lord's cape">
+  <item id="8865" article="a" name="dark lord's cape" editorcategory="Armors">
     <attribute key="description" value="There is a dark aura surrounding it." />
     <attribute key="weight" value="2900" />
     <attribute key="armor" value="11" />
@@ -20271,7 +20275,7 @@
     <attribute key="absorbpercentdeath" value="8" />
     <attribute key="absorbpercentholy" value="-8" />
   </item>
-  <item id="8866" article="a" name="serpent coat">
+  <item id="8866" article="a" name="serpent coat" editorcategory="Armors">
     <attribute key="description" value="There is a dark aura surrounding it." />
     <attribute key="weight" value="2850" />
     <attribute key="armor" value="12" />
@@ -20279,93 +20283,93 @@
     <attribute key="absorbpercentenergy" value="-12" />
     <attribute key="absorbpercentice" value="12" />
   </item>
-  <item id="8867" article="a" name="dragon robe">
+  <item id="8867" article="a" name="dragon robe" editorcategory="Armors">
     <attribute key="weight" value="2850" />
     <attribute key="armor" value="12" />
     <attribute key="slottype" value="body" />
     <attribute key="absorbpercentfire" value="12" />
     <attribute key="absorbpercentice" value="-12" />
   </item>
-  <item id="8868" article="a" name="velvet mantle">
+  <item id="8868" article="a" name="velvet mantle" editorcategory="Armors">
     <attribute key="weight" value="2850" />
     <attribute key="armor" value="12" />
     <attribute key="slottype" value="body" />
     <attribute key="absorbpercentearth" value="-12" />
     <attribute key="absorbpercentenergy" value="12" />
   </item>
-  <item id="8869" article="a" name="greenwood coat">
+  <item id="8869" article="a" name="greenwood coat" editorcategory="Armors">
     <attribute key="weight" value="2850" />
     <attribute key="armor" value="12" />
     <attribute key="slottype" value="body" />
     <attribute key="absorbpercentearth" value="12" />
     <attribute key="absorbpercentfire" value="-12" />
   </item>
-  <item id="8870" article="a" name="spirit cloak">
+  <item id="8870" article="a" name="spirit cloak" editorcategory="Armors">
     <attribute key="weight" value="2650" />
     <attribute key="armor" value="8" />
     <attribute key="slottype" value="body" />
     <attribute key="skillmodifiermagiclevel" value="1" />
   </item>
-  <item id="8871" article="a" name="focus cape">
+  <item id="8871" article="a" name="focus cape" editorcategory="Armors">
     <attribute key="weight" value="2100" />
     <attribute key="armor" value="9" />
     <attribute key="slottype" value="body" />
     <attribute key="skillmodifiermagiclevel" value="1" />
   </item>
-  <item id="8872" article="a" name="belted cape">
+  <item id="8872" article="a" name="belted cape" editorcategory="Armors">
     <attribute key="weight" value="3500" />
     <attribute key="armor" value="10" />
     <attribute key="slottype" value="body" />
   </item>
-  <item id="8873" article="a" name="hibiscus dress">
+  <item id="8873" article="a" name="hibiscus dress" editorcategory="Armors">
     <attribute key="weight" value="1900" />
     <attribute key="armor" value="0" />
     <attribute key="slottype" value="body" />
   </item>
-  <item id="8874" article="a" name="summer dress">
+  <item id="8874" article="a" name="summer dress" editorcategory="Armors">
     <attribute key="weight" value="1000" />
     <attribute key="armor" value="0" />
     <attribute key="slottype" value="body" />
   </item>
-  <item id="8875" article="a" name="tunic">
+  <item id="8875" article="a" name="tunic" editorcategory="Armors">
     <attribute key="weight" value="1500" />
     <attribute key="armor" value="0" />
     <attribute key="slottype" value="body" />
   </item>
-  <item id="8876" article="a" name="girl's dress">
+  <item id="8876" article="a" name="girl's dress" editorcategory="Armors">
     <attribute key="weight" value="1300" />
     <attribute key="armor" value="0" />
     <attribute key="slottype" value="body" />
   </item>
-  <item id="8877" article="a" name="lavos armor">
+  <item id="8877" article="a" name="lavos armor" editorcategory="Armors">
     <attribute key="weight" value="8500" />
     <attribute key="armor" value="13" />
     <attribute key="slottype" value="body" />
     <attribute key="absorbpercentfire" value="3" />
     <attribute key="absorbpercentice" value="-3" />
   </item>
-  <item id="8878" article="a" name="crystalline armor">
+  <item id="8878" article="a" name="crystalline armor" editorcategory="Armors">
     <attribute key="weight" value="8450" />
     <attribute key="armor" value="13" />
     <attribute key="slottype" value="body" />
     <attribute key="absorbpercentenergy" value="-3" />
     <attribute key="absorbpercentice" value="3" />
   </item>
-  <item id="8879" article="a" name="voltage armor">
+  <item id="8879" article="a" name="voltage armor" editorcategory="Armors">
     <attribute key="weight" value="8450" />
     <attribute key="armor" value="13" />
     <attribute key="slottype" value="body" />
     <attribute key="absorbpercentearth" value="-3" />
     <attribute key="absorbpercentenergy" value="3" />
   </item>
-  <item id="8880" article="a" name="swamplair armor">
+  <item id="8880" article="a" name="swamplair armor" editorcategory="Armors">
     <attribute key="weight" value="8450" />
     <attribute key="armor" value="13" />
     <attribute key="slottype" value="body" />
     <attribute key="absorbpercentearth" value="3" />
     <attribute key="absorbpercentfire" value="-3" />
   </item>
-  <item id="8881" article="a" name="fireborn giant armor">
+  <item id="8881" article="a" name="fireborn giant armor" editorcategory="Armors">
     <attribute key="weight" value="12000" />
     <attribute key="armor" value="15" />
     <attribute key="slottype" value="body" />
@@ -20373,7 +20377,7 @@
     <attribute key="absorbpercentice" value="-5" />
     <attribute key="skillmodifiersword" value="2" />
   </item>
-  <item id="8882" article="an" name="earthborn titan armor">
+  <item id="8882" article="an" name="earthborn titan armor" editorcategory="Armors">
     <attribute key="weight" value="12000" />
     <attribute key="armor" value="15" />
     <attribute key="slottype" value="body" />
@@ -20381,7 +20385,7 @@
     <attribute key="absorbpercentfire" value="-5" />
     <attribute key="skillmodifieraxe" value="2" />
   </item>
-  <item id="8883" article="a" name="windborn colossus armor">
+  <item id="8883" article="a" name="windborn colossus armor" editorcategory="Armors">
     <attribute key="weight" value="12000" />
     <attribute key="armor" value="15" />
     <attribute key="slottype" value="body" />
@@ -20389,7 +20393,7 @@
     <attribute key="absorbpercentenergy" value="5" />
     <attribute key="skillmodifierclub" value="2" />
   </item>
-  <item id="8884" article="an" name="oceanborn leviathan armor">
+  <item id="8884" article="an" name="oceanborn leviathan armor" editorcategory="Armors">
     <attribute key="weight" value="10000" />
     <attribute key="armor" value="15" />
     <attribute key="slottype" value="body" />
@@ -20397,54 +20401,54 @@
     <attribute key="absorbpercentice" value="5" />
     <attribute key="skillmodifiershield" value="1" />
   </item>
-  <item id="8885" article="a" name="divine plate">
+  <item id="8885" article="a" name="divine plate" editorcategory="Armors">
     <attribute key="weight" value="7500" />
     <attribute key="armor" value="13" />
     <attribute key="slottype" value="body" />
     <attribute key="absorbpercentdeath" value="10" />
     <attribute key="absorbpercentholy" value="-10" />
   </item>
-  <item id="8886" article="a" name="molten plate">
+  <item id="8886" article="a" name="molten plate" editorcategory="Armors">
     <attribute key="weight" value="7500" />
     <attribute key="armor" value="13" />
     <attribute key="slottype" value="body" />
     <attribute key="absorbpercentfire" value="7" />
     <attribute key="absorbpercentice" value="-7" />
   </item>
-  <item id="8887" article="a" name="frozen plate">
+  <item id="8887" article="a" name="frozen plate" editorcategory="Armors">
     <attribute key="weight" value="7500" />
     <attribute key="armor" value="13" />
     <attribute key="slottype" value="body" />
     <attribute key="absorbpercentenergy" value="-7" />
     <attribute key="absorbpercentice" value="7" />
   </item>
-  <item id="8888" article="a" name="master archer's armor">
+  <item id="8888" article="a" name="master archer's armor" editorcategory="Armors">
     <attribute key="weight" value="6900" />
     <attribute key="armor" value="15" />
     <attribute key="slottype" value="body" />
     <attribute key="skillmodifierdistance" value="3" />
   </item>
-  <item id="8889" article="a" name="skullcracker armor">
+  <item id="8889" article="a" name="skullcracker armor" editorcategory="Armors">
     <attribute key="weight" value="11000" />
     <attribute key="armor" value="14" />
     <attribute key="slottype" value="body" />
     <attribute key="absorbpercentdeath" value="5" />
     <attribute key="absorbpercentholy" value="-5" />
   </item>
-  <item id="8890" article="a" name="robe of the underworld">
+  <item id="8890" article="a" name="robe of the underworld" editorcategory="Armors">
     <attribute key="weight" value="3100" />
     <attribute key="armor" value="12" />
     <attribute key="slottype" value="body" />
     <attribute key="absorbpercentdeath" value="12" />
     <attribute key="absorbpercentholy" value="-12" />
   </item>
-  <item id="8891" article="a" name="paladin armor">
+  <item id="8891" article="a" name="paladin armor" editorcategory="Armors">
     <attribute key="weight" value="6500" />
     <attribute key="armor" value="12" />
     <attribute key="slottype" value="body" />
     <attribute key="skillmodifierdistance" value="2" />
   </item>
-  <item id="8892" article="an" name="ethno coat">
+  <item id="8892" article="an" name="ethno coat" editorcategory="Armors">
     <attribute key="weight" value="2550" />
     <attribute key="armor" value="7" />
     <attribute key="slottype" value="body" />
@@ -22086,7 +22090,7 @@
     <attribute key="containersize" value="8" />
     <attribute key="slottype" value="backpack" />
   </item>
-  <item id="9776" article="a" name="yalahari armor">
+  <item id="9776" article="a" name="yalahari armor" editorcategory="Armors">
     <attribute key="weight" value="7000" />
     <attribute key="armor" value="16" />
     <attribute key="slottype" value="body" />
@@ -22163,20 +22167,14 @@
   <item id="9808" article="a" name="rusty armor" editorsuffix="(Common)">
     <attribute key="description" value="If you can remove the rust layer and dirt from the armor you will be able to see what it is." />
     <attribute key="weight" value="10000" />
-    <attribute key="armor" value="1" />
-    <attribute key="slottype" value="body" />
   </item>
   <item id="9809" article="a" name="rusty armor" editorsuffix="(Semi-Rare)">
     <attribute key="description" value="If you can remove the rust layer and dirt from the armor you will be able to see what it is." />
     <attribute key="weight" value="10000" />
-    <attribute key="armor" value="1" />
-    <attribute key="slottype" value="body" />
   </item>
   <item id="9810" article="a" name="rusty armor" editorsuffix="(Rare)">
     <attribute key="description" value="If you can remove the rust layer and dirt from the armor you will be able to see what it is." />
     <attribute key="weight" value="10000" />
-    <attribute key="armor" value="1" />
-    <attribute key="slottype" value="body" />
   </item>
   <item id="9811" article="a" name="rusty legs" editorsuffix="(Common)">
     <attribute key="description" value="If you can remove the rust layer and dirt from the legs you will be able to see what it is." />
@@ -22493,7 +22491,7 @@
     <attribute key="armor" value="0" />
     <attribute key="slottype" value="legs" />
   </item>
-  <item id="9929" article="a" name="flower dress">
+  <item id="9929" article="a" name="flower dress" editorcategory="Armors">
     <attribute key="weight" value="1900" />
     <attribute key="armor" value="0" />
     <attribute key="slottype" value="body" />
@@ -23211,7 +23209,7 @@
     <attribute key="range" value="4" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="10296" article="a" name="heavy metal t-shirt">
+  <item id="10296" article="a" name="heavy metal t-shirt" editorcategory="Armors">
     <attribute key="description" value="Oddly enough it is not made of metal at all, but years without washing grant it added protection." />
     <attribute key="weight" value="800" />
     <attribute key="armor" value="6" />
@@ -24437,7 +24435,7 @@
   <item id="11296" article="a" name="banner" />
   <item id="11297" article="a" name="banner" />
   <item id="11298" article="a" name="banner" />
-  <item id="11301" name="zaoan armor">
+  <item id="11301" article="a" name="Zaoan armor" editorcategory="Armors">
     <attribute key="weight" value="9550" />
     <attribute key="armor" value="13" />
     <attribute key="slottype" value="body" />
@@ -24635,14 +24633,14 @@
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="60" />
   </item>
-  <item id="11355" name="spellweaver's robe">
+  <item id="11355" article="a" name="spellweaver's robe" editorcategory="Armors">
     <attribute key="weight" value="2450" />
     <attribute key="armor" value="11" />
     <attribute key="slottype" value="body" />
     <attribute key="absorbpercentearth" value="-10" />
     <attribute key="absorbpercentenergy" value="10" />
   </item>
-  <item id="11356" name="zaoan robe">
+  <item id="11356" article="a" name="Zaoan robe" editorcategory="Armors">
     <attribute key="weight" value="2450" />
     <attribute key="armor" value="11" />
     <attribute key="slottype" value="body" />
