@@ -3650,7 +3650,7 @@
   <item id="2320" article="a" name="skull" plural="skulls">
     <attribute key="weight" value="2180" />
   </item>
-  <item id="2321" article="a" name="giant smithhammer">
+  <item id="2321" article="a" name="giant smithhammer" editorcategory="Clubs">
     <attribute key="description" value="This cyclopean hammer seems to be an awesome smithing tool." />
     <attribute key="weight" value="6800" />
     <attribute key="defense" value="14" />
@@ -3859,14 +3859,14 @@
     <attribute key="description" value="It is the djinn leader's sleeping lamp." />
     <attribute key="weight" value="1300" />
   </item>
-  <item id="2376" article="a" name="sword">
+  <item id="2376" article="a" name="sword" editorcategory="Swords">
     <attribute key="weight" value="3500" />
     <attribute key="defense" value="12" />
     <attribute key="defensemodifier" value="1" />
     <attribute key="attack" value="14" />
     <attribute key="weapontype" value="sword" />
   </item>
-  <item id="2377" article="a" name="two handed sword">
+  <item id="2377" article="a" name="two handed sword" editorcategory="Swords">
     <attribute key="weight" value="7000" />
     <attribute key="defense" value="25" />
     <attribute key="attack" value="30" />
@@ -3880,7 +3880,7 @@
     <attribute key="weapontype" value="axe" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="2379" article="a" name="dagger">
+  <item id="2379" article="a" name="dagger" editorcategory="Swords">
     <attribute key="weight" value="950" />
     <attribute key="defense" value="6" />
     <attribute key="attack" value="8" />
@@ -3899,27 +3899,27 @@
     <attribute key="weapontype" value="axe" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="2382" article="a" name="club">
+  <item id="2382" article="a" name="club" editorcategory="Clubs">
     <attribute key="weight" value="2500" />
     <attribute key="defense" value="7" />
     <attribute key="attack" value="7" />
     <attribute key="weapontype" value="club" />
   </item>
-  <item id="2383" article="a" name="spike sword">
+  <item id="2383" article="a" name="spike sword" editorcategory="Swords">
     <attribute key="weight" value="5000" />
     <attribute key="defense" value="21" />
     <attribute key="defensemodifier" value="2" />
     <attribute key="attack" value="24" />
     <attribute key="weapontype" value="sword" />
   </item>
-  <item id="2384" article="a" name="rapier">
+  <item id="2384" article="a" name="rapier" editorcategory="Swords">
     <attribute key="weight" value="1500" />
     <attribute key="defense" value="8" />
     <attribute key="defensemodifier" value="1" />
     <attribute key="attack" value="10" />
     <attribute key="weapontype" value="sword" />
   </item>
-  <item id="2385" article="a" name="sabre">
+  <item id="2385" article="a" name="sabre" editorcategory="Swords">
     <attribute key="weight" value="2500" />
     <attribute key="defense" value="10" />
     <attribute key="defensemodifier" value="1" />
@@ -3954,7 +3954,7 @@
     <attribute key="breakchance" value="3" />
     <attribute key="ammoaction" value="moveback" />
   </item>
-  <item id="2390" article="a" name="magic longsword">
+  <item id="2390" article="a" name="magic longsword" editorcategory="Swords">
     <attribute key="description" value="It is the magic Cyclopmania Sword." />
     <attribute key="weight" value="4300" />
     <attribute key="defense" value="40" />
@@ -3962,23 +3962,23 @@
     <attribute key="weapontype" value="sword" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="2391" article="a" name="war hammer">
+  <item id="2391" article="a" name="war hammer" editorcategory="Clubs">
     <attribute key="weight" value="8500" />
     <attribute key="defense" value="10" />
     <attribute key="attack" value="45" />
     <attribute key="weapontype" value="club" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="2392" article="a" name="fire sword">
+  <item id="2392" article="a" name="fire sword" editorcategory="Swords">
     <attribute key="description" value="The blade is a magic flame." />
     <attribute key="weight" value="2300" />
     <attribute key="defense" value="20" />
     <attribute key="defensemodifier" value="1" />
-    <attribute key="attack" value="35" />
+    <attribute key="attack" value="24" />
     <attribute key="attackmodifierfire" value="11" />
     <attribute key="weapontype" value="sword" />
   </item>
-  <item id="2393" article="a" name="giant sword">
+  <item id="2393" article="a" name="giant sword" editorcategory="Swords">
     <attribute key="description" value="This sword has been forged by ancient giants." />
     <attribute key="weight" value="18000" />
     <attribute key="defense" value="22" />
@@ -3986,35 +3986,35 @@
     <attribute key="weapontype" value="sword" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="2394" article="a" name="morning star">
+  <item id="2394" article="a" name="morning star" editorcategory="Clubs">
     <attribute key="weight" value="5400" />
     <attribute key="defense" value="11" />
     <attribute key="attack" value="25" />
     <attribute key="weapontype" value="club" />
   </item>
-  <item id="2395" article="a" name="carlin sword">
+  <item id="2395" article="a" name="carlin sword" editorcategory="Swords">
     <attribute key="weight" value="4000" />
     <attribute key="defense" value="13" />
     <attribute key="defensemodifier" value="1" />
     <attribute key="attack" value="15" />
     <attribute key="weapontype" value="sword" />
   </item>
-  <item id="2396" article="an" name="ice rapier">
+  <item id="2396" article="an" name="ice rapier" editorcategory="Swords">
     <attribute key="description" value="A deadly but fragile weapon." />
     <attribute key="weight" value="1500" />
     <attribute key="defense" value="1" />
-    <attribute key="attack" value="60" />
+    <attribute key="attack" value="42" />
     <attribute key="attackmodifierice" value="18" />
     <attribute key="weapontype" value="sword" />
     <attribute key="charges" value="1" />
   </item>
-  <item id="2397" article="a" name="longsword">
+  <item id="2397" article="a" name="longsword" editorcategory="Swords">
     <attribute key="weight" value="4200" />
     <attribute key="defense" value="14" />
     <attribute key="attack" value="17" />
     <attribute key="weapontype" value="sword" />
   </item>
-  <item id="2398" article="a" name="mace">
+  <item id="2398" article="a" name="mace" editorcategory="Clubs">
     <attribute key="weight" value="3800" />
     <attribute key="defense" value="11" />
     <attribute key="attack" value="16" />
@@ -4029,7 +4029,7 @@
     <attribute key="breakchance" value="10" />
     <attribute key="ammoaction" value="moveback" />
   </item>
-  <item id="2400" article="a" name="magic sword">
+  <item id="2400" article="a" name="magic sword" editorcategory="Swords">
     <attribute key="description" value="It is the Sword of Valor." />
     <attribute key="weight" value="4200" />
     <attribute key="defense" value="35" />
@@ -4037,26 +4037,26 @@
     <attribute key="attack" value="48" />
     <attribute key="weapontype" value="sword" />
   </item>
-  <item id="2401" article="a" name="staff">
+  <item id="2401" article="a" name="staff" editorcategory="Clubs">
     <attribute key="weight" value="3800" />
     <attribute key="defense" value="25" />
     <attribute key="attack" value="10" />
     <attribute key="weapontype" value="club" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="2402" article="a" name="silver dagger">
+  <item id="2402" article="a" name="silver dagger" editorcategory="Swords">
     <attribute key="weight" value="1020" />
     <attribute key="defense" value="7" />
     <attribute key="attack" value="9" />
     <attribute key="weapontype" value="sword" />
   </item>
-  <item id="2403" article="a" name="knife">
+  <item id="2403" article="a" name="knife" editorcategory="Swords">
     <attribute key="weight" value="420" />
     <attribute key="defense" value="5" />
     <attribute key="attack" value="5" />
     <attribute key="weapontype" value="sword" />
   </item>
-  <item id="2404" article="a" name="combat knife">
+  <item id="2404" article="a" name="combat knife" editorcategory="Swords">
     <attribute key="weight" value="870" />
     <attribute key="defense" value="6" />
     <attribute key="attack" value="8" />
@@ -4068,13 +4068,13 @@
     <attribute key="attack" value="5" />
     <attribute key="weapontype" value="axe" />
   </item>
-  <item id="2406" article="a" name="short sword">
+  <item id="2406" article="a" name="short sword" editorcategory="Swords">
     <attribute key="weight" value="3500" />
     <attribute key="defense" value="11" />
     <attribute key="attack" value="11" />
     <attribute key="weapontype" value="sword" />
   </item>
-  <item id="2407" article="a" name="bright sword">
+  <item id="2407" article="a" name="bright sword" editorcategory="Swords">
     <attribute key="description" value="The blade shimmers in light blue." />
     <attribute key="weight" value="2900" />
     <attribute key="defense" value="30" />
@@ -4082,7 +4082,7 @@
     <attribute key="attack" value="36" />
     <attribute key="weapontype" value="sword" />
   </item>
-  <item id="2408" article="a" name="warlord sword">
+  <item id="2408" article="a" name="warlord sword" editorcategory="Swords">
     <attribute key="description" value="Strong powers flow in this magic sword." />
     <attribute key="weight" value="6400" />
     <attribute key="defense" value="38" />
@@ -4090,11 +4090,11 @@
     <attribute key="weapontype" value="sword" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="2409" article="a" name="serpent sword">
+  <item id="2409" article="a" name="serpent sword" editorcategory="Swords">
     <attribute key="weight" value="4100" />
     <attribute key="defense" value="15" />
     <attribute key="defensemodifier" value="1" />
-    <attribute key="attack" value="26" />
+    <attribute key="attack" value="18" />
     <attribute key="attackmodifierearth" value="8" />
     <attribute key="weapontype" value="sword" />
   </item>
@@ -4107,21 +4107,21 @@
     <attribute key="breakchance" value="7" />
     <attribute key="ammoaction" value="moveback" />
   </item>
-  <item id="2411" article="a" name="poison dagger">
+  <item id="2411" article="a" name="poison dagger" editorcategory="Swords">
     <attribute key="weight" value="880" />
     <attribute key="defense" value="8" />
-    <attribute key="attack" value="18" />
+    <attribute key="attack" value="16" />
     <attribute key="attackmodifierearth" value="2" />
     <attribute key="weapontype" value="sword" />
   </item>
-  <item id="2412" article="a" name="katana">
+  <item id="2412" article="a" name="katana" editorcategory="Swords">
     <attribute key="weight" value="3100" />
     <attribute key="defense" value="12" />
     <attribute key="defensemodifier" value="1" />
     <attribute key="attack" value="16" />
     <attribute key="weapontype" value="sword" />
   </item>
-  <item id="2413" article="a" name="broad sword">
+  <item id="2413" article="a" name="broad sword" editorcategory="Swords">
     <attribute key="weight" value="5250" />
     <attribute key="defense" value="23" />
     <attribute key="attack" value="26" />
@@ -4144,14 +4144,14 @@
     <attribute key="weapontype" value="axe" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="2416" article="a" name="crowbar">
+  <item id="2416" article="a" name="crowbar" editorcategory="Clubs">
     <attribute key="description" value="It may come in handy sometime" />
     <attribute key="weight" value="2100" />
     <attribute key="defense" value="6" />
     <attribute key="attack" value="5" />
     <attribute key="weapontype" value="club" />
   </item>
-  <item id="2417" article="a" name="battle hammer">
+  <item id="2417" article="a" name="battle hammer" editorcategory="Clubs">
     <attribute key="weight" value="6800" />
     <attribute key="defense" value="14" />
     <attribute key="attack" value="24" />
@@ -4163,20 +4163,20 @@
     <attribute key="attack" value="13" />
     <attribute key="weapontype" value="axe" />
   </item>
-  <item id="2419" article="a" name="scimitar">
+  <item id="2419" article="a" name="scimitar" editorcategory="Swords">
     <attribute key="weight" value="2900" />
     <attribute key="defense" value="13" />
     <attribute key="defensemodifier" value="1" />
     <attribute key="attack" value="19" />
     <attribute key="weapontype" value="sword" />
   </item>
-  <item id="2420" article="a" name="machete">
+  <item id="2420" article="a" name="machete" editorcategory="Swords">
     <attribute key="weight" value="1650" />
     <attribute key="defense" value="9" />
     <attribute key="attack" value="12" />
     <attribute key="weapontype" value="sword" />
   </item>
-  <item id="2421" article="a" name="thunder hammer">
+  <item id="2421" article="a" name="thunder hammer" editorcategory="Clubs">
     <attribute key="description" value="It is blessed by the gods of Tibia." />
     <attribute key="weight" value="12500" />
     <attribute key="defense" value="35" />
@@ -4184,19 +4184,19 @@
     <attribute key="attack" value="49" />
     <attribute key="weapontype" value="club" />
   </item>
-  <item id="2422" article="an" name="iron hammer">
+  <item id="2422" article="an" name="iron hammer" editorcategory="Clubs">
     <attribute key="weight" value="6600" />
     <attribute key="defense" value="10" />
     <attribute key="attack" value="18" />
     <attribute key="weapontype" value="club" />
   </item>
-  <item id="2423" article="a" name="clerical mace">
+  <item id="2423" article="a" name="clerical mace" editorcategory="Clubs">
     <attribute key="weight" value="5800" />
     <attribute key="defense" value="15" />
     <attribute key="attack" value="28" />
     <attribute key="weapontype" value="club" />
   </item>
-  <item id="2424" article="a" name="silver mace">
+  <item id="2424" article="a" name="silver mace" editorcategory="Clubs">
     <attribute key="description" value="You feel an aura of protection." />
     <attribute key="weight" value="6700" />
     <attribute key="defense" value="30" />
@@ -4262,7 +4262,7 @@
     <attribute key="attackmodifierfire" value="11" />
     <attribute key="weapontype" value="axe" />
   </item>
-  <item id="2433" article="an" name="enchanted staff">
+  <item id="2433" article="an" name="enchanted staff" editorcategory="Clubs">
     <attribute key="description" value="Temporary magic powers enchant this staff." />
     <attribute key="weight" value="3800" />
     <attribute key="defense" value="45" />
@@ -4272,20 +4272,20 @@
     <attribute key="decayto" value="2401" />
     <attribute key="duration" value="60" />
   </item>
-  <item id="2434" article="a" name="dragon hammer">
+  <item id="2434" article="a" name="dragon hammer" editorcategory="Clubs">
     <attribute key="weight" value="9700" />
     <attribute key="defense" value="20" />
     <attribute key="attack" value="32" />
     <attribute key="weapontype" value="club" />
   </item>
-  <item id="2435" article="a" name="dwarven axe">
+  <item id="2435" article="a" name="dwarven axe" editorcategory="Axe">
     <attribute key="weight" value="8200" />
     <attribute key="defense" value="19" />
     <attribute key="defensemodifier" value="2" />
     <attribute key="attack" value="31" />
     <attribute key="weapontype" value="axe" />
   </item>
-  <item id="2436" article="a" name="skull staff">
+  <item id="2436" article="a" name="skull staff" editorcategory="Clubs">
     <attribute key="description" value="The staff longs for death." />
     <attribute key="weight" value="1700" />
     <attribute key="defense" value="12" />
@@ -4293,19 +4293,19 @@
     <attribute key="attack" value="36" />
     <attribute key="weapontype" value="club" />
   </item>
-  <item id="2437" article="a" name="golden mace">
-    <attribute key="weight" value="5000" />
-    <attribute key="defense" value="24" />
-    <attribute key="attack" value="47" />
+  <item id="2437" article="a" name="light mace" editorcategory="Clubs">
+    <attribute key="weight" value="4100" />
+    <attribute key="defense" value="9" />
+    <attribute key="attack" value="14" />
     <attribute key="weapontype" value="club" />
   </item>
-  <item id="2438" article="an" name="epee">
-    <attribute key="weight" value="1500" />
+  <item id="2438" article="an" name="epee" editorcategory="Swords">
+    <attribute key="weight" value="1450" />
     <attribute key="defense" value="23" />
     <attribute key="attack" value="37" />
     <attribute key="weapontype" value="sword" />
   </item>
-  <item id="2439" article="a" name="daramanian mace">
+  <item id="2439" article="a" name="daramanian mace" editorcategory="Clubs">
     <attribute key="weight" value="6800" />
     <attribute key="defense" value="12" />
     <attribute key="attack" value="21" />
@@ -4319,7 +4319,7 @@
     <attribute key="slottype" value="twohanded" />
   </item>
   <item id="2441" name="nothing special" />
-  <item id="2442" article="a" name="heavy machete">
+  <item id="2442" article="a" name="heavy machete" editorcategory="Swords">
     <attribute key="weight" value="1840" />
     <attribute key="defense" value="10" />
     <attribute key="attack" value="16" />
@@ -4332,7 +4332,7 @@
     <attribute key="weapontype" value="axe" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="2444" article="a" name="hammer of wrath">
+  <item id="2444" article="a" name="hammer of wrath" editorcategory="Clubs">
     <attribute key="description" value="A giant is said to have forged this hammer to take revenge for the death of his brother." />
     <attribute key="weight" value="7000" />
     <attribute key="defense" value="12" />
@@ -4340,14 +4340,14 @@
     <attribute key="weapontype" value="club" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="2445" article="a" name="crystal mace">
+  <item id="2445" article="a" name="crystal mace" editorcategory="Clubs">
     <attribute key="weight" value="8000" />
     <attribute key="defense" value="16" />
     <attribute key="defensemodifier" value="1" />
     <attribute key="attack" value="38" />
     <attribute key="weapontype" value="club" />
   </item>
-  <item id="2446" article="a" name="pharaoh sword">
+  <item id="2446" article="a" name="pharaoh sword" editorcategory="Swords">
     <attribute key="weight" value="5200" />
     <attribute key="defense" value="23" />
     <attribute key="defensemodifier" value="2" />
@@ -4361,34 +4361,34 @@
     <attribute key="weapontype" value="axe" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="2448" article="a" name="studded club">
+  <item id="2448" article="a" name="studded club" editorcategory="Clubs">
     <attribute key="description" value="It has been reinforced with iron." />
     <attribute key="weight" value="3500" />
     <attribute key="defense" value="8" />
     <attribute key="attack" value="9" />
     <attribute key="weapontype" value="club" />
   </item>
-  <item id="2449" article="a" name="bone club">
+  <item id="2449" article="a" name="bone club" editorcategory="Clubs">
     <attribute key="description" value="It apparently originally belonged to some lesser undead." />
     <attribute key="weight" value="3900" />
     <attribute key="defense" value="8" />
     <attribute key="attack" value="12" />
     <attribute key="weapontype" value="club" />
   </item>
-  <item id="2450" article="a" name="bone sword">
+  <item id="2450" article="a" name="bone sword" editorcategory="Swords">
     <attribute key="weight" value="1900" />
     <attribute key="defense" value="10" />
-    <attribute key="attack" value="14" />
+    <attribute key="attack" value="13" />
     <attribute key="weapontype" value="sword" />
   </item>
-  <item id="2451" article="a" name="djinn blade">
+  <item id="2451" article="a" name="djinn blade" editorcategory="Swords">
     <attribute key="weight" value="2450" />
     <attribute key="defense" value="22" />
     <attribute key="defensemodifier" value="2" />
     <attribute key="attack" value="38" />
     <attribute key="weapontype" value="sword" />
   </item>
-  <item id="2452" article="a" name="heavy mace">
+  <item id="2452" article="a" name="heavy mace" editorcategory="Clubs">
     <attribute key="description" value="Its tip is made of extremely solid steel." />
     <attribute key="weight" value="11000" />
     <attribute key="defense" value="15" />
@@ -4396,7 +4396,7 @@
     <attribute key="weapontype" value="club" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="2453" article="an" name="arcane staff">
+  <item id="2453" article="an" name="arcane staff" editorcategory="Clubs">
     <attribute key="description" value="It is enchanted with ancient magic that renders a weak staff into a powerful weapon." />
     <attribute key="weight" value="4000" />
     <attribute key="defense" value="30" />
@@ -8609,8 +8609,8 @@
     <attribute key="containersize" value="20" />
     <attribute key="slottype" value="backpack" />
   </item>
-  <item id="3961" article="a" name="lich staff">
-    <attribute key="weight" value="8000" />
+  <item id="3961" article="a" name="lich staff" editorcategory="Clubs">
+    <attribute key="weight" value="4100" />
     <attribute key="defense" value="30" />
     <attribute key="attack" value="40" />
     <attribute key="weapontype" value="club" />
@@ -8622,7 +8622,7 @@
     <attribute key="attack" value="35" />
     <attribute key="weapontype" value="axe" />
   </item>
-  <item id="3963" article="a" name="templar scytheblade">
+  <item id="3963" article="a" name="templar scytheblade" editorcategory="Swords">
     <attribute key="weight" value="2900" />
     <attribute key="defense" value="15" />
     <attribute key="defensemodifier" value="1" />
@@ -8645,7 +8645,7 @@
     <attribute key="breakchance" value="6" />
     <attribute key="ammoaction" value="moveback" />
   </item>
-  <item id="3966" article="a" name="banana staff">
+  <item id="3966" article="a" name="banana staff" editorcategory="Clubs">
     <attribute key="weight" value="5000" />
     <attribute key="defense" value="15" />
     <attribute key="defensemodifier" value="2" />
@@ -10164,11 +10164,8 @@
     <attribute key="description" value="The emblem of a dwarven city is engraved on it." />
     <attribute key="weight" value="110" />
   </item>
-  <item id="4846" article="an" name="iron hammer">
+  <item id="4846" article="a" name="snake destroyer" editorsuffix="(The Ape City Quest)" editorcategory="Quest Items">
     <attribute key="weight" value="6600" />
-    <attribute key="defense" value="10" />
-    <attribute key="attack" value="18" />
-    <attribute key="weapontype" value="club" />
   </item>
   <item id="4847" article="a" name="simple dress" editorcategory="Armors">
     <attribute key="weight" value="2400" />
@@ -13238,7 +13235,7 @@
   <item id="6100" name="Lethal Lissy's shirt">
     <attribute key="weight" value="2000" />
   </item>
-  <item id="6101" name="Ron the Ripper's sabre">
+  <item id="6101" name="Ron the Ripper's sabre" editorcategory="Swords">
     <attribute key="weight" value="2500" />
     <attribute key="defense" value="10" />
     <attribute key="attack" value="12" />
@@ -14386,7 +14383,7 @@
   <item id="6527" article="a" name="christmas token" plural="christmas tokens" editorcategory="Creature Products">
     <attribute key="weight" value="5" />
   </item>
-  <item id="6528" article="the" name="avenger">
+  <item id="6528" name="the avenger" editorcategory="Swords">
     <attribute key="description" value="This holy blade was forged of shattered dreams." />
     <attribute key="weight" value="6400" />
     <attribute key="defense" value="38" />
@@ -16034,7 +16031,7 @@
     <attribute key="breakchance" value="2" />
     <attribute key="ammoaction" value="moveback" />
   </item>
-  <item id="7379" name="brutetamer's staff">
+  <item id="7379" name="brutetamer's staff" editorcategory="Clubs">
     <attribute key="description" value="Barbarian women are said to use it for conjuring beasts." />
     <attribute key="weight" value="3800" />
     <attribute key="defense" value="15" />
@@ -16050,49 +16047,43 @@
     <attribute key="weapontype" value="axe" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="7381" article="a" name="mammoth whopper">
+  <item id="7381" article="a" name="mammoth whopper" editorcategory="Clubs">
     <attribute key="description" value="Made from a mammoth's legbones, it is one of the favoured weapons among barbarians." />
     <attribute key="weight" value="4500" />
     <attribute key="defense" value="15" />
     <attribute key="attack" value="30" />
     <attribute key="weapontype" value="club" />
   </item>
-  <item id="7382" article="a" name="demonrage sword">
+  <item id="7382" article="a" name="demonrage sword" editorcategory="Swords">
     <attribute key="weight" value="15000" />
     <attribute key="defense" value="22" />
     <attribute key="attack" value="47" />
     <attribute key="weapontype" value="sword" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="7383" article="a" name="relic sword">
+  <item id="7383" article="a" name="relic sword" editorcategory="Swords">
     <attribute key="weight" value="4800" />
     <attribute key="defense" value="24" />
     <attribute key="defensemodifier" value="1" />
     <attribute key="attack" value="42" />
     <attribute key="weapontype" value="sword" />
   </item>
-  <item id="7384" article="a" name="mystic blade">
+  <item id="7384" article="a" name="mystic blade" editorcategory="Swords">
     <attribute key="weight" value="3500" />
     <attribute key="defense" value="25" />
     <attribute key="defensemodifier" value="2" />
     <attribute key="attack" value="44" />
     <attribute key="weapontype" value="sword" />
   </item>
-  <item id="7385" article="a" name="crimson sword">
-    <attribute key="weight" value="3600" />
-    <attribute key="defense" value="20" />
-    <attribute key="defensemodifier" value="1" />
-    <attribute key="attack" value="28" />
-    <attribute key="weapontype" value="sword" />
-  </item>
-  <item id="7386" article="a" name="mercenary sword">
+  <item id="7385" name="nothing special" />
+  <item id="7386" article="a" name="mercenary sword" editorcategory="Swords">
     <attribute key="weight" value="6800" />
     <attribute key="defense" value="27" />
     <attribute key="attack" value="43" />
     <attribute key="weapontype" value="sword" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="7387" article="a" name="diamond sceptre">
+  <item id="7387" article="a" name="diamond sceptre" editorcategory="Clubs">
     <attribute key="description" value="The beautiful jewel on the top of this sceptre is sharp enough to cut through glass." />
     <attribute key="weight" value="1500" />
     <attribute key="defense" value="18" />
@@ -16114,7 +16105,7 @@
     <attribute key="attack" value="44" />
     <attribute key="weapontype" value="axe" />
   </item>
-  <item id="7390" article="the" name="justice seeker">
+  <item id="7390" article="the" name="justice seeker" editorcategory="Swords">
     <attribute key="description" value="This sword is only granted to a warlord of the Svargrond Arena." />
     <attribute key="weight" value="5000" />
     <attribute key="defense" value="24" />
@@ -16122,14 +16113,14 @@
     <attribute key="attack" value="47" />
     <attribute key="weapontype" value="sword" />
   </item>
-  <item id="7391" article="a" name="Thaian sword">
+  <item id="7391" article="a" name="Thaian sword" editorcategory="Swords">
     <attribute key="weight" value="6100" />
     <attribute key="defense" value="29" />
     <attribute key="attack" value="45" />
     <attribute key="weapontype" value="sword" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="7392" article="an" name="orcish maul">
+  <item id="7392" article="an" name="orcish maul" editorcategory="Clubs">
     <attribute key="description" value="This club is only granted to a greenhorn of the Svargrond Arena." />
     <attribute key="weight" value="5400" />
     <attribute key="defense" value="18" />
@@ -16164,35 +16155,35 @@
   <item id="7401" article="a" name="minotaur trophy" editorcategory="Trophies">
     <attribute key="weight" value="500" />
   </item>
-  <item id="7402" article="a" name="dragon slayer">
+  <item id="7402" article="a" name="dragon slayer" editorcategory="Swords">
     <attribute key="weight" value="8200" />
     <attribute key="defense" value="28" />
     <attribute key="attack" value="44" />
     <attribute key="weapontype" value="sword" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="7403" article="a" name="berserker">
+  <item id="7403" article="a" name="berserker" editorcategory="Swords">
     <attribute key="weight" value="13000" />
     <attribute key="defense" value="21" />
     <attribute key="attack" value="48" />
     <attribute key="weapontype" value="sword" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="7404" article="an" name="assassin dagger">
+  <item id="7404" article="an" name="assassin dagger" editorcategory="Swords">
     <attribute key="weight" value="1700" />
     <attribute key="defense" value="12" />
     <attribute key="defensemodifier" value="-2" />
     <attribute key="attack" value="40" />
     <attribute key="weapontype" value="sword" />
   </item>
-  <item id="7405" article="a" name="havoc blade">
+  <item id="7405" article="a" name="havoc blade" editorcategory="Swords">
     <attribute key="weight" value="7200" />
     <attribute key="defense" value="34" />
     <attribute key="attack" value="49" />
     <attribute key="weapontype" value="sword" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="7406" article="a" name="blacksteel sword">
+  <item id="7406" article="a" name="blacksteel sword" editorcategory="Swords">
     <attribute key="description" value="This sword is only granted to a greenhorn of the Svargrond Arena." />
     <attribute key="weight" value="5900" />
     <attribute key="defense" value="22" />
@@ -16200,28 +16191,29 @@
     <attribute key="weapontype" value="sword" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="7407" article="a" name="haunted blade">
+  <item id="7407" article="a" name="haunted blade" editorcategory="Swords">
     <attribute key="weight" value="3100" />
     <attribute key="defense" value="12" />
     <attribute key="attack" value="40" />
     <attribute key="weapontype" value="sword" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="7408" article="a" name="wyvern fang">
+  <item id="7408" article="a" name="wyvern fang" editorcategory="Swords">
     <attribute key="weight" value="2000" />
     <attribute key="defense" value="19" />
     <attribute key="defensemodifier" value="1" />
     <attribute key="attack" value="32" />
     <attribute key="weapontype" value="sword" />
   </item>
-  <item id="7409" article="an" name="imaginary staff" editorsuffix="(Rumour)">
-    <attribute key="weight" value="7500" />
-    <attribute key="defense" value="30" />
-    <attribute key="attack" value="46" />
+  <item id="7409" article="a" name="northern star" editorcategory="Clubs">
+    <attribute key="weight" value="4200" />
+    <attribute key="defense" value="15" />
+    <attribute key="defensemodifier" value="1" />
+    <attribute key="attack" value="42" />
     <attribute key="weapontype" value="club" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="7410" article="a" name="queen's sceptre">
+  <item id="7410" article="a" name="queen's sceptre" editorcategory="Clubs">
     <attribute key="weight" value="2300" />
     <attribute key="defense" value="19" />
     <attribute key="attack" value="43" />
@@ -16248,7 +16240,7 @@
     <attribute key="weapontype" value="axe" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="7414" article="a" name="abyss hammer">
+  <item id="7414" article="an" name="abyss hammer" editorcategory="Clubs">
     <attribute key="description" value="Floating stones form the tip of this strange weapon, held in place by unspeakable magic." />
     <attribute key="weight" value="5500" />
     <attribute key="defense" value="21" />
@@ -16256,7 +16248,7 @@
     <attribute key="weapontype" value="club" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="7415" article="a" name="cranial basher">
+  <item id="7415" article="a" name="cranial basher" editorcategory="Clubs">
     <attribute key="description" value="This club is only granted to a scrapper of the Svargrond Arena." />
     <attribute key="weight" value="7800" />
     <attribute key="defense" value="20" />
@@ -16264,14 +16256,14 @@
     <attribute key="attack" value="44" />
     <attribute key="weapontype" value="club" />
   </item>
-  <item id="7416" article="a" name="bloody edge">
+  <item id="7416" article="a" name="bloody edge" editorcategory="Swords">
     <attribute key="weight" value="5200" />
     <attribute key="defense" value="21" />
     <attribute key="defensemodifier" value="-3" />
     <attribute key="attack" value="43" />
     <attribute key="weapontype" value="sword" />
   </item>
-  <item id="7417" article="a" name="runed sword">
+  <item id="7417" article="a" name="runed sword" editorcategory="Swords">
     <attribute key="weight" value="4600" />
     <attribute key="defense" value="32" />
     <attribute key="defensemodifier" value="2" />
@@ -16298,48 +16290,48 @@
     <attribute key="defensemodifier" value="2" />
     <attribute key="attack" value="46" />
   </item>
-  <item id="7421" article="an" name="onyx flail">
+  <item id="7421" article="an" name="onyx flail" editorcategory="Clubs">
     <attribute key="weight" value="2600" />
     <attribute key="defense" value="18" />
     <attribute key="attack" value="45" />
     <attribute key="weapontype" value="club" />
   </item>
-  <item id="7422" article="a" name="jade hammer">
+  <item id="7422" article="a" name="jade hammer" editorcategory="Clubs">
     <attribute key="weight" value="3200" />
     <attribute key="defense" value="20" />
     <attribute key="defensemodifier" value="1" />
     <attribute key="attack" value="46" />
     <attribute key="weapontype" value="club" />
   </item>
-  <item id="7423" article="a" name="skullcrusher">
-    <attribute key="weight" value="3200" />
+  <item id="7423" article="a" name="skullcrusher" editorcategory="Clubs">
+    <attribute key="weight" value="12000" />
     <attribute key="defense" value="20" />
     <attribute key="attack" value="51" />
     <attribute key="weapontype" value="club" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="7424" article="a" name="lunar staff">
+  <item id="7424" article="a" name="lunar staff" editorcategory="Clubs">
     <attribute key="weight" value="3800" />
     <attribute key="defense" value="25" />
     <attribute key="attack" value="40" />
     <attribute key="weapontype" value="club" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="7425" article="a" name="taurus mace">
+  <item id="7425" article="a" name="taurus mace" editorcategory="Clubs">
     <attribute key="weight" value="5100" />
     <attribute key="defense" value="18" />
     <attribute key="attack" value="30" />
     <attribute key="weapontype" value="club" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="7426" article="an" name="amber staff">
+  <item id="7426" article="an" name="amber staff" editorcategory="Clubs">
     <attribute key="weight" value="3500" />
     <attribute key="defense" value="25" />
     <attribute key="attack" value="43" />
     <attribute key="weapontype" value="club" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="7427" article="a" name="chaos mace">
+  <item id="7427" article="a" name="chaos mace" editorcategory="Clubs">
     <attribute key="description" value="Only those who have descended to the deepest depths may wield this hammer without it cursing them." />
     <attribute key="weight" value="6300" />
     <attribute key="defense" value="21" />
@@ -16347,7 +16339,7 @@
     <attribute key="weapontype" value="club" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="7428" article="a" name="bonebreaker">
+  <item id="7428" article="a" name="bonebreaker" editorcategory="Clubs">
     <attribute key="description" value="This weapon has to be swung in one hand and required a lot of strenght." />
     <attribute key="weight" value="12000" />
     <attribute key="defense" value="15" />
@@ -16355,7 +16347,7 @@
     <attribute key="weapontype" value="club" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="7429" article="a" name="blessed sceptre">
+  <item id="7429" article="a" name="blessed sceptre" editorcategory="Clubs">
     <attribute key="description" value="This club is only granted to a warlord of the Svargrond Arena." />
     <attribute key="weight" value="3900" />
     <attribute key="defense" value="21" />
@@ -16363,21 +16355,21 @@
     <attribute key="attack" value="47" />
     <attribute key="weapontype" value="club" />
   </item>
-  <item id="7430" article="a" name="dragonbone staff">
+  <item id="7430" article="a" name="dragonbone staff" editorcategory="Clubs">
     <attribute key="description" value="Small flames are dancing around this strange weapon." />
     <attribute key="weight" value="1800" />
     <attribute key="defense" value="18" />
     <attribute key="attack" value="35" />
     <attribute key="weapontype" value="club" />
   </item>
-  <item id="7431" article="a" name="demonbone">
+  <item id="7431" article="a" name="demonbone" editorcategory="Clubs">
     <attribute key="weight" value="18000" />
     <attribute key="defense" value="38" />
     <attribute key="defensemodifier" value="-2" />
     <attribute key="attack" value="48" />
     <attribute key="weapontype" value="club" />
   </item>
-  <item id="7432" article="a" name="furry club">
+  <item id="7432" article="a" name="furry club" editorcategory="Clubs">
     <attribute key="weight" value="4200" />
     <attribute key="defense" value="19" />
     <attribute key="defensemodifier" value="1" />
@@ -16412,7 +16404,7 @@
     <attribute key="weapontype" value="axe" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="7437" article="a" name="sapphire hammer">
+  <item id="7437" article="a" name="sapphire hammer" editorcategory="Clubs">
     <attribute key="description" value="A beautiful gem is embedded in this weapon." />
     <attribute key="weight" value="2100" />
     <attribute key="defense" value="18" />
@@ -16465,21 +16457,27 @@
   <item id="7448" article="an" name="ice statue">
     <attribute key="weight" value="1000" />
   </item>
-  <item id="7449" article="a" name="crystal sword">
+  <item id="7449" article="a" name="crystal sword" editorcategory="Swords">
     <attribute key="weight" value="6900" />
     <attribute key="defense" value="26" />
     <attribute key="attack" value="35" />
     <attribute key="weapontype" value="sword" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="7450" name="nothing special" />
-  <item id="7451" article="a" name="shadow sceptre">
+  <item id="7450" article="a" name="hammer of prophecy" editorcategory="Clubs">
+    <attribute key="weight" value="11000" />
+    <attribute key="defense" value="35" />
+    <attribute key="attack" value="52" />
+    <attribute key="weapontype" value="club" />
+    <attribute key="slottype" value="twohanded" />
+  </item>
+  <item id="7451" article="a" name="shadow sceptre" editorcategory="Clubs">
     <attribute key="weight" value="4100" />
     <attribute key="defense" value="17" />
     <attribute key="attack" value="39" />
     <attribute key="weapontype" value="club" />
   </item>
-  <item id="7452" article="a" name="spiked squelcher">
+  <item id="7452" article="a" name="spiked squelcher" editorcategory="Clubs">
     <attribute key="weight" value="6800" />
     <attribute key="defense" value="21" />
     <attribute key="attack" value="41" />
@@ -17274,7 +17272,7 @@
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="600" />
   </item>
-  <item id="7744" article="a" name="fiery spike sword">
+  <item id="7744" article="a" name="fiery spike sword" editorcategory="Swords">
     <attribute key="weight" value="5000" />
     <attribute key="defense" value="21" />
     <attribute key="defensemodifier" value="2" />
@@ -17285,7 +17283,7 @@
     <attribute key="decayto" value="2383" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7745" article="a" name="fiery relic sword">
+  <item id="7745" article="a" name="fiery relic sword" editorcategory="Swords">
     <attribute key="weight" value="4800" />
     <attribute key="defense" value="21" />
     <attribute key="defensemodifier" value="1" />
@@ -17296,7 +17294,7 @@
     <attribute key="decayto" value="7383" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7746" article="a" name="fiery mystic blade">
+  <item id="7746" article="a" name="fiery mystic blade" editorcategory="Swords">
     <attribute key="description" value="This sword is only granted to a scrapper of the Svargrond Arena." />
     <attribute key="weight" value="3500" />
     <attribute key="defense" value="25" />
@@ -17308,7 +17306,7 @@
     <attribute key="decayto" value="7384" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7747" article="a" name="fiery blacksteel sword">
+  <item id="7747" article="a" name="fiery blacksteel sword" editorcategory="Swords">
     <attribute key="description" value="This sword is only granted to a greenhorn of the Svargrond Arena." />
     <attribute key="weight" value="5900" />
     <attribute key="defense" value="22" />
@@ -17320,7 +17318,7 @@
     <attribute key="decayto" value="7406" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7748" article="a" name="fiery dragonslayer">
+  <item id="7748" article="a" name="fiery dragonslayer" editorcategory="Swords">
     <attribute key="weight" value="8200" />
     <attribute key="defense" value="28" />
     <attribute key="attack" value="35" />
@@ -17386,7 +17384,7 @@
     <attribute key="decayto" value="2454" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7754" article="a" name="fiery clerical mace">
+  <item id="7754" article="a" name="fiery clerical mace" editorcategory="Clubs">
     <attribute key="weight" value="5800" />
     <attribute key="defense" value="15" />
     <attribute key="defensemodifier" value="1" />
@@ -17397,7 +17395,7 @@
     <attribute key="decayto" value="2423" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7755" article="a" name="fiery crystal mace">
+  <item id="7755" article="a" name="fiery crystal mace" editorcategory="Clubs">
     <attribute key="weight" value="8000" />
     <attribute key="defense" value="16" />
     <attribute key="defensemodifier" value="1" />
@@ -17408,7 +17406,7 @@
     <attribute key="decayto" value="2445" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7756" article="a" name="fiery cranial basher">
+  <item id="7756" article="a" name="fiery cranial basher" editorcategory="Clubs">
     <attribute key="description" value="This club is only granted to a scrapper of the Svargrond Arena." />
     <attribute key="weight" value="7800" />
     <attribute key="defense" value="20" />
@@ -17420,7 +17418,7 @@
     <attribute key="decayto" value="7415" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7757" article="a" name="fiery orcish maul">
+  <item id="7757" article="a" name="fiery orcish maul" editorcategory="Clubs">
     <attribute key="description" value="This club is only granted to a greenhorn of the Svargrond Arena." />
     <attribute key="weight" value="5400" />
     <attribute key="defense" value="18" />
@@ -17432,7 +17430,7 @@
     <attribute key="decayto" value="7392" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7758" article="a" name="fiery war hammer">
+  <item id="7758" article="a" name="fiery war hammer" editorcategory="Clubs">
     <attribute key="weight" value="5400" />
     <attribute key="defense" value="10" />
     <attribute key="attack" value="36" />
@@ -17455,7 +17453,7 @@
   <item id="7762" article="a" name="small enchanted amethyst" plural="small enchanted amethysts">
     <attribute key="weight" value="10" />
   </item>
-  <item id="7763" article="an" name="icy spike sword">
+  <item id="7763" article="an" name="icy spike sword" editorcategory="Swords">
     <attribute key="weight" value="5000" />
     <attribute key="defense" value="21" />
     <attribute key="defensemodifier" value="2" />
@@ -17466,7 +17464,7 @@
     <attribute key="decayto" value="2383" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7764" article="an" name="icy relic sword">
+  <item id="7764" article="an" name="icy relic sword" editorcategory="Swords">
     <attribute key="weight" value="4800" />
     <attribute key="defense" value="21" />
     <attribute key="defensemodifier" value="1" />
@@ -17477,7 +17475,7 @@
     <attribute key="decayto" value="7383" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7765" article="an" name="icy mystic blade">
+  <item id="7765" article="an" name="icy mystic blade" editorcategory="Swords">
     <attribute key="description" value="This sword is only granted to a scrapper of the Svargrond Arena." />
     <attribute key="weight" value="3500" />
     <attribute key="defense" value="25" />
@@ -17489,7 +17487,7 @@
     <attribute key="decayto" value="7384" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7766" article="an" name="icy blacksteel sword">
+  <item id="7766" article="an" name="icy blacksteel sword" editorcategory="Swords">
     <attribute key="description" value="This sword is only granted to a greenhorn of the Svargrond Arena." />
     <attribute key="weight" value="5900" />
     <attribute key="defense" value="22" />
@@ -17501,7 +17499,7 @@
     <attribute key="decayto" value="7406" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7767" article="an" name="icy dragonslayer">
+  <item id="7767" article="an" name="icy dragonslayer" editorcategory="Swords">
     <attribute key="weight" value="8200" />
     <attribute key="defense" value="28" />
     <attribute key="attack" value="35" />
@@ -17567,7 +17565,7 @@
     <attribute key="decayto" value="2454" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7773" article="an" name="icy clerical mace">
+  <item id="7773" article="an" name="icy clerical mace" editorcategory="Clubs">
     <attribute key="weight" value="5800" />
     <attribute key="defense" value="15" />
     <attribute key="defensemodifier" value="1" />
@@ -17578,7 +17576,7 @@
     <attribute key="decayto" value="2423" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7774" article="an" name="icy crystal mace">
+  <item id="7774" article="an" name="icy crystal mace" editorcategory="Clubs">
     <attribute key="weight" value="8000" />
     <attribute key="defense" value="16" />
     <attribute key="defensemodifier" value="1" />
@@ -17589,7 +17587,7 @@
     <attribute key="decayto" value="2445" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7775" article="an" name="icy cranial basher">
+  <item id="7775" article="an" name="icy cranial basher" editorcategory="Clubs">
     <attribute key="description" value="This club is only granted to a scrapper of the Svargrond Arena." />
     <attribute key="weight" value="7800" />
     <attribute key="defense" value="20" />
@@ -17601,7 +17599,7 @@
     <attribute key="decayto" value="7415" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7776" article="an" name="icy orcish maul">
+  <item id="7776" article="an" name="icy orcish maul" editorcategory="Clubs">
     <attribute key="description" value="This club is only granted to a greenhorn of the Svargrond Arena." />
     <attribute key="weight" value="5400" />
     <attribute key="defense" value="18" />
@@ -17613,7 +17611,7 @@
     <attribute key="decayto" value="7392" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7777" article="an" name="icy war hammer">
+  <item id="7777" article="an" name="icy war hammer" editorcategory="Clubs">
     <attribute key="weight" value="5400" />
     <attribute key="defense" value="10" />
     <attribute key="attack" value="36" />
@@ -17962,7 +17960,7 @@
   <item id="7851" article="an" name="archway" />
   <item id="7852" article="an" name="archway" />
   <item id="7853" article="an" name="archway" />
-  <item id="7854" article="an" name="earth spike sword">
+  <item id="7854" article="an" name="earth spike sword" editorcategory="Swords">
     <attribute key="weight" value="5000" />
     <attribute key="defense" value="21" />
     <attribute key="defensemodifier" value="2" />
@@ -17973,7 +17971,7 @@
     <attribute key="decayto" value="2383" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7855" article="an" name="earth relic sword">
+  <item id="7855" article="an" name="earth relic sword" editorcategory="Swords">
     <attribute key="weight" value="4800" />
     <attribute key="defense" value="21" />
     <attribute key="defensemodifier" value="1" />
@@ -17984,7 +17982,7 @@
     <attribute key="decayto" value="7383" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7856" article="an" name="earth mystic blade">
+  <item id="7856" article="an" name="earth mystic blade" editorcategory="Swords">
     <attribute key="description" value="This sword is only granted to a scrapper of the Svargrond Arena." />
     <attribute key="weight" value="3500" />
     <attribute key="defense" value="25" />
@@ -17996,7 +17994,7 @@
     <attribute key="decayto" value="7384" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7857" article="an" name="earth blacksteel sword">
+  <item id="7857" article="an" name="earth blacksteel sword" editorcategory="Swords">
     <attribute key="description" value="This sword is only granted to a greenhorn of the Svargrond Arena." />
     <attribute key="weight" value="5900" />
     <attribute key="defense" value="22" />
@@ -18008,7 +18006,7 @@
     <attribute key="decayto" value="7406" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7858" article="an" name="earth dragonslayer">
+  <item id="7858" article="an" name="earth dragonslayer" editorcategory="Swords">
     <attribute key="weight" value="8200" />
     <attribute key="defense" value="28" />
     <attribute key="attack" value="35" />
@@ -18074,7 +18072,7 @@
     <attribute key="decayto" value="2454" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7864" article="an" name="earth clerical mace">
+  <item id="7864" article="an" name="earth clerical mace" editorcategory="Clubs">
     <attribute key="weight" value="5800" />
     <attribute key="defense" value="15" />
     <attribute key="defensemodifier" value="1" />
@@ -18085,7 +18083,7 @@
     <attribute key="decayto" value="2423" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7865" article="an" name="earth crystal mace">
+  <item id="7865" article="an" name="earth crystal mace" editorcategory="Clubs">
     <attribute key="weight" value="8000" />
     <attribute key="defense" value="16" />
     <attribute key="defensemodifier" value="1" />
@@ -18096,7 +18094,7 @@
     <attribute key="decayto" value="2445" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7866" article="an" name="earth cranial basher">
+  <item id="7866" article="an" name="earth cranial basher" editorcategory="Clubs">
     <attribute key="description" value="This club is only granted to a scrapper of the Svargrond Arena." />
     <attribute key="weight" value="7800" />
     <attribute key="defense" value="20" />
@@ -18108,7 +18106,7 @@
     <attribute key="decayto" value="7415" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7867" article="an" name="earth orcish maul">
+  <item id="7867" article="an" name="earth orcish maul" editorcategory="Clubs">
     <attribute key="description" value="This club is only granted to a greenhorn of the Svargrond Arena." />
     <attribute key="weight" value="5400" />
     <attribute key="defense" value="18" />
@@ -18120,7 +18118,7 @@
     <attribute key="decayto" value="7392" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7868" article="an" name="earth war hammer">
+  <item id="7868" article="an" name="earth war hammer" editorcategory="Clubs">
     <attribute key="weight" value="5400" />
     <attribute key="defense" value="10" />
     <attribute key="attack" value="36" />
@@ -18131,7 +18129,7 @@
     <attribute key="decayto" value="2391" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7869" article="an" name="energy spike sword">
+  <item id="7869" article="an" name="energy spike sword" editorcategory="Swords">
     <attribute key="weight" value="5000" />
     <attribute key="defense" value="21" />
     <attribute key="defensemodifier" value="2" />
@@ -18142,7 +18140,7 @@
     <attribute key="decayto" value="2383" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7870" article="an" name="energy relic sword">
+  <item id="7870" article="an" name="energy relic sword" editorcategory="Swords">
     <attribute key="weight" value="4800" />
     <attribute key="defense" value="21" />
     <attribute key="defensemodifier" value="1" />
@@ -18153,7 +18151,7 @@
     <attribute key="decayto" value="7383" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7871" article="an" name="energy mystic blade">
+  <item id="7871" article="an" name="energy mystic blade" editorcategory="Swords">
     <attribute key="description" value="This sword is only granted to a scrapper of the Svargrond Arena." />
     <attribute key="weight" value="3500" />
     <attribute key="defense" value="25" />
@@ -18165,7 +18163,7 @@
     <attribute key="decayto" value="7384" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7872" article="an" name="energy blacksteel sword">
+  <item id="7872" article="an" name="energy blacksteel sword" editorcategory="Swords">
     <attribute key="description" value="This sword is only granted to a greenhorn of the Svargrond Arena." />
     <attribute key="weight" value="5900" />
     <attribute key="defense" value="22" />
@@ -18177,7 +18175,7 @@
     <attribute key="decayto" value="7406" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7873" article="an" name="energy dragonslayer">
+  <item id="7873" article="an" name="energy dragonslayer" editorcategory="Swords">
     <attribute key="weight" value="8200" />
     <attribute key="defense" value="28" />
     <attribute key="attack" value="35" />
@@ -18243,7 +18241,7 @@
     <attribute key="decayto" value="2454" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7879" article="an" name="energy clerical mace">
+  <item id="7879" article="an" name="energy clerical mace" editorcategory="Clubs">
     <attribute key="weight" value="5800" />
     <attribute key="defense" value="15" />
     <attribute key="defensemodifier" value="1" />
@@ -18254,7 +18252,7 @@
     <attribute key="decayto" value="2423" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7880" article="an" name="energy crystal mace">
+  <item id="7880" article="an" name="energy crystal mace" editorcategory="Clubs">
     <attribute key="weight" value="8000" />
     <attribute key="defense" value="16" />
     <attribute key="defensemodifier" value="1" />
@@ -18265,7 +18263,7 @@
     <attribute key="decayto" value="2445" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7881" article="an" name="energy cranial basher">
+  <item id="7881" article="an" name="energy cranial basher" editorcategory="Clubs">
     <attribute key="description" value="This club is only granted to a scrapper of the Svargrond Arena." />
     <attribute key="weight" value="7800" />
     <attribute key="defense" value="20" />
@@ -18277,7 +18275,7 @@
     <attribute key="decayto" value="7415" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7882" article="an" name="energy orcish maul">
+  <item id="7882" article="an" name="energy orcish maul" editorcategory="Clubs">
     <attribute key="description" value="This club is only granted to a greenhorn of the Svargrond Arena." />
     <attribute key="weight" value="5400" />
     <attribute key="defense" value="18" />
@@ -18289,7 +18287,7 @@
     <attribute key="decayto" value="7392" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7883" article="an" name="energy war hammer">
+  <item id="7883" article="an" name="energy war hammer" editorcategory="Clubs">
     <attribute key="weight" value="5400" />
     <attribute key="defense" value="10" />
     <attribute key="attack" value="36" />
@@ -18961,11 +18959,11 @@
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="120" />
   </item>
-  <item id="8209" article="a" name="crimson sword" editorsuffix="(Rashid)">
+  <item id="8209" article="a" name="crimson sword" editorcategory="Swords">
     <attribute key="weight" value="3600" />
-    <attribute key="defense" value="20" />
+    <attribute key="defense" value="10" />
     <attribute key="defensemodifier" value="1" />
-    <attribute key="attack" value="28" />
+    <attribute key="attack" value="18" />
     <attribute key="weapontype" value="sword" />
   </item>
   <item id="8210" article="a" name="cave entrance">
@@ -19632,7 +19630,7 @@
     <attribute key="attack" value="21" />
     <attribute key="weapontype" value="axe" />
   </item>
-  <item id="8602" article="a" name="jagged sword">
+  <item id="8602" article="a" name="jagged sword" editorcategory="Swords">
     <attribute key="weight" value="2900" />
     <attribute key="defense" value="14" />
     <attribute key="defensemodifier" value="1" />
@@ -20488,21 +20486,21 @@
     <attribute key="weapontype" value="axe" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="8927" article="a" name="dark trinity mace">
+  <item id="8927" article="a" name="dark trinity mace" editorcategory="Clubs">
     <attribute key="weight" value="9900" />
     <attribute key="defense" value="32" />
     <attribute key="defensemodifier" value="-1" />
     <attribute key="attack" value="51" />
     <attribute key="weapontype" value="club" />
   </item>
-  <item id="8928" article="an" name="obsidian truncheon">
+  <item id="8928" article="an" name="obsidian truncheon" editorcategory="Clubs">
     <attribute key="weight" value="6500" />
     <attribute key="defense" value="30" />
     <attribute key="defensemodifier" value="2" />
     <attribute key="attack" value="50" />
     <attribute key="weapontype" value="club" />
   </item>
-  <item id="8929" name="the stomper">
+  <item id="8929" name="the stomper" editorcategory="Clubs">
     <attribute key="weight" value="11500" />
     <attribute key="defense" value="20" />
     <attribute key="defensemodifier" value="3" />
@@ -20510,7 +20508,7 @@
     <attribute key="weapontype" value="club" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="8930" article="an" name="emerald sword">
+  <item id="8930" article="an" name="emerald sword" editorcategory="Swords">
     <attribute key="weight" value="4100" />
     <attribute key="defense" value="33" />
     <attribute key="defensemodifier" value="3" />
@@ -23219,11 +23217,11 @@
     <attribute key="defense" value="10" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="10290" article="a" name="glutton's mace">
+  <item id="10290" article="a" name="glutton's mace" editorcategory="Clubs">
     <attribute key="description" value="It would be an awesome weapon if the handle weren't that greasy." />
     <attribute key="weight" value="1600" />
-    <attribute key="defense" value="16" />
-    <attribute key="attack" value="10" />
+    <attribute key="defense" value="10" />
+    <attribute key="attack" value="16" />
     <attribute key="weapontype" value="club" />
   </item>
   <item id="10291" article="an" name="odd hat" editorcategory="Helmets">
@@ -23232,14 +23230,14 @@
     <attribute key="armor" value="5" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="10292" article="a" name="pointed rabbitslayer">
+  <item id="10292" article="a" name="pointed rabbitslayer" editorcategory="Swords">
     <attribute key="description" value="Someone has sharpened this carrot to inflict some nasty damage especially on rabbits." />
     <attribute key="weight" value="160" />
     <attribute key="defense" value="8" />
     <attribute key="attack" value="16" />
     <attribute key="weapontype" value="sword" />
   </item>
-  <item id="10293" article="a" name="stale bread of ancientness">
+  <item id="10293" article="a" name="stale bread of ancientness" editorcategory="Clubs">
     <attribute key="description" value="This bread is so old that it has become unbreakable and a formidable weapon." />
     <attribute key="weight" value="500" />
     <attribute key="defense" value="8" />
@@ -23291,7 +23289,7 @@
     <attribute key="armor" value="2" />
     <attribute key="slottype" value="legs" />
   </item>
-  <item id="10301" article="a" name="scythe of the reaper">
+  <item id="10301" article="a" name="scythe of the reaper" editorcategory="Clubs">
     <attribute key="description" value="This scythe has harvested countless souls and still hungers for more." />
     <attribute key="weight" value="3000" />
     <attribute key="defense" value="6" />
@@ -23299,9 +23297,9 @@
     <attribute key="weapontype" value="club" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="10302" article="an" name="club of the fury">
+  <item id="10302" article="a" name="club of the fury" editorcategory="Clubs">
     <attribute key="description" value="It's ready to unleash a fury's wrath on its enemies." />
-    <attribute key="weight" value="2500" />
+    <attribute key="weight" value="500" />
     <attribute key="defense" value="8" />
     <attribute key="attack" value="16" />
     <attribute key="weapontype" value="club" />
@@ -23314,7 +23312,7 @@
     <attribute key="weapontype" value="axe" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="10304" article="a" name="poet's fencing quill">
+  <item id="10304" article="a" name="poet's fencing quill" editorcategory="Swords">
     <attribute key="description" value="This feather is mightier than a sword." />
     <attribute key="weight" value="200" />
     <attribute key="defense" value="8" />
@@ -23347,7 +23345,7 @@
   </item>
   <item id="10311" name="nothing special" />
   <item id="10312" name="nothing special" />
-  <item id="10313" article="a" name="Incredible Mumpiz Slayer">
+  <item id="10313" article="a" name="Incredible Mumpiz Slayer" editorcategory="Swords">
     <attribute key="description" value="This magnificent weapon was forged to slay arch mumpiz demons with a single blow." />
     <attribute key="weight" value="4200" />
     <attribute key="defense" value="14" />
@@ -25130,21 +25128,21 @@
     <attribute key="weapontype" value="axe" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="11306" name="sais">
+  <item id="11306" name="sai" editorcategory="Swords">
     <attribute key="weight" value="5000" />
     <attribute key="defense" value="27" />
     <attribute key="attack" value="45" />
     <attribute key="weapontype" value="sword" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="11307" name="zaoan sword">
+  <item id="11307" name="Zaoan sword" editorcategory="Swords">
     <attribute key="weight" value="4900" />
-    <attribute key="defense" value="25" />
+    <attribute key="defense" value="18" />
     <attribute key="defensemodifier" value="2" />
-    <attribute key="attack" value="46" />
+    <attribute key="attack" value="43" />
     <attribute key="weapontype" value="sword" />
   </item>
-  <item id="11308" name="drachaku">
+  <item id="11308" name="drachaku" editorcategory="Clubs">
     <attribute key="weight" value="6000" />
     <attribute key="defense" value="25" />
     <attribute key="attack" value="46" />
@@ -26892,7 +26890,7 @@
     <attribute key="skillmodifiermagiclevel" value="3" />
   </item>
   <item id="12648" article="a" name="snake god's sceptre" editorcategory="Clubs">
-    <attribute key="weight" value="1200" />
+    <attribute key="weight" value="12000" />
     <attribute key="defense" value="29" />
     <attribute key="defensemodifier" value="3" />
     <attribute key="attack" value="48" />
@@ -26901,9 +26899,9 @@
   </item>
   <item id="12649" article="a" name="blade of corruption" editorcategory="Swords">
     <attribute key="weight" value="6400" />
-    <attribute key="armor" value="48" />
     <attribute key="defense" value="29" />
     <attribute key="defensemodifier" value="2" />
+    <attribute key="attack" value="48" />
     <attribute key="weapontype" value="sword" />
     <attribute key="slottype" value="hand" />
   </item>
