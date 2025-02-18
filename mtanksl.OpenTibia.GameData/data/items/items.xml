@@ -2516,13 +2516,13 @@
   <item id="2059" article="a" name="lit torch bearer" />
   <item id="2060" article="a" name="torch bearer" />
   <item id="2061" article="a" name="lit torch bearer" />
-  <item id="2062" article="a" name="small oil lamp">
-    <attribute key="weight" value="100" />
+  <item id="2062" article="a" name="gemmed lamp" editorsuffix="(Green Djinn Quest)" editorcategory="Quest Items">
+    <attribute key="weight" value="1300" />
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="60" />
     <attribute key="stopduration" value="1" />
   </item>
-  <item id="2063" article="a" name="small oil lamp">
+  <item id="2063" article="a" name="small oil lamp" editorcategory="Decorations">
     <attribute key="weight" value="900" />
     <attribute key="stopduration" value="1" />
   </item>
@@ -2766,7 +2766,7 @@
   <item id="2140" article="a" name="holy scarab">
     <attribute key="weight" value="870" />
   </item>
-  <item id="2141" article="a" name="holy falcon">
+  <item id="2141" article="a" name="holy falcon" editorcategory="Magical Items">
     <attribute key="weight" value="840" />
   </item>
   <item id="2142" article="an" name="ancient amulet" editorcategory="Amulets">
@@ -2797,7 +2797,7 @@
   <item id="2150" article="a" name="small amethyst" plural="small amethysts">
     <attribute key="weight" value="10" />
   </item>
-  <item id="2151" article="a" name="talon" plural="talons">
+  <item id="2151" article="a" name="talon" plural="talons" editorcategory="Magical Items">
     <attribute key="description" value="There are many rumours about these magic gems." />
     <attribute key="weight" value="20" />
   </item>
@@ -2928,13 +2928,13 @@
     <attribute key="defense" value="14" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="2176" article="an" name="orb">
+  <item id="2176" article="an" name="orb" editorcategory="Magical Items">
     <attribute key="weight" value="800" />
   </item>
-  <item id="2177" article="a" name="life crystal">
-    <attribute key="weight" value="250" />
+  <item id="2177" article="a" name="life crystal" editorcategory="Magical Items">
+    <attribute key="weight" value="263" />
   </item>
-  <item id="2178" article="a" name="mind stone">
+  <item id="2178" article="a" name="mind stone" editorcategory="Magical Items">
     <attribute key="weight" value="250" />
   </item>
   <item id="2179" article="a" name="gold ring" editorcategory="Rings">
@@ -3015,10 +3015,10 @@
     <attribute key="shoottype" value="fire" />
     <attribute key="range" value="3" />
   </item>
-  <item id="2192" article="a" name="crystal ball">
+  <item id="2192" article="a" name="crystal ball" editorcategory="Magical Items">
     <attribute key="weight" value="3400" />
   </item>
-  <item id="2193" article="an" name="ankh">
+  <item id="2193" article="an" name="ankh" editorcategory="Magical Items">
     <attribute key="weight" value="420" />
   </item>
   <item id="2194" article="a" name="mysterious fetish">
@@ -3206,7 +3206,7 @@
   <item id="2219" article="a" name="banana skin" editorcategory="Rubbish">
     <attribute key="weight" value="30" />
   </item>
-  <item id="2220" article="a" name="dirty fur">
+  <item id="2220" article="a" name="dirty fur" editorcategory="Rubbish">
     <attribute key="weight" value="200" />
   </item>
   <item id="2221" article="an" name="old twig">
@@ -3320,7 +3320,7 @@
   <item id="2259" name="stone rubbish">
     <attribute key="weight" value="980" />
   </item>
-  <item id="2260" article="a" name="blank rune" editorcategory="Runes">
+  <item id="2260" article="a" name="blank rune" editorcategory="Magical Items">
     <attribute key="weight" value="120" />
     <attribute key="type" value="rune" />
   </item>
@@ -3644,7 +3644,7 @@
     <attribute key="description" value="You see the familyname Windtrouser engraved on this brooch." />
     <attribute key="weight" value="110" />
   </item>
-  <item id="2319" article="a" name="dragonfetish">
+  <item id="2319" article="a" name="dragonfetish" editorcategory="Magical Items">
     <attribute key="weight" value="490" />
   </item>
   <item id="2320" article="a" name="skull" plural="skulls">
@@ -3678,8 +3678,9 @@
     <attribute key="description" value="I braved the Annihilator and all I got is this lousy teddy bear." />
     <attribute key="weight" value="4300" />
   </item>
-  <item id="2327" article="an" name="ankh">
-    <attribute key="weight" value="300" />
+  <item id="2327" article="a" name="blessed ankh" editorsuffix="(The White Raven Monastery Quest)" editorcategory="Quest Items">
+    <attribute key="description" value="You see the engraving of a white raven on its surface." />
+    <attribute key="weight" value="420" />
   </item>
   <item id="2328" article="a" name="phoenix egg" plural="phoenix eggs">
     <attribute key="description" value="It seems to be burning from inside." />
@@ -3762,7 +3763,7 @@
     <attribute key="description" value="It contains several exotic recipes." />
     <attribute key="weight" value="1500" />
   </item>
-  <item id="2348" article="an" name="ancient rune">
+  <item id="2348" article="an" name="ancient rune" editorsuffix="(Helmet of the Ancients)" editorcategory="Quest Items">
     <attribute key="description" value="This rune vibrates with ancient powers. It seems to be rotting rapidly." />
     <attribute key="weight" value="300" />
     <attribute key="decayto" value="0" />
@@ -3820,7 +3821,8 @@
     <attribute key="armor" value="0" />
     <attribute key="slottype" value="feet" />
   </item>
-  <item id="2359" article="a" name="small oil lamp">
+  <item id="2359" article="a" name="djinn's lamp" editorcategory="Decorations">
+    <attribute key="description" value="(This item has 2 charges left)." />
     <attribute key="weight" value="900" />
   </item>
   <item id="2360" article="a" name="portable hole" editorsuffix="(Unknown weight)" />
@@ -3831,8 +3833,8 @@
     <attribute key="description" value="You can sense the evil power of the carrot." />
     <attribute key="weight" value="160" />
   </item>
-  <item id="2363" article="a" name="blood orb">
-    <attribute key="weight" value="150" />
+  <item id="2363" article="a" name="blood orb" editorcategory="Magical Items">
+    <attribute key="weight" value="70" />
   </item>
   <item id="2364" name="Waldo's post horn" editorcategory="Musical Instruments">
     <attribute key="weight" value="2200" />
@@ -8355,25 +8357,25 @@
   <item id="3849" article="a" name="straw mat" />
   <item id="3850" article="a" name="straw mat" />
   <item id="3851" article="a" name="straw mat" />
-  <item id="3852" article="a" name="brown bear fur" />
-  <item id="3853" article="a" name="brown bear fur" />
-  <item id="3854" article="a" name="brown bear fur" />
-  <item id="3855" article="a" name="brown bear fur" />
-  <item id="3856" article="a" name="polar bear fur" />
-  <item id="3857" article="a" name="polar bear fur" />
-  <item id="3858" article="a" name="polar bear fur" />
-  <item id="3859" article="a" name="polar bear fur" />
-  <item id="3860" article="a" name="badger fur" />
+  <item id="3852" article="a" name="brown bear fur" editorcategory="Decorations" />
+  <item id="3853" article="a" name="brown bear fur" editorcategory="Decorations" />
+  <item id="3854" article="a" name="brown bear fur" editorcategory="Decorations" />
+  <item id="3855" article="a" name="brown bear fur" editorcategory="Decorations" />
+  <item id="3856" article="a" name="polar bear fur" editorcategory="Decorations" />
+  <item id="3857" article="a" name="polar bear fur" editorcategory="Decorations" />
+  <item id="3858" article="a" name="polar bear fur" editorcategory="Decorations" />
+  <item id="3859" article="a" name="polar bear fur" editorcategory="Decorations" />
+  <item id="3860" article="a" name="badger fur" editorcategory="Decorations" />
   <item id="3861" article="a" name="feather decoration" />
   <item id="3862" article="a" name="feather decoration" />
-  <item id="3863" article="a" name="dried fur" />
-  <item id="3864" article="a" name="dried fur" />
-  <item id="3865" article="a" name="dried fur" />
-  <item id="3866" article="a" name="dried fur" />
-  <item id="3867" article="a" name="tanned brown bear fur" />
-  <item id="3868" article="a" name="tanned brown bear fur" />
-  <item id="3869" article="a" name="tanned polar bear fur" />
-  <item id="3870" article="a" name="tanned polar bear fur" />
+  <item id="3863" article="a" name="dried fur" editorcategory="Furnitures" />
+  <item id="3864" article="a" name="dried fur" editorcategory="Furnitures" />
+  <item id="3865" article="a" name="dried fur" editorcategory="Furnitures" />
+  <item id="3866" article="a" name="dried fur" editorcategory="Furnitures" />
+  <item id="3867" article="a" name="tanned brown bear fur" editorcategory="Furnitures" />
+  <item id="3868" article="a" name="tanned brown bear fur" editorcategory="Furnitures" />
+  <item id="3869" article="a" name="tanned polar bear fur" editorcategory="Furnitures" />
+  <item id="3870" article="a" name="tanned polar bear fur" editorcategory="Furnitures" />
   <item id="3871" article="a" name="pile of chopped wood" />
   <item id="3872" article="a" name="block of wood">
     <attribute key="description" value="It's a lumberjack's working place." />
@@ -8401,10 +8403,10 @@
   <item id="3893" article="a" name="giant footprint" />
   <item id="3894" article="a" name="giant footprint" />
   <item id="3895" article="a" name="giant footprint" />
-  <item id="3896" article="a" name="tanned tiger fur" />
-  <item id="3897" article="a" name="tanned tiger fur" />
-  <item id="3898" article="a" name="tiger fur" />
-  <item id="3899" article="a" name="tiger fur" />
+  <item id="3896" article="a" name="tanned tiger fur" editorcategory="Furnitures" />
+  <item id="3897" article="a" name="tanned tiger fur" editorcategory="Furnitures" />
+  <item id="3898" article="a" name="tiger fur" editorcategory="Furnitures" />
+  <item id="3899" article="a" name="tiger fur" editorcategory="Furnitures" />
   <item id="3900" article="a" name="sundial" />
   <item id="3901" article="a" name="wooden chair kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a wooden chair." />
@@ -10190,12 +10192,12 @@
   <item id="4850" article="a" name="hydra egg">
     <attribute key="weight" value="5000" />
   </item>
-  <item id="4851" article="a" name="spectral stone">
+  <item id="4851" article="a" name="spectral stone" editorsuffix="(Explorer Society Quest)" editorcategory="Quest Items">
     <attribute key="description" value="It is pulsating with spectral energy." />
     <attribute key="weight" value="250" />
   </item>
-  <item id="4852" article="a" name="memory stone">
-    <attribute key="weight" value="200" />
+  <item id="4852" article="a" name="memory stone" editorsuffix="(Explorer Society Quest.)" editorcategory="Quest Items">
+    <attribute key="weight" value="250" />
   </item>
   <item id="4853" article="a" name="sheet of tracing paper" editorsuffix="(The Explorer Society Quest)" editorcategory="Quest Items">
     <attribute key="description" value="It is blank." />
@@ -11609,7 +11611,7 @@
   <item id="5669" article="a" name="voodoo skull">
     <attribute key="weight" value="1000" />
   </item>
-  <item id="5670" article="an" name="enigmatic voodoo skull">
+  <item id="5670" article="an" name="enigmatic voodoo skull" editorcategory="Magical Items">
     <attribute key="description" value="It is not time yet." />
     <attribute key="weight" value="1400" />
     <attribute key="decayto" value="5669" />
@@ -12296,7 +12298,7 @@
   <item id="5943" article="the" name="Morgaroth's heart">
     <attribute key="weight" value="3500" />
   </item>
-  <item id="5944" article="a" name="soul orb" plural="soul orbs">
+  <item id="5944" article="a" name="soul orb" plural="soul orbs" editorcategory="Magical Items">
     <attribute key="description" value="This strange object seems to be made of half spirit, half metal. It is unknown by most smiths." />
     <attribute key="weight" value="20" />
   </item>
@@ -14467,8 +14469,8 @@
     <attribute key="weight" value="50" />
     <attribute key="showcount" value="0" />
   </item>
-  <item id="6548" article="a" name="violet sulphur" plural="violet sulphurs">
-    <attribute key="weight" value="750" />
+  <item id="6548" name="draken sulphur" editorcategory="Creature Products">
+    <attribute key="weight" value="68" />
   </item>
   <item id="6549" article="a" name="green sulphur" plural="green sulphurs">
     <attribute key="weight" value="750" />
@@ -15540,7 +15542,7 @@
   <item id="7239" article="a" name="shield" />
   <item id="7240" article="a" name="shield" />
   <item id="7241" article="a" name="shield" />
-  <item id="7242" article="a" name="memory crystal">
+  <item id="7242" article="a" name="memory crystal" editorsuffix="(The Ice Islands Quest)" editorcategory="Quest Items">
     <attribute key="description" value="It is able to store memories and thoughts." />
     <attribute key="weight" value="250" />
   </item>
@@ -15583,7 +15585,7 @@
   <item id="7252" article="a" name="baby seal">
     <attribute key="description" value="It is covered with paint." />
   </item>
-  <item id="7253" article="a" name="flask with paint">
+  <item id="7253" article="a" name="flask with paint" editorsuffix="(The Ice Islands Quest)" editorcategory="Quest Items">
     <attribute key="weight" value="180" />
   </item>
   <item id="7254" article="a" name="stone shelf">
@@ -15639,7 +15641,7 @@
   <item id="7278" article="a" name="stone throne" />
   <item id="7279" article="a" name="stone throne" />
   <item id="7280" article="a" name="stone throne" />
-  <item id="7281" article="a" name="resonance crystal">
+  <item id="7281" article="a" name="resonance crystal" editorsuffix="(The Explorer Society Quest)" editorcategory="Quest Items">
     <attribute key="weight" value="250" />
   </item>
   <item id="7282" article="a" name="slain ice golem" editorsuffix="(Unmoveable)">
@@ -15705,7 +15707,7 @@
     <attribute key="description" value="This is the proof that there were once dragon lords on Okolnir which mutated into frost dragons." />
     <attribute key="weight" value="90" />
   </item>
-  <item id="7315" article="a" name="resonance crystal">
+  <item id="7315" article="a" name="resonance crystal" editorsuffix="(The Explorer Society Quest)" editorcategory="Quest Items">
     <attribute key="description" value="You have recorded beautiful ice music on it for the Explorer Society." />
     <attribute key="weight" value="250" />
   </item>
@@ -16521,7 +16523,7 @@
     <attribute key="armor" value="2" />
     <attribute key="slottype" value="feet" />
   </item>
-  <item id="7458" article="a" name="fur cap">
+  <item id="7458" article="a" name="fur cap" editorcategory="Helmets">
     <attribute key="description" value="It feels nice and warm on your ears." />
     <attribute key="weight" value="1800" />
     <attribute key="armor" value="3" />
@@ -16610,7 +16612,7 @@
   <item id="7476" article="a" name="white flower">
     <attribute key="weight" value="10" />
   </item>
-  <item id="7477" article="a" name="special flask">
+  <item id="7477" article="a" name="special flask" editorsuffix="(What a Foolish Quest)" editorcategory="Quest Items">
     <attribute key="description" value="It contains the smell of a freshly slain slime." />
     <attribute key="weight" value="180" />
   </item>
@@ -18636,7 +18638,7 @@
   <item id="7964" article="a" name="marlin trophy" editorcategory="Trophies">
     <attribute key="weight" value="500" />
   </item>
-  <item id="7965" article="a" name="badger fur" editorsuffix="(Unknown weight)" />
+  <item id="7965" name="nothing special" />
   <item id="7966" article="a" name="cream cake" editorsuffix="(Hot Cuisine Quest)" editorcategory="Quest Items">
     <attribute key="weight" value="500" />
   </item>
@@ -18958,7 +18960,7 @@
   <item id="8204" article="a" name="yellow powder" editorcategory="Rubbish">
     <attribute key="weight" value="100" />
   </item>
-  <item id="8205" article="a" name="special flask">
+  <item id="8205" article="a" name="special flask" editorsuffix="(The Exterminator Quest)" editorcategory="Quest Items">
     <attribute key="description" value="It contains highly intensified poison against vermin." />
     <attribute key="weight" value="180" />
   </item>
@@ -19167,33 +19169,32 @@
   <item id="8297" article="a" name="bait" plural="baits">
     <attribute key="weight" value="800" />
   </item>
-  <item id="8298" name="natural soil" plural="natural soil">
+  <item id="8298" name="natural soil" editorcategory="Creature Products">
     <attribute key="weight" value="250" />
     <attribute key="showcount" value="0" />
   </item>
-  <item id="8299" name="glimmering soil" plural="glimmering soil" editorsuffix="(The Elemental Spheres Quest)" editorcategory="Quest Items">
+  <item id="8299" name="glimmering soil" editorsuffix="(The Elemental Spheres Quest)" editorcategory="Quest Items">
     <attribute key="weight" value="250" />
     <attribute key="showcount" value="0" />
   </item>
   <item id="8300" article="a" name="flawless ice crystal">
     <attribute key="weight" value="250" />
   </item>
-  <item id="8301" name="fine sulphur">
-    <attribute key="description" value="It has been extracted from an inactive lava hole." />
-    <attribute key="weight" value="50" />
+  <item id="8301" name="holy soil" editorcategory="Magical Items">
+    <attribute key="weight" value="250" />
   </item>
-  <item id="8302" name="iced soil">
+  <item id="8302" name="iced soil" editorcategory="Creature Products">
     <attribute key="weight" value="250" />
     <attribute key="showcount" value="0" />
   </item>
-  <item id="8303" name="energy soil" plural="energy soil">
+  <item id="8303" name="energy soil" editorcategory="Creature Products">
     <attribute key="weight" value="250" />
     <attribute key="showcount" value="0" />
   </item>
   <item id="8304" name="eternal flames">
     <attribute key="weight" value="250" />
   </item>
-  <item id="8305" name="mother soil" plural="mother soil">
+  <item id="8305" name="mother soil" editorcategory="Creature Products">
     <attribute key="weight" value="250" />
     <attribute key="showcount" value="0" />
   </item>
@@ -21890,7 +21891,7 @@
   <item id="9733" article="the" name="alchemists' formulas">
     <attribute key="weight" value="200" />
   </item>
-  <item id="9734" name="animal cure">
+  <item id="9734" name="animal cure" editorsuffix="(Service of Yalahar Quest)" editorcategory="Quest Items">
     <attribute key="weight" value="180" />
   </item>
   <item id="9735" article="a" name="helmet">
@@ -21919,11 +21920,11 @@
   <item id="9742" article="a" name="charged ghost charm">
     <attribute key="weight" value="2200" />
   </item>
-  <item id="9743" article="a" name="matrix crystal" editorsuffix="(weapons)">
+  <item id="9743" article="a" name="weapon matrix crystal" editorsuffix="(In Service of Yalahar Quest)" editorcategory="Quest Items">
     <attribute key="description" value="It contains patterns to create weapons." />
     <attribute key="weight" value="250" />
   </item>
-  <item id="9744" article="a" name="matrix crystal" editorsuffix="(food)">
+  <item id="9744" article="a" name="food matrix crystal" editorsuffix="(In Service of Yalahar Quest)" editorcategory="Quest Items">
     <attribute key="description" value="It contains patterns to create food." />
     <attribute key="weight" value="250" />
   </item>
@@ -22569,7 +22570,7 @@
   <item id="9967" article="a" name="glob of acid slime" plural="globs of acid slime">
     <attribute key="weight" value="10" />
   </item>
-  <item id="9968" article="a" name="glob of tar" plural="globs of tar">
+  <item id="9968" article="a" name="glob of tar" plural="globs of tar" editorcategory="Creature Products">
     <attribute key="weight" value="10" />
   </item>
   <item id="9969" article="a" name="black skull" editorcategory="Decorations">
@@ -22832,7 +22833,7 @@
     <attribute key="duration" value="2" />
   </item>
   <item id="10065" name="nothing special" />
-  <item id="10066" article="a" name="dark essence">
+  <item id="10066" article="a" name="dark essence" editorsuffix="(Shadows of Yalahar Quest)" editorcategory="Quest Items">
     <attribute key="weight" value="260" />
   </item>
   <item id="10067" name="nothing special" />
@@ -22863,7 +22864,9 @@
   <item id="10086" name="nothing special" />
   <item id="10087" article="a" name="box (Vol:10)" editorcategory="Quest Chests" />
   <item id="10088" article="a" name="crate (Vol:15)" editorcategory="Quest Chests" />
-  <item id="10089" name="nothing special" />
+  <item id="10089" article="a" name="wonder glue" editorsuffix="(Shadows of Yalahar Quest)" editorcategory="Quest Items">
+    <attribute key="weight" value="180" />
+  </item>
   <item id="10090" name="nothing special" />
   <item id="10091" article="a" name="crystal key" editorcategory="Keys">
     <attribute key="weight" value="100" />
@@ -22992,15 +22995,19 @@
     <attribute key="description" value="It looks suspiciously similar to a crowbar." />
     <attribute key="weight" value="1500" />
   </item>
-  <item id="10154" name="nothing special" />
-  <item id="10155" name="nothing special" />
-  <item id="10156" article="a" name="dark essence" plural="dark essences">
-    <attribute key="weight" value="260" />
+  <item id="10154" article="an" name="animal fetish" editorsuffix="(Shadows of Yalahar Quest)" editorcategory="Quest Items">
+    <attribute key="weight" value="245" />
+  </item>
+  <item id="10155" article="a" name="shadow orb" editorsuffix="(Shadows of Yalahar Quest)" editorcategory="Quest Items">
+    <attribute key="weight" value="400" />
+  </item>
+  <item id="10156" article="a" name="glob of grease" editorsuffix="(Shadows of Yalahar Quest)" editorcategory="Quest Items">
+    <attribute key="weight" value="100" />
   </item>
   <item id="10157" article="a" name="Worm queen Tooth">
     <attribute key="weight" value="850" />
   </item>
-  <item id="10158" article="a" name="deep crystal">
+  <item id="10158" article="a" name="deep crystal" editorsuffix="(Shadows of Yalahar Quest)" editorcategory="Quest Items">
     <attribute key="description" value="It is pulsating with spectral energy." />
     <attribute key="weight" value="310" />
   </item>
@@ -23903,7 +23910,7 @@
   <item id="10576" article="a" name="half-eaten brain">
     <attribute key="weight" value="64" />
   </item>
-  <item id="10577" article="a" name="mystical hourglass" plural="mystical hourglasses">
+  <item id="10577" article="a" name="mystical hourglass" plural="mystical hourglasses" editorcategory="Creature Products">
     <attribute key="weight" value="96" />
   </item>
   <item id="10578" article="a" name="frosty heart">
@@ -23981,9 +23988,9 @@
     <attribute key="description" value="You should bring them to Spectulus in Edron." />
     <attribute key="weight" value="250" />
   </item>
-  <item id="10614" name="rare crystal">
+  <item id="10614" name="rare crystal" editorsuffix="(Sea of Light Quest)" editorcategory="Quest Items">
     <attribute key="description" value="An extremely rare crystal you recovered from the Lost Mines." />
-    <attribute key="weight" value="180" />
+    <attribute key="weight" value="310" />
   </item>
   <item id="10615" article="a" name="carrying device">
     <attribute key="description" value="The astronomer Spectulus gave you this device to safely transport the mirror crystal." />
@@ -24136,7 +24143,10 @@
   <item id="10757" article="a" name="diabolic hedge" />
   <item id="10758" name="nothing special" />
   <item id="10759" name="nothing special" />
-  <item id="10760" name="nothing special" />
+  <item id="10760" article="a" name="flask of poison" editorsuffix="(Children of the Revolution Quest)" editorcategory="Quest Items">
+    <attribute key="description" value="This poison is meant to weaken the enemy and should be used on the rice fields near Chaochai." />
+    <attribute key="weight" value="180" />
+  </item>
   <item id="10761" name="wild vine" />
   <item id="10762" name="wild vine" />
   <item id="10763" name="pepper roots grass" />
@@ -24534,14 +24544,14 @@
     <attribute key="duration" value="45" />
     <attribute key="type" value="magicfield" />
   </item>
-  <item id="11100" article="a" name="flash with beaver bait">
+  <item id="11100" article="a" name="flash with beaver bait" editorsuffix="(The New Frontier Quest)" editorcategory="Quest Items">
     <attribute key="description" value="It smells like a mixture of wood and fish. Phew." />
     <attribute key="weight" value="180" />
   </item>
   <item id="11101" name="nothing special" />
   <item id="11102" name="nothing special" />
   <item id="11103" name="nothing special" />
-  <item id="11104" name="nothing special" />
+  <item id="11104" article="a" name="nothing special" />
   <item id="11105" name="nothing special" editorsuffix="(Blank)" />
   <item id="11106" name="nothing special" />
   <item id="11107" article="a" name="dead draken warmaster" editorsuffix="(Unmoveable)">
@@ -24774,7 +24784,7 @@
   <item id="11208" name="rotten piece of cloth" plural="rotten pieces of cloth" editorcategory="Creature Products">
     <attribute key="weight" value="60" />
   </item>
-  <item id="11209" name="silky fur">
+  <item id="11209" name="silky fur" editorcategory="Creature Products">
     <attribute key="weight" value="115" />
   </item>
   <item id="11210" name="striped fur" plural="striped furs" editorcategory="Creature Products">
@@ -24816,7 +24826,7 @@
   <item id="11222" name="lump of earth" plural="lumps of earth">
     <attribute key="weight" value="116" />
   </item>
-  <item id="11223" name="essence of a bad dream" plural="essences of a bad dream">
+  <item id="11223" article="an" name="essence of a bad dream" plural="essences of a bad dream" editorcategory="Creature Products">
     <attribute key="weight" value="95" />
   </item>
   <item id="11224" name="thick fur" plural="thick furs" editorcategory="Creature Products">
@@ -26371,9 +26381,16 @@
   </item>
   <item id="12285" name="nothing special" />
   <item id="12286" name="nothing special" />
-  <item id="12287" name="nothing special" />
-  <item id="12288" name="nothing special" />
-  <item id="12289" name="nothing special" />
+  <item id="12287" article="a" name="sacred bowl" editorsuffix="(Wrath of the Emperor Quest)" editorcategory="Quest Items">
+    <attribute key="description" value="This bowl was made from sacred wood and is currently untreated." />
+    <attribute key="weight" value="10" />
+  </item>
+  <item id="12288" article="a" name="sacred bowl" editorsuffix="(Wrath of the Emperor Quest)" editorcategory="Quest Items">
+    <attribute key="weight" value="10" />
+  </item>
+  <item id="12289" article="a" name="sacred bowl" editorsuffix="(Wrath of the Emperor Quest)" editorcategory="Quest Items">
+    <attribute key="weight" value="10" />
+  </item>
   <item id="12290" name="nothing special" />
   <item id="12291" name="nothing special" />
   <item id="12292" name="nothing special" />
@@ -26389,8 +26406,12 @@
   <item id="12299" name="nothing special" />
   <item id="12300" name="nothing special" />
   <item id="12301" name="nothing special" />
-  <item id="12302" name="nothing special" />
-  <item id="12303" name="nothing special" />
+  <item id="12302" article="a" name="sacred bowl" editorsuffix="(Wrath of the Emperor Quest)" editorcategory="Quest Items">
+    <attribute key="weight" value="10" />
+  </item>
+  <item id="12303" article="a" name="sacred bowl" editorsuffix="(Wrath of the Emperor Quest)" editorcategory="Quest Items">
+    <attribute key="weight" value="10" />
+  </item>
   <item id="12304" name="nothing special" />
   <item id="12305" name="nothing special" />
   <item id="12306" name="nothing special" />
@@ -26407,7 +26428,10 @@
   <item id="12317" name="remains of a wisp" editorsuffix="(NotMoveable)" editorcategory="Corpses" />
   <item id="12318" name="nothing special" />
   <item id="12319" name="nothing special" />
-  <item id="12320" name="nothing special" />
+  <item id="12320" article="a" name="flask of plant poison" editorsuffix="(Wrath of the Emperor Quest)" editorcategory="Quest Items">
+    <attribute key="description" value="This plant poison is meant to destroy the growths near the Keeper's lair deep beneath the gardens." />
+    <attribute key="weight" value="180" />
+  </item>
   <item id="12321" name="nothing special" />
   <item id="12322" name="nothing special" />
   <item id="12323" name="nothing special" />
@@ -26866,7 +26890,9 @@
   <item id="12633" name="nothing special" />
   <item id="12634" name="nothing special" />
   <item id="12635" name="nothing special" />
-  <item id="12636" name="nothing special" />
+  <item id="12636" article="a" name="lizard essence" plural="lizards essence" editorcategory="Creature Products">
+    <attribute key="weight" value="150" />
+  </item>
   <item id="12637" name="nothing special" />
   <item id="12638" name="nothing special" />
   <item id="12639" name="nothing special" />
