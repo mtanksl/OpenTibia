@@ -1141,7 +1141,7 @@
     <attribute key="field" value="fire" />
     <attribute key="type" value="magicfield" />
   </item>
-  <item id="1490" article="a" name="poison field" editorsuffix="(Not decaying)">
+  <item id="1490" name="poison gas" plural="Fields" editorsuffix="(Not decaying)" editorcategory="Fields">
     <attribute key="field" value="poison" />
     <attribute key="type" value="magicfield" />
   </item>
@@ -1173,7 +1173,7 @@
     <attribute key="field" value="energy" />
     <attribute key="type" value="magicfield" />
   </item>
-  <item id="1496" article="a" name="poison field">
+  <item id="1496" name="poison gas" editorcategory="Fields">
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="120" />
     <attribute key="field" value="poison" />
@@ -1210,7 +1210,7 @@
     <attribute key="field" value="fire" />
     <attribute key="type" value="magicfield" />
   </item>
-  <item id="1503" article="a" name="poison gas" editorsuffix="(Non PvP)">
+  <item id="1503" name="poison gas" editorcategory="Fields">
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="10" />
     <attribute key="field" value="poison" />
@@ -2082,7 +2082,8 @@
   <item id="1944" article="a" name="mossy wall" />
   <item id="1945" article="a" name="lever" />
   <item id="1946" article="a" name="lever" />
-  <item id="1947" article="a" name="blank paper">
+  <item id="1947" article="a" name="blank paper" editorsuffix="()" editorcategory="Quest Items">
+    <attribute key="description" value="It is rewriteable." />
     <attribute key="weight" value="50" />
     <attribute key="writeable" value="1" />
     <attribute key="maxtextlen" value="512" />
@@ -2105,7 +2106,8 @@
     <attribute key="maxtextlen" value="512" />
     <attribute key="writeonceitemid" value="1971" />
   </item>
-  <item id="1951" article="a" name="parchment">
+  <item id="1951" article="a" name="blank parchment" editorcategory="Documents and Papers">
+    <attribute key="description" value="It is rewriteable." />
     <attribute key="weight" value="200" />
     <attribute key="writeable" value="1" />
     <attribute key="maxtextlen" value="512" />
@@ -2420,7 +2422,7 @@
   <item id="2031" article="a" name="waterskin">
     <attribute key="weight" value="700" />
   </item>
-  <item id="2032" article="a" name="bowl">
+  <item id="2032" article="a" name="bowl" editorcategory="Tools">
     <attribute key="weight" value="380" />
   </item>
   <item id="2033" article="a" name="golden mug">
@@ -2771,10 +2773,10 @@
     <attribute key="weight" value="840" />
     <attribute key="slottype" value="necklace" />
   </item>
-  <item id="2143" article="a" name="white pearl" plural="white pearls">
+  <item id="2143" article="a" name="white pearl" plural="white pearls" editorcategory="Valuables">
     <attribute key="weight" value="20" />
   </item>
-  <item id="2144" article="a" name="black pearl" plural="black pearls">
+  <item id="2144" article="a" name="black pearl" plural="black pearls" editorcategory="Valuables">
     <attribute key="weight" value="20" />
   </item>
   <item id="2145" article="a" name="small diamond" plural="small diamonds">
@@ -2786,7 +2788,7 @@
   <item id="2147" article="a" name="small ruby" plural="small rubies">
     <attribute key="weight" value="10" />
   </item>
-  <item id="2148" article="a" name="gold coin" plural="gold coins">
+  <item id="2148" article="a" name="gold coin" plural="gold coins" editorcategory="Valuables">
     <attribute key="weight" value="10" />
   </item>
   <item id="2149" article="a" name="small emerald" plural="small emeralds">
@@ -2799,7 +2801,7 @@
     <attribute key="description" value="There are many rumours about these magic gems." />
     <attribute key="weight" value="20" />
   </item>
-  <item id="2152" article="a" name="platinum coin" plural="platinum coins">
+  <item id="2152" article="a" name="platinum coin" plural="platinum coins" editorcategory="Valuables">
     <attribute key="weight" value="10" />
   </item>
   <item id="2153" article="a" name="violet gem">
@@ -2820,10 +2822,10 @@
   <item id="2158" article="a" name="blue gem">
     <attribute key="weight" value="100" />
   </item>
-  <item id="2159" article="a" name="scarab coin" plural="scarab coins">
+  <item id="2159" article="a" name="scarab coin" plural="scarab coins" editorcategory="Valuables">
     <attribute key="weight" value="20" />
   </item>
-  <item id="2160" article="a" name="crystal coin" plural="crystal coins">
+  <item id="2160" article="a" name="crystal coin" plural="crystal coins" editorcategory="Valuables">
     <attribute key="weight" value="10" />
   </item>
   <item id="2161" article="a" name="strange talisman">
@@ -2917,7 +2919,7 @@
     <attribute key="charges" value="1" />
     <attribute key="slottype" value="necklace" />
   </item>
-  <item id="2174" article="a" name="strange symbol">
+  <item id="2174" article="a" name="strange symbol" editorcategory="Creature Products">
     <attribute key="weight" value="200" />
   </item>
   <item id="2175" article="a" name="spellbook" editorcategory="Spellbooks">
@@ -3700,7 +3702,7 @@
   <item id="2333" article="a" name="letter to Markwin">
     <attribute key="weight" value="50" />
   </item>
-  <item id="2334" name="Santa's Mailbox" />
+  <item id="2334" name="Santa's Mailbox" editorsuffix="(The Postman Missions Quest)" editorcategory="Quest Items" />
   <item id="2335" article="a" name="helmet ornament">
     <attribute key="description" value="This item seems to be a single part of a bigger object." />
     <attribute key="weight" value="160" />
@@ -3749,7 +3751,7 @@
     <attribute key="description" value="It is the djinn leader's sleeping lamp." />
     <attribute key="weight" value="1300" />
   </item>
-  <item id="2345" article="a" name="spy report">
+  <item id="2345" article="a" name="spy report" editorsuffix="(The Djinn War - Marid Faction)" editorcategory="Quest Items">
     <attribute key="description" value="The report is written in some coded language." />
     <attribute key="weight" value="150" />
   </item>
@@ -3825,13 +3827,14 @@
   <item id="2361" article="a" name="frozen starlight">
     <attribute key="weight" value="20" />
   </item>
-  <item id="2362" article="a" name="carrot of doom" plural="carrots of doom">
-    <attribute key="weight" value="200" />
+  <item id="2362" name="the carrot of doom" plural="carrots of doom" editorcategory="Foods">
+    <attribute key="description" value="You can sense the evil power of the carrot." />
+    <attribute key="weight" value="160" />
   </item>
   <item id="2363" article="a" name="blood orb">
     <attribute key="weight" value="150" />
   </item>
-  <item id="2364" name=" Waldo's post horn" editorcategory="Musical Instruments">
+  <item id="2364" name="Waldo's post horn" editorcategory="Musical Instruments">
     <attribute key="weight" value="2200" />
   </item>
   <item id="2365" article="a" name="backpack of holding" editorcategory="Containers">
@@ -4921,7 +4924,7 @@
     <attribute key="ammoaction" value="remove" />
     <attribute key="maxhitchance" value="90" />
   </item>
-  <item id="2548" article="a" name="pitch fork">
+  <item id="2548" article="a" name="pitchfork" editorcategory="Tools">
     <attribute key="weight" value="2500" />
   </item>
   <item id="2549" article="a" name="rake">
@@ -4965,13 +4968,13 @@
   <item id="2561" article="a" name="baking tray">
     <attribute key="weight" value="1200" />
   </item>
-  <item id="2562" article="a" name="pot">
+  <item id="2562" article="a" name="pot" editorcategory="Fluid Containers">
     <attribute key="weight" value="5250" />
   </item>
   <item id="2563" article="a" name="pan">
     <attribute key="weight" value="1800" />
   </item>
-  <item id="2564" article="a" name="fork">
+  <item id="2564" article="a" name="fork" editorcategory="Tools">
     <attribute key="weight" value="100" />
   </item>
   <item id="2565" article="a" name="spoon">
@@ -5062,7 +5065,7 @@
     <attribute key="containersize" value="30" />
     <attribute key="type" value="depot" />
   </item>
-  <item id="2593" article="a" name="mailbox" editorcategory="Mailbox">
+  <item id="2593" article="a" name="mailbox" editorcategory="Mailboxes">
     <attribute key="type" value="mailbox" />
   </item>
   <item id="2594" article="a" name="depot chest">
@@ -5310,7 +5313,7 @@
   <item id="2667" article="a" name="fish">
     <attribute key="weight" value="520" />
   </item>
-  <item id="2668" article="a" name="salmon">
+  <item id="2668" article="a" name="salmon" editorcategory="Foods">
     <attribute key="weight" value="320" />
     <attribute key="showcount" value="0" />
   </item>
@@ -5325,7 +5328,7 @@
     <attribute key="weight" value="2000" />
     <attribute key="showcount" value="0" />
   </item>
-  <item id="2672" name="dragon ham">
+  <item id="2672" name="dragon ham" editorcategory="Foods">
     <attribute key="description" value="It still contains a small part of the power of a dragon." />
     <attribute key="weight" value="3000" />
     <attribute key="showcount" value="0" />
@@ -5339,16 +5342,16 @@
   <item id="2675" article="an" name="orange" plural="oranges">
     <attribute key="weight" value="110" />
   </item>
-  <item id="2676" article="a" name="banana" plural="bananas">
+  <item id="2676" article="a" name="banana" plural="bananas" editorcategory="Foods">
     <attribute key="weight" value="180" />
   </item>
-  <item id="2677" article="a" name="blueberry" plural="blueberries">
+  <item id="2677" article="a" name="blueberry" plural="blueberries" editorcategory="Foods">
     <attribute key="weight" value="20" />
   </item>
-  <item id="2678" article="a" name="coconut" plural="coconuts">
+  <item id="2678" article="a" name="coconut" plural="coconuts" editorcategory="Foods">
     <attribute key="weight" value="480" />
   </item>
-  <item id="2679" article="a" name="cherry" plural="cherries">
+  <item id="2679" article="a" name="cherry" plural="cherries" editorcategory="Foods">
     <attribute key="weight" value="20" />
   </item>
   <item id="2680" article="a" name="strawberry" plural="strawberries">
@@ -5364,28 +5367,28 @@
   <item id="2683" article="a" name="pumpkin">
     <attribute key="weight" value="1350" />
   </item>
-  <item id="2684" article="a" name="carrot" plural="carrots">
+  <item id="2684" article="a" name="carrot" plural="carrots" editorcategory="Foods">
     <attribute key="weight" value="200" />
   </item>
   <item id="2685" article="a" name="tomato" plural="tomatoes">
     <attribute key="weight" value="100" />
   </item>
-  <item id="2686" article="a" name="corncob" plural="corncobs">
+  <item id="2686" article="a" name="corncob" plural="corncobs" editorcategory="Foods">
     <attribute key="weight" value="350" />
   </item>
-  <item id="2687" article="a" name="cookie" plural="cookies">
+  <item id="2687" article="a" name="cookie" plural="cookies" editorcategory="Foods">
     <attribute key="weight" value="10" />
   </item>
-  <item id="2688" article="a" name="candy cane" plural="candy canes">
+  <item id="2688" article="a" name="candy cane" plural="candy canes" editorcategory="Foods">
     <attribute key="weight" value="50" />
   </item>
-  <item id="2689" name="bread">
+  <item id="2689" name="bread" editorcategory="Foods">
     <attribute key="weight" value="500" />
   </item>
   <item id="2690" article="a" name="roll" plural="rolls">
     <attribute key="weight" value="80" />
   </item>
-  <item id="2691" name="brown bread">
+  <item id="2691" name="brown bread" editorcategory="Foods">
     <attribute key="weight" value="400" />
   </item>
   <item id="2692" name="flour" plural="flour">
@@ -5394,7 +5397,7 @@
   <item id="2693" article="a" name="lump of dough" plural="lumps of dough">
     <attribute key="weight" value="500" />
   </item>
-  <item id="2694" article="a" name="bunch of wheat" plural="bunches of wheat">
+  <item id="2694" name="bunch of wheat" plural="bunches of wheat" editorcategory="Foods">
     <attribute key="weight" value="1250" />
   </item>
   <item id="2695" article="an" name="egg" plural="eggs">
@@ -5530,7 +5533,7 @@
   <item id="2788" article="a" name="red mushroom" plural="red mushrooms">
     <attribute key="weight" value="50" />
   </item>
-  <item id="2789" article="a" name="brown mushroom" plural="brown mushrooms">
+  <item id="2789" article="a" name="brown mushroom" plural="brown mushrooms" editorcategory="Foods">
     <attribute key="weight" value="20" />
   </item>
   <item id="2790" article="an" name="orange mushroom" plural="orange mushrooms">
@@ -5539,7 +5542,7 @@
   <item id="2791" article="an" name="wood mushroom" plural="wood mushrooms">
     <attribute key="weight" value="30" />
   </item>
-  <item id="2792" article="a" name="dark mushroom" plural="dark mushrooms">
+  <item id="2792" article="a" name="dark mushroom" plural="dark mushrooms" editorcategory="Foods">
     <attribute key="weight" value="10" />
   </item>
   <item id="2793" name="some mushrooms" plural="some mushrooms">
@@ -5555,13 +5558,13 @@
     <attribute key="weight" value="10" />
   </item>
   <item id="2797" name="dark mushrooms" />
-  <item id="2798" article="a" name="blood herb" plural="blood herbs">
+  <item id="2798" article="a" name="blood herb" plural="blood herbs" editorcategory="Plants and Herbs">
     <attribute key="weight" value="120" />
   </item>
-  <item id="2799" article="a" name="stone herb" plural="stone herbs">
+  <item id="2799" article="a" name="stone herb" plural="stone herbs" editorcategory="Creature Products">
     <attribute key="weight" value="20" />
   </item>
-  <item id="2800" article="a" name="star herb" plural="star herbs">
+  <item id="2800" article="a" name="star herb" plural="star herbs" editorcategory="Creature Products">
     <attribute key="weight" value="30" />
   </item>
   <item id="2801" article="a" name="fern" plural="ferns">
@@ -8251,7 +8254,7 @@
   <item id="3820" article="an" name="ivory chair">
     <attribute key="rotateto" value="3818" />
   </item>
-  <item id="3821" article="a" name="small trunk" />
+  <item id="3821" article="a" name="small trunk" editorcategory="Furniture" />
   <item id="3822" article="a" name="bamboo wardrobe">
     <attribute key="containersize" value="6" />
   </item>
@@ -8588,7 +8591,7 @@
   <item id="3955" article="a" name="voodoo doll">
     <attribute key="weight" value="500" />
   </item>
-  <item id="3956" article="a" name="tusk" plural="tusks">
+  <item id="3956" article="a" name="tusk" plural="tusks" editorcategory="Creature Products">
     <attribute key="weight" value="1000" />
   </item>
   <item id="3957" name="nothing special" />
@@ -8701,7 +8704,7 @@
   <item id="3978" article="a" name="crane" />
   <item id="3979" article="a" name="crane" />
   <item id="3980" article="a" name="crane" />
-  <item id="3981" article="a" name="mailbox" editorcategory="Mailbox">
+  <item id="3981" article="a" name="mailbox" editorcategory="Mailboxes">
     <attribute key="type" value="mailbox" />
   </item>
   <item id="3982" name="crocodile boots" editorcategory="Boots">
@@ -10136,7 +10139,7 @@
   <item id="4837" name="stairs">
     <attribute key="floorchange" value="down" />
   </item>
-  <item id="4838" article="a" name="stone herb" plural="stone herbs">
+  <item id="4838" name="whisper moss" editorsuffix="(Banuta Quest)" editorcategory="Quest Items">
     <attribute key="weight" value="20" />
   </item>
   <item id="4839" article="a" name="flask of cough syrup">
@@ -10191,7 +10194,7 @@
   <item id="4852" article="a" name="memory stone">
     <attribute key="weight" value="200" />
   </item>
-  <item id="4853" article="a" name="sheet of tracing paper">
+  <item id="4853" article="a" name="sheet of tracing paper" editorsuffix="(The Explorer Society Quest)" editorcategory="Quest Items">
     <attribute key="description" value="It is blank." />
     <attribute key="weight" value="100" />
     <attribute key="writeable" value="1" />
@@ -10273,7 +10276,7 @@
     <attribute key="description" value="It is a masterpiece of dwarvish smithery and made of especially hard steel." />
     <attribute key="weight" value="6000" />
   </item>
-  <item id="4875" article="a" name="hydra's nest" />
+  <item id="4875" article="a" name="hydra's nest" editorcategory="Natural Products" />
   <item id="4876" name="swamp" />
   <item id="4877" name="swamp" />
   <item id="4878" name="swamp" />
@@ -10462,7 +10465,7 @@
   <item id="5019" name="some skulls" />
   <item id="5020" article="a" name="burning skull" />
   <item id="5021" article="a" name="burning skull" />
-  <item id="5022" article="an" name="orichalcum pearl" plural="orichalcum pearls">
+  <item id="5022" article="an" name="orichalcum pearl" plural="orichalcum pearls" editorcategory="Valuables">
     <attribute key="weight" value="30" />
   </item>
   <item id="5023" article="a" name="magic forcefield">
@@ -11100,7 +11103,7 @@
   <item id="5414" article="a" name="coral" />
   <item id="5415" article="a" name="coral" />
   <item id="5416" article="a" name="coral" />
-  <item id="5417" article="a" name="starfish" />
+  <item id="5417" article="a" name="starfish" editorcategory="Animals" />
   <item id="5418" article="a" name="sea anemone" />
   <item id="5419" name="bubbles" />
   <item id="5420" name="bubbles" />
@@ -11170,7 +11173,7 @@
     <attribute key="duration" value="10" />
   </item>
   <item id="5466" article="a" name="sugar cane" />
-  <item id="5467" article="a" name="bunch of sugar cane" plural="bunches of sugar cane">
+  <item id="5467" name="bunch of sugar cane" plural="bunches of sugar cane" editorcategory="Foods">
     <attribute key="weight" value="2250" />
   </item>
   <item id="5468" article="a" name="fire bug">
@@ -11621,7 +11624,7 @@
   <item id="5678" article="a" name="tortoise egg" plural="tortoise eggs">
     <attribute key="weight" value="30" />
   </item>
-  <item id="5679" article="a" name="shell" />
+  <item id="5679" article="a" name="shell" editorcategory="Natural Products" />
   <item id="5680" article="a" name="spiral shell" />
   <item id="5681" name="some shells" />
   <item id="5682" article="a" name="piece of a shell" />
@@ -11859,7 +11862,7 @@
   <item id="5797" article="a" name="die" editorcategory="Game Tokens">
     <attribute key="weight" value="200" />
   </item>
-  <item id="5798" article="an" name="abacus">
+  <item id="5798" article="an" name="abacus" editorcategory="Fansite Items">
     <attribute key="description" value="If you use it wisely, you may write yourself into the history books." />
     <attribute key="weight" value="1200" />
   </item>
@@ -12044,7 +12047,7 @@
     <attribute key="weight" value="40" />
     <attribute key="showcount" value="0" />
   </item>
-  <item id="5879" article="a" name="giant spider silk" plural="giant spider silks">
+  <item id="5879" article="a" name="spider silk" plural="spider silks" editorcategory="Creature Products">
     <attribute key="weight" value="10" />
     <attribute key="showcount" value="0" />
   </item>
@@ -12058,7 +12061,7 @@
   <item id="5882" article="a" name="red dragon scale" plural="red dragon scales">
     <attribute key="weight" value="90" />
   </item>
-  <item id="5883" article="an" name="ape fur" plural="ape fur">
+  <item id="5883" name="ape fur" editorcategory="Creature Products">
     <attribute key="weight" value="120" />
     <attribute key="showcount" value="0" />
   </item>
@@ -12070,7 +12073,7 @@
     <attribute key="description" value="It contains the sweat spilled in many battles and is said to be used for certain perfumes too." />
     <attribute key="weight" value="300" />
   </item>
-  <item id="5886" article="a" name="spool of yarn" plural="spools of yarn">
+  <item id="5886" article="a" name="spool of yarn" plural="spools of yarn" editorcategory="Creature Products">
     <attribute key="description" value="It is made from fine giant spider silk." />
     <attribute key="weight" value="100" />
   </item>
@@ -12086,7 +12089,7 @@
     <attribute key="description" value="An armour made of this steel is said to protect against fiery dragon breath." />
     <attribute key="weight" value="500" />
   </item>
-  <item id="5890" article="a" name="chicken feather" plural="chicken feathers">
+  <item id="5890" article="a" name="chicken feather" plural="chicken feathers" editorcategory="Creature Products">
     <attribute key="description" value="Some thousands of these would probably make an extremely comfortable pillow." />
     <attribute key="weight" value="10" />
   </item>
@@ -12101,31 +12104,31 @@
     <attribute key="description" value="Collector's all around the world crave for this item." />
     <attribute key="weight" value="500" />
   </item>
-  <item id="5894" article="a" name="bat wing" plural="bat wings">
+  <item id="5894" article="a" name="bat wing" plural="bat wings" editorcategory="Creature Products">
     <attribute key="weight" value="100" />
   </item>
   <item id="5895" article="a" name="fish fin" plural="fish fins">
     <attribute key="description" value="It once belonged to a mighty Quara." />
     <attribute key="weight" value="120" />
   </item>
-  <item id="5896" article="a" name="bear paw" plural="bear paws">
+  <item id="5896" article="a" name="bear paw" plural="bear paws" editorcategory="Creature Products">
     <attribute key="weight" value="120" />
   </item>
-  <item id="5897" article="a" name="wolf paw" plural="wolf paws">
+  <item id="5897" article="a" name="wolf paw" plural="wolf paws" editorcategory="Creature Products">
     <attribute key="weight" value="80" />
   </item>
-  <item id="5898" article="a" name="beholder eye" plural="beholder eyes">
+  <item id="5898" article="a" name="bonelord eye" plural="bonelord eyes" editorcategory="Creature Products">
     <attribute key="description" value="You could swear it just winked at you." />
     <attribute key="weight" value="500" />
   </item>
-  <item id="5899" article="a" name="turtle shell" plural="turtle shells">
+  <item id="5899" article="a" name="turtle shell" plural="turtle shells" editorcategory="Creature Products">
     <attribute key="weight" value="500" />
   </item>
   <item id="5900" article="a" name="dwarven beard" plural="dwarven beards">
     <attribute key="description" value="It was once worn proudly by a dwarfish warrior - or maiden." />
     <attribute key="weight" value="50" />
   </item>
-  <item id="5901" name="wood" plural="wood">
+  <item id="5901" name="wood" editorcategory="Creature Products">
     <attribute key="weight" value="500" />
     <attribute key="showcount" value="0" />
   </item>
@@ -12144,36 +12147,36 @@
     <attribute key="weight" value="100" />
     <attribute key="showcount" value="0" />
   </item>
-  <item id="5905" article="a" name="vampire dust" plural="vampire dusts">
+  <item id="5905" article="a" name="vampire dust" plural="vampire dusts" editorcategory="Creature Products">
     <attribute key="description" value="Sun can be a merciless killer, but so can you." />
-    <attribute key="weight" value="500" />
+    <attribute key="weight" value="100" />
     <attribute key="showcount" value="0" />
   </item>
-  <item id="5906" article="a" name="demon dust" plural="demon dusts">
+  <item id="5906" article="a" name="demon dust" plural="demon dusts" editorcategory="Creature Products">
     <attribute key="description" value="It reeks of hatred and malice." />
-    <attribute key="weight" value="600" />
+    <attribute key="weight" value="100" />
   </item>
   <item id="5907" article="a" name="slingshot" editorsuffix="(Unknown weight)" />
   <item id="5908" article="an" name="obsidian knife">
     <attribute key="description" value="Sharp and light, this is a useful tool for tanners, doctors and assassins." />
     <attribute key="weight" value="100" />
   </item>
-  <item id="5909" article="a" name="white piece of cloth" plural="white pieces of cloth">
+  <item id="5909" article="a" name="white piece of cloth" plural="white pieces of cloth" editorcategory="Creature Products">
     <attribute key="weight" value="500" />
   </item>
-  <item id="5910" article="a" name="green piece of cloth" plural="green pieces of cloth">
+  <item id="5910" article="a" name="green piece of cloth" plural="green pieces of cloth" editorcategory="Creature Products">
     <attribute key="weight" value="500" />
   </item>
-  <item id="5911" article="a" name="red piece of cloth" plural="red pieces of cloth">
+  <item id="5911" article="a" name="red piece of cloth" plural="red pieces of cloth" editorcategory="Creature Products">
     <attribute key="weight" value="500" />
   </item>
-  <item id="5912" article="a" name="blue piece of cloth" plural="blue pieces of cloth">
+  <item id="5912" article="a" name="blue piece of cloth" plural="blue pieces of cloth" editorcategory="Creature Products">
     <attribute key="weight" value="500" />
   </item>
-  <item id="5913" article="a" name="brown piece of cloth" plural="brown pieces of cloth">
+  <item id="5913" article="a" name="brown piece of cloth" plural="brown pieces of cloth" editorcategory="Creature Products">
     <attribute key="weight" value="500" />
   </item>
-  <item id="5914" article="a" name="yellow piece of cloth" plural="yellow pieces of cloth">
+  <item id="5914" article="a" name="yellow piece of cloth" plural="yellow pieces of cloth" editorcategory="Creature Products">
     <attribute key="weight" value="500" />
   </item>
   <item id="5915" article="a" name="large throne" />
@@ -12189,7 +12192,7 @@
     <attribute key="armor" value="1" />
     <attribute key="slottype" value="legs" />
   </item>
-  <item id="5919" article="a" name="dragon claw">
+  <item id="5919" article="a" name="dragon claw" editorcategory="Creature Products">
     <attribute key="weight" value="1250" />
   </item>
   <item id="5920" article="a" name="green dragon scale" plural="green dragon scales">
@@ -12225,7 +12228,7 @@
   <item id="5929" article="a" name="goldfish bowl">
     <attribute key="weight" value="3200" />
   </item>
-  <item id="5930" article="a" name="behemoth claw" plural="behemoth claws">
+  <item id="5930" article="a" name="behemoth claw" plural="behemoth claws" editorcategory="Creature Products">
     <attribute key="weight" value="1250" />
   </item>
   <item id="5931" article="the" name="remains of ferumbras">
@@ -12327,7 +12330,7 @@
     <attribute key="weight" value="120" />
   </item>
   <item id="5953" name="nothing special" />
-  <item id="5954" article="a" name="demon horn" plural="demon horns">
+  <item id="5954" article="a" name="demon horn" plural="demon horns" editorcategory="Creature Products">
     <attribute key="weight" value="1000" />
   </item>
   <item id="5955" name="nothing special" editorsuffix="(Blank)" />
@@ -13225,10 +13228,11 @@
   <item id="6097" article="a" name="hook" plural="hooks">
     <attribute key="weight" value="500" />
   </item>
-  <item id="6098" article="an" name="eye patch" plural="eye patches">
-    <attribute key="weight" value="200" />
+  <item id="6098" article="an" name="eye patch" plural="eye patches" editorcategory="Creature Products">
+    <attribute key="description" value="It belonged once to a pirate." />
+    <attribute key="weight" value="150" />
   </item>
-  <item id="6099" name="Brutus Bloodbeard's hat">
+  <item id="6099" name="Brutus Bloodbeard's hat" editorcategory="Creature Products">
     <attribute key="weight" value="1250" />
   </item>
   <item id="6100" name="Lethal Lissy's shirt">
@@ -13587,10 +13591,10 @@
   <item id="6277" article="a" name="lump of cake dough" plural="lumps of cake dough">
     <attribute key="weight" value="500" />
   </item>
-  <item id="6278" article="a" name="cake">
+  <item id="6278" article="a" name="cake" editorcategory="Foods">
     <attribute key="weight" value="500" />
   </item>
-  <item id="6279" article="a" name="cake">
+  <item id="6279" article="a" name="cake" editorcategory="Foods">
     <attribute key="description" value="It is nicely decorated with fruits and icing." />
     <attribute key="weight" value="600" />
   </item>
@@ -14067,7 +14071,7 @@
   <item id="6393" article="a" name="valentine's cake">
     <attribute key="weight" value="500" />
   </item>
-  <item id="6394" article="a" name="cream cake">
+  <item id="6394" article="a" name="cream cake" editorcategory="Foods">
     <attribute key="weight" value="500" />
   </item>
   <item id="6395" name="bones" />
@@ -14294,7 +14298,7 @@
     <attribute key="description" value="You have mastered the Dream Challenge and may apply for joining the order of the Nightmare Knights." />
     <attribute key="weight" value="150" />
   </item>
-  <item id="6500" article="a" name="demonic essence" plural="demonic essences">
+  <item id="6500" article="a" name="demonic essence" plural="demonic essences" editorcategory="Creature Products">
     <attribute key="description" value="Someone might be interested in trading this." />
     <attribute key="weight" value="100" />
   </item>
@@ -14379,7 +14383,7 @@
   <item id="6526" article="a" name="skeleton decoration">
     <attribute key="weight" value="1000" />
   </item>
-  <item id="6527" article="a" name="christmas token" plural="christmas tokens">
+  <item id="6527" article="a" name="christmas token" plural="christmas tokens" editorcategory="Creature Products">
     <attribute key="weight" value="5" />
   </item>
   <item id="6528" article="the" name="avenger">
@@ -14442,25 +14446,25 @@
   <item id="6540" article="a" name="piece of Massacre's shell">
     <attribute key="weight" value="6500" />
   </item>
-  <item id="6541" article="a" name="coloured egg" plural="coloured eggs">
+  <item id="6541" article="a" name="coloured egg" plural="coloured eggs" editorcategory="Foods">
     <attribute key="weight" value="30" />
   </item>
-  <item id="6542" article="a" name="coloured egg" plural="coloured eggs">
+  <item id="6542" article="a" name="coloured egg" plural="coloured eggs" editorcategory="Foods">
     <attribute key="weight" value="30" />
   </item>
-  <item id="6543" article="a" name="coloured egg" plural="coloured eggs">
+  <item id="6543" article="a" name="coloured egg" plural="coloured eggs" editorcategory="Foods">
     <attribute key="weight" value="30" />
   </item>
-  <item id="6544" article="a" name="coloured egg" plural="coloured eggs">
+  <item id="6544" article="a" name="coloured egg" plural="coloured eggs" editorcategory="Foods">
     <attribute key="weight" value="30" />
   </item>
-  <item id="6545" article="a" name="coloured egg" plural="coloured eggs">
+  <item id="6545" article="a" name="coloured egg" plural="coloured eggs" editorcategory="Foods">
     <attribute key="weight" value="30" />
   </item>
-  <item id="6546" name="Dracola's eye">
+  <item id="6546" name="Dracola's eye" editorcategory="Creature Products">
     <attribute key="weight" value="1500" />
   </item>
-  <item id="6547" name="easy inflammable sulphur" plural="easy inflammable sulphur" editorcategory="Quest Items">
+  <item id="6547" name="easy inflammable sulphur" plural="easy inflammable sulphur" editorsuffix="(What a Foolish Quest)" editorcategory="Quest Items">
     <attribute key="weight" value="50" />
     <attribute key="showcount" value="0" />
   </item>
@@ -14470,14 +14474,8 @@
   <item id="6549" article="a" name="green sulphur" plural="green sulphurs">
     <attribute key="weight" value="750" />
   </item>
-  <item id="6550" article="a" name="demon dust" plural="demon dust" editorsuffix="(Double)">
-    <attribute key="description" value="It reeks of hatred and malice." />
-    <attribute key="weight" value="100" />
-  </item>
-  <item id="6551" article="a" name="vampire dust" plural="vampire dust" editorsuffix="(Double)">
-    <attribute key="description" value="Sun can be a merciless killer, but so can you." />
-    <attribute key="weight" value="100" />
-  </item>
+  <item id="6550" name="nothing special" />
+  <item id="6551" name="nothing special" />
   <item id="6552" article="a" name="dead defiler">
     <attribute key="corpsetype" value="venom" />
     <attribute key="decayto" value="0" />
@@ -14535,7 +14533,7 @@
     <attribute key="decayto" value="5080" />
     <attribute key="duration" value="3" />
   </item>
-  <item id="6569" article="a" name="candy" plural="candies">
+  <item id="6569" article="a" name="candy" plural="candies" editorcategory="Foods">
     <attribute key="weight" value="5" />
   </item>
   <item id="6570" article="a" name="surprise bag">
@@ -14552,7 +14550,7 @@
     <attribute key="decayto" value="6572" />
     <attribute key="duration" value="4" />
   </item>
-  <item id="6574" article="a" name="bar of chocolate">
+  <item id="6574" article="a" name="bar of chocolate" editorcategory="Foods">
     <attribute key="weight" value="10" />
   </item>
   <item id="6575" article="a" name="green balloon">
@@ -15400,11 +15398,11 @@
   <item id="7137" article="a" name="bloodstain" />
   <item id="7138" article="a" name="bloodstain" />
   <item id="7139" article="a" name="bloodstain" />
-  <item id="7140" article="a" name="mead horn" editorsuffix="(Filled)">
+  <item id="7140" article="a" name="mead horn" editorsuffix="(Barbarian Test Quest)" editorcategory="Quest Items">
     <attribute key="description" value="It is filled to the rim." />
     <attribute key="weight" value="1200" />
   </item>
-  <item id="7141" article="a" name="mead horn">
+  <item id="7141" article="a" name="mead horn" editorsuffix="(Barbarian Test Quest)" editorcategory="QuesteItems">
     <attribute key="description" value="It is empty." />
     <attribute key="weight" value="1200" />
   </item>
@@ -15563,7 +15561,7 @@
     <attribute key="description" value="It is empty." />
     <attribute key="weight" value="700" />
   </item>
-  <item id="7247" name="fine sulphur" editorcategory="Quest Items">
+  <item id="7247" name="fine sulphur" editorsuffix="(The Ice Islands Quest)" editorcategory="Quest Items">
     <attribute key="description" value="It has been extracted from an inactive lava hole." />
     <attribute key="weight" value="50" />
   </item>
@@ -16623,11 +16621,11 @@
   <item id="7480" article="a" name="bed">
     <attribute key="description" value="The dwarven emperor is sleeping there." />
   </item>
-  <item id="7481" article="a" name="crate" editorsuffix="(Xodet)">
+  <item id="7481" article="a" name="crate" editorsuffix="(What a foolish Quest)" editorcategory="Quest Items">
     <attribute key="description" value="It contains the daily supply for Xodet's shop." />
   </item>
   <item id="7482" name="nothing special" />
-  <item id="7483" article="a" name="crate" editorsuffix="(Wine)">
+  <item id="7483" article="a" name="crate" editorsuffix="(What a foolish Quest)" editorcategory="Quest Items">
     <attribute key="description" value="It contains a lot of wine flasks." />
     <attribute key="weight" value="8000" />
   </item>
@@ -16685,10 +16683,10 @@
   <item id="7499" article="a" name="cigar">
     <attribute key="weight" value="120" />
   </item>
-  <item id="7500" article="a" name="bale of white cloth">
+  <item id="7500" article="a" name="bale of white cloth" editorsuffix="(What a foolish Quest)" editorcategory="Quest Items">
     <attribute key="weight" value="1000" />
   </item>
-  <item id="7501" article="a" name="bale of yellowed cloth">
+  <item id="7501" article="a" name="bale of yellowed cloth" editorsuffix="(What a foolish Quest)" editorcategory="Quest Items">
     <attribute key="weight" value="1000" />
   </item>
   <item id="7502" article="a" name="mummy disguise">
@@ -16729,7 +16727,7 @@
     <attribute key="weight" value="50" />
   </item>
   <item id="7527" article="a" name="coal basin" />
-  <item id="7528" article="a" name="blank poetry parchment">
+  <item id="7528" article="a" name="blank poetry parchment" editorsuffix="(Kissing a Pig Quest)" editorcategory="Quest Items">
     <attribute key="description" value="Use your inkwell on it to try writing a poem." />
     <attribute key="weight" value="200" />
   </item>
@@ -16777,10 +16775,10 @@
   <item id="7549" name="something crawling" />
   <item id="7550" name="something crawling" />
   <item id="7551" article="a" name="seashell" />
-  <item id="7552" article="a" name="large seashell">
+  <item id="7552" article="a" name="large seashell" editorcategory="Animals">
     <attribute key="description" value="Maybe there's something inside of it." />
   </item>
-  <item id="7553" article="a" name="large seashell">
+  <item id="7553" article="a" name="large seashell" editorcategory="Animals">
     <attribute key="description" value="It is empty." />
   </item>
   <item id="7554" article="a" name="spider victim">
@@ -16952,10 +16950,10 @@
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="600" />
   </item>
-  <item id="7632" article="a" name="giant shimmering pearl" plural="giant shimmering pearls">
+  <item id="7632" article="a" name="giant shimmering pearl" plural="giant shimmering pearls" editorcategory="Valuables">
     <attribute key="weight" value="80" />
   </item>
-  <item id="7633" article="a" name="giant shimmering pearl" plural="giant shimmering pearls">
+  <item id="7633" article="a" name="giant shimmering pearl" plural="giant shimmering pearls" editorcategory="Valuables">
     <attribute key="weight" value="80" />
   </item>
   <item id="7634" article="an" name="empty potion flask">
@@ -17161,7 +17159,7 @@
   <item id="7706" article="a" name="barrel of beer" editorcategory="Quest Items">
     <attribute key="weight" value="8500" />
   </item>
-  <item id="7707" article="a" name="crate" editorsuffix="(Swapped)">
+  <item id="7707" article="a" name="crate" editorsuffix="(What a foolish Quest)" editorcategory="Quest Items">
     <attribute key="description" value="You swapped it with Bozo's crate of wine flasks." />
     <attribute key="weight" value="8000" />
   </item>
@@ -18460,7 +18458,7 @@
     <attribute key="weight" value="3500" />
   </item>
   <item id="7908" article="a" name="dead human" />
-  <item id="7909" article="a" name="walnut" plural="walnuts">
+  <item id="7909" article="a" name="walnut" plural="walnuts" editorcategory="Foods">
     <attribute key="weight" value="10" />
   </item>
   <item id="7910" article="a" name="peanut" plural="peanuts">
@@ -18630,7 +18628,7 @@
     <attribute key="weight" value="500" />
   </item>
   <item id="7965" article="a" name="badger fur" editorsuffix="(Unknown weight)" />
-  <item id="7966" article="a" name="cream cake">
+  <item id="7966" article="a" name="cream cake" editorsuffix="(Hot Cuisine Quest)" editorcategory="Quest Items">
     <attribute key="weight" value="500" />
   </item>
   <item id="7967" name="nothing special" />
@@ -18748,7 +18746,7 @@
   <item id="8059" article="a" name="sanctified grave" />
   <item id="8060" name="nothing special" editorsuffix="(Blank)" />
   <item id="8061" name="nothing special" editorsuffix="(Blank)" />
-  <item id="8062" article="a" name="poison field" editorsuffix="(Slime Corpse)">
+  <item id="8062" name="poison gas" editorcategory="Corpses">
     <attribute key="field" value="poison" />
     <attribute key="replaceable" value="0" />
     <attribute key="type" value="magicfield" />
@@ -18932,9 +18930,7 @@
   <item id="8191" name="nothing special" editorsuffix="(Blank)" />
   <item id="8192" name="nothing special" editorsuffix="(Blank)" />
   <item id="8193" name="nothing special" editorsuffix="(Blank)" />
-  <item id="8194" article="a" name="cream cake">
-    <attribute key="weight" value="500" />
-  </item>
+  <item id="8194" name="nothing special" />
   <item id="8195" name="nothing special" editorsuffix="(Blank)" />
   <item id="8196" name="nothing special" editorsuffix="(Blank)" />
   <item id="8197" name="nothing special" editorsuffix="(Blank)" />
@@ -19284,7 +19280,7 @@
   <item id="8365" name="rifty earth" />
   <item id="8366" name="earth" />
   <item id="8367" name="earth" />
-  <item id="8368" name="cheese" plural="cheese" editorsuffix="(Stackable)">
+  <item id="8368" name="cheese" editorcategory="Foods">
     <attribute key="weight" value="400" />
     <attribute key="showcount" value="0" />
   </item>
@@ -19597,7 +19593,7 @@
     <attribute key="duration" value="600" />
   </item>
   <item id="8586" name="dirt floor" />
-  <item id="8587" article="a" name="sturdy chest">
+  <item id="8587" article="a" name="sturdy chest" editorsuffix="(The Thieves Guild Quest)" editorcategory="Quest Items">
     <attribute key="containersize" value="8" />
   </item>
   <item id="8588" article="a" name="bone" />
@@ -19653,7 +19649,7 @@
   <item id="8610" article="a" name="brick window" />
   <item id="8611" article="a" name="brick window" />
   <item id="8612" article="a" name="brick window" />
-  <item id="8613" article="a" name="bricklayers' kit" plural="bricklayers' kits">
+  <item id="8613" article="a" name="bricklayers' kit" plural="bricklayers' kits" editorsuffix="(Machinery of War Quest, The Hidden City of Beregar Quest.)" editorcategory="Quest Items">
     <attribute key="description" value="Use it on destroyed brick walls to repair them." />
     <attribute key="weight" value="1800" />
   </item>
@@ -19755,7 +19751,7 @@
     <attribute key="description" value="It contains the clothes of a dwarf." />
     <attribute key="weight" value="1000" />
   </item>
-  <item id="8694" article="a" name="deed of ownership">
+  <item id="8694" article="a" name="deed of ownership" editorsuffix="(The Thieves Guild Quest)" editorcategory="Quest Items">
     <attribute key="description" value="It declares the ownership of the dwarf bridge, but is obviously a fake." />
     <attribute key="weight" value="150" />
   </item>
@@ -19801,7 +19797,7 @@
   <item id="8709" name="wooden stairs">
     <attribute key="floorchange" value="west" />
   </item>
-  <item id="8710" name="cockroach leg" editorsuffix="(Tutorial)">
+  <item id="8710" article="a" name="cockroach leg" editorcategory="Creature Products">
     <attribute key="description" value="This is proof for Santiago that you have killed a cockroach." />
     <attribute key="weight" value="10" />
   </item>
@@ -19828,7 +19824,9 @@
   </item>
   <item id="8718" name="vines" />
   <item id="8719" article="a" name="window" />
-  <item id="8720" article="a" name="sturdy chest" />
+  <item id="8720" article="a" name="storage chest" editorsuffix="( Shadows of Yalahar Quest)" editorcategory="Quest Items">
+    <attribute key="description" value="The chest is filled with crackling green power cores." />
+  </item>
   <item id="8721" name="nothing special" />
   <item id="8722" article="a" name="shovel" editorsuffix="(Tutorial)">
     <attribute key="weight" value="3500" />
@@ -19903,7 +19901,7 @@
     <attribute key="description" value="It is the invitation to the king's ball." />
     <attribute key="weight" value="10" />
   </item>
-  <item id="8762" name=" Theodore Loveless' key" editorcategory="Quest Items">
+  <item id="8762" name="Theodore Loveless' key" editorcategory="Quest Items">
     <attribute key="description" value="It is the key to his private room." />
     <attribute key="weight" value="100" />
   </item>
@@ -20020,7 +20018,7 @@
   <item id="8841" article="a" name="lemon" plural="lemons">
     <attribute key="weight" value="20" />
   </item>
-  <item id="8842" article="a" name="cucumber" plural="cucumber">
+  <item id="8842" article="a" name="cucumber" plural="cucumber" editorcategory="Foods">
     <attribute key="weight" value="200" />
   </item>
   <item id="8843" article="an" name="onion" plural="onions">
@@ -20029,7 +20027,7 @@
   <item id="8844" article="a" name="jalapeño pepper" plural="jalapeño peppers">
     <attribute key="weight" value="30" />
   </item>
-  <item id="8845" article="a" name="beetroot" plural="beetroots">
+  <item id="8845" article="a" name="beetroot" plural="beetroots" editorcategory="Foods">
     <attribute key="weight" value="130" />
   </item>
   <item id="8846" article="a" name="lump of chocolate dough" plural="lumps of chocolate dough">
@@ -20325,7 +20323,7 @@
     <attribute key="slottype" value="body" />
     <attribute key="skillmodifiermagiclevel" value="1" />
   </item>
-  <item id="8893" editorsuffix="(Blank)" />
+  <item id="8893" name="nothing special" editorsuffix="(Blank)" />
   <item id="8894" article="a" name="mysterious machine" />
   <item id="8895" article="a" name="mysterious machine" />
   <item id="8896" article="a" name="mysterious machine" />
@@ -20613,6 +20611,7 @@
     <attribute key="weight" value="1300" />
   </item>
   <item id="8946" name="remains of a wisp" editorcategory="Corpses">
+    <attribute key="containersize" value="8" />
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="60" />
   </item>
@@ -20807,7 +20806,7 @@
     <attribute key="description" value="It contains the scribings of many knowledgeable Tibians." />
     <attribute key="weight" value="7800" />
   </item>
-  <item id="8984" article="an" name="abacus" editorsuffix="(Replica)">
+  <item id="8984" article="an" name="abacus" editorsuffix="(Replica)" editorcategory="Valuables">
     <attribute key="description" value="Souvenir from Thais Museum." />
     <attribute key="weight" value="1200" />
   </item>
@@ -20871,7 +20870,7 @@
   <item id="9019" article="a" name="vampire doll">
     <attribute key="weight" value="940" />
   </item>
-  <item id="9020" article="a" name="vampire lord token">
+  <item id="9020" article="a" name="vampire lord token" plural="vampire lord tokens" editorcategory="Creature Products">
     <attribute key="description" value="It is proof that you have killed a vampire lord." />
     <attribute key="weight" value="5" />
   </item>
@@ -21003,7 +21002,7 @@
   <item id="9110" article="a" name="strange whirl">
     <attribute key="type" value="teleport" />
   </item>
-  <item id="9111" article="a" name="bread" plural="breads">
+  <item id="9111" article="a" name="bread" plural="breads" editorcategory="Foods">
     <attribute key="description" value="It is made of holy water and smells lightly of garlic. Sounds better than it actually tastes." />
     <attribute key="weight" value="500" />
   </item>
@@ -21015,14 +21014,14 @@
     <attribute key="description" value="It was made with holy water and garlic. You should be able to bake garlic bread - eww." />
     <attribute key="weight" value="500" />
   </item>
-  <item id="9114" article="a" name="bulb of garlic" plural="bulbs of garlic">
+  <item id="9114" article="a" name="bulb of garlic" plural="bulbs of garlic" editorcategory="Foods">
     <attribute key="weight" value="140" />
   </item>
   <item id="9115" article="a" name="baking tray">
     <attribute key="description" value="There is garlic cookie dough on it." />
     <attribute key="weight" value="1200" />
   </item>
-  <item id="9116" article="a" name="cookie" plural="cookies">
+  <item id="9116" article="a" name="cookie" plural="cookies" editorcategory="Foods">
     <attribute key="description" value="The garlic in it is well hidden. Nevertheless, you don't want to eat those. Yuck." />
     <attribute key="weight" value="10" />
   </item>
@@ -21727,7 +21726,7 @@
     <attribute key="decayto" value="9654" />
     <attribute key="duration" value="10" />
   </item>
-  <item id="9661" article="a" name="old crate">
+  <item id="9661" article="a" name="old crate" editorsuffix="(Shadows of Yalahar Quest)" editorcategory="Quest Items">
     <attribute key="description" value="This is a box full of yalahari gear wheels." />
   </item>
   <item id="9662" article="a" name="ghost's tear">
@@ -21783,10 +21782,10 @@
   <item id="9684" article="a" name="drawbridge" />
   <item id="9685" article="a" name="drawbridge" />
   <item id="9686" article="a" name="crate" editorsuffix="(Useable)" />
-  <item id="9687" article="a" name="weapons crate">
+  <item id="9687" article="a" name="weapons crate" editorsuffix="(Secret Service Quest)" editorcategory="Quest Items">
     <attribute key="weight" value="7500" />
   </item>
-  <item id="9688" article="a" name="chest">
+  <item id="9688" article="a" name="chest" editorsuffix="(Top of the City Quest)" editorcategory="Quest Items">
     <attribute key="description" value="It's Iriana's chest." />
     <attribute key="weight" value="12000" />
   </item>
@@ -21794,7 +21793,7 @@
     <attribute key="description" value="It contains dwarven brown ale brewed by a human." />
     <attribute key="weight" value="30000" />
   </item>
-  <item id="9690" article="a" name="gear wheel" plural="gear wheels">
+  <item id="9690" article="a" name="gear wheel" plural="gear wheels" editorcategory="Creature Products">
     <attribute key="weight" value="5" />
   </item>
   <item id="9691" article="a" name="large crystal" />
@@ -22749,7 +22748,7 @@
   <item id="10017" name="nothing special" />
   <item id="10018" name="nothing special" />
   <item id="10019" name="nothing special" />
-  <item id="10020" article="a" name="dragon claw">
+  <item id="10020" article="a" name="dragon claw" editorcategory="Creature Products">
     <attribute key="weight" value="1250" />
   </item>
   <item id="10021" article="a" name="worn soft boots">
@@ -23327,7 +23326,7 @@
     <attribute key="description" value="The small label reads: For my greatest admirer." />
     <attribute key="weight" value="650" />
   </item>
-  <item id="10307" article="a" name="food crate">
+  <item id="10307" article="a" name="food crate" editorsuffix="(Top of the City Quest)" editorcategory="Quest Items">
     <attribute key="weight" value="10000" />
   </item>
   <item id="10308" article="a" name="fan club membership card">
@@ -23803,13 +23802,13 @@
   <item id="10548" article="a" name="scarab pincers" plural="scarab pincers">
     <attribute key="weight" value="280" />
   </item>
-  <item id="10549" article="a" name="ancient stone">
+  <item id="10549" article="an" name="ancient stone" plural="ancient stones" editorcategory="Creature Products">
     <attribute key="weight" value="160" />
   </item>
-  <item id="10550" article="a" name="bloody pincer">
+  <item id="10550" name="bloody pincer" editorcategory="Creature Products">
     <attribute key="weight" value="120" />
   </item>
-  <item id="10551" article="a" name="cobra tongue">
+  <item id="10551" article="a" name="cobra tongue" plural="cobra tongues" editorcategory="Creature Products">
     <attribute key="weight" value="75" />
   </item>
   <item id="10552" article="a" name="elvish talisman">
@@ -23821,10 +23820,10 @@
   <item id="10554" article="a" name="hellhound slobber">
     <attribute key="weight" value="75" />
   </item>
-  <item id="10555" article="a" name="cultish mask">
+  <item id="10555" article="a" name="cultish mask" editorcategory="Creature Products">
     <attribute key="weight" value="165" />
   </item>
-  <item id="10556" article="a" name="cultish robe">
+  <item id="10556" article="a" name="cultish robe" editorcategory="Creature Products">
     <attribute key="weight" value="200" />
   </item>
   <item id="10557" article="a" name="poisonous slime">
@@ -23833,22 +23832,22 @@
   <item id="10558" article="a" name="piece of scarab shell" plural="pieces of scarab shell">
     <attribute key="weight" value="142" />
   </item>
-  <item id="10559" article="a" name="spookey blue eye">
+  <item id="10559" article="a" name="spookey blue eye" plural="spookey blue eyes" editorcategory="Creature Products">
     <attribute key="weight" value="86" />
   </item>
-  <item id="10560" article="a" name="thorn">
+  <item id="10560" article="a" name="thorn" plural="thorns" editorcategory="Creature Products">
     <attribute key="weight" value="120" />
   </item>
-  <item id="10561" article="a" name="wyvern talisman">
+  <item id="10561" article="a" name="wyvern talisman" plural="wyvern talisman" editorcategory="Creature Products">
     <attribute key="weight" value="225" />
   </item>
-  <item id="10562" article="a" name="black hood">
+  <item id="10562" article="a" name="black hood" plural="black hoods" editorcategory="Creature Products">
     <attribute key="weight" value="175" />
   </item>
-  <item id="10563" article="a" name="book of prayers" plural="books of prayers">
+  <item id="10563" article="a" name="book of prayers" plural="books of prayers" editorcategory="Creature Products">
     <attribute key="weight" value="120" />
   </item>
-  <item id="10564" article="a" name="demonic skeletal hand">
+  <item id="10564" article="a" name="demonic skeletal hand" plural="demonic skeltal hands" editorcategory="Creature Products">
     <attribute key="weight" value="132" />
   </item>
   <item id="10565" article="a" name="frosty ear of a troll">
@@ -23863,7 +23862,7 @@
   <item id="10568" article="a" name="scorpion tail">
     <attribute key="weight" value="120" />
   </item>
-  <item id="10569" article="a" name="witch broom" editorcategory="Creature Products">
+  <item id="10569" article="a" name="witch broom" plural="witch brooms" editorcategory="Creature Products">
     <attribute key="weight" value="333" />
   </item>
   <item id="10570" article="a" name="witch hat" editorcategory="Helmets">
@@ -23872,16 +23871,16 @@
     <attribute key="slottype" value="head" />
     <attribute key="absorbpercentmanadrain" value="5" />
   </item>
-  <item id="10571" article="a" name="war crystal">
+  <item id="10571" article="a" name="war crystal" plural="war crystals" editorcategory="Creature Products">
     <attribute key="weight" value="145" />
   </item>
-  <item id="10572" article="a" name="gear crystal">
+  <item id="10572" article="a" name="gear crystal" editorcategory="Creature Products">
     <attribute key="weight" value="95" />
   </item>
-  <item id="10573" article="a" name="broken gladiator shield">
+  <item id="10573" article="a" name="broken gladiator shield" plural="broken gladiator shields" editorcategory="Creature Products">
     <attribute key="weight" value="640" />
   </item>
-  <item id="10574" article="a" name="cyclops toe">
+  <item id="10574" article="a" name="cyclops toe" plural="cyclops toes" editorcategory="Creature Products">
     <attribute key="weight" value="111" />
   </item>
   <item id="10575" article="a" name="frost giant pelt">
@@ -23905,13 +23904,13 @@
   <item id="10581" article="a" name="piece of hellfire armor" plural="pieces of hellfire armor">
     <attribute key="weight" value="250" />
   </item>
-  <item id="10582" article="a" name="wyrm scale">
+  <item id="10582" article="a" name="wyrm scale" plural="wyrm scales" editorcategory="Creature Products">
     <attribute key="weight" value="180" />
   </item>
   <item id="10583" article="a" name="sea serpent scale">
     <attribute key="weight" value="150" />
   </item>
-  <item id="10584" article="a" name="boggy dreads" plural="boggy's dreads">
+  <item id="10584" name="boggy dreads" editorcategory="Creature Products">
     <attribute key="weight" value="169" />
   </item>
   <item id="10585" article="a" name="mutated rat tail">
@@ -23932,20 +23931,20 @@
   <item id="10598" name="nothing special" />
   <item id="10599" name="nothing special" />
   <item id="10600" name="nothing special" />
-  <item id="10601" article="a" name="tattered piece of robe" plural="tattered pieces of robe">
+  <item id="10601" article="a" name="tattered piece of robe" plural="tattered pieces of robe" editorcategory="Creature Products">
     <attribute key="weight" value="70" />
   </item>
-  <item id="10602" article="a" name="vampire teeth" plural="vampire's teeth">
+  <item id="10602" article="a" name="vampire teeth" plural="vampire's teeth" editorcategory="Creature Products">
     <attribute key="weight" value="50" />
   </item>
-  <item id="10603" article="a" name="swamp grass" plural="swamp grass">
-    <attribute key="weight" value="169" />
+  <item id="10603" name="swamp grass" editorcategory="Creature Products">
+    <attribute key="weight" value="94" />
   </item>
   <item id="10604" name="nothing special" />
-  <item id="10605" article="a" name="bundle of cursed straw" plural="bundles of cursed straw">
-    <attribute key="weight" value="169" />
+  <item id="10605" article="a" name="bundle of cursed straw" plural="bundles of cursed straw" editorcategory="Creature Products">
+    <attribute key="weight" value="227" />
   </item>
-  <item id="10606" article="a" name="bunch of troll hair" plural="bunches of troll hair">
+  <item id="10606" article="a" name="bunch of troll hair" plural="bunches of troll hair" editorcategory="Creature Products">
     <attribute key="weight" value="85" />
   </item>
   <item id="10607" article="a" name="ghostly tissue">
@@ -24626,9 +24625,7 @@
     <attribute key="weight" value="1500" />
   </item>
   <item id="11135" name="nothing special" />
-  <item id="11136" name="crocodile steak">
-    <attribute key="weight" value="440" />
-  </item>
+  <item id="11136" name="nothing special" />
   <item id="11137" name="nothing special" />
   <item id="11138" article="a" name="dead killer caiman" editorsuffix="(Unmoveable)">
     <attribute key="corpsetype" value="blood" />
@@ -24705,35 +24702,35 @@
   <item id="11186" name="nothing special" />
   <item id="11187" name="nothing special" />
   <item id="11188" name="nothing special" />
-  <item id="11189" name="crab pincers" plural="crab pincers">
+  <item id="11189" name="crab pincers" editorcategory="Creature Products">
     <attribute key="weight" value="175" />
   </item>
-  <item id="11190" name="terrorbird beak">
+  <item id="11190" article="a" name="terrorbird beak" plural="terrorbird beaks" editorcategory="Creature Products">
     <attribute key="weight" value="117" />
   </item>
   <item id="11191" name="skunk tail">
     <attribute key="weight" value="105" />
   </item>
-  <item id="11192" name="carrion worm fang">
+  <item id="11192" name="carrion worm fang" editorcategory="Creature Products">
     <attribute key="weight" value="88" />
   </item>
   <item id="11193" name="elder beholder tentacle">
     <attribute key="weight" value="75" />
   </item>
-  <item id="11194" name="bony tail">
+  <item id="11194" name="bony tail" plural="bony tails" editorcategory="Creature Products">
     <attribute key="weight" value="92" />
   </item>
-  <item id="11195" name="stone wing">
+  <item id="11195" name="stone wing" editorcategory="Creature Products">
     <attribute key="weight" value="153" />
   </item>
   <item id="11196" name="piece of crocodile leather" plural="pieces of crocodile leather">
     <attribute key="weight" value="104" />
   </item>
-  <item id="11197" name="giant eye">
+  <item id="11197" name="giant eye" editorcategory="Creature Products">
     <attribute key="weight" value="120" />
   </item>
-  <item id="11198" name="tarantula egg">
-    <attribute key="description" value="It looks poisonous." />
+  <item id="11198" name="tarantula egg" plural="tarantula eggs" editorcategory="Creature Products">
+    <attribute key="description" value="Looking quite poisonous, so no good choice for a meal." />
     <attribute key="weight" value="40" />
   </item>
   <item id="11199" name="hydra head">
@@ -24760,43 +24757,43 @@
   <item id="11207" name="mummy doll">
     <attribute key="weight" value="116" />
   </item>
-  <item id="11208" name="rotten piece of cloth" plural="rotten pieces of cloth">
+  <item id="11208" name="rotten piece of cloth" plural="rotten pieces of cloth" editorcategory="Creature Products">
     <attribute key="weight" value="60" />
   </item>
   <item id="11209" name="silky fur">
     <attribute key="weight" value="115" />
   </item>
-  <item id="11210" name="striped fur">
+  <item id="11210" name="striped fur" plural="striped furs" editorcategory="Creature Products">
     <attribute key="weight" value="120" />
   </item>
   <item id="11211" name="stuffed toad">
     <attribute key="weight" value="116" />
   </item>
-  <item id="11212" name="winter wolf fur">
+  <item id="11212" name="winter wolf fur" editorcategory="Creature Products">
     <attribute key="weight" value="110" />
   </item>
-  <item id="11213" name="acorn">
+  <item id="11213" article="an" name="acorn" plural="acorns" editorcategory="Creature Products">
     <attribute key="weight" value="50" />
   </item>
-  <item id="11214" name="antlers" plural="antlers">
+  <item id="11214" name="antlers" editorsuffix="Creature Products">
     <attribute key="weight" value="90" />
   </item>
   <item id="11215" name="metal spike">
     <attribute key="weight" value="50" />
   </item>
-  <item id="11216" name="badger fur">
+  <item id="11216" name="badger fur" editorcategory="Creature Products">
     <attribute key="weight" value="65" />
   </item>
-  <item id="11217" name="carniphila seeds" plural="carniphila's seeds">
+  <item id="11217" name="carniphila seeds" editorcategory="Creature Products">
     <attribute key="weight" value="35" />
   </item>
-  <item id="11218" name="centipede leg">
+  <item id="11218" article="a" name="centipede leg" plural="centipede legs" editorcategory="Creature Products">
     <attribute key="weight" value="68" />
   </item>
-  <item id="11219" name="compass" plural="compasses">
+  <item id="11219" article="a" name="compass" plural="compasses" editorcategory="Creature Products">
     <attribute key="weight" value="80" />
   </item>
-  <item id="11220" name="dark rosary" plural="dark rosaries">
+  <item id="11220" name="dark rosary" plural="dark rosaries" editorcategory="Creature Products">
     <attribute key="weight" value="90" />
   </item>
   <item id="11221" name="hellspawn tail">
@@ -24808,13 +24805,13 @@
   <item id="11223" name="essence of a bad dream" plural="essences of a bad dream">
     <attribute key="weight" value="95" />
   </item>
-  <item id="11224" name="thick fur">
+  <item id="11224" name="thick fur" plural="thick furs" editorcategory="Creature Products">
     <attribute key="weight" value="125" />
   </item>
   <item id="11225" name="mutated flesh" plural="mutated flesh">
     <attribute key="weight" value="250" />
   </item>
-  <item id="11226" name="strand of medusa hair" plural="strands of medusa hair">
+  <item id="11226" article="a" name="strand of medusa hair" plural="strands of medusa hair" editorcategory="Creature Products">
     <attribute key="weight" value="230" />
   </item>
   <item id="11227" name="shiny stone">
@@ -24826,28 +24823,28 @@
   <item id="11229" name="scythe leg">
     <attribute key="weight" value="150" />
   </item>
-  <item id="11230" name="winged tail">
+  <item id="11230" article="a" name="winged tail" plural="winged tails" editorcategory="Creature Products">
     <attribute key="weight" value="450" />
   </item>
   <item id="11231" name="nettle blossom">
     <attribute key="weight" value="88" />
   </item>
-  <item id="11232" name="sulphurous stone">
+  <item id="11232" name="sulphurous stone" editorcategory="Creature Products">
     <attribute key="weight" value="142" />
   </item>
-  <item id="11233" name="unholy bone">
+  <item id="11233" article="an" name="unholy bone" plural="unholy bones" editorcategory="Creature Products">
     <attribute key="weight" value="125" />
   </item>
-  <item id="11234" name="werewolf fur">
+  <item id="11234" name="werewolf fur" editorcategory="Creature Products">
     <attribute key="weight" value="113" />
   </item>
-  <item id="11235" name="warwolf fur">
+  <item id="11235" name="warwolf fur" editorcategory="Creature Products">
     <attribute key="weight" value="105" />
   </item>
-  <item id="11236" name="wool">
+  <item id="11236" name="wool" editorcategory="Creature Products">
     <attribute key="weight" value="118" />
   </item>
-  <item id="11237" name="book of necromantic rituals" plural="books of necromantic rituals">
+  <item id="11237" article="a" name="book of necromantic rituals" plural="books of necromantic rituals" editorcategory="Creature Products">
     <attribute key="weight" value="358" />
   </item>
   <item id="11238" name="mammoth tusk">
@@ -24881,7 +24878,7 @@
     <attribute key="containersize" value="20" />
     <attribute key="slottype" value="backpack" />
   </item>
-  <item id="11245" name="bunch of ripe rice" plural="bunches of ripe rice">
+  <item id="11245" name="bunch of ripe rice" plural="bunches of ripe rice" editorcategory="Foods">
     <attribute key="weight" value="20" />
   </item>
   <item id="11246" name="rice ball">
@@ -25216,10 +25213,10 @@
     <attribute key="duration" value="60" />
   </item>
   <item id="11320" name="nothing special" />
-  <item id="11321" article="a" name="bone shoulderplate">
+  <item id="11321" article="a" name="bone shoulderplate" plural="bone shoulderplates" editorcategory="Creature Products">
     <attribute key="weight" value="220" />
   </item>
-  <item id="11322" article="a" name="warmaster's wristguards">
+  <item id="11322" name="warmaster's wristguards" editorcategory="Creature Products">
     <attribute key="weight" value="120" />
   </item>
   <item id="11323" name="zaoan halberd">
@@ -25235,23 +25232,23 @@
   <item id="11325" article="a" name="spiked iron ball">
     <attribute key="weight" value="125" />
   </item>
-  <item id="11326" article="a" name="corrupted flag">
+  <item id="11326" article="a" name="corrupted flag" plural="corrupted flags" editorcategory="Creature Products">
     <attribute key="weight" value="112" />
   </item>
-  <item id="11327" article="a" name="cursed shoulder spikes" plural="cursed shoulder's spikes">
-    <attribute key="weight" value="75" />
+  <item id="11327" name="cursed shoulder spikes" editorcategory="Creature Products">
+    <attribute key="weight" value="97" />
   </item>
-  <item id="11328" name="widow mandibles" plural="widow's mandibles">
+  <item id="11328" name="widow's mandibles" editorcategory="Creature Products">
     <attribute key="weight" value="105" />
   </item>
   <item id="11329" name="wailing widow necklace">
     <attribute key="weight" value="540" />
     <attribute key="slottype" value="necklace" />
   </item>
-  <item id="11330" article="a" name="zaogun flag">
+  <item id="11330" article="a" name="zaogun flag" plural="zaogon flags" editorcategory="Creature Products">
     <attribute key="weight" value="98" />
   </item>
-  <item id="11331" article="a" name="zaogun shoulderplates" plural="zaogun's shoulderplates">
+  <item id="11331" name="zaogun shoulderplates" editorcategory="Creature Products">
     <attribute key="weight" value="103" />
   </item>
   <item id="11332" article="a" name="high guard flag">
@@ -25263,7 +25260,7 @@
   <item id="11334" article="a" name="legionnaire flags" plural="legionnaire's flags">
     <attribute key="weight" value="110" />
   </item>
-  <item id="11335" article="a" name="broken halberd">
+  <item id="11335" article="a" name="broken halberd" plural="broken halberds" editorcategory="Creature Products">
     <attribute key="weight" value="210" />
   </item>
   <item id="11336" article="a" name="lizard trophy" editorcategory="Trophies">
@@ -25382,7 +25379,7 @@
   <item id="11366" article="a" name="ghastly dragon head">
     <attribute key="weight" value="1200" />
   </item>
-  <item id="11367" article="a" name="undead heart">
+  <item id="11367" article="an" name="undead heart" plural="undead hearts" editorcategory="Creature Products">
     <attribute key="weight" value="80" />
   </item>
   <item id="11368" article="a" name="jade hat" editorcategory="Helmets">
@@ -25391,14 +25388,14 @@
     <attribute key="slottype" value="head" />
     <attribute key="skillmodifiermagiclevel" value="1" />
   </item>
-  <item id="11369" article="a" name="terramite shell">
+  <item id="11369" article="a" name="terramite shell" plural="terramite shells" editorcategory="Creature Products">
     <attribute key="weight" value="150" />
   </item>
-  <item id="11370" article="a" name="terramite eggs" plural="terramite's eggs">
+  <item id="11370" name="terramite eggs" editorcategory="Creature Products">
     <attribute key="weight" value="20" />
     <attribute key="showcount" value="0" />
   </item>
-  <item id="11371" article="a" name="terramite legs" plural="terramite's legs">
+  <item id="11371" name="terramite legs" editorcategory="Creature Products">
     <attribute key="weight" value="115" />
   </item>
   <item id="11372" article="a" name="lancer beetle shell">
@@ -25490,7 +25487,9 @@
   <item id="11426" name="nothing special" />
   <item id="11427" name="nothing special" />
   <item id="11428" name="nothing special" />
-  <item id="11429" name="nothing special" />
+  <item id="11429" article="a" name="crocodile steak" plural="crocodile steaks" editorcategory="Foods">
+    <attribute key="weight" value="440" />
+  </item>
   <item id="11430" name="nothing special" />
   <item id="11431" name="nothing special" />
   <item id="11432" name="nothing special" />
@@ -26345,9 +26344,8 @@
   <item id="12281" name="nothing special" />
   <item id="12282" name="nothing special" />
   <item id="12283" name="nothing special" />
-  <item id="12284" article="a" name="heavy crate">
-    <attribute key="description" value="It is covered with lizard symbols and the lid is tightly nailed shut." />
-    <attribute key="containersize" value="10" />
+  <item id="12284" article="a" name="marked crate" editorsuffix="(Wrath of the Emperor Quest)" editorcategory="Quest Items">
+    <attribute key="description" value="This crate has been marked with lizard symbols. It is large enough for a grown person to fit in." />
   </item>
   <item id="12285" name="nothing special" />
   <item id="12286" name="nothing special" />
@@ -26359,7 +26357,10 @@
   <item id="12292" name="nothing special" />
   <item id="12293" name="nothing special" />
   <item id="12294" name="nothing special" />
-  <item id="12295" name="nothing special" />
+  <item id="12295" name="unworked sacred wood" editorsuffix="(Wrath of the Emperor Quest)" editorcategory="Quest Items">
+    <attribute key="description" value="This chunk was cut from sacred wood in the temple complex and looks ideal for carving." />
+    <attribute key="weight" value="1000" />
+  </item>
   <item id="12296" name="nothing special" />
   <item id="12297" name="nothing special" />
   <item id="12298" name="nothing special" />
@@ -26398,8 +26399,8 @@
   <item id="12331" name="nothing special" />
   <item id="12332" name="nothing special" />
   <item id="12333" name="nothing special" />
-  <item id="12334" name="nothing special" />
-  <item id="12335" name="nothing special" />
+  <item id="12334" name="plant poison" editorcategory="Fields" />
+  <item id="12335" name="harmless gas" editorcategory="Fields" />
   <item id="12336" name="nothing special" />
   <item id="12337" name="nothing special" />
   <item id="12338" name="nothing special" />
@@ -26467,21 +26468,41 @@
   <item id="12400" name="nothing special" />
   <item id="12401" name="nothing special" />
   <item id="12402" name="nothing special" />
-  <item id="12403" name="nothing special" />
-  <item id="12404" name="nothing special" />
-  <item id="12405" name="nothing special" />
+  <item id="12403" article="a" name="battle stone" editorcategory="Creature Products">
+    <attribute key="description" value="It seems to be perfect to shape a weapon from it. Someone could definitely be interested in it." />
+    <attribute key="weight" value="150" />
+  </item>
+  <item id="12404" name="black wool" editorcategory="Creature Products">
+    <attribute key="weight" value="118" />
+  </item>
+  <item id="12405" name="blood preservation" editorcategory="Creature Products">
+    <attribute key="description" value="Someone put a cocktail straw in it." />
+    <attribute key="weight" value="80" />
+  </item>
   <item id="12406" name="nothing special" />
-  <item id="12407" name="nothing special" />
-  <item id="12408" name="nothing special" />
-  <item id="12409" name="nothing special" />
+  <item id="12407" article="a" name="broken crossbow" plural="broken crossbows" editorcategory="Creature Products">
+    <attribute key="weight" value="130" />
+  </item>
+  <item id="12408" article="a" name="broken shamanic staff" editorcategory="Creature Products">
+    <attribute key="weight" value="128" />
+  </item>
+  <item id="12409" article="a" name="broken helmet" plural="broken helmets" editorcategory="Creature Products">
+    <attribute key="weight" value="156" />
+  </item>
   <item id="12410" name="nothing special" />
   <item id="12411" name="nothing special" />
   <item id="12412" name="nothing special" />
   <item id="12413" name="nothing special" />
   <item id="12414" name="nothing special" />
-  <item id="12415" name="nothing special" />
-  <item id="12416" name="nothing special" />
-  <item id="12417" name="nothing special" />
+  <item id="12415" article="a" name="pineapple" plural="pineapples" editorcategory="Foods">
+    <attribute key="weight" value="750" />
+  </item>
+  <item id="12416" article="an" name="aubergine" plural="aubergines" editorcategory="Foods">
+    <attribute key="weight" value="200" />
+  </item>
+  <item id="12417" name="broccoli" editorcategory="Foods">
+    <attribute key="weight" value="300" />
+  </item>
   <item id="12418" name="nothing special" />
   <item id="12419" name="nothing special" />
   <item id="12420" name="nothing special" />
@@ -26776,7 +26797,9 @@
     <attribute key="slottype" value="body" />
     <attribute key="speedmodifier" value="10" />
   </item>
-  <item id="12608" name="nothing special" />
+  <item id="12608" article="a" name="broken key ring" plural="broken key rings" editorcategory="Creature Products">
+    <attribute key="weight" value="50" />
+  </item>
   <item id="12609" name="nothing special" />
   <item id="12610" name="nothing special" />
   <item id="12611" name="nothing special" />
@@ -26790,8 +26813,12 @@
   </item>
   <item id="12614" name="nothing special" />
   <item id="12615" name="nothing special" />
-  <item id="12616" name="nothing special" />
-  <item id="12617" name="nothing special" />
+  <item id="12616" article="a" name="broken draken nail" plural="broken draken ntails" editorcategory="Creature Products">
+    <attribute key="weight" value="200" />
+  </item>
+  <item id="12617" article="a" name="broken slicer" plural="broken slicers" editorcategory="Creature Products">
+    <attribute key="weight" value="140" />
+  </item>
   <item id="12618" name="nothing special" />
   <item id="12619" name="nothing special" />
   <item id="12620" name="nothing special" />
@@ -26902,8 +26929,12 @@
     <attribute key="armor" value="1" />
     <attribute key="slottype" value="body" />
   </item>
-  <item id="12658" name="nothing special" />
-  <item id="12659" name="nothing special" />
+  <item id="12658" name="brimstone fangs" editorcategory="Creature Products">
+    <attribute key="weight" value="112" />
+  </item>
+  <item id="12659" article="a" name="brimstone shell" editorcategory="Creature Products">
+    <attribute key="weight" value="112" />
+  </item>
   <item id="12660" name="trashed draken boots">
     <attribute key="description" value="They will expire within a short time, sell them back to Esrik before they do." />
     <attribute key="weight" value="2500" />
