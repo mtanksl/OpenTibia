@@ -1826,7 +1826,7 @@
   <item id="1774" article="a" name="barrel" editorcategory="Containers">
     <attribute key="containersize" value="25" />
   </item>
-  <item id="1775" article="a" name="trough" />
+  <item id="1775" article="a" name="trough" editorcategory="Fluid Containers" />
   <item id="1776" article="a" name="lemonade cask">
     <attribute key="fluidsource" value="lemonade" />
   </item>
@@ -2347,38 +2347,38 @@
     <attribute key="containersize" value="20" />
     <attribute key="slottype" value="backpack" />
   </item>
-  <item id="2005" article="a" name="bucket">
+  <item id="2005" article="a" name="bucket" editorcategory="Fluid Containers">
     <attribute key="weight" value="2000" />
   </item>
   <item id="2006" article="a" name="vial">
     <attribute key="weight" value="180" />
   </item>
-  <item id="2007" article="a" name="blue bottle">
+  <item id="2007" article="a" name="bottle" editorcategory="Decorations">
     <attribute key="weight" value="250" />
   </item>
-  <item id="2008" article="a" name="vase">
+  <item id="2008" article="a" name="vase" editorcategory="Fluid Containers">
     <attribute key="weight" value="940" />
   </item>
-  <item id="2009" article="a" name="green flask">
+  <item id="2009" article="a" name="green flask" editorcategory="Fluid Containers">
     <attribute key="weight" value="300" />
   </item>
   <item id="2010" article="a" name="broken bottle">
     <attribute key="weight" value="100" />
   </item>
-  <item id="2011" article="a" name="blue amphora">
+  <item id="2011" article="a" name="blue amphora" editorcategory="Fluid Containers">
     <attribute key="weight" value="850" />
   </item>
-  <item id="2012" article="a" name="mug">
+  <item id="2012" article="a" name="mug" editorcategory="Fluid Containers">
     <attribute key="weight" value="250" />
   </item>
-  <item id="2013" article="a" name="cup">
+  <item id="2013" article="a" name="cup" editorcategory="Fluid Containers">
     <attribute key="weight" value="200" />
   </item>
-  <item id="2014" article="a" name="jug">
+  <item id="2014" article="a" name="jug" editorcategory="Decorations">
     <attribute key="weight" value="750" />
   </item>
-  <item id="2015" article="a" name="beer bottle">
-    <attribute key="weight" value="250" />
+  <item id="2015" article="a" name="brown flask" editorcategory="Fluid Containers">
+    <attribute key="weight" value="300" />
   </item>
   <item id="2016" article="a" name="water splash">
     <attribute key="decayto" value="2017" />
@@ -2407,7 +2407,7 @@
   <item id="2022" article="a" name="broken bottle">
     <attribute key="weight" value="80" />
   </item>
-  <item id="2023" article="an" name="amphora">
+  <item id="2023" article="an" name="amphora" editorcategory="Fluid Containers">
     <attribute key="weight" value="9700" />
   </item>
   <item id="2024" article="a" name="broken brown glass">
@@ -2419,16 +2419,16 @@
   <item id="2028" article="a" name="pool" />
   <item id="2029" article="a" name="pool" />
   <item id="2030" article="a" name="pool" />
-  <item id="2031" article="a" name="waterskin">
+  <item id="2031" article="a" name="waterskin" editorcategory="Decorations">
     <attribute key="weight" value="700" />
   </item>
-  <item id="2032" article="a" name="bowl" editorcategory="Tools">
+  <item id="2032" article="a" name="bowl" editorcategory="Fluid Containers">
     <attribute key="weight" value="380" />
   </item>
-  <item id="2033" article="a" name="golden mug">
+  <item id="2033" article="a" name="golden mug" editorcategory="Fluid Containers">
     <attribute key="weight" value="470" />
   </item>
-  <item id="2034" article="a" name="large amphora" />
+  <item id="2034" article="a" name="large amphora" editorcategory="Fluid Containers" />
   <item id="2035" article="a" name="plate">
     <attribute key="weight" value="150" />
   </item>
@@ -5010,17 +5010,17 @@
   <item id="2573" article="a" name="bowl">
     <attribute key="weight" value="1850" />
   </item>
-  <item id="2574" article="a" name="white vase">
-    <attribute key="weight" value="1500" />
+  <item id="2574" article="a" name="ewer" editorcategory="Fluid Containers">
+    <attribute key="weight" value="1750" />
   </item>
-  <item id="2575" article="a" name="yellow vase">
-    <attribute key="weight" value="1500" />
+  <item id="2575" article="a" name="ewer" editorcategory="Fluid Containers">
+    <attribute key="weight" value="1750" />
   </item>
-  <item id="2576" article="a" name="blue vase">
-    <attribute key="weight" value="1500" />
+  <item id="2576" article="a" name="blue ewer" editorcategory="Fluid Containers">
+    <attribute key="weight" value="1750" />
   </item>
-  <item id="2577" article="a" name="green vase">
-    <attribute key="weight" value="1500" />
+  <item id="2577" article="a" name="ewer" editorcategory="Fluid Containers">
+    <attribute key="weight" value="1750" />
   </item>
   <item id="2578" article="a" name="closed trap" editorcategory="Tools">
     <attribute key="weight" value="2100" />
@@ -8568,10 +8568,10 @@
     <attribute key="containersize" value="20" />
     <attribute key="slottype" value="backpack" />
   </item>
-  <item id="3941" article="a" name="cup">
+  <item id="3941" article="a" name="cup" editorsuffix="(Pirate)" editorcategory="Fluid Containers">
     <attribute key="weight" value="200" />
   </item>
-  <item id="3942" article="a" name="cup">
+  <item id="3942" article="a" name="cup" editorsuffix="(Dwarven)" editorcategory="Fluid Containers">
     <attribute key="weight" value="200" />
   </item>
   <item id="3943" article="a" name="torch bearer" />
@@ -11419,7 +11419,7 @@
   <item id="5550" article="a" name="pile of sugar cane" />
   <item id="5551" article="a" name="pile of sugar cane" />
   <item id="5552" article="a" name="pile of sugar cane" />
-  <item id="5553" article="a" name="rum flask">
+  <item id="5553" article="a" name="rum flask" editorcategory="Fluid Containers">
     <attribute key="weight" value="280" />
   </item>
   <item id="5554" article="a" name="small fish" />
@@ -12273,7 +12273,7 @@
     <attribute key="description" value="It holds a sample of the rare griffinclaw flower." />
     <attribute key="weight" value="2000" />
   </item>
-  <item id="5938" article="a" name="waterskin" editorsuffix="(Missing description)">
+  <item id="5938" name="Ceiron's waterskin" editorsuffix="(Druid Outfits Quest)" editorcategory="Quest Items">
     <attribute key="weight" value="700" />
   </item>
   <item id="5939" article="a" name="waterskin">
@@ -15545,11 +15545,11 @@
     <attribute key="description" value="It is able to store memories and thoughts." />
     <attribute key="weight" value="250" />
   </item>
-  <item id="7243" article="a" name="jug">
+  <item id="7243" article="a" name="jug" editorsuffix="(The Ice Islands Quest)" editorcategory="Quest Items">
     <attribute key="description" value="There are a lot of ants crawling in there." />
     <attribute key="weight" value="750" />
   </item>
-  <item id="7244" article="an" name="empty jug">
+  <item id="7244" article="an" name="empty jug" editorsuffix="(The Ice Islands Quest(" editorcategory="Quest Items">
     <attribute key="description" value="It seems to be perfect for collecting ants." />
     <attribute key="weight" value="750" />
   </item>
@@ -15666,7 +15666,7 @@
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="600" />
   </item>
-  <item id="7286" name="Nilson's waterskin">
+  <item id="7286" name="Nilson's waterskin" editorsuffix="(The Ice Islands Quest)" editorcategory="Quest Items">
     <attribute key="description" value="It is filled with warm geyser water." />
     <attribute key="weight" value="700" />
   </item>
@@ -16666,12 +16666,13 @@
     <attribute key="description" value="It contains holy water from the white raven monastery." />
     <attribute key="weight" value="180" />
   </item>
-  <item id="7495" article="an" name="empty beer bottle">
+  <item id="7495" article="an" name="empty beer bottle" editorsuffix="(The Ultimate Booze Quest)" editorcategory="Quest Items">
     <attribute key="description" value="It is the bottle Boozer gave you for the brown ale." />
     <attribute key="weight" value="250" />
   </item>
-  <item id="7496" article="a" name="beer bottle">
+  <item id="7496" article="a" name="beer bottle" editorsuffix="(The Ultimate Booze Quest)" editorcategory="Quest Items">
     <attribute key="description" value="It is filled with the legendary dwarvish brown ale." />
+    <attribute key="weight" value="250" />
   </item>
   <item id="7497" article="a" name="mining helmet" editorcategory="Helmets">
     <attribute key="description" value="This is Budriks old mining helmet." />
@@ -16820,11 +16821,12 @@
   <item id="7579" article="a" name="buoy line" />
   <item id="7580" article="a" name="buoy line" />
   <item id="7581" article="a" name="buoy line" />
-  <item id="7582" article="a" name="fine vase">
+  <item id="7582" article="a" name="fine vase" editorcategory="Decorations">
     <attribute key="description" value="This vase looks incredibly fragile. Better make sure it won't move one bit, just don't touch it." />
     <attribute key="weight" value="940" />
   </item>
-  <item id="7583" article="an" name="elven vase">
+  <item id="7583" article="an" name="elven vase" editorcategory="Fluid Containers">
+    <attribute key="description" value="It is made of very fine glass and covered with decorations." />
     <attribute key="weight" value="940" />
   </item>
   <item id="7584" article="a" name="ship cabin wall" />
@@ -18538,12 +18540,12 @@
     <attribute key="decayto" value="7932" />
     <attribute key="duration" value="600" />
   </item>
-  <item id="7934" article="a" name="test-tube holder" />
-  <item id="7935" article="a" name="potion stand" />
+  <item id="7934" article="a" name="test-tube holder" editorcategory="Fluid Containers" />
+  <item id="7935" article="a" name="potion stand" editorcategory="Fluid Containers" />
   <item id="7936" article="a" name="trophy stand">
     <attribute key="weight" value="970" />
   </item>
-  <item id="7937" article="a" name="potion stand" />
+  <item id="7937" article="a" name="potion stand" editorcategory="Fluid Containers" />
   <item id="7938" article="a" name="large hole">
     <attribute key="floorchange" value="down" />
   </item>
@@ -20946,7 +20948,9 @@
   <item id="9078" article="a" name="vial">
     <attribute key="weight" value="170" />
   </item>
-  <item id="9079" name="nothing special" />
+  <item id="9079" article="a" name="bottle">
+    <attribute key="weight" value="250" />
+  </item>
   <item id="9080" name="nothing special" />
   <item id="9081" article="a" name="parcel" editorcategory="Containers">
     <attribute key="weight" value="1800" />
@@ -21002,8 +21006,9 @@
     <attribute key="description" value="It's from an undead jester, so open at own risk." />
     <attribute key="weight" value="800" />
   </item>
-  <item id="9109" article="a" name="waterskin">
-    <attribute key="weight" value="800" />
+  <item id="9109" name="Ceiron's Waterskin" editorsuffix="(Druid Outfits Quest)" editorcategory="Quest Items">
+    <attribute key="description" value="It contains a special sample of water from a hydra cave." />
+    <attribute key="weight" value="700" />
   </item>
   <item id="9110" article="a" name="strange whirl">
     <attribute key="type" value="teleport" />
@@ -22965,7 +22970,7 @@
   <item id="10147" name="nothing special" />
   <item id="10148" name="nothing special" />
   <item id="10149" name="nothing special" />
-  <item id="10150" article="a" name="cocktail glass">
+  <item id="10150" article="a" name="cocktail glass" editorcategory="Fluid Containers">
     <attribute key="weight" value="200" />
   </item>
   <item id="10151" article="a" name="golem part">
@@ -25455,10 +25460,18 @@
   </item>
   <item id="11394" name="nothing special" />
   <item id="11395" name="nothing special" />
-  <item id="11396" name="nothing special" />
-  <item id="11397" name="nothing special" />
-  <item id="11398" name="nothing special" />
-  <item id="11399" name="nothing special" />
+  <item id="11396" article="a" name="vial" editorcategory="Fluid Containers">
+    <attribute key="weight" value="180" />
+  </item>
+  <item id="11397" article="a" name="bottle" editorcategory="Fluid Containers">
+    <attribute key="weight" value="250" />
+  </item>
+  <item id="11398" article="a" name="jug" editorcategory="Fluid Containers">
+    <attribute key="weight" value="750" />
+  </item>
+  <item id="11399" article="a" name="waterskin" editorcategory="Fluid Containers">
+    <attribute key="weight" value="700" />
+  </item>
   <item id="11400" name="nothing special" />
   <item id="11401" name="nothing special" />
   <item id="11402" name="nothing special" />
