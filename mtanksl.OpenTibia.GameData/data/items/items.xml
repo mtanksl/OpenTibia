@@ -1833,28 +1833,28 @@
   <item id="1777" article="a" name="dustbin">
     <attribute key="type" value="trashholder" />
   </item>
-  <item id="1778" article="a" name="big wine cask">
+  <item id="1778" article="a" name="big wine cask" editorcategory="Furnitures">
     <attribute key="fluidsource" value="wine" />
   </item>
-  <item id="1779" article="a" name="big wine cask">
+  <item id="1779" article="a" name="big wine cask" editorcategory="Furnitures">
     <attribute key="fluidsource" value="wine" />
   </item>
-  <item id="1780" article="a" name="big wine cask">
+  <item id="1780" article="a" name="big wine cask" editorcategory="Furnitures">
     <attribute key="fluidsource" value="wine" />
   </item>
-  <item id="1781" article="a" name="big wine cask">
+  <item id="1781" article="a" name="big wine cask" editorcategory="Furnitures">
     <attribute key="fluidsource" value="wine" />
   </item>
-  <item id="1782" article="a" name="big wine cask">
+  <item id="1782" article="a" name="big wine cask" editorcategory="Furnitures">
     <attribute key="fluidsource" value="wine" />
   </item>
-  <item id="1783" article="a" name="big wine cask">
+  <item id="1783" article="a" name="big wine cask" editorcategory="Furnitures">
     <attribute key="fluidsource" value="wine" />
   </item>
-  <item id="1784" article="a" name="big wine cask">
+  <item id="1784" article="a" name="big wine cask" editorcategory="Furnitures">
     <attribute key="fluidsource" value="wine" />
   </item>
-  <item id="1785" article="a" name="big wine cask">
+  <item id="1785" article="a" name="big wine cask" editorcategory="Furnitures">
     <attribute key="fluidsource" value="wine" />
   </item>
   <item id="1786" article="an" name="oven" />
@@ -1865,38 +1865,38 @@
   <item id="1791" article="an" name="oven" />
   <item id="1792" article="an" name="oven" />
   <item id="1793" article="an" name="oven" />
-  <item id="1794" article="a" name="red carpet" />
-  <item id="1795" article="a" name="red carpet" />
-  <item id="1796" article="a" name="red carpet" />
-  <item id="1797" article="a" name="red carpet" />
-  <item id="1798" article="a" name="red carpet" />
-  <item id="1799" article="a" name="red carpet" />
-  <item id="1800" article="a" name="red carpet" />
-  <item id="1801" article="a" name="red carpet" />
-  <item id="1802" article="a" name="red carpet" />
-  <item id="1803" article="an" name="oriental carpet" />
-  <item id="1804" article="an" name="oriental carpet" />
-  <item id="1805" article="an" name="oriental carpet" />
-  <item id="1806" article="an" name="oriental carpet" />
-  <item id="1807" article="an" name="oriental carpet" />
-  <item id="1808" article="an" name="oriental carpet" />
+  <item id="1794" article="a" name="red carpet" editorcategory="Decorations" />
+  <item id="1795" article="a" name="red carpet" editorcategory="Decorations" />
+  <item id="1796" article="a" name="red carpet" editorcategory="Decorations" />
+  <item id="1797" article="a" name="red carpet" editorcategory="Decorations" />
+  <item id="1798" article="a" name="red carpet" editorcategory="Decorations" />
+  <item id="1799" article="a" name="red carpet" editorcategory="Decorations" />
+  <item id="1800" article="a" name="red carpet" editorcategory="Decorations" />
+  <item id="1801" article="a" name="red carpet" editorcategory="Decorations" />
+  <item id="1802" article="a" name="red carpet" editorcategory="Decorations" />
+  <item id="1803" article="an" name="oriental carpet" editorcategory="Decorations" />
+  <item id="1804" article="an" name="oriental carpet" editorcategory="Decorations" />
+  <item id="1805" article="an" name="oriental carpet" editorcategory="Decorations" />
+  <item id="1806" article="an" name="oriental carpet" editorcategory="Decorations" />
+  <item id="1807" article="an" name="oriental carpet" editorcategory="Decorations" />
+  <item id="1808" article="an" name="oriental carpet" editorcategory="Decorations" />
   <item id="1809" article="a" name="painting" />
-  <item id="1810" article="a" name="blackboard" />
-  <item id="1811" article="a" name="blackboard" editorcategory="Furnitures">
+  <item id="1810" article="a" name="blackboard" editorcategory="Furnitures" />
+  <item id="1811" article="a" name="blackboard" editorsuffix="(Writeable)" editorcategory="Furnitures">
     <attribute key="writeable" value="1" />
     <attribute key="maxtextlen" value="1024" />
   </item>
   <item id="1812" article="a" name="tapestry" editorcategory="Decorations" />
   <item id="1813" article="a" name="tapestry" editorcategory="Decorations" />
   <item id="1814" article="a" name="painting" />
-  <item id="1815" article="a" name="blackboard" />
+  <item id="1815" article="a" name="blackboard" editorcategory="Furnitures" />
   <item id="1816" article="a" name="wall mirror">
     <attribute key="description" value="You look fine today." />
   </item>
   <item id="1817" article="a" name="wall mirror">
     <attribute key="description" value="You look fine today." />
   </item>
-  <item id="1818" article="a" name="blackboard" editorcategory="Furnitures">
+  <item id="1818" article="a" name="blackboard" editorsuffix="(Writeable)" editorcategory="Furnitures">
     <attribute key="writeable" value="1" />
     <attribute key="maxtextlen" value="1024" />
   </item>
@@ -2100,7 +2100,7 @@
     <attribute key="writeable" value="1" />
     <attribute key="maxtextlen" value="512" />
   </item>
-  <item id="1950" article="a" name="book">
+  <item id="1950" article="a" name="book" editorsuffix="(Writeable)" editorcategory="Books">
     <attribute key="weight" value="1300" />
     <attribute key="writeable" value="1" />
     <attribute key="maxtextlen" value="512" />
@@ -2125,7 +2125,7 @@
   <item id="1954" article="a" name="paper">
     <attribute key="weight" value="50" />
   </item>
-  <item id="1955" article="a" name="book">
+  <item id="1955" article="a" name="book" editorsuffix="(Writeable)" editorcategory="Books">
     <attribute key="weight" value="1300" />
     <attribute key="writeable" value="1" />
     <attribute key="maxtextlen" value="512" />
@@ -2137,54 +2137,54 @@
   <item id="1957" article="a" name="map">
     <attribute key="weight" value="790" />
   </item>
-  <item id="1958" article="a" name="book">
+  <item id="1958" article="a" name="book" editorsuffix="(Writeable)" editorcategory="Books">
     <attribute key="weight" value="1300" />
     <attribute key="writeable" value="1" />
     <attribute key="maxtextlen" value="512" />
     <attribute key="writeonceitemid" value="1973" />
   </item>
-  <item id="1959" article="a" name="book">
+  <item id="1959" article="a" name="book" editorsuffix="(Writeable)" editorcategory="Books">
     <attribute key="weight" value="1300" />
     <attribute key="writeable" value="1" />
     <attribute key="maxtextlen" value="512" />
     <attribute key="writeonceitemid" value="1974" />
   </item>
-  <item id="1960" article="a" name="book">
+  <item id="1960" article="a" name="book" editorsuffix="(Writeable)" editorcategory="Books">
     <attribute key="weight" value="1300" />
     <attribute key="writeable" value="1" />
     <attribute key="maxtextlen" value="512" />
     <attribute key="writeonceitemid" value="1975" />
   </item>
-  <item id="1961" article="a" name="book">
+  <item id="1961" article="a" name="book" editorsuffix="(Writeable)" editorcategory="Books">
     <attribute key="weight" value="1300" />
     <attribute key="writeable" value="1" />
     <attribute key="maxtextlen" value="512" />
   </item>
-  <item id="1962" article="a" name="book">
+  <item id="1962" article="a" name="book" editorsuffix="(Writeable)" editorcategory="Books">
     <attribute key="weight" value="1300" />
     <attribute key="writeable" value="1" />
     <attribute key="maxtextlen" value="512" />
     <attribute key="writeonceitemid" value="1977" />
   </item>
-  <item id="1963" article="a" name="book">
+  <item id="1963" article="a" name="book" editorsuffix="(Writeable)" editorcategory="Books">
     <attribute key="weight" value="1300" />
     <attribute key="writeable" value="1" />
     <attribute key="maxtextlen" value="512" />
     <attribute key="writeonceitemid" value="1978" />
   </item>
-  <item id="1964" article="a" name="book">
+  <item id="1964" article="a" name="book" editorsuffix="(Writeable)" editorcategory="Books">
     <attribute key="weight" value="1300" />
     <attribute key="writeable" value="1" />
     <attribute key="maxtextlen" value="512" />
     <attribute key="writeonceitemid" value="1979" />
   </item>
-  <item id="1965" article="a" name="book">
+  <item id="1965" article="a" name="book" editorsuffix="(Writeable)" editorcategory="Books">
     <attribute key="weight" value="1300" />
     <attribute key="writeable" value="1" />
     <attribute key="maxtextlen" value="512" />
     <attribute key="writeonceitemid" value="1980" />
   </item>
-  <item id="1966" article="a" name="book">
+  <item id="1966" article="a" name="book" editorsuffix="(Writeable)" editorcategory="Books">
     <attribute key="weight" value="1300" />
     <attribute key="writeable" value="1" />
     <attribute key="maxtextlen" value="512" />
@@ -2204,39 +2204,39 @@
   <item id="1970" name="the holy Tible">
     <attribute key="weight" value="1300" />
   </item>
-  <item id="1971" article="a" name="book">
+  <item id="1971" article="a" name="book" editorcategory="Books">
     <attribute key="weight" value="1300" />
   </item>
-  <item id="1972" article="a" name="book">
+  <item id="1972" article="a" name="book" editorcategory="Books">
     <attribute key="weight" value="1300" />
   </item>
-  <item id="1973" article="a" name="book">
+  <item id="1973" article="a" name="book" editorcategory="Books">
     <attribute key="weight" value="1300" />
   </item>
-  <item id="1974" article="a" name="book">
+  <item id="1974" article="a" name="book" editorcategory="Books">
     <attribute key="weight" value="1300" />
   </item>
-  <item id="1975" article="a" name="book">
+  <item id="1975" article="a" name="book" editorcategory="Books">
     <attribute key="weight" value="1300" />
   </item>
-  <item id="1976" article="a" name="gemmed book">
+  <item id="1976" article="a" name="book" editorsuffix="(Writeable)" editorcategory="Books">
     <attribute key="weight" value="1300" />
     <attribute key="writeable" value="1" />
     <attribute key="maxtextlen" value="1100" />
   </item>
-  <item id="1977" article="a" name="book">
+  <item id="1977" article="a" name="book" editorcategory="Books">
     <attribute key="weight" value="1300" />
   </item>
-  <item id="1978" article="a" name="book">
+  <item id="1978" article="a" name="book" editorcategory="Books">
     <attribute key="weight" value="1300" />
   </item>
-  <item id="1979" article="a" name="book">
+  <item id="1979" article="a" name="book" editorcategory="Books">
     <attribute key="weight" value="1300" />
   </item>
-  <item id="1980" article="a" name="book">
+  <item id="1980" article="a" name="book" editorcategory="Books">
     <attribute key="weight" value="1300" />
   </item>
-  <item id="1981" article="a" name="book">
+  <item id="1981" article="a" name="book" editorcategory="Books">
     <attribute key="weight" value="1300" />
   </item>
   <item id="1982" article="a" name="purple tome">
@@ -2247,7 +2247,7 @@
     <attribute key="description" value="It is a volume of The Mystic Secrets of Tibia." />
     <attribute key="weight" value="1900" />
   </item>
-  <item id="1984" article="a" name="blue tome">
+  <item id="1984" article="a" name="blue tome" editorcategory="Books">
     <attribute key="description" value="It is a volume of The Mystic Secrets of Tibia." />
     <attribute key="weight" value="1900" />
   </item>
@@ -2362,8 +2362,8 @@
   <item id="2009" article="a" name="green flask" editorcategory="Fluid Containers">
     <attribute key="weight" value="300" />
   </item>
-  <item id="2010" article="a" name="broken bottle">
-    <attribute key="weight" value="100" />
+  <item id="2010" article="a" name="broken flask" editorcategory="Rubbish">
+    <attribute key="weight" value="250" />
   </item>
   <item id="2011" article="a" name="blue amphora" editorcategory="Fluid Containers">
     <attribute key="weight" value="850" />
@@ -2404,14 +2404,14 @@
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="60" />
   </item>
-  <item id="2022" article="a" name="broken bottle">
-    <attribute key="weight" value="80" />
+  <item id="2022" article="a" name="broken bottle" editorcategory="Rubbish">
+    <attribute key="weight" value="200" />
   </item>
   <item id="2023" article="an" name="amphora" editorcategory="Fluid Containers">
     <attribute key="weight" value="9700" />
   </item>
-  <item id="2024" article="a" name="broken brown glass">
-    <attribute key="weight" value="100" />
+  <item id="2024" article="a" name="broken flask" editorcategory="Rubbish">
+    <attribute key="weight" value="250" />
   </item>
   <item id="2025" article="a" name="pool" />
   <item id="2026" article="a" name="pool" />
@@ -2612,10 +2612,10 @@
   <item id="2093" article="a" name="water pipe">
     <attribute key="weight" value="6500" />
   </item>
-  <item id="2094" article="a" name="bird cage">
+  <item id="2094" article="a" name="bird cage" editorcategory="Furnitures">
     <attribute key="description" value="The poor bird seems to have died from a heart attack." />
   </item>
-  <item id="2095" article="a" name="bird cage">
+  <item id="2095" article="a" name="bird cage" editorcategory="Furnitures">
     <attribute key="description" value="You see a little bird inside." />
   </item>
   <item id="2096" article="a" name="pumpkinhead">
@@ -2670,7 +2670,7 @@
   <item id="2114" article="a" name="piggy bank">
     <attribute key="weight" value="750" />
   </item>
-  <item id="2115" article="a" name="broken piggy bank">
+  <item id="2115" article="a" name="broken piggy bank" editorcategory="Rubbish">
     <attribute key="weight" value="750" />
   </item>
   <item id="2116" article="a" name="rocking horse">
@@ -3196,14 +3196,14 @@
     <attribute key="showduration" value="1" />
     <attribute key="transformdeequipto" value="2214" />
   </item>
-  <item id="2217" article="a" name="book">
-    <attribute key="weight" value="1500" />
+  <item id="2217" article="a" name="spellbook" editorcategory="Books">
+    <attribute key="weight" value="5800" />
   </item>
   <item id="2218" article="a" name="paw amulet" editorcategory="Amulets">
     <attribute key="weight" value="420" />
     <attribute key="slottype" value="necklace" />
   </item>
-  <item id="2219" article="a" name="banana skin">
+  <item id="2219" article="a" name="banana skin" editorcategory="Rubbish">
     <attribute key="weight" value="30" />
   </item>
   <item id="2220" article="a" name="dirty fur">
@@ -3230,37 +3230,37 @@
   <item id="2227" name="rotten meat">
     <attribute key="weight" value="60" />
   </item>
-  <item id="2228" name="broken pottery">
+  <item id="2228" name="broken pottery" editorcategory="Rubbish">
     <attribute key="weight" value="180" />
   </item>
   <item id="2229" article="a" name="skull" plural="skulls">
     <attribute key="weight" value="2180" />
   </item>
-  <item id="2230" article="a" name="bone">
+  <item id="2230" article="a" name="bone" editorcategory="Rubbish">
     <attribute key="weight" value="950" />
   </item>
-  <item id="2231" article="a" name="big bone">
+  <item id="2231" article="a" name="big bone" editorcategory="Rubbish">
     <attribute key="weight" value="1900" />
   </item>
-  <item id="2232" article="a" name="broken brown glass">
-    <attribute key="weight" value="250" />
-  </item>
-  <item id="2233" article="a" name="broken green glass">
+  <item id="2232" article="a" name="broken brown glass" editorcategory="Rubbish">
     <attribute key="weight" value="170" />
   </item>
-  <item id="2234" article="a" name="broken sword">
+  <item id="2233" article="a" name="broken green glass" editorcategory="Rubbish">
+    <attribute key="weight" value="170" />
+  </item>
+  <item id="2234" article="a" name="broken sword" editorcategory="Rubbish">
     <attribute key="weight" value="3500" />
   </item>
   <item id="2235" article="a" name="moldy cheese">
     <attribute key="weight" value="400" />
   </item>
-  <item id="2236" article="a" name="torn book">
+  <item id="2236" article="a" name="torn book" editorcategory="Rubbish">
     <attribute key="weight" value="1100" />
   </item>
   <item id="2237" article="a" name="dirty cape">
     <attribute key="weight" value="500" />
   </item>
-  <item id="2238" name="worn leather boots">
+  <item id="2238" name="worn leather boots" editorcategory="Rubbbish">
     <attribute key="weight" value="900" />
   </item>
   <item id="2239" article="a" name="burnt scroll">
@@ -3290,22 +3290,22 @@
   <item id="2247" article="a" name="skull" />
   <item id="2248" name="human remains" />
   <item id="2249" name="ashes" />
-  <item id="2250" name="wooden trash">
+  <item id="2250" name="wooden trash" editorcategory="Rubbbish">
     <attribute key="weight" value="100" />
   </item>
-  <item id="2251" name="wooden trash">
+  <item id="2251" name="wooden trash" editorcategory="Rubbbish">
     <attribute key="weight" value="100" />
   </item>
-  <item id="2252" name="wooden trash">
+  <item id="2252" name="wooden trash" editorcategory="Rubbbish">
     <attribute key="weight" value="100" />
   </item>
-  <item id="2253" name="wooden trash">
+  <item id="2253" name="wooden trash" editorcategory="Rubbbish">
     <attribute key="weight" value="100" />
   </item>
-  <item id="2254" name="wooden trash">
+  <item id="2254" name="wooden trash" editorcategory="Rubbbish">
     <attribute key="weight" value="100" />
   </item>
-  <item id="2255" name="wooden trash">
+  <item id="2255" name="wooden trash" editorcategory="Rubbbish">
     <attribute key="weight" value="100" />
   </item>
   <item id="2256" name="metal trash">
@@ -3671,7 +3671,7 @@
   <item id="2324" article="a" name="ghost duster" editorcategory="Tools">
     <attribute key="weight" value="1100" />
   </item>
-  <item id="2325" article="a" name="book">
+  <item id="2325" article="a" name="monk's diary" editorcategory="Books">
     <attribute key="weight" value="1300" />
   </item>
   <item id="2326" article="an" name="annihilation bear">
@@ -3758,7 +3758,7 @@
   <item id="2346" article="a" name="tear of Daraman">
     <attribute key="weight" value="30" />
   </item>
-  <item id="2347" article="a" name="cookbook">
+  <item id="2347" article="a" name="cookbook" editorcategory="Books">
     <attribute key="description" value="It contains several exotic recipes." />
     <attribute key="weight" value="1500" />
   </item>
@@ -4989,7 +4989,7 @@
   <item id="2566" article="a" name="kitchen knife" editorcategory="Tools">
     <attribute key="weight" value="100" />
   </item>
-  <item id="2567" article="a" name="wooden spoon">
+  <item id="2567" article="a" name="wooden spoon" editorcategory="Tools">
     <attribute key="weight" value="100" />
   </item>
   <item id="2568" article="a" name="cleaver">
@@ -5001,13 +5001,13 @@
   <item id="2570" article="a" name="rolling pin">
     <attribute key="weight" value="500" />
   </item>
-  <item id="2571" article="a" name="bowl">
+  <item id="2571" article="a" name="bowl" editorcategory="Tools">
     <attribute key="weight" value="1850" />
   </item>
-  <item id="2572" article="a" name="bowl">
+  <item id="2572" article="a" name="bowl" editorcategory="Tools">
     <attribute key="weight" value="1850" />
   </item>
-  <item id="2573" article="a" name="bowl">
+  <item id="2573" article="a" name="bowl" editorcategory="Tools">
     <attribute key="weight" value="1850" />
   </item>
   <item id="2574" article="a" name="ewer" editorcategory="Fluid Containers">
@@ -5345,7 +5345,7 @@
   <item id="2674" article="a" name="red apple" plural="red apples">
     <attribute key="weight" value="150" />
   </item>
-  <item id="2675" article="an" name="orange" plural="oranges">
+  <item id="2675" article="an" name="orange" plural="oranges" editorcategory="Foods">
     <attribute key="weight" value="110" />
   </item>
   <item id="2676" article="a" name="banana" plural="bananas" editorcategory="Foods">
@@ -9510,15 +9510,15 @@
   <item id="4391" name="nothing special" editorsuffix="(Blank)" />
   <item id="4392" name="nothing special" editorsuffix="(Blank)" />
   <item id="4393" name="nothing special" editorsuffix="(Blank)" />
-  <item id="4394" article="a" name="red carpet" />
-  <item id="4395" article="a" name="red carpet" />
-  <item id="4396" article="a" name="red carpet" />
-  <item id="4397" article="a" name="red carpet" />
-  <item id="4398" article="a" name="red carpet" />
-  <item id="4399" article="a" name="red carpet" />
-  <item id="4400" article="a" name="red carpet" />
-  <item id="4401" article="a" name="red carpet" />
-  <item id="4402" article="a" name="red carpet" />
+  <item id="4394" article="a" name="red carpet" editorcategory="Decorations" />
+  <item id="4395" article="a" name="red carpet" editorcategory="Decorations" />
+  <item id="4396" article="a" name="red carpet" editorcategory="Decorations" />
+  <item id="4397" article="a" name="red carpet" editorcategory="Decorations" />
+  <item id="4398" article="a" name="red carpet" editorcategory="Decorations" />
+  <item id="4399" article="a" name="red carpet" editorcategory="Decorations" />
+  <item id="4400" article="a" name="red carpet" editorcategory="Decorations" />
+  <item id="4401" article="a" name="red carpet" editorcategory="Decorations" />
+  <item id="4402" article="a" name="red carpet" editorcategory="Decorations" />
   <item id="4403" article="a" name="mast" />
   <item id="4404" article="a" name="bamboo lamp" />
   <item id="4405" name="rock soil" />
@@ -10208,8 +10208,8 @@
     <attribute key="description" value="It contains some strange symbols of the lizard language." />
     <attribute key="weight" value="100" />
   </item>
-  <item id="4855" article="an" name="elven poetry book">
-    <attribute key="description" value="It contains a collection of beautiful elven poems." />
+  <item id="4855" article="a" name="strange good night songs" editorsuffix="(Roshamuul Quest - Soothing Bad Dreams)" editorcategory="Quest Items">
+    <attribute key="description" value="It contains some hypnotic melodies that are hard to remember." />
     <attribute key="weight" value="1300" />
   </item>
   <item id="4856" article="an" name="ice pick" editorcategory="Quest Items">
@@ -11458,33 +11458,33 @@
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="600" />
   </item>
-  <item id="5569" article="a" name="blue carpet" />
-  <item id="5570" article="a" name="blue carpet" />
-  <item id="5571" article="a" name="blue carpet" />
-  <item id="5572" article="a" name="blue carpet" />
-  <item id="5573" article="a" name="blue carpet" />
-  <item id="5574" article="a" name="blue carpet" />
-  <item id="5575" article="a" name="blue carpet" />
-  <item id="5576" article="a" name="blue carpet" />
-  <item id="5577" article="a" name="blue carpet" />
-  <item id="5578" article="a" name="green carpet" />
-  <item id="5579" article="a" name="green carpet" />
-  <item id="5580" article="a" name="green carpet" />
-  <item id="5581" article="a" name="green carpet" />
-  <item id="5582" article="a" name="green carpet" />
-  <item id="5583" article="a" name="green carpet" />
-  <item id="5584" article="a" name="green carpet" />
-  <item id="5585" article="a" name="green carpet" />
-  <item id="5586" article="a" name="green carpet" />
-  <item id="5587" article="a" name="brown carpet" />
-  <item id="5588" article="a" name="brown carpet" />
-  <item id="5589" article="a" name="brown carpet" />
-  <item id="5590" article="a" name="brown carpet" />
-  <item id="5591" article="a" name="brown carpet" />
-  <item id="5592" article="a" name="brown carpet" />
-  <item id="5593" article="a" name="brown carpet" />
-  <item id="5594" article="a" name="brown carpet" />
-  <item id="5595" article="a" name="brown carpet" />
+  <item id="5569" article="a" name="blue carpet" editorcategory="Decorations" />
+  <item id="5570" article="a" name="blue carpet" editorcategory="Decorations" />
+  <item id="5571" article="a" name="blue carpet" editorcategory="Decorations" />
+  <item id="5572" article="a" name="blue carpet" editorcategory="Decorations" />
+  <item id="5573" article="a" name="blue carpet" editorcategory="Decorations" />
+  <item id="5574" article="a" name="blue carpet" editorcategory="Decorations" />
+  <item id="5575" article="a" name="blue carpet" editorcategory="Decorations" />
+  <item id="5576" article="a" name="blue carpet" editorcategory="Decorations" />
+  <item id="5577" article="a" name="blue carpet" editorcategory="Decorations" />
+  <item id="5578" article="a" name="green carpet" editorcategory="Decorations" />
+  <item id="5579" article="a" name="green carpet" editorcategory="Decorations" />
+  <item id="5580" article="a" name="green carpet" editorcategory="Decorations" />
+  <item id="5581" article="a" name="green carpet" editorcategory="Decorations" />
+  <item id="5582" article="a" name="green carpet" editorcategory="Decorations" />
+  <item id="5583" article="a" name="green carpet" editorcategory="Decorations" />
+  <item id="5584" article="a" name="green carpet" editorcategory="Decorations" />
+  <item id="5585" article="a" name="green carpet" editorcategory="Decorations" />
+  <item id="5586" article="a" name="green carpet" editorcategory="Decorations" />
+  <item id="5587" article="a" name="brown carpet" editorcategory="Decorations" />
+  <item id="5588" article="a" name="brown carpet" editorcategory="Decorations" />
+  <item id="5589" article="a" name="brown carpet" editorcategory="Decorations" />
+  <item id="5590" article="a" name="brown carpet" editorcategory="Decorations" />
+  <item id="5591" article="a" name="brown carpet" editorcategory="Decorations" />
+  <item id="5592" article="a" name="brown carpet" editorcategory="Decorations" />
+  <item id="5593" article="a" name="brown carpet" editorcategory="Decorations" />
+  <item id="5594" article="a" name="brown carpet" editorcategory="Decorations" />
+  <item id="5595" article="a" name="brown carpet" editorcategory="Decorations" />
   <item id="5596" name="crossed weapons" />
   <item id="5597" name="crossed weapons" />
   <item id="5598" article="a" name="catapult" />
@@ -12274,9 +12274,11 @@
     <attribute key="weight" value="2000" />
   </item>
   <item id="5938" name="Ceiron's waterskin" editorsuffix="(Druid Outfits Quest)" editorcategory="Quest Items">
+    <attribute key="description" value="It is empty." />
     <attribute key="weight" value="700" />
   </item>
-  <item id="5939" article="a" name="waterskin">
+  <item id="5939" name="Ceiron's waterskin" editorsuffix="(Druid Outfits Quest)" editorcategory="Quest Items">
+    <attribute key="description" value="It contains a special sample of water from a hydra cave." />
     <attribute key="weight" value="700" />
   </item>
   <item id="5940" name="wolf tooth chain" editorsuffix="(Druid Outfits Quest)" editorcategory="Quest Items">
@@ -13248,7 +13250,7 @@
   <item id="6102" name="Deadeye Devious' eye patch">
     <attribute key="weight" value="200" />
   </item>
-  <item id="6103" article="an" name="unholy book">
+  <item id="6103" article="an" name="unholy book" editorcategory="Books">
     <attribute key="weight" value="1300" />
   </item>
   <item id="6104" article="a" name="jewel case" editorcategory="Containers">
@@ -13265,7 +13267,7 @@
     <attribute key="description" value="It must be the one which Simon the Beggar talked about." />
     <attribute key="weight" value="3800" />
   </item>
-  <item id="6108" article="an" name="atlas">
+  <item id="6108" article="an" name="atlas" editorsuffix="(Meriana Quest)" editorcategory="Quest Items">
     <attribute key="description" value="It is filled with detailed maps of Tibia." />
     <attribute key="weight" value="1300" />
   </item>
@@ -13303,14 +13305,14 @@
     <attribute key="weight" value="830" />
   </item>
   <item id="6119" name="nothing special" />
-  <item id="6120" article="a" name="spellbook of Dragha">
+  <item id="6120" name=" Dragha's spellbook" editorcategory="Books">
     <attribute key="description" value="It apparently belonged to someone called Dragha, the apprentice of a voodoomaster." />
     <attribute key="weight" value="5800" />
   </item>
   <item id="6121" article="a" name="note pinned on the wall" />
   <item id="6122" article="a" name="note pinned on the wall" />
   <item id="6123" name="nothing special" />
-  <item id="6124" article="a" name="torn book">
+  <item id="6124" article="a" name="damaged logbook" editorsuffix="(Explorer Society Quest)" editorcategory="Quest Items">
     <attribute key="description" value="It must be the one which the explorer society requested." />
     <attribute key="weight" value="1100" />
   </item>
@@ -14404,10 +14406,7 @@
     <attribute key="ammoaction" value="remove" />
     <attribute key="maxhitchance" value="90" />
   </item>
-  <item id="6530" article="a" name="worn soft boots">
-    <attribute key="description" value="Someone specialised in shoes might be able to repair them for you." />
-    <attribute key="weight" value="800" />
-  </item>
+  <item id="6530" name="nothing special" />
   <item id="6531" article="a" name="santa hat" editorcategory="Helmets">
     <attribute key="weight" value="750" />
     <attribute key="armor" value="1" />
@@ -14420,7 +14419,7 @@
     <attribute key="duration" value="10" />
     <attribute key="fluidsource" value="slime" />
   </item>
-  <item id="6533" article="a" name="book">
+  <item id="6533" article="a" name="book" editorcategory="Books">
     <attribute key="weight" value="750" />
   </item>
   <item id="6534" article="the" name="Imperor's trident">
@@ -15557,8 +15556,8 @@
     <attribute key="description" value="It has been cut from the sun adorer cactus which is said to have curing abilities." />
     <attribute key="weight" value="100" />
   </item>
-  <item id="7246" name="Nilsor's waterskin">
-    <attribute key="description" value="It is empty." />
+  <item id="7246" name="Nilsor's waterskin" editorsuffix="(The Ice Islands Quest)" editorcategory="Quest Items">
+    <attribute key="description" value="It is filled with warm geyser water." />
     <attribute key="weight" value="700" />
   </item>
   <item id="7247" name="fine sulphur" editorsuffix="(The Ice Islands Quest)" editorcategory="Quest Items">
@@ -15667,7 +15666,7 @@
     <attribute key="duration" value="600" />
   </item>
   <item id="7286" name="Nilson's waterskin" editorsuffix="(The Ice Islands Quest)" editorcategory="Quest Items">
-    <attribute key="description" value="It is filled with warm geyser water." />
+    <attribute key="description" value="It is empty." />
     <attribute key="weight" value="700" />
   </item>
   <item id="7287" name="nothing special" editorsuffix="(Blank)" />
@@ -16632,7 +16631,7 @@
     <attribute key="description" value="It contains a lot of wine flasks." />
     <attribute key="weight" value="8000" />
   </item>
-  <item id="7484" article="a" name="box" editorsuffix="(Pies)">
+  <item id="7484" article="a" name="box" editorsuffix="(What a foolish Quest)" editorcategory="Quest Items">
     <attribute key="description" value="It is filled with delicious cream pies." />
     <attribute key="weight" value="4000" />
   </item>
@@ -16832,7 +16831,7 @@
   <item id="7584" article="a" name="ship cabin wall" />
   <item id="7585" article="a" name="spider egg" />
   <item id="7586" name="the remains of a spider egg" />
-  <item id="7587" article="a" name="bag">
+  <item id="7587" article="a" name="bag" editorsuffix="(Steal From Thieves Quest)" editorcategory="Quest Items">
     <attribute key="description" value="It contains Ahmet's stolen property." />
     <attribute key="weight" value="40000" />
   </item>
@@ -17167,7 +17166,9 @@
     <attribute key="description" value="You swapped it with Bozo's crate of wine flasks." />
     <attribute key="weight" value="8000" />
   </item>
-  <item id="7708" name="nothing special" />
+  <item id="7708" article="a" name="family signet ring" editorsuffix="(Secret Service Quest)" editorcategory="Quest Items">
+    <attribute key="weight" value="80" />
+  </item>
   <item id="7709" name="grass" />
   <item id="7710" name="grass" />
   <item id="7711" article="a" name="waterball" editorcategory="Game Tokens" />
@@ -17244,13 +17245,13 @@
   <item id="7736" article="a" name="rotten heart of a tree" editorsuffix="(Secret Service Quest)" editorcategory="Quest Items">
     <attribute key="weight" value="4500" />
   </item>
-  <item id="7737" article="a" name="bag" editorsuffix="(Common Costumebag)">
+  <item id="7737" article="a" name="costume bag" editorcategory="Party Items">
     <attribute key="weight" value="800" />
   </item>
-  <item id="7738" article="a" name="bag of screws">
+  <item id="7738" article="a" name="bag of screws" editorsuffix="(Shadows of Yalahar Quest,)" editorcategory="Quest Items">
     <attribute key="weight" value="1900" />
   </item>
-  <item id="7739" article="a" name="bag" editorsuffix="(Deluxe Costumebag)">
+  <item id="7739" article="a" name="costume bag" editorcategory="Party Items">
     <attribute key="weight" value="800" />
   </item>
   <item id="7740" article="a" name="dead cyclops" editorsuffix="(Unmoveable)">
@@ -19785,7 +19786,7 @@
     <attribute key="description" value="It is a warning from the thieves guild." />
     <attribute key="weight" value="150" />
   </item>
-  <item id="8702" article="the" name="witches' grimoire">
+  <item id="8702" name="the witches' grimoire" editorsuffix="(The Inquisition Quest)" editorcategory="Quest Items">
     <attribute key="weight" value="1300" />
   </item>
   <item id="8703" article="the" name="burried coffin">
@@ -19797,7 +19798,7 @@
   </item>
   <item id="8705" name="balloons" />
   <item id="8706" name="balloons" />
-  <item id="8707" name="your student book">
+  <item id="8707" name="your student book" editorcategory="Books">
     <attribute key="description" value="Write down important notes in here." />
     <attribute key="weight" value="900" />
   </item>
@@ -20525,7 +20526,14 @@
     <attribute key="attack" value="49" />
     <attribute key="weapontype" value="sword" />
   </item>
-  <item id="8931" name="nothing special" />
+  <item id="8931" name="the epiphany" editorcategory="Swords">
+    <attribute key="weight" value="4500" />
+    <attribute key="defense" value="35" />
+    <attribute key="defensemodifier" value="3" />
+    <attribute key="attack" value="50" />
+    <attribute key="weapontype" value="sword" />
+    <attribute key="slottype" value="hand" />
+  </item>
   <item id="8932" article="the" name="calamity" editorcategory="Swords">
     <attribute key="weight" value="6800" />
     <attribute key="defense" value="35" />
@@ -20614,7 +20622,7 @@
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="150" />
   </item>
-  <item id="8945" article="a" name="textbook">
+  <item id="8945" article="a" name="theatre script" editorcategory="Books">
     <attribute key="description" value="It contains the script to a piece performed in the theatre of Carlin." />
     <attribute key="weight" value="1300" />
   </item>
@@ -20776,7 +20784,7 @@
     <attribute key="floorchange" value="down" />
   </item>
   <item id="8973" article="an" name="archway" />
-  <item id="8974" article="an" name="oracle figurine">
+  <item id="8974" article="an" name="oracle figurine" editorcategory="Decorations">
     <attribute key="weight" value="800" />
     <attribute key="decayto" value="8974" />
     <attribute key="duration" value="3" />
@@ -20786,7 +20794,7 @@
     <attribute key="description" value="It is a token of honour granted only by TibiaBR." />
     <attribute key="weight" value="2000" />
   </item>
-  <item id="8977" article="a" name="Tibiacity encyclopedia">
+  <item id="8977" name="Tibiacity encyclopedia" editorcategory="Fansite Items">
     <attribute key="description" value="It contains all the knowledge of Tibia." />
     <attribute key="weight" value="1337" />
   </item>
@@ -20810,7 +20818,7 @@
     <attribute key="description" value="It is given to the winners of TibiaNordic competitions." />
     <attribute key="weight" value="1000" />
   </item>
-  <item id="8983" article="a" name="heavily bound book">
+  <item id="8983" article="a" name="heavily bound book" editorcategory="Books">
     <attribute key="description" value="It contains the scribings of many knowledgeable Tibians." />
     <attribute key="weight" value="7800" />
   </item>
@@ -20840,8 +20848,8 @@
   <item id="8999" article="a" name="tree" />
   <item id="9000" article="a" name="tree" />
   <item id="9001" article="a" name="tree" />
-  <item id="9002" article="a" name="Tibiacity encyclopedia">
-    <attribute key="description" value="It contains all the knowledge of Tibia." />
+  <item id="9002" article="an" name="encyclopedia" editorsuffix="(Replicas)" editorcategory="Valuables">
+    <attribute key="description" value="Souvenir from Thais Museum." />
     <attribute key="weight" value="1337" />
     <attribute key="decayto" value="8977" />
     <attribute key="duration" value="5" />
@@ -20938,9 +20946,7 @@
   <item id="9074" article="a" name="reward box">
     <attribute key="weight" value="100" />
   </item>
-  <item id="9075" name="nothing special">
-    <attribute key="weight" value="800" />
-  </item>
+  <item id="9075" name="nothing special" />
   <item id="9076" name="nothing special">
     <attribute key="weight" value="800" />
   </item>
@@ -20948,9 +20954,7 @@
   <item id="9078" article="a" name="vial">
     <attribute key="weight" value="170" />
   </item>
-  <item id="9079" article="a" name="bottle">
-    <attribute key="weight" value="250" />
-  </item>
+  <item id="9079" name="nothing special" />
   <item id="9080" name="nothing special" />
   <item id="9081" article="a" name="parcel" editorcategory="Containers">
     <attribute key="weight" value="1800" />
@@ -21166,7 +21170,8 @@
   <item id="9188" article="a" name="stone wall" />
   <item id="9189" article="a" name="window" />
   <item id="9190" article="a" name="window" />
-  <item id="9191" article="a" name="torn book">
+  <item id="9191" article="a" name="torn book" editorsuffix="(the first part of Marziel's diary)" editorcategory="Quest Items">
+    <attribute key="description" value="It seems to be an old diary written by someone called Marziel, but a lot of pages are ripped out." />
     <attribute key="weight" value="1100" />
   </item>
   <item id="9192" name="iron floor" />
@@ -21651,30 +21656,30 @@
   <item id="9608" article="a" name="small balcony" />
   <item id="9609" article="a" name="small balcony" />
   <item id="9610" article="a" name="small balcony" />
-  <item id="9611" article="an" name="old carpet" />
-  <item id="9612" article="an" name="old carpet" />
-  <item id="9613" article="an" name="old carpet" />
-  <item id="9614" article="an" name="old carpet" />
-  <item id="9615" article="an" name="old carpet" />
-  <item id="9616" article="an" name="old carpet" />
-  <item id="9617" article="an" name="old carpet" />
-  <item id="9618" article="an" name="old carpet" />
-  <item id="9619" article="an" name="old carpet" />
-  <item id="9620" article="an" name="old carpet" />
-  <item id="9621" article="an" name="old carpet" />
-  <item id="9622" article="an" name="old carpet" />
-  <item id="9623" article="an" name="old carpet" />
+  <item id="9611" article="an" name="old carpet" editorcategory="Decorations" />
+  <item id="9612" article="an" name="old carpet" editorcategory="Decorations" />
+  <item id="9613" article="an" name="old carpet" editorcategory="Decorations" />
+  <item id="9614" article="an" name="old carpet" editorcategory="Decorations" />
+  <item id="9615" article="an" name="old carpet" editorcategory="Decorations" />
+  <item id="9616" article="an" name="old carpet" editorcategory="Decorations" />
+  <item id="9617" article="an" name="old carpet" editorcategory="Decorations" />
+  <item id="9618" article="an" name="old carpet" editorcategory="Decorations" />
+  <item id="9619" article="an" name="old carpet" editorcategory="Decorations" />
+  <item id="9620" article="an" name="old carpet" editorcategory="Decorations" />
+  <item id="9621" article="an" name="old carpet" editorcategory="Decorations" />
+  <item id="9622" article="an" name="old carpet" editorcategory="Decorations" />
+  <item id="9623" article="an" name="old carpet" editorcategory="Decorations" />
   <item id="9624" name="trapdoor" />
   <item id="9625" name="open trapdoor">
     <attribute key="floorchange" value="down" />
     <attribute key="decayto" value="9624" />
     <attribute key="duration" value="3" />
   </item>
-  <item id="9626" article="an" name="old carpet" />
-  <item id="9627" article="an" name="old carpet" />
-  <item id="9628" article="an" name="old carpet" />
-  <item id="9629" article="an" name="old carpet" />
-  <item id="9630" article="an" name="old carpet" />
+  <item id="9626" article="an" name="old carpet" editorcategory="Decorations" />
+  <item id="9627" article="an" name="old carpet" editorcategory="Decorations" />
+  <item id="9628" article="an" name="old carpet" editorcategory="Decorations" />
+  <item id="9629" article="an" name="old carpet" editorcategory="Decorations" />
+  <item id="9630" article="an" name="old carpet" editorcategory="Decorations" />
   <item id="9631" name="nothing special" />
   <item id="9632" name="swamp">
     <attribute key="type" value="trashholder" />
@@ -22154,8 +22159,8 @@
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="600" />
   </item>
-  <item id="9833" article="an" name="old carpet" />
-  <item id="9834" article="an" name="old carpet" />
+  <item id="9833" article="an" name="old carpet" editorcategory="Decorations" />
+  <item id="9834" article="an" name="old carpet" editorcategory="Decorations" />
   <item id="9835" article="a" name="velvet tapestry" editorcategory="Decorations" />
   <item id="9836" article="a" name="velvet tapestry" editorcategory="Decorations" />
   <item id="9837" article="a" name="velvet tapestry" editorcategory="Decorations">
@@ -22567,7 +22572,7 @@
   <item id="9968" article="a" name="glob of tar" plural="globs of tar">
     <attribute key="weight" value="10" />
   </item>
-  <item id="9969" article="a" name="black skull">
+  <item id="9969" article="a" name="black skull" editorcategory="Decorations">
     <attribute key="weight" value="2400" />
   </item>
   <item id="9970" article="a" name="small topaz" plural="small topazs">
@@ -22664,7 +22669,7 @@
     <attribute key="description" value="It's the ideal snack for a beach barbecue." />
     <attribute key="weight" value="780" />
   </item>
-  <item id="9996" article="a" name="banana chocolate shake">
+  <item id="9996" article="a" name="banana chocolate shake" editorcategory="Foods">
     <attribute key="description" value="Sweetness." />
     <attribute key="weight" value="300" />
   </item>
@@ -22713,8 +22718,8 @@
     <attribute key="duration" value="10" />
     <attribute key="fluidsource" value="slime" />
   </item>
-  <item id="10006" article="a" name="cookbook">
-    <attribute key="description" value="It contains several exotic recipes." />
+  <item id="10006" name="Jean Pierre's Cookbook I" editorcategory="Books">
+    <attribute key="description" value="It was given to you by the djinn maître and contains the collection of recipes you cooked." />
     <attribute key="weight" value="1500" />
   </item>
   <item id="10007" article="a" name="dead mutated human">
@@ -22757,11 +22762,11 @@
   <item id="10020" article="a" name="dragon claw" editorcategory="Creature Products">
     <attribute key="weight" value="1250" />
   </item>
-  <item id="10021" article="a" name="worn soft boots">
+  <item id="10021" article="a" name="worn soft boots" editorcategory="Rubbbish">
     <attribute key="description" value="Someone specialised in shoes might be able to repair them for you." />
     <attribute key="weight" value="800" />
   </item>
-  <item id="10022" article="a" name="worn firewalker boots">
+  <item id="10022" article="a" name="worn firewalker boots" editorcategory="Rubbbish">
     <attribute key="description" value="They can be recharged with an enchanted ruby." />
     <attribute key="weight" value="800" />
   </item>
@@ -22812,7 +22817,7 @@
   <item id="10059" name="nothing special" />
   <item id="10060" name="nothing special" />
   <item id="10061" name="nothing special" />
-  <item id="10062" article="a" name="red square book">
+  <item id="10062" article="a" name="book" editorcategory="Books">
     <attribute key="weight" value="1300" />
     <attribute key="writeable" value="1" />
   </item>
@@ -22837,8 +22842,12 @@
     <attribute key="weight" value="900" />
   </item>
   <item id="10071" name="nothing special" />
-  <item id="10072" name="nothing special" />
-  <item id="10073" name="nothing special" />
+  <item id="10072" article="a" name="yalahari gear wheel" editorsuffix="(Shadows of Yalahar Quest)" editorcategory="Quest Items">
+    <attribute key="weight" value="5" />
+  </item>
+  <item id="10073" article="a" name="spare part" editorsuffix="(Shadows of Yalahar Quest)" editorcategory="Quest Items">
+    <attribute key="weight" value="150" />
+  </item>
   <item id="10074" name="nothing special" />
   <item id="10075" name="nothing special" />
   <item id="10076" name="nothing special" />
@@ -22887,8 +22896,7 @@
     <attribute key="weight" value="900" />
   </item>
   <item id="10110" name="nothing special" />
-  <item id="10111" article="a" name="black book">
-    <attribute key="weight" value="1300" />
+  <item id="10111" name=" yalahari folio" editorsuffix="(Shadows of Yalahar Quest)" editorcategory="Quest Items">
     <attribute key="writeable" value="1" />
   </item>
   <item id="10112" article="a" name="stone pile" />
@@ -24348,7 +24356,7 @@
   <item id="10939" name="nothing special" />
   <item id="10940" name="nothing special" />
   <item id="10941" name="nothing special" />
-  <item id="10942" article="an" name="almanac of magic">
+  <item id="10942" article="an" name="almanac of magic" editorcategory="Books">
     <attribute key="description" value="Invaluable for all magic research." />
     <attribute key="weight" value="5555" />
   </item>
@@ -26930,7 +26938,10 @@
     <attribute key="containersize" value="8" />
     <attribute key="slottype" value="backpack" />
   </item>
-  <item id="12655" name="nothing special" />
+  <item id="12655" article="a" name="botany almanach" editorcategory="Books">
+    <attribute key="description" value="The title of this heavy book reads: 'Rabaz' Unabridged Almanach Of Botany'." />
+    <attribute key="weight" value="1500" />
+  </item>
   <item id="12656" article="a" name="sedge hat" editorcategory="Helmets">
     <attribute key="description" value="This simple hat might be more worth than what it looks like." />
     <attribute key="weight" value="1800" />
