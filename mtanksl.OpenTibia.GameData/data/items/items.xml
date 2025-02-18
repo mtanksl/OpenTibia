@@ -963,7 +963,7 @@
     <attribute key="floorchange" value="north" />
   </item>
   <item id="1386" article="a" name="ladder" />
-  <item id="1387" article="a" name="magic forcefield">
+  <item id="1387" article="a" name="magic forcefield" editorcategory="Fields">
     <attribute key="description" value="You can see the other side through it." />
     <attribute key="type" value="teleport" />
   </item>
@@ -1129,15 +1129,15 @@
   <item id="1484" article="a" name="coal basin" editorsuffix="(Unmoveable)" />
   <item id="1485" article="an" name="empty coal basin" editorsuffix="(Unmoveable)" />
   <item id="1486" article="a" name="stone coal basin" />
-  <item id="1487" article="a" name="fire field" editorsuffix="(Not decaying)">
+  <item id="1487" name="fire" editorsuffix="(Not decaying)" editorcategory="Fields">
     <attribute key="field" value="fire" />
     <attribute key="type" value="magicfield" />
   </item>
-  <item id="1488" article="a" name="fire field" editorsuffix="(Not decaying)">
+  <item id="1488" name="fire" editorsuffix="(Not decaying)" editorcategory="Fields">
     <attribute key="field" value="fire" />
     <attribute key="type" value="magicfield" />
   </item>
-  <item id="1489" article="a" name="fire field" editorsuffix="(Not decaying)">
+  <item id="1489" name="fire" editorsuffix="(Not decaying)" editorcategory="Fields">
     <attribute key="field" value="fire" />
     <attribute key="type" value="magicfield" />
   </item>
@@ -1145,29 +1145,29 @@
     <attribute key="field" value="poison" />
     <attribute key="type" value="magicfield" />
   </item>
-  <item id="1491" article="an" name="energy field" editorsuffix="(Not decaying)">
+  <item id="1491" article="an" name="energy field" editorsuffix="(Not decaying)" editorcategory="Fields">
     <attribute key="field" value="energy" />
     <attribute key="type" value="magicfield" />
   </item>
-  <item id="1492" article="a" name="fire field">
+  <item id="1492" name="fire" editorcategory="Fields">
     <attribute key="decayto" value="1493" />
     <attribute key="duration" value="120" />
     <attribute key="field" value="fire" />
     <attribute key="type" value="magicfield" />
   </item>
-  <item id="1493" article="a" name="fire field">
+  <item id="1493" name="fire" editorcategory="Fields">
     <attribute key="decayto" value="1494" />
     <attribute key="duration" value="120" />
     <attribute key="field" value="fire" />
     <attribute key="type" value="magicfield" />
   </item>
-  <item id="1494" article="a" name="fire field">
+  <item id="1494" name="fire" editorcategory="Fields">
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="120" />
     <attribute key="field" value="fire" />
     <attribute key="type" value="magicfield" />
   </item>
-  <item id="1495" article="an" name="energy field">
+  <item id="1495" article="an" name="energy field" editorcategory="Fields">
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="120" />
     <attribute key="field" value="energy" />
@@ -1192,19 +1192,19 @@
     <attribute key="duration" value="45" />
     <attribute key="type" value="magicfield" />
   </item>
-  <item id="1500" article="a" name="fire field" editorsuffix="(Non PvP)">
+  <item id="1500" name="fire" editorcategory="Fields">
     <attribute key="decayto" value="1501" />
     <attribute key="duration" value="10" />
     <attribute key="field" value="fire" />
     <attribute key="type" value="magicfield" />
   </item>
-  <item id="1501" article="a" name="fire field" editorsuffix="(Non PvP)">
+  <item id="1501" name="fire" editorcategory="Fields">
     <attribute key="decayto" value="1502" />
     <attribute key="duration" value="10" />
     <attribute key="field" value="fire" />
     <attribute key="type" value="magicfield" />
   </item>
-  <item id="1502" article="a" name="fire field" editorsuffix="(Non PvP)">
+  <item id="1502" name="fire" editorcategory="Fields">
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="10" />
     <attribute key="field" value="fire" />
@@ -1216,7 +1216,7 @@
     <attribute key="field" value="poison" />
     <attribute key="type" value="magicfield" />
   </item>
-  <item id="1504" article="an" name="energy field" editorsuffix="(Non PvP)">
+  <item id="1504" name="energy" editorcategory="Fields">
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="10" />
     <attribute key="field" value="energy" />
@@ -1226,14 +1226,14 @@
     <attribute key="replaceable" value="0" />
     <attribute key="type" value="magicfield" />
   </item>
-  <item id="1506" article="a" name="searing fire">
+  <item id="1506" article="a" name="searing fire" editorcategory="Fields">
     <attribute key="decayto" value="1507" />
     <attribute key="duration" value="10" />
     <attribute key="field" value="fire" />
     <attribute key="replaceable" value="0" />
     <attribute key="type" value="magicfield" />
   </item>
-  <item id="1507" article="a" name="searing fire">
+  <item id="1507" article="a" name="searing fire" editorcategory="Fields">
     <attribute key="decayto" value="1508" />
     <attribute key="duration" value="10" />
     <attribute key="field" value="fire" />
@@ -1249,19 +1249,19 @@
   <item id="1509" name="lava">
     <attribute key="type" value="trashholder" />
   </item>
-  <item id="1510" name="slits">
+  <item id="1510" name="stange slits" editorcategory="Fields">
     <attribute key="decayto" value="1511" />
     <attribute key="duration" value="10" />
   </item>
-  <item id="1511" name="blades">
+  <item id="1511" name="blades" editorcategory="Fields">
     <attribute key="decayto" value="1510" />
     <attribute key="duration" value="10" />
   </item>
-  <item id="1512" name="strange holes">
+  <item id="1512" name="strange holes" editorcategory="Fields">
     <attribute key="decayto" value="1513" />
     <attribute key="duration" value="4" />
   </item>
-  <item id="1513" name="spikes">
+  <item id="1513" name="spikes" editorcategory="Fields">
     <attribute key="decayto" value="1512" />
     <attribute key="duration" value="4" />
   </item>
@@ -1369,61 +1369,61 @@
   <item id="1599" article="a" name="wooden railing" />
   <item id="1600" article="a" name="wooden railing" />
   <item id="1601" article="a" name="wooden railing" />
-  <item id="1602" article="a" name="big table" />
-  <item id="1603" article="a" name="big table" />
-  <item id="1604" article="a" name="big table" />
-  <item id="1605" article="a" name="big table" />
-  <item id="1606" article="a" name="big table" />
-  <item id="1607" article="a" name="big table" />
-  <item id="1608" article="a" name="big table" />
-  <item id="1609" article="a" name="big table" />
-  <item id="1610" article="a" name="big table" />
-  <item id="1611" article="a" name="big table" />
-  <item id="1612" article="a" name="big table" />
-  <item id="1613" article="a" name="big table" />
-  <item id="1614" article="a" name="big table" />
-  <item id="1615" article="a" name="square table" />
-  <item id="1616" article="a" name="small round table" />
+  <item id="1602" article="a" name="big table" editorcategory="Furnitures" />
+  <item id="1603" article="a" name="big table" editorcategory="Furnitures" />
+  <item id="1604" article="a" name="big table" editorcategory="Furnitures" />
+  <item id="1605" article="a" name="big table" editorcategory="Furnitures" />
+  <item id="1606" article="a" name="big table" editorcategory="Furnitures" />
+  <item id="1607" article="a" name="big table" editorcategory="Furnitures" />
+  <item id="1608" article="a" name="big table" editorcategory="Furnitures" />
+  <item id="1609" article="a" name="big table" editorcategory="Furnitures" />
+  <item id="1610" article="a" name="big table" editorcategory="Furnitures" />
+  <item id="1611" article="a" name="big table" editorcategory="Furnitures" />
+  <item id="1612" article="a" name="big table" editorcategory="Furnitures" />
+  <item id="1613" article="a" name="big table" editorcategory="Furnitures" />
+  <item id="1614" article="a" name="big table" editorcategory="Furnitures" />
+  <item id="1615" article="a" name="square table" editorcategory="Furnitures" />
+  <item id="1616" article="a" name="small round table" editorcategory="Furnitures" />
   <item id="1617" article="a" name="counter" />
   <item id="1618" article="a" name="counter" />
-  <item id="1619" article="a" name="small table" />
+  <item id="1619" article="a" name="small table" editorcategory="Furnitures" />
   <item id="1620" article="a" name="counter" />
   <item id="1621" article="a" name="counter" />
-  <item id="1622" article="a" name="table" />
-  <item id="1623" article="a" name="table" />
-  <item id="1624" article="a" name="table" />
-  <item id="1625" article="a" name="table" />
-  <item id="1626" article="a" name="table" />
-  <item id="1627" article="a" name="table" />
-  <item id="1628" article="a" name="table" />
-  <item id="1629" article="a" name="table" />
-  <item id="1630" article="a" name="table" />
-  <item id="1631" article="a" name="table" />
-  <item id="1632" article="a" name="table" />
-  <item id="1633" article="a" name="table" />
-  <item id="1634" article="a" name="table">
+  <item id="1622" article="a" name="table" editorcategory="Furnitures" />
+  <item id="1623" article="a" name="table" editorcategory="Furnitures" />
+  <item id="1624" article="a" name="table" editorcategory="Furnitures" />
+  <item id="1625" article="a" name="table" editorcategory="Furnitures" />
+  <item id="1626" article="a" name="table" editorcategory="Furnitures" />
+  <item id="1627" article="a" name="table" editorcategory="Furnitures" />
+  <item id="1628" article="a" name="table" editorcategory="Furnitures" />
+  <item id="1629" article="a" name="table" editorcategory="Furnitures" />
+  <item id="1630" article="a" name="table" editorcategory="Furnitures" />
+  <item id="1631" article="a" name="table" editorcategory="Furnitures" />
+  <item id="1632" article="a" name="table" editorcategory="Furnitures" />
+  <item id="1633" article="a" name="table" editorcategory="Furnitures" />
+  <item id="1634" article="a" name="table" editorcategory="Furnitures">
     <attribute key="type" value="door" />
   </item>
-  <item id="1635" article="a" name="table">
+  <item id="1635" article="a" name="table" editorcategory="Furnitures">
     <attribute key="type" value="door" />
   </item>
-  <item id="1636" article="a" name="table">
+  <item id="1636" article="a" name="table" editorcategory="Furnitures">
     <attribute key="type" value="door" />
   </item>
-  <item id="1637" article="a" name="table">
+  <item id="1637" article="a" name="table" editorcategory="Furnitures">
     <attribute key="type" value="door" />
   </item>
-  <item id="1638" article="a" name="table">
+  <item id="1638" article="a" name="table" editorcategory="Furnitures">
     <attribute key="type" value="door" />
   </item>
-  <item id="1639" article="a" name="table">
+  <item id="1639" article="a" name="table" editorcategory="Furnitures">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="1640" article="a" name="table">
+  <item id="1640" article="a" name="table" editorcategory="Furnitures">
     <attribute key="type" value="door" />
   </item>
-  <item id="1641" article="a" name="table">
+  <item id="1641" article="a" name="table" editorcategory="Furnitures">
     <attribute key="type" value="door" />
   </item>
   <item id="1642" article="a" name="counter" />
@@ -1434,120 +1434,120 @@
   <item id="1647" article="a" name="throne" />
   <item id="1648" article="a" name="throne" />
   <item id="1649" article="a" name="throne" />
-  <item id="1650" article="a" name="wooden chair">
+  <item id="1650" article="a" name="wooden chair" editorcategory="Furnitures">
     <attribute key="rotateto" value="1651" />
   </item>
-  <item id="1651" article="a" name="wooden chair">
+  <item id="1651" article="a" name="wooden chair" editorcategory="Furnitures">
     <attribute key="rotateto" value="1652" />
   </item>
-  <item id="1652" article="a" name="wooden chair">
+  <item id="1652" article="a" name="wooden chair" editorcategory="Furnitures">
     <attribute key="rotateto" value="1653" />
   </item>
-  <item id="1653" article="a" name="wooden chair">
+  <item id="1653" article="a" name="wooden chair" editorcategory="Furnitures">
     <attribute key="rotateto" value="1650" />
   </item>
   <item id="1654" article="a" name="throne" />
   <item id="1655" article="a" name="throne" />
   <item id="1656" article="a" name="throne" />
   <item id="1657" article="a" name="throne" />
-  <item id="1658" article="a" name="sofa chair">
+  <item id="1658" article="a" name="sofa chair" editorcategory="Furnitures">
     <attribute key="rotateto" value="1660" />
   </item>
-  <item id="1659" article="a" name="sofa chair">
+  <item id="1659" article="a" name="sofa chair" editorcategory="Furnitures">
     <attribute key="rotateto" value="1661" />
   </item>
-  <item id="1660" article="a" name="sofa chair">
+  <item id="1660" article="a" name="sofa chair" editorcategory="Furnitures">
     <attribute key="rotateto" value="1659" />
   </item>
-  <item id="1661" article="a" name="sofa chair">
+  <item id="1661" article="a" name="sofa chair" editorcategory="Furnitures">
     <attribute key="rotateto" value="1658" />
   </item>
   <item id="1662" article="a" name="bench" />
   <item id="1663" article="a" name="bench" />
   <item id="1664" article="a" name="bench" />
   <item id="1665" article="a" name="bench" />
-  <item id="1666" article="a" name="red cushioned chair">
+  <item id="1666" article="a" name="red cushioned chair" editorcategory="Furnitures">
     <attribute key="rotateto" value="1668" />
   </item>
-  <item id="1667" article="a" name="red cushioned chair">
+  <item id="1667" article="a" name="red cushioned chair" editorcategory="Furnitures">
     <attribute key="rotateto" value="1669" />
   </item>
-  <item id="1668" article="a" name="red cushioned chair">
+  <item id="1668" article="a" name="red cushioned chair" editorcategory="Furnitures">
     <attribute key="rotateto" value="1667" />
   </item>
-  <item id="1669" article="a" name="red cushioned chair">
+  <item id="1669" article="a" name="red cushioned chair" editorcategory="Furnitures">
     <attribute key="rotateto" value="1666" />
   </item>
-  <item id="1670" article="a" name="green cushioned chair">
+  <item id="1670" article="a" name="green cushioned chair" editorcategory="Furnitures">
     <attribute key="rotateto" value="1672" />
   </item>
-  <item id="1671" article="a" name="green cushioned chair">
+  <item id="1671" article="a" name="green cushioned chair" editorcategory="Furnitures">
     <attribute key="rotateto" value="1673" />
   </item>
-  <item id="1672" article="a" name="green cushioned chair">
+  <item id="1672" article="a" name="green cushioned chair" editorcategory="Furnitures">
     <attribute key="rotateto" value="1671" />
   </item>
-  <item id="1673" article="a" name="green cushioned chair">
+  <item id="1673" article="a" name="green cushioned chair" editorcategory="Furnitures">
     <attribute key="rotateto" value="1670" />
   </item>
-  <item id="1674" article="a" name="rocking chair">
+  <item id="1674" article="a" name="rocking chair" editorcategory="Furnitures">
     <attribute key="rotateto" value="1676" />
   </item>
-  <item id="1675" article="a" name="rocking chair">
+  <item id="1675" article="a" name="rocking chair" editorcategory="Furnitures">
     <attribute key="rotateto" value="1677" />
   </item>
-  <item id="1676" article="a" name="rocking chair">
+  <item id="1676" article="a" name="rocking chair" editorcategory="Furnitures">
     <attribute key="rotateto" value="1675" />
   </item>
-  <item id="1677" article="a" name="rocking chair">
+  <item id="1677" article="a" name="rocking chair" editorcategory="Furnitures">
     <attribute key="rotateto" value="1674" />
   </item>
-  <item id="1678" article="a" name="small purple pillow">
+  <item id="1678" article="a" name="small purple pillow" editorcategory="Decorations">
     <attribute key="weight" value="1500" />
   </item>
-  <item id="1679" article="a" name="small green pillow">
+  <item id="1679" article="a" name="small green pillow" editorcategory="Decorations">
     <attribute key="weight" value="1500" />
   </item>
-  <item id="1680" article="a" name="small red pillow">
+  <item id="1680" article="a" name="small red pillow" editorcategory="Decorations">
     <attribute key="weight" value="1500" />
   </item>
-  <item id="1681" article="a" name="small blue pillow">
+  <item id="1681" article="a" name="small blue pillow" editorcategory="Decorations">
     <attribute key="weight" value="1500" />
   </item>
-  <item id="1682" article="a" name="small orange pillow">
+  <item id="1682" article="a" name="small orange pillow" editorcategory="Decorations">
     <attribute key="weight" value="1500" />
   </item>
-  <item id="1683" article="a" name="small turqoise pillow">
+  <item id="1683" article="a" name="small turqoise pillow" editorcategory="Decorations">
     <attribute key="weight" value="1500" />
   </item>
-  <item id="1684" article="a" name="small white pillow">
+  <item id="1684" article="a" name="small white pillow" editorcategory="Decorations">
     <attribute key="weight" value="1500" />
   </item>
-  <item id="1685" article="a" name="heart pillow">
+  <item id="1685" article="a" name="heart pillow" editorcategory="Decorations">
     <attribute key="weight" value="1700" />
   </item>
-  <item id="1686" article="a" name="blue pillow">
+  <item id="1686" article="a" name="blue pillow" editorcategory="Decorations">
     <attribute key="weight" value="1600" />
   </item>
-  <item id="1687" article="a" name="red pillow">
+  <item id="1687" article="a" name="red pillow" editorcategory="Decorations">
     <attribute key="weight" value="1600" />
   </item>
-  <item id="1688" article="a" name="green pillow">
+  <item id="1688" article="a" name="green pillow" editorcategory="Decorations">
     <attribute key="weight" value="1600" />
   </item>
-  <item id="1689" article="a" name="yellow pillow">
+  <item id="1689" article="a" name="yellow pillow" editorcategory="Decorations">
     <attribute key="weight" value="1600" />
   </item>
-  <item id="1690" article="a" name="round blue pillow">
+  <item id="1690" article="a" name="round blue pillow" editorcategory="Decorations">
     <attribute key="weight" value="1550" />
   </item>
-  <item id="1691" article="a" name="round red pillow">
+  <item id="1691" article="a" name="round red pillow" editorcategory="Decorations">
     <attribute key="weight" value="1550" />
   </item>
-  <item id="1692" article="a" name="round purple pillow">
+  <item id="1692" article="a" name="round purple pillow" editorcategory="Decorations">
     <attribute key="weight" value="1550" />
   </item>
-  <item id="1693" article="a" name="round turqoise pillow">
+  <item id="1693" article="a" name="round turqoise pillow" editorcategory="Decorations">
     <attribute key="weight" value="1550" />
   </item>
   <item id="1694" article="a" name="couch" />
@@ -1566,65 +1566,65 @@
   <item id="1707" article="a" name="luxurious couch" />
   <item id="1708" article="a" name="luxurious couch" />
   <item id="1709" article="a" name="luxurious couch" />
-  <item id="1710" article="a" name="wardrobe">
+  <item id="1710" article="a" name="wardrobe" editorcategory="Furnitures">
     <attribute key="containersize" value="6" />
   </item>
-  <item id="1711" article="a" name="wardrobe">
+  <item id="1711" article="a" name="wardrobe" editorcategory="Furnitures">
     <attribute key="containersize" value="6" />
   </item>
-  <item id="1712" article="a" name="wardrobe">
+  <item id="1712" article="a" name="wardrobe" editorcategory="Furnitures">
     <attribute key="containersize" value="6" />
   </item>
-  <item id="1713" article="a" name="wardrobe">
+  <item id="1713" article="a" name="wardrobe" editorcategory="Furnitures">
     <attribute key="containersize" value="6" />
   </item>
-  <item id="1714" name="drawers">
+  <item id="1714" name="drawers" editorcategory="Furnitures">
     <attribute key="containersize" value="10" />
     <attribute key="rotateto" value="1715" />
   </item>
-  <item id="1715" name="drawers">
+  <item id="1715" name="drawers" editorcategory="Furnitures">
     <attribute key="containersize" value="10" />
     <attribute key="rotateto" value="1716" />
   </item>
-  <item id="1716" name="drawers">
+  <item id="1716" name="drawers" editorcategory="Furnitures">
     <attribute key="containersize" value="10" />
     <attribute key="rotateto" value="1717" />
   </item>
-  <item id="1717" name="drawers">
+  <item id="1717" name="drawers" editorcategory="Furnitures">
     <attribute key="containersize" value="10" />
     <attribute key="rotateto" value="1714" />
   </item>
-  <item id="1718" article="a" name="bookcase">
+  <item id="1718" article="a" name="bookcase" editorcategory="Furnitures">
     <attribute key="containersize" value="6" />
   </item>
-  <item id="1719" article="a" name="bookcase">
+  <item id="1719" article="a" name="bookcase" editorcategory="Furnitures">
     <attribute key="containersize" value="6" />
   </item>
-  <item id="1720" article="a" name="bookcase">
+  <item id="1720" article="a" name="bookcase" editorcategory="Furnitures">
     <attribute key="containersize" value="6" />
   </item>
-  <item id="1721" article="a" name="bookcase">
+  <item id="1721" article="a" name="bookcase" editorcategory="Furnitures">
     <attribute key="containersize" value="6" />
   </item>
-  <item id="1722" article="a" name="bookcase">
+  <item id="1722" article="a" name="bookcase" editorcategory="Furnitures">
     <attribute key="containersize" value="6" />
   </item>
-  <item id="1723" article="a" name="bookcase">
+  <item id="1723" article="a" name="bookcase" editorcategory="Furnitures">
     <attribute key="containersize" value="6" />
   </item>
-  <item id="1724" article="a" name="dresser">
+  <item id="1724" article="a" name="dresser" editorcategory="Furnitures">
     <attribute key="containersize" value="10" />
     <attribute key="rotateto" value="1725" />
   </item>
-  <item id="1725" article="a" name="dresser">
+  <item id="1725" article="a" name="dresser" editorcategory="Furnitures">
     <attribute key="containersize" value="10" />
     <attribute key="rotateto" value="1726" />
   </item>
-  <item id="1726" article="a" name="dresser">
+  <item id="1726" article="a" name="dresser" editorcategory="Furnitures">
     <attribute key="containersize" value="10" />
     <attribute key="rotateto" value="1727" />
   </item>
-  <item id="1727" article="a" name="dresser">
+  <item id="1727" article="a" name="dresser" editorcategory="Furnitures">
     <attribute key="containersize" value="10" />
     <attribute key="rotateto" value="1724" />
   </item>
@@ -1640,19 +1640,19 @@
   <item id="1731" article="a" name="pendulum clock">
     <attribute key="rotateto" value="1728" />
   </item>
-  <item id="1732" article="a" name="locker">
+  <item id="1732" article="a" name="locker" editorcategory="Furnitures">
     <attribute key="containersize" value="6" />
     <attribute key="rotateto" value="1733" />
   </item>
-  <item id="1733" article="a" name="locker">
+  <item id="1733" article="a" name="locker" editorcategory="Furnitures">
     <attribute key="containersize" value="6" />
     <attribute key="rotateto" value="1734" />
   </item>
-  <item id="1734" article="a" name="locker">
+  <item id="1734" article="a" name="locker" editorcategory="Furnitures">
     <attribute key="containersize" value="6" />
     <attribute key="rotateto" value="1735" />
   </item>
-  <item id="1735" article="a" name="locker">
+  <item id="1735" article="a" name="locker" editorcategory="Furnitures">
     <attribute key="containersize" value="6" />
     <attribute key="rotateto" value="1732" />
   </item>
@@ -1723,13 +1723,13 @@
     <attribute key="containersize" value="18" />
     <attribute key="rotateto" value="1750" />
   </item>
-  <item id="1754" article="a" name="bed">
+  <item id="1754" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="femalesleeper" value="7778" />
     <attribute key="malesleeper" value="1762" />
     <attribute key="partnerdirection" value="south" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="1755" article="a" name="bed">
+  <item id="1755" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="femalesleeper" value="8075" />
     <attribute key="malesleeper" value="1763" />
     <attribute key="partnerdirection" value="north" />
@@ -1759,34 +1759,34 @@
     <attribute key="partnerdirection" value="north" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="1760" article="a" name="bed">
+  <item id="1760" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="femalesleeper" value="7779" />
     <attribute key="malesleeper" value="1764" />
     <attribute key="partnerdirection" value="east" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="1761" article="a" name="bed">
+  <item id="1761" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="femalesleeper" value="7780" />
     <attribute key="malesleeper" value="1765" />
     <attribute key="partnerdirection" value="west" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="1762" article="a" name="bed">
+  <item id="1762" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="malesleeper" value="1754" />
     <attribute key="partnerdirection" value="south" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="1763" article="a" name="bed">
+  <item id="1763" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="malesleeper" value="1755" />
     <attribute key="partnerdirection" value="north" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="1764" article="a" name="bed">
+  <item id="1764" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="malesleeper" value="1760" />
     <attribute key="partnerdirection" value="east" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="1765" article="a" name="bed">
+  <item id="1765" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="malesleeper" value="1761" />
     <attribute key="partnerdirection" value="west" />
     <attribute key="type" value="bed" />
@@ -1882,12 +1882,12 @@
   <item id="1808" article="an" name="oriental carpet" />
   <item id="1809" article="a" name="painting" />
   <item id="1810" article="a" name="blackboard" />
-  <item id="1811" article="a" name="blackboard" editorsuffix="(Writable Ingame)">
+  <item id="1811" article="a" name="blackboard" editorcategory="Furnitures">
     <attribute key="writeable" value="1" />
     <attribute key="maxtextlen" value="1024" />
   </item>
-  <item id="1812" article="a" name="tapestry" />
-  <item id="1813" article="a" name="tapestry" />
+  <item id="1812" article="a" name="tapestry" editorcategory="Decorations" />
+  <item id="1813" article="a" name="tapestry" editorcategory="Decorations" />
   <item id="1814" article="a" name="painting" />
   <item id="1815" article="a" name="blackboard" />
   <item id="1816" article="a" name="wall mirror">
@@ -1896,7 +1896,7 @@
   <item id="1817" article="a" name="wall mirror">
     <attribute key="description" value="You look fine today." />
   </item>
-  <item id="1818" article="a" name="blackboard" editorsuffix="(Writable Ingame)">
+  <item id="1818" article="a" name="blackboard" editorcategory="Furnitures">
     <attribute key="writeable" value="1" />
     <attribute key="maxtextlen" value="1024" />
   </item>
@@ -1985,8 +1985,8 @@
   <item id="1869" article="a" name="red tapestry" editorcategory="Decorations">
     <attribute key="weight" value="1000" />
   </item>
-  <item id="1870" article="a" name="blue tapestry" editorsuffix="Decorations" />
-  <item id="1871" article="a" name="blue tapestry" editorsuffix="Decorations" />
+  <item id="1870" article="a" name="blue tapestry" editorcategory="Decorations" />
+  <item id="1871" article="a" name="blue tapestry" editorcategory="Decorations" />
   <item id="1872" article="a" name="blue tapestry" editorcategory="Decorations">
     <attribute key="weight" value="1000" />
   </item>
@@ -2526,8 +2526,8 @@
     <attribute key="weight" value="900" />
     <attribute key="stopduration" value="1" />
   </item>
-  <item id="2064" article="a" name="table lamp" />
-  <item id="2065" article="a" name="lit table lamp" />
+  <item id="2064" article="a" name="table lamp" editorcategory="Furnitures" />
+  <item id="2065" article="a" name="lit table lamp" editorcategory="Furnitures" />
   <item id="2066" article="a" name="wall lamp" />
   <item id="2067" article="a" name="lit wall lamp" />
   <item id="2068" article="a" name="wall lamp" />
@@ -2688,26 +2688,26 @@
   <item id="2120" article="a" name="rope">
     <attribute key="weight" value="1800" />
   </item>
-  <item id="2121" article="a" name="wedding ring">
+  <item id="2121" article="a" name="wedding ring" editorcategory="Rings">
     <attribute key="weight" value="40" />
     <attribute key="slottype" value="ring" />
   </item>
   <item id="2122" article="an" name="elven brooch">
     <attribute key="weight" value="100" />
   </item>
-  <item id="2123" article="a" name="ring of the sky">
+  <item id="2123" article="a" name="ring of the sky" editorcategory="Rings">
     <attribute key="weight" value="40" />
     <attribute key="slottype" value="ring" />
   </item>
-  <item id="2124" article="a" name="crystal ring">
+  <item id="2124" article="a" name="crystal ring" editorcategory="Rings">
     <attribute key="weight" value="90" />
     <attribute key="slottype" value="ring" />
   </item>
-  <item id="2125" article="a" name="crystal necklace">
+  <item id="2125" article="a" name="crystal necklace" editorcategory="Amulets">
     <attribute key="weight" value="490" />
     <attribute key="slottype" value="necklace" />
   </item>
-  <item id="2126" article="a" name="bronze necklace">
+  <item id="2126" article="a" name="bronze necklace" editorcategory="Amulets">
     <attribute key="weight" value="410" />
     <attribute key="slottype" value="necklace" />
   </item>
@@ -2719,42 +2719,42 @@
     <attribute key="armor" value="0" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="2129" article="a" name="wolf tooth chain">
+  <item id="2129" article="a" name="wolf tooth chain" editorcategory="Amulets">
     <attribute key="weight" value="330" />
     <attribute key="slottype" value="necklace" />
   </item>
-  <item id="2130" article="a" name="golden amulet">
+  <item id="2130" article="a" name="golden amulet" editorcategory="Amulets">
     <attribute key="weight" value="830" />
     <attribute key="slottype" value="necklace" />
   </item>
-  <item id="2131" article="a" name="star amulet">
+  <item id="2131" article="a" name="star amulet" editorcategory="Amulets">
     <attribute key="weight" value="610" />
     <attribute key="slottype" value="necklace" />
   </item>
-  <item id="2132" article="a" name="silver necklace">
+  <item id="2132" article="a" name="silver necklace" editorcategory="Amulets">
     <attribute key="weight" value="480" />
     <attribute key="slottype" value="necklace" />
   </item>
-  <item id="2133" article="a" name="ruby necklace">
+  <item id="2133" article="a" name="ruby necklace" editorcategory="Amulets">
     <attribute key="weight" value="570" />
     <attribute key="slottype" value="necklace" />
   </item>
   <item id="2134" article="a" name="silver brooch">
     <attribute key="weight" value="110" />
   </item>
-  <item id="2135" article="a" name="scarab amulet">
+  <item id="2135" article="a" name="scarab amulet" editorcategory="Amulets">
     <attribute key="weight" value="770" />
     <attribute key="slottype" value="necklace" />
   </item>
-  <item id="2136" article="a" name="demonbone amulet">
+  <item id="2136" article="a" name="demonbone amulet" editorcategory="Amulets">
     <attribute key="weight" value="690" />
     <attribute key="slottype" value="necklace" />
   </item>
   <item id="2137" name="golden fruits">
     <attribute key="weight" value="300" />
   </item>
-  <item id="2138" article="a" name="sapphire amulet">
-    <attribute key="weight" value="5200" />
+  <item id="2138" article="a" name="sapphire amulet" editorcategory="Amulets">
+    <attribute key="weight" value="680" />
     <attribute key="armor" value="3" />
     <attribute key="slottype" value="necklace" />
   </item>
@@ -2769,7 +2769,7 @@
   <item id="2141" article="a" name="holy falcon">
     <attribute key="weight" value="840" />
   </item>
-  <item id="2142" article="an" name="ancient amulet">
+  <item id="2142" article="an" name="ancient amulet" editorcategory="Amulets">
     <attribute key="weight" value="840" />
     <attribute key="slottype" value="necklace" />
   </item>
@@ -2828,7 +2828,7 @@
   <item id="2160" article="a" name="crystal coin" plural="crystal coins" editorcategory="Valuables">
     <attribute key="weight" value="10" />
   </item>
-  <item id="2161" article="a" name="strange talisman">
+  <item id="2161" article="a" name="strange talisman" editorcategory="Amulets">
     <attribute key="weight" value="290" />
     <attribute key="charges" value="200" />
     <attribute key="slottype" value="necklace" />
@@ -2846,7 +2846,7 @@
     <attribute key="duration" value="3000" />
     <attribute key="showduration" value="1" />
   </item>
-  <item id="2164" article="a" name="might ring">
+  <item id="2164" article="a" name="might ring" editorcategory="Rings">
     <attribute key="weight" value="100" />
     <attribute key="charges" value="20" />
     <attribute key="slottype" value="ring" />
@@ -2859,62 +2859,62 @@
     <attribute key="absorbpercentholy" value="20" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="2165" article="a" name="stealth ring">
+  <item id="2165" article="a" name="stealth ring" editorcategory="Rings">
     <attribute key="weight" value="100" />
     <attribute key="slottype" value="ring" />
     <attribute key="showduration" value="1" />
     <attribute key="stopduration" value="1" />
     <attribute key="transformequipto" value="2202" />
   </item>
-  <item id="2166" article="a" name="power ring">
+  <item id="2166" article="a" name="power ring" editorcategory="Rings">
     <attribute key="weight" value="80" />
     <attribute key="slottype" value="ring" />
     <attribute key="showduration" value="1" />
     <attribute key="stopduration" value="1" />
     <attribute key="transformequipto" value="2203" />
   </item>
-  <item id="2167" article="an" name="energy ring">
+  <item id="2167" article="an" name="energy ring" editorcategory="Rings">
     <attribute key="weight" value="80" />
     <attribute key="slottype" value="ring" />
     <attribute key="showduration" value="1" />
     <attribute key="stopduration" value="1" />
     <attribute key="transformequipto" value="2204" />
   </item>
-  <item id="2168" article="a" name="life ring">
+  <item id="2168" article="a" name="life ring" editorcategory="Rings">
     <attribute key="weight" value="80" />
     <attribute key="slottype" value="ring" />
     <attribute key="showduration" value="1" />
     <attribute key="stopduration" value="1" />
     <attribute key="transformequipto" value="2205" />
   </item>
-  <item id="2169" article="a" name="time ring">
+  <item id="2169" article="a" name="time ring" editorcategory="Rings">
     <attribute key="weight" value="90" />
     <attribute key="slottype" value="ring" />
     <attribute key="showduration" value="1" />
     <attribute key="stopduration" value="1" />
     <attribute key="transformequipto" value="2206" />
   </item>
-  <item id="2170" article="a" name="silver amulet">
+  <item id="2170" article="a" name="silver amulet" editorcategory="Amulets">
     <attribute key="weight" value="500" />
     <attribute key="charges" value="200" />
     <attribute key="slottype" value="necklace" />
     <attribute key="absorbpercentearth" value="10" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="2171" article="a" name="platinum amulet">
+  <item id="2171" article="a" name="platinum amulet" editorcategory="Amulets">
     <attribute key="description" value="It is an amulet of protection." />
     <attribute key="weight" value="600" />
     <attribute key="armor" value="2" />
     <attribute key="slottype" value="necklace" />
   </item>
-  <item id="2172" article="a" name="bronze amulet">
+  <item id="2172" article="a" name="bronze amulet" editorcategory="Amulets">
     <attribute key="weight" value="500" />
     <attribute key="charges" value="200" />
     <attribute key="slottype" value="necklace" />
     <attribute key="absorbpercentmanadrain" value="20" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="2173" article="an" name="amulet of loss">
+  <item id="2173" article="an" name="amulet of loss" editorcategory="Amulets">
     <attribute key="weight" value="420" />
     <attribute key="charges" value="1" />
     <attribute key="slottype" value="necklace" />
@@ -2937,7 +2937,7 @@
   <item id="2178" article="a" name="mind stone">
     <attribute key="weight" value="250" />
   </item>
-  <item id="2179" article="a" name="gold ring">
+  <item id="2179" article="a" name="gold ring" editorcategory="Rings">
     <attribute key="weight" value="100" />
     <attribute key="slottype" value="ring" />
   </item>
@@ -3030,11 +3030,11 @@
     <attribute key="slottype" value="feet" />
     <attribute key="speedmodifier" value="20" />
   </item>
-  <item id="2196" article="a" name="broken amulet">
+  <item id="2196" article="a" name="broken amulet" editorcategory="Amulets">
     <attribute key="weight" value="420" />
     <attribute key="slottype" value="necklace" />
   </item>
-  <item id="2197" article="a" name="stone skin amulet">
+  <item id="2197" article="a" name="stone skin amulet" editorcategory="Amulets">
     <attribute key="weight" value="700" />
     <attribute key="charges" value="5" />
     <attribute key="slottype" value="necklace" />
@@ -3042,7 +3042,7 @@
     <attribute key="absorbpercentdeath" value="80" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="2198" article="an" name="elven amulet">
+  <item id="2198" article="an" name="elven amulet" editorcategory="Amulets">
     <attribute key="weight" value="270" />
     <attribute key="charges" value="50" />
     <attribute key="slottype" value="necklace" />
@@ -3055,28 +3055,28 @@
     <attribute key="absorbpercentholy" value="5" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="2199" article="a" name="garlic necklace">
+  <item id="2199" article="a" name="garlic necklace" editorcategory="Amulets">
     <attribute key="weight" value="380" />
     <attribute key="charges" value="150" />
     <attribute key="slottype" value="necklace" />
     <attribute key="absorbpercentlifedrain" value="20" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="2200" article="a" name="protection amulet">
+  <item id="2200" article="a" name="protection amulet" editorcategory="Amulets">
     <attribute key="weight" value="550" />
     <attribute key="charges" value="250" />
     <attribute key="slottype" value="necklace" />
     <attribute key="absorbpercentphysical" value="6" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="2201" article="a" name="dragon necklace">
+  <item id="2201" article="a" name="dragon necklace" editorcategory="Amulets">
     <attribute key="weight" value="630" />
     <attribute key="charges" value="200" />
     <attribute key="slottype" value="necklace" />
     <attribute key="absorbpercentfire" value="8" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="2202" article="a" name="stealth ring">
+  <item id="2202" article="a" name="stealth ring (invisibility)" editorcategory="Rings">
     <attribute key="weight" value="100" />
     <attribute key="slottype" value="ring" />
     <attribute key="decayto" value="0" />
@@ -3084,7 +3084,7 @@
     <attribute key="showduration" value="1" />
     <attribute key="transformdeequipto" value="2165" />
   </item>
-  <item id="2203" article="a" name="power ring">
+  <item id="2203" article="a" name="power ring" editorcategory="Rings">
     <attribute key="weight" value="80" />
     <attribute key="slottype" value="ring" />
     <attribute key="skillmodifierfist" value="6" />
@@ -3093,7 +3093,7 @@
     <attribute key="showduration" value="1" />
     <attribute key="transformdeequipto" value="2166" />
   </item>
-  <item id="2204" article="an" name="energy ring (magic shield)">
+  <item id="2204" article="an" name="energy ring (magic shield)" editorcategory="Rings">
     <attribute key="weight" value="80" />
     <attribute key="slottype" value="ring" />
     <attribute key="decayto" value="0" />
@@ -3101,7 +3101,7 @@
     <attribute key="showduration" value="1" />
     <attribute key="transformdeequipto" value="2167" />
   </item>
-  <item id="2205" article="a" name="life ring (faster regeneration)">
+  <item id="2205" article="a" name="life ring (faster regeneration)" editorcategory="Rings">
     <attribute key="weight" value="80" />
     <attribute key="slottype" value="ring" />
     <attribute key="decayto" value="0" />
@@ -3109,7 +3109,7 @@
     <attribute key="showduration" value="1" />
     <attribute key="transformdeequipto" value="2168" />
   </item>
-  <item id="2206" article="a" name="time ring">
+  <item id="2206" article="a" name="time ring" editorcategory="Rings">
     <attribute key="weight" value="90" />
     <attribute key="slottype" value="ring" />
     <attribute key="speedmodifier" value="30" />
@@ -3118,28 +3118,28 @@
     <attribute key="showduration" value="1" />
     <attribute key="transformdeequipto" value="2169" />
   </item>
-  <item id="2207" article="a" name="sword ring">
+  <item id="2207" article="a" name="sword ring" editorcategory="Rings">
     <attribute key="weight" value="90" />
     <attribute key="slottype" value="ring" />
     <attribute key="showduration" value="1" />
     <attribute key="stopduration" value="1" />
     <attribute key="transformequipto" value="2210" />
   </item>
-  <item id="2208" article="an" name="axe ring">
+  <item id="2208" article="an" name="axe ring" editorcategory="Rings">
     <attribute key="weight" value="90" />
     <attribute key="slottype" value="ring" />
     <attribute key="showduration" value="1" />
     <attribute key="stopduration" value="1" />
     <attribute key="transformequipto" value="2211" />
   </item>
-  <item id="2209" article="a" name="club ring">
+  <item id="2209" article="a" name="club ring" editorcategory="Rings">
     <attribute key="weight" value="90" />
     <attribute key="slottype" value="ring" />
     <attribute key="showduration" value="1" />
     <attribute key="stopduration" value="1" />
     <attribute key="transformequipto" value="2212" />
   </item>
-  <item id="2210" article="a" name="sword ring">
+  <item id="2210" article="a" name="sword ring" editorcategory="Rings">
     <attribute key="weight" value="90" />
     <attribute key="slottype" value="ring" />
     <attribute key="skillmodifiersword" value="4" />
@@ -3148,7 +3148,7 @@
     <attribute key="showduration" value="1" />
     <attribute key="transformdeequipto" value="2207" />
   </item>
-  <item id="2211" article="an" name="axe ring">
+  <item id="2211" article="an" name="axe ring" editorcategory="Rings">
     <attribute key="weight" value="90" />
     <attribute key="slottype" value="ring" />
     <attribute key="skillmodifieraxe" value="4" />
@@ -3157,7 +3157,7 @@
     <attribute key="showduration" value="1" />
     <attribute key="transformdeequipto" value="2208" />
   </item>
-  <item id="2212" article="a" name="club ring">
+  <item id="2212" article="a" name="club ring" editorcategory="Rings">
     <attribute key="weight" value="90" />
     <attribute key="slottype" value="ring" />
     <attribute key="skillmodifierclub" value="4" />
@@ -3166,21 +3166,21 @@
     <attribute key="showduration" value="1" />
     <attribute key="transformdeequipto" value="2209" />
   </item>
-  <item id="2213" article="a" name="dwarven ring">
+  <item id="2213" article="a" name="dwarven ring" editorcategory="Rings">
     <attribute key="weight" value="110" />
     <attribute key="slottype" value="ring" />
     <attribute key="showduration" value="1" />
     <attribute key="stopduration" value="1" />
     <attribute key="transformequipto" value="2215" />
   </item>
-  <item id="2214" article="a" name="ring of healing">
+  <item id="2214" article="a" name="ring of healing" editorcategory="Rings">
     <attribute key="weight" value="80" />
     <attribute key="slottype" value="ring" />
     <attribute key="showduration" value="1" />
     <attribute key="stopduration" value="1" />
     <attribute key="transformequipto" value="2216" />
   </item>
-  <item id="2215" article="a" name="dwarven ring (hard drinking)">
+  <item id="2215" article="a" name="dwarven ring (hard drinking)" editorcategory="Rings">
     <attribute key="weight" value="110" />
     <attribute key="slottype" value="ring" />
     <attribute key="decayto" value="0" />
@@ -3188,7 +3188,7 @@
     <attribute key="showduration" value="1" />
     <attribute key="transformdeequipto" value="2213" />
   </item>
-  <item id="2216" article="a" name="ring of healing (faster regeneration)">
+  <item id="2216" article="a" name="ring of healing (faster regeneration)" editorcategory="Rings">
     <attribute key="weight" value="80" />
     <attribute key="slottype" value="ring" />
     <attribute key="decayto" value="0" />
@@ -3199,8 +3199,8 @@
   <item id="2217" article="a" name="book">
     <attribute key="weight" value="1500" />
   </item>
-  <item id="2218" article="a" name="paw amulet">
-    <attribute key="weight" value="1000" />
+  <item id="2218" article="a" name="paw amulet" editorcategory="Amulets">
+    <attribute key="weight" value="420" />
     <attribute key="slottype" value="necklace" />
   </item>
   <item id="2219" article="a" name="banana skin">
@@ -3811,8 +3811,8 @@
     <attribute key="description" value="It is the djinn leader's sleeping lamp." />
     <attribute key="weight" value="1300" />
   </item>
-  <item id="2357" article="a" name="ring of wishes">
-    <attribute key="weight" value="90" />
+  <item id="2357" article="a" name="ring of wishes" editorcategory="Rings">
+    <attribute key="weight" value="50" />
     <attribute key="slottype" value="ring" />
   </item>
   <item id="2358" name="boots of waterwalking" editorcategory="Boots">
@@ -3873,7 +3873,7 @@
     <attribute key="weapontype" value="sword" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="2378" article="a" name="battle axe">
+  <item id="2378" article="a" name="battle axe" editorcategory="Axes">
     <attribute key="weight" value="5000" />
     <attribute key="defense" value="10" />
     <attribute key="attack" value="25" />
@@ -3886,13 +3886,13 @@
     <attribute key="attack" value="8" />
     <attribute key="weapontype" value="sword" />
   </item>
-  <item id="2380" article="a" name="hand axe">
+  <item id="2380" article="a" name="hand axe" editorcategory="Axes">
     <attribute key="weight" value="1800" />
     <attribute key="defense" value="5" />
     <attribute key="attack" value="10" />
     <attribute key="weapontype" value="axe" />
   </item>
-  <item id="2381" article="a" name="halberd">
+  <item id="2381" article="a" name="halberd" editorcategory="Axes">
     <attribute key="weight" value="9000" />
     <attribute key="defense" value="14" />
     <attribute key="attack" value="35" />
@@ -3926,20 +3926,20 @@
     <attribute key="attack" value="12" />
     <attribute key="weapontype" value="sword" />
   </item>
-  <item id="2386" article="an" name="axe">
+  <item id="2386" article="an" name="axe" editorcategory="Axes">
     <attribute key="weight" value="4000" />
     <attribute key="defense" value="6" />
     <attribute key="attack" value="12" />
     <attribute key="weapontype" value="axe" />
   </item>
-  <item id="2387" article="a" name="double axe">
+  <item id="2387" article="a" name="double axe" editorcategory="Axes">
     <attribute key="weight" value="7000" />
     <attribute key="defense" value="12" />
     <attribute key="attack" value="35" />
     <attribute key="weapontype" value="axe" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="2388" article="a" name="hatchet">
+  <item id="2388" article="a" name="hatchet" editorcategory="Axes">
     <attribute key="weight" value="3500" />
     <attribute key="defense" value="8" />
     <attribute key="attack" value="15" />
@@ -4062,7 +4062,7 @@
     <attribute key="attack" value="8" />
     <attribute key="weapontype" value="sword" />
   </item>
-  <item id="2405" article="a" name="sickle">
+  <item id="2405" article="a" name="sickle" editorcategory="Axes">
     <attribute key="weight" value="1050" />
     <attribute key="defense" value="4" />
     <attribute key="attack" value="5" />
@@ -4128,7 +4128,7 @@
     <attribute key="weapontype" value="sword" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="2414" article="a" name="dragon lance">
+  <item id="2414" article="a" name="dragon lance" editorcategory="Axes">
     <attribute key="description" value="The extraordinary sharp blade penetrates every armor." />
     <attribute key="weight" value="6700" />
     <attribute key="defense" value="16" />
@@ -4136,7 +4136,7 @@
     <attribute key="weapontype" value="axe" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="2415" article="a" name="great axe">
+  <item id="2415" article="a" name="great axe" editorcategory="Axes">
     <attribute key="description" value="A masterpiece of a dwarven smith." />
     <attribute key="weight" value="9000" />
     <attribute key="defense" value="22" />
@@ -4157,7 +4157,7 @@
     <attribute key="attack" value="24" />
     <attribute key="weapontype" value="club" />
   </item>
-  <item id="2418" article="a" name="golden sickle">
+  <item id="2418" article="a" name="golden sickle" editorcategory="Axes">
     <attribute key="weight" value="1950" />
     <attribute key="defense" value="6" />
     <attribute key="attack" value="13" />
@@ -4204,48 +4204,48 @@
     <attribute key="attack" value="41" />
     <attribute key="weapontype" value="club" />
   </item>
-  <item id="2425" article="an" name="obsidian lance">
+  <item id="2425" article="an" name="obsidian lance" editorcategory="Axes">
     <attribute key="weight" value="8000" />
     <attribute key="defense" value="10" />
     <attribute key="attack" value="34" />
     <attribute key="weapontype" value="axe" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="2426" article="a" name="naginata">
-    <attribute key="weight" value="8000" />
+  <item id="2426" article="a" name="naginata" editorcategory="Axes">
+    <attribute key="weight" value="7800" />
     <attribute key="defense" value="25" />
     <attribute key="attack" value="39" />
     <attribute key="weapontype" value="axe" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="2427" article="a" name="guardian halberd">
+  <item id="2427" article="a" name="guardian halberd" editorcategory="Axes">
     <attribute key="weight" value="11000" />
     <attribute key="defense" value="15" />
     <attribute key="attack" value="46" />
     <attribute key="weapontype" value="axe" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="2428" article="an" name="orcish axe">
+  <item id="2428" article="an" name="orcish axe" editorcategory="Axes">
     <attribute key="weight" value="4500" />
     <attribute key="defense" value="12" />
     <attribute key="attack" value="23" />
     <attribute key="weapontype" value="axe" />
   </item>
-  <item id="2429" article="a" name="barbarian axe">
+  <item id="2429" article="a" name="barbarian axe" editorcategory="Axes">
     <attribute key="weight" value="5100" />
     <attribute key="defense" value="18" />
     <attribute key="defensemodifier" value="1" />
     <attribute key="attack" value="28" />
     <attribute key="weapontype" value="axe" />
   </item>
-  <item id="2430" article="a" name="knight axe">
+  <item id="2430" article="a" name="knight axe" editorcategory="Axes">
     <attribute key="weight" value="5900" />
     <attribute key="defense" value="21" />
     <attribute key="defensemodifier" value="1" />
     <attribute key="attack" value="33" />
     <attribute key="weapontype" value="axe" />
   </item>
-  <item id="2431" article="a" name="stonecutter axe">
+  <item id="2431" article="a" name="stonecutter axe" editorcategory="Axes">
     <attribute key="description" value="You feel the power of this mighty axe." />
     <attribute key="weight" value="9900" />
     <attribute key="defense" value="30" />
@@ -4253,12 +4253,12 @@
     <attribute key="attack" value="50" />
     <attribute key="weapontype" value="axe" />
   </item>
-  <item id="2432" article="a" name="fire axe">
+  <item id="2432" article="a" name="fire axe" editorcategory="Axes">
     <attribute key="description" value="The blade is a magic flame." />
     <attribute key="weight" value="4000" />
     <attribute key="defense" value="16" />
     <attribute key="defensemodifier" value="1" />
-    <attribute key="attack" value="38" />
+    <attribute key="attack" value="27" />
     <attribute key="attackmodifierfire" value="11" />
     <attribute key="weapontype" value="axe" />
   </item>
@@ -4278,7 +4278,7 @@
     <attribute key="attack" value="32" />
     <attribute key="weapontype" value="club" />
   </item>
-  <item id="2435" article="a" name="dwarven axe" editorcategory="Axe">
+  <item id="2435" article="a" name="dwarven axe" editorcategory="Axes">
     <attribute key="weight" value="8200" />
     <attribute key="defense" value="19" />
     <attribute key="defensemodifier" value="2" />
@@ -4311,21 +4311,27 @@
     <attribute key="attack" value="21" />
     <attribute key="weapontype" value="club" />
   </item>
-  <item id="2440" article="a" name="daramanian waraxe">
+  <item id="2440" article="a" name="daramanian waraxe" editorcategory="Axes">
     <attribute key="weight" value="5250" />
     <attribute key="defense" value="15" />
     <attribute key="attack" value="39" />
     <attribute key="weapontype" value="axe" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="2441" name="nothing special" />
+  <item id="2441" article="a" name="daramian axe" editorcategory="Axes">
+    <attribute key="weight" value="4100" />
+    <attribute key="defense" value="8" />
+    <attribute key="attack" value="17" />
+    <attribute key="weapontype" value="axe" />
+    <attribute key="slottype" value="hand" />
+  </item>
   <item id="2442" article="a" name="heavy machete" editorcategory="Swords">
     <attribute key="weight" value="1840" />
     <attribute key="defense" value="10" />
     <attribute key="attack" value="16" />
     <attribute key="weapontype" value="sword" />
   </item>
-  <item id="2443" article="a" name="ravager's axe">
+  <item id="2443" article="a" name="ravager's axe" editorcategory="Axes">
     <attribute key="weight" value="5250" />
     <attribute key="defense" value="14" />
     <attribute key="attack" value="49" />
@@ -4354,7 +4360,7 @@
     <attribute key="attack" value="41" />
     <attribute key="weapontype" value="sword" />
   </item>
-  <item id="2447" article="a" name="twin axe">
+  <item id="2447" article="a" name="twin axe" editorcategory="Axes">
     <attribute key="weight" value="6400" />
     <attribute key="defense" value="24" />
     <attribute key="attack" value="45" />
@@ -4404,7 +4410,7 @@
     <attribute key="weapontype" value="club" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="2454" article="a" name="war axe">
+  <item id="2454" article="a" name="war axe" editorcategory="Axes">
     <attribute key="weight" value="6150" />
     <attribute key="defense" value="10" />
     <attribute key="attack" value="48" />
@@ -4930,11 +4936,11 @@
   <item id="2549" article="a" name="rake">
     <attribute key="weight" value="1500" />
   </item>
-  <item id="2550" article="a" name="scythe">
+  <item id="2550" article="a" name="scythe" editorcategory="Clubs">
     <attribute key="weight" value="3000" />
     <attribute key="defense" value="3" />
     <attribute key="attack" value="8" />
-    <attribute key="weapontype" value="axe" />
+    <attribute key="weapontype" value="club" />
     <attribute key="slottype" value="twohanded" />
   </item>
   <item id="2551" article="a" name="broom" editorcategory="Quest Items">
@@ -4980,7 +4986,7 @@
   <item id="2565" article="a" name="spoon">
     <attribute key="weight" value="100" />
   </item>
-  <item id="2566" article="a" name="kitchen knife">
+  <item id="2566" article="a" name="kitchen knife" editorcategory="Tools">
     <attribute key="weight" value="100" />
   </item>
   <item id="2567" article="a" name="wooden spoon">
@@ -5049,26 +5055,26 @@
   <item id="2588" article="a" name="ship's telescope">
     <attribute key="rotateto" value="2586" />
   </item>
-  <item id="2589" article="a" name="locker">
+  <item id="2589" article="a" name="locker" editorcategory="Depots">
     <attribute key="containersize" value="30" />
     <attribute key="type" value="depot" />
   </item>
-  <item id="2590" article="a" name="locker">
+  <item id="2590" article="a" name="locker" editorcategory="Depots">
     <attribute key="containersize" value="30" />
     <attribute key="type" value="depot" />
   </item>
-  <item id="2591" article="a" name="locker">
+  <item id="2591" article="a" name="locker" editorcategory="Depots">
     <attribute key="containersize" value="30" />
     <attribute key="type" value="depot" />
   </item>
-  <item id="2592" article="a" name="locker">
+  <item id="2592" article="a" name="locker" editorcategory="Depots">
     <attribute key="containersize" value="30" />
     <attribute key="type" value="depot" />
   </item>
   <item id="2593" article="a" name="mailbox" editorcategory="Mailboxes">
     <attribute key="type" value="mailbox" />
   </item>
-  <item id="2594" article="a" name="depot chest">
+  <item id="2594" article="a" name="depot chest" editorcategory="Depots">
     <attribute key="containersize" value="30" />
   </item>
   <item id="2595" article="a" name="parcel">
@@ -5101,16 +5107,16 @@
   <item id="2603" article="a" name="coal basin" />
   <item id="2604" article="a" name="coal basin" />
   <item id="2605" article="an" name="empty coal basin" />
-  <item id="2606" article="an" name="altar" />
-  <item id="2607" article="an" name="altar" />
-  <item id="2608" article="an" name="altar" />
-  <item id="2609" article="an" name="altar" />
+  <item id="2606" article="an" name="altar" editorcategory="Furnitures" />
+  <item id="2607" article="an" name="altar" editorcategory="Furnitures" />
+  <item id="2608" article="an" name="altar" editorcategory="Furnitures" />
+  <item id="2609" article="an" name="altar" editorcategory="Furnitures" />
   <item id="2610" article="a" name="sacrificial stone" />
   <item id="2611" article="a" name="sacrificial stone" />
   <item id="2612" article="a" name="sacrificial stone" />
   <item id="2613" article="a" name="sacrificial stone" />
-  <item id="2614" article="an" name="altar" />
-  <item id="2615" article="an" name="altar" />
+  <item id="2614" article="an" name="altar" editorcategory="Furnitures" />
+  <item id="2615" article="an" name="altar" editorcategory="Furnitures" />
   <item id="2616" article="a" name="sacrificial stone" />
   <item id="2617" article="a" name="sacrificial stone" />
   <item id="2618" article="a" name="sacrificial stone" />
@@ -5277,7 +5283,7 @@
     <attribute key="armor" value="7" />
     <attribute key="slottype" value="body" />
   </item>
-  <item id="2661" article="a" name="scarf">
+  <item id="2661" article="a" name="scarf" editorcategory="Amulets">
     <attribute key="weight" value="200" />
     <attribute key="armor" value="1" />
     <attribute key="slottype" value="necklace" />
@@ -8210,67 +8216,67 @@
   <item id="3802" article="a" name="statue" />
   <item id="3803" article="a" name="statue" />
   <item id="3804" article="a" name="statue" />
-  <item id="3805" article="a" name="stone table">
+  <item id="3805" article="a" name="stone table" editorcategory="Furnitures">
     <attribute key="rotateto" value="3806" />
   </item>
-  <item id="3806" article="a" name="stone table">
+  <item id="3806" article="a" name="stone table" editorcategory="Furnitures">
     <attribute key="rotateto" value="3805" />
   </item>
-  <item id="3807" article="a" name="tusk table">
+  <item id="3807" article="a" name="tusk table" editorcategory="Furnitures">
     <attribute key="rotateto" value="3808" />
   </item>
-  <item id="3808" article="a" name="tusk table">
+  <item id="3808" article="a" name="tusk table" editorcategory="Furnitures">
     <attribute key="rotateto" value="3807" />
   </item>
-  <item id="3809" article="a" name="bamboo table">
+  <item id="3809" article="a" name="bamboo table" editorcategory="Furnitures">
     <attribute key="rotateto" value="3810" />
   </item>
-  <item id="3810" article="a" name="bamboo table">
+  <item id="3810" article="a" name="bamboo table" editorcategory="Furnitures">
     <attribute key="rotateto" value="3809" />
   </item>
   <item id="3811" article="a" name="thick trunk" />
-  <item id="3812" article="an" name="ornamented stone table" />
-  <item id="3813" article="a" name="tusk chair">
+  <item id="3812" article="an" name="ornamented stone table" editorcategory="Furnitures" />
+  <item id="3813" article="a" name="tusk chair" editorcategory="Furnitures">
     <attribute key="rotateto" value="3816" />
   </item>
-  <item id="3814" article="a" name="tusk chair">
+  <item id="3814" article="a" name="tusk chair" editorcategory="Furnitures">
     <attribute key="rotateto" value="3815" />
   </item>
-  <item id="3815" article="a" name="tusk chair">
+  <item id="3815" article="a" name="tusk chair" editorcategory="Furnitures">
     <attribute key="rotateto" value="3813" />
   </item>
-  <item id="3816" article="a" name="tusk chair">
+  <item id="3816" article="a" name="tusk chair" editorcategory="Furnitures">
     <attribute key="rotateto" value="3814" />
   </item>
-  <item id="3817" article="an" name="ivory chair">
+  <item id="3817" article="an" name="ivory chair" editorcategory="Furnitures">
     <attribute key="rotateto" value="3820" />
   </item>
-  <item id="3818" article="an" name="ivory chair">
+  <item id="3818" article="an" name="ivory chair" editorcategory="Furnitures">
     <attribute key="rotateto" value="3819" />
   </item>
-  <item id="3819" article="an" name="ivory chair">
+  <item id="3819" article="an" name="ivory chair" editorcategory="Furnitures">
     <attribute key="rotateto" value="3817" />
   </item>
-  <item id="3820" article="an" name="ivory chair">
+  <item id="3820" article="an" name="ivory chair" editorcategory="Furnitures">
     <attribute key="rotateto" value="3818" />
   </item>
-  <item id="3821" article="a" name="small trunk" editorcategory="Furniture" />
-  <item id="3822" article="a" name="bamboo wardrobe">
+  <item id="3821" article="a" name="small trunk" editorcategory="Furnitures" />
+  <item id="3822" article="a" name="bamboo wardrobe" editorcategory="Furnitures">
     <attribute key="containersize" value="6" />
   </item>
-  <item id="3823" article="a" name="bamboo wardrobe">
+  <item id="3823" article="a" name="bamboo wardrobe" editorcategory="Furnitures">
     <attribute key="containersize" value="6" />
   </item>
-  <item id="3824" article="a" name="bamboo wardrobe">
+  <item id="3824" article="a" name="bamboo wardrobe" editorcategory="Furnitures">
     <attribute key="containersize" value="6" />
   </item>
-  <item id="3825" article="a" name="bamboo wardrobe">
+  <item id="3825" article="a" name="bamboo wardrobe" editorcategory="Furnitures">
     <attribute key="containersize" value="6" />
   </item>
-  <item id="3826" article="a" name="bamboo shelf">
+  <item id="3826" article="a" name="bamboo shelf" editorcategory="Furnitures">
     <attribute key="containersize" value="6" />
   </item>
-  <item id="3827" article="a" name="bamboo shelf">
+  <item id="3827" article="a" name="bamboo shelf" editorcategory="Furnitures">
     <attribute key="containersize" value="6" />
   </item>
   <item id="3828" article="a" name="small bamboo shelf">
@@ -8279,25 +8285,25 @@
   <item id="3829" article="a" name="small bamboo shelf">
     <attribute key="containersize" value="6" />
   </item>
-  <item id="3830" article="a" name="small bamboo shelf">
+  <item id="3830" article="a" name="small bamboo shelf" editorcategory="Furnitures">
     <attribute key="containersize" value="6" />
   </item>
-  <item id="3831" article="a" name="small bamboo shelf">
+  <item id="3831" article="a" name="small bamboo shelf" editorcategory="Furnitures">
     <attribute key="containersize" value="6" />
   </item>
-  <item id="3832" article="a" name="bamboo drawer">
+  <item id="3832" article="a" name="bamboo drawer" editorcategory="Furnitures">
     <attribute key="containersize" value="6" />
     <attribute key="rotateto" value="3835" />
   </item>
-  <item id="3833" article="a" name="bamboo drawer">
+  <item id="3833" article="a" name="bamboo drawer" editorcategory="Furnitures">
     <attribute key="containersize" value="6" />
     <attribute key="rotateto" value="3832" />
   </item>
-  <item id="3834" article="a" name="bamboo drawer">
+  <item id="3834" article="a" name="bamboo drawer" editorcategory="Furnitures">
     <attribute key="containersize" value="6" />
     <attribute key="rotateto" value="3833" />
   </item>
-  <item id="3835" article="a" name="bamboo drawer">
+  <item id="3835" article="a" name="bamboo drawer" editorcategory="Furnitures">
     <attribute key="containersize" value="6" />
     <attribute key="rotateto" value="3834" />
   </item>
@@ -8400,155 +8406,155 @@
   <item id="3898" article="a" name="tiger fur" />
   <item id="3899" article="a" name="tiger fur" />
   <item id="3900" article="a" name="sundial" />
-  <item id="3901" article="a" name="wooden chair kit" editorcategory="Furniture">
+  <item id="3901" article="a" name="wooden chair kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a wooden chair." />
     <attribute key="weight" value="2500" />
   </item>
-  <item id="3902" article="a" name="sofa chair kit" editorcategory="Furniture">
+  <item id="3902" article="a" name="sofa chair kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a sofa chair." />
     <attribute key="weight" value="2500" />
   </item>
-  <item id="3903" article="a" name="red cushioned chair kit" editorcategory="Furniture">
+  <item id="3903" article="a" name="red cushioned chair kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a red cushioned chair." />
     <attribute key="weight" value="2500" />
   </item>
-  <item id="3904" article="a" name="green cushioned chair kit" editorcategory="Furniture">
+  <item id="3904" article="a" name="green cushioned chair kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a green cushioned chair." />
     <attribute key="weight" value="2500" />
   </item>
-  <item id="3905" article="a" name="tusk chair kit" editorcategory="Furniture">
+  <item id="3905" article="a" name="tusk chair kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a tusk chair." />
     <attribute key="weight" value="2500" />
   </item>
-  <item id="3906" article="an" name="ivory chair kit" editorcategory="Furniture">
+  <item id="3906" article="an" name="ivory chair kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct an ivory chair." />
     <attribute key="weight" value="2500" />
   </item>
-  <item id="3907" article="a" name="trunk chair kit" editorcategory="Furniture">
+  <item id="3907" article="a" name="trunk chair kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a trunk chair." />
     <attribute key="weight" value="3500" />
   </item>
-  <item id="3908" article="a" name="small table kit" editorcategory="Furniture">
+  <item id="3908" article="a" name="small table kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a small table." />
     <attribute key="weight" value="2500" />
   </item>
-  <item id="3909" article="a" name="big table kit" editorcategory="Furniture">
+  <item id="3909" article="a" name="big table kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a big table." />
     <attribute key="weight" value="3500" />
   </item>
-  <item id="3910" article="a" name="square table kit" editorcategory="Furniture">
+  <item id="3910" article="a" name="square table kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a square table." />
     <attribute key="weight" value="3500" />
   </item>
-  <item id="3911" article="a" name="round table kit" editorcategory="Furniture">
+  <item id="3911" article="a" name="round table kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a round table." />
     <attribute key="weight" value="3500" />
   </item>
-  <item id="3912" article="a" name="coal basin kit" editorcategory="Furniture">
+  <item id="3912" article="a" name="coal basin kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a coal basin." />
     <attribute key="weight" value="3500" />
   </item>
-  <item id="3913" article="a" name="stone table kit" editorcategory="Furniture">
+  <item id="3913" article="a" name="stone table kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a stone table." />
     <attribute key="weight" value="3500" />
   </item>
-  <item id="3914" article="a" name="tusk table kit" editorcategory="Furniture">
+  <item id="3914" article="a" name="tusk table kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a tusk table." />
     <attribute key="weight" value="3500" />
   </item>
-  <item id="3915" article="a" name="drawer kit" editorcategory="Furniture">
+  <item id="3915" article="a" name="drawer kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a drawer." />
     <attribute key="weight" value="2500" />
   </item>
-  <item id="3916" article="a" name="dresser kit" editorcategory="Furniture">
+  <item id="3916" article="a" name="dresser kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a dresser." />
     <attribute key="weight" value="2500" />
   </item>
-  <item id="3917" article="a" name="pendulum clock kit" editorcategory="Furniture">
+  <item id="3917" article="a" name="pendulum clock kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a pendulum clock." />
     <attribute key="weight" value="3000" />
   </item>
-  <item id="3918" article="a" name="locker kit" editorcategory="Furniture">
+  <item id="3918" article="a" name="locker kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a locker." />
     <attribute key="weight" value="3000" />
   </item>
-  <item id="3919" article="a" name="bamboo table kit" editorcategory="Furniture">
+  <item id="3919" article="a" name="bamboo table kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a bamboo table." />
     <attribute key="weight" value="3500" />
   </item>
-  <item id="3920" article="a" name="trunk table kit" editorcategory="Furniture">
+  <item id="3920" article="a" name="trunk table kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a trunk table." />
     <attribute key="weight" value="3500" />
   </item>
-  <item id="3921" article="a" name="harp kit" editorcategory="Furniture">
+  <item id="3921" article="a" name="harp kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a harp." />
     <attribute key="weight" value="3500" />
   </item>
-  <item id="3922" article="a" name="birdcage kit" editorcategory="Furniture">
+  <item id="3922" article="a" name="birdcage kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a birdcage." />
     <attribute key="weight" value="2000" />
   </item>
-  <item id="3923" article="a" name="globe kit" editorcategory="Furniture">
+  <item id="3923" article="a" name="globe kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a globe." />
     <attribute key="weight" value="2000" />
   </item>
-  <item id="3924" article="a" name="table lamp kit" editorcategory="Furniture">
+  <item id="3924" article="a" name="table lamp kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a table lamp." />
     <attribute key="weight" value="2000" />
   </item>
-  <item id="3925" article="a" name="rocking chair kit" editorcategory="Furniture">
+  <item id="3925" article="a" name="rocking chair kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a rocking chair." />
     <attribute key="weight" value="2500" />
   </item>
-  <item id="3926" article="a" name="piano kit" editorcategory="Furniture">
+  <item id="3926" article="a" name="piano kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a piano." />
     <attribute key="weight" value="3500" />
   </item>
-  <item id="3927" article="a" name="knight statue kit" editorcategory="Furniture">
+  <item id="3927" article="a" name="knight statue kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a knight statue." />
     <attribute key="weight" value="3000" />
   </item>
-  <item id="3928" article="a" name="minotaur statue kit" editorcategory="Furniture">
+  <item id="3928" article="a" name="minotaur statue kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a minotaur statue." />
     <attribute key="weight" value="3000" />
   </item>
-  <item id="3929" article="a" name="large amphora kit" editorcategory="Furniture">
+  <item id="3929" article="a" name="large amphora kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a large amphora." />
     <attribute key="weight" value="3000" />
   </item>
-  <item id="3930" article="a" name="goblin statue kit" editorcategory="Furniture">
+  <item id="3930" article="a" name="goblin statue kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a goblin statue." />
     <attribute key="weight" value="2500" />
   </item>
-  <item id="3931" article="an" name="indoor plant kit" editorcategory="Furniture">
+  <item id="3931" article="an" name="indoor plant kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to reveal an indoor plant." />
     <attribute key="weight" value="3000" />
   </item>
-  <item id="3932" article="a" name="barrel kit" editorcategory="Furniture">
+  <item id="3932" article="a" name="barrel kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a barrel." />
     <attribute key="weight" value="3500" />
   </item>
-  <item id="3933" article="a" name="christmas tree package" editorcategory="Furniture">
+  <item id="3933" article="a" name="christmas tree package" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to reveal a christmas tree." />
     <attribute key="weight" value="3500" />
   </item>
-  <item id="3934" article="a" name="rocking horse kit" editorcategory="Furniture">
+  <item id="3934" article="a" name="rocking horse kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a rocking horse." />
     <attribute key="weight" value="3500" />
   </item>
-  <item id="3935" article="a" name="telescope kit" editorcategory="Furniture">
+  <item id="3935" article="a" name="telescope kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a telescope." />
     <attribute key="weight" value="2500" />
   </item>
-  <item id="3936" article="a" name="bamboo drawer kit" editorcategory="Furniture">
+  <item id="3936" article="a" name="bamboo drawer kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a bamboo drawer." />
     <attribute key="weight" value="3500" />
   </item>
-  <item id="3937" article="a" name="trough kit" editorcategory="Furniture">
+  <item id="3937" article="a" name="trough kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a trough." />
     <attribute key="weight" value="3000" />
   </item>
-  <item id="3938" article="a" name="trunk kit" editorcategory="Furniture">
+  <item id="3938" article="a" name="trunk kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a trunk." />
     <attribute key="weight" value="3500" />
   </item>
@@ -8615,7 +8621,7 @@
     <attribute key="attack" value="40" />
     <attribute key="weapontype" value="club" />
   </item>
-  <item id="3962" article="a" name="beastslayer axe">
+  <item id="3962" article="a" name="beastslayer axe" editorcategory="Axes">
     <attribute key="weight" value="6150" />
     <attribute key="defense" value="12" />
     <attribute key="defensemodifier" value="1" />
@@ -8629,7 +8635,7 @@
     <attribute key="attack" value="23" />
     <attribute key="weapontype" value="sword" />
   </item>
-  <item id="3964" article="a" name="ripper lance">
+  <item id="3964" article="a" name="ripper lance" editorcategory="Axes">
     <attribute key="weight" value="8000" />
     <attribute key="defense" value="7" />
     <attribute key="attack" value="28" />
@@ -10465,12 +10471,10 @@
   <item id="5022" article="an" name="orichalcum pearl" plural="orichalcum pearls" editorcategory="Valuables">
     <attribute key="weight" value="30" />
   </item>
-  <item id="5023" article="a" name="magic forcefield">
-    <attribute key="description" value="You can see the other side trough it." />
+  <item id="5023" name="nothing special" editorcategory="Fields">
     <attribute key="type" value="teleport" />
   </item>
-  <item id="5024" article="a" name="magic forcefield">
-    <attribute key="description" value="You can see the other side trough it." />
+  <item id="5024" name="nothing special" editorcategory="Fields">
     <attribute key="type" value="teleport" />
   </item>
   <item id="5025" article="a" name="bamboo lamp" />
@@ -10566,15 +10570,15 @@
   <item id="5085" article="an" name="open door">
     <attribute key="type" value="door" />
   </item>
-  <item id="5086" article="a" name="monkey statue 'speak' kit" editorcategory="Furniture">
+  <item id="5086" article="a" name="monkey statue 'speak' kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a monkey statue." />
     <attribute key="weight" value="2500" />
   </item>
-  <item id="5087" article="a" name="monkey statue 'hear' kit" editorcategory="Furniture">
+  <item id="5087" article="a" name="monkey statue 'hear' kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a monkey statue." />
     <attribute key="weight" value="2500" />
   </item>
-  <item id="5088" article="a" name="monkey statue 'see' kit" editorcategory="Furniture">
+  <item id="5088" article="a" name="monkey statue 'see' kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a monkey statue." />
     <attribute key="weight" value="2500" />
   </item>
@@ -11883,7 +11887,7 @@
     <attribute key="slottype" value="twohanded" />
     <attribute key="hitchance" value="2" />
   </item>
-  <item id="5804" article="a" name="nose ring">
+  <item id="5804" article="a" name="nose ring" editorcategory="Creature Products">
     <attribute key="description" value="It was the favourite trinket of the famous Horned Fox." />
     <attribute key="weight" value="500" />
   </item>
@@ -12275,9 +12279,9 @@
   <item id="5939" article="a" name="waterskin">
     <attribute key="weight" value="700" />
   </item>
-  <item id="5940" name="Ceiron's wolf tooth chain">
+  <item id="5940" name="wolf tooth chain" editorsuffix="(Druid Outfits Quest)" editorcategory="Quest Items">
+    <attribute key="description" value="It has the letter 'C' carved into one of the teeth." />
     <attribute key="weight" value="330" />
-    <attribute key="slottype" value="necklace" />
   </item>
   <item id="5941" article="a" name="wooden stake" editorcategory="Tools">
     <attribute key="description" value="It is a simple wooden stake." />
@@ -13207,7 +13211,7 @@
     <attribute key="decayto" value="6091" />
     <attribute key="duration" value="259200" />
   </item>
-  <item id="6093" article="a" name="crystal ring">
+  <item id="6093" article="a" name="crystal ring" editorsuffix="(Eleonore)" editorcategory="Rings">
     <attribute key="description" value="The initials E.S. are engraved on it." />
     <attribute key="weight" value="90" />
   </item>
@@ -13251,7 +13255,7 @@
     <attribute key="weight" value="170" />
     <attribute key="containersize" value="1" />
   </item>
-  <item id="6105" name="Raymond Striker's lucky pillow">
+  <item id="6105" name="Striker's favourite pillow" editorsuffix="(Pirate Outfits Quest)" editorcategory="Quest Items">
     <attribute key="weight" value="1700" />
   </item>
   <item id="6106" article="a" name="green flask">
@@ -13265,30 +13269,30 @@
     <attribute key="description" value="It is filled with detailed maps of Tibia." />
     <attribute key="weight" value="1300" />
   </item>
-  <item id="6109" article="a" name="weapon rack">
+  <item id="6109" article="a" name="weapon rack" editorcategory="Furnitures">
     <attribute key="containersize" value="20" />
     <attribute key="rotateto" value="6110" />
   </item>
-  <item id="6110" article="a" name="weapon rack">
+  <item id="6110" article="a" name="weapon rack" editorcategory="Furnitures">
     <attribute key="containersize" value="20" />
     <attribute key="rotateto" value="6109" />
   </item>
-  <item id="6111" article="an" name="armor rack">
+  <item id="6111" article="an" name="armor rack" editorcategory="Furnitures">
     <attribute key="containersize" value="20" />
     <attribute key="rotateto" value="6112" />
   </item>
-  <item id="6112" article="an" name="armor rack">
+  <item id="6112" article="an" name="armor rack" editorcategory="Furnitures">
     <attribute key="containersize" value="20" />
     <attribute key="rotateto" value="6111" />
   </item>
   <item id="6113" article="a" name="letter to Eremo">
     <attribute key="weight" value="50" />
   </item>
-  <item id="6114" article="a" name="weapon rack kit" editorcategory="Furniture">
+  <item id="6114" article="a" name="weapon rack kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a weapon rack." />
     <attribute key="weight" value="3500" />
   </item>
-  <item id="6115" article="an" name="armor rack kit" editorcategory="Furniture">
+  <item id="6115" article="an" name="armor rack kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct an armor rack." />
     <attribute key="weight" value="3500" />
   </item>
@@ -13618,15 +13622,14 @@
   <item id="6297" name="some cracks" />
   <item id="6298" name="some cracks" />
   <item id="6299" name="some cracks" />
-  <item id="6300" article="a" name="death ring">
+  <item id="6300" article="a" name="death ring" editorcategory="Rings">
     <attribute key="weight" value="80" />
     <attribute key="slottype" value="ring" />
-    <attribute key="absorbpercentdeath" value="5" />
     <attribute key="showduration" value="1" />
     <attribute key="stopduration" value="1" />
     <attribute key="transformequipto" value="6301" />
   </item>
-  <item id="6301" article="a" name="death ring">
+  <item id="6301" article="a" name="death ring" editorcategory="Rings">
     <attribute key="description" value="Wearing it makes you feel a little weaker than usual." />
     <attribute key="weight" value="80" />
     <attribute key="armor" value="1" />
@@ -14007,27 +14010,27 @@
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="600" />
   </item>
-  <item id="6368" article="a" name="bookcase">
+  <item id="6368" article="a" name="bookcase" editorcategory="Furnitures">
     <attribute key="containersize" value="6" />
     <attribute key="rotateto" value="6369" />
   </item>
-  <item id="6369" article="a" name="bookcase">
+  <item id="6369" article="a" name="bookcase" editorcategory="Furnitures">
     <attribute key="containersize" value="6" />
     <attribute key="rotateto" value="6370" />
   </item>
-  <item id="6370" article="a" name="bookcase">
+  <item id="6370" article="a" name="bookcase" editorcategory="Furnitures">
     <attribute key="containersize" value="6" />
     <attribute key="rotateto" value="6371" />
   </item>
-  <item id="6371" article="a" name="bookcase">
+  <item id="6371" article="a" name="bookcase" editorcategory="Furnitures">
     <attribute key="containersize" value="6" />
     <attribute key="rotateto" value="6368" />
   </item>
-  <item id="6372" article="an" name="oven kit">
+  <item id="6372" article="an" name="oven kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct an oven." />
     <attribute key="weight" value="2500" />
   </item>
-  <item id="6373" article="a" name="bookcase kit">
+  <item id="6373" article="a" name="bookcase kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a bookcase." />
     <attribute key="weight" value="2500" />
   </item>
@@ -14115,7 +14118,7 @@
     <attribute key="defense" value="37" />
     <attribute key="weapontype" value="shield" />
   </item>
-  <item id="6434" article="a" name="blue tapestry" />
+  <item id="6434" article="a" name="blue tapestry" editorcategory="Decorations" />
   <item id="6435" article="a" name="demon trophy" editorcategory="Trophies" />
   <item id="6436" article="a" name="framework window">
     <attribute key="blockprojectile" value="1" />
@@ -14479,7 +14482,7 @@
     <attribute key="duration" value="360" />
     <attribute key="fluidsource" value="slime" />
   </item>
-  <item id="6553" article="a" name="ruthless axe">
+  <item id="6553" article="a" name="ruthless axe" editorcategory="Axes">
     <attribute key="weight" value="5800" />
     <attribute key="defense" value="15" />
     <attribute key="attack" value="50" />
@@ -15399,7 +15402,7 @@
     <attribute key="description" value="It is filled to the rim." />
     <attribute key="weight" value="1200" />
   </item>
-  <item id="7141" article="a" name="mead horn" editorsuffix="(Barbarian Test Quest)" editorcategory="QuesteItems">
+  <item id="7141" article="a" name="mead horn" editorsuffix="(Barbarian Test Quest)" editorcategory="Quest Items">
     <attribute key="description" value="It is empty." />
     <attribute key="weight" value="1200" />
   </item>
@@ -15430,10 +15433,10 @@
   <item id="7160" article="a" name="frozen chest" />
   <item id="7161" article="a" name="frozen chest" />
   <item id="7162" name="frozen drawers" />
-  <item id="7163" article="a" name="frozen chair" />
-  <item id="7164" article="a" name="frozen chair" />
-  <item id="7165" article="a" name="frozen chair" />
-  <item id="7166" article="a" name="frozen chair" />
+  <item id="7163" article="a" name="frozen chair" editorcategory="Furnitures" />
+  <item id="7164" article="a" name="frozen chair" editorcategory="Furnitures" />
+  <item id="7165" article="a" name="frozen chair" editorcategory="Furnitures" />
+  <item id="7166" article="a" name="frozen chair" editorcategory="Furnitures" />
   <item id="7167" article="a" name="frozen pendulum clock" />
   <item id="7168" article="a" name="frozen pendulum clock" />
   <item id="7169" article="a" name="frozen trough" />
@@ -15629,10 +15632,10 @@
   <item id="7270" article="a" name="husky" />
   <item id="7271" article="a" name="husky" />
   <item id="7272" article="a" name="raft" />
-  <item id="7273" article="a" name="stone table" />
-  <item id="7274" article="a" name="stone table" />
-  <item id="7275" article="a" name="stone table" />
-  <item id="7276" article="a" name="stone table" />
+  <item id="7273" article="a" name="stone table" editorcategory="Furnitures" />
+  <item id="7274" article="a" name="stone table" editorcategory="Furnitures" />
+  <item id="7275" article="a" name="stone table" editorcategory="Furnitures" />
+  <item id="7276" article="a" name="stone table" editorcategory="Furnitures" />
   <item id="7277" article="a" name="stone throne" />
   <item id="7278" article="a" name="stone throne" />
   <item id="7279" article="a" name="stone throne" />
@@ -15921,7 +15924,7 @@
   <item id="7356" name="rock soil" />
   <item id="7357" name="wooden floor" />
   <item id="7358" article="a" name="tiled floor" />
-  <item id="7359" article="a" name="flame of life">
+  <item id="7359" article="a" name="flame of life" editorcategory="Illumination">
     <attribute key="decayto" value="7360" />
     <attribute key="duration" value="360" />
     <attribute key="showduration" value="1" />
@@ -16039,7 +16042,7 @@
     <attribute key="weapontype" value="club" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="7380" article="a" name="headchopper">
+  <item id="7380" article="a" name="headchopper" editorcategory="Axes">
     <attribute key="description" value="This axe is only granted to a greenhorn of the Svargrond Arena." />
     <attribute key="weight" value="4500" />
     <attribute key="defense" value="20" />
@@ -16090,14 +16093,14 @@
     <attribute key="attack" value="34" />
     <attribute key="weapontype" value="club" />
   </item>
-  <item id="7388" article="a" name="vile axe">
+  <item id="7388" article="a" name="vile axe" editorcategory="Axes">
     <attribute key="weight" value="5200" />
     <attribute key="defense" value="19" />
     <attribute key="defensemodifier" value="3" />
     <attribute key="attack" value="43" />
     <attribute key="weapontype" value="axe" />
   </item>
-  <item id="7389" article="a" name="heroic axe">
+  <item id="7389" article="a" name="heroic axe" editorcategory="Axes">
     <attribute key="description" value="This axe is only granted to a scrapper of the Svargrond Arena." />
     <attribute key="weight" value="6100" />
     <attribute key="defense" value="24" />
@@ -16219,21 +16222,21 @@
     <attribute key="attack" value="43" />
     <attribute key="weapontype" value="club" />
   </item>
-  <item id="7411" article="an" name="ornamented axe">
+  <item id="7411" article="an" name="ornamented axe" editorcategory="Axes">
     <attribute key="weight" value="6150" />
     <attribute key="defense" value="22" />
     <attribute key="defensemodifier" value="2" />
     <attribute key="attack" value="42" />
     <attribute key="weapontype" value="axe" />
   </item>
-  <item id="7412" article="a" name="butcher's axe">
+  <item id="7412" article="a" name="butcher's axe" editorcategory="Axes">
     <attribute key="weight" value="6300" />
     <attribute key="defense" value="24" />
     <attribute key="defensemodifier" value="-2" />
     <attribute key="attack" value="41" />
     <attribute key="weapontype" value="axe" />
   </item>
-  <item id="7413" article="a" name="titan axe">
+  <item id="7413" article="a" name="titan axe" editorcategory="Axes">
     <attribute key="weight" value="8100" />
     <attribute key="defense" value="30" />
     <attribute key="attack" value="43" />
@@ -16270,14 +16273,14 @@
     <attribute key="attack" value="45" />
     <attribute key="weapontype" value="sword" />
   </item>
-  <item id="7418" article="a" name="nightmare blade">
+  <item id="7418" article="a" name="nightmare blade" editorcategory="Swords">
     <attribute key="weight" value="4600" />
     <attribute key="defense" value="23" />
     <attribute key="defensemodifier" value="-3" />
     <attribute key="attack" value="46" />
-    <attribute key="weapontype" value="axe" />
+    <attribute key="weapontype" value="sword" />
   </item>
-  <item id="7419" article="a" name="dreaded cleaver">
+  <item id="7419" article="a" name="dreaded cleaver" editorcategory="Axes">
     <attribute key="weight" value="3800" />
     <attribute key="defense" value="19" />
     <attribute key="defensemodifier" value="-3" />
@@ -16376,14 +16379,14 @@
     <attribute key="attack" value="31" />
     <attribute key="weapontype" value="club" />
   </item>
-  <item id="7433" article="a" name="ravenwing">
+  <item id="7433" article="a" name="ravenwing" editorcategory="Axes">
     <attribute key="weight" value="5500" />
     <attribute key="defense" value="22" />
     <attribute key="defensemodifier" value="1" />
     <attribute key="attack" value="45" />
     <attribute key="weapontype" value="axe" />
   </item>
-  <item id="7434" article="a" name="royal axe">
+  <item id="7434" article="a" name="royal axe" editorcategory="Axes">
     <attribute key="description" value="This axe is only granted to a warlord of the Svargrond Arena." />
     <attribute key="weight" value="9200" />
     <attribute key="defense" value="25" />
@@ -16391,13 +16394,14 @@
     <attribute key="attack" value="47" />
     <attribute key="weapontype" value="axe" />
   </item>
-  <item id="7435" article="an" name="impaler" editorsuffix="(Unknown Weight)">
+  <item id="7435" article="an" name="impaler" editorcategory="Axes">
+    <attribute key="weight" value="8200" />
     <attribute key="defense" value="25" />
     <attribute key="defensemodifier" value="-2" />
     <attribute key="attack" value="49" />
     <attribute key="weapontype" value="axe" />
   </item>
-  <item id="7436" article="an" name="angelic axe">
+  <item id="7436" article="an" name="angelic axe" editorcategory="Axes">
     <attribute key="weight" value="5600" />
     <attribute key="defense" value="24" />
     <attribute key="attack" value="44" />
@@ -16484,28 +16488,29 @@
     <attribute key="weapontype" value="club" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="7453" article="an" name="executioner">
+  <item id="7453" article="an" name="executioner" editorcategory="Axes">
     <attribute key="weight" value="9900" />
     <attribute key="defense" value="20" />
     <attribute key="attack" value="51" />
     <attribute key="weapontype" value="axe" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="7454" article="a" name="glorious axe">
+  <item id="7454" article="a" name="glorious axe" editorcategory="Axes">
     <attribute key="weight" value="9500" />
     <attribute key="defense" value="23" />
     <attribute key="attack" value="40" />
     <attribute key="weapontype" value="axe" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="7455" article="a" name="mythril axe">
+  <item id="7455" article="a" name="mythril axe" editorcategory="Axes">
     <attribute key="weight" value="5500" />
     <attribute key="defense" value="28" />
     <attribute key="defensemodifier" value="2" />
-    <attribute key="attack" value="48" />
+    <attribute key="attack" value="8" />
+    <attribute key="attackmodifierenergy" value="44" />
     <attribute key="weapontype" value="axe" />
   </item>
-  <item id="7456" article="a" name="noble axe">
+  <item id="7456" article="a" name="noble axe" editorcategory="Axes">
     <attribute key="weight" value="3800" />
     <attribute key="defense" value="22" />
     <attribute key="attack" value="39" />
@@ -16556,47 +16561,47 @@
     <attribute key="armor" value="0" />
     <attribute key="slottype" value="legs" />
   </item>
-  <item id="7465" article="a" name="searing fire">
+  <item id="7465" article="a" name="searing fire" editorcategory="Fields">
     <attribute key="field" value="fire" />
     <attribute key="replaceable" value="0" />
     <attribute key="type" value="magicfield" />
   </item>
-  <item id="7466" article="a" name="searing fire">
+  <item id="7466" article="a" name="searing fire" editorcategory="Fields">
     <attribute key="field" value="fire" />
     <attribute key="replaceable" value="0" />
     <attribute key="type" value="magicfield" />
   </item>
-  <item id="7467" article="a" name="searing fire">
+  <item id="7467" article="a" name="searing fire" editorcategory="Fields">
     <attribute key="field" value="fire" />
     <attribute key="replaceable" value="0" />
     <attribute key="type" value="magicfield" />
   </item>
-  <item id="7468" article="a" name="searing fire">
+  <item id="7468" article="a" name="searing fire" editorcategory="Fields">
     <attribute key="field" value="fire" />
     <attribute key="replaceable" value="0" />
     <attribute key="type" value="magicfield" />
   </item>
-  <item id="7469" article="a" name="searing fire">
+  <item id="7469" article="a" name="searing fire" editorcategory="Fields">
     <attribute key="field" value="fire" />
     <attribute key="replaceable" value="0" />
     <attribute key="type" value="magicfield" />
   </item>
-  <item id="7470" article="a" name="searing fire">
+  <item id="7470" article="a" name="searing fire" editorcategory="Fields">
     <attribute key="field" value="fire" />
     <attribute key="replaceable" value="0" />
     <attribute key="type" value="magicfield" />
   </item>
-  <item id="7471" article="a" name="searing fire">
+  <item id="7471" article="a" name="searing fire" editorcategory="Fields">
     <attribute key="field" value="fire" />
     <attribute key="replaceable" value="0" />
     <attribute key="type" value="magicfield" />
   </item>
-  <item id="7472" article="a" name="searing fire">
+  <item id="7472" article="a" name="searing fire" editorcategory="Fields">
     <attribute key="field" value="fire" />
     <attribute key="replaceable" value="0" />
     <attribute key="type" value="magicfield" />
   </item>
-  <item id="7473" article="a" name="searing fire">
+  <item id="7473" article="a" name="searing fire" editorcategory="Fields">
     <attribute key="field" value="fire" />
     <attribute key="replaceable" value="0" />
     <attribute key="type" value="magicfield" />
@@ -16616,7 +16621,7 @@
   <item id="7479" article="the" name="dwarven emperor's beard">
     <attribute key="weight" value="50" />
   </item>
-  <item id="7480" article="a" name="bed">
+  <item id="7480" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="description" value="The dwarven emperor is sleeping there." />
   </item>
   <item id="7481" article="a" name="crate" editorsuffix="(What a foolish Quest)" editorcategory="Quest Items">
@@ -17127,9 +17132,8 @@
   <item id="7696" article="a" name="intelligence reports" editorsuffix="(Secret Service Quest)" editorcategory="Quest Items">
     <attribute key="weight" value="120" />
   </item>
-  <item id="7697" article="a" name="signet ring">
+  <item id="7697" article="a" name="suspicious signet ring" editorsuffix="(Secret Service Quest)" editorcategory="Quest Items">
     <attribute key="weight" value="80" />
-    <attribute key="slottype" value="ring" />
   </item>
   <item id="7698" article="a" name="case of rust bugs">
     <attribute key="weight" value="170" />
@@ -17165,10 +17169,10 @@
   <item id="7709" name="grass" />
   <item id="7710" name="grass" />
   <item id="7711" article="a" name="waterball" editorcategory="Game Tokens" />
-  <item id="7712" article="a" name="beach chair" />
-  <item id="7713" article="a" name="beach chair" />
-  <item id="7714" article="a" name="beach chair" />
-  <item id="7715" article="a" name="beach chair" />
+  <item id="7712" article="a" name="beach chair" editorcategory="Furnitures" />
+  <item id="7713" article="a" name="beach chair" editorcategory="Furnitures" />
+  <item id="7714" article="a" name="beach chair" editorcategory="Furnitures" />
+  <item id="7715" article="a" name="beach chair" editorcategory="Furnitures" />
   <item id="7716" article="a" name="parasol" />
   <item id="7717" article="a" name="parasol" />
   <item id="7718" article="a" name="parasol" />
@@ -17231,7 +17235,7 @@
   <item id="7734" article="a" name="watering can" editorcategory="Tools">
     <attribute key="weight" value="850" />
   </item>
-  <item id="7735" article="a" name="spellwand" editorcategory="Tools">
+  <item id="7735" article="a" name="spellwand" editorcategory="Party Items">
     <attribute key="description" value="It might have some strange effects." />
     <attribute key="weight" value="200" />
   </item>
@@ -17329,9 +17333,10 @@
     <attribute key="decayto" value="7402" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7749" article="a" name="fiery barbarian axe">
+  <item id="7749" article="a" name="fiery barbarian axe" editorcategory="Axes">
     <attribute key="weight" value="5100" />
     <attribute key="defense" value="18" />
+    <attribute key="defensemodifier" value="1" />
     <attribute key="attack" value="23" />
     <attribute key="attackmodifierfire" value="5" />
     <attribute key="weapontype" value="axe" />
@@ -17339,7 +17344,7 @@
     <attribute key="decayto" value="2429" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7750" article="a" name="fiery knight axe">
+  <item id="7750" article="a" name="fiery knight axe" editorcategory="Axes">
     <attribute key="weight" value="5900" />
     <attribute key="defense" value="21" />
     <attribute key="attack" value="23" />
@@ -17349,7 +17354,7 @@
     <attribute key="decayto" value="2430" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7751" article="a" name="fiery heroic axe">
+  <item id="7751" article="a" name="fiery heroic axe" editorcategory="Axes">
     <attribute key="description" value="This axe is only granted to a scrapper of the Svargrond Arena." />
     <attribute key="weight" value="6100" />
     <attribute key="defense" value="24" />
@@ -17361,7 +17366,7 @@
     <attribute key="decayto" value="7389" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7752" article="a" name="fiery headchopper">
+  <item id="7752" article="a" name="fiery headchopper" editorcategory="Axes">
     <attribute key="description" value="This axe is only granted to a greenhorn of the Svargrond Arena." />
     <attribute key="weight" value="4500" />
     <attribute key="defense" value="20" />
@@ -17373,7 +17378,7 @@
     <attribute key="decayto" value="7380" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7753" article="a" name="fiery war axe">
+  <item id="7753" article="a" name="fiery war axe" editorcategory="Axes">
     <attribute key="weight" value="6150" />
     <attribute key="defense" value="10" />
     <attribute key="attack" value="39" />
@@ -17510,9 +17515,10 @@
     <attribute key="decayto" value="7402" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7768" article="an" name="icy barbarian axe">
+  <item id="7768" article="an" name="icy barbarian axe" editorcategory="Axes">
     <attribute key="weight" value="5100" />
     <attribute key="defense" value="18" />
+    <attribute key="defensemodifier" value="1" />
     <attribute key="attack" value="23" />
     <attribute key="attackmodifierice" value="5" />
     <attribute key="weapontype" value="axe" />
@@ -17520,7 +17526,7 @@
     <attribute key="decayto" value="2429" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7769" article="an" name="icy knight axe">
+  <item id="7769" article="an" name="icy knight axe" editorcategory="Axes">
     <attribute key="weight" value="5900" />
     <attribute key="defense" value="21" />
     <attribute key="attack" value="23" />
@@ -17530,7 +17536,7 @@
     <attribute key="decayto" value="2430" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7770" article="an" name="icy heroic axe">
+  <item id="7770" article="an" name="icy heroic axe" editorcategory="Axes">
     <attribute key="description" value="This axe is only granted to a scrapper of the Svargrond Arena." />
     <attribute key="weight" value="6100" />
     <attribute key="defense" value="24" />
@@ -17542,7 +17548,7 @@
     <attribute key="decayto" value="7389" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7771" article="an" name="icy headchopper">
+  <item id="7771" article="an" name="icy headchopper" editorcategory="Axes">
     <attribute key="description" value="This axe is only granted to a greenhorn of the Svargrond Arena." />
     <attribute key="weight" value="4500" />
     <attribute key="defense" value="20" />
@@ -17554,7 +17560,7 @@
     <attribute key="decayto" value="7380" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7772" article="an" name="icy war axe">
+  <item id="7772" article="an" name="icy war axe" editorcategory="Axes">
     <attribute key="weight" value="6150" />
     <attribute key="defense" value="10" />
     <attribute key="attack" value="39" />
@@ -17622,17 +17628,17 @@
     <attribute key="decayto" value="2391" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7778" article="a" name="bed">
+  <item id="7778" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="malesleeper" value="1754" />
     <attribute key="partnerdirection" value="south" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="7779" article="a" name="bed">
+  <item id="7779" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="malesleeper" value="1760" />
     <attribute key="partnerdirection" value="east" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="7780" article="a" name="bed">
+  <item id="7780" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="malesleeper" value="1761" />
     <attribute key="partnerdirection" value="west" />
     <attribute key="type" value="bed" />
@@ -17667,193 +17673,193 @@
     <attribute key="partnerdirection" value="east" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="7787" article="a" name="bed">
+  <item id="7787" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="malesleeper" value="7811" />
     <attribute key="partnerdirection" value="south" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="7788" article="a" name="bed">
+  <item id="7788" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="malesleeper" value="7812" />
     <attribute key="partnerdirection" value="north" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="7789" article="a" name="bed">
+  <item id="7789" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="malesleeper" value="7813" />
     <attribute key="partnerdirection" value="east" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="7790" article="a" name="bed">
+  <item id="7790" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="malesleeper" value="7814" />
     <attribute key="partnerdirection" value="west" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="7791" article="a" name="bed">
+  <item id="7791" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="malesleeper" value="7815" />
     <attribute key="partnerdirection" value="south" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="7792" article="a" name="bed">
+  <item id="7792" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="malesleeper" value="7816" />
     <attribute key="partnerdirection" value="north" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="7793" article="a" name="bed">
+  <item id="7793" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="malesleeper" value="7817" />
     <attribute key="partnerdirection" value="east" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="7794" article="a" name="bed">
+  <item id="7794" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="malesleeper" value="7818" />
     <attribute key="partnerdirection" value="west" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="7795" article="a" name="bed">
+  <item id="7795" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="malesleeper" value="7819" />
     <attribute key="partnerdirection" value="south" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="7796" article="a" name="bed">
+  <item id="7796" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="malesleeper" value="7820" />
     <attribute key="partnerdirection" value="north" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="7797" article="a" name="bed">
+  <item id="7797" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="malesleeper" value="7821" />
     <attribute key="partnerdirection" value="east" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="7798" article="a" name="bed">
+  <item id="7798" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="malesleeper" value="7822" />
     <attribute key="partnerdirection" value="west" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="7799" article="a" name="bed">
+  <item id="7799" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="malesleeper" value="7811" />
     <attribute key="partnerdirection" value="south" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="7800" article="a" name="bed">
+  <item id="7800" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="malesleeper" value="7812" />
     <attribute key="partnerdirection" value="north" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="7801" article="a" name="bed">
+  <item id="7801" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="malesleeper" value="7813" />
     <attribute key="partnerdirection" value="east" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="7802" article="a" name="bed">
+  <item id="7802" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="malesleeper" value="7814" />
     <attribute key="partnerdirection" value="west" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="7803" article="a" name="bed">
+  <item id="7803" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="malesleeper" value="7815" />
     <attribute key="partnerdirection" value="south" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="7804" article="a" name="bed">
+  <item id="7804" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="malesleeper" value="7816" />
     <attribute key="partnerdirection" value="north" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="7805" article="a" name="bed">
+  <item id="7805" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="malesleeper" value="7817" />
     <attribute key="partnerdirection" value="east" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="7806" article="a" name="bed">
+  <item id="7806" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="malesleeper" value="7818" />
     <attribute key="partnerdirection" value="west" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="7807" article="a" name="bed">
+  <item id="7807" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="malesleeper" value="7819" />
     <attribute key="partnerdirection" value="south" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="7808" article="a" name="bed">
+  <item id="7808" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="malesleeper" value="7820" />
     <attribute key="partnerdirection" value="north" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="7809" article="a" name="bed">
+  <item id="7809" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="malesleeper" value="7821" />
     <attribute key="partnerdirection" value="east" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="7810" article="a" name="bed">
+  <item id="7810" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="malesleeper" value="7822" />
     <attribute key="partnerdirection" value="west" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="7811" article="a" name="bed">
+  <item id="7811" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="femalesleeper" value="7799" />
     <attribute key="malesleeper" value="7787" />
     <attribute key="partnerdirection" value="south" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="7812" article="a" name="bed">
+  <item id="7812" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="femalesleeper" value="7800" />
     <attribute key="malesleeper" value="7788" />
     <attribute key="partnerdirection" value="north" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="7813" article="a" name="bed">
+  <item id="7813" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="femalesleeper" value="7801" />
     <attribute key="malesleeper" value="7789" />
     <attribute key="partnerdirection" value="east" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="7814" article="a" name="bed">
+  <item id="7814" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="femalesleeper" value="7802" />
     <attribute key="malesleeper" value="7790" />
     <attribute key="partnerdirection" value="west" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="7815" article="a" name="bed">
+  <item id="7815" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="femalesleeper" value="7803" />
     <attribute key="malesleeper" value="7791" />
     <attribute key="partnerdirection" value="south" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="7816" article="a" name="bed">
+  <item id="7816" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="femalesleeper" value="7804" />
     <attribute key="malesleeper" value="7792" />
     <attribute key="partnerdirection" value="north" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="7817" article="a" name="bed">
+  <item id="7817" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="femalesleeper" value="7805" />
     <attribute key="malesleeper" value="7793" />
     <attribute key="partnerdirection" value="east" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="7818" article="a" name="bed">
+  <item id="7818" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="femalesleeper" value="7806" />
     <attribute key="malesleeper" value="7794" />
     <attribute key="partnerdirection" value="west" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="7819" article="a" name="bed">
+  <item id="7819" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="femalesleeper" value="7807" />
     <attribute key="malesleeper" value="7795" />
     <attribute key="partnerdirection" value="south" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="7820" article="a" name="bed">
+  <item id="7820" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="femalesleeper" value="7808" />
     <attribute key="malesleeper" value="7796" />
     <attribute key="partnerdirection" value="north" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="7821" article="a" name="bed">
+  <item id="7821" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="femalesleeper" value="7809" />
     <attribute key="malesleeper" value="7797" />
     <attribute key="partnerdirection" value="east" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="7822" article="a" name="bed">
+  <item id="7822" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="femalesleeper" value="7810" />
     <attribute key="malesleeper" value="7798" />
     <attribute key="partnerdirection" value="west" />
@@ -18017,9 +18023,10 @@
     <attribute key="decayto" value="7402" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7859" article="an" name="earth barbarian axe">
+  <item id="7859" article="an" name="earth barbarian axe" editorcategory="Axes">
     <attribute key="weight" value="5100" />
     <attribute key="defense" value="18" />
+    <attribute key="defensemodifier" value="1" />
     <attribute key="attack" value="23" />
     <attribute key="attackmodifierearth" value="5" />
     <attribute key="weapontype" value="axe" />
@@ -18027,7 +18034,7 @@
     <attribute key="decayto" value="2429" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7860" article="an" name="earth knight axe">
+  <item id="7860" article="an" name="earth knight axe" editorcategory="Axes">
     <attribute key="weight" value="5900" />
     <attribute key="defense" value="21" />
     <attribute key="attack" value="23" />
@@ -18037,7 +18044,7 @@
     <attribute key="decayto" value="2430" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7861" article="an" name="earth heroic axe">
+  <item id="7861" article="an" name="earth heroic axe" editorcategory="Axes">
     <attribute key="description" value="This axe is only granted to a scrapper of the Svargrond Arena." />
     <attribute key="weight" value="6100" />
     <attribute key="defense" value="24" />
@@ -18049,7 +18056,7 @@
     <attribute key="decayto" value="7389" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7862" article="an" name="earth headchopper">
+  <item id="7862" article="an" name="earth headchopper" editorcategory="Axes">
     <attribute key="description" value="This axe is only granted to a greenhorn of the Svargrond Arena." />
     <attribute key="weight" value="4500" />
     <attribute key="defense" value="20" />
@@ -18061,7 +18068,7 @@
     <attribute key="decayto" value="7380" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7863" article="an" name="earth war axe">
+  <item id="7863" article="an" name="earth war axe" editorcategory="Axes">
     <attribute key="weight" value="6150" />
     <attribute key="defense" value="10" />
     <attribute key="attack" value="39" />
@@ -18186,9 +18193,10 @@
     <attribute key="decayto" value="7402" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7874" article="an" name="energy barbarian axe">
+  <item id="7874" article="an" name="energy barbarian axe" editorcategory="Axes">
     <attribute key="weight" value="5100" />
     <attribute key="defense" value="18" />
+    <attribute key="defensemodifier" value="1" />
     <attribute key="attack" value="23" />
     <attribute key="attackmodifierenergy" value="5" />
     <attribute key="weapontype" value="axe" />
@@ -18196,7 +18204,7 @@
     <attribute key="decayto" value="2429" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7875" article="an" name="energy knight axe">
+  <item id="7875" article="an" name="energy knight axe" editorcategory="Axes">
     <attribute key="weight" value="5900" />
     <attribute key="defense" value="21" />
     <attribute key="attack" value="23" />
@@ -18206,7 +18214,7 @@
     <attribute key="decayto" value="2430" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7876" article="an" name="energy heroic axe">
+  <item id="7876" article="an" name="energy heroic axe" editorcategory="Axes">
     <attribute key="description" value="This axe is only granted to a scrapper of the Svargrond Arena." />
     <attribute key="weight" value="6100" />
     <attribute key="defense" value="24" />
@@ -18218,7 +18226,7 @@
     <attribute key="decayto" value="7389" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7877" article="an" name="energy headchopper">
+  <item id="7877" article="an" name="energy headchopper" editorcategory="Axes">
     <attribute key="description" value="This axe is only granted to a greenhorn of the Svargrond Arena." />
     <attribute key="weight" value="4500" />
     <attribute key="defense" value="20" />
@@ -18230,7 +18238,7 @@
     <attribute key="decayto" value="7380" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7878" article="an" name="energy war axe">
+  <item id="7878" article="an" name="energy war axe" editorcategory="Axes">
     <attribute key="weight" value="6150" />
     <attribute key="defense" value="10" />
     <attribute key="attack" value="39" />
@@ -18319,13 +18327,13 @@
     <attribute key="absorbpercentearth" value="5" />
     <attribute key="absorbpercentfire" value="-5" />
   </item>
-  <item id="7887" article="a" name="terra amulet">
+  <item id="7887" article="a" name="terra amulet" editorcategory="Amulets">
     <attribute key="weight" value="500" />
     <attribute key="slottype" value="necklace" />
     <attribute key="absorbpercentearth" value="20" />
     <attribute key="absorbpercentfire" value="-10" />
   </item>
-  <item id="7888" article="a" name="glacier amulet">
+  <item id="7888" article="a" name="glacier amulet" editorcategory="Amulets">
     <attribute key="weight" value="500" />
     <attribute key="charges" value="200" />
     <attribute key="slottype" value="necklace" />
@@ -18333,14 +18341,14 @@
     <attribute key="absorbpercentice" value="20" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7889" article="a" name="lightning pendant">
+  <item id="7889" article="a" name="lightning pendant" editorcategory="Amulets">
     <attribute key="weight" value="500" />
     <attribute key="slottype" value="necklace" />
     <attribute key="absorbpercentearth" value="-10" />
     <attribute key="absorbpercentenergy" value="20" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="7890" article="a" name="magma amulet">
+  <item id="7890" article="a" name="magma amulet" editorcategory="Amulets">
     <attribute key="weight" value="500" />
     <attribute key="charges" value="200" />
     <attribute key="slottype" value="necklace" />
@@ -18439,19 +18447,19 @@
     <attribute key="absorbpercentearth" value="4" />
     <attribute key="absorbpercentfire" value="-5" />
   </item>
-  <item id="7904" article="a" name="blue bed kit" editorcategory="Furniture">
+  <item id="7904" article="a" name="blue bed kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it on your bed to change the bed to blue." />
     <attribute key="weight" value="3500" />
   </item>
-  <item id="7905" article="a" name="green bed kit" editorcategory="Furniture">
+  <item id="7905" article="a" name="green bed kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it on your bed to change the bed to green." />
     <attribute key="weight" value="3500" />
   </item>
-  <item id="7906" article="a" name="red bed kit" editorcategory="Furniture">
+  <item id="7906" article="a" name="red bed kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it on your bed to change the bed to red." />
     <attribute key="weight" value="3500" />
   </item>
-  <item id="7907" article="a" name="yellow bed kit" editorcategory="Furniture">
+  <item id="7907" article="a" name="yellow bed kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it on your bed to change the bed to yellow." />
     <attribute key="weight" value="3500" />
   </item>
@@ -18758,16 +18766,16 @@
   <item id="8069" name="nothing special" editorsuffix="(Blank)" />
   <item id="8070" name="nothing special" editorsuffix="(Blank)" />
   <item id="8071" name="nothing special" editorsuffix="(Blank)" />
-  <item id="8072" article="a" name="yellow pillow" editorsuffix="(Fart Pillow)">
+  <item id="8072" article="a" name="yellow pillow" editorsuffix="(Supersoft)" editorcategory="Party Items">
     <attribute key="weight" value="1600" />
   </item>
   <item id="8073" name="nothing special" editorsuffix="(Blank)" />
   <item id="8074" name="nothing special" editorsuffix="(Blank)" />
-  <item id="8075" article="a" name="bed">
+  <item id="8075" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="partnerdirection" value="north" />
     <attribute key="type" value="bed" />
   </item>
-  <item id="8076" article="a" name="bed">
+  <item id="8076" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="malesleeper" value="1761" />
     <attribute key="partnerdirection" value="west" />
     <attribute key="type" value="bed" />
@@ -19063,7 +19071,7 @@
   <item id="8265" article="a" name="piece of a broken amulet">
     <attribute key="weight" value="100" />
   </item>
-  <item id="8266" name="Koshei's ancient amulet">
+  <item id="8266" name="Koshei's ancient amulet" editorcategory="Amulets">
     <attribute key="weight" value="550" />
     <attribute key="slottype" value="necklace" />
     <attribute key="absorbpercentdeath" value="8" />
@@ -19160,7 +19168,7 @@
     <attribute key="weight" value="250" />
     <attribute key="showcount" value="0" />
   </item>
-  <item id="8299" name="glimmering soil" plural="glimmering soil">
+  <item id="8299" name="glimmering soil" plural="glimmering soil" editorsuffix="(The Elemental Spheres Quest)" editorcategory="Quest Items">
     <attribute key="weight" value="250" />
     <attribute key="showcount" value="0" />
   </item>
@@ -19624,7 +19632,7 @@
     <attribute key="description" value="Push it back to Zirella by holding the left mousebutton down on it and pushing it over the grass." />
     <attribute key="weight" value="100000" />
   </item>
-  <item id="8601" article="a" name="steel axe">
+  <item id="8601" article="a" name="steel axe" editorcategory="Axes">
     <attribute key="weight" value="4100" />
     <attribute key="defense" value="10" />
     <attribute key="attack" value="21" />
@@ -19741,7 +19749,7 @@
   <item id="8691" article="a" name="chimney">
     <attribute key="rotateto" value="8689" />
   </item>
-  <item id="8692" article="a" name="chimney kit" editorcategory="Furniture">
+  <item id="8692" article="a" name="chimney kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a chimney." />
     <attribute key="weight" value="8000" />
   </item>
@@ -19860,7 +19868,7 @@
   <item id="8749" name="coal" />
   <item id="8750" name="coal" />
   <item id="8751" name="coal" />
-  <item id="8752" article="the" name="ring of the count">
+  <item id="8752" name="the ring of the count" editorsuffix="(The Inquisition Quest)" editorcategory="Quest Items">
     <attribute key="weight" value="75" />
     <attribute key="slottype" value="ring" />
   </item>
@@ -20465,21 +20473,21 @@
     <attribute key="armor" value="4" />
     <attribute key="slottype" value="legs" />
   </item>
-  <item id="8924" article="a" name="hellforged axe">
+  <item id="8924" article="a" name="hellforged axe" editorcategory="Axes">
     <attribute key="weight" value="8800" />
     <attribute key="defense" value="28" />
     <attribute key="defensemodifier" value="2" />
     <attribute key="attack" value="51" />
     <attribute key="weapontype" value="axe" />
   </item>
-  <item id="8925" article="a" name="solar axe">
+  <item id="8925" article="a" name="solar axe" editorcategory="Axes">
     <attribute key="weight" value="11000" />
     <attribute key="defense" value="29" />
     <attribute key="defensemodifier" value="3" />
     <attribute key="attack" value="52" />
     <attribute key="weapontype" value="axe" />
   </item>
-  <item id="8926" article="a" name="demonwing axe">
+  <item id="8926" article="a" name="demonwing axe" editorcategory="Axes">
     <attribute key="weight" value="12000" />
     <attribute key="defense" value="20" />
     <attribute key="attack" value="53" />
@@ -20516,11 +20524,11 @@
     <attribute key="weapontype" value="sword" />
   </item>
   <item id="8931" name="nothing special" />
-  <item id="8932" article="the" name="calamity">
+  <item id="8932" article="the" name="calamity" editorcategory="Swords">
     <attribute key="weight" value="6800" />
     <attribute key="defense" value="35" />
     <attribute key="attack" value="51" />
-    <attribute key="weapontype" value="axe" />
+    <attribute key="weapontype" value="sword" />
     <attribute key="slottype" value="twohanded" />
   </item>
   <item id="8933" name="remains of an earth elemental" editorsuffix="(Unmoveable)">
@@ -21439,21 +21447,21 @@
   <item id="9421" article="a" name="pile of stones" />
   <item id="9422" article="a" name="pile of stones" />
   <item id="9423" article="a" name="stone railing" />
-  <item id="9424" article="a" name="tapestry" />
-  <item id="9425" article="a" name="tapestry" />
-  <item id="9426" article="a" name="tapestry" />
-  <item id="9427" article="a" name="tapestry" />
-  <item id="9428" article="a" name="tapestry" />
-  <item id="9429" article="a" name="tapestry" />
-  <item id="9430" article="a" name="tapestry" />
-  <item id="9431" article="a" name="tapestry" />
-  <item id="9432" article="a" name="tapestry" />
-  <item id="9433" article="a" name="tapestry" />
+  <item id="9424" article="a" name="tapestry" editorcategory="Decorations" />
+  <item id="9425" article="a" name="tapestry" editorcategory="Decorations" />
+  <item id="9426" article="a" name="tapestry" editorcategory="Decorations" />
+  <item id="9427" article="a" name="tapestry" editorcategory="Decorations" />
+  <item id="9428" article="a" name="tapestry" editorcategory="Decorations" />
+  <item id="9429" article="a" name="tapestry" editorcategory="Decorations" />
+  <item id="9430" article="a" name="tapestry" editorcategory="Decorations" />
+  <item id="9431" article="a" name="tapestry" editorcategory="Decorations" />
+  <item id="9432" article="a" name="tapestry" editorcategory="Decorations" />
+  <item id="9433" article="a" name="tapestry" editorcategory="Decorations" />
   <item id="9434" article="a" name="stone wall" />
-  <item id="9435" article="a" name="heavy wooden chair" />
-  <item id="9436" article="a" name="heavy wooden chair" />
-  <item id="9437" article="a" name="heavy wooden chair" />
-  <item id="9438" article="a" name="heavy wooden chair" />
+  <item id="9435" article="a" name="heavy wooden chair" editorcategory="Furnitures" />
+  <item id="9436" article="a" name="heavy wooden chair" editorcategory="Furnitures" />
+  <item id="9437" article="a" name="heavy wooden chair" editorcategory="Furnitures" />
+  <item id="9438" article="a" name="heavy wooden chair" editorcategory="Furnitures" />
   <item id="9439" article="a" name="large candelabrum" />
   <item id="9440" article="a" name="fire basin" />
   <item id="9441" article="a" name="blood basin" />
@@ -21468,17 +21476,17 @@
   <item id="9448" article="a" name="blood skull">
     <attribute key="weight" value="490" />
   </item>
-  <item id="9449" article="a" name="tapestry" />
-  <item id="9450" article="a" name="tapestry" />
-  <item id="9451" article="a" name="tapestry" />
-  <item id="9452" article="a" name="tapestry" />
-  <item id="9453" article="a" name="tapestry" />
-  <item id="9454" article="a" name="tapestry" />
-  <item id="9455" article="a" name="tapestry" />
-  <item id="9456" article="a" name="tapestry" />
-  <item id="9457" article="a" name="tapestry" />
-  <item id="9458" article="a" name="tapestry" />
-  <item id="9459" article="a" name="tapestry" />
+  <item id="9449" article="a" name="tapestry" editorcategory="Decorations" />
+  <item id="9450" article="a" name="tapestry" editorcategory="Decorations" />
+  <item id="9451" article="a" name="tapestry" editorcategory="Decorations" />
+  <item id="9452" article="a" name="tapestry" editorcategory="Decorations" />
+  <item id="9453" article="a" name="tapestry" editorcategory="Decorations" />
+  <item id="9454" article="a" name="tapestry" editorcategory="Decorations" />
+  <item id="9455" article="a" name="tapestry" editorcategory="Decorations" />
+  <item id="9456" article="a" name="tapestry" editorcategory="Decorations" />
+  <item id="9457" article="a" name="tapestry" editorcategory="Decorations" />
+  <item id="9458" article="a" name="tapestry" editorcategory="Decorations" />
+  <item id="9459" article="a" name="tapestry" editorcategory="Decorations" />
   <item id="9460" article="an" name="eaves gutter" />
   <item id="9461" article="an" name="eaves gutter" />
   <item id="9462" article="an" name="eaves gutter" />
@@ -21795,7 +21803,7 @@
     <attribute key="weight" value="5" />
   </item>
   <item id="9691" article="a" name="large crystal" />
-  <item id="9692" article="a" name="ring">
+  <item id="9692" name="Rerun's ring" editorsuffix="(The Hidden City of Beregar Quest)" editorcategory="Quest Items">
     <attribute key="description" value="It belongs to Rerun." />
     <attribute key="weight" value="90" />
   </item>
@@ -21883,18 +21891,15 @@
   <item id="9737" article="an" name="ghost charm">
     <attribute key="weight" value="900" />
   </item>
-  <item id="9738" article="an" name="ghost charm">
-    <attribute key="description" value="The ghost charm is pulsating with energy." />
+  <item id="9738" name="nothing special" editorcategory="Fields">
     <attribute key="decayto" value="9737" />
     <attribute key="duration" value="120" />
   </item>
-  <item id="9739" article="an" name="ghost charm">
-    <attribute key="description" value="The ghost charm is pulsating with energy!." />
+  <item id="9739" name="nothing special" editorcategory="Fields">
     <attribute key="decayto" value="9738" />
     <attribute key="duration" value="120" />
   </item>
-  <item id="9740" article="an" name="ghost charm">
-    <attribute key="description" value="The ghost charm is pulsating with energy!." />
+  <item id="9740" name="nothing special" editorcategory="Fields">
     <attribute key="decayto" value="9739" />
     <attribute key="duration" value="120" />
   </item>
@@ -21954,9 +21959,7 @@
   <item id="9772" article="an" name="ghost charm">
     <attribute key="weight" value="900" />
   </item>
-  <item id="9773" article="an" name="ghost charm">
-    <attribute key="description" value="The ghost charm is pulsating with energy." />
-  </item>
+  <item id="9773" name="nothing special" editorcategory="Fields" />
   <item id="9774" article="a" name="brocade backpack" editorcategory="Containers">
     <attribute key="weight" value="1800" />
     <attribute key="containersize" value="20" />
@@ -22570,11 +22573,11 @@
   </item>
   <item id="9972" name="nothing special" />
   <item id="9973" name="nothing special" />
-  <item id="9974" article="a" name="crystal table kit" editorcategory="Furniture">
+  <item id="9974" article="a" name="crystal table kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a crystal table." />
     <attribute key="weight" value="2500" />
   </item>
-  <item id="9975" article="a" name="crystal table" />
+  <item id="9975" article="a" name="crystal table" editorcategory="Furnitures" />
   <item id="9976" article="a" name="crystal pedestal">
     <attribute key="weight" value="4000" />
     <attribute key="decayto" value="9977" />
@@ -22844,8 +22847,8 @@
   <item id="10084" name="nothing special" />
   <item id="10085" name="nothing special" />
   <item id="10086" name="nothing special" />
-  <item id="10087" article="a" name="box (Vol:10)" editorcategory="Quests" />
-  <item id="10088" article="a" name="crate (Vol:15)" editorcategory="Quests" />
+  <item id="10087" article="a" name="box (Vol:10)" editorcategory="Quest Chests" />
+  <item id="10088" article="a" name="crate (Vol:15)" editorcategory="Quest Chests" />
   <item id="10089" name="nothing special" />
   <item id="10090" name="nothing special" />
   <item id="10091" article="a" name="crystal key" editorcategory="Keys">
@@ -23058,7 +23061,7 @@
   <item id="10216" article="a" name="limestone pedestal" />
   <item id="10217" article="a" name="limestone pedestal" />
   <item id="10218" name="nothing special" />
-  <item id="10219" article="a" name="sacred tree amulet">
+  <item id="10219" article="a" name="sacred tree amulet" editorcategory="Amulets">
     <attribute key="description" value="It's leaves stretch out to cover your whole body if you receive earth damage." />
     <attribute key="weight" value="700" />
     <attribute key="charges" value="5" />
@@ -23067,7 +23070,7 @@
     <attribute key="absorbpercentearth" value="40" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="10220" article="a" name="Leviathan's amulet">
+  <item id="10220" article="a" name="Leviathan's amulet" editorcategory="Amulets">
     <attribute key="weight" value="700" />
     <attribute key="charges" value="5" />
     <attribute key="slottype" value="necklace" />
@@ -23075,7 +23078,7 @@
     <attribute key="absorbpercentice" value="40" />
     <attribute key="showcharges" value="1" />
   </item>
-  <item id="10221" article="a" name="shockwave amulet">
+  <item id="10221" article="a" name="shockwave amulet" editorcategory="Amulets">
     <attribute key="description" value="It tickles your neck in a rather pleasant way and absorbs loads of damage." />
     <attribute key="weight" value="700" />
     <attribute key="charges" value="5" />
@@ -23210,7 +23213,7 @@
   </item>
   <item id="10286" name="nothing special" />
   <item id="10287" name="nothing special" />
-  <item id="10288" name="nothing special" />
+  <item id="10288" article="a" name="searing fire" editorcategory="Fields" />
   <item id="10289" article="a" name="meat shield" editorcategory="Shields">
     <attribute key="description" value="A sturdy shield made of old meat." />
     <attribute key="weight" value="500" />
@@ -23304,7 +23307,7 @@
     <attribute key="attack" value="16" />
     <attribute key="weapontype" value="club" />
   </item>
-  <item id="10303" article="a" name="farmer's avenger">
+  <item id="10303" article="a" name="farmer's avenger" editorcategory="Axes">
     <attribute key="description" value="A weapon forged to fight oppression of the poor underdogs." />
     <attribute key="weight" value="2500" />
     <attribute key="defense" value="7" />
@@ -23670,7 +23673,7 @@
   <item id="10507" name="nothing special" />
   <item id="10508" name="remains of a wisp" editorsuffix="(IsContainer, NotMoveable)" editorcategory="Corpses" />
   <item id="10509" name="nothing special" />
-  <item id="10510" article="a" name="broken wedding ring">
+  <item id="10510" article="a" name="broken wedding ring" editorcategory="Rings">
     <attribute key="description" value="It is a memory of a lost love." />
     <attribute key="weight" value="40" />
   </item>
@@ -24591,12 +24594,12 @@
   <item id="11123" article="a" name="stone stairs">
     <attribute key="floorchange" value="north" />
   </item>
-  <item id="11124" article="an" name="oven kit" editorcategory="Furniture">
+  <item id="11124" article="an" name="oven kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct an oven." />
     <attribute key="weight" value="2500" />
   </item>
   <item id="11125" name="nothing special" />
-  <item id="11126" article="a" name="snowman package" editorcategory="Furniture">
+  <item id="11126" article="a" name="snowman package" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to reveal a snowman." />
     <attribute key="weight" value="3500" />
   </item>
@@ -24614,7 +24617,7 @@
   <item id="11132" name="dragon statue">
     <attribute key="rotateto" value="11130" />
   </item>
-  <item id="11133" article="a" name="dragon statue kit" editorcategory="Furniture">
+  <item id="11133" article="a" name="dragon statue kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a dragon statue." />
     <attribute key="weight" value="6500" />
   </item>
@@ -24745,7 +24748,7 @@
   <item id="11204" name="dragon throne">
     <attribute key="rotateto" value="11204" />
   </item>
-  <item id="11205" article="a" name="dragon throne kit" editorcategory="Furniture">
+  <item id="11205" article="a" name="dragon throne kit" editorcategory="Furnitures">
     <attribute key="description" value="Use it in your house to construct a dragon throne." />
     <attribute key="weight" value="7500" />
   </item>
@@ -24773,7 +24776,7 @@
   <item id="11213" article="an" name="acorn" plural="acorns" editorcategory="Creature Products">
     <attribute key="weight" value="50" />
   </item>
-  <item id="11214" name="antlers" editorsuffix="Creature Products">
+  <item id="11214" name="antlers" editorcategory="Creature Products">
     <attribute key="weight" value="90" />
   </item>
   <item id="11215" name="metal spike">
@@ -25121,7 +25124,7 @@
     <attribute key="slottype" value="legs" />
     <attribute key="absorbpercentphysical" value="2" />
   </item>
-  <item id="11305" name="drakinata">
+  <item id="11305" name="drakinata" editorcategory="Axes">
     <attribute key="weight" value="5400" />
     <attribute key="defense" value="20" />
     <attribute key="attack" value="47" />
@@ -25149,11 +25152,11 @@
     <attribute key="weapontype" value="club" />
     <attribute key="slottype" value="twohanded" />
   </item>
-  <item id="11309" name="twin hooks">
+  <item id="11309" name="twin hooks" editorcategory="Swords">
     <attribute key="weight" value="5000" />
     <attribute key="defense" value="22" />
     <attribute key="attack" value="32" />
-    <attribute key="weapontype" value="axe" />
+    <attribute key="weapontype" value="sword" />
     <attribute key="slottype" value="twohanded" />
   </item>
   <item id="11310" article="a" name="dead wailing widow" editorsuffix="(Unmoveable)">
@@ -25217,7 +25220,7 @@
   <item id="11322" name="warmaster's wristguards" editorcategory="Creature Products">
     <attribute key="weight" value="120" />
   </item>
-  <item id="11323" name="zaoan halberd">
+  <item id="11323" name="Zaoan halberd" editorcategory="Axes">
     <attribute key="weight" value="8700" />
     <attribute key="defense" value="15" />
     <attribute key="attack" value="37" />
@@ -25239,7 +25242,7 @@
   <item id="11328" name="widow's mandibles" editorcategory="Creature Products">
     <attribute key="weight" value="105" />
   </item>
-  <item id="11329" name="wailing widow necklace">
+  <item id="11329" name="wailing widow necklace" editorcategory="Amulets">
     <attribute key="weight" value="540" />
     <attribute key="slottype" value="necklace" />
   </item>
@@ -25402,7 +25405,7 @@
   <item id="11373" article="a" name="sandcrawler shell">
     <attribute key="weight" value="75" />
   </item>
-  <item id="11374" name="beetle necklace">
+  <item id="11374" name="beetle necklace" editorcategory="Amulets">
     <attribute key="weight" value="820" />
     <attribute key="slottype" value="necklace" />
     <attribute key="speedmodifier" value="2" />
@@ -25445,7 +25448,7 @@
   <item id="11390" article="a" name="part of a giant stone dragon" />
   <item id="11391" article="a" name="part of a giant stone dragon" />
   <item id="11392" article="a" name="part of a giant stone dragon" />
-  <item id="11393" name="lucky clover amulet">
+  <item id="11393" name="lucky clover amulet" editorcategory="Amulets">
     <attribute key="description" value="It is rumoured to bring you good luck! Luck sponsored by TibiaLottery." />
     <attribute key="weight" value="150" />
     <attribute key="slottype" value="necklace" />
