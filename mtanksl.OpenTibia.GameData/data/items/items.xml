@@ -169,7 +169,7 @@
   <item id="456" name="wooden floor" />
   <item id="457" article="a" name="white stone tile" />
   <item id="458" name="wooden floor" />
-  <item id="459" name="stairs">
+  <item id="459" name="stairs" editorsuffix="(Invisible floor)">
     <attribute key="floorchange" value="down" />
   </item>
   <item id="460" name="nothing special" editorsuffix="(Invisible floor)" />
@@ -1246,7 +1246,7 @@
     <attribute key="replaceable" value="0" />
     <attribute key="type" value="magicfield" />
   </item>
-  <item id="1509" name="lava">
+  <item id="1509" name="lava" editorsuffix="(Walkable)">
     <attribute key="type" value="trashholder" />
   </item>
   <item id="1510" name="stange slits" editorcategory="Fields">
@@ -3639,7 +3639,9 @@
     <attribute key="charges" value="1" />
     <attribute key="type" value="rune" />
   </item>
-  <item id="2317" article="a" name="dead human" editorsuffix="(Unmoveable)" editorcategory="Corpses" />
+  <item id="2317" article="a" name="dead human" editorsuffix="(Unmoveable)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
+  </item>
   <item id="2318" article="a" name="family brooch" editorsuffix="(Family Brooch Quest)" editorcategory="Quest Items">
     <attribute key="description" value="You see the familyname Windtrouser engraved on this brooch." />
     <attribute key="weight" value="110" />
@@ -5835,6 +5837,7 @@
     <attribute key="duration" value="900" />
   </item>
   <item id="2844" article="a" name="dead dragon" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="3104" />
     <attribute key="duration" value="900" />
@@ -5847,7 +5850,9 @@
     <attribute key="corpsetype" value="undead" />
     <attribute key="containersize" value="10" />
   </item>
-  <item id="2847" article="a" name="dead dragon" editorsuffix="(Not decaying)" editorcategory="Corpses" />
+  <item id="2847" article="a" name="dead dragon" editorsuffix="(Not decaying)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
+  </item>
   <item id="2848" article="a" name="dead spider" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
     <attribute key="corpsetype" value="venom" />
@@ -6037,7 +6042,9 @@
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="600" />
   </item>
-  <item id="2884" article="a" name="dead dragon" editorsuffix="(Not decaying)" editorcategory="Corpses" />
+  <item id="2884" article="a" name="dead dragon" editorsuffix="(Not decaying)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
+  </item>
   <item id="2885" article="a" name="dead spider" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
     <attribute key="corpsetype" value="venom" />
@@ -6181,26 +6188,30 @@
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="600" />
   </item>
-  <item id="2908" article="a" name="dead beholder" editorcategory="Corpses">
+  <item id="2908" article="a" name="dead bonelord" editorcategory="Corpses">
     <attribute key="corpsetype" value="venom" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="2909" />
     <attribute key="duration" value="600" />
     <attribute key="fluidsource" value="slime" />
   </item>
-  <item id="2909" article="a" name="dead beholder" editorcategory="Corpses">
+  <item id="2909" article="a" name="dead bonelord" editorcategory="Corpses">
     <attribute key="corpsetype" value="venom" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="2910" />
     <attribute key="duration" value="600" />
   </item>
-  <item id="2910" article="a" name="dead beholder" editorcategory="Corpses">
+  <item id="2910" article="a" name="dead bonelord" editorcategory="Corpses">
     <attribute key="corpsetype" value="venom" />
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="600" />
   </item>
-  <item id="2911" article="a" name="dead cyclops" editorsuffix="(Not decaying)" editorcategory="Corpses" />
-  <item id="2912" article="a" name="dead cyclops" editorsuffix="(Not decaying)" editorcategory="Corpses" />
+  <item id="2911" article="a" name="dead cyclops" editorsuffix="(Not decaying)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
+  </item>
+  <item id="2912" article="a" name="dead cyclops" editorsuffix="(Not decaying)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
+  </item>
   <item id="2913" name="remains of a ghost" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
     <attribute key="corpsetype" value="undead" />
@@ -6398,10 +6409,11 @@
   </item>
   <item id="2943" article="a" name="dead goblin" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
+    <attribute key="corpsetype" value="blood" />
   </item>
   <item id="2944" article="a" name="dead spider" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
-    <attribute key="corpsetype" value="blood" />
+    <attribute key="corpsetype" value="venom" />
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="600" />
   </item>
@@ -6428,6 +6440,7 @@
   </item>
   <item id="2948" article="a" name="dead elf" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
+    <attribute key="corpsetype" value="blood" />
   </item>
   <item id="2949" name="remains of a mummy" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
@@ -6493,6 +6506,7 @@
   </item>
   <item id="2959" article="a" name="slain vampire" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
+    <attribute key="corpsetype" value="undead" />
   </item>
   <item id="2960" article="a" name="dead dwarf" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
@@ -6517,6 +6531,7 @@
   </item>
   <item id="2963" article="a" name="dead dwarf" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
+    <attribute key="corpsetype" value="blood" />
   </item>
   <item id="2964" article="a" name="dead rotworm" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
@@ -6623,6 +6638,7 @@
   </item>
   <item id="2980" article="a" name="dead elf" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="2947" />
     <attribute key="duration" value="600" />
@@ -6712,9 +6728,11 @@
   </item>
   <item id="2993" article="a" name="dead rabbit" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
+    <attribute key="corpsetype" value="blood" />
   </item>
   <item id="2994" article="a" name="dead rabbit" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
+    <attribute key="corpsetype" value="blood" />
   </item>
   <item id="2995" article="a" name="dead troll" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
@@ -6756,16 +6774,20 @@
     <attribute key="duration" value="600" />
   </item>
   <item id="3001" article="a" name="dead djinn" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="3002" />
     <attribute key="duration" value="600" />
   </item>
   <item id="3002" article="a" name="dead djinn" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="2991" />
     <attribute key="duration" value="600" />
   </item>
-  <item id="3003" article="a" name="dead djinn" editorcategory="Corpses" />
+  <item id="3003" article="a" name="dead djinn" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
+  </item>
   <item id="3004" article="a" name="dead ancient scarab" editorcategory="Corpses">
     <attribute key="corpsetype" value="venom" />
     <attribute key="containersize" value="10" />
@@ -6845,19 +6867,19 @@
     <attribute key="duration" value="600" />
   </item>
   <item id="3016" article="a" name="dead pharaoh" editorcategory="Corpses">
-    <attribute key="corpsetype" value="blood" />
+    <attribute key="corpsetype" value="undead" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="3017" />
     <attribute key="duration" value="900" />
   </item>
   <item id="3017" article="a" name="dead pharaoh" editorcategory="Corpses">
-    <attribute key="corpsetype" value="blood" />
+    <attribute key="corpsetype" value="undead" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="3018" />
     <attribute key="duration" value="600" />
   </item>
   <item id="3018" article="a" name="dead pharaoh" editorcategory="Corpses">
-    <attribute key="corpsetype" value="blood" />
+    <attribute key="corpsetype" value="undead" />
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="600" />
   </item>
@@ -6952,19 +6974,19 @@
     <attribute key="duration" value="600" />
   </item>
   <item id="3034" article="a" name="dead pharaoh" editorcategory="Corpses">
-    <attribute key="corpsetype" value="blood" />
+    <attribute key="corpsetype" value="undead" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="3035" />
     <attribute key="duration" value="900" />
   </item>
   <item id="3035" article="a" name="dead pharaoh" editorcategory="Corpses">
-    <attribute key="corpsetype" value="blood" />
+    <attribute key="corpsetype" value="undead" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="3036" />
     <attribute key="duration" value="600" />
   </item>
   <item id="3036" article="a" name="dead pharaoh" editorcategory="Corpses">
-    <attribute key="corpsetype" value="blood" />
+    <attribute key="corpsetype" value="undead" />
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="600" />
   </item>
@@ -7064,19 +7086,19 @@
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="600" />
   </item>
-  <item id="3052" article="a" name="dead beholder" editorcategory="Corpses">
+  <item id="3052" article="a" name="dead bonelord" editorcategory="Corpses">
     <attribute key="corpsetype" value="venom" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="3053" />
     <attribute key="duration" value="600" />
     <attribute key="fluidsource" value="slime" />
   </item>
-  <item id="3053" article="a" name="dead beholder" editorcategory="Corpses">
+  <item id="3053" article="a" name="dead bonelord" editorcategory="Corpses">
     <attribute key="corpsetype" value="venom" />
     <attribute key="decayto" value="3054" />
     <attribute key="duration" value="600" />
   </item>
-  <item id="3054" article="a" name="dead elder beholder" editorcategory="Corpses">
+  <item id="3054" article="a" name="dead elder bonelord" editorcategory="Corpses">
     <attribute key="corpsetype" value="venom" />
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="600" />
@@ -7119,12 +7141,15 @@
   </item>
   <item id="3061" article="a" name="dead human" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
+    <attribute key="corpsetype" value="blood" />
   </item>
   <item id="3062" article="a" name="dead human" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
+    <attribute key="corpsetype" value="blood" />
   </item>
   <item id="3063" article="a" name="dead human" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
+    <attribute key="corpsetype" value="blood" />
   </item>
   <item id="3064" article="a" name="dead human" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
@@ -7212,16 +7237,19 @@
   </item>
   <item id="3077" article="a" name="dead snake" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
+    <attribute key="corpsetype" value="blood" />
     <attribute key="decayto" value="3078" />
     <attribute key="duration" value="600" />
   </item>
   <item id="3078" article="a" name="dead snake" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
+    <attribute key="corpsetype" value="blood" />
     <attribute key="decayto" value="3079" />
     <attribute key="duration" value="600" />
   </item>
   <item id="3079" article="a" name="dead snake" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
+    <attribute key="corpsetype" value="blood" />
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="600" />
   </item>
@@ -7235,13 +7263,16 @@
   </item>
   <item id="3081" article="a" name="dead orc" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
+    <attribute key="corpsetype" value="blood" />
   </item>
   <item id="3082" article="a" name="dead spider" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
+    <attribute key="corpsetype" value="venom" />
     <attribute key="containersize" value="5" />
   </item>
   <item id="3083" article="a" name="dead spider" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
+    <attribute key="corpsetype" value="venom" />
   </item>
   <item id="3084" article="a" name="dead rotworm" editorcategory="Corpses">
     <attribute key="weight" value="8500" />
@@ -7253,6 +7284,7 @@
   </item>
   <item id="3085" article="a" name="dead rotworm" editorcategory="Corpses">
     <attribute key="weight" value="8000" />
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="2825" />
     <attribute key="duration" value="600" />
@@ -7294,23 +7326,27 @@
   </item>
   <item id="3091" article="a" name="dead minotaur" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="3092" />
     <attribute key="duration" value="600" />
   </item>
   <item id="3092" article="a" name="dead minotaur" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="3093" />
     <attribute key="duration" value="600" />
   </item>
   <item id="3093" article="a" name="dead minotaur" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
+    <attribute key="corpsetype" value="blood" />
     <attribute key="decayto" value="3094" />
     <attribute key="duration" value="600" />
   </item>
   <item id="3094" article="a" name="dead minotaur" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
+    <attribute key="corpsetype" value="blood" />
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="600" />
   </item>
@@ -7324,18 +7360,21 @@
   </item>
   <item id="3096" article="a" name="dead deer" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="3097" />
     <attribute key="duration" value="600" />
   </item>
   <item id="3097" article="a" name="dead deer" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="3098" />
     <attribute key="duration" value="600" />
   </item>
   <item id="3098" article="a" name="dead deer" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
+    <attribute key="corpsetype" value="blood" />
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="600" />
   </item>
@@ -7349,13 +7388,16 @@
   </item>
   <item id="3100" article="a" name="dead dog" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
   </item>
   <item id="3101" article="a" name="dead dog" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
+    <attribute key="corpsetype" value="blood" />
   </item>
   <item id="3102" article="a" name="dead dog" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
+    <attribute key="corpsetype" value="blood" />
   </item>
   <item id="3103" article="a" name="dead skeleton" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
@@ -7384,6 +7426,7 @@
     <attribute key="duration" value="600" />
   </item>
   <item id="3107" article="a" name="dead dragon" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="600" />
   </item>
@@ -7402,16 +7445,19 @@
     <attribute key="fluidsource" value="blood" />
   </item>
   <item id="3110" article="a" name="dead bear" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="3111" />
     <attribute key="duration" value="600" />
   </item>
   <item id="3111" article="a" name="dead bear" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="3112" />
     <attribute key="duration" value="600" />
   </item>
   <item id="3112" article="a" name="dead bear" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="600" />
   </item>
@@ -7436,6 +7482,7 @@
   </item>
   <item id="3116" article="a" name="slain ghoul" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
+    <attribute key="corpsetype" value="undead" />
   </item>
   <item id="3117" article="a" name="dead cyclops" editorcategory="Corpses">
     <attribute key="corpsetype" value="blood" />
@@ -8672,7 +8719,7 @@
     <attribute key="armor" value="2" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="3972" article="a" name="beholder helmet" editorcategory="Helmets">
+  <item id="3972" article="a" name="bonelord helmet" editorcategory="Helmets">
     <attribute key="weight" value="4600" />
     <attribute key="armor" value="7" />
     <attribute key="slottype" value="head" />
@@ -8990,6 +9037,7 @@
     <attribute key="fluidsource" value="blood" />
   </item>
   <item id="4252" article="a" name="dead elephant" editorsuffix="(Not Decaying)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
   </item>
   <item id="4253" article="a" name="dead crab" editorcategory="Corpses">
@@ -9208,19 +9256,19 @@
     <attribute key="duration" value="600" />
   </item>
   <item id="4289" article="a" name="dead centipede" editorcategory="Corpses">
-    <attribute key="corpsetype" value="blood" />
+    <attribute key="corpsetype" value="venom" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="4290" />
     <attribute key="duration" value="900" />
     <attribute key="fluidsource" value="blood" />
   </item>
   <item id="4290" article="a" name="dead centipede" editorcategory="Corpses">
-    <attribute key="corpsetype" value="blood" />
+    <attribute key="corpsetype" value="venom" />
     <attribute key="decayto" value="4291" />
     <attribute key="duration" value="600" />
   </item>
   <item id="4291" article="a" name="dead centipede" editorcategory="Corpses">
-    <attribute key="corpsetype" value="blood" />
+    <attribute key="corpsetype" value="venom" />
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="600" />
   </item>
@@ -9349,7 +9397,7 @@
   </item>
   <item id="4313" article="a" name="dead butterfly" editorcategory="Corpses">
     <attribute key="weight" value="20" />
-    <attribute key="corpsetype" value="blood" />
+    <attribute key="corpsetype" value="venom" />
   </item>
   <item id="4314" article="a" name="dead parrot" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
@@ -9740,27 +9788,27 @@
     <attribute key="fluidsource" value="water" />
     <attribute key="type" value="trashholder" />
   </item>
-  <item id="4620" name="shallow water">
+  <item id="4620" name="shallow water" editorsuffix="(Walkable)">
     <attribute key="fluidsource" value="water" />
     <attribute key="type" value="trashholder" />
   </item>
-  <item id="4621" name="shallow water">
+  <item id="4621" name="shallow water" editorsuffix="(Walkable)">
     <attribute key="fluidsource" value="water" />
     <attribute key="type" value="trashholder" />
   </item>
-  <item id="4622" name="shallow water">
+  <item id="4622" name="shallow water" editorsuffix="(Walkable)">
     <attribute key="fluidsource" value="water" />
     <attribute key="type" value="trashholder" />
   </item>
-  <item id="4623" name="shallow water">
+  <item id="4623" name="shallow water" editorsuffix="(Walkable)">
     <attribute key="fluidsource" value="water" />
     <attribute key="type" value="trashholder" />
   </item>
-  <item id="4624" name="shallow water">
+  <item id="4624" name="shallow water" editorsuffix="(Walkable)">
     <attribute key="fluidsource" value="water" />
     <attribute key="type" value="trashholder" />
   </item>
-  <item id="4625" name="shallow water">
+  <item id="4625" name="shallow water" editorsuffix="(Walkable)">
     <attribute key="fluidsource" value="water" />
     <attribute key="type" value="trashholder" />
   </item>
@@ -10091,16 +10139,16 @@
   <item id="4821" name="shallow water" editorsuffix="(Walkable)">
     <attribute key="fluidsource" value="water" />
   </item>
-  <item id="4822" name="shallow water" editorsuffix="(walkable)">
+  <item id="4822" name="shallow water" editorsuffix="(Walkable)">
     <attribute key="fluidsource" value="water" />
   </item>
-  <item id="4823" name="shallow water" editorsuffix="(walkable)">
+  <item id="4823" name="shallow water" editorsuffix="(Walkable)">
     <attribute key="fluidsource" value="water" />
   </item>
-  <item id="4824" name="shallow water" editorsuffix="(walkable)">
+  <item id="4824" name="shallow water" editorsuffix="(Walkable)">
     <attribute key="fluidsource" value="water" />
   </item>
-  <item id="4825" name="shallow water" editorsuffix="(walkable)">
+  <item id="4825" name="shallow water" editorsuffix="(Walkable)">
     <attribute key="fluidsource" value="water" />
   </item>
   <item id="4826" article="a" name="mountain" />
@@ -10404,16 +10452,19 @@
   <item id="4991" article="a" name="pirate flag" />
   <item id="4992" article="a" name="dead butterfly" editorcategory="Corpses">
     <attribute key="weight" value="20" />
+    <attribute key="corpsetype" value="venom" />
     <attribute key="decayto" value="4992" />
     <attribute key="duration" value="60" />
   </item>
   <item id="4993" article="a" name="dead butterfly" editorcategory="Corpses">
     <attribute key="weight" value="20" />
+    <attribute key="corpsetype" value="venom" />
     <attribute key="decayto" value="4313" />
     <attribute key="duration" value="60" />
   </item>
   <item id="4994" article="a" name="dead butterfly" editorcategory="Corpses">
     <attribute key="weight" value="20" />
+    <attribute key="corpsetype" value="venom" />
     <attribute key="decayto" value="4313" />
     <attribute key="duration" value="60" />
   </item>
@@ -10443,6 +10494,7 @@
   <item id="5013" article="a" name="lava wall" />
   <item id="5014" article="a" name="dead butterfly" editorcategory="Corpses">
     <attribute key="weight" value="20" />
+    <attribute key="corpsetype" value="venom" />
     <attribute key="decayto" value="4313" />
     <attribute key="duration" value="60" />
   </item>
@@ -11080,12 +11132,12 @@
   <item id="5402" article="a" name="bamboo lamp" />
   <item id="5403" article="a" name="bamboo lamp" />
   <item id="5404" article="a" name="bamboo lamp" />
-  <item id="5405" name="ocean floor" />
-  <item id="5406" name="ocean floor" />
-  <item id="5407" name="ocean floor" />
-  <item id="5408" name="ocean floor" />
-  <item id="5409" name="ocean floor" />
-  <item id="5410" name="ocean floor" />
+  <item id="5405" name="ocean floor" editorsuffix="(Underwater)" />
+  <item id="5406" name="ocean floor" editorsuffix="(Underwater)" />
+  <item id="5407" name="ocean floor" editorsuffix="(Underwater)" />
+  <item id="5408" name="ocean floor" editorsuffix="(Underwater)" />
+  <item id="5409" name="ocean floor" editorsuffix="(Underwater)" />
+  <item id="5410" name="ocean floor" editorsuffix="(Underwater)" />
   <item id="5411" article="a" name="stone" />
   <item id="5412" article="a" name="stone" />
   <item id="5413" article="a" name="coral" />
@@ -11354,6 +11406,7 @@
     <attribute key="duration" value="600" />
   </item>
   <item id="5535" article="a" name="dead quara predator" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="5536" />
     <attribute key="duration" value="900" />
@@ -11769,8 +11822,8 @@
   <item id="5752" article="an" name="earth pile" />
   <item id="5753" article="an" name="earth pile" />
   <item id="5754" article="an" name="earth pile" />
-  <item id="5755" article="a" name="turtle" editorcategory="Animals" />
-  <item id="5756" article="a" name="turtle" editorcategory="Animals">
+  <item id="5755" article="a" name="turtle" editorsuffix="(Walkable)" editorcategory="Animals" />
+  <item id="5756" article="a" name="turtle" editorsuffix="(Walkable)" editorcategory="Animals">
     <attribute key="type" value="teleport" />
   </item>
   <item id="5757" article="a" name="turtle" editorcategory="Animals" />
@@ -12227,19 +12280,19 @@
     <attribute key="weight" value="1250" />
   </item>
   <item id="5931" article="the" name="remains of ferumbras" editorcategory="Corpses">
-    <attribute key="corpsetype" value="venom" />
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="5932" />
     <attribute key="duration" value="900" />
   </item>
   <item id="5932" article="the" name="remains of ferumbras" editorcategory="Corpses">
-    <attribute key="corpsetype" value="venom" />
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="5933" />
     <attribute key="duration" value="600" />
   </item>
   <item id="5933" article="the" name="remains of ferumbras" editorcategory="Corpses">
-    <attribute key="corpsetype" value="venom" />
+    <attribute key="corpsetype" value="blood" />
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="600" />
   </item>
@@ -12379,6 +12432,7 @@
     <attribute key="fluidsource" value="blood" />
   </item>
   <item id="5965" article="a" name="dead human" editorsuffix="(Not Decaying)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
   </item>
   <item id="5966" article="a" name="dead orc" editorsuffix="(Unmoveable)" editorcategory="Corpses">
@@ -12560,7 +12614,7 @@
     <attribute key="duration" value="10" />
     <attribute key="fluidsource" value="blood" />
   </item>
-  <item id="5992" article="a" name="dead beholder" editorsuffix="(Unmoveable)" editorcategory="Corpses">
+  <item id="5992" article="a" name="dead bonelord" editorsuffix="(Unmoveable)" editorcategory="Corpses">
     <attribute key="corpsetype" value="venom" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="2908" />
@@ -12765,6 +12819,7 @@
     <attribute key="fluidsource" value="slime" />
   </item>
   <item id="6022" article="a" name="dead human" editorsuffix="(Not Decaying)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
   </item>
   <item id="6023" article="a" name="dead larva" editorsuffix="(Unmoveable)" editorcategory="Corpses">
@@ -12861,7 +12916,7 @@
     <attribute key="duration" value="10" />
     <attribute key="fluidsource" value="blood" />
   </item>
-  <item id="6037" article="a" name="dead elder beholder" editorsuffix="(Unmoveable)" editorcategory="Corpses">
+  <item id="6037" article="a" name="dead elder bonelord" editorsuffix="(Unmoveable)" editorcategory="Corpses">
     <attribute key="corpsetype" value="venom" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="3052" />
@@ -12953,7 +13008,7 @@
     <attribute key="fluidsource" value="blood" />
   </item>
   <item id="6050" article="a" name="dead centipede" editorsuffix="(Unmoveable)" editorcategory="Corpses">
-    <attribute key="corpsetype" value="blood" />
+    <attribute key="corpsetype" value="venom" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="4289" />
     <attribute key="duration" value="10" />
@@ -13119,6 +13174,7 @@
     <attribute key="fluidsource" value="blood" />
   </item>
   <item id="6074" article="a" name="dead mammoth" editorsuffix="(Unmoveable)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="5666" />
     <attribute key="duration" value="10" />
@@ -13139,13 +13195,14 @@
     <attribute key="fluidsource" value="blood" />
   </item>
   <item id="6077" article="a" name="dead toad" editorsuffix="(Unmoveable)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="5765" />
     <attribute key="duration" value="10" />
     <attribute key="fluidsource" value="blood" />
   </item>
   <item id="6078" name="remains of Ferumbras" editorsuffix="(Unmoveable)" editorcategory="Corpses">
-    <attribute key="corpsetype" value="undead" />
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="5931" />
     <attribute key="duration" value="10" />
@@ -13171,11 +13228,15 @@
     <attribute key="duration" value="10" />
     <attribute key="fluidsource" value="blood" />
   </item>
-  <item id="6082" article="a" name="dead human" editorsuffix="(Creature)" editorcategory="Corpses" />
+  <item id="6082" article="a" name="dead human" editorsuffix="(Creature)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
+  </item>
   <item id="6083" article="a" name="dead human" editorsuffix="(Creature)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
   </item>
   <item id="6084" article="a" name="dead human" editorsuffix="(Creature)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="6082" />
     <attribute key="duration" value="120" />
@@ -13744,7 +13805,7 @@
     <attribute key="fluidsource" value="blood" />
   </item>
   <item id="6319" article="a" name="slain skeleton" editorcategory="Corpses">
-    <attribute key="corpsetype" value="blood" />
+    <attribute key="corpsetype" value="undead" />
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="600" />
     <attribute key="fluidsource" value="blood" />
@@ -13854,6 +13915,7 @@
     <attribute key="fluidsource" value="blood" />
   </item>
   <item id="6337" article="a" name="dead juggernaut" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="6338" />
     <attribute key="duration" value="900" />
@@ -13947,7 +14009,7 @@
     <attribute key="duration" value="600" />
   </item>
   <item id="6352" name="nothing special" editorsuffix="(Blank)" />
-  <item id="6353" name="swamp" editorsuffix="(walkable)">
+  <item id="6353" name="swamp" editorsuffix="(Walkable)">
     <attribute key="type" value="trashholder" />
   </item>
   <item id="6354" article="a" name="slain blightwalker" editorsuffix="(Unmoveable)" editorcategory="Corpses">
@@ -14426,6 +14488,7 @@
   </item>
   <item id="6535" article="the" name="Plasmother's remains" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
+    <attribute key="corpsetype" value="blood" />
   </item>
   <item id="6536" name="Countess Sorrow's frozen tear" editorcategory="Creature Products">
     <attribute key="weight" value="1000" />
@@ -15615,6 +15678,7 @@
     <attribute key="containersize" value="10" />
   </item>
   <item id="7260" article="a" name="slain braindeath" editorsuffix="(Unmoveable)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="7257" />
     <attribute key="duration" value="600" />
@@ -15670,7 +15734,7 @@
     <attribute key="weight" value="700" />
   </item>
   <item id="7287" name="nothing special" editorsuffix="(Blank)" />
-  <item id="7288" name="nothing special" editorsuffix="(Blank)" />
+  <item id="7288" name="nothing special" editorsuffix="(NotMoveable, BlockPathFinding, LookThrough)" />
   <item id="7289" article="a" name="frost charm" editorsuffix="(The Ice Islands Quest)" editorcategory="Quest Items">
     <attribute key="weight" value="1900" />
   </item>
@@ -17951,16 +18015,19 @@
     <attribute key="weight" value="200" />
   </item>
   <item id="7847" article="a" name="dead cyclops" editorsuffix="(Unmoveable)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="7848" />
     <attribute key="duration" value="10" />
   </item>
   <item id="7848" article="a" name="dead cyclops" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="7849" />
     <attribute key="duration" value="900" />
   </item>
   <item id="7849" article="a" name="dead cyclops" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="7743" />
     <attribute key="duration" value="600" />
@@ -18476,7 +18543,9 @@
     <attribute key="description" value="Use it on your bed to change the bed to yellow." />
     <attribute key="weight" value="3500" />
   </item>
-  <item id="7908" article="a" name="dead human" editorcategory="Corpses" />
+  <item id="7908" article="a" name="dead human" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
+  </item>
   <item id="7909" article="a" name="walnut" plural="walnuts" editorcategory="Foods">
     <attribute key="weight" value="10" />
   </item>
@@ -18575,7 +18644,7 @@
   <item id="7941" name="wooden floor">
     <attribute key="type" value="teleport" />
   </item>
-  <item id="7942" name="nothing special" editorsuffix="(Blank)" />
+  <item id="7942" name="nothing special" editorsuffix="(AlwaysOnTop1, NotMoveable, LookThrough)" />
   <item id="7943" name="shallow water">
     <attribute key="fluidsource" value="water" />
   </item>
@@ -18931,6 +19000,7 @@
   <item id="8184" name="nothing special" editorsuffix="(Blank)" />
   <item id="8185" name="nothing special" editorsuffix="(Blank)" />
   <item id="8186" article="a" name="dead human" editorsuffix="(Unmoveable)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
   </item>
   <item id="8187" article="a" name="magical watch" editorsuffix="(What a foolish Quest)" editorcategory="Quest Items">
@@ -19241,6 +19311,7 @@
   </item>
   <item id="8312" article="a" name="dead sea serpent" editorcategory="Corpses">
     <attribute key="weight" value="30000" />
+    <attribute key="corpsetype" value="blood" />
     <attribute key="decayto" value="0" />
   </item>
   <item id="8313" article="a" name="birch" />
@@ -19595,7 +19666,7 @@
   <item id="8574" article="an" name="ice statue" editorsuffix="(Unmoveable)" />
   <item id="8575" article="a" name="lavahole" />
   <item id="8576" article="a" name="dead man's saddle" />
-  <item id="8577" name="void" />
+  <item id="8577" name="void" editorsuffix="(Walkable)" />
   <item id="8578" name="grass" />
   <item id="8579" article="a" name="stone pile" />
   <item id="8580" article="a" name="grate" />
@@ -20342,7 +20413,7 @@
     <attribute key="slottype" value="body" />
     <attribute key="skillmodifiermagiclevel" value="1" />
   </item>
-  <item id="8893" name="nothing special" editorsuffix="(Blank)" />
+  <item id="8893" name="nothing special" editorsuffix="(AlwaysOnTop1, NotMoveable, LookThrough)" />
   <item id="8894" article="a" name="mysterious machine" />
   <item id="8895" article="a" name="mysterious machine" />
   <item id="8896" article="a" name="mysterious machine" />
@@ -20634,6 +20705,7 @@
     <attribute key="weight" value="1300" />
   </item>
   <item id="8946" name="remains of a wisp" editorcategory="Corpses">
+    <attribute key="corpsetype" value="undead" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="60" />
@@ -20742,36 +20814,40 @@
     <attribute key="duration" value="300" />
   </item>
   <item id="8964" article="the" name="remains of an elemental" editorsuffix="(Unmoveable)" editorcategory="Corpses">
-    <attribute key="corpsetype" value="fire" />
+    <attribute key="corpsetype" value="undead" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="8969" />
     <attribute key="duration" value="900" />
   </item>
   <item id="8965" article="the" name="remains of an elemental" editorsuffix="(Unmoveable)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="undead" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="8968" />
     <attribute key="duration" value="900" />
   </item>
   <item id="8966" article="the" name="remains of an elemental" editorsuffix="(Unmoveable)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="undead" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="8967" />
     <attribute key="duration" value="900" />
   </item>
   <item id="8967" article="the" name="remains of an elemental" editorcategory="Corpses">
     <attribute key="weight" value="10000" />
+    <attribute key="corpsetype" value="undead" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="500" />
   </item>
   <item id="8968" article="the" name="remains of an elemental" editorcategory="Corpses">
     <attribute key="weight" value="10000" />
+    <attribute key="corpsetype" value="undead" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="500" />
   </item>
   <item id="8969" article="the" name="remains of an elemental" editorcategory="Corpses">
     <attribute key="weight" value="10000" />
-    <attribute key="corpsetype" value="fire" />
+    <attribute key="corpsetype" value="undead" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="500" />
@@ -20966,10 +21042,12 @@
   </item>
   <item id="9082" article="a" name="dead troll" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
   </item>
   <item id="9083" name="remains of a mummy" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
+    <attribute key="corpsetype" value="undead" />
     <attribute key="containersize" value="10" />
   </item>
   <item id="9084" article="an" name="iron pillar" />
@@ -22001,13 +22079,18 @@
   </item>
   <item id="9779" article="a" name="crystal column" />
   <item id="9780" article="a" name="dead tortoise" editorsuffix="(Unmoveable)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
   </item>
   <item id="9781" article="a" name="dead tortoise" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
   </item>
-  <item id="9782" article="a" name="dead tortoise" editorcategory="Corpses" />
+  <item id="9782" article="a" name="dead tortoise" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
+  </item>
   <item id="9783" article="a" name="dead tortoise" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
   </item>
   <item id="9784" article="a" name="crystal column" editorsuffix="(Changing)">
@@ -22283,21 +22366,25 @@
     <attribute key="duration" value="600" />
   </item>
   <item id="9879" article="a" name="dead young sea serpent" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="9880" />
     <attribute key="duration" value="120" />
   </item>
   <item id="9880" article="a" name="dead young sea serpent" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="9881" />
     <attribute key="duration" value="120" />
   </item>
   <item id="9881" article="a" name="dead young sea serpent" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="60" />
   </item>
   <item id="9882" article="a" name="dead young sea serpent" editorsuffix="(Unmoveable)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="9879" />
     <attribute key="duration" value="10" />
@@ -22779,7 +22866,7 @@
     <attribute key="description" value="You read the numbers 2543 on the back of the doll." />
     <attribute key="weight" value="650" />
   </item>
-  <item id="10019" name="ocean floor" />
+  <item id="10019" name="ocean floor" editorsuffix="(Underwater)" />
   <item id="10020" article="a" name="dragon claw" editorcategory="Creature Products">
     <attribute key="weight" value="1250" />
   </item>
@@ -22791,7 +22878,7 @@
     <attribute key="description" value="They can be recharged with an enchanted ruby." />
     <attribute key="weight" value="800" />
   </item>
-  <item id="10023" name="nothing special" />
+  <item id="10023" article="a" name="stone" />
   <item id="10024" article="a" name="crystal ball" />
   <item id="10025" name="nothing special" editorcategory="Duplicate" />
   <item id="10026" name="nothing special" editorcategory="Duplicate" />
@@ -23501,7 +23588,9 @@
     <attribute key="duration" value="10" />
     <attribute key="fluidsource" value="blood" />
   </item>
-  <item id="10324" article="the" name="slain boogey" editorcategory="Corpses" />
+  <item id="10324" article="the" name="slain boogey" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
+  </item>
   <item id="10325" article="a" name="roof" />
   <item id="10326" article="a" name="roof" />
   <item id="10327" article="a" name="roof" />
@@ -23743,11 +23832,13 @@
   <item id="10498" name="pavement" />
   <item id="10499" name="remains of a water elemental" editorsuffix="(Unmoveable)" editorcategory="Corpses">
     <attribute key="description" value="Something is wobbling inside. Maybe with a fishing rod you could reach it." />
+    <attribute key="corpsetype" value="undead" />
     <attribute key="decayto" value="500" />
     <attribute key="duration" value="300" />
   </item>
   <item id="10500" name="remains of a water elemental" editorsuffix="(Unmoveable)" editorcategory="Corpses">
     <attribute key="description" value="It has already been emptied of the treasure it held." />
+    <attribute key="corpsetype" value="undead" />
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="3" />
   </item>
@@ -23764,6 +23855,7 @@
   <item id="10506" article="a" name="dead tree" />
   <item id="10507" article="a" name="carving" />
   <item id="10508" name="remains of a wisp" editorsuffix="(Unmoveable)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="undead" />
     <attribute key="containersize" value="10" />
   </item>
   <item id="10509" article="a" name="limestone pedestal" />
@@ -23849,6 +23941,7 @@
     <attribute key="duration" value="300" />
   </item>
   <item id="10527" article="a" name="slain medusa" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="600" />
   </item>
@@ -24036,6 +24129,7 @@
     <attribute key="weight" value="94" />
   </item>
   <item id="10604" article="a" name="dead cobra" editorsuffix="(Unmoveable)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="venom" />
     <attribute key="containersize" value="10" />
   </item>
   <item id="10605" article="a" name="bundle of cursed straw" plural="bundles of cursed straw" editorcategory="Creature Products">
@@ -24296,7 +24390,7 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="10792" article="a" name="open door">
+  <item id="10792" article="an" name="open door">
     <attribute key="type" value="door" />
   </item>
   <item id="10793" article="a" name="tainted plant" />
@@ -24550,7 +24644,7 @@
   <item id="11027" name="dry earth" />
   <item id="11028" article="a" name="dragon decoration" />
   <item id="11029" article="a" name="strange grass mat" />
-  <item id="11030" name="shallow water" />
+  <item id="11030" name="shallow water" editorsuffix="(Walkable)" />
   <item id="11031" name="shallow water" />
   <item id="11032" name="shallow water" />
   <item id="11033" name="shallow water" />
@@ -24639,7 +24733,7 @@
   <item id="11102" article="a" name="lever" />
   <item id="11103" article="a" name="scrying ball" />
   <item id="11104" article="a" name="shattered crystal ball" />
-  <item id="11105" name="nothing special" editorsuffix="(Blank)" />
+  <item id="11105" name="nothing special" editorsuffix="(NotMoveable, LookThrough)" />
   <item id="11106" article="a" name="flask of extra greasy oil" />
   <item id="11107" article="a" name="dead draken warmaster" editorsuffix="(Unmoveable)" editorcategory="Corpses">
     <attribute key="corpsetype" value="blood" />
@@ -25219,8 +25313,11 @@
   <item id="11296" article="a" name="banner" />
   <item id="11297" article="a" name="banner" />
   <item id="11298" article="a" name="banner" />
-  <item id="11299" article="a" name="dead eternal guardian" editorcategory="Corpses" />
+  <item id="11299" article="a" name="dead eternal guardian" editorcategory="Corpses">
+    <attribute key="corpsetype" value="undead" />
+  </item>
   <item id="11300" article="a" name="dead eternal guardian" editorsuffix="(Unmoveable)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="undead" />
     <attribute key="containersize" value="10" />
   </item>
   <item id="11301" article="a" name="Zaoan armor" editorcategory="Armors">
@@ -25338,7 +25435,9 @@
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="60" />
   </item>
-  <item id="11320" article="a" name="dead insect swarm" editorcategory="Corpses" />
+  <item id="11320" article="a" name="dead insect swarm" editorcategory="Corpses">
+    <attribute key="corpsetype" value="venom" />
+  </item>
   <item id="11321" article="a" name="bone shoulderplate" plural="bone shoulderplates" editorcategory="Creature Products">
     <attribute key="weight" value="220" />
   </item>
@@ -25428,27 +25527,27 @@
     <attribute key="weight" value="1000" />
   </item>
   <item id="11347" article="a" name="dead terramite" editorsuffix="(Unmoveable)" editorcategory="Corpses">
-    <attribute key="corpsetype" value="blood" />
+    <attribute key="corpsetype" value="venom" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="11348" />
     <attribute key="duration" value="10" />
     <attribute key="fluidsource" value="blood" />
   </item>
   <item id="11348" article="a" name="dead terramite" editorcategory="Corpses">
-    <attribute key="corpsetype" value="blood" />
+    <attribute key="corpsetype" value="venom" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="11349" />
     <attribute key="duration" value="300" />
     <attribute key="fluidsource" value="blood" />
   </item>
   <item id="11349" article="a" name="dead terramite" editorcategory="Corpses">
-    <attribute key="corpsetype" value="blood" />
+    <attribute key="corpsetype" value="venom" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="11350" />
     <attribute key="duration" value="300" />
   </item>
   <item id="11350" article="a" name="dead terramite" editorcategory="Corpses">
-    <attribute key="corpsetype" value="blood" />
+    <attribute key="corpsetype" value="venom" />
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="60" />
   </item>
@@ -25487,6 +25586,7 @@
   </item>
   <item id="11359" name="dead sandcrawler" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
+    <attribute key="corpsetype" value="venom" />
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="60" />
   </item>
@@ -25627,22 +25727,27 @@
     <attribute key="description" value="It contains all the knowledge of the Tibian lands gathered arduously by Tibia-Stats.com." />
     <attribute key="weight" value="4200" />
   </item>
-  <item id="11403" name="nothing special" editorsuffix="(Blank)" />
+  <item id="11403" name="nothing special" editorsuffix="(NotMoveable)" />
   <item id="11404" article="a" name="dead serpent spawn" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
   </item>
   <item id="11405" article="a" name="dead serpent spawn" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
   </item>
   <item id="11406" article="a" name="dead draken" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
   </item>
   <item id="11407" article="a" name="dead lizard" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
   </item>
   <item id="11408" name="nothing special" editorsuffix="(Blank)" />
   <item id="11409" article="a" name="slain ghoul" editorcategory="Corpses">
     <attribute key="weight" value="1000" />
+    <attribute key="corpsetype" value="undead" />
     <attribute key="containersize" value="10" />
   </item>
   <item id="11410" name="nothing special" editorsuffix="(Blank)" />
@@ -25668,15 +25773,20 @@
     <attribute key="weight" value="440" />
   </item>
   <item id="11430" article="a" name="dead caiman" editorsuffix="(Unmoveable)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
   </item>
   <item id="11431" article="a" name="dead caiman" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
   </item>
   <item id="11432" article="a" name="dead caiman" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
   </item>
-  <item id="11433" article="a" name="dead caiman" editorcategory="Corpses" />
+  <item id="11433" article="a" name="dead caiman" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
+  </item>
   <item id="11434" article="a" name="buttress lamp" />
   <item id="11435" article="a" name="buttress" />
   <item id="11436" name="dirt floor" />
@@ -26534,17 +26644,37 @@
   <item id="12270" article="an" name="observation slit" />
   <item id="12271" article="an" name="observation slit" />
   <item id="12272" name="dirt floor" />
-  <item id="12273" article="a" name="slain incarnation" editorsuffix="(Unmoveable)" editorcategory="Corpses" />
+  <item id="12273" article="a" name="slain incarnation" editorsuffix="(Unmoveable)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="undead" />
+  </item>
   <item id="12274" article="an" name="observation slit" />
-  <item id="12275" article="a" name="slain incarnation" editorsuffix="(Unmoveable)" editorcategory="Corpses" />
-  <item id="12276" article="a" name="slain incarnation" editorsuffix="(Unmoveable)" editorcategory="Corpses" />
-  <item id="12277" article="a" name="slain incarnation" editorsuffix="(Unmoveable)" editorcategory="Corpses" />
-  <item id="12278" article="a" name="slain incarnation" editorsuffix="(Unmoveable)" editorcategory="Corpses" />
-  <item id="12279" article="a" name="slain incarnation" editorsuffix="(Unmoveable)" editorcategory="Corpses" />
-  <item id="12280" article="a" name="slain incarnation" editorsuffix="(Unmoveable)" editorcategory="Corpses" />
-  <item id="12281" article="a" name="slain incarnation" editorsuffix="(Unmoveable)" editorcategory="Corpses" />
-  <item id="12282" article="a" name="slain incarnation" editorsuffix="(Unmoveable)" editorcategory="Corpses" />
-  <item id="12283" article="a" name="slain incarnation" editorsuffix="(Unmoveable)" editorcategory="Corpses" />
+  <item id="12275" article="a" name="slain incarnation" editorsuffix="(Unmoveable)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="undead" />
+  </item>
+  <item id="12276" article="a" name="slain incarnation" editorsuffix="(Unmoveable)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="undead" />
+  </item>
+  <item id="12277" article="a" name="slain incarnation" editorsuffix="(Unmoveable)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="undead" />
+  </item>
+  <item id="12278" article="a" name="slain incarnation" editorsuffix="(Unmoveable)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="undead" />
+  </item>
+  <item id="12279" article="a" name="slain incarnation" editorsuffix="(Unmoveable)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="undead" />
+  </item>
+  <item id="12280" article="a" name="slain incarnation" editorsuffix="(Unmoveable)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="undead" />
+  </item>
+  <item id="12281" article="a" name="slain incarnation" editorsuffix="(Unmoveable)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="undead" />
+  </item>
+  <item id="12282" article="a" name="slain incarnation" editorsuffix="(Unmoveable)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="undead" />
+  </item>
+  <item id="12283" article="a" name="slain incarnation" editorsuffix="(Unmoveable)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="undead" />
+  </item>
   <item id="12284" article="a" name="marked crate" editorsuffix="(Wrath of the Emperor Quest)" editorcategory="Quest Items">
     <attribute key="description" value="This crate has been marked with lizard symbols. It is large enough for a grown person to fit in." />
   </item>
@@ -26564,7 +26694,7 @@
   <item id="12291" article="a" name="big table" />
   <item id="12292" article="a" name="large cocoon" />
   <item id="12293" article="a" name="tentacle" />
-  <item id="12294" name="nothing special" />
+  <item id="12294" name="nothing special" editorsuffix="(NotMoveable, LookThrough)" />
   <item id="12295" name="unworked sacred wood" editorsuffix="(Wrath of the Emperor Quest)" editorcategory="Quest Items">
     <attribute key="description" value="This chunk was cut from sacred wood in the temple complex and looks ideal for carving." />
     <attribute key="weight" value="1000" />
@@ -26581,7 +26711,7 @@
   <item id="12303" article="a" name="sacred bowl" editorsuffix="(Wrath of the Emperor Quest)" editorcategory="Quest Items">
     <attribute key="weight" value="10" />
   </item>
-  <item id="12304" name="purified water" />
+  <item id="12304" name="purified water" editorsuffix="(Walkable)" />
   <item id="12305" article="a" name="tentacle" />
   <item id="12306" article="a" name="tentacle" />
   <item id="12307" article="a" name="tentacle" />
@@ -26593,10 +26723,14 @@
   <item id="12313" article="a" name="tentacle" />
   <item id="12314" article="a" name="tentacle" />
   <item id="12315" article="a" name="tentacle" />
-  <item id="12316" article="the" name="dead Keeper" editorsuffix="(Unmoveable)" editorcategory="Corpses" />
-  <item id="12317" name="remains of a wisp" editorsuffix="(Unmoveable)" editorcategory="Corpses" />
+  <item id="12316" article="the" name="dead Keeper" editorsuffix="(Unmoveable)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
+  </item>
+  <item id="12317" name="remains of a wisp" editorsuffix="(Unmoveable)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="undead" />
+  </item>
   <item id="12318" article="a" name="replica of the sceptre" />
-  <item id="12319" name="nothing special" />
+  <item id="12319" name="nothing special" editorsuffix="(Blank)" />
   <item id="12320" article="a" name="flask of plant poison" editorsuffix="(Wrath of the Emperor Quest)" editorcategory="Quest Items">
     <attribute key="description" value="This plant poison is meant to destroy the growths near the Keeper's lair deep beneath the gardens." />
     <attribute key="weight" value="180" />
@@ -26849,9 +26983,11 @@
   <item id="12525" article="a" name="palisade" />
   <item id="12526" article="a" name="palisade" />
   <item id="12527" article="a" name="dead brimstone bug" editorsuffix="(Unmoveable)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="venom" />
     <attribute key="containersize" value="10" />
   </item>
   <item id="12528" article="a" name="dead brimstone bug" editorcategory="Corpses">
+    <attribute key="corpsetype" value="venom" />
     <attribute key="containersize" value="10" />
   </item>
   <item id="12529" article="a" name="palisade" />
@@ -26864,9 +27000,12 @@
   <item id="12536" article="a" name="palisade" />
   <item id="12537" article="a" name="wooden pole" />
   <item id="12538" article="a" name="dead brimstone bug" editorcategory="Corpses">
+    <attribute key="corpsetype" value="venom" />
     <attribute key="containersize" value="10" />
   </item>
-  <item id="12539" article="a" name="dead brimstone bug" editorcategory="Corpses" />
+  <item id="12539" article="a" name="dead brimstone bug" editorcategory="Corpses">
+    <attribute key="corpsetype" value="venom" />
+  </item>
   <item id="12540" article="a" name="coconut shrimp bake" editorcategory="Foods">
     <attribute key="description" value="It looks as if it was sealed with milky goodness." />
     <attribute key="weight" value="2000" />
@@ -26884,8 +27023,12 @@
     <attribute key="description" value="It's said to have incredible effects if you drink it while wearing certain magical rings. So it will not work on every kind of them." />
     <attribute key="weight" value="300" />
   </item>
-  <item id="12545" article="the" name="dead glitterscale" editorsuffix="(Unmoveable)" editorcategory="Corpses" />
-  <item id="12546" article="the" name="dead heoni" editorsuffix="(Unmoveable)" editorcategory="Corpses" />
+  <item id="12545" article="the" name="dead glitterscale" editorsuffix="(Unmoveable)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
+  </item>
+  <item id="12546" article="the" name="dead heoni" editorsuffix="(Unmoveable)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
+  </item>
   <item id="12547" article="a" name="spider victim" />
   <item id="12548" article="a" name="hedge" />
   <item id="12549" article="a" name="hedge" />
@@ -27052,15 +27195,20 @@
     <attribute key="weight" value="50" />
   </item>
   <item id="12609" article="a" name="dead draken elite" editorsuffix="(Unmoveable)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
   </item>
   <item id="12610" article="a" name="dead draken elite" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
   </item>
   <item id="12611" article="a" name="dead draken elite" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
   </item>
-  <item id="12612" article="a" name="dead draken elite" editorcategory="Corpses" />
+  <item id="12612" article="a" name="dead draken elite" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
+  </item>
   <item id="12613" article="a" name="twiceslicer" editorcategory="Swords">
     <attribute key="weight" value="18000" />
     <attribute key="defense" value="30" />
@@ -27077,26 +27225,36 @@
     <attribute key="weight" value="140" />
   </item>
   <item id="12618" article="a" name="dead spawn" editorsuffix="(Unmoveable)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
   </item>
   <item id="12619" article="a" name="dead spawn" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
   </item>
   <item id="12620" article="a" name="dead spawn" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
   </item>
-  <item id="12621" article="a" name="dead spawn" editorcategory="Corpses" />
+  <item id="12621" article="a" name="dead spawn" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
+  </item>
   <item id="12622" article="a" name="tentacle piece" />
   <item id="12623" article="a" name="dead draken abomination" editorsuffix="(Unmoveable)" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
   </item>
   <item id="12624" article="a" name="dead draken abomination" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
   </item>
   <item id="12625" article="a" name="dead draken abomination" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
   </item>
-  <item id="12626" article="a" name="dead draken abomination" editorcategory="Corpses" />
+  <item id="12626" article="a" name="dead draken abomination" editorcategory="Corpses">
+    <attribute key="corpsetype" value="blood" />
+  </item>
   <item id="12627" article="an" name="eye of corruption" plural="eyes of corruption" />
   <item id="12628" article="a" name="tail of corruption" plural="tails of corruption" />
   <item id="12629" article="a" name="scale of corruption" plural="scales of corruption" />
