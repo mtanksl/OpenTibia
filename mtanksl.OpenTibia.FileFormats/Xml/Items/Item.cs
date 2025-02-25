@@ -1118,14 +1118,9 @@ namespace OpenTibia.FileFormats.Xml.Items
                                 break;
 
                             case "move":
-
-                                item.AmmoAction = Common.Structures.AmmoAction.Move;
-
-                                break;
-
                             case "moveback":
 
-                                item.AmmoAction = Common.Structures.AmmoAction.MoveBack;
+                                item.AmmoAction = Common.Structures.AmmoAction.Move;
 
                                 break;
                         }

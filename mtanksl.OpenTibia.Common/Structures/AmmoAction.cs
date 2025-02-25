@@ -4,8 +4,6 @@
     {
         Remove = 1,
 
-        Move = 2,
-
-        MoveBack = 3
+        Move = 2
     }
 }
