@@ -36,7 +36,7 @@ namespace OpenTibia.FileFormats.Dat
 
                 file.outfits = new List<Item>(outfits);
 
-                for (ushort outfitId = 0; outfitId < outfits; outfitId++)
+                for (ushort outfitId = 1; outfitId <= outfits; outfitId++)
                 {
                     Item item = Item.Load(reader);
 
@@ -47,7 +47,7 @@ namespace OpenTibia.FileFormats.Dat
 
                 file.effects = new List<Item>(effects);
 
-                for (ushort effectId = 0; effectId < effects; effectId++)
+                for (ushort effectId = 1; effectId <= effects; effectId++)
                 {
                     Item item = Item.Load(reader);
 
@@ -58,7 +58,7 @@ namespace OpenTibia.FileFormats.Dat
 
                 file.projectiles = new List<Item>(projectiles);
 
-                for (ushort projectileId = 0; projectileId < projectiles; projectileId++)
+                for (ushort projectileId = 1; projectileId <= projectiles; projectileId++)
                 {
                     Item item = Item.Load(reader);
 
