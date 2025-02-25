@@ -98,18 +98,25 @@ namespace OpenTibia.FileFormats.Spr
         public byte Blue { get; set; }
 
         public byte[] Pixels { get; set; }
-        
+
+        private Bitmap image;
+
         public Bitmap GetImage()
         {
-            Bitmap bitmap = new Bitmap(32, 32);
+            if (image == null)
+            {
+                Bitmap bitmap = new Bitmap(32, 32);
 
-            BitmapData bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.WriteOnly, bitmap.PixelFormat);
+                BitmapData bitmapData = bitmap.LockBits(new Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.WriteOnly, bitmap.PixelFormat);
 
-            Marshal.Copy(Pixels, 0, bitmapData.Scan0, Pixels.Length);
+                Marshal.Copy(Pixels, 0, bitmapData.Scan0, Pixels.Length);
 
-            bitmap.UnlockBits(bitmapData);
+                bitmap.UnlockBits(bitmapData);
 
-            return bitmap;
+                image = bitmap;
+            }
+
+            return image;
         }
     }
 }

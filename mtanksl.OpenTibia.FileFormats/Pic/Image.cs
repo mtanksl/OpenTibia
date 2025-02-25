@@ -1,6 +1,7 @@
 ﻿using OpenTibia.IO;
 using System.Collections.Generic;
 using System.Drawing;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace OpenTibia.FileFormats.Pic
 {
@@ -67,23 +68,31 @@ namespace OpenTibia.FileFormats.Pic
             }
         }
 
+        private Bitmap image;
+
         public Bitmap GetImage()
         {
-            Bitmap bitmap = new Bitmap(32 * Width, 32 * Height);
-
-            using ( Graphics graphics = Graphics.FromImage(bitmap) )
+            if (image == null)
             {
-                int index = 0;
+                Bitmap bitmap = new Bitmap(32 * Width, 32 * Height);
 
-                for (int j = 0; j < Height; j++)
+                using ( Graphics graphics = Graphics.FromImage(bitmap) )
                 {
-                    for (int i = 0; i < Width; i++)
-                    {                       
-                        graphics.DrawImage(sprites[index++].GetImage(), 32 * i, 32 * j);
+                    int index = 0;
+
+                    for (int j = 0; j < Height; j++)
+                    {
+                        for (int i = 0; i < Width; i++)
+                        {                       
+                            graphics.DrawImage(sprites[index++].GetImage(), 32 * i, 32 * j);
+                        }
                     }
                 }
+
+                image = bitmap;
             }
-            return bitmap;
+
+            return image;
         }
     }
 }
