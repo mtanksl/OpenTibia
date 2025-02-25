@@ -42,7 +42,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     Light = xmlNpc.Light == null ? Light.None : new Light( (byte)xmlNpc.Light.Level, (byte)xmlNpc.Light.Color),
 
-                    Outfit = xmlNpc.Look.TypeEx != 0 ? new Outfit(xmlNpc.Look.TypeEx) : new Outfit(xmlNpc.Look.Type, xmlNpc.Look.Head, xmlNpc.Look.Body, xmlNpc.Look.Legs, xmlNpc.Look.Feet, Addon.None),
+                    Outfit = xmlNpc.Look.TypeEx != 0 ? new Outfit(xmlNpc.Look.TypeEx) : new Outfit(xmlNpc.Look.Type, xmlNpc.Look.Head, xmlNpc.Look.Body, xmlNpc.Look.Legs, xmlNpc.Look.Feet, (Addon)xmlNpc.Look.Addon),
 
                     Voices = (xmlNpc.Voices == null || xmlNpc.Voices.Items == null || xmlNpc.Voices.Items.Count == 0) ? null : new VoiceCollection()
                     {

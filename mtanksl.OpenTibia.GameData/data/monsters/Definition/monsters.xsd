@@ -17,6 +17,7 @@
             <xs:attribute name="body" type="xs:unsignedByte" use="required" />
             <xs:attribute name="legs" type="xs:unsignedByte" use="required" />
             <xs:attribute name="feet" type="xs:unsignedByte" use="required" />
+            <xs:attribute name="addon" type="xs:unsignedByte" use="optional" />
             <xs:attribute name="corpse" type="xs:unsignedShort" use="required" />
           </xs:complexType>
         </xs:element>

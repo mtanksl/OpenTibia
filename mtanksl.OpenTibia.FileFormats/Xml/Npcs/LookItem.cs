@@ -13,5 +13,7 @@
         public int Legs { get; set; }
 
         public int Feet { get; set; }
+
+        public int Addon { get; set; }
     }
 }

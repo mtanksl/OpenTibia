@@ -53,7 +53,9 @@ namespace OpenTibia.FileFormats.Xml.Npcs
 
                 Legs = (int?)lookNode.Attribute("legs") ?? 0,
 
-                Feet = (int?)lookNode.Attribute("feet") ?? 0
+                Feet = (int?)lookNode.Attribute("feet") ?? 0,
+
+                Addon = (int?)lookNode.Attribute("addon") ?? 0
             };
 
             XElement voicesNode = npcNode.Element("voices");

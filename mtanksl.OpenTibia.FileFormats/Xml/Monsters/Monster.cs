@@ -95,6 +95,8 @@ namespace OpenTibia.FileFormats.Xml.Monsters
 
                 Feet = (int?)lookNode.Attribute("feet") ?? 0,
 
+                Addon = (int?)lookNode.Attribute("addon") ?? 0,
+
                 Corpse = (int?)lookNode.Attribute("corpse") ?? 3058
             };
  
