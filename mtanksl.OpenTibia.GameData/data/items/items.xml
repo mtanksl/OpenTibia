@@ -1462,10 +1462,10 @@
   <item id="1661" article="a" name="sofa chair" editorcategory="Furnitures">
     <attribute key="rotateto" value="1658" />
   </item>
-  <item id="1662" article="a" name="bench" />
-  <item id="1663" article="a" name="bench" />
-  <item id="1664" article="a" name="bench" />
-  <item id="1665" article="a" name="bench" />
+  <item id="1662" article="a" name="bench" editorcategory="Furnitures" />
+  <item id="1663" article="a" name="bench" editorcategory="Furnitures" />
+  <item id="1664" article="a" name="bench" editorcategory="Furnitures" />
+  <item id="1665" article="a" name="bench" editorcategory="Furnitures" />
   <item id="1666" article="a" name="red cushioned chair" editorcategory="Furnitures">
     <attribute key="rotateto" value="1668" />
   </item>
@@ -1900,7 +1900,7 @@
     <attribute key="writeable" value="1" />
     <attribute key="maxtextlen" value="1024" />
   </item>
-  <item id="1819" article="a" name="banner" />
+  <item id="1819" article="a" name="banner" editorcategory="Decorations" />
   <item id="1820" article="an" name="emblem" />
   <item id="1821" article="an" name="emblem" />
   <item id="1822" article="an" name="emblem" />
@@ -13835,14 +13835,14 @@
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="600" />
   </item>
-  <item id="6324" name="elemental ashes" editorsuffix="(Unmoveable)">
+  <item id="6324" name="elemental ashes" editorsuffix="(Unmoveable)" editorcategory="Corpses">
     <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="6325" />
     <attribute key="duration" value="10" />
     <attribute key="fluidsource" value="blood" />
   </item>
-  <item id="6325" name="elemental ashes">
+  <item id="6325" name="elemental ashes" editorcategory="Corpses">
     <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="6326" />
@@ -14339,7 +14339,7 @@
   <item id="6492" article="a" name="bat decoration" editorcategory="Decorations">
     <attribute key="weight" value="1000" />
   </item>
-  <item id="6493" article="a" name="bat decoration" />
+  <item id="6493" article="a" name="bat decoration" editorcategory="Decorations" />
   <item id="6494" article="a" name="firefly" editorcategory="Animals">
     <attribute key="decayto" value="6491" />
     <attribute key="duration" value="8" />
@@ -14348,7 +14348,7 @@
     <attribute key="decayto" value="6498" />
     <attribute key="duration" value="8" />
   </item>
-  <item id="6496" article="a" name="bat decoration" />
+  <item id="6496" article="a" name="bat decoration" editorcategory="Decorations" />
   <item id="6497" article="a" name="christmas present bag" editorsuffix="(Santa Event)" editorcategory="Quest Items">
     <attribute key="description" value="It contains presents which were stolen from Santa. Bring them back to Ruprecht on Vega." />
     <attribute key="weight" value="8000" />
@@ -15972,7 +15972,7 @@
     <attribute key="duration" value="600" />
   </item>
   <item id="7348" name="stony floor" />
-  <item id="7349" name="ashes">
+  <item id="7349" name="ashes" editorcategory="Corpses">
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="5" />
   </item>
@@ -18783,8 +18783,8 @@
   <item id="8006" name="earth" />
   <item id="8007" name="earth" />
   <item id="8008" name="earth" />
-  <item id="8009" article="a" name="bone" />
-  <item id="8010" article="a" name="bone" />
+  <item id="8009" article="a" name="bone" editorcategory="Rubbish" />
+  <item id="8010" article="a" name="bone" editorcategory="Rubbish" />
   <item id="8011" article="a" name="flowery wall" />
   <item id="8012" article="a" name="flowery wall" />
   <item id="8013" article="a" name="flowery wall" />
@@ -19403,24 +19403,24 @@
   <item id="8383" article="a" name="tunnel entrance" />
   <item id="8384" article="a" name="tunnel entrance" />
   <item id="8385" article="a" name="tunnel entrance" />
-  <item id="8386" article="a" name="bone" />
-  <item id="8387" article="a" name="bone" />
+  <item id="8386" article="a" name="bone" editorcategory="Rubbish" />
+  <item id="8387" article="a" name="bone" editorcategory="Rubbish" />
   <item id="8388" article="a" name="skull" />
-  <item id="8389" article="a" name="bone" />
-  <item id="8390" article="a" name="bone" />
-  <item id="8391" article="a" name="bone" />
-  <item id="8392" article="a" name="bone" />
+  <item id="8389" article="a" name="bone" editorcategory="Rubbish" />
+  <item id="8390" article="a" name="bone" editorcategory="Rubbish" />
+  <item id="8391" article="a" name="bone" editorcategory="Rubbish" />
+  <item id="8392" article="a" name="bone" editorcategory="Rubbish" />
   <item id="8393" article="a" name="skull" />
-  <item id="8394" article="a" name="bone" />
-  <item id="8395" article="a" name="bone" />
-  <item id="8396" article="a" name="bone" />
-  <item id="8397" article="a" name="bone" />
+  <item id="8394" article="a" name="bone" editorcategory="Rubbish" />
+  <item id="8395" article="a" name="bone" editorcategory="Rubbish" />
+  <item id="8396" article="a" name="bone" editorcategory="Rubbish" />
+  <item id="8397" article="a" name="bone" editorcategory="Rubbish" />
   <item id="8398" article="a" name="skull" />
   <item id="8399" article="a" name="skull" />
-  <item id="8400" article="a" name="bone claw" />
-  <item id="8401" article="a" name="bone" />
-  <item id="8402" article="a" name="bone claw" />
-  <item id="8403" article="a" name="bone" />
+  <item id="8400" article="a" name="bone claw" editorcategory="Rubbish" />
+  <item id="8401" article="a" name="bone" editorcategory="Rubbish" />
+  <item id="8402" article="a" name="bone claw" editorcategory="Rubbish" />
+  <item id="8403" article="a" name="bone" editorcategory="Rubbish" />
   <item id="8404" article="a" name="skull" />
   <item id="8405" article="a" name="skull" />
   <item id="8406" name="bones" />
@@ -19687,8 +19687,8 @@
   <item id="8587" article="a" name="sturdy chest" editorsuffix="(The Thieves Guild Quest)" editorcategory="Quest Items">
     <attribute key="containersize" value="8" />
   </item>
-  <item id="8588" article="a" name="bone" />
-  <item id="8589" article="a" name="bone" />
+  <item id="8588" article="a" name="bone" editorcategory="Rubbish" />
+  <item id="8589" article="a" name="bone" editorcategory="Rubbish" />
   <item id="8590" name="tiled floor" />
   <item id="8591" name="grass" />
   <item id="8592" name="dirt floor" editorsuffix="(Tutorial)">
@@ -19758,10 +19758,10 @@
   <item id="8624" article="an" name="orcish pole" />
   <item id="8625" article="a" name="dwarven statue" />
   <item id="8626" article="a" name="dwarven statue" />
-  <item id="8627" article="a" name="bone" />
-  <item id="8628" article="a" name="bone" />
-  <item id="8629" article="a" name="bone" />
-  <item id="8630" article="a" name="bone" />
+  <item id="8627" article="a" name="bone" editorcategory="Rubbish" />
+  <item id="8628" article="a" name="bone" editorcategory="Rubbish" />
+  <item id="8629" article="a" name="bone" editorcategory="Rubbish" />
+  <item id="8630" article="a" name="bone" editorcategory="Rubbish" />
   <item id="8631" article="a" name="burning wall" />
   <item id="8632" article="a" name="water vortex">
     <attribute key="floorchange" value="down" />
@@ -19802,8 +19802,8 @@
   <item id="8666" name="steaming hot lava" />
   <item id="8667" name="steaming hot lava" />
   <item id="8668" name="steaming hot lava" />
-  <item id="8669" article="a" name="bellow" />
-  <item id="8670" article="a" name="bellow" />
+  <item id="8669" article="a" name="bellow" editorcategory="Furnitures" />
+  <item id="8670" article="a" name="bellow" editorcategory="Furnitures" />
   <item id="8671" article="an" name="anvil" />
   <item id="8672" name="steaming hot lava" />
   <item id="8673" name="steaming hot lava" />
@@ -19914,7 +19914,7 @@
   <item id="8720" article="a" name="storage chest" editorsuffix="( Shadows of Yalahar Quest)" editorcategory="Quest Items">
     <attribute key="description" value="The chest is filled with crackling green power cores." />
   </item>
-  <item id="8721" name="demonic residue" />
+  <item id="8721" name="demonic residue" editorcategory="Corpses" />
   <item id="8722" article="a" name="shovel" editorsuffix="(Tutorial)" editorcategory="Tools">
     <attribute key="weight" value="3500" />
   </item>
@@ -21614,22 +21614,22 @@
   <item id="9492" article="a" name="stone gargoyle" />
   <item id="9493" article="a" name="stone gargoyle" />
   <item id="9494" article="a" name="stone gargoyle" />
-  <item id="9495" article="a" name="banner" />
-  <item id="9496" article="a" name="banner" />
-  <item id="9497" article="a" name="banner" />
-  <item id="9498" article="a" name="banner" />
-  <item id="9499" article="a" name="banner" />
-  <item id="9500" article="a" name="banner" />
-  <item id="9501" article="a" name="banner" />
-  <item id="9502" article="a" name="banner" />
+  <item id="9495" article="a" name="banner" editorcategory="Decorations" />
+  <item id="9496" article="a" name="banner" editorcategory="Decorations" />
+  <item id="9497" article="a" name="banner" editorcategory="Decorations" />
+  <item id="9498" article="a" name="banner" editorcategory="Decorations" />
+  <item id="9499" article="a" name="banner" editorcategory="Decorations" />
+  <item id="9500" article="a" name="banner" editorcategory="Decorations" />
+  <item id="9501" article="a" name="banner" editorcategory="Decorations" />
+  <item id="9502" article="a" name="banner" editorcategory="Decorations" />
   <item id="9503" article="an" name="orc trophy" editorsuffix="(Female)" editorcategory="Trophies" />
   <item id="9504" article="an" name="orc trophy" editorsuffix="(Female)" editorcategory="Trophies" />
   <item id="9505" article="an" name="trophy of a strange fish" />
   <item id="9506" article="an" name="trophy of a strange fish" />
   <item id="9507" article="an" name="trophy of a strange being" />
   <item id="9508" article="an" name="trophy of a strange being" />
-  <item id="9509" article="a" name="bat" />
-  <item id="9510" article="a" name="bat" />
+  <item id="9509" article="a" name="bat" editorcategory="Decorations" />
+  <item id="9510" article="a" name="bat" editorcategory="Decorations" />
   <item id="9511" article="a" name="candle" />
   <item id="9512" article="a" name="candle" />
   <item id="9513" article="a" name="shield and sword" />
@@ -22905,8 +22905,8 @@
   <item id="10036" name="nothing special" editorsuffix="(Blank)" />
   <item id="10037" article="an" name="ore wagon" />
   <item id="10038" article="a" name="crucible" />
-  <item id="10039" article="a" name="bellow" />
-  <item id="10040" article="a" name="bellow" />
+  <item id="10039" article="a" name="bellow" editorcategory="Furnitures" />
+  <item id="10040" article="a" name="bellow" editorcategory="Furnitures" />
   <item id="10041" article="a" name="crucible" />
   <item id="10042" article="a" name="crucible" />
   <item id="10043" article="a" name="crucible" />
@@ -22971,7 +22971,7 @@
   </item>
   <item id="10076" name="chaos matter" />
   <item id="10077" article="a" name="vortex of elemental water" />
-  <item id="10078" name="pile of chaos matter" />
+  <item id="10078" name="pile of chaos matter" editorcategory="Corpses" />
   <item id="10079" article="a" name="metal locker" />
   <item id="10080" article="a" name="glue dispenser" />
   <item id="10081" article="a" name="storage chest" />
@@ -23648,26 +23648,26 @@
   <item id="10375" article="a" name="limestone railing" />
   <item id="10376" article="a" name="limestone railing" />
   <item id="10377" article="a" name="limestone railing" />
-  <item id="10378" article="a" name="banner" />
-  <item id="10379" article="a" name="banner" />
-  <item id="10380" article="a" name="banner" />
-  <item id="10381" article="a" name="banner" />
-  <item id="10382" article="a" name="banner" />
+  <item id="10378" article="a" name="banner" editorcategory="Decorations" />
+  <item id="10379" article="a" name="banner" editorcategory="Decorations" />
+  <item id="10380" article="a" name="banner" editorcategory="Decorations" />
+  <item id="10381" article="a" name="banner" editorcategory="Decorations" />
+  <item id="10382" article="a" name="banner" editorcategory="Decorations" />
   <item id="10383" article="a" name="Carlin banner" />
-  <item id="10384" article="a" name="banner" />
-  <item id="10385" article="a" name="banner" />
-  <item id="10386" article="a" name="banner" />
-  <item id="10387" article="a" name="banner" />
-  <item id="10388" article="a" name="banner" />
-  <item id="10389" article="a" name="banner" />
-  <item id="10390" article="a" name="banner" />
-  <item id="10391" article="a" name="banner" />
-  <item id="10392" article="a" name="banner" />
+  <item id="10384" article="a" name="banner" editorcategory="Decorations" />
+  <item id="10385" article="a" name="banner" editorcategory="Decorations" />
+  <item id="10386" article="a" name="banner" editorcategory="Decorations" />
+  <item id="10387" article="a" name="banner" editorcategory="Decorations" />
+  <item id="10388" article="a" name="banner" editorcategory="Decorations" />
+  <item id="10389" article="a" name="banner" editorcategory="Decorations" />
+  <item id="10390" article="a" name="banner" editorcategory="Decorations" />
+  <item id="10391" article="a" name="banner" editorcategory="Decorations" />
+  <item id="10392" article="a" name="banner" editorcategory="Decorations" />
   <item id="10393" article="a" name="Carlin banner" />
-  <item id="10394" article="a" name="banner" />
-  <item id="10395" article="a" name="banner" />
-  <item id="10396" article="a" name="banner" />
-  <item id="10397" article="a" name="banner" />
+  <item id="10394" article="a" name="banner" editorcategory="Decorations" />
+  <item id="10395" article="a" name="banner" editorcategory="Decorations" />
+  <item id="10396" article="a" name="banner" editorcategory="Decorations" />
+  <item id="10397" article="a" name="banner" editorcategory="Decorations" />
   <item id="10398" name="pavement" />
   <item id="10399" name="pavement" />
   <item id="10400" name="pavement" />
@@ -24671,7 +24671,7 @@
   <item id="11054" article="a" name="stone" />
   <item id="11055" article="a" name="stone" />
   <item id="11056" article="a" name="stone" />
-  <item id="11057" name="pile of chaos matter" />
+  <item id="11057" name="pile of chaos matter" editorcategory="Corpses" />
   <item id="11058" article="a" name="column" />
   <item id="11059" article="a" name="column" />
   <item id="11060" article="a" name="column" />
@@ -25303,16 +25303,16 @@
     <attribute key="duration" value="10" />
     <attribute key="fluidsource" value="blood" />
   </item>
-  <item id="11289" article="a" name="banner" />
-  <item id="11290" article="a" name="banner" />
-  <item id="11291" article="a" name="banner" />
-  <item id="11292" article="a" name="banner" />
-  <item id="11293" article="a" name="banner" />
-  <item id="11294" article="a" name="banner" />
-  <item id="11295" article="a" name="banner" />
-  <item id="11296" article="a" name="banner" />
-  <item id="11297" article="a" name="banner" />
-  <item id="11298" article="a" name="banner" />
+  <item id="11289" article="a" name="banner" editorcategory="Decorations" />
+  <item id="11290" article="a" name="banner" editorcategory="Decorations" />
+  <item id="11291" article="a" name="banner" editorcategory="Decorations" />
+  <item id="11292" article="a" name="banner" editorcategory="Decorations" />
+  <item id="11293" article="a" name="banner" editorcategory="Decorations" />
+  <item id="11294" article="a" name="banner" editorcategory="Decorations" />
+  <item id="11295" article="a" name="banner" editorcategory="Decorations" />
+  <item id="11296" article="a" name="banner" editorcategory="Decorations" />
+  <item id="11297" article="a" name="banner" editorcategory="Decorations" />
+  <item id="11298" article="a" name="banner" editorcategory="Decorations" />
   <item id="11299" article="a" name="dead eternal guardian" editorcategory="Corpses">
     <attribute key="corpsetype" value="undead" />
   </item>
@@ -26288,10 +26288,10 @@
   <item id="11914" article="an" name="archway" />
   <item id="11915" article="a" name="dragon basin" />
   <item id="11916" article="a" name="dragon basin" />
-  <item id="11917" article="a" name="banner" />
-  <item id="11918" article="a" name="banner" />
-  <item id="11919" article="a" name="banner" />
-  <item id="11920" article="a" name="banner" />
+  <item id="11917" article="a" name="banner" editorcategory="Decorations" />
+  <item id="11918" article="a" name="banner" editorcategory="Decorations" />
+  <item id="11919" article="a" name="banner" editorcategory="Decorations" />
+  <item id="11920" article="a" name="banner" editorcategory="Decorations" />
   <item id="11921" name="crossed spears" />
   <item id="11922" name="crossed spears" />
   <item id="11923" article="a" name="spiky shield" />
@@ -26586,12 +26586,12 @@
   <item id="12212" name="jade ornaments" />
   <item id="12213" article="an" name="observation slit" />
   <item id="12214" article="an" name="observation slit" />
-  <item id="12215" article="a" name="banner" />
-  <item id="12216" article="a" name="banner" />
-  <item id="12217" article="a" name="banner" />
-  <item id="12218" article="a" name="banner" />
-  <item id="12219" article="a" name="banner" />
-  <item id="12220" article="a" name="banner" />
+  <item id="12215" article="a" name="banner" editorcategory="Decorations" />
+  <item id="12216" article="a" name="banner" editorcategory="Decorations" />
+  <item id="12217" article="a" name="banner" editorcategory="Decorations" />
+  <item id="12218" article="a" name="banner" editorcategory="Decorations" />
+  <item id="12219" article="a" name="banner" editorcategory="Decorations" />
+  <item id="12220" article="a" name="banner" editorcategory="Decorations" />
   <item id="12221" article="a" name="dragon bone statue" />
   <item id="12222" name="part of a giant stone dragon" />
   <item id="12223" name="part of a giant stone dragon" />
@@ -26691,7 +26691,7 @@
     <attribute key="weight" value="10" />
   </item>
   <item id="12290" name="sacred coal" />
-  <item id="12291" article="a" name="big table" />
+  <item id="12291" article="a" name="big table" editorcategory="Furnitures" />
   <item id="12292" article="a" name="large cocoon" />
   <item id="12293" article="a" name="tentacle" />
   <item id="12294" name="nothing special" editorsuffix="(NotMoveable, LookThrough)" />
@@ -26699,7 +26699,7 @@
     <attribute key="description" value="This chunk was cut from sacred wood in the temple complex and looks ideal for carving." />
     <attribute key="weight" value="1000" />
   </item>
-  <item id="12296" article="a" name="big table" />
+  <item id="12296" article="a" name="big table" editorcategory="Furnitures" />
   <item id="12297" name="sacred earth" />
   <item id="12298" name="dragon scales" />
   <item id="12299" name="dragon scales" />
@@ -26802,7 +26802,7 @@
   <item id="12382" name="nothing special" editorcategory="Duplicate" />
   <item id="12383" article="a" name="large black crystal" />
   <item id="12384" article="a" name="large black crystal" />
-  <item id="12385" name="ashes of Zalamon" />
+  <item id="12385" name="ashes of Zalamon" editorcategory="Corpses" />
   <item id="12386" article="a" name="wardrobe" />
   <item id="12387" article="a" name="wardrobe" />
   <item id="12388" article="a" name="slimy cocoon" />
