@@ -335,7 +335,7 @@ namespace OpenTibia.FileFormats.Dat
             return bitmap;
         }    
         
-        public Bitmap GetImage(List<Sprite> sprites, int animation, int z, int y, int x)
+        public Bitmap GetImageItem(List<Sprite> sprites, int animation, int z, int y, int x)
         {
             Bitmap bitmap = new Bitmap(32 * Width, 32 * Height);
 
@@ -352,7 +352,7 @@ namespace OpenTibia.FileFormats.Dat
             return bitmap;
         }  
 
-        public Bitmap GetImage(List<Sprite> sprites, int animation, int z, int y, int x, Color replaceYellow, Color replaceRed, Color replaceGreen, Color replaceBlue)
+        public Bitmap GetImageOutfit(List<Sprite> sprites, int animation, int addon, int direction, Color replaceYellow, Color replaceRed, Color replaceGreen, Color replaceBlue)
         {
             if (Layers == 2)
             {
@@ -360,27 +360,70 @@ namespace OpenTibia.FileFormats.Dat
 
                 using (Graphics graphics = Graphics.FromImage(bitmap) )
                 {
-                    Bitmap imageMask = GetImage(sprites, animation, z, y, x, 1);
+                    {
+                        Bitmap imageMask = GetImage(sprites, animation, 0, 0, direction, 1);
 
-                        ReplaceColor(imageMask, Color.FromArgb(255, 255, 0), replaceYellow);
+                            ReplaceColor(imageMask, Color.FromArgb(255, 255, 0), replaceYellow);
 
-                        ReplaceColor(imageMask, Color.FromArgb(255, 0, 0), replaceRed);
+                            ReplaceColor(imageMask, Color.FromArgb(255, 0, 0), replaceRed);
 
-                        ReplaceColor(imageMask, Color.FromArgb(0, 255, 0), replaceGreen);
+                            ReplaceColor(imageMask, Color.FromArgb(0, 255, 0), replaceGreen);
 
-                        ReplaceColor(imageMask, Color.FromArgb(0, 0, 255), replaceBlue);
+                            ReplaceColor(imageMask, Color.FromArgb(0, 0, 255), replaceBlue);
 
-                    Bitmap imageBase = GetImage(sprites, animation, z, y, x, 0);
+                        Bitmap imageBase = GetImage(sprites, animation, 0, 0, direction, 0);
 
-                        MultiplicativeBlending(imageBase, imageMask);
+                            MultiplicativeBlending(imageBase, imageMask);
 
-                    graphics.DrawImage(imageBase, 0, 0);
+                        graphics.DrawImage(imageBase, 0, 0);
+                    }
+
+                    if (YRepeat == 3)
+                    {
+                        if ( (addon & 1) == 1)
+                        {
+                            Bitmap imageMask = GetImage(sprites, animation, 0, 1, direction, 1);
+
+                                ReplaceColor(imageMask, Color.FromArgb(255, 255, 0), replaceYellow);
+
+                                ReplaceColor(imageMask, Color.FromArgb(255, 0, 0), replaceRed);
+
+                                ReplaceColor(imageMask, Color.FromArgb(0, 255, 0), replaceGreen);
+
+                                ReplaceColor(imageMask, Color.FromArgb(0, 0, 255), replaceBlue);
+
+                            Bitmap imageBase = GetImage(sprites, animation, 0, 1, direction, 0);
+
+                                MultiplicativeBlending(imageBase, imageMask);
+
+                            graphics.DrawImage(imageBase, 0, 0);
+                        }
+
+                        if ( (addon & 2) == 2)
+                        {
+                            Bitmap imageMask = GetImage(sprites, animation, 0, 2, direction, 1);
+
+                                ReplaceColor(imageMask, Color.FromArgb(255, 255, 0), replaceYellow);
+
+                                ReplaceColor(imageMask, Color.FromArgb(255, 0, 0), replaceRed);
+
+                                ReplaceColor(imageMask, Color.FromArgb(0, 255, 0), replaceGreen);
+
+                                ReplaceColor(imageMask, Color.FromArgb(0, 0, 255), replaceBlue);
+
+                            Bitmap imageBase = GetImage(sprites, animation, 0, 2, direction, 0);
+
+                                MultiplicativeBlending(imageBase, imageMask);
+
+                            graphics.DrawImage(imageBase, 0, 0);
+                        }
+                    }
                 }
 
                 return bitmap;
             }
                 
-            return GetImage(sprites, animation, z, y, x);           
+            return GetImageItem(sprites, animation, 0, addon, direction);           
         }   
 
         private void ReplaceColor(Bitmap bitmap, Color oldColor, Color newColor)
