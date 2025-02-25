@@ -1240,7 +1240,7 @@
     <attribute key="replaceable" value="0" />
     <attribute key="type" value="magicfield" />
   </item>
-  <item id="1508" name="ashes">
+  <item id="1508" name="ashes" editorcategory="Fields">
     <attribute key="decayto" value="1506" />
     <attribute key="duration" value="5" />
     <attribute key="replaceable" value="0" />
@@ -2380,27 +2380,27 @@
   <item id="2015" article="a" name="brown flask" editorcategory="Fluid Containers">
     <attribute key="weight" value="300" />
   </item>
-  <item id="2016" article="a" name="water splash">
+  <item id="2016" article="a" name="water splash" editorcategory="Rubbish">
     <attribute key="decayto" value="2017" />
     <attribute key="duration" value="45" />
   </item>
-  <item id="2017" article="a" name="water splash">
+  <item id="2017" article="a" name="water splash" editorcategory="Rubbish">
     <attribute key="decayto" value="2018" />
     <attribute key="duration" value="45" />
   </item>
-  <item id="2018" article="a" name="water splash">
+  <item id="2018" article="a" name="water splash" editorcategory="Rubbish">
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="600" />
   </item>
-  <item id="2019" article="a" name="water splash">
+  <item id="2019" article="a" name="water splash" editorcategory="Rubbish">
     <attribute key="decayto" value="2020" />
     <attribute key="duration" value="45" />
   </item>
-  <item id="2020" article="a" name="water splash">
+  <item id="2020" article="a" name="water splash" editorcategory="Rubbish">
     <attribute key="decayto" value="2021" />
     <attribute key="duration" value="45" />
   </item>
-  <item id="2021" article="a" name="water splash">
+  <item id="2021" article="a" name="water splash" editorcategory="Rubbish">
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="60" />
   </item>
@@ -3289,7 +3289,7 @@
   </item>
   <item id="2247" article="a" name="skull" />
   <item id="2248" name="human remains" editorcategory="Rubbish" />
-  <item id="2249" name="ashes" />
+  <item id="2249" name="ashes" editorcategory="Rubbish" />
   <item id="2250" name="wooden trash" editorcategory="Rubbish">
     <attribute key="weight" value="100" />
   </item>
@@ -12257,7 +12257,7 @@
     <attribute key="description" value="The words 'Ramsay the Reckless' are engraved inside. It appears to be cracked and broken." />
     <attribute key="weight" value="4600" />
   </item>
-  <item id="5925" article="a" name="hardened bone" plural="hardened bones" editorcategory="hardened bone">
+  <item id="5925" article="a" name="hardened bone" plural="hardened bones" editorcategory="Rubbish">
     <attribute key="weight" value="600" />
   </item>
   <item id="5926" article="a" name="pirate backpack" editorcategory="Containers">
@@ -13849,13 +13849,13 @@
     <attribute key="duration" value="900" />
     <attribute key="fluidsource" value="blood" />
   </item>
-  <item id="6326" name="elemental ashes">
+  <item id="6326" name="elemental ashes" editorcategory="Corpses">
     <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="6327" />
     <attribute key="duration" value="600" />
   </item>
-  <item id="6327" name="elemental ashes">
+  <item id="6327" name="elemental ashes" editorcategory="Corpses">
     <attribute key="corpsetype" value="blood" />
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="600" />
@@ -20956,9 +20956,9 @@
     <attribute key="weight" value="100" />
   </item>
   <item id="9009" article="the" name="overlord's ashes" />
-  <item id="9010" article="the" name="overlord's ashes" />
-  <item id="9011" article="the" name="overlord's ashes" />
-  <item id="9012" article="the" name="overlord's ashes" />
+  <item id="9010" article="the" name="overlord's ashes" editorcategory="Corpses" />
+  <item id="9011" article="the" name="overlord's ashes" editorcategory="Corpses" />
+  <item id="9012" article="the" name="overlord's ashes" editorcategory="Corpses" />
   <item id="9013" article="a" name="fallen tree" />
   <item id="9014" article="a" name="fallen tree" />
   <item id="9015" article="a" name="fallen tree" />
@@ -22156,7 +22156,7 @@
   <item id="9807" article="a" name="rusty weapon" editorsuffix="(Semi-Rare)" editorcategory="Valuables">
     <attribute key="description" value="If you can remove the rust layer and dirt from the weapon, you will be able to see what it is." />
   </item>
-  <item id="9808" article="a" name="heavily rusted armor" editorcategory="headache pill">
+  <item id="9808" article="a" name="heavily rusted armor" editorcategory="Valuables">
     <attribute key="description" value="If you can remove the rust layer and dirt from the armor you will be able to see what it is." />
     <attribute key="weight" value="12000" />
   </item>
@@ -22164,7 +22164,7 @@
     <attribute key="description" value="If you can remove the rust layer and dirt from the armor you will be able to see what it is." />
     <attribute key="weight" value="12000" />
   </item>
-  <item id="9810" article="a" name="sligthly rusted armor" editorcategory="headache pill">
+  <item id="9810" article="a" name="sligthly rusted armor" editorcategory="Valuables">
     <attribute key="description" value="If you can remove the rust layer and dirt from the armor you will be able to see what it is." />
     <attribute key="weight" value="12000" />
   </item>
@@ -22180,15 +22180,15 @@
     <attribute key="description" value="If you can remove the rust layer and dirt from the legs you will be able to see what it is." />
     <attribute key="weight" value="7000" />
   </item>
-  <item id="9814" article="a" name="rusted shield" editorcategory="Valuables">
+  <item id="9814" article="a" name="rusted shield" editorsuffix="(Common)" editorcategory="Valuables">
     <attribute key="description" value="If you can remove the rust layer and dirt from the shield you will be able to see what it is." />
     <attribute key="weight" value="6500" />
   </item>
-  <item id="9815" article="a" name="rusted shield" editorcategory="Valuables">
+  <item id="9815" article="a" name="rusted shield" editorsuffix="(Semi-Rare)" editorcategory="Valuables">
     <attribute key="description" value="If you can remove the rust layer and dirt from the shield you will be able to see what it is." />
     <attribute key="weight" value="6500" />
   </item>
-  <item id="9816" article="a" name="rusted shield" editorcategory="Valuables">
+  <item id="9816" article="a" name="rusted shield" editorsuffix="(Rare)" editorcategory="Valuables">
     <attribute key="description" value="If you can remove the rust layer and dirt from the shield you will be able to see what it is." />
     <attribute key="weight" value="6500" />
   </item>
@@ -22204,7 +22204,7 @@
     <attribute key="description" value="If you can remove the rust layer and dirt from the boots you will be able to see what it is." />
     <attribute key="weight" value="1000" />
   </item>
-  <item id="9820" article="a" name="heavily rusted helmet" editorcategory="headache pill">
+  <item id="9820" article="a" name="heavily rusted helmet" editorcategory="Valuables">
     <attribute key="description" value="If you can remove the rust layer and dirt from the helmet you will be able to see what it is." />
     <attribute key="weight" value="5200" />
   </item>
@@ -22212,7 +22212,7 @@
     <attribute key="description" value="If you can remove the rust layer and dirt from the helmet you will be able to see what it is." />
     <attribute key="weight" value="5200" />
   </item>
-  <item id="9822" article="a" name="sligthly rusted helmet" editorcategory="headache pill">
+  <item id="9822" article="a" name="sligthly rusted helmet" editorcategory="Valuables">
     <attribute key="description" value="If you can remove the rust layer and dirt from the helmet you will be able to see what it is." />
     <attribute key="weight" value="5200" />
   </item>
@@ -22694,22 +22694,22 @@
     <attribute key="weight" value="2500" />
   </item>
   <item id="9975" article="a" name="crystal table" editorcategory="Furnitures" />
-  <item id="9976" article="a" name="crystal pedestal" editorcategory="Furniture">
+  <item id="9976" article="a" name="crystal pedestal" editorcategory="Furnitures">
     <attribute key="weight" value="4000" />
     <attribute key="decayto" value="9977" />
     <attribute key="duration" value="15" />
   </item>
-  <item id="9977" article="a" name="crystal pedestal" editorcategory="Furniture">
+  <item id="9977" article="a" name="crystal pedestal" editorcategory="Furnitures">
     <attribute key="weight" value="4000" />
     <attribute key="decayto" value="9978" />
     <attribute key="duration" value="10" />
   </item>
-  <item id="9978" article="a" name="crystal pedestal" editorcategory="Furniture">
+  <item id="9978" article="a" name="crystal pedestal" editorcategory="Furnitures">
     <attribute key="weight" value="4000" />
     <attribute key="decayto" value="9979" />
     <attribute key="duration" value="11" />
   </item>
-  <item id="9979" article="a" name="crystal pedestal" editorcategory="Furniture">
+  <item id="9979" article="a" name="crystal pedestal" editorcategory="Furnitures">
     <attribute key="weight" value="4000" />
     <attribute key="decayto" value="9976" />
     <attribute key="duration" value="8" />
@@ -23957,16 +23957,16 @@
     <attribute key="description" value="Lucius might be interested in those shards." />
     <attribute key="weight" value="300" />
   </item>
-  <item id="10532" article="a" name="telescope" editorcategory="Furniture">
+  <item id="10532" article="a" name="telescope" editorcategory="Furnitures">
     <attribute key="rotateto" value="10535" />
   </item>
-  <item id="10533" article="a" name="telescope" editorcategory="Furniture">
+  <item id="10533" article="a" name="telescope" editorcategory="Furnitures">
     <attribute key="rotateto" value="10532" />
   </item>
-  <item id="10534" article="a" name="telescope" editorcategory="Furniture">
+  <item id="10534" article="a" name="telescope" editorcategory="Furnitures">
     <attribute key="rotateto" value="10533" />
   </item>
-  <item id="10535" article="a" name="telescope" editorcategory="Furniture">
+  <item id="10535" article="a" name="telescope" editorcategory="Furnitures">
     <attribute key="rotateto" value="10534" />
   </item>
   <item id="10536" name="coal" />
