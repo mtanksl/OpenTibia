@@ -64,7 +64,7 @@ namespace OpenTibia.Common
                         {
                             Command command = packetToCommand.Convert(this, reader);
 
-                            server.Logger.WriteLine("Received on login server: 0x" + identification.ToString("X2") + " (" + packetToCommand.Name + ")", LogLevel.Debug);
+                            server.Logger.WriteLine("Received on login server: 0x" + identification.ToString("X2") + " (" + packetToCommand.Name + ")", LogLevel.Debug);        
 
                             server.QueueForExecution( () =>
                             {

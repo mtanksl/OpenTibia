@@ -23,7 +23,7 @@ namespace OpenTibia.Network.Packets.Incoming
 
         public byte LocaleId { get; set; }
 
-        public string Locate { get; set; }
+        public string Locale { get; set; }
 
         public ushort TotalRam { get; set; }
 
@@ -74,7 +74,7 @@ namespace OpenTibia.Network.Packets.Incoming
 
             LocaleId = reader.ReadByte();
 
-            Locate = reader.ReadString(3);
+            Locale = reader.ReadString(3);
 
             TotalRam = reader.ReadUShort();
 
@@ -90,7 +90,7 @@ namespace OpenTibia.Network.Packets.Incoming
 
             reader.BaseStream.Seek(Origin.Current, 4);
 
-            Cpu = reader.ReadString(9);
+            Gpu = reader.ReadString(9);
 
             VideoRam = reader.ReadUShort();
 

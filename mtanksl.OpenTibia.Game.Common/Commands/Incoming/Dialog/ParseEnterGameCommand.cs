@@ -26,7 +26,7 @@ namespace OpenTibia.Game.Commands
         {
             Connection.Keys = Packet.Keys;
 
-            if (Packet.TibiaDat != 1277983123 || Packet.TibiaPic != 1256571859 || Packet.TibiaSpr != 1277298068 || Packet.Version != 860)
+            if (Packet.TibiaDat != Constants.TibiaDat || Packet.TibiaPic != Constants.TibiaPic || Packet.TibiaSpr != Constants.TibiaSpr || Packet.Version != Constants.Version)
             {
                 Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.OnlyProtocol86Allowed) );
 
