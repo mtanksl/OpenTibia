@@ -849,7 +849,7 @@
     <attribute key="shoottype" value="smallstone" />
     <attribute key="range" value="4" />
     <attribute key="breakchance" value="7" />
-    <attribute key="ammoaction" value="moveback" />
+    <attribute key="ammoaction" value="remove" />
   </item>
   <item id="1295" article="a" name="stone" editorcategory="Rubbish">
     <attribute key="weight" value="78000" />
@@ -3954,7 +3954,7 @@
     <attribute key="shoottype" value="spear" />
     <attribute key="range" value="3" />
     <attribute key="breakchance" value="3" />
-    <attribute key="ammoaction" value="moveback" />
+    <attribute key="ammoaction" value="remove" />
   </item>
   <item id="2390" article="a" name="magic longsword" editorcategory="Swords">
     <attribute key="description" value="It is the magic Cyclopmania Sword." />
@@ -4029,7 +4029,7 @@
     <attribute key="shoottype" value="throwingstar" />
     <attribute key="range" value="4" />
     <attribute key="breakchance" value="10" />
-    <attribute key="ammoaction" value="moveback" />
+    <attribute key="ammoaction" value="remove" />
   </item>
   <item id="2400" article="a" name="magic sword" editorcategory="Swords">
     <attribute key="description" value="It is the Sword of Valor." />
@@ -4107,7 +4107,7 @@
     <attribute key="shoottype" value="throwingknife" />
     <attribute key="range" value="4" />
     <attribute key="breakchance" value="7" />
-    <attribute key="ammoaction" value="moveback" />
+    <attribute key="ammoaction" value="remove" />
   </item>
   <item id="2411" article="a" name="poison dagger" editorcategory="Swords">
     <attribute key="weight" value="880" />
@@ -8685,7 +8685,7 @@
     <attribute key="shoottype" value="huntingspear" />
     <attribute key="range" value="3" />
     <attribute key="breakchance" value="6" />
-    <attribute key="ammoaction" value="moveback" />
+    <attribute key="ammoaction" value="remove" />
   </item>
   <item id="3966" article="a" name="banana staff" editorcategory="Clubs">
     <attribute key="weight" value="5000" />
@@ -16036,7 +16036,7 @@
     <attribute key="shoottype" value="viperstar" />
     <attribute key="range" value="5" />
     <attribute key="breakchance" value="9" />
-    <attribute key="ammoaction" value="moveback" />
+    <attribute key="ammoaction" value="remove" />
     <attribute key="hitchance" value="80" />
   </item>
   <item id="7367" article="an" name="enchanted spear" plural="enchanted spears" editorcategory="Distance Weapons">
@@ -16046,7 +16046,7 @@
     <attribute key="shoottype" value="enchantedspear" />
     <attribute key="range" value="4" />
     <attribute key="breakchance" value="1" />
-    <attribute key="ammoaction" value="moveback" />
+    <attribute key="ammoaction" value="remove" />
   </item>
   <item id="7368" article="an" name="assassin star" plural="assassin stars" editorcategory="Distance Weapons">
     <attribute key="weight" value="200" />
@@ -16055,7 +16055,7 @@
     <attribute key="shoottype" value="assassinstar" />
     <attribute key="range" value="4" />
     <attribute key="breakchance" value="33" />
-    <attribute key="ammoaction" value="moveback" />
+    <attribute key="ammoaction" value="remove" />
   </item>
   <item id="7369" name="nothing special" editorcategory="Duplicate" />
   <item id="7370" name="nothing special" editorcategory="Duplicate" />
@@ -16091,7 +16091,7 @@
     <attribute key="shoottype" value="royalspear" />
     <attribute key="range" value="3" />
     <attribute key="breakchance" value="2" />
-    <attribute key="ammoaction" value="moveback" />
+    <attribute key="ammoaction" value="remove" />
   </item>
   <item id="7379" name="brutetamer's staff" editorcategory="Clubs">
     <attribute key="description" value="Barbarian women are said to use it for conjuring beasts." />

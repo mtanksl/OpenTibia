@@ -1329,6 +1329,314 @@ namespace OpenTibia.FileFormats.Xml.Items
             return item;
         }
 
+        public XElement Serialize()
+        {
+            return Serialize(this);
+        }
+
+        private static XElement Serialize(Item item)
+        {
+            var itemNode =
+                new XElement("item");
+
+            itemNode.Add(new XAttribute("id", item.OpenTibiaId) );
+
+            if ( !string.IsNullOrEmpty(item.Article) )
+            {
+                itemNode.Add(new XAttribute("article", item.Article) );
+            }
+
+            if ( !string.IsNullOrEmpty(item.Name) )
+            {
+                itemNode.Add(new XAttribute("name", item.Name) );
+            }
+
+            if ( !string.IsNullOrEmpty(item.Plural) )
+            {
+                itemNode.Add(new XAttribute("plural", item.Plural) );
+            }
+
+            if ( !string.IsNullOrEmpty(item.EditorSuffix) )
+            {
+                itemNode.Add(new XAttribute("editorsuffix", item.EditorSuffix) );
+            }
+
+            if ( !string.IsNullOrEmpty(item.EditorCategory) )
+            {
+                itemNode.Add(new XAttribute("editorcategory", item.EditorCategory) );
+            }
+
+            if ( !string.IsNullOrEmpty(item.Description) )
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "description"), new XAttribute("value", item.Description) ) );
+            }
+
+            if ( !string.IsNullOrEmpty(item.RuneSpellName) )
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "runespellname"), new XAttribute("value", item.RuneSpellName) ) );
+            }
+
+            if (item.Weight != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "weight"), new XAttribute("value", item.Weight) ) );
+            }
+
+            if (item.Armor != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "armor"), new XAttribute("value", item.Armor) ) );
+            }
+
+            if (item.Defense != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "defense"), new XAttribute("value", item.Defense) ) );
+            }
+
+            if (item.DefenseModifier != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "defensemodifier"), new XAttribute("value", item.DefenseModifier) ) );
+            }
+
+            if (item.Attack != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "attack"), new XAttribute("value", item.Attack) ) );
+            }
+
+            if (item.AttackModifierEarth != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "attackmodifierearth"), new XAttribute("value", item.AttackModifierEarth) ) );
+            }
+
+            if (item.AttackModifierFire != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "attackmodifierfire"), new XAttribute("value", item.AttackModifierFire) ) );
+            }
+
+            if (item.AttackModifierEnergy != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "attackmodifierenergy"), new XAttribute("value", item.AttackModifierEnergy) ) );
+            }
+
+            if (item.AttackModifierIce != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "attackmodifierice"), new XAttribute("value", item.AttackModifierIce) ) );
+            }
+
+            if (item.AttackModifierDeath != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "attackmodifierdeath"), new XAttribute("value", item.AttackModifierDeath) ) );
+            }
+
+            if (item.AttackModifierHoly != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "attackmodifierholy"), new XAttribute("value", item.AttackModifierHoly) ) );
+            }
+
+            if (item.AttackModifierDrown != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "attackmodifierdrown"), new XAttribute("value", item.AttackModifierDrown) ) );
+            }
+
+            if (item.AttackModifierManaDrain != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "attackmodifiermanadrain"), new XAttribute("value", item.AttackModifierManaDrain) ) );
+            }
+
+            if (item.AttackModifierLifeDrain != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "attackmodifierlifedrain"), new XAttribute("value", item.AttackModifierLifeDrain) ) );
+            }
+
+            if (item.BlockProjectile != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "blockprojectile"), new XAttribute("value", item.BlockProjectile == true ? "1" : "0") ) );
+            }
+
+            if (item.Race != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "corpsetype"), new XAttribute("value", item.Race.ToString().ToLower() ) ) );
+            }
+
+            if (item.FloorChange != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "floorchange"), new XAttribute("value", item.FloorChange.ToString().ToLower() ) ) );
+            }
+
+            if (item.ContainerSize != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "containersize"), new XAttribute("value", item.ContainerSize) ) );
+            }
+
+            if (item.WeaponType != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "weapontype"), new XAttribute("value", item.WeaponType.ToString().ToLower() ) ) );
+            }
+
+            if (item.AmmoType != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "ammotype"), new XAttribute("value", item.AmmoType.ToString().ToLower() ) ) );
+            }
+
+            if (item.ProjectileType != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "shoottype"), new XAttribute("value", item.ProjectileType.ToString().ToLower() ) ) );
+            }
+
+            if (item.MagicEffectType != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "effect"), new XAttribute("value", item.MagicEffectType.ToString().ToLower() ) ) );
+            }
+
+            if (item.Range != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "range"), new XAttribute("value", item.Range) ) );
+            }
+
+            if (item.Charges != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "charges"), new XAttribute("value", item.Charges) ) );
+            }
+
+            if (item.SlotType != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "slottype"), new XAttribute("value", item.SlotType.ToString().ToLower() ) ) );
+            }
+
+            if (item.BreakChance != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "breakchance"), new XAttribute("value", item.BreakChance) ) );
+            }
+
+            if (item.AmmoAction != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "ammoaction"), new XAttribute("value", item.AmmoAction.ToString().ToLower() ) ) );
+            }
+
+            if (item.HitChance != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "hitchance"), new XAttribute("value", item.HitChance) ) );
+            }
+
+            if (item.MaxHitChance != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "maxhitchance"), new XAttribute("value", item.MaxHitChance) ) );
+            }
+
+            if (item.Readable != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "readable"), new XAttribute("value", item.Readable == true ? "1" : "0") ) );
+            }
+
+            if (item.Writeable != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "writeable"), new XAttribute("value", item.Writeable == true ? "1" : "0") ) );
+            }
+
+            if (item.AbsorbPhysicalPercent != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "absorbpercentphysical"), new XAttribute("value", item.AbsorbPhysicalPercent) ) );
+            }
+
+            if (item.AbsorbEarthPercent != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "absorbpercentearth"), new XAttribute("value", item.AbsorbEarthPercent) ) );
+            }
+
+            if (item.AbsorbFirePercent != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "absorbpercentfire"), new XAttribute("value", item.AbsorbFirePercent) ) );
+            }
+
+            if (item.AbsorbEnergyPercent != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "absorbpercentenergy"), new XAttribute("value", item.AbsorbEnergyPercent) ) );
+            }
+
+            if (item.AbsorbIcePercent != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "absorbpercentice"), new XAttribute("value", item.AbsorbIcePercent) ) );
+            }
+
+            if (item.AbsorbDeathPercent != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "absorbpercentdeath"), new XAttribute("value", item.AbsorbDeathPercent) ) );
+            }
+
+            if (item.AbsorbHolyPercent != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "absorbpercentholy"), new XAttribute("value", item.AbsorbHolyPercent) ) );
+            }
+
+            if (item.AbsorbDrownPercent != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "absorbpercentdrown"), new XAttribute("value", item.AbsorbDrownPercent) ) );
+            }
+
+            if (item.AbsorbManaDrainPercent != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "absorbpercentmanadrain"), new XAttribute("value", item.AbsorbManaDrainPercent) ) );
+            }
+
+            if (item.AbsorbLifeDrainPercent != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "absorbpercentlifedrain"), new XAttribute("value", item.AbsorbLifeDrainPercent) ) );
+            }
+
+            if (item.SpeedModifier != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "speedmodifier"), new XAttribute("value", item.SpeedModifier) ) );
+            }
+
+            if (item.SkillModifierMagicLevel != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "skillmodifiermagiclevel"), new XAttribute("value", item.SkillModifierMagicLevel) ) );
+            }
+
+            if (item.SkillModifierFist != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "skillmodifierfist"), new XAttribute("value", item.SkillModifierFist) ) );
+            }
+
+            if (item.SkillModifierSword != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "skillmodifiersword"), new XAttribute("value", item.SkillModifierSword) ) );
+            }
+
+            if (item.SkillModifierAxe != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "skillmodifieraxe"), new XAttribute("value", item.SkillModifierAxe) ) );
+            }
+
+            if (item.SkillModifierClub != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "skillmodifierclub"), new XAttribute("value", item.SkillModifierClub) ) );
+            }
+
+            if (item.SkillModifierDistance != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "skillmodifierdistance"), new XAttribute("value", item.SkillModifierDistance) ) );
+            }
+
+            if (item.SkillModifierShield != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "skillmodifiershield"), new XAttribute("value", item.SkillModifierShield) ) );
+            }
+
+            if (item.SkillModifierFish != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "skillmodifierfish"), new XAttribute("value", item.SkillModifierFish) ) );
+            }
+
+            if (item.Unused != null)
+            {
+                foreach (var attribute in item.Unused)
+                {
+                    itemNode.Add(new XElement("attribute", new XAttribute("key", attribute.Key), new XAttribute("value", attribute.Value) ) );
+                }
+            }
+
+            return itemNode;
+        }
+
         public ushort OpenTibiaId { get; set; }
 
         public string Article { get; set; }

@@ -1,9 +1,9 @@
 ﻿using OpenTibia.Common.Structures;
+using OpenTibia.FileFormats.Xml.Items;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
-using System.Xml.Serialization;
 
 namespace OpenTibia.FileFormats.Xml.Monsters
 {
@@ -381,6 +381,358 @@ namespace OpenTibia.FileFormats.Xml.Monsters
             }
 
             return monster;
+        }
+
+        public XDocument Serialize(ItemsFile itemsFile = null)
+        {
+            return Serialize(this, itemsFile);
+        }
+
+        private static XDocument Serialize(Monster monster, ItemsFile itemsFile)
+        {
+            var xml = new XDocument();
+
+            var monsterNode =
+                new XElement("monster");
+
+            xml.Add(monsterNode);
+
+            if ( !string.IsNullOrEmpty(monster.Name) )
+            {
+                monsterNode.Add(new XAttribute("name", monster.Name) );
+            }
+
+            if ( !string.IsNullOrEmpty(monster.NameDisplayed) )
+            {
+                monsterNode.Add(new XAttribute("nameDisplayed", monster.NameDisplayed) );
+            }
+
+            if ( !string.IsNullOrEmpty(monster.NameDescription) )
+            {
+                monsterNode.Add(new XAttribute("nameDescription", monster.NameDescription) );
+            }
+
+            monsterNode.Add(new XAttribute("race", monster.Race.ToString().ToLower() ) );
+
+            monsterNode.Add(new XAttribute("speed", monster.Speed) );
+
+            monsterNode.Add(new XAttribute("experience", monster.Experience) );
+
+            monsterNode.Add(new XAttribute("manacost", monster.ManaCost) );
+
+            var healthNode =
+                new XElement("health");
+
+            monsterNode.Add(healthNode);
+
+            healthNode.Add(new XAttribute("now", monster.Health.Now) );
+
+            healthNode.Add(new XAttribute("max", monster.Health.Max) );
+
+            if (monster.Light != null)
+            {
+                var lightNode =
+                    new XElement("light");
+
+                monsterNode.Add(lightNode);
+
+                lightNode.Add(new XAttribute("level", monster.Light.Level) );
+
+                lightNode.Add(new XAttribute("color", monster.Light.Color) );
+            }
+
+            var lookNode =
+                new XElement("look");
+
+            monsterNode.Add(lookNode);
+
+            lookNode.Add(new XAttribute("typeex", monster.Look.TypeEx) );
+
+            lookNode.Add(new XAttribute("type", monster.Look.Type) );
+
+            lookNode.Add(new XAttribute("head", monster.Look.Head) );
+
+            lookNode.Add(new XAttribute("body", monster.Look.Body) );
+
+            lookNode.Add(new XAttribute("legs", monster.Look.Legs) );
+
+            lookNode.Add(new XAttribute("feet", monster.Look.Feet) );
+
+            // lookNode.Add(new XAttribute("addon", monster.Look.Addon) );
+
+            lookNode.Add(new XAttribute("corpse", monster.Look.Corpse) );
+
+            if (monster.Flags != null)
+            {
+                var flagsNode =
+                    new XElement("flags");
+
+                monsterNode.Add(flagsNode);
+
+                foreach (var flag in monster.Flags)
+                {
+                    var flagNode =
+                        new XElement("flag");
+
+                    flagsNode.Add(flagNode);
+
+                    if (flag.Summonable != null) flagNode.Add(new XAttribute("summonable", flag.Summonable) );
+
+                    if (flag.Attackable != null) flagNode.Add(new XAttribute("attackable", flag.Attackable) );
+
+                    if (flag.Hostile != null) flagNode.Add(new XAttribute("hostile", flag.Hostile) );
+
+                    if (flag.Illusionable != null) flagNode.Add(new XAttribute("illusionable", flag.Illusionable) );
+
+                    if (flag.Convinceable != null) flagNode.Add(new XAttribute("convinceable", flag.Convinceable) );
+
+                    if (flag.Pushable != null) flagNode.Add(new XAttribute("pushable", flag.Pushable) );
+
+                    if (flag.CanPushItems != null) flagNode.Add(new XAttribute("canpushitems", flag.CanPushItems) );
+
+                    if (flag.CanPushCreatures != null) flagNode.Add(new XAttribute("canpushcreatures", flag.CanPushCreatures) );
+
+                    if (flag.TargetDistance != null) flagNode.Add(new XAttribute("targetdistance", flag.TargetDistance) );
+
+                    if (flag.RunOnHealth != null) flagNode.Add(new XAttribute("runonhealth", flag.RunOnHealth) );
+                }
+            }
+
+            if (monster.Immunities != null)
+            {
+                var immunitiesNode =
+                    new XElement("immunities");
+
+                monsterNode.Add(immunitiesNode);
+
+                foreach (var immunity in monster.Immunities)
+                {
+                    var immunityNode =
+                        new XElement("immunity");
+
+                    immunitiesNode.Add(immunityNode);
+
+                    if (immunity.Physical != null) immunityNode.Add(new XAttribute("physical", immunity.Physical) );
+
+                    if (immunity.Earth != null) immunityNode.Add(new XAttribute("earth", immunity.Earth) );
+
+                    if (immunity.Fire != null) immunityNode.Add(new XAttribute("fire", immunity.Fire) );
+
+                    if (immunity.Energy != null) immunityNode.Add(new XAttribute("energy", immunity.Energy) );
+
+                    if (immunity.Ice != null) immunityNode.Add(new XAttribute("ice", immunity.Ice) );
+
+                    if (immunity.Death != null) immunityNode.Add(new XAttribute("death", immunity.Death) );
+
+                    if (immunity.Holy != null) immunityNode.Add(new XAttribute("holy", immunity.Holy) );
+
+                    if (immunity.Drown != null) immunityNode.Add(new XAttribute("drown", immunity.Drown) );
+
+                    if (immunity.ManaDrain != null) immunityNode.Add(new XAttribute("manaDrain", immunity.ManaDrain) );
+
+                    if (immunity.LifeDrain != null) immunityNode.Add(new XAttribute("lifeDrain", immunity.LifeDrain) );
+
+                    if (immunity.Paralyze != null) immunityNode.Add(new XAttribute("paralyze", immunity.Paralyze) );
+
+                    if (immunity.Invisible != null) immunityNode.Add(new XAttribute("invisible", immunity.Invisible) );
+                }
+            }
+
+            if (monster.Elements != null)
+            {
+                var elementsNode =
+                    new XElement("elements");
+
+                monsterNode.Add(elementsNode);
+
+                foreach (var element in monster.Elements)
+                {
+                    var elementNode =
+                        new XElement("element");
+
+                    elementsNode.Add(elementNode);
+
+                    if (element.PhysicalPercent != null) elementNode.Add(new XAttribute("physicalPercent", element.PhysicalPercent) );
+
+                    if (element.Earthpercent != null) elementNode.Add(new XAttribute("earthpercent", element.Earthpercent) );
+
+                    if (element.FirePercent != null) elementNode.Add(new XAttribute("firePercent", element.FirePercent) );
+
+                    if (element.EnergyPercent != null) elementNode.Add(new XAttribute("energyPercent", element.EnergyPercent) );
+
+                    if (element.IcePercent != null) elementNode.Add(new XAttribute("icePercent", element.IcePercent) );
+
+                    if (element.DeathPercent != null) elementNode.Add(new XAttribute("deathPercent", element.DeathPercent) );
+
+                    if (element.HolyPercent != null) elementNode.Add(new XAttribute("holyPercent", element.HolyPercent) );
+
+                    if (element.DrownPercent != null) elementNode.Add(new XAttribute("drownPercent", element.DrownPercent) );
+
+                    if (element.ManaDrainPercent != null) elementNode.Add(new XAttribute("manaDrainPercent", element.ManaDrainPercent) );
+
+                    if (element.LifeDrainPercent != null) elementNode.Add(new XAttribute("lifeDrainPercent", element.LifeDrainPercent) );
+                }
+            }
+
+            if (monster.Voices != null)
+            {
+                var voicesNode =
+                    new XElement("voices");
+
+                monsterNode.Add(voicesNode);
+
+                voicesNode.Add(new XAttribute("interval", monster.Voices.Interval) );
+
+                voicesNode.Add(new XAttribute("chance", monster.Voices.Chance) );
+
+                foreach (var voice in monster.Voices.Items)
+                {
+                    var voiceNode =
+                        new XElement("voice");
+
+                    voicesNode.Add(voiceNode);
+
+                    voiceNode.Add(new XAttribute("yell", voice.Yell) );
+
+                    voiceNode.Add(new XAttribute("sentence", voice.Sentence) );
+                }
+            }
+
+            if (monster.Defenses != null)
+            {
+                var defensesNode =
+                    new XElement("defenses");
+
+                monsterNode.Add(defensesNode);
+
+                defensesNode.Add(new XAttribute("mitigation", monster.Defenses.Mitigation) );
+
+                defensesNode.Add(new XAttribute("defense", monster.Defenses.Defense) );
+
+                defensesNode.Add(new XAttribute("armor", monster.Defenses.Armor) );
+
+                foreach (var defenses in monster.Defenses.Items)
+                {
+                    var defenseNode =
+                        new XElement("defense");
+
+                    defensesNode.Add(defenseNode);
+
+                    defenseNode.Add(new XAttribute("name", defenses.Name) );
+
+                    defenseNode.Add(new XAttribute("interval", defenses.Interval) );
+
+                    defenseNode.Add(new XAttribute("chance", defenses.Chance) );
+
+                    if (defenses.Min != null) defenseNode.Add(new XAttribute("min", defenses.Min) );
+
+                    if (defenses.Max != null) defenseNode.Add(new XAttribute("max", defenses.Max) );
+
+                    //TODO: attributes
+                }
+            }
+
+            if (monster.ChangeTargetStrategy != null)
+            {
+                var changetargetstrategyNode =
+                    new XElement("changetargetstrategy");
+
+                monsterNode.Add(changetargetstrategyNode);
+
+                changetargetstrategyNode.Add(new XAttribute("interval", monster.ChangeTargetStrategy.Interval) );
+
+                changetargetstrategyNode.Add(new XAttribute("chance", monster.ChangeTargetStrategy.Chance) );
+            }
+
+            if (monster.TargetStrategy != null)
+            {
+                var targetstrategyNode =
+                    new XElement("targetstrategy");
+
+                monsterNode.Add(targetstrategyNode);
+
+                targetstrategyNode.Add(new XAttribute("nearest", monster.TargetStrategy.Nearest) );
+
+                targetstrategyNode.Add(new XAttribute("weakest", monster.TargetStrategy.Weakest) );
+
+                targetstrategyNode.Add(new XAttribute("mostdamage", monster.TargetStrategy.MostDamage) );
+
+                targetstrategyNode.Add(new XAttribute("random", monster.TargetStrategy.Random) );
+            }
+                                                            
+            if (monster.Attacks != null)
+            {
+                var attacksNode =
+                    new XElement("attacks");
+
+                monsterNode.Add(attacksNode);
+
+                foreach (var attacks in monster.Attacks)
+                {
+                    var attackNode =
+                        new XElement("attack");
+
+                    attacksNode.Add(attackNode);
+
+                    attackNode.Add(new XAttribute("name", attacks.Name) );
+
+                    attackNode.Add(new XAttribute("interval", attacks.Interval) );
+
+                    attackNode.Add(new XAttribute("chance", attacks.Chance) );
+
+                    if (attacks.Min != null) attackNode.Add(new XAttribute("min", attacks.Min) );
+
+                    if (attacks.Max != null) attackNode.Add(new XAttribute("max", attacks.Max) );
+
+                    //TODO: attributes
+                }
+            }
+
+            if (monster.Loot != null)
+            {
+                var lootNode =
+                    new XElement("loot");
+
+                monsterNode.Add(lootNode);
+
+                foreach (var loot in monster.Loot)
+                {
+                    var itemNode =
+                        new XElement("item");
+
+                    lootNode.Add(itemNode);
+
+                    itemNode.Add(new XAttribute("id", loot.Id) );
+
+                    if (loot.CountMin != null) itemNode.Add(new XAttribute("countmin", loot.CountMin) );
+
+                    if (loot.CountMax != null) itemNode.Add(new XAttribute("countmax", loot.CountMax) );
+
+                    itemNode.Add(new XAttribute("killsToGetOne", loot.KillsToGetOne) );
+
+                    if (itemsFile != null)
+                    {
+                        var item = itemsFile.Items.Where(i => i.OpenTibiaId == loot.Id).FirstOrDefault();
+
+                        if (item != null)
+                        {
+                            itemNode.AddBeforeSelf(new XComment(" " + item.Name + " ") );
+                        }
+                    }
+                }
+            }
+
+            return xml;
+        }
+
+        public void Save(string path, ItemsFile itemsFile = null)
+        {
+            Save(this, path, itemsFile);
+        }
+
+        private static void Save(Monster monster, string path, ItemsFile itemsFile)
+        {
+            monster.Serialize(itemsFile).Save(path);
         }
 
         public string Name { get; set; }

@@ -90,6 +90,11 @@ namespace OpenTibia.FileFormats.Otbm
             }
         }
 
+        public void Save(string path)
+        {
+            Save(this, path);
+        }
+
         public static void Save(OtbmFile file, string path)
         {
             ByteArrayMemoryFileTreeStream stream = new ByteArrayMemoryFileTreeStream();

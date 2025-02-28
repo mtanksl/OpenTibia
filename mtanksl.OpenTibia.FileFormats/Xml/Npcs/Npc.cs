@@ -83,6 +83,112 @@ namespace OpenTibia.FileFormats.Xml.Npcs
             return npc;
         }
 
+        public XDocument Serialize()
+        {
+            return Serialize(this);
+        }
+
+        private static XDocument Serialize(Npc npc)
+        {
+            var xml = new XDocument();
+
+            var npcNode =
+                new XElement("npc");
+
+            xml.Add(npcNode);
+
+            if ( !string.IsNullOrEmpty(npc.Name) )
+            {
+                npcNode.Add(new XAttribute("name", npc.Name) );
+            }
+
+            if ( !string.IsNullOrEmpty(npc.NameDisplayed) )
+            {
+                npcNode.Add(new XAttribute("nameDisplayed", npc.NameDisplayed) );
+            }
+
+            if ( !string.IsNullOrEmpty(npc.NameDescription) )
+            {
+                npcNode.Add(new XAttribute("nameDescription", npc.NameDescription) );
+            }
+
+            npcNode.Add(new XAttribute("speed", npc.Speed) );
+
+            var healthNode =
+                new XElement("health");
+
+            npcNode.Add(healthNode);
+
+            healthNode.Add(new XAttribute("now", npc.Health.Now) );
+
+            healthNode.Add(new XAttribute("max", npc.Health.Max) );
+
+            if (npc.Light != null)
+            {
+                var lightNode =
+                    new XElement("light");
+
+                npcNode.Add(lightNode);
+
+                lightNode.Add(new XAttribute("level", npc.Light.Level) );
+
+                lightNode.Add(new XAttribute("color", npc.Light.Color) );
+            }
+
+            var lookNode =
+                new XElement("look");
+
+            npcNode.Add(lookNode);
+
+            lookNode.Add(new XAttribute("typeex", npc.Look.TypeEx) );
+
+            lookNode.Add(new XAttribute("type", npc.Look.Type) );
+
+            lookNode.Add(new XAttribute("head", npc.Look.Head) );
+
+            lookNode.Add(new XAttribute("body", npc.Look.Body) );
+
+            lookNode.Add(new XAttribute("legs", npc.Look.Legs) );
+
+            lookNode.Add(new XAttribute("feet", npc.Look.Feet) );
+
+            // lookNode.Add(new XAttribute("addon", npc.Look.Addon) );
+
+            if (npc.Voices != null)
+            {
+                var voicesNode =
+                    new XElement("voices");
+
+                npcNode.Add(voicesNode);
+
+                voicesNode.Add(new XAttribute("interval", npc.Voices.Interval) );
+
+                voicesNode.Add(new XAttribute("chance", npc.Voices.Chance) );
+
+                foreach (var voice in npc.Voices.Items)
+                {
+                    var voiceNode =
+                        new XElement("voice");
+
+                    voicesNode.Add(voiceNode);
+
+                    voiceNode.Add(new XAttribute("sentence", voice.Sentence) );
+                }
+            }
+
+            return xml;
+        }
+
+        public void Save(string path)
+        {
+            Save(this, path);
+        }
+
+        private static void Save(Npc npc, string path)
+        {
+            npc.Serialize().Save(path);
+        }
+
         public string Name { get; set; }
 
         public string NameDisplayed { get; set; }
