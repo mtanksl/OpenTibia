@@ -122,10 +122,12 @@
 				[2216] = 2214 -- Ring of healing
 			},
 			feetEquip = {
-				[6132] = 2640 -- Pair of soft boots
+				[6132] = 2640, -- Pair of soft boots
+				[9933] = 9932 -- Firewalker boots
 			},
 			feetDeEquip = {
-				[2640] = 6132 -- Pair of soft boots
+				[2640] = 6132, -- Pair of soft boots
+				[9932] = 9933 -- Firewalker boots
 			},
 			rotate = {
 				[1647] = 1648, [1648] = 1649, [1649] = 1646, [1646] = 1647, -- Throne				

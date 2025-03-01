@@ -20852,7 +20852,7 @@
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="500" />
   </item>
-  <item id="8970" name="Santiago's piano" editorcategory="Machines" />
+  <item id="8970" name="Santiago's piano" editorcategory="Musical Instruments" />
   <item id="8971" article="a" name="gland" plural="glands" editorcategory="Creature Products">
     <attribute key="description" value="It is the pheromone gland of a rotworm queen." />
     <attribute key="weight" value="50" />
@@ -21680,7 +21680,7 @@
   <item id="9558" article="a" name="roof" />
   <item id="9559" article="a" name="roof" />
   <item id="9560" article="a" name="roof" />
-  <item id="9561" name="Mr Jones's piano" editorcategory="Machines">
+  <item id="9561" name="Mr Jones's piano" editorcategory="Musical Instruments">
     <attribute key="description" value="It looks a little worn with age, but still has all its keys." />
   </item>
   <item id="9562" article="a" name="large gem" />
