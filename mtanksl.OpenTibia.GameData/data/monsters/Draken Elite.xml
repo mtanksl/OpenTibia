@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <monster name="Draken Elite" nameDescription="a draken elite" race="blood" speed="332" experience="4200" manacost="0">
   <health now="5550" max="5550" />
-  <look typeex="0" type="362" head="0" body="0" legs="0" feet="0" corpse="6080" />
+  <look typeex="0" type="362" head="0" body="0" legs="0" feet="0" corpse="12609" />
   <flags>
     <flag summonable="0" />
     <flag attackable="1" />
