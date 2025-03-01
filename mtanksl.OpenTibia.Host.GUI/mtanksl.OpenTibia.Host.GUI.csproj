@@ -11,7 +11,7 @@
     <Authors>mtank</Authors>
     <Company>mtanksl</Company>
     <Product>MTOTS GUI</Product>
-    <Description>A simple implementation in C# of open tibia server.</Description>
+    <Description>An implementation in C# of open tibia server.</Description>
     <RepositoryUrl>https://github.com/mtanksl/OpenTibia</RepositoryUrl>
   </PropertyGroup>
 

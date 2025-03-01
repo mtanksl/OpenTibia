@@ -9,7 +9,7 @@
     <Authors>mtank</Authors>
     <Company>mtanksl</Company>
     <Product>MTOTS</Product>
-    <Description>A simple implementation in C# of open tibia server.</Description>
+    <Description>An implementation in C# of open tibia server.</Description>
     <RepositoryUrl>https://github.com/mtanksl/OpenTibia</RepositoryUrl>
     <RuntimeIdentifiers>win-x64;linux-x64</RuntimeIdentifiers>
   </PropertyGroup>
