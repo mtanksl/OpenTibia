@@ -3,15 +3,15 @@
   <health now="2" max="2" />
   <look typeex="0" type="213" head="0" body="0" legs="0" feet="0" corpse="4993" />
   <flags>
-    <immunity physical="0" />
-    <immunity energy="0" />
-    <immunity fire="0" />
-    <immunity poison="1" />
-    <immunity lifedrain="0" />
-    <immunity paralyze="1" />
-    <immunity outfit="0" />
-    <immunity drunk="1" />
-    <immunity invisible="0" />
+    <flag physical="0" />
+    <flag energy="0" />
+    <flag fire="0" />
+    <flag poison="1" />
+    <flag lifedrain="0" />
+    <flag paralyze="1" />
+    <flag outfit="0" />
+    <flag drunk="1" />
+    <flag invisible="0" />
   </flags>
   <immunities>
     <immunity paralyze="0" />
