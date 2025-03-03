@@ -38,7 +38,7 @@
 		-- { type = "MonsterCreation", name = "", filename = "creation.lua" }
 	},
 	npcs = {
-		-- { type = "NpcCreation", name = "", filename = "creation.lua" }
+		-- { type = "NpcCreation", name = "", filename = "creation.lua" },
 		{ type = "Dialogue", name = "", filename = "default.lua" }
 	},
 	players = {
