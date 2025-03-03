@@ -3,15 +3,16 @@
   <health now="2" max="2" />
   <look typeex="0" type="213" head="0" body="0" legs="0" feet="0" corpse="4993" />
   <flags>
-    <flag physical="0" />
-    <flag energy="0" />
-    <flag fire="0" />
-    <flag poison="1" />
-    <flag lifedrain="0" />
-    <flag paralyze="1" />
-    <flag outfit="0" />
-    <flag drunk="1" />
-    <flag invisible="0" />
+    <flag summonable="0" />
+    <flag attackable="1" />
+    <flag hostile="0" />
+    <flag illusionable="0" />
+    <flag convinceable="0" />
+    <flag pushable="0" />
+    <flag canpushitems="0" />
+    <flag canpushcreatures="0" />
+    <flag targetdistance="6" />
+    <flag runonhealth="2" />
   </flags>
   <immunities>
     <immunity paralyze="0" />
