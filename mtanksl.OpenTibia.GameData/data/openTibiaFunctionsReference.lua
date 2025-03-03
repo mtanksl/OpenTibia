@@ -310,6 +310,13 @@ return {
 				args = "(PromiseResult<object[]> promise, params object[] parameters)",
 				returns = "void"
 			},
+			-- void command.yield(Action callback)
+			yield = {
+				type = "function",
+				description = "",
+				args = "(Action callback)",
+				returns = "void"
+			},
 			-- void command.delay(int milliseconds) block
 			-- string command.delay(int milliseconds, Action callback)
 			-- void command.delay(GameObject gameObject, int milliseconds) block
@@ -352,8 +359,8 @@ return {
 				args = "([GameObject gameObject, ] GameObject eventSource, string eventName, Action<GameEventArgs> callback)",
 				returns = "string"
 			},
-			-- bool command.gameobjectcanceleventhandler(string key)
-			gameobjectcanceleventhandler = {
+			-- bool command.cancelgameobjecteventhandler(string key)
+			cancelgameobjecteventhandler = {
 				type = "function",
 				description = "",
 				args = "(string key)",
@@ -368,8 +375,8 @@ return {
 				args = "([GameObject gameObject, ] GameObject observer, string eventName, Action<GameEventArgs> callback)",
 				returns = "string"
 			},
-			-- bool command.positionalcanceleventhandler(string key)
-			positionalcanceleventhandler = {
+			-- bool command.cancelpositionaleventhandler(string key)
+			cancelpositionaleventhandler = {
 				type = "function",
 				description = "",
 				args = "(string key)",

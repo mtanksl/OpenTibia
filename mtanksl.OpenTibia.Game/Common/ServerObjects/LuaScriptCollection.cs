@@ -74,6 +74,16 @@ namespace OpenTibia.Game.Common.ServerObjects
                 return Promise.FromResultAsEmptyObjectArray;
             } );
 
+            lua.RegisterCoFunction("yield", (luaScope, parameters) =>
+            {
+                _ = Promise.Yield().Then( () =>
+                {                          
+                    return luaScope.CallFunction( (LuaFunction)parameters[0] ); // Ignore result
+                } );
+                        
+                return Promise.FromResultAsEmptyObjectArray;
+            } );
+
             lua.RegisterCoFunction("delay", (luaScope, parameters) =>
             {             
                 if (parameters[0] is GameObject)
@@ -82,6 +92,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     if (parameters.Length == 3)
                     {
+                        // string command.delay(GameObject gameObject, int milliseconds, Action callback)
+
                         _ = multipleDelayBehaviour.Promise.Then( () =>
                         {
                             return luaScope.CallFunction( (LuaFunction)parameters[2] ); // Ignore result
@@ -89,6 +101,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                         return Promise.FromResult(new object[] { multipleDelayBehaviour.Key } );
                     }
+
+                    // void command.delay(GameObject gameObject, int milliseconds) block
 
                     return multipleDelayBehaviour.Promise.Then( () =>
                     {
@@ -103,6 +117,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     if (parameters.Length == 2)
                     {
+                        // string command.delay(int milliseconds, Action callback)
+
                         _ = promise.Then( () =>
                         {
                             return luaScope.CallFunction( (LuaFunction)parameters[1] ); // Ignore result
@@ -110,6 +126,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                         return Promise.FromResult(new object[] { key } );
                     }
+
+                    // void command.delay(int milliseconds) block
 
                     return promise.Then( () =>
                     {
@@ -129,6 +147,8 @@ namespace OpenTibia.Game.Common.ServerObjects
             {
                 if (parameters[0] is GameObject)
                 {
+                    // string command.eventhandler(GameObject gameObject, string eventName, Action<GameEventArgs> callback)
+
                     MultipleEventHandlerBehaviour multipleEventHandlerBehaviour = Context.Current.Server.GameObjectComponents.AddComponent( (GameObject)parameters[0], new MultipleEventHandlerBehaviour(Type.GetType(LuaScope.GetString(parameters[1] ) ), (context, e) =>
                     {
                         return luaScope.CallFunction( (LuaFunction)parameters[2], e); // Ignore result
@@ -139,6 +159,8 @@ namespace OpenTibia.Game.Common.ServerObjects
                 }
                 else
                 {
+                    // string command.eventhandler(string eventName, Action<GameEventArgs> callback)
+
                     Guid key = Context.Current.Server.EventHandlers.Subscribe(Type.GetType(LuaScope.GetString(parameters[0] ) ), (context, e) =>
                     {
                         return luaScope.CallFunction( (LuaFunction)parameters[1], e); // Ignore result
@@ -159,6 +181,8 @@ namespace OpenTibia.Game.Common.ServerObjects
             {
                 if (parameters[0] is GameObject)
                 {
+                    // string command.gameobjecteventhandler(GameObject gameObject, GameObject eventSource, string eventName, Action<GameEventArgs> callback)
+
                     MultipleGameObjectEventHandlerBehaviour multipleEventHandlerBehaviour = Context.Current.Server.GameObjectComponents.AddComponent( (GameObject)parameters[0], new MultipleGameObjectEventHandlerBehaviour( (GameObject)parameters[1], Type.GetType(LuaScope.GetString(parameters[2] ) ), (context, e) =>
                     {
                         return luaScope.CallFunction( (LuaFunction)parameters[3], e); // Ignore result
@@ -169,6 +193,8 @@ namespace OpenTibia.Game.Common.ServerObjects
                 }
                 else
                 {
+                    // string command.gameobjecteventhandler(GameObject eventSource, string eventName, Action<GameEventArgs> callback)
+
                     Guid key = Context.Current.Server.GameObjectEventHandlers.Subscribe( (GameObject)parameters[0], Type.GetType(LuaScope.GetString(parameters[1] ) ), (context, e) =>
                     {
                         return luaScope.CallFunction( (LuaFunction)parameters[2], e); // Ignore result
@@ -178,7 +204,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 }
             } );
 
-            lua.RegisterCoFunction("gameobjectcanceleventhandler", (luaScope, parameters) =>
+            lua.RegisterCoFunction("cancelgameobjecteventhandler", (luaScope, parameters) =>
             {
                 bool canceled = Context.Current.Server.GameObjectEventHandlers.Unsubscribe(Guid.Parse(LuaScope.GetString(parameters[0] ) ) );
 
@@ -189,6 +215,8 @@ namespace OpenTibia.Game.Common.ServerObjects
             {
                 if (parameters[0] is GameObject)
                 {
+                    // string command.positionaleventhandler(GameObject gameObject, GameObject observer, string eventName, Action<GameEventArgs> callback)
+
                     MultiplePositionalEventHandlerBehaviour multipleEventHandlerBehaviour = Context.Current.Server.GameObjectComponents.AddComponent( (GameObject)parameters[0], new MultiplePositionalEventHandlerBehaviour( (GameObject)parameters[1], Type.GetType(LuaScope.GetString(parameters[2] ) ), (context, e) =>
                     {
                         return luaScope.CallFunction( (LuaFunction)parameters[3], e); // Ignore result
@@ -199,6 +227,8 @@ namespace OpenTibia.Game.Common.ServerObjects
                 }
                 else
                 {
+                    // string command.positionaleventhandler(GameObject observer, string eventName, Action<GameEventArgs> callback)
+
                     Guid key = Context.Current.Server.PositionalEventHandlers.Subscribe( (GameObject)parameters[0], Type.GetType(LuaScope.GetString(parameters[1] ) ), (context, e) =>
                     {
                         return luaScope.CallFunction( (LuaFunction)parameters[2], e); // Ignore result
@@ -208,7 +238,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 }
             } );
 
-            lua.RegisterCoFunction("positionalcanceleventhandler", (luaScope, parameters) =>
+            lua.RegisterCoFunction("cancelpositionaleventhandler", (luaScope, parameters) =>
             {
                 bool canceled = Context.Current.Server.PositionalEventHandlers.Unsubscribe(Guid.Parse(LuaScope.GetString(parameters[0] ) ) );
 
@@ -259,11 +289,15 @@ namespace OpenTibia.Game.Common.ServerObjects
             {
                 if (parameters.Length == 8)
                 {
+                    // void command.creatureattackarea(Creature attacker, bool beam, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, Attack attack, Condition condition)
+			
                     return Context.Current.AddCommand(new CreatureAttackAreaCommand( (Creature)parameters[0], (bool)parameters[1], ToPosition(parameters[2] ), ToOffsetArray(parameters[3] ), (ProjectileType?)(long?)parameters[4], (MagicEffectType?)(long?)parameters[5], ToAttack(parameters[6] ), ToCondition(parameters[7] ) ) ).Then( () =>
                     {
                         return Promise.FromResultAsEmptyObjectArray;
                     } );
                 }
+
+			    // void command.creatureattackarea(Creature attacker, bool beam, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte typeCount, Attack attack, Condition condition)
 
                 return Context.Current.AddCommand(new CreatureAttackAreaCommand( (Creature)parameters[0], (bool)parameters[1], ToPosition(parameters[2] ), ToOffsetArray(parameters[3] ), (ProjectileType?)(long?)parameters[4], (MagicEffectType?)(long?)parameters[5], LuaScope.GetUInt16(parameters[6] ), LuaScope.GetByte(parameters[7] ), ToAttack(parameters[8] ), ToCondition(parameters[9] ) ) ).Then( () =>
                 {
