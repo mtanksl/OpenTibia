@@ -601,77 +601,77 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             foreach (LuaTable parameters in ( (LuaTable)script["plugins.actions"] ).Values)
             {
-                ParseActions(LuaScope.GetString(parameters["filename"] ), null, parameters);
+                ParseActions(LuaScope.GetString(parameters["filename"] ), script, parameters);
             }
 
             foreach (LuaTable parameters in ( (LuaTable)script["plugins.movements"] ).Values)
             {
-                ParseMovements(LuaScope.GetString(parameters["filename"] ), null, parameters);
+                ParseMovements(LuaScope.GetString(parameters["filename"] ), script, parameters);
             }
 
             foreach (LuaTable parameters in ( (LuaTable)script["plugins.talkactions"] ).Values)
             {
-                ParseTalkActions(LuaScope.GetString(parameters["filename"] ), null, parameters);
+                ParseTalkActions(LuaScope.GetString(parameters["filename"] ), script, parameters);
             }
 
             foreach (LuaTable parameters in ( (LuaTable)script["plugins.creaturescripts"] ).Values)
             {
-                ParseCreatureScripts(LuaScope.GetString(parameters["filename"] ), null, parameters);
+                ParseCreatureScripts(LuaScope.GetString(parameters["filename"] ), script, parameters);
             }
 
             foreach (LuaTable parameters in ( (LuaTable)script["plugins.globalevents"] ).Values)
             {
-                ParseCreatureGlobalEvents(LuaScope.GetString(parameters["filename"] ), null, parameters);
+                ParseCreatureGlobalEvents(LuaScope.GetString(parameters["filename"] ), script, parameters);
             }
 
             foreach (LuaTable parameters in ( (LuaTable)script["plugins.items"] ).Values)
             {
-                ParseItems(LuaScope.GetString(parameters["filename"] ), null, parameters);
+                ParseItems(LuaScope.GetString(parameters["filename"] ), script, parameters);
             }
 
             foreach (LuaTable parameters in ( (LuaTable)script["plugins.monsters"] ).Values)
             {
-                ParseMonsters(LuaScope.GetString(parameters["filename"] ), null, parameters);
+                ParseMonsters(LuaScope.GetString(parameters["filename"] ), script, parameters);
             }
 
             foreach (LuaTable parameters in ( (LuaTable)script["plugins.npcs"] ).Values)
             {
-                ParseNpcs(LuaScope.GetString(parameters["filename"] ), null, parameters);
+                ParseNpcs(LuaScope.GetString(parameters["filename"] ), script, parameters);
             }
 
             foreach (LuaTable parameters in ( (LuaTable)script["plugins.players"] ).Values)
             {
-                ParsePlayers(LuaScope.GetString(parameters["filename"] ), null, parameters);
+                ParsePlayers(LuaScope.GetString(parameters["filename"] ), script, parameters);
             }
 
             foreach (LuaTable parameters in ( (LuaTable)script["plugins.spells"] ).Values)
             {
-                ParseSpells(LuaScope.GetString(parameters["filename"] ), null, parameters);
+                ParseSpells(LuaScope.GetString(parameters["filename"] ), script, parameters);
             }
 
             foreach (LuaTable parameters in ( (LuaTable)script["plugins.runes"] ).Values)
             {
-                ParseRunes(LuaScope.GetString(parameters["filename"] ), null, parameters);
+                ParseRunes(LuaScope.GetString(parameters["filename"] ), script, parameters);
             }
 
             foreach (LuaTable parameters in ( (LuaTable)script["plugins.weapons"] ).Values)
             {
-                ParseWeapons(LuaScope.GetString(parameters["filename"] ), null, parameters);
+                ParseWeapons(LuaScope.GetString(parameters["filename"] ), script, parameters);
             }
 
             foreach (LuaTable parameters in ( (LuaTable)script["plugins.ammunitions"] ).Values)
             {
-                ParseAmmunitions(LuaScope.GetString(parameters["filename"] ), null, parameters);
+                ParseAmmunitions(LuaScope.GetString(parameters["filename"] ), script, parameters);
             }
 
             foreach (LuaTable parameters in ( (LuaTable)script["plugins.raids"] ).Values)
             {
-                ParseRaids(LuaScope.GetString(parameters["filename"] ), null, parameters);
+                ParseRaids(LuaScope.GetString(parameters["filename"] ), script, parameters);
             }
 
             foreach (LuaTable parameters in ( (LuaTable)script["plugins.monsterattacks"] ).Values)
             {
-                ParseMonsterAttacks(LuaScope.GetString(parameters["filename"] ), null, parameters);
+                ParseMonsterAttacks(LuaScope.GetString(parameters["filename"] ), script, parameters);
             }
 
             foreach (var filePath in Directory.GetFiles(server.PathResolver.GetFullPath("data/plugins/scripts"), "*.lua", SearchOption.AllDirectories) )
