@@ -80,7 +80,7 @@ namespace OpenTibia.Game.Common
 
             Randomization = new Randomization();
 
-            Clock = new Clock(12, 00);
+            Clock = new Clock(DateTime.Now.Hour, DateTime.Now.Minute);
 
             RateLimiting = new RateLimiting(this);
 
