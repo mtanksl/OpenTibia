@@ -76,11 +76,11 @@ return {
 		args = "(uint? id, ushort? uniqueid, ushort? actionid, ushort? opentibiaid, Func<Player, Item, IContainer, byte, byte, bool> onmoveitem)",
 		returns = "void"
 	},
-	-- void registeractionsplayermovecreature(string name, Func<Player, Creature, Tile, bool> onmovecreature)
+	-- void registeractionsplayermovecreature(uint? id, string name, Func<Player, Creature, Tile, bool> onmovecreature)
 	registeractionsplayermovecreature = {
 		type = "function",
 		description = "",
-		args = "(string name, Func<Player, Creature, Tile, bool> onmovecreature)",
+		args = "(uint? id, string name, Func<Player, Creature, Tile, bool> onmovecreature)",
 		returns = "void"
 	},
 	-- void registermovementscreaturestepin(uint? id, ushort? uniqueid, ushort? actionid, ushort? opentibiaid, Func<Creature, Tile, bool> onsteppingin, Action<Creature, Tile, Tile> onstepin)

@@ -50,7 +50,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         PlayerUseItemWithCreaturePlugin GetPlayerUseItemWithCreaturePlugin(bool allowFarUse, Item item);
 
-        PlayerMoveCreaturePlugin GetPlayerMoveCreaturePlugin(string name);
+        PlayerMoveCreaturePlugin GetPlayerMoveCreaturePlugin(Creature creature);
 
         PlayerMoveItemPlugin GetPlayerMoveItemPlugin(Item item);
 

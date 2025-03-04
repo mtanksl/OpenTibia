@@ -57,9 +57,10 @@ function registeractionsplayermoveitem(id, uniqueid, actionid, opentibiaid, onmo
     } )
 end
 
-function registeractionsplayermovecreature(name, onmovecreature)
+function registeractionsplayermovecreature(id, name, onmovecreature)
     registerplugin("actions", {
 	    type = "PlayerMoveCreature",
+	    id = id, 
 	    name = name,
 	    onmovecreature = onmovecreature
     } )

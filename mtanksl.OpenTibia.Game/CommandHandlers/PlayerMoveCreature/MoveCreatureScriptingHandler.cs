@@ -9,7 +9,7 @@ namespace OpenTibia.Game.CommandHandlers
     {
         public override Promise Handle(Func<Promise> next, PlayerMoveCreatureCommand command)
         {
-            PlayerMoveCreaturePlugin plugin = Context.Server.Plugins.GetPlayerMoveCreaturePlugin(command.Creature.Name);
+            PlayerMoveCreaturePlugin plugin = Context.Server.Plugins.GetPlayerMoveCreaturePlugin(command.Creature);
 
             if (plugin != null)
             {

@@ -309,6 +309,87 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
         }
 
+        private class CreaturePluginDictionaryCached<TValue, TLuaImplementation> where TValue : Plugin
+                                                                             where TLuaImplementation : TValue
+        {
+            private IServer server;
+
+            public CreaturePluginDictionaryCached(IServer server)
+            {
+                this.server = server;
+            }
+
+            private PluginDictionaryCached<uint, TValue, TLuaImplementation> gameObjects;
+
+            private PluginDictionaryCached<string, TValue, TLuaImplementation> names;
+
+            public void AddPlugin(uint? id, string name, string fileName, ILuaScope script, LuaTable parameters, params object[] args)
+            {
+                if (id != null)
+                {
+                    if (gameObjects == null)
+                    {
+                        gameObjects = new PluginDictionaryCached<uint, TValue, TLuaImplementation>(server);
+                    }
+
+                    gameObjects.AddPlugin(id.Value, fileName, script, parameters, args);
+                }
+                else if (name != null)
+                {
+                    if (names == null)
+                    {
+                        names = new PluginDictionaryCached<string, TValue, TLuaImplementation>(server);
+                    }
+
+                    names.AddPlugin(name, fileName, script, parameters, args);
+                }
+            }
+
+            public TValue GetPlugin(Creature creature)
+            {
+                if (gameObjects != null)
+                {
+                    TValue plugin = gameObjects.GetPlugin(creature.Id);
+
+                    if (plugin != null)
+                    {
+                        return plugin;
+                    }
+                }
+                                
+                if (names != null)
+                {
+                    TValue plugin = names.GetPlugin(creature.Name);
+
+                    if (plugin != null)
+                    {
+                        return plugin;
+                    }
+                }
+
+                return null;
+            }
+
+            public IEnumerable<TValue> GetPlugins()
+            {
+                if (gameObjects != null)
+                {
+                    foreach (var plugin in gameObjects.GetPlugins() )
+                    {
+                        yield return plugin;
+                    }
+                }
+
+                if (names != null)
+                {
+                    foreach (var plugin in names.GetPlugins() )
+                    {
+                        yield return plugin;
+                    }
+                }               
+            }
+        }
+
         private class AutoLoadPlugin : IDisposable
         {
             private ILuaScope script;
@@ -443,7 +524,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             this.playerUseItemWithCreaturePluginsAllowFarUse = new ItemPluginDictionaryCached<PlayerUseItemWithCreaturePlugin, LuaScriptingPlayerUseItemWithCreaturePlugin>(server); this.playerUseItemWithCreaturePlugins = new ItemPluginDictionaryCached<PlayerUseItemWithCreaturePlugin, LuaScriptingPlayerUseItemWithCreaturePlugin>(server);
     
-            this.playerMoveCreaturePlugins = new PluginDictionaryCached<string, PlayerMoveCreaturePlugin, LuaScriptingPlayerMoveCreaturePlugin>(server);
+            this.playerMoveCreaturePlugins = new CreaturePluginDictionaryCached<PlayerMoveCreaturePlugin, LuaScriptingPlayerMoveCreaturePlugin>(server);
      
             this.playerMoveItemPlugins = new ItemPluginDictionaryCached<PlayerMoveItemPlugin, LuaScriptingPlayerMoveItemPlugin>(server);
    
@@ -690,9 +771,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                 case "PlayerMoveCreature":
                 {
-                    string name = LuaScope.GetString(parameters["name"] );
-
-                    playerMoveCreaturePlugins.AddPlugin(name, fileName, script, parameters);
+                    playerMoveCreaturePlugins.AddPlugin(LuaScope.GetNullableUInt32(parameters["id"] ), LuaScope.GetString(parameters["name"] ), fileName, script, parameters);
                 }
                 break;
             }
@@ -1091,11 +1170,11 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
         }
 
-        private PluginDictionaryCached<string, PlayerMoveCreaturePlugin, LuaScriptingPlayerMoveCreaturePlugin> playerMoveCreaturePlugins;
+        private CreaturePluginDictionaryCached<PlayerMoveCreaturePlugin, LuaScriptingPlayerMoveCreaturePlugin> playerMoveCreaturePlugins;
 
-        public PlayerMoveCreaturePlugin GetPlayerMoveCreaturePlugin(string name)
+        public PlayerMoveCreaturePlugin GetPlayerMoveCreaturePlugin(Creature creature)
         {
-            return playerMoveCreaturePlugins.GetPlugin(name);
+            return playerMoveCreaturePlugins.GetPlugin(creature);
         }
 
         private ItemPluginDictionaryCached<PlayerMoveItemPlugin, LuaScriptingPlayerMoveItemPlugin> playerMoveItemPlugins;
