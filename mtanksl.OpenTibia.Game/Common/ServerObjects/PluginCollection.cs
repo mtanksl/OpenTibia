@@ -1,4 +1,5 @@
 ﻿using NLua;
+using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Plugins;
 using System;
@@ -163,6 +164,225 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
         }
 
+        private class ItemPluginDictionaryCached<TValue, TLuaImplementation> where TValue : Plugin
+                                                                             where TLuaImplementation : TValue
+        {
+            private PluginCollection pluginCollection;
+
+            public ItemPluginDictionaryCached(PluginCollection pluginCollection)
+            {
+                this.pluginCollection = pluginCollection;
+            }
+
+            private PluginDictionaryCached<Item, TValue, TLuaImplementation> items;
+
+            public void ItemAddPlugin(Item item, TValue plugin)
+            {
+                if (items == null)
+                {
+                    items = new PluginDictionaryCached<Item, TValue, TLuaImplementation>(pluginCollection);
+                }
+
+                items.AddPlugin(item, plugin);
+            }
+
+            public void ItemAddPlugin(Item item, string fileName, LuaTable parameters, params object[] args)
+            {
+                if (items == null)
+                {
+                    items = new PluginDictionaryCached<Item, TValue, TLuaImplementation>(pluginCollection);
+                }
+
+                items.AddPlugin(item, fileName, parameters, args);
+            }
+
+            public void ItemAddPlugin(Item item, ILuaScope script, LuaTable parameters, params object[] args)
+            {
+                if (items == null)
+                {
+                    items = new PluginDictionaryCached<Item, TValue, TLuaImplementation>(pluginCollection);
+                }
+
+                items.AddPlugin(item, script, parameters, args);
+            }
+
+            private PluginDictionaryCached<ushort, TValue, TLuaImplementation> uniqueIds;
+
+            public void UniqueIdAddPlugin(ushort uniqueId, TValue plugin)
+            {
+                if (uniqueIds == null)
+                {
+                    uniqueIds = new PluginDictionaryCached<ushort, TValue, TLuaImplementation>(pluginCollection);
+                }
+
+                uniqueIds.AddPlugin(uniqueId, plugin);
+            }
+
+            public void UniqueIdAddPlugin(ushort uniqueId, string fileName, LuaTable parameters, params object[] args)
+            {
+                if (uniqueIds == null)
+                {
+                    uniqueIds = new PluginDictionaryCached<ushort, TValue, TLuaImplementation>(pluginCollection);
+                }
+
+                uniqueIds.AddPlugin(uniqueId, fileName, parameters, args);
+            }
+
+            public void UniqueIdAddPlugin(ushort uniqueId, ILuaScope script, LuaTable parameters, params object[] args)
+            {
+                if (uniqueIds == null)
+                {
+                    uniqueIds = new PluginDictionaryCached<ushort, TValue, TLuaImplementation>(pluginCollection);
+                }
+
+                uniqueIds.AddPlugin(uniqueId, script, parameters, args);
+            }
+
+            private PluginDictionaryCached<ushort, TValue, TLuaImplementation> actionIds;
+
+            public void ActionIdAddPlugin(ushort actionId, TValue plugin)
+            {
+                if (actionIds == null)
+                {
+                    actionIds = new PluginDictionaryCached<ushort, TValue, TLuaImplementation>(pluginCollection);
+                }
+
+                actionIds.AddPlugin(actionId, plugin);
+            }
+
+            public void ActionIdAddPlugin(ushort actionId, string fileName, LuaTable parameters, params object[] args)
+            {
+                if (actionIds == null)
+                {
+                    actionIds = new PluginDictionaryCached<ushort, TValue, TLuaImplementation>(pluginCollection);
+                }
+
+                actionIds.AddPlugin(actionId, fileName, parameters, args);
+            }
+
+            public void ActionIdAddPlugin(ushort actionId, ILuaScope script, LuaTable parameters, params object[] args)
+            {
+                if (actionIds == null)
+                {
+                    actionIds = new PluginDictionaryCached<ushort, TValue, TLuaImplementation>(pluginCollection);
+                }
+
+                actionIds.AddPlugin(actionId, script, parameters, args);
+            }
+
+            private PluginDictionaryCached<ushort, TValue, TLuaImplementation> openTibiaIds;
+
+            public void OpenTibiaIdAddPlugin(ushort openTibiaId, TValue plugin)
+            {
+                if (openTibiaIds == null)
+                {
+                    openTibiaIds = new PluginDictionaryCached<ushort, TValue, TLuaImplementation>(pluginCollection);
+                }
+
+                openTibiaIds.AddPlugin(openTibiaId, plugin);
+            }
+
+            public void OpenTibiaIdAddPlugin(ushort openTibiaId, string fileName, LuaTable parameters, params object[] args)
+            {
+                if (openTibiaIds == null)
+                {
+                    openTibiaIds = new PluginDictionaryCached<ushort, TValue, TLuaImplementation>(pluginCollection);
+                }
+
+                openTibiaIds.AddPlugin(openTibiaId, fileName, parameters, args);
+            }
+
+            public void OpenTibiaIdAddPlugin(ushort openTibiaId, ILuaScope script, LuaTable parameters, params object[] args)
+            {
+                if (openTibiaIds == null)
+                {
+                    openTibiaIds = new PluginDictionaryCached<ushort, TValue, TLuaImplementation>(pluginCollection);
+                }
+
+                openTibiaIds.AddPlugin(openTibiaId, script, parameters, args);
+            }
+
+            public TValue GetPlugin(Item item)
+            {
+                if (items != null)
+                {
+                    TValue plugin = items.GetPlugin(item);
+
+                    if (plugin != null)
+                    {
+                        return plugin;
+                    }
+                }
+
+                if (uniqueIds != null)
+                {
+                    TValue plugin = uniqueIds.GetPlugin(item.UniqueId);
+
+                    if (plugin != null)
+                    {
+                        return plugin;
+                    }
+                }
+
+                if (actionIds != null)
+                {
+                    TValue plugin = actionIds.GetPlugin(item.ActionId);
+
+                    if (plugin != null)
+                    {
+                        return plugin;
+                    }
+                }
+
+                if (openTibiaIds != null)
+                {
+                    TValue plugin = openTibiaIds.GetPlugin(item.Metadata.OpenTibiaId);
+
+                    if (plugin != null)
+                    {
+                        return plugin;
+                    }
+                }
+
+                return null;
+            }
+
+            public IEnumerable<TValue> GetPlugins()
+            {
+                if (items != null)
+                {
+                    foreach (var plugin in items.GetPlugins() )
+                    {
+                        yield return plugin;
+                    }
+                }
+
+                if (uniqueIds != null)
+                {
+                    foreach (var plugin in uniqueIds.GetPlugins() )
+                    {
+                        yield return plugin;
+                    }
+                }
+
+                if (actionIds != null)
+                {
+                    foreach (var plugin in actionIds.GetPlugins() )
+                    {
+                        yield return plugin;
+                    }
+                }
+
+                if (openTibiaIds != null)
+                {
+                    foreach (var plugin in openTibiaIds.GetPlugins() )
+                    {
+                        yield return plugin;
+                    }
+                }               
+            }
+        }
+
         private class AutoLoadPlugin : IDisposable
         {
             private ILuaScope script;
@@ -195,59 +415,168 @@ namespace OpenTibia.Game.Common.ServerObjects
                         {
                             case "PlayerRotateItem":
                             {
-                                ushort openTibiaId = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] );
+                                if (initialization.Parameters["uniqueid"] != null)
+                                {
+                                    ushort uniqueid = LuaScope.GetUInt16(initialization.Parameters["uniqueid"] );
 
-                                pluginCollection.playerRotateItemPlugins.AddPlugin(openTibiaId, script, initialization.Parameters);
+                                    pluginCollection.playerRotateItemPlugins.UniqueIdAddPlugin(uniqueid, script, initialization.Parameters);
+                                }
+                                else if (initialization.Parameters["actionid"] != null)
+                                {
+                                    ushort actionid = LuaScope.GetUInt16(initialization.Parameters["actionid"] );
+
+                                    pluginCollection.playerRotateItemPlugins.ActionIdAddPlugin(actionid, script, initialization.Parameters);
+                                }
+                                else if (initialization.Parameters["opentibiaid"] != null)
+                                {
+                                    ushort opentibiaid = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] );
+
+                                    pluginCollection.playerRotateItemPlugins.OpenTibiaIdAddPlugin(opentibiaid, script, initialization.Parameters);
+                                }
                             }
                             break;
 
                             case "PlayerUseItem":
                             {
-                                ushort openTibiaId = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] );
+                                if (initialization.Parameters["uniqueid"] != null)
+                                {
+                                    ushort uniqueid = LuaScope.GetUInt16(initialization.Parameters["uniqueid"] );
 
-                                pluginCollection.playerUseItemPlugins.AddPlugin(openTibiaId, script, initialization.Parameters);
+                                    pluginCollection.playerUseItemPlugins.UniqueIdAddPlugin(uniqueid, script, initialization.Parameters);
+                                }
+                                else if (initialization.Parameters["actionid"] != null)
+                                {
+                                    ushort actionid = LuaScope.GetUInt16(initialization.Parameters["actionid"] );
+
+                                    pluginCollection.playerUseItemPlugins.ActionIdAddPlugin(actionid, script, initialization.Parameters);
+                                }
+                                else if (initialization.Parameters["opentibiaid"] != null)
+                                {
+                                    ushort opentibiaid = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] );
+
+                                    pluginCollection.playerUseItemPlugins.OpenTibiaIdAddPlugin(opentibiaid, script, initialization.Parameters);
+                                }
                             }
                             break;
 
                             case "PlayerUseItemWithItem":
                             {
-                                ushort openTibiaId = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] );
-
                                 bool allowFarUse = LuaScope.GetBoolean(initialization.Parameters["allowfaruse"] );
 
                                 if (allowFarUse)
                                 {
-                                    pluginCollection.playerUseItemWithItemPluginsAllowFarUse.AddPlugin(openTibiaId, script, initialization.Parameters);                     
+                                    if (initialization.Parameters["uniqueid"] != null)
+                                    {
+                                        ushort uniqueid = LuaScope.GetUInt16(initialization.Parameters["uniqueid"] );
+
+                                        pluginCollection.playerUseItemWithItemPluginsAllowFarUse.UniqueIdAddPlugin(uniqueid, script, initialization.Parameters);
+                                    }
+                                    else if (initialization.Parameters["actionid"] != null)
+                                    {
+                                        ushort actionid = LuaScope.GetUInt16(initialization.Parameters["actionid"] );
+
+                                        pluginCollection.playerUseItemWithItemPluginsAllowFarUse.ActionIdAddPlugin(actionid, script, initialization.Parameters);
+                                    }
+                                    else if (initialization.Parameters["opentibiaid"] != null)
+                                    {
+                                        ushort opentibiaid = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] );
+
+                                        pluginCollection.playerUseItemWithItemPluginsAllowFarUse.OpenTibiaIdAddPlugin(opentibiaid, script, initialization.Parameters);
+                                    }               
                                 }
                                 else
                                 {
-                                    pluginCollection.playerUseItemWithItemPlugins.AddPlugin(openTibiaId, script, initialization.Parameters);                     
+                                    if (initialization.Parameters["uniqueid"] != null)
+                                    {
+                                        ushort uniqueid = LuaScope.GetUInt16(initialization.Parameters["uniqueid"] );
+
+                                        pluginCollection.playerUseItemWithItemPlugins.UniqueIdAddPlugin(uniqueid, script, initialization.Parameters);
+                                    }
+                                    else if (initialization.Parameters["actionid"] != null)
+                                    {
+                                        ushort actionid = LuaScope.GetUInt16(initialization.Parameters["actionid"] );
+
+                                        pluginCollection.playerUseItemWithItemPlugins.ActionIdAddPlugin(actionid, script, initialization.Parameters);
+                                    }
+                                    else if (initialization.Parameters["opentibiaid"] != null)
+                                    {
+                                        ushort opentibiaid = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] );
+
+                                        pluginCollection.playerUseItemWithItemPlugins.OpenTibiaIdAddPlugin(opentibiaid, script, initialization.Parameters);
+                                    }               
                                 }
                             }
                             break;
 
                             case "PlayerUseItemWithCreature":
                             {
-                                ushort openTibiaId = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] );
-
                                 bool allowFarUse = LuaScope.GetBoolean(initialization.Parameters["allowfaruse"] );
 
                                 if (allowFarUse)
                                 {
-                                    pluginCollection.playerUseItemWithCreaturePluginsAllowFarUse.AddPlugin(openTibiaId, script, initialization.Parameters);
+                                    if (initialization.Parameters["uniqueid"] != null)
+                                    {
+                                        ushort uniqueid = LuaScope.GetUInt16(initialization.Parameters["uniqueid"] );
+
+                                        pluginCollection.playerUseItemWithCreaturePluginsAllowFarUse.UniqueIdAddPlugin(uniqueid, script, initialization.Parameters);
+                                    }
+                                    else if (initialization.Parameters["actionid"] != null)
+                                    {
+                                        ushort actionid = LuaScope.GetUInt16(initialization.Parameters["actionid"] );
+
+                                        pluginCollection.playerUseItemWithCreaturePluginsAllowFarUse.ActionIdAddPlugin(actionid, script, initialization.Parameters);
+                                    }
+                                    else if (initialization.Parameters["opentibiaid"] != null)
+                                    {
+                                        ushort opentibiaid = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] );
+
+                                        pluginCollection.playerUseItemWithCreaturePluginsAllowFarUse.OpenTibiaIdAddPlugin(opentibiaid, script, initialization.Parameters);
+                                    }
                                 }
                                 else
                                 {
-                                    pluginCollection.playerUseItemWithCreaturePlugins.AddPlugin(openTibiaId, script, initialization.Parameters);
+                                    if (initialization.Parameters["uniqueid"] != null)
+                                    {
+                                        ushort uniqueid = LuaScope.GetUInt16(initialization.Parameters["uniqueid"] );
+
+                                        pluginCollection.playerUseItemWithCreaturePlugins.UniqueIdAddPlugin(uniqueid, script, initialization.Parameters);
+                                    }
+                                    else if (initialization.Parameters["actionid"] != null)
+                                    {
+                                        ushort actionid = LuaScope.GetUInt16(initialization.Parameters["actionid"] );
+
+                                        pluginCollection.playerUseItemWithCreaturePlugins.ActionIdAddPlugin(actionid, script, initialization.Parameters);
+                                    }
+                                    else if (initialization.Parameters["opentibiaid"] != null)
+                                    {
+                                        ushort opentibiaid = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] );
+
+                                        pluginCollection.playerUseItemWithCreaturePlugins.OpenTibiaIdAddPlugin(opentibiaid, script, initialization.Parameters);
+                                    }
                                 }
                             }
                             break;
 
                             case "PlayerMoveItem":
                             {
-                                ushort openTibiaId = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] );
+                                if (initialization.Parameters["uniqueid"] != null)
+                                {
+                                    ushort uniqueid = LuaScope.GetUInt16(initialization.Parameters["uniqueid"] );
 
-                                pluginCollection.playerMoveItemPlugins.AddPlugin(openTibiaId, script, initialization.Parameters);
+                                    pluginCollection.playerMoveItemPlugins.UniqueIdAddPlugin(uniqueid, script, initialization.Parameters);
+                                }
+                                else if (initialization.Parameters["actionid"] != null)
+                                {
+                                    ushort actionid = LuaScope.GetUInt16(initialization.Parameters["actionid"] );
+
+                                    pluginCollection.playerMoveItemPlugins.ActionIdAddPlugin(actionid, script, initialization.Parameters);
+                                }
+                                else if (initialization.Parameters["opentibiaid"] != null)
+                                {
+                                    ushort opentibiaid = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] );
+
+                                    pluginCollection.playerMoveItemPlugins.OpenTibiaIdAddPlugin(opentibiaid, script, initialization.Parameters);
+                                }
                             }
                             break;
 
@@ -268,33 +597,93 @@ namespace OpenTibia.Game.Common.ServerObjects
                         {
                             case "CreatureStepIn":
                             {
-                                ushort openTibiaId = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] );
+                                if (initialization.Parameters["uniqueid"] != null)
+                                {
+                                    ushort uniqueid = LuaScope.GetUInt16(initialization.Parameters["uniqueid"] );
 
-                                pluginCollection.creatureStepInPlugins.AddPlugin(openTibiaId, script, initialization.Parameters);
+                                    pluginCollection.creatureStepInPlugins.UniqueIdAddPlugin(uniqueid, script, initialization.Parameters);
+                                }
+                                else if (initialization.Parameters["actionid"] != null)
+                                {
+                                    ushort actionid = LuaScope.GetUInt16(initialization.Parameters["actionid"] );
+
+                                    pluginCollection.creatureStepInPlugins.ActionIdAddPlugin(actionid, script, initialization.Parameters);
+                                }
+                                else if (initialization.Parameters["opentibiaid"] != null)
+                                {
+                                    ushort opentibiaid = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] );
+
+                                    pluginCollection.creatureStepInPlugins.OpenTibiaIdAddPlugin(opentibiaid, script, initialization.Parameters);
+                                }
                             }
                             break;
 
                             case "CreatureStepOut":
                             {
-                                ushort openTibiaId = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] );
+                                if (initialization.Parameters["uniqueid"] != null)
+                                {
+                                    ushort uniqueid = LuaScope.GetUInt16(initialization.Parameters["uniqueid"] );
 
-                                pluginCollection.creatureStepOutPlugins.AddPlugin(openTibiaId, script, initialization.Parameters);
+                                    pluginCollection.creatureStepOutPlugins.UniqueIdAddPlugin(uniqueid, script, initialization.Parameters);
+                                }
+                                else if (initialization.Parameters["actionid"] != null)
+                                {
+                                    ushort actionid = LuaScope.GetUInt16(initialization.Parameters["actionid"] );
+
+                                    pluginCollection.creatureStepOutPlugins.ActionIdAddPlugin(actionid, script, initialization.Parameters);
+                                }
+                                else if (initialization.Parameters["opentibiaid"] != null)
+                                {
+                                    ushort opentibiaid = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] );
+
+                                    pluginCollection.creatureStepOutPlugins.OpenTibiaIdAddPlugin(opentibiaid, script, initialization.Parameters);
+                                }
                             }
                             break;
 
                             case "InventoryEquip":
                             {
-                                ushort openTibiaId = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] );
+                                if (initialization.Parameters["uniqueid"] != null)
+                                {
+                                    ushort uniqueid = LuaScope.GetUInt16(initialization.Parameters["uniqueid"] );
 
-                                pluginCollection.inventoryEquipPlugins.AddPlugin(openTibiaId, script, initialization.Parameters);
+                                    pluginCollection.inventoryEquipPlugins.UniqueIdAddPlugin(uniqueid, script, initialization.Parameters);
+                                }
+                                else if (initialization.Parameters["actionid"] != null)
+                                {
+                                    ushort actionid = LuaScope.GetUInt16(initialization.Parameters["actionid"] );
+
+                                    pluginCollection.inventoryEquipPlugins.ActionIdAddPlugin(actionid, script, initialization.Parameters);
+                                }
+                                else if (initialization.Parameters["opentibiaid"] != null)
+                                {
+                                    ushort opentibiaid = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] );
+
+                                    pluginCollection.inventoryEquipPlugins.OpenTibiaIdAddPlugin(opentibiaid, script, initialization.Parameters);
+                                }
                             }
                             break;
 
                             case "InventoryDeEquip":
                             {
-                                ushort openTibiaId = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] );
+                                if (initialization.Parameters["uniqueid"] != null)
+                                {
+                                    ushort uniqueid = LuaScope.GetUInt16(initialization.Parameters["uniqueid"] );
 
-                                pluginCollection.inventoryDeEquipPlugins.AddPlugin(openTibiaId, script, initialization.Parameters);
+                                    pluginCollection.inventoryDeEquipPlugins.UniqueIdAddPlugin(uniqueid, script, initialization.Parameters);
+                                }
+                                else if (initialization.Parameters["actionid"] != null)
+                                {
+                                    ushort actionid = LuaScope.GetUInt16(initialization.Parameters["actionid"] );
+
+                                    pluginCollection.inventoryDeEquipPlugins.ActionIdAddPlugin(actionid, script, initialization.Parameters);
+                                }
+                                else if (initialization.Parameters["opentibiaid"] != null)
+                                {
+                                    ushort opentibiaid = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] );
+
+                                    pluginCollection.inventoryDeEquipPlugins.OpenTibiaIdAddPlugin(opentibiaid, script, initialization.Parameters);
+                                }
                             }
                             break;
                         }
@@ -631,27 +1020,27 @@ namespace OpenTibia.Game.Common.ServerObjects
         {
             this.server = server;
 
-            this.playerRotateItemPlugins = new PluginDictionaryCached<ushort, PlayerRotateItemPlugin, LuaScriptingPlayerRotateItemPlugin>(this);
+            this.playerRotateItemPlugins = new ItemPluginDictionaryCached<PlayerRotateItemPlugin, LuaScriptingPlayerRotateItemPlugin>(this);
 
-            this.playerUseItemPlugins = new PluginDictionaryCached<ushort, PlayerUseItemPlugin, LuaScriptingPlayerUseItemPlugin>(this);
+            this.playerUseItemPlugins = new ItemPluginDictionaryCached<PlayerUseItemPlugin, LuaScriptingPlayerUseItemPlugin>(this);
 
-            this.playerUseItemWithItemPluginsAllowFarUse = new PluginDictionaryCached<ushort, PlayerUseItemWithItemPlugin, LuaScriptingPlayerUseItemWithItemPlugin>(this);
-            this.playerUseItemWithItemPlugins = new PluginDictionaryCached<ushort, PlayerUseItemWithItemPlugin, LuaScriptingPlayerUseItemWithItemPlugin>(this);
+            this.playerUseItemWithItemPluginsAllowFarUse = new ItemPluginDictionaryCached<PlayerUseItemWithItemPlugin, LuaScriptingPlayerUseItemWithItemPlugin>(this);
+            this.playerUseItemWithItemPlugins = new ItemPluginDictionaryCached<PlayerUseItemWithItemPlugin, LuaScriptingPlayerUseItemWithItemPlugin>(this);
 
-            this.playerUseItemWithCreaturePluginsAllowFarUse = new PluginDictionaryCached<ushort, PlayerUseItemWithCreaturePlugin, LuaScriptingPlayerUseItemWithCreaturePlugin>(this);
-            this.playerUseItemWithCreaturePlugins = new PluginDictionaryCached<ushort, PlayerUseItemWithCreaturePlugin, LuaScriptingPlayerUseItemWithCreaturePlugin>(this);
+            this.playerUseItemWithCreaturePluginsAllowFarUse = new ItemPluginDictionaryCached<PlayerUseItemWithCreaturePlugin, LuaScriptingPlayerUseItemWithCreaturePlugin>(this);
+            this.playerUseItemWithCreaturePlugins = new ItemPluginDictionaryCached<PlayerUseItemWithCreaturePlugin, LuaScriptingPlayerUseItemWithCreaturePlugin>(this);
     
             this.playerMoveCreaturePlugins = new PluginDictionaryCached<string, PlayerMoveCreaturePlugin, LuaScriptingPlayerMoveCreaturePlugin>(this);
      
-            this.playerMoveItemPlugins = new PluginDictionaryCached<ushort, PlayerMoveItemPlugin, LuaScriptingPlayerMoveItemPlugin>(this);
+            this.playerMoveItemPlugins = new ItemPluginDictionaryCached<PlayerMoveItemPlugin, LuaScriptingPlayerMoveItemPlugin>(this);
    
-            this.creatureStepInPlugins = new PluginDictionaryCached<ushort, CreatureStepInPlugin, LuaScriptingCreatureStepInPlugin>(this);
+            this.creatureStepInPlugins = new ItemPluginDictionaryCached<CreatureStepInPlugin, LuaScriptingCreatureStepInPlugin>(this);
  
-            this.creatureStepOutPlugins = new PluginDictionaryCached<ushort, CreatureStepOutPlugin, LuaScriptingCreatureStepOutPlugin>(this);
+            this.creatureStepOutPlugins = new ItemPluginDictionaryCached<CreatureStepOutPlugin, LuaScriptingCreatureStepOutPlugin>(this);
    
-            this.inventoryEquipPlugins = new PluginDictionaryCached<ushort, InventoryEquipPlugin, LuaScriptingInventoryEquipPlugin>(this);
+            this.inventoryEquipPlugins = new ItemPluginDictionaryCached<InventoryEquipPlugin, LuaScriptingInventoryEquipPlugin>(this);
        
-            this.inventoryDeEquipPlugins = new PluginDictionaryCached<ushort, InventoryDeEquipPlugin, LuaScriptingInventoryDeEquipPlugin>(this);
+            this.inventoryDeEquipPlugins = new ItemPluginDictionaryCached<InventoryDeEquipPlugin, LuaScriptingInventoryDeEquipPlugin>(this);
            
             this.playerSayPlugins = new PluginDictionaryCached<string, PlayerSayPlugin, LuaScriptingPlayerSayPlugin>(this);
    
@@ -728,59 +1117,168 @@ namespace OpenTibia.Game.Common.ServerObjects
                 {
                     case "PlayerRotateItem":
                     {
-                        ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
+                        if (plugin["uniqueid"] != null)
+                        {
+                            ushort uniqueid = LuaScope.GetUInt16(plugin["uniqueid"] );
 
-                        playerRotateItemPlugins.AddPlugin(openTibiaId, fileName, plugin);
+                            playerRotateItemPlugins.UniqueIdAddPlugin(uniqueid, fileName, plugin);
+                        }
+                        else if (plugin["actionid"] != null)
+                        {
+                            ushort actionid = LuaScope.GetUInt16(plugin["actionid"] );
+
+                            playerRotateItemPlugins.ActionIdAddPlugin(actionid, fileName, plugin);
+                        }
+                        else if (plugin["opentibiaid"] != null)
+                        {
+                            ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
+
+                            playerRotateItemPlugins.OpenTibiaIdAddPlugin(openTibiaId, fileName, plugin);
+                        }
                     }
                     break;
 
                     case "PlayerUseItem":
-                    { 
-                        ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
+                    {
+                        if (plugin["uniqueid"] != null)
+                        {
+                            ushort uniqueid = LuaScope.GetUInt16(plugin["uniqueid"] );
 
-                        playerUseItemPlugins.AddPlugin(openTibiaId, fileName, plugin);
+                            playerUseItemPlugins.UniqueIdAddPlugin(uniqueid, fileName, plugin);
+                        }
+                        else if (plugin["actionid"] != null)
+                        {
+                            ushort actionid = LuaScope.GetUInt16(plugin["actionid"] );
+
+                            playerUseItemPlugins.ActionIdAddPlugin(actionid, fileName, plugin);
+                        }
+                        else if (plugin["opentibiaid"] != null)
+                        {
+                            ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
+
+                            playerUseItemPlugins.OpenTibiaIdAddPlugin(openTibiaId, fileName, plugin);
+                        }
                     }
                     break;
 
                     case "PlayerUseItemWithItem":
                     {
-                        ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
-
                         bool allowFarUse = LuaScope.GetBoolean(plugin["allowfaruse"] );
 
                         if (allowFarUse)
                         {
-                            playerUseItemWithItemPluginsAllowFarUse.AddPlugin(openTibiaId, fileName, plugin);
+                            if (plugin["uniqueid"] != null)
+                            {
+                                ushort uniqueid = LuaScope.GetUInt16(plugin["uniqueid"] );
+
+                                playerUseItemWithItemPluginsAllowFarUse.UniqueIdAddPlugin(uniqueid, fileName, plugin);
+                            }
+                            else if (plugin["actionid"] != null)
+                            {
+                                ushort actionid = LuaScope.GetUInt16(plugin["actionid"] );
+
+                                playerUseItemWithItemPluginsAllowFarUse.ActionIdAddPlugin(actionid, fileName, plugin);
+                            }
+                            else if (plugin["opentibiaid"] != null)
+                            {
+                                ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
+
+                                playerUseItemWithItemPluginsAllowFarUse.OpenTibiaIdAddPlugin(openTibiaId, fileName, plugin);
+                            }
                         }
                         else
                         {
-                            playerUseItemWithItemPlugins.AddPlugin(openTibiaId, fileName, plugin);
+                            if (plugin["uniqueid"] != null)
+                            {
+                                ushort uniqueid = LuaScope.GetUInt16(plugin["uniqueid"] );
+
+                                playerUseItemWithItemPlugins.UniqueIdAddPlugin(uniqueid, fileName, plugin);
+                            }
+                            else if (plugin["actionid"] != null)
+                            {
+                                ushort actionid = LuaScope.GetUInt16(plugin["actionid"] );
+
+                                playerUseItemWithItemPlugins.ActionIdAddPlugin(actionid, fileName, plugin);
+                            }
+                            else if (plugin["opentibiaid"] != null)
+                            {
+                                ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
+
+                                playerUseItemWithItemPlugins.OpenTibiaIdAddPlugin(openTibiaId, fileName, plugin);
+                            }
                         }
                     }
                     break;
 
                     case "PlayerUseItemWithCreature":
                     {
-                        ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
-
                         bool allowFarUse = LuaScope.GetBoolean(plugin["allowfaruse"] );
 
                         if (allowFarUse)
                         {
-                            playerUseItemWithCreaturePluginsAllowFarUse.AddPlugin(openTibiaId, fileName, plugin);
+                            if (plugin["uniqueid"] != null)
+                            {
+                                ushort uniqueid = LuaScope.GetUInt16(plugin["uniqueid"] );
+
+                                playerUseItemWithCreaturePluginsAllowFarUse.UniqueIdAddPlugin(uniqueid, fileName, plugin);
+                            }
+                            else if (plugin["actionid"] != null)
+                            {
+                                ushort actionid = LuaScope.GetUInt16(plugin["actionid"] );
+
+                                playerUseItemWithCreaturePluginsAllowFarUse.ActionIdAddPlugin(actionid, fileName, plugin);
+                            }
+                            else if (plugin["opentibiaid"] != null)
+                            {
+                                ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
+
+                                playerUseItemWithCreaturePluginsAllowFarUse.OpenTibiaIdAddPlugin(openTibiaId, fileName, plugin);
+                            }
                         }
                         else
                         {
-                            playerUseItemWithCreaturePlugins.AddPlugin(openTibiaId, fileName, plugin);
+                            if (plugin["uniqueid"] != null)
+                            {
+                                ushort uniqueid = LuaScope.GetUInt16(plugin["uniqueid"] );
+
+                                playerUseItemWithCreaturePlugins.UniqueIdAddPlugin(uniqueid, fileName, plugin);
+                            }
+                            else if (plugin["actionid"] != null)
+                            {
+                                ushort actionid = LuaScope.GetUInt16(plugin["actionid"] );
+
+                                playerUseItemWithCreaturePlugins.ActionIdAddPlugin(actionid, fileName, plugin);
+                            }
+                            else if (plugin["opentibiaid"] != null)
+                            {
+                                ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
+
+                                playerUseItemWithCreaturePlugins.OpenTibiaIdAddPlugin(openTibiaId, fileName, plugin);
+                            }
                         }
                     }
                     break;
 
                     case "PlayerMoveItem":
                     {
-                        ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
+                        if (plugin["uniqueid"] != null)
+                        {
+                            ushort uniqueid = LuaScope.GetUInt16(plugin["uniqueid"] );
 
-                        playerMoveItemPlugins.AddPlugin(openTibiaId, fileName, plugin);
+                            playerMoveItemPlugins.UniqueIdAddPlugin(uniqueid, fileName, plugin);
+                        }
+                        else if (plugin["actionid"] != null)
+                        {
+                            ushort actionid = LuaScope.GetUInt16(plugin["actionid"] );
+
+                            playerMoveItemPlugins.ActionIdAddPlugin(actionid, fileName, plugin);
+                        }
+                        else if (plugin["opentibiaid"] != null)
+                        {
+                            ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
+
+                            playerMoveItemPlugins.OpenTibiaIdAddPlugin(openTibiaId, fileName, plugin);
+                        }
                     }
                     break;
 
@@ -804,33 +1302,93 @@ namespace OpenTibia.Game.Common.ServerObjects
                 {
                     case "CreatureStepIn":
                     {
-                        ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
+                        if (plugin["uniqueid"] != null)
+                        {
+                            ushort uniqueid = LuaScope.GetUInt16(plugin["uniqueid"] );
 
-                        creatureStepInPlugins.AddPlugin(openTibiaId, fileName, plugin);
+                            creatureStepInPlugins.UniqueIdAddPlugin(uniqueid, fileName, plugin);
+                        }
+                        else if (plugin["actionid"] != null)
+                        {
+                            ushort actionid = LuaScope.GetUInt16(plugin["actionid"] );
+
+                            creatureStepInPlugins.ActionIdAddPlugin(actionid, fileName, plugin);
+                        }
+                        else if (plugin["opentibiaid"] != null)
+                        {
+                            ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
+
+                            creatureStepInPlugins.OpenTibiaIdAddPlugin(openTibiaId, fileName, plugin);
+                        }
                     }
                     break;
 
                     case "CreatureStepOut":
                     {
-                        ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
+                        if (plugin["uniqueid"] != null)
+                        {
+                            ushort uniqueid = LuaScope.GetUInt16(plugin["uniqueid"] );
 
-                        creatureStepOutPlugins.AddPlugin(openTibiaId, fileName, plugin);
+                            creatureStepOutPlugins.UniqueIdAddPlugin(uniqueid, fileName, plugin);
+                        }
+                        else if (plugin["actionid"] != null)
+                        {
+                            ushort actionid = LuaScope.GetUInt16(plugin["actionid"] );
+
+                            creatureStepOutPlugins.ActionIdAddPlugin(actionid, fileName, plugin);
+                        }
+                        else if (plugin["opentibiaid"] != null)
+                        {
+                            ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
+
+                            creatureStepOutPlugins.OpenTibiaIdAddPlugin(openTibiaId, fileName, plugin);
+                        }
                     }
                     break;
 
                     case "InventoryEquip":
                     {
-                        ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
+                        if (plugin["uniqueid"] != null)
+                        {
+                            ushort uniqueid = LuaScope.GetUInt16(plugin["uniqueid"] );
 
-                        inventoryEquipPlugins.AddPlugin(openTibiaId, fileName, plugin);
+                            inventoryEquipPlugins.UniqueIdAddPlugin(uniqueid, fileName, plugin);
+                        }
+                        else if (plugin["actionid"] != null)
+                        {
+                            ushort actionid = LuaScope.GetUInt16(plugin["actionid"] );
+
+                            inventoryEquipPlugins.ActionIdAddPlugin(actionid, fileName, plugin);
+                        }
+                        else if (plugin["opentibiaid"] != null)
+                        {
+                            ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
+
+                            inventoryEquipPlugins.OpenTibiaIdAddPlugin(openTibiaId, fileName, plugin);
+                        }
                     }
                     break;
 
                     case "InventoryDeEquip":
                     {
-                        ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
+                        if (plugin["uniqueid"] != null)
+                        {
+                            ushort uniqueid = LuaScope.GetUInt16(plugin["uniqueid"] );
 
-                        inventoryDeEquipPlugins.AddPlugin(openTibiaId, fileName, plugin);
+                            inventoryDeEquipPlugins.UniqueIdAddPlugin(uniqueid, fileName, plugin);
+                        }
+                        else if (plugin["actionid"] != null)
+                        {
+                            ushort actionid = LuaScope.GetUInt16(plugin["actionid"] );
+
+                            inventoryDeEquipPlugins.ActionIdAddPlugin(actionid, fileName, plugin);
+                        }
+                        else if (plugin["opentibiaid"] != null)
+                        {
+                            ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
+
+                            inventoryDeEquipPlugins.OpenTibiaIdAddPlugin(openTibiaId, fileName, plugin);
+                        }
                     }
                     break;
                 }
@@ -1190,47 +1748,47 @@ namespace OpenTibia.Game.Common.ServerObjects
             return script[key];
         }
 
-        private PluginDictionaryCached<ushort, PlayerRotateItemPlugin, LuaScriptingPlayerRotateItemPlugin> playerRotateItemPlugins;
+        private ItemPluginDictionaryCached<PlayerRotateItemPlugin, LuaScriptingPlayerRotateItemPlugin> playerRotateItemPlugins;
 
-        public PlayerRotateItemPlugin GetPlayerRotateItemPlugin(ushort openTibiaId)
+        public PlayerRotateItemPlugin GetPlayerRotateItemPlugin(Item item)
         {
-            return playerRotateItemPlugins.GetPlugin(openTibiaId);
+            return playerRotateItemPlugins.GetPlugin(item);
         }
 
-        private PluginDictionaryCached<ushort, PlayerUseItemPlugin, LuaScriptingPlayerUseItemPlugin> playerUseItemPlugins;
+        private ItemPluginDictionaryCached<PlayerUseItemPlugin, LuaScriptingPlayerUseItemPlugin> playerUseItemPlugins;
 
-        public PlayerUseItemPlugin GetPlayerUseItemPlugin(ushort openTibiaId)
+        public PlayerUseItemPlugin GetPlayerUseItemPlugin(Item item)
         {
-            return playerUseItemPlugins.GetPlugin(openTibiaId);
+            return playerUseItemPlugins.GetPlugin(item);
         }
 
-        private PluginDictionaryCached<ushort, PlayerUseItemWithItemPlugin, LuaScriptingPlayerUseItemWithItemPlugin> playerUseItemWithItemPluginsAllowFarUse;
-        private PluginDictionaryCached<ushort, PlayerUseItemWithItemPlugin, LuaScriptingPlayerUseItemWithItemPlugin> playerUseItemWithItemPlugins;
+        private ItemPluginDictionaryCached<PlayerUseItemWithItemPlugin, LuaScriptingPlayerUseItemWithItemPlugin> playerUseItemWithItemPluginsAllowFarUse;
+        private ItemPluginDictionaryCached<PlayerUseItemWithItemPlugin, LuaScriptingPlayerUseItemWithItemPlugin> playerUseItemWithItemPlugins;
 
-        public PlayerUseItemWithItemPlugin GetPlayerUseItemWithItemPlugin(bool allowFarUse, ushort openTibiaId)
+        public PlayerUseItemWithItemPlugin GetPlayerUseItemWithItemPlugin(bool allowFarUse, Item item)
         {
             if (allowFarUse)
             {
-                return playerUseItemWithItemPluginsAllowFarUse.GetPlugin(openTibiaId);
+                return playerUseItemWithItemPluginsAllowFarUse.GetPlugin(item);
             }
             else
             {
-                return playerUseItemWithItemPlugins.GetPlugin(openTibiaId);
+                return playerUseItemWithItemPlugins.GetPlugin(item);
             }
         }
 
-        private PluginDictionaryCached<ushort, PlayerUseItemWithCreaturePlugin, LuaScriptingPlayerUseItemWithCreaturePlugin> playerUseItemWithCreaturePluginsAllowFarUse;
-        private PluginDictionaryCached<ushort, PlayerUseItemWithCreaturePlugin, LuaScriptingPlayerUseItemWithCreaturePlugin> playerUseItemWithCreaturePlugins;
+        private ItemPluginDictionaryCached<PlayerUseItemWithCreaturePlugin, LuaScriptingPlayerUseItemWithCreaturePlugin> playerUseItemWithCreaturePluginsAllowFarUse;
+        private ItemPluginDictionaryCached<PlayerUseItemWithCreaturePlugin, LuaScriptingPlayerUseItemWithCreaturePlugin> playerUseItemWithCreaturePlugins;
 
-        public PlayerUseItemWithCreaturePlugin GetPlayerUseItemWithCreaturePlugin(bool allowFarUse, ushort openTibiaId)
+        public PlayerUseItemWithCreaturePlugin GetPlayerUseItemWithCreaturePlugin(bool allowFarUse, Item item)
         {
             if (allowFarUse)
             {
-                return playerUseItemWithCreaturePluginsAllowFarUse.GetPlugin(openTibiaId);
+                return playerUseItemWithCreaturePluginsAllowFarUse.GetPlugin(item);
             }
             else
             {
-                return playerUseItemWithCreaturePlugins.GetPlugin(openTibiaId);
+                return playerUseItemWithCreaturePlugins.GetPlugin(item);
             }
         }
 
@@ -1241,39 +1799,39 @@ namespace OpenTibia.Game.Common.ServerObjects
             return playerMoveCreaturePlugins.GetPlugin(name);
         }
 
-        private PluginDictionaryCached<ushort, PlayerMoveItemPlugin, LuaScriptingPlayerMoveItemPlugin> playerMoveItemPlugins;
+        private ItemPluginDictionaryCached<PlayerMoveItemPlugin, LuaScriptingPlayerMoveItemPlugin> playerMoveItemPlugins;
 
-        public PlayerMoveItemPlugin GetPlayerMoveItemPlugin(ushort openTibiaId)
+        public PlayerMoveItemPlugin GetPlayerMoveItemPlugin(Item item)
         {
-            return playerMoveItemPlugins.GetPlugin(openTibiaId);
+            return playerMoveItemPlugins.GetPlugin(item);
         }
 
-        private PluginDictionaryCached<ushort, CreatureStepInPlugin, LuaScriptingCreatureStepInPlugin> creatureStepInPlugins;
+        private ItemPluginDictionaryCached<CreatureStepInPlugin, LuaScriptingCreatureStepInPlugin> creatureStepInPlugins;
 
-        public CreatureStepInPlugin GetCreatureStepInPlugin(ushort openTibiaId)
+        public CreatureStepInPlugin GetCreatureStepInPlugin(Item item)
         {
-            return creatureStepInPlugins.GetPlugin(openTibiaId);
+            return creatureStepInPlugins.GetPlugin(item);
         }
 
-        private PluginDictionaryCached<ushort, CreatureStepOutPlugin, LuaScriptingCreatureStepOutPlugin> creatureStepOutPlugins;
+        private ItemPluginDictionaryCached<CreatureStepOutPlugin, LuaScriptingCreatureStepOutPlugin> creatureStepOutPlugins;
 
-        public CreatureStepOutPlugin GetCreatureStepOutPlugin(ushort openTibiaId)
+        public CreatureStepOutPlugin GetCreatureStepOutPlugin(Item item)
         {
-            return creatureStepOutPlugins.GetPlugin(openTibiaId);
+            return creatureStepOutPlugins.GetPlugin(item);
         }
 
-        private PluginDictionaryCached<ushort, InventoryEquipPlugin, LuaScriptingInventoryEquipPlugin> inventoryEquipPlugins;
+        private ItemPluginDictionaryCached<InventoryEquipPlugin, LuaScriptingInventoryEquipPlugin> inventoryEquipPlugins;
 
-        public InventoryEquipPlugin GetInventoryEquipPlugin(ushort openTibiaId)
+        public InventoryEquipPlugin GetInventoryEquipPlugin(Item item)
         {
-            return inventoryEquipPlugins.GetPlugin(openTibiaId);
+            return inventoryEquipPlugins.GetPlugin(item);
         }
 
-        private PluginDictionaryCached<ushort, InventoryDeEquipPlugin, LuaScriptingInventoryDeEquipPlugin> inventoryDeEquipPlugins;
+        private ItemPluginDictionaryCached<InventoryDeEquipPlugin, LuaScriptingInventoryDeEquipPlugin> inventoryDeEquipPlugins;
 
-        public InventoryDeEquipPlugin GetInventoryDeEquipPlugin(ushort openTibiaId)
+        public InventoryDeEquipPlugin GetInventoryDeEquipPlugin(Item item)
         {
-            return inventoryDeEquipPlugins.GetPlugin(openTibiaId);
+            return inventoryDeEquipPlugins.GetPlugin(item);
         }
 
         private PluginDictionaryCached<string, PlayerSayPlugin, LuaScriptingPlayerSayPlugin> playerSayPlugins;

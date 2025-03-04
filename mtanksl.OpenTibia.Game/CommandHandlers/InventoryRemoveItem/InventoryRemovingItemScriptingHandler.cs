@@ -9,7 +9,7 @@ namespace OpenTibia.Game.CommandHandlers
     {
         public override Promise Handle(Func<Promise> next, InventoryRemoveItemCommand command)
         {
-            InventoryDeEquipPlugin plugin = Context.Server.Plugins.GetInventoryDeEquipPlugin(command.Item.Metadata.OpenTibiaId);
+            InventoryDeEquipPlugin plugin = Context.Server.Plugins.GetInventoryDeEquipPlugin(command.Item);
 
             if (plugin != null)
             {

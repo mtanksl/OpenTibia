@@ -9,7 +9,7 @@ namespace OpenTibia.Game.CommandHandlers
     {
         public override Promise Handle(Func<Promise> next, PlayerRotateItemCommand command)
         {
-            PlayerRotateItemPlugin plugin = Context.Server.Plugins.GetPlayerRotateItemPlugin(command.Item.Metadata.OpenTibiaId);
+            PlayerRotateItemPlugin plugin = Context.Server.Plugins.GetPlayerRotateItemPlugin(command.Item);
 
             if (plugin != null)
             {

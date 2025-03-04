@@ -11,7 +11,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (e.ToTile.Ground != null)
             {
-                CreatureStepInPlugin plugin = Context.Server.Plugins.GetCreatureStepInPlugin(e.ToTile.Ground.Metadata.OpenTibiaId);
+                CreatureStepInPlugin plugin = Context.Server.Plugins.GetCreatureStepInPlugin(e.ToTile.Ground);
 
                 if (plugin != null)
                 {

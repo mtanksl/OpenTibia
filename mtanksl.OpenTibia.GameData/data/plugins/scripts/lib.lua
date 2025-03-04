@@ -1,43 +1,53 @@
 ﻿dofile(getfullpath("data/plugins/npcs/lib.lua"))
 
-function registeractionsplayerrotateitem(opentibiaid, onrotateitem)
+function registeractionsplayerrotateitem(uniqueid, actionid, opentibiaid, onrotateitem)
     registerplugin("actions", {
 	    type = "PlayerRotateItem",
+	    uniqueid = uniqueid, 
+	    actionid = actionid, 
 	    opentibiaid = opentibiaid, 
 	    onrotateitem = onrotateitem
     } )
 end
 
-function registeractionsplayeruseitem(opentibiaid, onuseitem)
+function registeractionsplayeruseitem(uniqueid, actionid, opentibiaid, onuseitem)
     registerplugin("actions", {
 	    type = "PlayerUseItem",
+	    uniqueid = uniqueid, 
+	    actionid = actionid, 
 	    opentibiaid = opentibiaid, 
 	    onuseitem = onuseitem
     } )
 end
 
-function registeractionsplayeruseitemwithitem(opentibiaid, allowfaruse, onuseitemwithitem)
+function registeractionsplayeruseitemwithitem(uniqueid, actionid, opentibiaid, allowfaruse, onuseitemwithitem)
     registerplugin("actions", {
 	    type = "PlayerUseItemWithItem",
-	    opentibiaid = opentibiaid,
+	    uniqueid = uniqueid, 
+	    actionid = actionid, 
+	    opentibiaid = opentibiaid, 
         allowfaruse = allowfaruse,
 	    onuseitemwithitem = onuseitemwithitem
     } )
 end
 
-function registeractionsplayeruseitemwithcreature(opentibiaid, allowfaruse, onuseitemwithcreature)
+function registeractionsplayeruseitemwithcreature(uniqueid, actionid, opentibiaid, allowfaruse, onuseitemwithcreature)
     registerplugin("actions", {
 	    type = "PlayerUseItemWithCreature",
-	    opentibiaid = opentibiaid,
+	    uniqueid = uniqueid, 
+	    actionid = actionid, 
+	    opentibiaid = opentibiaid, 
         allowfaruse = allowfaruse,
 	    onuseitemwithcreature = onuseitemwithcreature
     } )
 end
 
-function registeractionsplayermoveitem(opentibiaid, onmoveitem)
+function registeractionsplayermoveitem(uniqueid, actionid, opentibiaid, onmoveitem)
     registerplugin("actions", {
 	    type = "PlayerMoveItem",
-	    opentibiaid = opentibiaid,
+	    uniqueid = uniqueid, 
+	    actionid = actionid, 
+	    opentibiaid = opentibiaid, 
 	    onmoveitem = onmoveitem
     } )
 end
@@ -50,37 +60,45 @@ function registeractionsplayermovecreature(name, onmovecreature)
     } )
 end
 
-function registermovementscreaturestepin(opentibiaid, onsteppingin, onstepin)
+function registermovementscreaturestepin(uniqueid, actionid, opentibiaid, onsteppingin, onstepin)
     registerplugin("movements", {
 	    type = "CreatureStepIn",
-	    opentibiaid = opentibiaid,
+	    uniqueid = uniqueid, 
+	    actionid = actionid, 
+	    opentibiaid = opentibiaid, 
         onsteppingin = onsteppingin,
 	    onstepin = onstepin
     } )
 end
 
-function registermovementscreaturestepout(opentibiaid, onsteppingout, onstepout)
+function registermovementscreaturestepout(uniqueid, actionid, opentibiaid, onsteppingout, onstepout)
     registerplugin("movements", {
 	    type = "CreatureStepOut",
-	    opentibiaid = opentibiaid,
+	    uniqueid = uniqueid, 
+	    actionid = actionid, 
+	    opentibiaid = opentibiaid, 
         onsteppingout = onsteppingout,
 	    onstepout = onstepout
     } )
 end
 
-function registermovementsinventoryequip(opentibiaid, onequipping, onequip)
+function registermovementsinventoryequip(uniqueid, actionid, opentibiaid, onequipping, onequip)
     registerplugin("movements", {
 	    type = "InventoryEquip",
-	    opentibiaid = opentibiaid,
+	    uniqueid = uniqueid, 
+	    actionid = actionid, 
+	    opentibiaid = opentibiaid, 
         onequipping = onequipping,
 	    onequip = onequip
     } )
 end
 
-function registermovementsinventorydeequip(opentibiaid, ondeequipping, ondeequip)
+function registermovementsinventorydeequip(uniqueid, actionid, opentibiaid, ondeequipping, ondeequip)
     registerplugin("movements", {
 	    type = "InventoryDeEquip",
-	    opentibiaid = opentibiaid,
+	    uniqueid = uniqueid, 
+	    actionid = actionid, 
+	    opentibiaid = opentibiaid, 
         ondeequipping = ondeequipping,
 	    ondeequip = ondeequip
     } )

@@ -11,7 +11,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (e.FromTile.Ground != null)
             {
-                CreatureStepOutPlugin plugin = Context.Server.Plugins.GetCreatureStepOutPlugin(e.FromTile.Ground.Metadata.OpenTibiaId);
+                CreatureStepOutPlugin plugin = Context.Server.Plugins.GetCreatureStepOutPlugin(e.FromTile.Ground);
 
                 if (plugin != null)
                 {

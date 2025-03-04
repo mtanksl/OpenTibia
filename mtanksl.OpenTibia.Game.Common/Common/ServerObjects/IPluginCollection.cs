@@ -1,4 +1,5 @@
-﻿using OpenTibia.Game.Plugins;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.Game.Plugins;
 using System;
 using System.Collections.Generic;
 
@@ -10,25 +11,25 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         object GetValue(string key);
 
-        PlayerRotateItemPlugin GetPlayerRotateItemPlugin(ushort openTibiaId);
+        PlayerRotateItemPlugin GetPlayerRotateItemPlugin(Item item);
 
-        PlayerUseItemPlugin GetPlayerUseItemPlugin(ushort openTibiaId);
+        PlayerUseItemPlugin GetPlayerUseItemPlugin(Item item);
 
-        PlayerUseItemWithItemPlugin GetPlayerUseItemWithItemPlugin(bool allowFarUse, ushort openTibiaId);
+        PlayerUseItemWithItemPlugin GetPlayerUseItemWithItemPlugin(bool allowFarUse, Item item);
 
-        PlayerUseItemWithCreaturePlugin GetPlayerUseItemWithCreaturePlugin(bool allowFarUse, ushort openTibiaId);
+        PlayerUseItemWithCreaturePlugin GetPlayerUseItemWithCreaturePlugin(bool allowFarUse, Item item);
 
         PlayerMoveCreaturePlugin GetPlayerMoveCreaturePlugin(string name);
 
-        PlayerMoveItemPlugin GetPlayerMoveItemPlugin(ushort openTibiaId);
+        PlayerMoveItemPlugin GetPlayerMoveItemPlugin(Item item);
 
-        CreatureStepInPlugin GetCreatureStepInPlugin(ushort openTibiaId);
+        CreatureStepInPlugin GetCreatureStepInPlugin(Item item);
 
-        CreatureStepOutPlugin GetCreatureStepOutPlugin(ushort openTibiaId);
+        CreatureStepOutPlugin GetCreatureStepOutPlugin(Item item);
 
-        InventoryEquipPlugin GetInventoryEquipPlugin(ushort openTibiaId);
+        InventoryEquipPlugin GetInventoryEquipPlugin(Item item);
 
-        InventoryDeEquipPlugin GetInventoryDeEquipPlugin(ushort openTibiaId);
+        InventoryDeEquipPlugin GetInventoryDeEquipPlugin(Item item);
 
         PlayerSayPlugin GetPlayerSayPlugin(string message);
 

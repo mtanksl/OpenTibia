@@ -18,7 +18,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemWithCreatureCommand command)
         {
-            PlayerUseItemWithCreaturePlugin plugin = Context.Server.Plugins.GetPlayerUseItemWithCreaturePlugin(allowFarUse, command.Item.Metadata.OpenTibiaId);
+            PlayerUseItemWithCreaturePlugin plugin = Context.Server.Plugins.GetPlayerUseItemWithCreaturePlugin(allowFarUse, command.Item);
 
             if (plugin != null)
             {

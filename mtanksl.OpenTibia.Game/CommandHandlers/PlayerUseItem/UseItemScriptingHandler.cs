@@ -9,7 +9,7 @@ namespace OpenTibia.Game.CommandHandlers
     {
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {
-            PlayerUseItemPlugin plugin = Context.Server.Plugins.GetPlayerUseItemPlugin(command.Item.Metadata.OpenTibiaId);
+            PlayerUseItemPlugin plugin = Context.Server.Plugins.GetPlayerUseItemPlugin(command.Item);
 
             if (plugin != null)
             {
