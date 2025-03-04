@@ -48,11 +48,11 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             lua.RegisterFunction("getfullpath", this, GetType().GetMethod(nameof(GetFullPath) ) );
 
-            lua.RegisterCoFunction("registerplugin", (luaScope, functionParameters) =>
+            lua.RegisterCoFunction("registerplugin", (luaScope, args) =>
             {
-                string nodeType = LuaScope.GetString(functionParameters[0] );
+                string nodeType = LuaScope.GetString(args[0] );
 
-                LuaTable parameters = (LuaTable)functionParameters[1];
+                LuaTable parameters = (LuaTable)args[1];
 
                 if (nodeType == "actions")
                 {
@@ -118,16 +118,16 @@ namespace OpenTibia.Game.Common.ServerObjects
                 return Promise.FromResultAsEmptyObjectArray;
             } );
 
-            lua.RegisterCoFunction("waithandle", (luaScope, parameters) =>
+            lua.RegisterCoFunction("waithandle", (luaScope, args) =>
             {
                 var promise = new PromiseResult<object[]>();
 
                 return Promise.FromResult(new object[] { promise } );
             } );
 
-            lua.RegisterCoFunction("wait", (luaScope, parameters) =>
+            lua.RegisterCoFunction("wait", (luaScope, args) =>
             {
-                var promise = (PromiseResult<object[]>)parameters[0];
+                var promise = (PromiseResult<object[]>)args[0];
 
                 return promise.Then(result =>
                 {
@@ -135,38 +135,38 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } ); 
             } );
 
-            lua.RegisterCoFunction("set", (luaScope, parameters) =>
+            lua.RegisterCoFunction("set", (luaScope, args) =>
             {
-                var promise = (PromiseResult<object[]>)parameters[0];
+                var promise = (PromiseResult<object[]>)args[0];
 
-                promise.TrySetResult(parameters.Skip(1).ToArray() );
+                promise.TrySetResult(args.Skip(1).ToArray() );
 
                 return Promise.FromResultAsEmptyObjectArray;
             } );
 
-            lua.RegisterCoFunction("yield", (luaScope, parameters) =>
+            lua.RegisterCoFunction("yield", (luaScope, args) =>
             {
                 _ = Promise.Yield().Then( () =>
                 {                          
-                    return luaScope.CallFunction( (LuaFunction)parameters[0] ); // Ignore result
+                    return luaScope.CallFunction( (LuaFunction)args[0] ); // Ignore result
                 } );
                         
                 return Promise.FromResultAsEmptyObjectArray;
             } );
 
-            lua.RegisterCoFunction("delay", (luaScope, parameters) =>
+            lua.RegisterCoFunction("delay", (luaScope, args) =>
             {             
-                if (parameters[0] is GameObject)
+                if (args[0] is GameObject)
                 {
-                    MultipleDelayBehaviour multipleDelayBehaviour = Context.Current.Server.GameObjectComponents.AddComponent( (GameObject)parameters[0], new MultipleDelayBehaviour(TimeSpan.FromMilliseconds(LuaScope.GetInt64(parameters[1] ) ) ), false);
+                    MultipleDelayBehaviour multipleDelayBehaviour = Context.Current.Server.GameObjectComponents.AddComponent( (GameObject)args[0], new MultipleDelayBehaviour(TimeSpan.FromMilliseconds(LuaScope.GetInt64(args[1] ) ) ), false);
 
-                    if (parameters.Length == 3)
+                    if (args.Length == 3)
                     {
                         // string command.delay(GameObject gameObject, int milliseconds, Action callback)
 
                         _ = multipleDelayBehaviour.Promise.Then( () =>
                         {
-                            return luaScope.CallFunction( (LuaFunction)parameters[2] ); // Ignore result
+                            return luaScope.CallFunction( (LuaFunction)args[2] ); // Ignore result
                         } );
 
                         return Promise.FromResult(new object[] { multipleDelayBehaviour.Key } );
@@ -183,15 +183,15 @@ namespace OpenTibia.Game.Common.ServerObjects
                 {
                     string key = Guid.NewGuid().ToString();
 
-                    Promise promise = Promise.Delay(key, TimeSpan.FromMilliseconds(LuaScope.GetInt64(parameters[0] ) ) );
+                    Promise promise = Promise.Delay(key, TimeSpan.FromMilliseconds(LuaScope.GetInt64(args[0] ) ) );
 
-                    if (parameters.Length == 2)
+                    if (args.Length == 2)
                     {
                         // string command.delay(int milliseconds, Action callback)
 
                         _ = promise.Then( () =>
                         {
-                            return luaScope.CallFunction( (LuaFunction)parameters[1] ); // Ignore result
+                            return luaScope.CallFunction( (LuaFunction)args[1] ); // Ignore result
                         } ); 
 
                         return Promise.FromResult(new object[] { key } );
@@ -206,22 +206,22 @@ namespace OpenTibia.Game.Common.ServerObjects
                 }                                
             } );
 
-            lua.RegisterCoFunction("canceldelay", (luaScope, parameters) =>
+            lua.RegisterCoFunction("canceldelay", (luaScope, args) =>
             {
-                bool canceled = Context.Current.Server.CancelQueueForExecution(LuaScope.GetString(parameters[0] ) );
+                bool canceled = Context.Current.Server.CancelQueueForExecution(LuaScope.GetString(args[0] ) );
 
                 return canceled ? Promise.FromResultAsBooleanTrueObjectArray : Promise.FromResultAsBooleanFalseObjectArray;
             } );
 
-            lua.RegisterCoFunction("eventhandler", (luaScope, parameters) =>
+            lua.RegisterCoFunction("eventhandler", (luaScope, args) =>
             {
-                if (parameters[0] is GameObject)
+                if (args[0] is GameObject)
                 {
                     // string command.eventhandler(GameObject gameObject, string eventName, Action<GameEventArgs> callback)
 
-                    MultipleEventHandlerBehaviour multipleEventHandlerBehaviour = Context.Current.Server.GameObjectComponents.AddComponent( (GameObject)parameters[0], new MultipleEventHandlerBehaviour(Type.GetType(LuaScope.GetString(parameters[1] ) ), (context, e) =>
+                    MultipleEventHandlerBehaviour multipleEventHandlerBehaviour = Context.Current.Server.GameObjectComponents.AddComponent( (GameObject)args[0], new MultipleEventHandlerBehaviour(Type.GetType(LuaScope.GetString(args[1] ) ), (context, e) =>
                     {
-                        return luaScope.CallFunction( (LuaFunction)parameters[2], e); // Ignore result
+                        return luaScope.CallFunction( (LuaFunction)args[2], e); // Ignore result
 
                     } ), false);
 
@@ -231,31 +231,31 @@ namespace OpenTibia.Game.Common.ServerObjects
                 {
                     // string command.eventhandler(string eventName, Action<GameEventArgs> callback)
 
-                    Guid key = Context.Current.Server.EventHandlers.Subscribe(Type.GetType(LuaScope.GetString(parameters[0] ) ), (context, e) =>
+                    Guid key = Context.Current.Server.EventHandlers.Subscribe(Type.GetType(LuaScope.GetString(args[0] ) ), (context, e) =>
                     {
-                        return luaScope.CallFunction( (LuaFunction)parameters[1], e); // Ignore result
+                        return luaScope.CallFunction( (LuaFunction)args[1], e); // Ignore result
                     } );
 
                     return Promise.FromResult(new object[] { key.ToString() } );
                 }
             } );
 
-            lua.RegisterCoFunction("canceleventhandler", (luaScope, parameters) =>
+            lua.RegisterCoFunction("canceleventhandler", (luaScope, args) =>
             {
-                bool canceled = Context.Current.Server.EventHandlers.Unsubscribe(Guid.Parse(LuaScope.GetString(parameters[0] ) ) );
+                bool canceled = Context.Current.Server.EventHandlers.Unsubscribe(Guid.Parse(LuaScope.GetString(args[0] ) ) );
 
                 return canceled ? Promise.FromResultAsBooleanTrueObjectArray : Promise.FromResultAsBooleanFalseObjectArray;
             } );
 
-            lua.RegisterCoFunction("gameobjecteventhandler", (luaScope, parameters) =>
+            lua.RegisterCoFunction("gameobjecteventhandler", (luaScope, args) =>
             {
-                if (parameters[0] is GameObject)
+                if (args[0] is GameObject)
                 {
                     // string command.gameobjecteventhandler(GameObject gameObject, GameObject eventSource, string eventName, Action<GameEventArgs> callback)
 
-                    MultipleGameObjectEventHandlerBehaviour multipleEventHandlerBehaviour = Context.Current.Server.GameObjectComponents.AddComponent( (GameObject)parameters[0], new MultipleGameObjectEventHandlerBehaviour( (GameObject)parameters[1], Type.GetType(LuaScope.GetString(parameters[2] ) ), (context, e) =>
+                    MultipleGameObjectEventHandlerBehaviour multipleEventHandlerBehaviour = Context.Current.Server.GameObjectComponents.AddComponent( (GameObject)args[0], new MultipleGameObjectEventHandlerBehaviour( (GameObject)args[1], Type.GetType(LuaScope.GetString(args[2] ) ), (context, e) =>
                     {
-                        return luaScope.CallFunction( (LuaFunction)parameters[3], e); // Ignore result
+                        return luaScope.CallFunction( (LuaFunction)args[3], e); // Ignore result
 
                     } ), false);
 
@@ -265,31 +265,31 @@ namespace OpenTibia.Game.Common.ServerObjects
                 {
                     // string command.gameobjecteventhandler(GameObject eventSource, string eventName, Action<GameEventArgs> callback)
 
-                    Guid key = Context.Current.Server.GameObjectEventHandlers.Subscribe( (GameObject)parameters[0], Type.GetType(LuaScope.GetString(parameters[1] ) ), (context, e) =>
+                    Guid key = Context.Current.Server.GameObjectEventHandlers.Subscribe( (GameObject)args[0], Type.GetType(LuaScope.GetString(args[1] ) ), (context, e) =>
                     {
-                        return luaScope.CallFunction( (LuaFunction)parameters[2], e); // Ignore result
+                        return luaScope.CallFunction( (LuaFunction)args[2], e); // Ignore result
                     } );
 
                     return Promise.FromResult(new object[] { key.ToString() } );
                 }
             } );
 
-            lua.RegisterCoFunction("cancelgameobjecteventhandler", (luaScope, parameters) =>
+            lua.RegisterCoFunction("cancelgameobjecteventhandler", (luaScope, args) =>
             {
-                bool canceled = Context.Current.Server.GameObjectEventHandlers.Unsubscribe(Guid.Parse(LuaScope.GetString(parameters[0] ) ) );
+                bool canceled = Context.Current.Server.GameObjectEventHandlers.Unsubscribe(Guid.Parse(LuaScope.GetString(args[0] ) ) );
 
                 return canceled ? Promise.FromResultAsBooleanTrueObjectArray : Promise.FromResultAsBooleanFalseObjectArray;
             } );
 
-            lua.RegisterCoFunction("positionaleventhandler", (luaScope, parameters) =>
+            lua.RegisterCoFunction("positionaleventhandler", (luaScope, args) =>
             {
-                if (parameters[0] is GameObject)
+                if (args[0] is GameObject)
                 {
                     // string command.positionaleventhandler(GameObject gameObject, GameObject observer, string eventName, Action<GameEventArgs> callback)
 
-                    MultiplePositionalEventHandlerBehaviour multipleEventHandlerBehaviour = Context.Current.Server.GameObjectComponents.AddComponent( (GameObject)parameters[0], new MultiplePositionalEventHandlerBehaviour( (GameObject)parameters[1], Type.GetType(LuaScope.GetString(parameters[2] ) ), (context, e) =>
+                    MultiplePositionalEventHandlerBehaviour multipleEventHandlerBehaviour = Context.Current.Server.GameObjectComponents.AddComponent( (GameObject)args[0], new MultiplePositionalEventHandlerBehaviour( (GameObject)args[1], Type.GetType(LuaScope.GetString(args[2] ) ), (context, e) =>
                     {
-                        return luaScope.CallFunction( (LuaFunction)parameters[3], e); // Ignore result
+                        return luaScope.CallFunction( (LuaFunction)args[3], e); // Ignore result
 
                     } ), false);
 
@@ -299,69 +299,69 @@ namespace OpenTibia.Game.Common.ServerObjects
                 {
                     // string command.positionaleventhandler(GameObject observer, string eventName, Action<GameEventArgs> callback)
 
-                    Guid key = Context.Current.Server.PositionalEventHandlers.Subscribe( (GameObject)parameters[0], Type.GetType(LuaScope.GetString(parameters[1] ) ), (context, e) =>
+                    Guid key = Context.Current.Server.PositionalEventHandlers.Subscribe( (GameObject)args[0], Type.GetType(LuaScope.GetString(args[1] ) ), (context, e) =>
                     {
-                        return luaScope.CallFunction( (LuaFunction)parameters[2], e); // Ignore result
+                        return luaScope.CallFunction( (LuaFunction)args[2], e); // Ignore result
                     } );
 
                     return Promise.FromResult(new object[] { key.ToString() } );
                 }
             } );
 
-            lua.RegisterCoFunction("cancelpositionaleventhandler", (luaScope, parameters) =>
+            lua.RegisterCoFunction("cancelpositionaleventhandler", (luaScope, args) =>
             {
-                bool canceled = Context.Current.Server.PositionalEventHandlers.Unsubscribe(Guid.Parse(LuaScope.GetString(parameters[0] ) ) );
+                bool canceled = Context.Current.Server.PositionalEventHandlers.Unsubscribe(Guid.Parse(LuaScope.GetString(args[0] ) ) );
 
                 return canceled ? Promise.FromResultAsBooleanTrueObjectArray : Promise.FromResultAsBooleanFalseObjectArray;
             } );
 
-            lua.RegisterCoFunction("containeradditem", (luaScope, parameters) =>
+            lua.RegisterCoFunction("containeradditem", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new ContainerAddItemCommand( (Container)parameters[0], (Item)parameters[1] ) ).Then( () =>
+                return Context.Current.AddCommand(new ContainerAddItemCommand( (Container)args[0], (Item)args[1] ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("containercreateitem", (luaScope, parameters) =>
+            lua.RegisterCoFunction("containercreateitem", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new ContainerCreateItemCommand( (Container)parameters[0], LuaScope.GetUInt16(parameters[1] ), LuaScope.GetByte(parameters[2] ) ) ).Then( (item) =>
+                return Context.Current.AddCommand(new ContainerCreateItemCommand( (Container)args[0], LuaScope.GetUInt16(args[1] ), LuaScope.GetByte(args[2] ) ) ).Then( (item) =>
                 {
                     return Promise.FromResult(new object[] { item } );
                 } );
             } );
 
-            lua.RegisterCoFunction("containerremoveitem", (luaScope, parameters) =>
+            lua.RegisterCoFunction("containerremoveitem", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new ContainerRemoveItemCommand( (Container)parameters[0], (Item)parameters[1] ) ).Then( () =>
+                return Context.Current.AddCommand(new ContainerRemoveItemCommand( (Container)args[0], (Item)args[1] ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("containerreplaceitem", (luaScope, parameters) =>
+            lua.RegisterCoFunction("containerreplaceitem", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new ContainerReplaceItemCommand( (Container)parameters[0], (Item)parameters[1], (Item)parameters[2] ) ).Then( () =>
+                return Context.Current.AddCommand(new ContainerReplaceItemCommand( (Container)args[0], (Item)args[1], (Item)args[2] ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("creatureaddcondition", (luaScope, parameters) =>
+            lua.RegisterCoFunction("creatureaddcondition", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new CreatureAddConditionCommand( (Creature)parameters[0], ToCondition(parameters[1] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new CreatureAddConditionCommand( (Creature)args[0], ToCondition(args[1] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("creatureattackarea", (luaScope, parameters) =>
+            lua.RegisterCoFunction("creatureattackarea", (luaScope, args) =>
             {
-                if (parameters.Length == 8)
+                if (args.Length == 8)
                 {
                     // void command.creatureattackarea(Creature attacker, bool beam, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, Attack attack, Condition condition)
 			
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand( (Creature)parameters[0], (bool)parameters[1], ToPosition(parameters[2] ), ToOffsetArray(parameters[3] ), (ProjectileType?)(long?)parameters[4], (MagicEffectType?)(long?)parameters[5], ToAttack(parameters[6] ), ToCondition(parameters[7] ) ) ).Then( () =>
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand( (Creature)args[0], (bool)args[1], ToPosition(args[2] ), ToOffsetArray(args[3] ), (ProjectileType?)(long?)args[4], (MagicEffectType?)(long?)args[5], ToAttack(args[6] ), ToCondition(args[7] ) ) ).Then( () =>
                     {
                         return Promise.FromResultAsEmptyObjectArray;
                     } );
@@ -369,209 +369,209 @@ namespace OpenTibia.Game.Common.ServerObjects
 
 			    // void command.creatureattackarea(Creature attacker, bool beam, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte typeCount, Attack attack, Condition condition)
 
-                return Context.Current.AddCommand(new CreatureAttackAreaCommand( (Creature)parameters[0], (bool)parameters[1], ToPosition(parameters[2] ), ToOffsetArray(parameters[3] ), (ProjectileType?)(long?)parameters[4], (MagicEffectType?)(long?)parameters[5], LuaScope.GetUInt16(parameters[6] ), LuaScope.GetByte(parameters[7] ), ToAttack(parameters[8] ), ToCondition(parameters[9] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new CreatureAttackAreaCommand( (Creature)args[0], (bool)args[1], ToPosition(args[2] ), ToOffsetArray(args[3] ), (ProjectileType?)(long?)args[4], (MagicEffectType?)(long?)args[5], LuaScope.GetUInt16(args[6] ), LuaScope.GetByte(args[7] ), ToAttack(args[8] ), ToCondition(args[9] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("creatureattackcreature", (luaScope, parameters) =>
+            lua.RegisterCoFunction("creatureattackcreature", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new CreatureAttackCreatureCommand( (Creature)parameters[0], (Creature)parameters[1], ToAttack(parameters[2] ), ToCondition(parameters[3] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new CreatureAttackCreatureCommand( (Creature)args[0], (Creature)args[1], ToAttack(args[2] ), ToCondition(args[3] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("creatureremovecondition", (luaScope, parameters) =>
+            lua.RegisterCoFunction("creatureremovecondition", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new CreatureRemoveConditionCommand( (Creature)parameters[0], (ConditionSpecialCondition)(long)parameters[1] ) ).Then( () =>
+                return Context.Current.AddCommand(new CreatureRemoveConditionCommand( (Creature)args[0], (ConditionSpecialCondition)(long)args[1] ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("creaturedestroy", (luaScope, parameters) =>
+            lua.RegisterCoFunction("creaturedestroy", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new CreatureDestroyCommand( (Creature)parameters[0] ) ).Then( () =>
+                return Context.Current.AddCommand(new CreatureDestroyCommand( (Creature)args[0] ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("creatureupdatedirection", (luaScope, parameters) =>
+            lua.RegisterCoFunction("creatureupdatedirection", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new CreatureUpdateDirectionCommand( (Creature)parameters[0], (Direction)(long)parameters[1] ) ).Then( () =>
+                return Context.Current.AddCommand(new CreatureUpdateDirectionCommand( (Creature)args[0], (Direction)(long)args[1] ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("creatureupdatehealth", (luaScope, parameters) =>
+            lua.RegisterCoFunction("creatureupdatehealth", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new CreatureUpdateHealthCommand( (Creature)parameters[0], LuaScope.GetInt32(parameters[1] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new CreatureUpdateHealthCommand( (Creature)args[0], LuaScope.GetInt32(args[1] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("creatureupdateinvisible", (luaScope, parameters) =>
+            lua.RegisterCoFunction("creatureupdateinvisible", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new CreatureUpdateInvisibleCommand( (Creature)parameters[0], (bool)parameters[1] ) ).Then( () =>
+                return Context.Current.AddCommand(new CreatureUpdateInvisibleCommand( (Creature)args[0], (bool)args[1] ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("creatureupdatelight", (luaScope, parameters) =>
+            lua.RegisterCoFunction("creatureupdatelight", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new CreatureUpdateLightCommand( (Creature)parameters[0], ToLight(parameters[1] ), ToLight(parameters[2] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new CreatureUpdateLightCommand( (Creature)args[0], ToLight(args[1] ), ToLight(args[2] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("creatureupdateoutfit", (luaScope, parameters) =>
+            lua.RegisterCoFunction("creatureupdateoutfit", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new CreatureUpdateOutfitCommand( (Creature)parameters[0], ToOutfit(parameters[1] ), ToOutfit(parameters[2] ), LuaScope.GetBoolean(parameters[3] ), LuaScope.GetBoolean(parameters[4] ), LuaScope.GetBoolean(parameters[5] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new CreatureUpdateOutfitCommand( (Creature)args[0], ToOutfit(args[1] ), ToOutfit(args[2] ), LuaScope.GetBoolean(args[3] ), LuaScope.GetBoolean(args[4] ), LuaScope.GetBoolean(args[5] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("creatureupdatespeed", (luaScope, parameters) =>
+            lua.RegisterCoFunction("creatureupdatespeed", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new CreatureUpdateSpeedCommand( (Creature)parameters[0], LuaScope.GetInt32(parameters[1] ), LuaScope.GetInt32(parameters[2] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new CreatureUpdateSpeedCommand( (Creature)args[0], LuaScope.GetInt32(args[1] ), LuaScope.GetInt32(args[2] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("creaturemove", (luaScope, parameters) =>
+            lua.RegisterCoFunction("creaturemove", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new CreatureMoveCommand( (Creature)parameters[0], ToTile(parameters[1] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new CreatureMoveCommand( (Creature)args[0], ToTile(args[1] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("fluiditemupdatefluidtype", (luaScope, parameters) =>
+            lua.RegisterCoFunction("fluiditemupdatefluidtype", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new FluidItemUpdateFluidTypeCommand( (FluidItem)parameters[0], (FluidType)(long)parameters[1] ) ).Then( () =>
+                return Context.Current.AddCommand(new FluidItemUpdateFluidTypeCommand( (FluidItem)args[0], (FluidType)(long)args[1] ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("inventoryadditem", (luaScope, parameters) =>
+            lua.RegisterCoFunction("inventoryadditem", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new InventoryAddItemCommand( (Inventory)parameters[0], LuaScope.GetByte(parameters[1] ), (Item)parameters[2] ) ).Then( () =>
+                return Context.Current.AddCommand(new InventoryAddItemCommand( (Inventory)args[0], LuaScope.GetByte(args[1] ), (Item)args[2] ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("inventorycreateitem", (luaScope, parameters) =>
+            lua.RegisterCoFunction("inventorycreateitem", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new InventoryCreateItemCommand( (Inventory)parameters[0], LuaScope.GetByte(parameters[1] ), LuaScope.GetUInt16(parameters[2] ), LuaScope.GetByte(parameters[3] ) ) ).Then( (item) =>
+                return Context.Current.AddCommand(new InventoryCreateItemCommand( (Inventory)args[0], LuaScope.GetByte(args[1] ), LuaScope.GetUInt16(args[2] ), LuaScope.GetByte(args[3] ) ) ).Then( (item) =>
                 {
                     return Promise.FromResult(new object[] { item } );
                 } );
             } );
 
-            lua.RegisterCoFunction("inventoryremoveitem", (luaScope, parameters) =>
+            lua.RegisterCoFunction("inventoryremoveitem", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new InventoryRemoveItemCommand( (Inventory)parameters[0], (Item)parameters[1] ) ).Then( () =>
+                return Context.Current.AddCommand(new InventoryRemoveItemCommand( (Inventory)args[0], (Item)args[1] ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("inventoryreplaceitem", (luaScope, parameters) =>
+            lua.RegisterCoFunction("inventoryreplaceitem", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new InventoryReplaceItemCommand( (Inventory)parameters[0], (Item)parameters[1], (Item)parameters[2] ) ).Then( () =>
+                return Context.Current.AddCommand(new InventoryReplaceItemCommand( (Inventory)args[0], (Item)args[1], (Item)args[2] ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("itemclone", (luaScope, parameters) =>
+            lua.RegisterCoFunction("itemclone", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new ItemCloneCommand( (Item)parameters[0], (bool)parameters[1] ) ).Then( (item) =>
+                return Context.Current.AddCommand(new ItemCloneCommand( (Item)args[0], (bool)args[1] ) ).Then( (item) =>
                 {
                     return Promise.FromResult(new object[] { item } );
                 } );
             } );
 
-            lua.RegisterCoFunction("itemdecrement", (luaScope, parameters) =>
+            lua.RegisterCoFunction("itemdecrement", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new ItemDecrementCommand( (Item)parameters[0], LuaScope.GetByte(parameters[1] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new ItemDecrementCommand( (Item)args[0], LuaScope.GetByte(args[1] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("itemdestroy", (luaScope, parameters) =>
+            lua.RegisterCoFunction("itemdestroy", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new ItemDestroyCommand( (Item)parameters[0] ) ).Then( () =>
+                return Context.Current.AddCommand(new ItemDestroyCommand( (Item)args[0] ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("itemmove", (luaScope, parameters) =>
+            lua.RegisterCoFunction("itemmove", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new ItemMoveCommand( (Item)parameters[0], (IContainer)parameters[1], LuaScope.GetByte(parameters[2] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new ItemMoveCommand( (Item)args[0], (IContainer)args[1], LuaScope.GetByte(args[2] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("itemtransform", (luaScope, parameters) =>
+            lua.RegisterCoFunction("itemtransform", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new ItemTransformCommand( (Item)parameters[0], LuaScope.GetUInt16(parameters[1] ), LuaScope.GetByte(parameters[2] ) ) ).Then( (item) =>
+                return Context.Current.AddCommand(new ItemTransformCommand( (Item)args[0], LuaScope.GetUInt16(args[1] ), LuaScope.GetByte(args[2] ) ) ).Then( (item) =>
                 {
                     return Promise.FromResult(new object[] { item } );
                 } );
             } );
 
-            lua.RegisterCoFunction("monstersay", (luaScope, parameters) =>
+            lua.RegisterCoFunction("monstersay", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new MonsterSayCommand( (Monster)parameters[0], LuaScope.GetString(parameters[1] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new MonsterSayCommand( (Monster)args[0], LuaScope.GetString(args[1] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("monsteryell", (luaScope, parameters) =>
+            lua.RegisterCoFunction("monsteryell", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new MonsterYellCommand( (Monster)parameters[0], LuaScope.GetString(parameters[1] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new MonsterYellCommand( (Monster)args[0], LuaScope.GetString(args[1] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("npcsay", (luaScope, parameters) =>
+            lua.RegisterCoFunction("npcsay", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new NpcSayCommand( (Npc)parameters[0], LuaScope.GetString(parameters[1] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new NpcSayCommand( (Npc)args[0], LuaScope.GetString(args[1] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
                         
-            lua.RegisterCoFunction("npcsaytoplayer", (luaScope, parameters) =>
+            lua.RegisterCoFunction("npcsaytoplayer", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new NpcSayToPlayerCommand( (Npc)parameters[0], (Player)parameters[1], LuaScope.GetString(parameters[2] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new NpcSayToPlayerCommand( (Npc)args[0], (Player)args[1], LuaScope.GetString(args[2] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("npctrade", (luaScope, parameters) =>
+            lua.RegisterCoFunction("npctrade", (luaScope, args) =>
             {
                 List<OfferDto> offers = new List<OfferDto>();
 
-                foreach (LuaTable item in ( (LuaTable)parameters[2] ).Values)
+                foreach (LuaTable item in ( (LuaTable)args[2] ).Values)
                 {
                     string name = LuaScope.GetString(item["name"] );
 
@@ -591,21 +591,21 @@ namespace OpenTibia.Game.Common.ServerObjects
                     }
                 }
 
-                return Context.Current.AddCommand(new NpcTradeCommand( (Npc)parameters[0], (Player)parameters[1], offers) ).Then( () =>
+                return Context.Current.AddCommand(new NpcTradeCommand( (Npc)args[0], (Player)args[1], offers) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );                
             } );
 
-            lua.RegisterCoFunction("npcidle", (luaScope, parameters) =>
+            lua.RegisterCoFunction("npcidle", (luaScope, args) =>
             {
                 if (server.Config.GameplayPrivateNpcSystem)
                 {
-                    MultipleQueueNpcThinkBehaviour npcThinkBehaviour = Context.Current.Server.GameObjectComponents.GetComponent<MultipleQueueNpcThinkBehaviour>( (Npc)parameters[0] );
+                    MultipleQueueNpcThinkBehaviour npcThinkBehaviour = Context.Current.Server.GameObjectComponents.GetComponent<MultipleQueueNpcThinkBehaviour>( (Npc)args[0] );
 
                     if (npcThinkBehaviour != null)
                     {
-                        return npcThinkBehaviour.Idle( (Player)parameters[1] ).Then( () =>
+                        return npcThinkBehaviour.Idle( (Player)args[1] ).Then( () =>
                         {
                             return Promise.FromResultAsEmptyObjectArray;
                         } );
@@ -613,11 +613,11 @@ namespace OpenTibia.Game.Common.ServerObjects
                 }
                 else
                 {
-                    SingleQueueNpcThinkBehaviour npcThinkBehaviour = Context.Current.Server.GameObjectComponents.GetComponent<SingleQueueNpcThinkBehaviour>( (Npc)parameters[0] );
+                    SingleQueueNpcThinkBehaviour npcThinkBehaviour = Context.Current.Server.GameObjectComponents.GetComponent<SingleQueueNpcThinkBehaviour>( (Npc)args[0] );
 
                     if (npcThinkBehaviour != null)
                     {
-                        return npcThinkBehaviour.Idle( (Player)parameters[1] ).Then( () =>
+                        return npcThinkBehaviour.Idle( (Player)args[1] ).Then( () =>
                         {
                             return Promise.FromResultAsEmptyObjectArray;
                         } );
@@ -627,15 +627,15 @@ namespace OpenTibia.Game.Common.ServerObjects
                 return Promise.FromResultAsEmptyObjectArray;
             } );
 
-            lua.RegisterCoFunction("npcfarewell", (luaScope, parameters) =>
+            lua.RegisterCoFunction("npcfarewell", (luaScope, args) =>
             {
                 if (server.Config.GameplayPrivateNpcSystem)
                 {
-                    MultipleQueueNpcThinkBehaviour npcThinkBehaviour = Context.Current.Server.GameObjectComponents.GetComponent<MultipleQueueNpcThinkBehaviour>( (Npc)parameters[0] );
+                    MultipleQueueNpcThinkBehaviour npcThinkBehaviour = Context.Current.Server.GameObjectComponents.GetComponent<MultipleQueueNpcThinkBehaviour>( (Npc)args[0] );
 
                     if (npcThinkBehaviour != null)
                     {
-                        return npcThinkBehaviour.Farewell( (Player)parameters[1] ).Then( () =>
+                        return npcThinkBehaviour.Farewell( (Player)args[1] ).Then( () =>
                         {
                             return Promise.FromResultAsEmptyObjectArray;
                         } );
@@ -643,11 +643,11 @@ namespace OpenTibia.Game.Common.ServerObjects
                 }
                 else
                 {
-                    SingleQueueNpcThinkBehaviour npcThinkBehaviour = Context.Current.Server.GameObjectComponents.GetComponent<SingleQueueNpcThinkBehaviour>( (Npc)parameters[0] );
+                    SingleQueueNpcThinkBehaviour npcThinkBehaviour = Context.Current.Server.GameObjectComponents.GetComponent<SingleQueueNpcThinkBehaviour>( (Npc)args[0] );
 
                     if (npcThinkBehaviour != null)
                     {
-                        return npcThinkBehaviour.Farewell( (Player)parameters[1] ).Then( () =>
+                        return npcThinkBehaviour.Farewell( (Player)args[1] ).Then( () =>
                         {
                             return Promise.FromResultAsEmptyObjectArray;
                         } );
@@ -657,15 +657,15 @@ namespace OpenTibia.Game.Common.ServerObjects
                 return Promise.FromResultAsEmptyObjectArray;
             } );
 
-            lua.RegisterCoFunction("npcdisappear", (luaScope, parameters) =>
+            lua.RegisterCoFunction("npcdisappear", (luaScope, args) =>
             {
                 if (server.Config.GameplayPrivateNpcSystem)
                 {
-                    MultipleQueueNpcThinkBehaviour npcThinkBehaviour = Context.Current.Server.GameObjectComponents.GetComponent<MultipleQueueNpcThinkBehaviour>( (Npc)parameters[0] );
+                    MultipleQueueNpcThinkBehaviour npcThinkBehaviour = Context.Current.Server.GameObjectComponents.GetComponent<MultipleQueueNpcThinkBehaviour>( (Npc)args[0] );
 
                     if (npcThinkBehaviour != null)
                     {
-                        return npcThinkBehaviour.Disappear( (Player)parameters[1] ).Then( () =>
+                        return npcThinkBehaviour.Disappear( (Player)args[1] ).Then( () =>
                         {
                             return Promise.FromResultAsEmptyObjectArray;
                         } );
@@ -673,11 +673,11 @@ namespace OpenTibia.Game.Common.ServerObjects
                 }
                 else
                 {
-                    SingleQueueNpcThinkBehaviour npcThinkBehaviour = Context.Current.Server.GameObjectComponents.GetComponent<SingleQueueNpcThinkBehaviour>( (Npc)parameters[0] );
+                    SingleQueueNpcThinkBehaviour npcThinkBehaviour = Context.Current.Server.GameObjectComponents.GetComponent<SingleQueueNpcThinkBehaviour>( (Npc)args[0] );
 
                     if (npcThinkBehaviour != null)
                     {
-                        return npcThinkBehaviour.Disappear( (Player)parameters[1] ).Then( () =>
+                        return npcThinkBehaviour.Disappear( (Player)args[1] ).Then( () =>
                         {
                             return Promise.FromResultAsEmptyObjectArray;
                         } );
@@ -687,181 +687,181 @@ namespace OpenTibia.Game.Common.ServerObjects
                 return Promise.FromResultAsEmptyObjectArray;
             } );
 
-            lua.RegisterCoFunction("playercreatemoney", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playercreatemoney", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new PlayerCreateMoneyCommand( (Player)parameters[0], LuaScope.GetInt32(parameters[1] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new PlayerCreateMoneyCommand( (Player)args[0], LuaScope.GetInt32(args[1] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("playerdestroymoney", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playerdestroymoney", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new PlayerDestroyMoneyCommand( (Player)parameters[0], LuaScope.GetInt32(parameters[1] ) ) ).Then( (success) =>
+                return Context.Current.AddCommand(new PlayerDestroyMoneyCommand( (Player)args[0], LuaScope.GetInt32(args[1] ) ) ).Then( (success) =>
                 {
                     return success ? Promise.FromResultAsBooleanTrueObjectArray : Promise.FromResultAsBooleanFalseObjectArray;
                 } );                
             } );
 
-            lua.RegisterCoFunction("playercountmoney", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playercountmoney", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new PlayerCountMoneyCommand( (Player)parameters[0] ) ).Then( (price) =>
+                return Context.Current.AddCommand(new PlayerCountMoneyCommand( (Player)args[0] ) ).Then( (price) =>
                 {
                     return Promise.FromResult(new object[] { price } );
                 } );                  
             } );
 
-            lua.RegisterCoFunction("playercreateitems", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playercreateitems", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new PlayerCreateItemsCommand( (Player)parameters[0], LuaScope.GetUInt16(parameters[1] ), LuaScope.GetByte(parameters[2] ), LuaScope.GetInt32(parameters[3] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new PlayerCreateItemsCommand( (Player)args[0], LuaScope.GetUInt16(args[1] ), LuaScope.GetByte(args[2] ), LuaScope.GetInt32(args[3] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("playerdestroyitems", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playerdestroyitems", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new PlayerDestroyItemsCommand( (Player)parameters[0], LuaScope.GetUInt16(parameters[1] ), LuaScope.GetByte(parameters[2] ), LuaScope.GetInt32(parameters[3] ) ) ).Then( (success) =>
+                return Context.Current.AddCommand(new PlayerDestroyItemsCommand( (Player)args[0], LuaScope.GetUInt16(args[1] ), LuaScope.GetByte(args[2] ), LuaScope.GetInt32(args[3] ) ) ).Then( (success) =>
                 {
                     return success ? Promise.FromResultAsBooleanTrueObjectArray : Promise.FromResultAsBooleanFalseObjectArray;
                 } );                
             } );
 
-            lua.RegisterCoFunction("playercountitems", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playercountitems", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new PlayerCountItemsCommand( (Player)parameters[0], LuaScope.GetUInt16(parameters[1] ), LuaScope.GetByte(parameters[2] ) ) ).Then( (count) =>
+                return Context.Current.AddCommand(new PlayerCountItemsCommand( (Player)args[0], LuaScope.GetUInt16(args[1] ), LuaScope.GetByte(args[2] ) ) ).Then( (count) =>
                 {
                     return Promise.FromResult(new object[] { count } );
                 } );                
             } );
 
-            lua.RegisterCoFunction("playerachievement", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playerachievement", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new PlayerAchievementCommand( (Player)parameters[0], LuaScope.GetInt32(parameters[1] ), LuaScope.GetInt32(parameters[2] ), LuaScope.GetString(parameters[3] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new PlayerAchievementCommand( (Player)args[0], LuaScope.GetInt32(args[1] ), LuaScope.GetInt32(args[2] ), LuaScope.GetString(args[3] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("playerbless", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playerbless", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new PlayerBlessCommand( (Player)parameters[0], LuaScope.GetString(parameters[1] ), LuaScope.GetString(parameters[2] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new PlayerBlessCommand( (Player)args[0], LuaScope.GetString(args[1] ), LuaScope.GetString(args[2] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("playeraddexperience", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playeraddexperience", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new PlayerAddExperienceCommand( (Player)parameters[0], LuaScope.GetUInt64(parameters[1] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new PlayerAddExperienceCommand( (Player)args[0], LuaScope.GetUInt64(args[1] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("playerremoveexperience", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playerremoveexperience", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new PlayerRemoveExperienceCommand( (Player)parameters[0], LuaScope.GetUInt64(parameters[1] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new PlayerRemoveExperienceCommand( (Player)args[0], LuaScope.GetUInt64(args[1] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("playeraddskillpoints", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playeraddskillpoints", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new PlayerAddSkillPointsCommand( (Player)parameters[0], (Skill)(long)parameters[1], LuaScope.GetUInt64(parameters[2] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new PlayerAddSkillPointsCommand( (Player)args[0], (Skill)(long)args[1], LuaScope.GetUInt64(args[2] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("playerremoveskillpoints", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playerremoveskillpoints", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new PlayerRemoveSkillPointsCommand( (Player)parameters[0], (Skill)(long)parameters[1], LuaScope.GetUInt64(parameters[2] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new PlayerRemoveSkillPointsCommand( (Player)args[0], (Skill)(long)args[1], LuaScope.GetUInt64(args[2] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("playerupdateskill", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playerupdateskill", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new PlayerUpdateSkillCommand( (Player)parameters[0], (Skill)(long)parameters[1], LuaScope.GetUInt64(parameters[2] ), LuaScope.GetByte(parameters[3] ), LuaScope.GetByte(parameters[4] ), LuaScope.GetInt32(parameters[5] ), LuaScope.GetInt32(parameters[6] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new PlayerUpdateSkillCommand( (Player)args[0], (Skill)(long)args[1], LuaScope.GetUInt64(args[2] ), LuaScope.GetByte(args[3] ), LuaScope.GetByte(args[4] ), LuaScope.GetInt32(args[5] ), LuaScope.GetInt32(args[6] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
                         
-            lua.RegisterCoFunction("playersay", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playersay", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new PlayerSayCommand( (Player)parameters[0], LuaScope.GetString(parameters[1] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new PlayerSayCommand( (Player)args[0], LuaScope.GetString(args[1] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
             
-            lua.RegisterCoFunction("playerupdatecapacity", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playerupdatecapacity", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new PlayerUpdateCapacityCommand( (Player)parameters[0], LuaScope.GetInt32(parameters[1] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new PlayerUpdateCapacityCommand( (Player)args[0], LuaScope.GetInt32(args[1] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("playerupdateexperience", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playerupdateexperience", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new PlayerUpdateExperienceCommand( (Player)parameters[0], LuaScope.GetUInt64(parameters[1] ), LuaScope.GetUInt16(parameters[2] ), LuaScope.GetByte(parameters[3] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new PlayerUpdateExperienceCommand( (Player)args[0], LuaScope.GetUInt64(args[1] ), LuaScope.GetUInt16(args[2] ), LuaScope.GetByte(args[3] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("playerupdatemana", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playerupdatemana", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new PlayerUpdateManaCommand( (Player)parameters[0], LuaScope.GetInt32(parameters[1] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new PlayerUpdateManaCommand( (Player)args[0], LuaScope.GetInt32(args[1] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("playerupdatesoul", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playerupdatesoul", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new PlayerUpdateSoulCommand( (Player)parameters[0], LuaScope.GetInt32(parameters[1] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new PlayerUpdateSoulCommand( (Player)args[0], LuaScope.GetInt32(args[1] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("playerupdatestamina", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playerupdatestamina", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new PlayerUpdateStaminaCommand( (Player)parameters[0], LuaScope.GetInt32(parameters[1] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new PlayerUpdateStaminaCommand( (Player)args[0], LuaScope.GetInt32(args[1] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("playerwhisper", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playerwhisper", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new PlayerWhisperCommand( (Player)parameters[0], LuaScope.GetString(parameters[1] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new PlayerWhisperCommand( (Player)args[0], LuaScope.GetString(args[1] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
             
-            lua.RegisterCoFunction("playeryell", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playeryell", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new PlayerYellCommand( (Player)parameters[0], LuaScope.GetString(parameters[1] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new PlayerYellCommand( (Player)args[0], LuaScope.GetString(args[1] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
             
-            lua.RegisterCoFunction("playergetoutfit", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playergetoutfit", (luaScope, args) =>
             {
-                Player player = (Player)parameters[0];
+                Player player = (Player)args[0];
 
                 Addon addon;
 
-                if (player.Outfits.TryGetOutfit(LuaScope.GetUInt16(parameters[1] ), out addon) )
+                if (player.Outfits.TryGetOutfit(LuaScope.GetUInt16(args[1] ), out addon) )
                 {
                     return Promise.FromResult(new object[] { true, addon } );
                 }
@@ -869,31 +869,31 @@ namespace OpenTibia.Game.Common.ServerObjects
                 return Promise.FromResultAsBooleanFalseObjectArray;
             } );
 
-            lua.RegisterCoFunction("playersetoutfit", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playersetoutfit", (luaScope, args) =>
             {
-                Player player = (Player)parameters[0];
+                Player player = (Player)args[0];
 
-                player.Outfits.SetOutfit(LuaScope.GetUInt16(parameters[1] ), (Addon)(long)parameters[2] );
+                player.Outfits.SetOutfit(LuaScope.GetUInt16(args[1] ), (Addon)(long)args[2] );
 
                 return Promise.FromResultAsEmptyObjectArray;
             } );
 
-            lua.RegisterCoFunction("playerremoveoutfit", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playerremoveoutfit", (luaScope, args) =>
             {
-                Player player = (Player)parameters[0];
+                Player player = (Player)args[0];
 
-                player.Outfits.RemoveOutfit(LuaScope.GetUInt16(parameters[1] ) );
+                player.Outfits.RemoveOutfit(LuaScope.GetUInt16(args[1] ) );
 
                 return Promise.FromResultAsEmptyObjectArray;
             } );
 
-            lua.RegisterCoFunction("playergetstorage", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playergetstorage", (luaScope, args) =>
             {
-                Player player = (Player)parameters[0];
+                Player player = (Player)args[0];
 
                 int value;
 
-                if (player.Storages.TryGetValue(LuaScope.GetInt32(parameters[1] ), out value) )
+                if (player.Storages.TryGetValue(LuaScope.GetInt32(args[1] ), out value) )
                 {
                     return Promise.FromResult(new object[] { true, value } );
                 }
@@ -901,307 +901,307 @@ namespace OpenTibia.Game.Common.ServerObjects
                 return Promise.FromResultAsBooleanFalseObjectArray;
             } );
 
-            lua.RegisterCoFunction("playersetstorage", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playersetstorage", (luaScope, args) =>
             {
-                Player player = (Player)parameters[0];
+                Player player = (Player)args[0];
 
-                player.Storages.SetValue(LuaScope.GetInt32(parameters[1] ), LuaScope.GetInt32(parameters[2] ) );
+                player.Storages.SetValue(LuaScope.GetInt32(args[1] ), LuaScope.GetInt32(args[2] ) );
 
                 return Promise.FromResultAsEmptyObjectArray;
             } );
 
-            lua.RegisterCoFunction("playerremovestorage", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playerremovestorage", (luaScope, args) =>
             {
-                Player player = (Player)parameters[0];
+                Player player = (Player)args[0];
 
-                player.Storages.RemoveValue(LuaScope.GetInt32(parameters[1] ) );
+                player.Storages.RemoveValue(LuaScope.GetInt32(args[1] ) );
 
                 return Promise.FromResultAsEmptyObjectArray;
             } );
             
-            lua.RegisterCoFunction("playergetachievements", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playergetachievements", (luaScope, args) =>
             {
-                Player player = (Player)parameters[0];
+                Player player = (Player)args[0];
 
                 string[] achievements = player.Achievements.GetAchievements().ToArray();
 
                 return Promise.FromResult(new object[] { lua.ToTable(achievements) } );
             } );
 
-            lua.RegisterCoFunction("playerhasachievement", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playerhasachievement", (luaScope, args) =>
             {
-                Player player = (Player)parameters[0];
+                Player player = (Player)args[0];
 
-                return player.Achievements.HasAchievement(LuaScope.GetString(parameters[1] ) ) ? Promise.FromResultAsBooleanTrueObjectArray : Promise.FromResultAsBooleanFalseObjectArray;
+                return player.Achievements.HasAchievement(LuaScope.GetString(args[1] ) ) ? Promise.FromResultAsBooleanTrueObjectArray : Promise.FromResultAsBooleanFalseObjectArray;
             } );
 
-            lua.RegisterCoFunction("playersetachievement", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playersetachievement", (luaScope, args) =>
             {
-                Player player = (Player)parameters[0];
+                Player player = (Player)args[0];
 
-                player.Achievements.SetAchievement(LuaScope.GetString(parameters[1] ) );
+                player.Achievements.SetAchievement(LuaScope.GetString(args[1] ) );
 
                 return Promise.FromResultAsEmptyObjectArray;
             } );
 
-            lua.RegisterCoFunction("playerremoveachievement", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playerremoveachievement", (luaScope, args) =>
             {
-                Player player = (Player)parameters[0];
+                Player player = (Player)args[0];
 
-                player.Achievements.RemoveAchievement(LuaScope.GetString(parameters[1] ) );
+                player.Achievements.RemoveAchievement(LuaScope.GetString(args[1] ) );
 
                 return Promise.FromResultAsEmptyObjectArray;
             } );
 
-            lua.RegisterCoFunction("playergetspells", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playergetspells", (luaScope, args) =>
             {
-                Player player = (Player)parameters[0];
+                Player player = (Player)args[0];
 
                 string[] spells = player.Spells.GetSpells().ToArray();
 
                 return Promise.FromResult(new object[] { lua.ToTable(spells) } );
             } );
 
-            lua.RegisterCoFunction("playerhasspell", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playerhasspell", (luaScope, args) =>
             {
-                Player player = (Player)parameters[0];
+                Player player = (Player)args[0];
 
-                return player.Spells.HasSpell(LuaScope.GetString(parameters[1] ) ) ? Promise.FromResultAsBooleanTrueObjectArray : Promise.FromResultAsBooleanFalseObjectArray;
+                return player.Spells.HasSpell(LuaScope.GetString(args[1] ) ) ? Promise.FromResultAsBooleanTrueObjectArray : Promise.FromResultAsBooleanFalseObjectArray;
             } );
 
-            lua.RegisterCoFunction("playersetspell", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playersetspell", (luaScope, args) =>
             {
-                Player player = (Player)parameters[0];
+                Player player = (Player)args[0];
 
-                player.Spells.SetSpell(LuaScope.GetString(parameters[1] ) );
+                player.Spells.SetSpell(LuaScope.GetString(args[1] ) );
 
                 return Promise.FromResultAsEmptyObjectArray;
             } );
 
-            lua.RegisterCoFunction("playerremovespell", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playerremovespell", (luaScope, args) =>
             {
-                Player player = (Player)parameters[0];
+                Player player = (Player)args[0];
 
-                player.Spells.RemoveSpell(LuaScope.GetString(parameters[1] ) );
+                player.Spells.RemoveSpell(LuaScope.GetString(args[1] ) );
 
                 return Promise.FromResultAsEmptyObjectArray;
             } );
 
-            lua.RegisterCoFunction("playergetblesses", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playergetblesses", (luaScope, args) =>
             {
-                Player player = (Player)parameters[0];
+                Player player = (Player)args[0];
 
                 string[] blesses = player.Blesses.GetBlesses().ToArray();
 
                 return Promise.FromResult(new object[] { lua.ToTable(blesses) } );
             } );
 
-            lua.RegisterCoFunction("playerhasbless", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playerhasbless", (luaScope, args) =>
             {
-                Player player = (Player)parameters[0];
+                Player player = (Player)args[0];
 
-                return player.Blesses.HasBless(LuaScope.GetString(parameters[1] ) ) ? Promise.FromResultAsBooleanTrueObjectArray : Promise.FromResultAsBooleanFalseObjectArray;
+                return player.Blesses.HasBless(LuaScope.GetString(args[1] ) ) ? Promise.FromResultAsBooleanTrueObjectArray : Promise.FromResultAsBooleanFalseObjectArray;
             } );
 
-            lua.RegisterCoFunction("playersetbless", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playersetbless", (luaScope, args) =>
             {
-                Player player = (Player)parameters[0];
+                Player player = (Player)args[0];
 
-                player.Blesses.SetBless(LuaScope.GetString(parameters[1] ) );
+                player.Blesses.SetBless(LuaScope.GetString(args[1] ) );
 
                 return Promise.FromResultAsEmptyObjectArray;
             } );
 
-            lua.RegisterCoFunction("playerremovebless", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playerremovebless", (luaScope, args) =>
             {
-                Player player = (Player)parameters[0];
+                Player player = (Player)args[0];
 
-                player.Blesses.RemoveBless(LuaScope.GetString(parameters[1] ) );
+                player.Blesses.RemoveBless(LuaScope.GetString(args[1] ) );
 
                 return Promise.FromResultAsEmptyObjectArray;
             } );
 
-            lua.RegisterCoFunction("playerstopwalk", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playerstopwalk", (luaScope, args) =>
             {
-                Player player = (Player)parameters[0];
+                Player player = (Player)args[0];
 
                 Context.Current.AddPacket(player, new StopWalkOutgoingPacket(player.Direction) );
 
                 return Promise.FromResultAsEmptyObjectArray;
             } );
 
-            lua.RegisterCoFunction("showanimatedtext", (luaScope, parameters) =>
+            lua.RegisterCoFunction("showanimatedtext", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new ShowAnimatedTextCommand(ToPosition(parameters[0] ), (AnimatedTextColor)(long)parameters[1], LuaScope.GetString(parameters[2] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new ShowAnimatedTextCommand(ToPosition(args[0] ), (AnimatedTextColor)(long)args[1], LuaScope.GetString(args[2] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("showmagiceffect", (luaScope, parameters) =>
+            lua.RegisterCoFunction("showmagiceffect", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new ShowMagicEffectCommand(ToPosition(parameters[0] ), (MagicEffectType)(long)parameters[1] ) ).Then( () =>
+                return Context.Current.AddCommand(new ShowMagicEffectCommand(ToPosition(args[0] ), (MagicEffectType)(long)args[1] ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("showprojectile", (luaScope, parameters) =>
+            lua.RegisterCoFunction("showprojectile", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new ShowProjectileCommand(ToPosition(parameters[0] ), ToPosition(parameters[1] ), (ProjectileType)(long)parameters[2] ) ).Then( () =>
+                return Context.Current.AddCommand(new ShowProjectileCommand(ToPosition(args[0] ), ToPosition(args[1] ), (ProjectileType)(long)args[2] ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("showtext", (luaScope, parameters) =>
+            lua.RegisterCoFunction("showtext", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new ShowTextCommand( (Creature)parameters[0], (TalkType)(long)parameters[1], LuaScope.GetString(parameters[2] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new ShowTextCommand( (Creature)args[0], (TalkType)(long)args[1], LuaScope.GetString(args[2] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("showwindowtext", (luaScope, parameters) =>
+            lua.RegisterCoFunction("showwindowtext", (luaScope, args) =>
             {
-                Context.Current.AddPacket( (Player)parameters[0], new ShowWindowTextOutgoingPacket( (TextColor)(long)parameters[1], LuaScope.GetString(parameters[2] ) ) );
+                Context.Current.AddPacket( (Player)args[0], new ShowWindowTextOutgoingPacket( (TextColor)(long)args[1], LuaScope.GetString(args[2] ) ) );
 
                 return Promise.FromResultAsEmptyObjectArray;
             } );
 
-            lua.RegisterCoFunction("splashitemupdatefluidtype", (luaScope, parameters) =>
+            lua.RegisterCoFunction("splashitemupdatefluidtype", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new SplashItemUpdateFluidTypeCommand( (SplashItem)parameters[0], (FluidType)(long)parameters[1] ) ).Then( () =>
+                return Context.Current.AddCommand(new SplashItemUpdateFluidTypeCommand( (SplashItem)args[0], (FluidType)(long)args[1] ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
                                                
-            lua.RegisterCoFunction("stackableitemupdatecount", (luaScope, parameters) =>
+            lua.RegisterCoFunction("stackableitemupdatecount", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new StackableItemUpdateCountCommand( (StackableItem)parameters[0], LuaScope.GetByte(parameters[1] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new StackableItemUpdateCountCommand( (StackableItem)args[0], LuaScope.GetByte(args[1] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("tileaddcreature", (luaScope, parameters) =>
+            lua.RegisterCoFunction("tileaddcreature", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new TileAddCreatureCommand( (Tile)parameters[0], (Creature)parameters[1] ) ).Then( () =>
+                return Context.Current.AddCommand(new TileAddCreatureCommand( (Tile)args[0], (Creature)args[1] ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("tileadditem", (luaScope, parameters) =>
+            lua.RegisterCoFunction("tileadditem", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new TileAddItemCommand( (Tile)parameters[0], (Item)parameters[1] ) ).Then( () =>
+                return Context.Current.AddCommand(new TileAddItemCommand( (Tile)args[0], (Item)args[1] ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("tilecreateitem", (luaScope, parameters) =>
+            lua.RegisterCoFunction("tilecreateitem", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new TileCreateItemCommand( (Tile)parameters[0], LuaScope.GetUInt16(parameters[1] ), LuaScope.GetByte(parameters[2] ) ) ).Then( (item) =>
+                return Context.Current.AddCommand(new TileCreateItemCommand( (Tile)args[0], LuaScope.GetUInt16(args[1] ), LuaScope.GetByte(args[2] ) ) ).Then( (item) =>
                 {
                     return Promise.FromResult(new object[] { item } );
                 } );
             } );
 
-            lua.RegisterCoFunction("tilecreateitemorincrement", (luaScope, parameters) =>
+            lua.RegisterCoFunction("tilecreateitemorincrement", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new TileCreateItemOrIncrementCommand( (Tile)parameters[0], LuaScope.GetUInt16(parameters[1] ), LuaScope.GetByte(parameters[2] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new TileCreateItemOrIncrementCommand( (Tile)args[0], LuaScope.GetUInt16(args[1] ), LuaScope.GetByte(args[2] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("tilecreatemonster", (luaScope, parameters) =>
+            lua.RegisterCoFunction("tilecreatemonster", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new TileCreateMonsterCommand( (Tile)parameters[0], LuaScope.GetString(parameters[1] ) ) ).Then( (monster) =>
+                return Context.Current.AddCommand(new TileCreateMonsterCommand( (Tile)args[0], LuaScope.GetString(args[1] ) ) ).Then( (monster) =>
                 {
                     return Promise.FromResult(new object[] { monster } );
                 } );
             } );
 
-            lua.RegisterCoFunction("tilecreatenpc", (luaScope, parameters) =>
+            lua.RegisterCoFunction("tilecreatenpc", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new TileCreateNpcCommand( (Tile)parameters[0], LuaScope.GetString(parameters[1] ) ) ).Then( (npc) =>
+                return Context.Current.AddCommand(new TileCreateNpcCommand( (Tile)args[0], LuaScope.GetString(args[1] ) ) ).Then( (npc) =>
                 {
                     return Promise.FromResult(new object[] { npc } );
                 } );
             } );
 
-            lua.RegisterCoFunction("tileremovecreature", (luaScope, parameters) =>
+            lua.RegisterCoFunction("tileremovecreature", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new TileRemoveCreatureCommand ( (Tile)parameters[0], (Creature)parameters[1] ) ).Then( () =>
+                return Context.Current.AddCommand(new TileRemoveCreatureCommand ( (Tile)args[0], (Creature)args[1] ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("tileremoveitem", (luaScope, parameters) =>
+            lua.RegisterCoFunction("tileremoveitem", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new TileRemoveItemCommand ( (Tile)parameters[0], (Item)parameters[1] ) ).Then( () =>
+                return Context.Current.AddCommand(new TileRemoveItemCommand ( (Tile)args[0], (Item)args[1] ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("tilereplaceitem", (luaScope, parameters) =>
+            lua.RegisterCoFunction("tilereplaceitem", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new TileReplaceItemCommand( (Tile)parameters[0], (Item)parameters[1], (Item)parameters[2] ) ).Then( () =>
+                return Context.Current.AddCommand(new TileReplaceItemCommand( (Tile)args[0], (Item)args[1], (Item)args[2] ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
-            lua.RegisterCoFunction("mapgettownbyname", (luaScope, parameters) =>
+            lua.RegisterCoFunction("mapgettownbyname", (luaScope, args) =>
             {
-                Town town = Context.Current.Server.Map.GetTown(LuaScope.GetString(parameters[0] ) );
+                Town town = Context.Current.Server.Map.GetTown(LuaScope.GetString(args[0] ) );
 
                 return Promise.FromResult(new object[] { town } );
             } );
 
-            lua.RegisterCoFunction("mapgetwaypointbyname", (luaScope, parameters) =>
+            lua.RegisterCoFunction("mapgetwaypointbyname", (luaScope, args) =>
             {
-                Waypoint waypoint = Context.Current.Server.Map.GetWaypoint(LuaScope.GetString(parameters[0] ) );
+                Waypoint waypoint = Context.Current.Server.Map.GetWaypoint(LuaScope.GetString(args[0] ) );
 
                 return Promise.FromResult(new object[] { waypoint } );
             } );
 
-            lua.RegisterCoFunction("mapgethousebyname", (luaScope, parameters) =>
+            lua.RegisterCoFunction("mapgethousebyname", (luaScope, args) =>
             {
-                House house = Context.Current.Server.Map.GetHouse(LuaScope.GetString(parameters[0] ) );
+                House house = Context.Current.Server.Map.GetHouse(LuaScope.GetString(args[0] ) );
 
                 return Promise.FromResult(new object[] { house } );
             } );
 
-            lua.RegisterCoFunction("mapgettile", (luaScope, parameters) =>
+            lua.RegisterCoFunction("mapgettile", (luaScope, args) =>
             {
-                Tile tile = Context.Current.Server.Map.GetTile(ToPosition(parameters[0] ) );
+                Tile tile = Context.Current.Server.Map.GetTile(ToPosition(args[0] ) );
 
                 return Promise.FromResult(new object[] { tile } );
             } );
 
-            lua.RegisterCoFunction("mapgetobserversoftypeplayer", (luaScope, parameters) =>
+            lua.RegisterCoFunction("mapgetobserversoftypeplayer", (luaScope, args) =>
             {
-                Player[] players = Context.Current.Server.Map.GetObserversOfTypePlayer(ToPosition(parameters[0] ) ).ToArray();
+                Player[] players = Context.Current.Server.Map.GetObserversOfTypePlayer(ToPosition(args[0] ) ).ToArray();
 
                 return Promise.FromResult(new object[] { lua.ToTable(players) } );
             } );
 
-            lua.RegisterCoFunction("gameobjectsgetplayers", (luaScope, parameters) =>
+            lua.RegisterCoFunction("gameobjectsgetplayers", (luaScope, args) =>
             {
                 Player[] players = Context.Current.Server.GameObjects.GetPlayers().ToArray();
 
                 return Promise.FromResult(new object[] { lua.ToTable(players) } );
             } );
 
-            lua.RegisterCoFunction("gameobjectsgetplayerbyname", (luaScope, parameters) =>
+            lua.RegisterCoFunction("gameobjectsgetplayerbyname", (luaScope, args) =>
             {
-                Player player = Context.Current.Server.GameObjects.GetPlayerByName(LuaScope.GetString(parameters[0] ) );
+                Player player = Context.Current.Server.GameObjects.GetPlayerByName(LuaScope.GetString(args[0] ) );
 
                 return Promise.FromResult(new object[] { player } );
             } );

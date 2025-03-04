@@ -255,14 +255,14 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                                 if (current.TryGetCoFunction(name, out var callback) )
                                 {
-                                    List<object> values = new List<object>();
+                                    List<object> arguments = new List<object>();
 
                                     for (int i = 1; i <= (int)(long)parameters["n"]; i++)
                                     {
-                                        values.Add(parameters[i] );
+                                        arguments.Add(parameters[i] );
                                     }
 
-                                    callback(this, values.ToArray() ).Then(Next).Catch(reject);
+                                    callback(this, arguments.ToArray() ).Then(Next).Catch(reject);
 
                                     break;
                                 }
