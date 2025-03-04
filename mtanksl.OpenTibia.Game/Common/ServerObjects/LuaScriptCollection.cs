@@ -47,7 +47,77 @@ namespace OpenTibia.Game.Common.ServerObjects
             lua.RegisterFunction("getconfig", this, GetType().GetMethod(nameof(GetConfig) ) );
 
             lua.RegisterFunction("getfullpath", this, GetType().GetMethod(nameof(GetFullPath) ) );
-            
+
+            lua.RegisterCoFunction("registerplugin", (luaScope, functionParameters) =>
+            {
+                string nodeType = LuaScope.GetString(functionParameters[0] );
+
+                LuaTable parameters = (LuaTable)functionParameters[1];
+
+                if (nodeType == "actions")
+                {
+                    server.Plugins.ParseActions(null, luaScope, parameters);
+                }
+                else if (nodeType == "movements")
+                {
+                    server.Plugins.ParseMovements(null, luaScope, parameters);
+                }
+                else if (nodeType == "talkactions")
+                {
+                    server.Plugins.ParseTalkActions(null, luaScope, parameters);                        
+                }
+                else if (nodeType == "creaturescripts")
+                {
+                    server.Plugins.ParseCreatureScripts(null, luaScope, parameters);              
+                }                    
+                else if (nodeType == "globalevents")
+                {
+                    server.Plugins.ParseCreatureGlobalEvents(null, luaScope, parameters);
+                }
+                else if (nodeType == "items")
+                {
+                    server.Plugins.ParseItems(null, luaScope, parameters);
+                }
+                else if (nodeType == "monsters")
+                {
+                    server.Plugins.ParseMonsters(null, luaScope, parameters);
+                }
+                else if (nodeType == "npcs")
+                {
+                    server.Plugins.ParseNpcs(null, luaScope, parameters);
+                }
+                else if (nodeType == "players")
+                {
+                    server.Plugins.ParsePlayers(null, luaScope, parameters);
+                }
+                else if (nodeType == "spells")
+                {
+                    server.Plugins.ParseSpells(null, luaScope, parameters);
+                }
+                else if (nodeType == "runes")
+                {
+                    server.Plugins.ParseRunes(null, luaScope, parameters);
+                }
+                else if (nodeType == "weapons")
+                {
+                    server.Plugins.ParseWeapons(null, luaScope, parameters);
+                }
+                else if (nodeType == "ammunitions")
+                {
+                    server.Plugins.ParseAmmunitions(null, luaScope, parameters);
+                }
+                else if (nodeType == "raids")
+                {
+                    server.Plugins.ParseRaids(null, luaScope, parameters);
+                }
+                else if (nodeType == "monsterattacks")
+                {
+                    server.Plugins.ParseMonsterAttacks(null, luaScope, parameters);
+                }
+
+                return Promise.FromResultAsEmptyObjectArray;
+            } );
+
             lua.RegisterCoFunction("waithandle", (luaScope, parameters) =>
             {
                 var promise = new PromiseResult<object[]>();

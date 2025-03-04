@@ -1,4 +1,5 @@
-﻿using OpenTibia.Common.Objects;
+﻿using NLua;
+using OpenTibia.Common.Objects;
 using OpenTibia.Game.Plugins;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,36 @@ namespace OpenTibia.Game.Common.ServerObjects
     public interface IPluginCollection : IDisposable
     {
         void Start();
+
+        void ParseActions(string fileName, ILuaScope script, LuaTable parameters);
+
+        void ParseMovements(string fileName, ILuaScope script, LuaTable parameters);
+
+        void ParseTalkActions(string fileName, ILuaScope script, LuaTable parameters);
+
+        void ParseCreatureScripts(string fileName, ILuaScope script, LuaTable parameters);
+       
+        void ParseCreatureGlobalEvents(string fileName, ILuaScope script, LuaTable parameters);
+
+        void ParseItems(string fileName, ILuaScope script, LuaTable parameters);
+
+        void ParseMonsters(string fileName, ILuaScope script, LuaTable parameters);
+
+        void ParseNpcs(string fileName, ILuaScope script, LuaTable parameters);
+
+        void ParsePlayers(string fileName, ILuaScope script, LuaTable parameters);
+
+        void ParseSpells(string fileName, ILuaScope script, LuaTable parameters);
+
+        void ParseRunes(string fileName, ILuaScope script, LuaTable parameters);
+
+        void ParseWeapons(string fileName, ILuaScope script, LuaTable parameters);
+
+        void ParseAmmunitions(string fileName, ILuaScope script, LuaTable parameters);
+
+        void ParseRaids(string fileName, ILuaScope script, LuaTable parameters);
+
+        void ParseMonsterAttacks(string fileName, ILuaScope script, LuaTable parameters);
 
         object GetValue(string key);
 

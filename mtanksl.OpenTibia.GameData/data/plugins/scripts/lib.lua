@@ -1,8 +1,9 @@
 ﻿dofile(getfullpath("data/plugins/npcs/lib.lua"))
 
-function registeractionsplayerrotateitem(uniqueid, actionid, opentibiaid, onrotateitem)
-    registerplugin("actions", {
+function registeractionsplayerrotateitem(id, uniqueid, actionid, opentibiaid, onrotateitem)
+    command.registerplugin("actions", {
 	    type = "PlayerRotateItem",
+	    id = id, 
 	    uniqueid = uniqueid, 
 	    actionid = actionid, 
 	    opentibiaid = opentibiaid, 
@@ -10,9 +11,10 @@ function registeractionsplayerrotateitem(uniqueid, actionid, opentibiaid, onrota
     } )
 end
 
-function registeractionsplayeruseitem(uniqueid, actionid, opentibiaid, onuseitem)
-    registerplugin("actions", {
+function registeractionsplayeruseitem(id, uniqueid, actionid, opentibiaid, onuseitem)
+    command.registerplugin("actions", {
 	    type = "PlayerUseItem",
+	    id = id, 
 	    uniqueid = uniqueid, 
 	    actionid = actionid, 
 	    opentibiaid = opentibiaid, 
@@ -20,9 +22,10 @@ function registeractionsplayeruseitem(uniqueid, actionid, opentibiaid, onuseitem
     } )
 end
 
-function registeractionsplayeruseitemwithitem(uniqueid, actionid, opentibiaid, allowfaruse, onuseitemwithitem)
-    registerplugin("actions", {
+function registeractionsplayeruseitemwithitem(id, uniqueid, actionid, opentibiaid, allowfaruse, onuseitemwithitem)
+    command.registerplugin("actions", {
 	    type = "PlayerUseItemWithItem",
+	    id = id, 
 	    uniqueid = uniqueid, 
 	    actionid = actionid, 
 	    opentibiaid = opentibiaid, 
@@ -31,9 +34,10 @@ function registeractionsplayeruseitemwithitem(uniqueid, actionid, opentibiaid, a
     } )
 end
 
-function registeractionsplayeruseitemwithcreature(uniqueid, actionid, opentibiaid, allowfaruse, onuseitemwithcreature)
-    registerplugin("actions", {
+function registeractionsplayeruseitemwithcreature(id, uniqueid, actionid, opentibiaid, allowfaruse, onuseitemwithcreature)
+    command.registerplugin("actions", {
 	    type = "PlayerUseItemWithCreature",
+	    id = id, 
 	    uniqueid = uniqueid, 
 	    actionid = actionid, 
 	    opentibiaid = opentibiaid, 
@@ -42,9 +46,10 @@ function registeractionsplayeruseitemwithcreature(uniqueid, actionid, opentibiai
     } )
 end
 
-function registeractionsplayermoveitem(uniqueid, actionid, opentibiaid, onmoveitem)
-    registerplugin("actions", {
+function registeractionsplayermoveitem(id, uniqueid, actionid, opentibiaid, onmoveitem)
+    command.registerplugin("actions", {
 	    type = "PlayerMoveItem",
+	    id = id, 
 	    uniqueid = uniqueid, 
 	    actionid = actionid, 
 	    opentibiaid = opentibiaid, 
@@ -53,16 +58,17 @@ function registeractionsplayermoveitem(uniqueid, actionid, opentibiaid, onmoveit
 end
 
 function registeractionsplayermovecreature(name, onmovecreature)
-    registerplugin("actions", {
+    command.registerplugin("actions", {
 	    type = "PlayerMoveCreature",
 	    name = name,
 	    onmovecreature = onmovecreature
     } )
 end
 
-function registermovementscreaturestepin(uniqueid, actionid, opentibiaid, onsteppingin, onstepin)
-    registerplugin("movements", {
+function registermovementscreaturestepin(id, uniqueid, actionid, opentibiaid, onsteppingin, onstepin)
+    command.registerplugin("movements", {
 	    type = "CreatureStepIn",
+	    id = id, 
 	    uniqueid = uniqueid, 
 	    actionid = actionid, 
 	    opentibiaid = opentibiaid, 
@@ -71,9 +77,10 @@ function registermovementscreaturestepin(uniqueid, actionid, opentibiaid, onstep
     } )
 end
 
-function registermovementscreaturestepout(uniqueid, actionid, opentibiaid, onsteppingout, onstepout)
-    registerplugin("movements", {
+function registermovementscreaturestepout(id, uniqueid, actionid, opentibiaid, onsteppingout, onstepout)
+    command.registerplugin("movements", {
 	    type = "CreatureStepOut",
+	    id = id, 
 	    uniqueid = uniqueid, 
 	    actionid = actionid, 
 	    opentibiaid = opentibiaid, 
@@ -82,9 +89,10 @@ function registermovementscreaturestepout(uniqueid, actionid, opentibiaid, onste
     } )
 end
 
-function registermovementsinventoryequip(uniqueid, actionid, opentibiaid, onequipping, onequip)
-    registerplugin("movements", {
+function registermovementsinventoryequip(id, uniqueid, actionid, opentibiaid, onequipping, onequip)
+    command.registerplugin("movements", {
 	    type = "InventoryEquip",
+	    id = id, 
 	    uniqueid = uniqueid, 
 	    actionid = actionid, 
 	    opentibiaid = opentibiaid, 
@@ -93,9 +101,10 @@ function registermovementsinventoryequip(uniqueid, actionid, opentibiaid, onequi
     } )
 end
 
-function registermovementsinventorydeequip(uniqueid, actionid, opentibiaid, ondeequipping, ondeequip)
-    registerplugin("movements", {
+function registermovementsinventorydeequip(id, uniqueid, actionid, opentibiaid, ondeequipping, ondeequip)
+    command.registerplugin("movements", {
 	    type = "InventoryDeEquip",
+	    id = id, 
 	    uniqueid = uniqueid, 
 	    actionid = actionid, 
 	    opentibiaid = opentibiaid, 
@@ -105,7 +114,7 @@ function registermovementsinventorydeequip(uniqueid, actionid, opentibiaid, onde
 end
 
 function registertalkactionsplayersay(message, onsay)
-    registerplugin("talkactions", {
+    command.registerplugin("talkactions", {
 	    type = "PlayerSay",
 	    message = message,
 	    onsay = onsay
@@ -113,84 +122,84 @@ function registertalkactionsplayersay(message, onsay)
 end
 
 function registercreaturescriptsplayerlogin(onlogin)
-    registerplugin("creaturescripts", {
+    command.registerplugin("creaturescripts", {
 	    type = "PlayerLogin",
 	    onlogin = onlogin
     } )
 end
 
 function registercreaturescriptsplayerlogout(onlogout)
-    registerplugin("creaturescripts", {
+    command.registerplugin("creaturescripts", {
 	    type = "PlayerLogout",
 	    onlogout = onlogout
     } )
 end
 
 function registercreaturescriptsplayeradvancelevel(onadvancelevel)
-    registerplugin("creaturescripts", {
+    command.registerplugin("creaturescripts", {
 	    type = "PlayerAdvanceLevel",
 	    onadvancelevel = onadvancelevel
     } )
 end
 
 function registercreaturescriptsplayeradvanceskill(onadvanceskill)
-    registerplugin("creaturescripts", {
+    command.registerplugin("creaturescripts", {
 	    type = "PlayerAdvanceSkill",
 	    onadvanceskill = onadvanceskill
     } )
 end
 
 function registercreaturescriptscreaturedeath(ondeath)
-    registerplugin("creaturescripts", {
+    command.registerplugin("creaturescripts", {
 	    type = "CreatureDeath",
 	    ondeath = ondeath
     } )
 end
 
 function registercreaturescriptscreaturekill(onkill)
-    registerplugin("creaturescripts", {
+    command.registerplugin("creaturescripts", {
 	    type = "CreatureKill",
 	    onkill = onkill
     } )
 end
 
 function registercreaturescriptsplayerearnachievement(onearnachievement)
-    registerplugin("creaturescripts", {
+    command.registerplugin("creaturescripts", {
 	    type = "PlayerEarnAchievement",
 	    onearnachievement = onearnachievement
     } )
 end
 
 function registerglobaleventsserverstartup(onstartup)
-    registerplugin("globalevents", {
+    command.registerplugin("globalevents", {
 	    type = "ServerStartup",
 	    onstartup = onstartup
     } )
 end
 
 function registerglobaleventsservershutdown(onshutdown)
-    registerplugin("globalevents", {
+    command.registerplugin("globalevents", {
 	    type = "ServerShutdown",
 	    onshutdown = onshutdown
     } )
 end
 
 function registerglobaleventsserversave(onsave)
-    registerplugin("globalevents", {
+    command.registerplugin("globalevents", {
 	    type = "ServerSave",
 	    onsave = onsave
     } )
 end
 
 function registerglobaleventsserverrecord(onrecord)
-    registerplugin("globalevents", {
+    command.registerplugin("globalevents", {
 	    type = "ServerRecord",
 	    onrecord = onrecord
     } )
 end
 
 function registernpcsdialogue(name, handler)
-    registerplugin("npcs", { 
+    command.registerplugin("npcs", { 
         type = "Dialogue", 
         name = name,
         shouldgreet = function(npc, player, message) return handler:shouldgreet(npc, player, message) end,
@@ -209,7 +218,7 @@ function registernpcsdialogue(name, handler)
 end
 
 function registeritemsitemcreation(opentibiaid, onstart, onstop)
-	registerplugin("items", {
+	command.registerplugin("items", {
 		type = "ItemCreation",
 		opentibiaid = opentibiaid,
 		onstart = onstart,
@@ -218,7 +227,7 @@ function registeritemsitemcreation(opentibiaid, onstart, onstop)
 end
 
 function registermonstersmonstercreation(name, onstart, onstop)
-	registerplugin("monsters", {
+	command.registerplugin("monsters", {
 		type = "MonsterCreation",
 		name = name,
 		onstart = onstart,
@@ -227,7 +236,7 @@ function registermonstersmonstercreation(name, onstart, onstop)
 end
 
 function registernpcsnpccreation(name, onstart, onstop)
-	registerplugin("npcs", {
+	command.registerplugin("npcs", {
 		type = "NpcCreation",
 		name = name,
 		onstart = onstart,
@@ -236,7 +245,7 @@ function registernpcsnpccreation(name, onstart, onstop)
 end
 
 function registerplayersplayercreation(name, onstart, onstop)
-	registerplugin("players", {
+	command.registerplugin("players", {
 		type = "PlayerCreation",
 		name = name,
 		onstart = onstart,
@@ -245,7 +254,7 @@ function registerplayersplayercreation(name, onstart, onstop)
 end
 
 function registerspell(words, name, group, cooldown, groupcooldown, level, mana, soul, premium, vocations, requirestarget, oncasting, oncast)
-    registerplugin("spells", {
+    command.registerplugin("spells", {
         words = words, 
         name = name, 
         group = group, 
@@ -263,7 +272,7 @@ function registerspell(words, name, group, cooldown, groupcooldown, level, mana,
 end
 
 function registerrune(opentibiaid, name, group, groupcooldown, level, magiclevel, vocations, requirestarget, onusingrune, onuserune)
-    registerplugin("runes", {
+    command.registerplugin("runes", {
         opentibiaid = opentibiaid, 
         name = name, 
         group = group, 
@@ -278,7 +287,7 @@ function registerrune(opentibiaid, name, group, groupcooldown, level, magiclevel
 end
 
 function registerweapon(opentibiaid, level, mana, vocations, onusingweapon, onuseweapon)
-    registerplugin("weapons", {
+    command.registerplugin("weapons", {
         opentibiaid = opentibiaid,
         level = level,
         mana = mana,
@@ -289,7 +298,7 @@ function registerweapon(opentibiaid, level, mana, vocations, onusingweapon, onus
 end
 
 function registerammunition(opentibiaid, level, onusingammunition, onuseammunition)
-    registerplugin("ammunitions", {
+    command.registerplugin("ammunitions", {
         opentibiaid = opentibiaid,
         level = level,
         onusingammunition = onusingammunition,
@@ -298,7 +307,7 @@ function registerammunition(opentibiaid, level, onusingammunition, onuseammuniti
 end
 
 function registerraid(name, repeatable, interval, chance, enabled, onraid)
-    registerplugin("raids", {
+    command.registerplugin("raids", {
         name = name,
         repeatable = repeatable,
         interval = interval,
@@ -309,7 +318,7 @@ function registerraid(name, repeatable, interval, chance, enabled, onraid)
 end
 
 function registermonsterattack(name, onattacking, onattack)
-    registerplugin("monsterattacks", {
+    command.registerplugin("monsterattacks", {
         name = name,
         onattacking = onattacking,
         onattack = onattack

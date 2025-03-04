@@ -34,46 +34,39 @@ return {
 		args = "(string relativePath)",
 		returns = "string"
 	},
-	-- void registerplugin(string type, LuaTable parameters)
-	registerplugin = {
-		type = "function",
-		description = "",
-		args = "(string type, LuaTable parameters)",
-		returns = "void"
-	},
-	-- void registeractionsplayerrotateitem(ushort? uniqueid, ushort? actionid, ushort? opentibiaid, Func<Player, Item, bool> onrotateitem)
+	-- void registeractionsplayerrotateitem(uint? id, ushort? uniqueid, ushort? actionid, ushort? opentibiaid, Func<Player, Item, bool> onrotateitem)
 	registeractionsplayerrotateitem = {
 		type = "function",
 		description = "",
-		args = "(ushort? uniqueid, ushort? actionid, ushort? opentibiaid, Func<Player, Item, bool> onrotateitem)",
+		args = "(uint? id, ushort? uniqueid, ushort? actionid, ushort? opentibiaid, Func<Player, Item, bool> onrotateitem)",
 		returns = "void"
 	},
-	-- void registeractionsplayeruseitem(ushort? uniqueid, ushort? actionid, ushort? opentibiaid, Func<Player, Item, bool> onuseitem)
+	-- void registeractionsplayeruseitem(uint? id, ushort? uniqueid, ushort? actionid, ushort? opentibiaid, Func<Player, Item, bool> onuseitem)
 	registeractionsplayeruseitem = {
 		type = "function",
 		description = "",
-		args = "(ushort? uniqueid, ushort? actionid, ushort? opentibiaid, Func<Player, Item, bool> onuseitem)",
+		args = "(uint? id, ushort? uniqueid, ushort? actionid, ushort? opentibiaid, Func<Player, Item, bool> onuseitem)",
 		returns = "void"
 	},
-	-- void registeractionsplayeruseitemwithitem(ushort? uniqueid, ushort? actionid, ushort? opentibiaid, allowfaruse, Func<Player, Item, Item, bool> onuseitemwithitem)
+	-- void registeractionsplayeruseitemwithitem(uint? id, ushort? uniqueid, ushort? actionid, ushort? opentibiaid, allowfaruse, Func<Player, Item, Item, bool> onuseitemwithitem)
 	registeractionsplayeruseitemwithitem = {
 		type = "function",
 		description = "",
-		args = "(ushort? uniqueid, ushort? actionid, ushort? opentibiaid, allowfaruse, Func<Player, Item, Item, bool> onuseitemwithitem)",
+		args = "(uint? id, ushort? uniqueid, ushort? actionid, ushort? opentibiaid, allowfaruse, Func<Player, Item, Item, bool> onuseitemwithitem)",
 		returns = "void"
 	},
-	-- void registeractionsplayeruseitemwithcreature(ushort? uniqueid, ushort? actionid, ushort? opentibiaid, allowfaruse, Func<Player, Item, Creature, bool> onuseitemwithcreature)
+	-- void registeractionsplayeruseitemwithcreature(uint? id, ushort? uniqueid, ushort? actionid, ushort? opentibiaid, allowfaruse, Func<Player, Item, Creature, bool> onuseitemwithcreature)
 	registeractionsplayeruseitemwithcreature = {
 		type = "function",
 		description = "",
-		args = "(ushort? uniqueid, ushort? actionid, ushort? opentibiaid, allowfaruse, Func<Player, Item, Creature, bool> onuseitemwithcreature)",
+		args = "(uint? id, ushort? uniqueid, ushort? actionid, ushort? opentibiaid, allowfaruse, Func<Player, Item, Creature, bool> onuseitemwithcreature)",
 		returns = "void"
 	},
-	-- void registeractionsplayermoveitem(ushort? uniqueid, ushort? actionid, ushort? opentibiaid, Func<Player, Item, IContainer, byte, byte, bool> onmoveitem)
+	-- void registeractionsplayermoveitem(uint? id, ushort? uniqueid, ushort? actionid, ushort? opentibiaid, Func<Player, Item, IContainer, byte, byte, bool> onmoveitem)
 	registeractionsplayermoveitem = {
 		type = "function",
 		description = "",
-		args = "(ushort? uniqueid, ushort? actionid, ushort? opentibiaid, Func<Player, Item, IContainer, byte, byte, bool> onmoveitem)",
+		args = "(uint? id, ushort? uniqueid, ushort? actionid, ushort? opentibiaid, Func<Player, Item, IContainer, byte, byte, bool> onmoveitem)",
 		returns = "void"
 	},
 	-- void registeractionsplayermovecreature(string name, Func<Player, Creature, Tile, bool> onmovecreature)
@@ -83,32 +76,32 @@ return {
 		args = "(string name, Func<Player, Creature, Tile, bool> onmovecreature)",
 		returns = "void"
 	},
-	-- void registermovementscreaturestepin(ushort? uniqueid, ushort? actionid, ushort? opentibiaid, Func<Creature, Tile, bool> onsteppingin, Action<Creature, Tile, Tile> onstepin)
+	-- void registermovementscreaturestepin(uint? id, ushort? uniqueid, ushort? actionid, ushort? opentibiaid, Func<Creature, Tile, bool> onsteppingin, Action<Creature, Tile, Tile> onstepin)
 	registermovementscreaturestepin = {
 		type = "function",
 		description = "",
-		args = "(ushort? uniqueid, ushort? actionid, ushort? opentibiaid, Func<Creature, Tile, bool> onsteppingin, Action<Creature, Tile, Tile> onstepin)",
+		args = "(uint? id, ushort? uniqueid, ushort? actionid, ushort? opentibiaid, Func<Creature, Tile, bool> onsteppingin, Action<Creature, Tile, Tile> onstepin)",
 		returns = "void"
 	},
-	-- void registermovementscreaturestepout(ushort? uniqueid, ushort? actionid, ushort? opentibiaid, Func<Creature, Tile, bool> onsteppingout, Action<Creature, Tile, Tile> onstepout)
+	-- void registermovementscreaturestepout(uint? id, ushort? uniqueid, ushort? actionid, ushort? opentibiaid, Func<Creature, Tile, bool> onsteppingout, Action<Creature, Tile, Tile> onstepout)
 	registermovementscreaturestepout = {
 		type = "function",
 		description = "",
-		args = "(ushort? uniqueid, ushort? actionid, ushort? opentibiaid, Func<Creature, Tile, bool> onsteppingout, Action<Creature, Tile, Tile> onstepout)",
+		args = "(uint? id, ushort? uniqueid, ushort? actionid, ushort? opentibiaid, Func<Creature, Tile, bool> onsteppingout, Action<Creature, Tile, Tile> onstepout)",
 		returns = "void"
 	},
-	-- void registermovementsinventoryequip(ushort? uniqueid, ushort? actionid, ushort? opentibiaid, Func<Inventory, Item, byte, bool> onequipping, Action<Inventory, Item, byte> onequip)
+	-- void registermovementsinventoryequip(uint? id, ushort? uniqueid, ushort? actionid, ushort? opentibiaid, Func<Inventory, Item, byte, bool> onequipping, Action<Inventory, Item, byte> onequip)
 	registermovementsinventoryequip = {
 		type = "function",
 		description = "",
-		args = "(ushort? uniqueid, ushort? actionid, ushort? opentibiaid, Func<Inventory, Item, byte, bool> onequipping, Action<Inventory, Item, byte> onequip)",
+		args = "(uint? id, ushort? uniqueid, ushort? actionid, ushort? opentibiaid, Func<Inventory, Item, byte, bool> onequipping, Action<Inventory, Item, byte> onequip)",
 		returns = "void"
 	},
-	-- void registermovementsinventorydeequip(ushort? uniqueid, ushort? actionid, ushort? opentibiaid, Func<Inventory, Item, byte, bool> ondeequipping, Action<Inventory, Item, byte> ondeequip)
+	-- void registermovementsinventorydeequip(uint? id, ushort? uniqueid, ushort? actionid, ushort? opentibiaid, Func<Inventory, Item, byte, bool> ondeequipping, Action<Inventory, Item, byte> ondeequip)
 	registermovementsinventorydeequip = {
 		type = "function",
 		description = "",
-		args = "(ushort? uniqueid, ushort? actionid, ushort? opentibiaid, Func<Inventory, Item, byte, bool> ondeequipping, Action<Inventory, Item, byte> ondeequip)",
+		args = "(uint? id, ushort? uniqueid, ushort? actionid, ushort? opentibiaid, Func<Inventory, Item, byte, bool> ondeequipping, Action<Inventory, Item, byte> ondeequip)",
 		returns = "void"
 	},
 	-- void registertalkactionsplayersay(string message, Func<Player, string, bool> onsay)
@@ -289,6 +282,13 @@ return {
 		type = "lib",
 		description = "",
 		childs = {			
+			-- void command.registerplugin(string nodeType, LuaTable parameters)
+			registerplugin = {
+				type = "function",
+				description = "",
+				args = "(string nodeType, LuaTable parameters)",
+				returns = "void"
+			},
 			-- PromiseResult<object[]> command.waithandle()
 			waithandle = {
 				type = "function",

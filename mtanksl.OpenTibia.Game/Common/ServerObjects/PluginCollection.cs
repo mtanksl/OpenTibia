@@ -14,37 +14,39 @@ namespace OpenTibia.Game.Common.ServerObjects
         private class PluginListCached<TValue, TLuaImplementation> where TValue : Plugin
                                                                    where TLuaImplementation : TValue
         {
-            private PluginCollection pluginCollection;
+            private IServer server;
 
-            public PluginListCached(PluginCollection pluginCollection)
+            public PluginListCached(IServer server)
             {
-                this.pluginCollection = pluginCollection;
+                this.server = server;
             }
 
             private List<TValue> plugins = new List<TValue>();
 
-            public void AddPlugin(TValue plugin)
+            private void AddPlugin(TValue plugin)
             {
                 plugin.Start();
 
                 plugins.Add(plugin);
             }
 
-            public void AddPlugin(string fileName, LuaTable parameters, params object[] args)
+            public void AddPlugin(string fileName, ILuaScope script, LuaTable parameters, params object[] args)
             {
-                if (fileName.EndsWith(".lua") )
+                if (fileName != null)
                 {
-                    AddPlugin( (TValue)Activator.CreateInstance(typeof(TLuaImplementation), [ fileName, parameters, ..args ] ) );
+                    if (fileName.EndsWith(".lua") )
+                    {
+                        AddPlugin( (TValue)Activator.CreateInstance(typeof(TLuaImplementation), [ fileName, parameters, ..args ] ) );
+                    }
+                    else
+                    {
+                        AddPlugin( (TValue)Activator.CreateInstance(server.PluginLoader.GetType(fileName), [ ..args ] ) );
+                    }
                 }
                 else
                 {
-                    AddPlugin( (TValue)Activator.CreateInstance(pluginCollection.server.PluginLoader.GetType(fileName), [ ..args ] ) );
+                    AddPlugin( (TValue)Activator.CreateInstance(typeof(TLuaImplementation), [ script, parameters, ..args ] ) );
                 }
-            }
-
-            public void AddPlugin(ILuaScope script, LuaTable parameters, params object[] args)
-            {                   
-                AddPlugin( (TValue)Activator.CreateInstance(typeof(TLuaImplementation), [ script, parameters, ..args ] ) );
             }
 
             public IEnumerable<TValue> GetPlugins()
@@ -56,37 +58,39 @@ namespace OpenTibia.Game.Common.ServerObjects
         private class PluginDictionaryCached<TKey, TValue, TLuaImplementation> where TValue : Plugin
                                                                                where TLuaImplementation : TValue
         {
-            private PluginCollection pluginCollection;
+            private IServer server;
 
-            public PluginDictionaryCached(PluginCollection pluginCollection)
+            public PluginDictionaryCached(IServer server)
             {
-                this.pluginCollection = pluginCollection;
+                this.server = server;
             }
 
             private Dictionary<TKey, TValue> plugins = new Dictionary<TKey, TValue>();
 
-            public void AddPlugin(TKey key, TValue plugin)
+            private void AddPlugin(TKey key, TValue plugin)
             {
                 plugin.Start();
 
                 plugins.Add(key, plugin);
             }
 
-            public void AddPlugin(TKey key, string fileName, LuaTable parameters, params object[] args)
+            public void AddPlugin(TKey key, string fileName, ILuaScope script, LuaTable parameters, params object[] args)
             {
-                if (fileName.EndsWith(".lua") )
+                if (fileName != null)
                 {
-                    AddPlugin(key, (TValue)Activator.CreateInstance(typeof(TLuaImplementation), [ fileName, parameters, ..args ] ) );
+                    if (fileName.EndsWith(".lua") )
+                    {
+                        AddPlugin(key, (TValue)Activator.CreateInstance(typeof(TLuaImplementation), [ fileName, parameters, ..args ] ) );
+                    }
+                    else
+                    {
+                        AddPlugin(key, (TValue)Activator.CreateInstance(server.PluginLoader.GetType(fileName), [ ..args ] ) );
+                    }
                 }
                 else
                 {
-                    AddPlugin(key, (TValue)Activator.CreateInstance(pluginCollection.server.PluginLoader.GetType(fileName), [ ..args ] ) );
+                    AddPlugin(key, (TValue)Activator.CreateInstance(typeof(TLuaImplementation), [ script, parameters, ..args ] ) );
                 }
-            }
-
-            public void AddPlugin(TKey key, ILuaScope script, LuaTable parameters, params object[] args)
-            {                   
-                AddPlugin(key, (TValue)Activator.CreateInstance(typeof(TLuaImplementation), [ script, parameters, ..args ] ) );
             }
 
             public TValue GetPlugin(TKey key)
@@ -107,37 +111,39 @@ namespace OpenTibia.Game.Common.ServerObjects
         private class PluginDictionary<TKey, TValue, TLuaImplementation> where TValue : Plugin
                                                                          where TLuaImplementation : TValue
         {
-            private PluginCollection pluginCollection;
+            private IServer server;
 
-            public PluginDictionary(PluginCollection pluginCollection)
+            public PluginDictionary(IServer server)
             {
-                this.pluginCollection = pluginCollection;
+                this.server = server;
             }
 
             private Dictionary<TKey, Func<TValue>> factories = new Dictionary<TKey, Func<TValue>>();
 
             private List<TValue> plugins = new List<TValue>();
 
-            public void AddPlugin(TKey key, Func<TValue> factory)
+            private void AddPlugin(TKey key, Func<TValue> factory)
             {
                 factories.Add(key, factory);
             }
 
-            public void AddPlugin(TKey key, string fileName, LuaTable parameters, params object[] args)
+            public void AddPlugin(TKey key, string fileName, ILuaScope script, LuaTable parameters, params object[] args)
             {
-                if (fileName.EndsWith(".lua") )
+                if (fileName != null)
                 {
-                    AddPlugin(key, () => (TValue)Activator.CreateInstance(typeof(TLuaImplementation), [ fileName, parameters, ..args ] ) );
+                    if (fileName.EndsWith(".lua") )
+                    {
+                        AddPlugin(key, () => (TValue)Activator.CreateInstance(typeof(TLuaImplementation), [ fileName, parameters, ..args ] ) );
+                    }
+                    else
+                    {
+                        AddPlugin(key, () => (TValue)Activator.CreateInstance(server.PluginLoader.GetType(fileName), [ ..args ] ) );
+                    }
                 }
                 else
                 {
-                    AddPlugin(key, () => (TValue)Activator.CreateInstance(pluginCollection.server.PluginLoader.GetType(fileName), [ ..args ] ) );
+                    AddPlugin(key, () => (TValue)Activator.CreateInstance(typeof(TLuaImplementation), [ script, parameters, ..args ] ) );
                 }
-            }
-
-            public void AddPlugin(TKey key, ILuaScope script, LuaTable parameters, params object[] args)
-            {                   
-                AddPlugin(key, () => (TValue)Activator.CreateInstance(typeof(TLuaImplementation), [ script, parameters, ..args ] ) );
             }
 
             public TValue GetPlugin(TKey key)
@@ -167,146 +173,66 @@ namespace OpenTibia.Game.Common.ServerObjects
         private class ItemPluginDictionaryCached<TValue, TLuaImplementation> where TValue : Plugin
                                                                              where TLuaImplementation : TValue
         {
-            private PluginCollection pluginCollection;
+            private IServer server;
 
-            public ItemPluginDictionaryCached(PluginCollection pluginCollection)
+            public ItemPluginDictionaryCached(IServer server)
             {
-                this.pluginCollection = pluginCollection;
+                this.server = server;
             }
 
-            private PluginDictionaryCached<Item, TValue, TLuaImplementation> items;
-
-            public void ItemAddPlugin(Item item, TValue plugin)
-            {
-                if (items == null)
-                {
-                    items = new PluginDictionaryCached<Item, TValue, TLuaImplementation>(pluginCollection);
-                }
-
-                items.AddPlugin(item, plugin);
-            }
-
-            public void ItemAddPlugin(Item item, string fileName, LuaTable parameters, params object[] args)
-            {
-                if (items == null)
-                {
-                    items = new PluginDictionaryCached<Item, TValue, TLuaImplementation>(pluginCollection);
-                }
-
-                items.AddPlugin(item, fileName, parameters, args);
-            }
-
-            public void ItemAddPlugin(Item item, ILuaScope script, LuaTable parameters, params object[] args)
-            {
-                if (items == null)
-                {
-                    items = new PluginDictionaryCached<Item, TValue, TLuaImplementation>(pluginCollection);
-                }
-
-                items.AddPlugin(item, script, parameters, args);
-            }
+            private PluginDictionaryCached<uint, TValue, TLuaImplementation> gameObjects;
 
             private PluginDictionaryCached<ushort, TValue, TLuaImplementation> uniqueIds;
 
-            public void UniqueIdAddPlugin(ushort uniqueId, TValue plugin)
-            {
-                if (uniqueIds == null)
-                {
-                    uniqueIds = new PluginDictionaryCached<ushort, TValue, TLuaImplementation>(pluginCollection);
-                }
-
-                uniqueIds.AddPlugin(uniqueId, plugin);
-            }
-
-            public void UniqueIdAddPlugin(ushort uniqueId, string fileName, LuaTable parameters, params object[] args)
-            {
-                if (uniqueIds == null)
-                {
-                    uniqueIds = new PluginDictionaryCached<ushort, TValue, TLuaImplementation>(pluginCollection);
-                }
-
-                uniqueIds.AddPlugin(uniqueId, fileName, parameters, args);
-            }
-
-            public void UniqueIdAddPlugin(ushort uniqueId, ILuaScope script, LuaTable parameters, params object[] args)
-            {
-                if (uniqueIds == null)
-                {
-                    uniqueIds = new PluginDictionaryCached<ushort, TValue, TLuaImplementation>(pluginCollection);
-                }
-
-                uniqueIds.AddPlugin(uniqueId, script, parameters, args);
-            }
-
             private PluginDictionaryCached<ushort, TValue, TLuaImplementation> actionIds;
-
-            public void ActionIdAddPlugin(ushort actionId, TValue plugin)
-            {
-                if (actionIds == null)
-                {
-                    actionIds = new PluginDictionaryCached<ushort, TValue, TLuaImplementation>(pluginCollection);
-                }
-
-                actionIds.AddPlugin(actionId, plugin);
-            }
-
-            public void ActionIdAddPlugin(ushort actionId, string fileName, LuaTable parameters, params object[] args)
-            {
-                if (actionIds == null)
-                {
-                    actionIds = new PluginDictionaryCached<ushort, TValue, TLuaImplementation>(pluginCollection);
-                }
-
-                actionIds.AddPlugin(actionId, fileName, parameters, args);
-            }
-
-            public void ActionIdAddPlugin(ushort actionId, ILuaScope script, LuaTable parameters, params object[] args)
-            {
-                if (actionIds == null)
-                {
-                    actionIds = new PluginDictionaryCached<ushort, TValue, TLuaImplementation>(pluginCollection);
-                }
-
-                actionIds.AddPlugin(actionId, script, parameters, args);
-            }
 
             private PluginDictionaryCached<ushort, TValue, TLuaImplementation> openTibiaIds;
 
-            public void OpenTibiaIdAddPlugin(ushort openTibiaId, TValue plugin)
+            public void AddPlugin(uint? id, ushort? uniqueId, ushort? actionId, ushort? openTibiaId, string fileName, ILuaScope script, LuaTable parameters, params object[] args)
             {
-                if (openTibiaIds == null)
+                if (id != null)
                 {
-                    openTibiaIds = new PluginDictionaryCached<ushort, TValue, TLuaImplementation>(pluginCollection);
+                    if (gameObjects == null)
+                    {
+                        gameObjects = new PluginDictionaryCached<uint, TValue, TLuaImplementation>(server);
+                    }
+
+                    gameObjects.AddPlugin(id.Value, fileName, script, parameters, args);
                 }
-
-                openTibiaIds.AddPlugin(openTibiaId, plugin);
-            }
-
-            public void OpenTibiaIdAddPlugin(ushort openTibiaId, string fileName, LuaTable parameters, params object[] args)
-            {
-                if (openTibiaIds == null)
+                else if (uniqueId != null)
                 {
-                    openTibiaIds = new PluginDictionaryCached<ushort, TValue, TLuaImplementation>(pluginCollection);
+                    if (uniqueIds == null)
+                    {
+                        uniqueIds = new PluginDictionaryCached<ushort, TValue, TLuaImplementation>(server);
+                    }
+
+                    uniqueIds.AddPlugin(uniqueId.Value, fileName, script, parameters, args);
                 }
-
-                openTibiaIds.AddPlugin(openTibiaId, fileName, parameters, args);
-            }
-
-            public void OpenTibiaIdAddPlugin(ushort openTibiaId, ILuaScope script, LuaTable parameters, params object[] args)
-            {
-                if (openTibiaIds == null)
+                else if (actionId != null)
                 {
-                    openTibiaIds = new PluginDictionaryCached<ushort, TValue, TLuaImplementation>(pluginCollection);
-                }
+                    if (actionIds == null)
+                    {
+                        actionIds = new PluginDictionaryCached<ushort, TValue, TLuaImplementation>(server);
+                    }
 
-                openTibiaIds.AddPlugin(openTibiaId, script, parameters, args);
+                    actionIds.AddPlugin(actionId.Value, fileName, script, parameters, args);
+                }
+                else if (openTibiaId != null)
+                {
+                    if (openTibiaIds == null)
+                    {
+                        openTibiaIds = new PluginDictionaryCached<ushort, TValue, TLuaImplementation>(server);
+                    }
+
+                    openTibiaIds.AddPlugin(openTibiaId.Value, fileName, script, parameters, args);
+                }
             }
 
             public TValue GetPlugin(Item item)
             {
-                if (items != null)
+                if (gameObjects != null)
                 {
-                    TValue plugin = items.GetPlugin(item);
+                    TValue plugin = gameObjects.GetPlugin(item.Id);
 
                     if (plugin != null)
                     {
@@ -349,9 +275,9 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             public IEnumerable<TValue> GetPlugins()
             {
-                if (items != null)
+                if (gameObjects != null)
                 {
-                    foreach (var plugin in items.GetPlugins() )
+                    foreach (var plugin in gameObjects.GetPlugins() )
                     {
                         yield return plugin;
                     }
@@ -394,591 +320,78 @@ namespace OpenTibia.Game.Common.ServerObjects
                     pluginCollection.server.PathResolver.GetFullPath("data/plugins/lib.lua"),
                     pluginCollection.server.PathResolver.GetFullPath("data/lib.lua") );
                 
-                var initializations = new List<(string Type, LuaTable Parameters)>();
+                var initializations = new List<(string NodeType, LuaTable Parameters)>();
 
-                scripts["registerplugin"] = (string type, LuaTable parameters) =>
+                scripts["command.registerplugin"] = (string type, LuaTable parameters) =>
                 {
                     initializations.Add( (type, parameters) );
                 };
 
                 script = pluginCollection.server.LuaScripts.LoadScript(pluginCollection.server.PathResolver.GetFullPath(filePath), scripts);
 
-                scripts["registerplugin"] = null;
+                scripts["command.registerplugin"] = null;
 
                 foreach (var initialization in initializations)
                 {
-                    if (initialization.Type == "actions")
+                    if (initialization.NodeType == "actions")
                     {
-                        string type = LuaScope.GetString(initialization.Parameters["type"] );
-
-                        switch (type)
-                        {
-                            case "PlayerRotateItem":
-                            {
-                                if (initialization.Parameters["uniqueid"] != null)
-                                {
-                                    ushort uniqueid = LuaScope.GetUInt16(initialization.Parameters["uniqueid"] );
-
-                                    pluginCollection.playerRotateItemPlugins.UniqueIdAddPlugin(uniqueid, script, initialization.Parameters);
-                                }
-                                else if (initialization.Parameters["actionid"] != null)
-                                {
-                                    ushort actionid = LuaScope.GetUInt16(initialization.Parameters["actionid"] );
-
-                                    pluginCollection.playerRotateItemPlugins.ActionIdAddPlugin(actionid, script, initialization.Parameters);
-                                }
-                                else if (initialization.Parameters["opentibiaid"] != null)
-                                {
-                                    ushort opentibiaid = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] );
-
-                                    pluginCollection.playerRotateItemPlugins.OpenTibiaIdAddPlugin(opentibiaid, script, initialization.Parameters);
-                                }
-                            }
-                            break;
-
-                            case "PlayerUseItem":
-                            {
-                                if (initialization.Parameters["uniqueid"] != null)
-                                {
-                                    ushort uniqueid = LuaScope.GetUInt16(initialization.Parameters["uniqueid"] );
-
-                                    pluginCollection.playerUseItemPlugins.UniqueIdAddPlugin(uniqueid, script, initialization.Parameters);
-                                }
-                                else if (initialization.Parameters["actionid"] != null)
-                                {
-                                    ushort actionid = LuaScope.GetUInt16(initialization.Parameters["actionid"] );
-
-                                    pluginCollection.playerUseItemPlugins.ActionIdAddPlugin(actionid, script, initialization.Parameters);
-                                }
-                                else if (initialization.Parameters["opentibiaid"] != null)
-                                {
-                                    ushort opentibiaid = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] );
-
-                                    pluginCollection.playerUseItemPlugins.OpenTibiaIdAddPlugin(opentibiaid, script, initialization.Parameters);
-                                }
-                            }
-                            break;
-
-                            case "PlayerUseItemWithItem":
-                            {
-                                bool allowFarUse = LuaScope.GetBoolean(initialization.Parameters["allowfaruse"] );
-
-                                if (allowFarUse)
-                                {
-                                    if (initialization.Parameters["uniqueid"] != null)
-                                    {
-                                        ushort uniqueid = LuaScope.GetUInt16(initialization.Parameters["uniqueid"] );
-
-                                        pluginCollection.playerUseItemWithItemPluginsAllowFarUse.UniqueIdAddPlugin(uniqueid, script, initialization.Parameters);
-                                    }
-                                    else if (initialization.Parameters["actionid"] != null)
-                                    {
-                                        ushort actionid = LuaScope.GetUInt16(initialization.Parameters["actionid"] );
-
-                                        pluginCollection.playerUseItemWithItemPluginsAllowFarUse.ActionIdAddPlugin(actionid, script, initialization.Parameters);
-                                    }
-                                    else if (initialization.Parameters["opentibiaid"] != null)
-                                    {
-                                        ushort opentibiaid = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] );
-
-                                        pluginCollection.playerUseItemWithItemPluginsAllowFarUse.OpenTibiaIdAddPlugin(opentibiaid, script, initialization.Parameters);
-                                    }               
-                                }
-                                else
-                                {
-                                    if (initialization.Parameters["uniqueid"] != null)
-                                    {
-                                        ushort uniqueid = LuaScope.GetUInt16(initialization.Parameters["uniqueid"] );
-
-                                        pluginCollection.playerUseItemWithItemPlugins.UniqueIdAddPlugin(uniqueid, script, initialization.Parameters);
-                                    }
-                                    else if (initialization.Parameters["actionid"] != null)
-                                    {
-                                        ushort actionid = LuaScope.GetUInt16(initialization.Parameters["actionid"] );
-
-                                        pluginCollection.playerUseItemWithItemPlugins.ActionIdAddPlugin(actionid, script, initialization.Parameters);
-                                    }
-                                    else if (initialization.Parameters["opentibiaid"] != null)
-                                    {
-                                        ushort opentibiaid = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] );
-
-                                        pluginCollection.playerUseItemWithItemPlugins.OpenTibiaIdAddPlugin(opentibiaid, script, initialization.Parameters);
-                                    }               
-                                }
-                            }
-                            break;
-
-                            case "PlayerUseItemWithCreature":
-                            {
-                                bool allowFarUse = LuaScope.GetBoolean(initialization.Parameters["allowfaruse"] );
-
-                                if (allowFarUse)
-                                {
-                                    if (initialization.Parameters["uniqueid"] != null)
-                                    {
-                                        ushort uniqueid = LuaScope.GetUInt16(initialization.Parameters["uniqueid"] );
-
-                                        pluginCollection.playerUseItemWithCreaturePluginsAllowFarUse.UniqueIdAddPlugin(uniqueid, script, initialization.Parameters);
-                                    }
-                                    else if (initialization.Parameters["actionid"] != null)
-                                    {
-                                        ushort actionid = LuaScope.GetUInt16(initialization.Parameters["actionid"] );
-
-                                        pluginCollection.playerUseItemWithCreaturePluginsAllowFarUse.ActionIdAddPlugin(actionid, script, initialization.Parameters);
-                                    }
-                                    else if (initialization.Parameters["opentibiaid"] != null)
-                                    {
-                                        ushort opentibiaid = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] );
-
-                                        pluginCollection.playerUseItemWithCreaturePluginsAllowFarUse.OpenTibiaIdAddPlugin(opentibiaid, script, initialization.Parameters);
-                                    }
-                                }
-                                else
-                                {
-                                    if (initialization.Parameters["uniqueid"] != null)
-                                    {
-                                        ushort uniqueid = LuaScope.GetUInt16(initialization.Parameters["uniqueid"] );
-
-                                        pluginCollection.playerUseItemWithCreaturePlugins.UniqueIdAddPlugin(uniqueid, script, initialization.Parameters);
-                                    }
-                                    else if (initialization.Parameters["actionid"] != null)
-                                    {
-                                        ushort actionid = LuaScope.GetUInt16(initialization.Parameters["actionid"] );
-
-                                        pluginCollection.playerUseItemWithCreaturePlugins.ActionIdAddPlugin(actionid, script, initialization.Parameters);
-                                    }
-                                    else if (initialization.Parameters["opentibiaid"] != null)
-                                    {
-                                        ushort opentibiaid = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] );
-
-                                        pluginCollection.playerUseItemWithCreaturePlugins.OpenTibiaIdAddPlugin(opentibiaid, script, initialization.Parameters);
-                                    }
-                                }
-                            }
-                            break;
-
-                            case "PlayerMoveItem":
-                            {
-                                if (initialization.Parameters["uniqueid"] != null)
-                                {
-                                    ushort uniqueid = LuaScope.GetUInt16(initialization.Parameters["uniqueid"] );
-
-                                    pluginCollection.playerMoveItemPlugins.UniqueIdAddPlugin(uniqueid, script, initialization.Parameters);
-                                }
-                                else if (initialization.Parameters["actionid"] != null)
-                                {
-                                    ushort actionid = LuaScope.GetUInt16(initialization.Parameters["actionid"] );
-
-                                    pluginCollection.playerMoveItemPlugins.ActionIdAddPlugin(actionid, script, initialization.Parameters);
-                                }
-                                else if (initialization.Parameters["opentibiaid"] != null)
-                                {
-                                    ushort opentibiaid = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] );
-
-                                    pluginCollection.playerMoveItemPlugins.OpenTibiaIdAddPlugin(opentibiaid, script, initialization.Parameters);
-                                }
-                            }
-                            break;
-
-                            case "PlayerMoveCreature":
-                            {
-                                string name = LuaScope.GetString(initialization.Parameters["name"] );
-
-                                pluginCollection.playerMoveCreaturePlugins.AddPlugin(name, script, initialization.Parameters);
-                            }
-                            break;
-                        }
+                        pluginCollection.ParseActions(null, script, initialization.Parameters);
                     }
-                    else if (initialization.Type == "movements")
+                    else if (initialization.NodeType == "movements")
                     {
-                        string type = LuaScope.GetString(initialization.Parameters["type"] );
-
-                        switch (type)
-                        {
-                            case "CreatureStepIn":
-                            {
-                                if (initialization.Parameters["uniqueid"] != null)
-                                {
-                                    ushort uniqueid = LuaScope.GetUInt16(initialization.Parameters["uniqueid"] );
-
-                                    pluginCollection.creatureStepInPlugins.UniqueIdAddPlugin(uniqueid, script, initialization.Parameters);
-                                }
-                                else if (initialization.Parameters["actionid"] != null)
-                                {
-                                    ushort actionid = LuaScope.GetUInt16(initialization.Parameters["actionid"] );
-
-                                    pluginCollection.creatureStepInPlugins.ActionIdAddPlugin(actionid, script, initialization.Parameters);
-                                }
-                                else if (initialization.Parameters["opentibiaid"] != null)
-                                {
-                                    ushort opentibiaid = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] );
-
-                                    pluginCollection.creatureStepInPlugins.OpenTibiaIdAddPlugin(opentibiaid, script, initialization.Parameters);
-                                }
-                            }
-                            break;
-
-                            case "CreatureStepOut":
-                            {
-                                if (initialization.Parameters["uniqueid"] != null)
-                                {
-                                    ushort uniqueid = LuaScope.GetUInt16(initialization.Parameters["uniqueid"] );
-
-                                    pluginCollection.creatureStepOutPlugins.UniqueIdAddPlugin(uniqueid, script, initialization.Parameters);
-                                }
-                                else if (initialization.Parameters["actionid"] != null)
-                                {
-                                    ushort actionid = LuaScope.GetUInt16(initialization.Parameters["actionid"] );
-
-                                    pluginCollection.creatureStepOutPlugins.ActionIdAddPlugin(actionid, script, initialization.Parameters);
-                                }
-                                else if (initialization.Parameters["opentibiaid"] != null)
-                                {
-                                    ushort opentibiaid = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] );
-
-                                    pluginCollection.creatureStepOutPlugins.OpenTibiaIdAddPlugin(opentibiaid, script, initialization.Parameters);
-                                }
-                            }
-                            break;
-
-                            case "InventoryEquip":
-                            {
-                                if (initialization.Parameters["uniqueid"] != null)
-                                {
-                                    ushort uniqueid = LuaScope.GetUInt16(initialization.Parameters["uniqueid"] );
-
-                                    pluginCollection.inventoryEquipPlugins.UniqueIdAddPlugin(uniqueid, script, initialization.Parameters);
-                                }
-                                else if (initialization.Parameters["actionid"] != null)
-                                {
-                                    ushort actionid = LuaScope.GetUInt16(initialization.Parameters["actionid"] );
-
-                                    pluginCollection.inventoryEquipPlugins.ActionIdAddPlugin(actionid, script, initialization.Parameters);
-                                }
-                                else if (initialization.Parameters["opentibiaid"] != null)
-                                {
-                                    ushort opentibiaid = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] );
-
-                                    pluginCollection.inventoryEquipPlugins.OpenTibiaIdAddPlugin(opentibiaid, script, initialization.Parameters);
-                                }
-                            }
-                            break;
-
-                            case "InventoryDeEquip":
-                            {
-                                if (initialization.Parameters["uniqueid"] != null)
-                                {
-                                    ushort uniqueid = LuaScope.GetUInt16(initialization.Parameters["uniqueid"] );
-
-                                    pluginCollection.inventoryDeEquipPlugins.UniqueIdAddPlugin(uniqueid, script, initialization.Parameters);
-                                }
-                                else if (initialization.Parameters["actionid"] != null)
-                                {
-                                    ushort actionid = LuaScope.GetUInt16(initialization.Parameters["actionid"] );
-
-                                    pluginCollection.inventoryDeEquipPlugins.ActionIdAddPlugin(actionid, script, initialization.Parameters);
-                                }
-                                else if (initialization.Parameters["opentibiaid"] != null)
-                                {
-                                    ushort opentibiaid = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] );
-
-                                    pluginCollection.inventoryDeEquipPlugins.OpenTibiaIdAddPlugin(opentibiaid, script, initialization.Parameters);
-                                }
-                            }
-                            break;
-                        }
+                        pluginCollection.ParseMovements(null, script, initialization.Parameters);
                     }
-                    else if (initialization.Type == "talkactions")
+                    else if (initialization.NodeType == "talkactions")
                     {
-                        string type = LuaScope.GetString(initialization.Parameters["type"] );
-
-                        switch (type)
-                        {
-                            case "PlayerSay":
-                            {
-                                string message = LuaScope.GetString(initialization.Parameters["message"] );
-
-                                pluginCollection.playerSayPlugins.AddPlugin(message, script, initialization.Parameters);
-                            }
-                            break;
-                        }
+                        pluginCollection.ParseTalkActions(null, script, initialization.Parameters);                        
                     }
-                    else if (initialization.Type == "creaturescripts")
+                    else if (initialization.NodeType == "creaturescripts")
                     {
-                        string type = LuaScope.GetString(initialization.Parameters["type"] );
-
-                        switch (type)
-                        {
-                            case "PlayerLogin":
-                            {
-                                pluginCollection.playerLoginPlugins.AddPlugin(script, initialization.Parameters);
-                            }
-                            break;
-
-                            case "PlayerLogout":
-                            {
-                                pluginCollection.playerLogoutPlugins.AddPlugin(script, initialization.Parameters);
-                            }
-                            break;
-
-                            case "PlayerAdvanceLevel":
-                            {
-                                pluginCollection.playerAdvanceLevelPlugins.AddPlugin(script, initialization.Parameters);
-                            }
-                            break;
-
-                            case "PlayerAdvanceSkill":
-                            {
-                                pluginCollection.playerAdvanceSkillPlugins.AddPlugin(script, initialization.Parameters);
-                            }
-                            break;
-
-                            case "CreatureDeath":
-                            {
-                                pluginCollection.creatureDeathPlugins.AddPlugin(script, initialization.Parameters);
-                            }
-                            break;
-
-                            case "CreatureKill":
-                            {
-                                pluginCollection.creatureKillPlugins.AddPlugin(script, initialization.Parameters);
-                            }
-                            break;
-
-                            case "PlayerEarnAchievement":
-                            {
-                                pluginCollection.playerEarnAchievementPlugins.AddPlugin(script, initialization.Parameters);
-                            }
-                            break;
-                        }
+                        pluginCollection.ParseCreatureScripts(null, script, initialization.Parameters);              
                     }                    
-                    else if (initialization.Type == "globalevents")
+                    else if (initialization.NodeType == "globalevents")
                     {
-                        string type = LuaScope.GetString(initialization.Parameters["type"] );
-
-                        switch (type)
-                        {
-                            case "ServerStartup":
-                            {
-                                pluginCollection.serverStartupPlugins.AddPlugin(script, initialization.Parameters);
-                            }
-                            break;
-
-                            case "ServerShutdown":
-                            {
-                                pluginCollection.serverShutdownPlugins.AddPlugin(script, initialization.Parameters);
-                            }
-                            break;
-
-                            case "ServerSave":
-                            {
-                                pluginCollection.serverSavePlugins.AddPlugin(script, initialization.Parameters);
-                            }
-                            break;
-
-                            case "ServerRecord":
-                            {
-                                pluginCollection.serverRecordPlugins.AddPlugin(script, initialization.Parameters);
-                            }
-                            break;
-                        }
+                        pluginCollection.ParseCreatureGlobalEvents(null, script, initialization.Parameters);
                     }
-                    else if (initialization.Type == "items")
+                    else if (initialization.NodeType == "items")
                     {
-                        string type = LuaScope.GetString(initialization.Parameters["type"] );
-
-                        switch (type)
-                        {
-                            case "ItemCreation":
-                            {
-                                ushort openTibiaId = LuaScope.GetUInt16(initialization.Parameters["openTibiaId"] );
-
-                                pluginCollection.itemCreationPlugins.AddPlugin(openTibiaId, script, initialization.Parameters);
-                            }
-                            break;
-                        }
+                        pluginCollection.ParseItems(null, script, initialization.Parameters);
                     }
-                    else if (initialization.Type == "monsters")
+                    else if (initialization.NodeType == "monsters")
                     {
-                        string type = LuaScope.GetString(initialization.Parameters["type"] );
-
-                        switch (type)
-                        {
-                            case "MonsterCreation":
-                            {
-                                string name = LuaScope.GetString(initialization.Parameters["name"] );
-
-                                pluginCollection.monsterCreationPlugins.AddPlugin(name, script, initialization.Parameters);
-                            }
-                            break;
-                        }
+                        pluginCollection.ParseMonsters(null, script, initialization.Parameters);
                     }
-                    else if (initialization.Type == "npcs")
+                    else if (initialization.NodeType == "npcs")
                     {
-                        string type = LuaScope.GetString(initialization.Parameters["type"] );
-
-                        switch (type)
-                        {
-                            case "NpcCreation":
-                            {
-                                string name = LuaScope.GetString(initialization.Parameters["name"] );
-
-                                pluginCollection.npcCreationPlugins.AddPlugin(name, script, initialization.Parameters);
-                            }
-                            break;
-
-                            case "Dialogue":
-                            {
-                                string name = LuaScope.GetString(initialization.Parameters["name"] );
-
-                                pluginCollection.dialoguePlugins.AddPlugin(name, script, initialization.Parameters);
-                            }
-                            break;
-                        }
+                        pluginCollection.ParseNpcs(null, script, initialization.Parameters);
                     }
-                    else if (initialization.Type == "players")
+                    else if (initialization.NodeType == "players")
                     {
-                        string type = LuaScope.GetString(initialization.Parameters["type"] );
-
-                        switch (type)
-                        {
-                            case "PlayerCreation":
-                            {
-                                string name = LuaScope.GetString(initialization.Parameters["name"] );
-
-                                pluginCollection.playerCreationPlugins.AddPlugin(name, script, initialization.Parameters);
-                            }
-                            break;
-                        }
+                        pluginCollection.ParsePlayers(null, script, initialization.Parameters);
                     }
-                    else if (initialization.Type == "spells")
+                    else if (initialization.NodeType == "spells")
                     {
-                        bool requiresTarget = LuaScope.GetBoolean(initialization.Parameters["requirestarget"] );
-
-                        Spell spell = new Spell()
-                        {
-                            Words = LuaScope.GetString(initialization.Parameters["words"] ),
-
-                            Name = LuaScope.GetString(initialization.Parameters["name"] ),
-
-                            Group = LuaScope.GetString(initialization.Parameters["group"] ),
-
-                            Cooldown = TimeSpan.FromSeconds(LuaScope.GetInt32(initialization.Parameters["cooldown"] ) ),
-
-                            GroupCooldown = TimeSpan.FromSeconds(LuaScope.GetInt32(initialization.Parameters["groupcooldown"] ) ),
-
-                            Level = LuaScope.GetInt32(initialization.Parameters["level"] ),
-
-                            Mana = LuaScope.GetInt32(initialization.Parameters["mana"] ),
-
-                            Soul = LuaScope.GetInt32(initialization.Parameters["soul"] ),
-
-                            ConjureOpenTibiaId = LuaScope.GetNullableUInt16(initialization.Parameters["conjureopentibiaid"] ),
-
-                            ConjureCount = LuaScope.GetNullableInt32(initialization.Parameters["conjurecount"] ),
-
-                            Premium = LuaScope.GetBoolean(initialization.Parameters["premium"] ),
-
-                            Vocations = ( (LuaTable)initialization.Parameters["vocations"] ).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()
-                        };
-
-                        pluginCollection.spells.Add(spell);
-
-                        if (requiresTarget)
-                        {
-                            pluginCollection.spellPluginsRequiresTarget.AddPlugin(spell.Words, script, initialization.Parameters, spell);
-                        }
-                        else
-                        {
-                            pluginCollection.spellPlugins.AddPlugin(spell.Words, script, initialization.Parameters, spell);
-                        }
+                        pluginCollection.ParseSpells(null, script, initialization.Parameters);
                     }
-                    else if (initialization.Type == "runes")
+                    else if (initialization.NodeType == "runes")
                     {
-                        bool requiresTarget = LuaScope.GetBoolean(initialization.Parameters["requirestarget"] );
-
-                        Rune rune = new Rune()
-                        {
-                            OpenTibiaId = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] ),
-
-                            Name = LuaScope.GetString(initialization.Parameters["name"] ),
-
-                            Group = LuaScope.GetString(initialization.Parameters["group"] ),
-
-                            GroupCooldown = TimeSpan.FromSeconds(LuaScope.GetInt32(initialization.Parameters["groupcooldown"] ) ),
-
-                            Level = LuaScope.GetInt32(initialization.Parameters["level"] ),
-
-                            MagicLevel = LuaScope.GetInt32(initialization.Parameters["magiclevel"] ),
-
-                            Vocations = ( (LuaTable)initialization.Parameters["vocations"] ).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()
-                        };
-
-                        pluginCollection.runes.Add(rune);
-
-                        if (requiresTarget)
-                        {
-                            pluginCollection.runePluginsRequiresTarget.AddPlugin(rune.OpenTibiaId, script, initialization.Parameters, rune);
-                        }
-                        else
-                        {
-                            pluginCollection.runePlugins.AddPlugin(rune.OpenTibiaId, script, initialization.Parameters, rune);
-                        }
+                        pluginCollection.ParseRunes(null, script, initialization.Parameters);
                     }
-                    else if (initialization.Type == "weapons")
+                    else if (initialization.NodeType == "weapons")
                     {
-                        Weapon weapon = new Weapon()
-                        {
-                            OpenTibiaId = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] ),
-
-                            Level = LuaScope.GetInt32(initialization.Parameters["level"] ),
-
-                            Mana = LuaScope.GetInt32(initialization.Parameters["mana"] ),
-
-                            Vocations = ( (LuaTable)initialization.Parameters["vocations"] ).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()
-                        };
-
-                        pluginCollection.weapons.Add(weapon);
-
-                        pluginCollection.weaponPlugins.AddPlugin(weapon.OpenTibiaId, script, initialization.Parameters, weapon);
+                        pluginCollection.ParseWeapons(null, script, initialization.Parameters);
                     }
-                    else if (initialization.Type == "ammunitions")
+                    else if (initialization.NodeType == "ammunitions")
                     {
-                        Ammunition ammunition = new Ammunition()
-                        {
-                            OpenTibiaId = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] ),
-
-                            Level = LuaScope.GetInt32(initialization.Parameters["level"] )
-                        };
-
-                        pluginCollection.ammunitions.Add(ammunition);
-
-                        pluginCollection.ammunitionPlugins.AddPlugin(ammunition.OpenTibiaId, script, initialization.Parameters, ammunition);
+                        pluginCollection.ParseAmmunitions(null, script, initialization.Parameters);
                     }
-                    else if (initialization.Type == "raids")
+                    else if (initialization.NodeType == "raids")
                     {
-                        Raid raid = new Raid()
-                        {
-                            Name = LuaScope.GetString(initialization.Parameters["name"] ),
-
-                            Repeatable = LuaScope.GetBoolean(initialization.Parameters["repeatable"] ),
-
-                            Interval = LuaScope.GetInt32(initialization.Parameters["interval"] ),
-
-                            Chance = LuaScope.GetDouble(initialization.Parameters["chance"] ),
-
-                            Enabled = LuaScope.GetBoolean(initialization.Parameters["enabled"] )
-                        };
-
-                        pluginCollection.raids.Add(raid);
-
-                        pluginCollection.raidPlugins.AddPlugin(raid.Name, script, initialization.Parameters, raid);
+                        pluginCollection.ParseRaids(null, script, initialization.Parameters);
                     }
-                    else if (initialization.Type == "monsterattacks")
+                    else if (initialization.NodeType == "monsterattacks")
                     {
-                        string name = LuaScope.GetString(initialization.Parameters["name"] );
-
-                        pluginCollection.monsterAttackPlugins.AddPlugin(name, script, initialization.Parameters);
+                        pluginCollection.ParseMonsterAttacks(null, script, initialization.Parameters);
                     }
                 }
             }
@@ -1020,75 +433,73 @@ namespace OpenTibia.Game.Common.ServerObjects
         {
             this.server = server;
 
-            this.playerRotateItemPlugins = new ItemPluginDictionaryCached<PlayerRotateItemPlugin, LuaScriptingPlayerRotateItemPlugin>(this);
+            this.autoLoadPlugins = new List<AutoLoadPlugin>();
 
-            this.playerUseItemPlugins = new ItemPluginDictionaryCached<PlayerUseItemPlugin, LuaScriptingPlayerUseItemPlugin>(this);
+            this.playerRotateItemPlugins = new ItemPluginDictionaryCached<PlayerRotateItemPlugin, LuaScriptingPlayerRotateItemPlugin>(server);
 
-            this.playerUseItemWithItemPluginsAllowFarUse = new ItemPluginDictionaryCached<PlayerUseItemWithItemPlugin, LuaScriptingPlayerUseItemWithItemPlugin>(this);
-            this.playerUseItemWithItemPlugins = new ItemPluginDictionaryCached<PlayerUseItemWithItemPlugin, LuaScriptingPlayerUseItemWithItemPlugin>(this);
+            this.playerUseItemPlugins = new ItemPluginDictionaryCached<PlayerUseItemPlugin, LuaScriptingPlayerUseItemPlugin>(server);
 
-            this.playerUseItemWithCreaturePluginsAllowFarUse = new ItemPluginDictionaryCached<PlayerUseItemWithCreaturePlugin, LuaScriptingPlayerUseItemWithCreaturePlugin>(this);
-            this.playerUseItemWithCreaturePlugins = new ItemPluginDictionaryCached<PlayerUseItemWithCreaturePlugin, LuaScriptingPlayerUseItemWithCreaturePlugin>(this);
+            this.playerUseItemWithItemPluginsAllowFarUse = new ItemPluginDictionaryCached<PlayerUseItemWithItemPlugin, LuaScriptingPlayerUseItemWithItemPlugin>(server); this.playerUseItemWithItemPlugins = new ItemPluginDictionaryCached<PlayerUseItemWithItemPlugin, LuaScriptingPlayerUseItemWithItemPlugin>(server);
+
+            this.playerUseItemWithCreaturePluginsAllowFarUse = new ItemPluginDictionaryCached<PlayerUseItemWithCreaturePlugin, LuaScriptingPlayerUseItemWithCreaturePlugin>(server); this.playerUseItemWithCreaturePlugins = new ItemPluginDictionaryCached<PlayerUseItemWithCreaturePlugin, LuaScriptingPlayerUseItemWithCreaturePlugin>(server);
     
-            this.playerMoveCreaturePlugins = new PluginDictionaryCached<string, PlayerMoveCreaturePlugin, LuaScriptingPlayerMoveCreaturePlugin>(this);
+            this.playerMoveCreaturePlugins = new PluginDictionaryCached<string, PlayerMoveCreaturePlugin, LuaScriptingPlayerMoveCreaturePlugin>(server);
      
-            this.playerMoveItemPlugins = new ItemPluginDictionaryCached<PlayerMoveItemPlugin, LuaScriptingPlayerMoveItemPlugin>(this);
+            this.playerMoveItemPlugins = new ItemPluginDictionaryCached<PlayerMoveItemPlugin, LuaScriptingPlayerMoveItemPlugin>(server);
    
-            this.creatureStepInPlugins = new ItemPluginDictionaryCached<CreatureStepInPlugin, LuaScriptingCreatureStepInPlugin>(this);
+            this.creatureStepInPlugins = new ItemPluginDictionaryCached<CreatureStepInPlugin, LuaScriptingCreatureStepInPlugin>(server);
  
-            this.creatureStepOutPlugins = new ItemPluginDictionaryCached<CreatureStepOutPlugin, LuaScriptingCreatureStepOutPlugin>(this);
+            this.creatureStepOutPlugins = new ItemPluginDictionaryCached<CreatureStepOutPlugin, LuaScriptingCreatureStepOutPlugin>(server);
    
-            this.inventoryEquipPlugins = new ItemPluginDictionaryCached<InventoryEquipPlugin, LuaScriptingInventoryEquipPlugin>(this);
+            this.inventoryEquipPlugins = new ItemPluginDictionaryCached<InventoryEquipPlugin, LuaScriptingInventoryEquipPlugin>(server);
        
-            this.inventoryDeEquipPlugins = new ItemPluginDictionaryCached<InventoryDeEquipPlugin, LuaScriptingInventoryDeEquipPlugin>(this);
+            this.inventoryDeEquipPlugins = new ItemPluginDictionaryCached<InventoryDeEquipPlugin, LuaScriptingInventoryDeEquipPlugin>(server);
            
-            this.playerSayPlugins = new PluginDictionaryCached<string, PlayerSayPlugin, LuaScriptingPlayerSayPlugin>(this);
+            this.playerSayPlugins = new PluginDictionaryCached<string, PlayerSayPlugin, LuaScriptingPlayerSayPlugin>(server);
    
-            this.playerLoginPlugins = new PluginListCached<PlayerLoginPlugin, LuaScriptingPlayerLoginPlugin>(this);
+            this.playerLoginPlugins = new PluginListCached<PlayerLoginPlugin, LuaScriptingPlayerLoginPlugin>(server);
     
-            this.playerLogoutPlugins = new PluginListCached<PlayerLogoutPlugin, LuaScriptingPlayerLogoutPlugin>(this);
+            this.playerLogoutPlugins = new PluginListCached<PlayerLogoutPlugin, LuaScriptingPlayerLogoutPlugin>(server);
    
-            this.playerAdvanceLevelPlugins = new PluginListCached<PlayerAdvanceLevelPlugin, LuaScriptingPlayerAdvanceLevelPlugin>(this);
+            this.playerAdvanceLevelPlugins = new PluginListCached<PlayerAdvanceLevelPlugin, LuaScriptingPlayerAdvanceLevelPlugin>(server);
      
-            this.playerAdvanceSkillPlugins = new PluginListCached<PlayerAdvanceSkillPlugin, LuaScriptingPlayerAdvanceSkillPlugin>(this);
+            this.playerAdvanceSkillPlugins = new PluginListCached<PlayerAdvanceSkillPlugin, LuaScriptingPlayerAdvanceSkillPlugin>(server);
       
-            this.creatureDeathPlugins = new PluginListCached<CreatureDeathPlugin, LuaScriptingCreatureDeathPlugin>(this);
+            this.creatureDeathPlugins = new PluginListCached<CreatureDeathPlugin, LuaScriptingCreatureDeathPlugin>(server);
 
-            this.creatureKillPlugins = new PluginListCached<CreatureKillPlugin, LuaScriptingCreatureKillPlugin>(this);
+            this.creatureKillPlugins = new PluginListCached<CreatureKillPlugin, LuaScriptingCreatureKillPlugin>(server);
       
-            this.playerEarnAchievementPlugins = new PluginListCached<PlayerEarnAchievementPlugin, LuaScriptingPlayerEarnAchievementPlugin>(this);
+            this.playerEarnAchievementPlugins = new PluginListCached<PlayerEarnAchievementPlugin, LuaScriptingPlayerEarnAchievementPlugin>(server);
   
-            this.serverStartupPlugins = new PluginListCached<ServerStartupPlugin, LuaScriptingServerStartupPlugin>(this);
+            this.serverStartupPlugins = new PluginListCached<ServerStartupPlugin, LuaScriptingServerStartupPlugin>(server);
   
-            this.serverShutdownPlugins = new PluginListCached<ServerShutdownPlugin, LuaScriptingServerShutdownPlugin>(this);
+            this.serverShutdownPlugins = new PluginListCached<ServerShutdownPlugin, LuaScriptingServerShutdownPlugin>(server);
             
-            this.serverSavePlugins = new PluginListCached<ServerSavePlugin, LuaScriptingServerSavePlugin>(this);
+            this.serverSavePlugins = new PluginListCached<ServerSavePlugin, LuaScriptingServerSavePlugin>(server);
      
-            this.serverRecordPlugins = new PluginListCached<ServerRecordPlugin, LuaScriptingServerRecordPlugin>(this);
+            this.serverRecordPlugins = new PluginListCached<ServerRecordPlugin, LuaScriptingServerRecordPlugin>(server);
      
-            this.dialoguePlugins = new PluginDictionary<string, DialoguePlugin, LuaScriptingDialoguePlugin>(this);
+            this.dialoguePlugins = new PluginDictionary<string, DialoguePlugin, LuaScriptingDialoguePlugin>(server);
      
-            this.itemCreationPlugins = new PluginDictionaryCached<ushort, ItemCreationPlugin, LuaScriptingItemCreationPlugin>(this);
+            this.itemCreationPlugins = new PluginDictionaryCached<ushort, ItemCreationPlugin, LuaScriptingItemCreationPlugin>(server);
     
-            this.monsterCreationPlugins = new PluginDictionaryCached<string, MonsterCreationPlugin, LuaScriptingMonsterCreationPlugin>(this);
+            this.monsterCreationPlugins = new PluginDictionaryCached<string, MonsterCreationPlugin, LuaScriptingMonsterCreationPlugin>(server);
      
-            this.npcCreationPlugins = new PluginDictionaryCached<string, NpcCreationPlugin, LuaScriptingNpcCreationPlugin>(this);
+            this.npcCreationPlugins = new PluginDictionaryCached<string, NpcCreationPlugin, LuaScriptingNpcCreationPlugin>(server);
    
-            this.playerCreationPlugins = new PluginDictionaryCached<string, PlayerCreationPlugin, LuaScriptingPlayerCreationPlugin>(this);
+            this.playerCreationPlugins = new PluginDictionaryCached<string, PlayerCreationPlugin, LuaScriptingPlayerCreationPlugin>(server);
    
-            this.spellPluginsRequiresTarget = new PluginDictionaryCached<string, SpellPlugin, LuaScriptingSpellPlugin>(this);
-            this.spellPlugins = new PluginDictionaryCached<string, SpellPlugin, LuaScriptingSpellPlugin>(this);
+            this.spellPluginsRequiresTarget = new PluginDictionaryCached<string, SpellPlugin, LuaScriptingSpellPlugin>(server); this.spellPlugins = new PluginDictionaryCached<string, SpellPlugin, LuaScriptingSpellPlugin>(server);
 
-            this.runePluginsRequiresTarget = new PluginDictionaryCached<ushort, RunePlugin, LuaScriptingRunePlugin>(this);
-            this.runePlugins = new PluginDictionaryCached<ushort, RunePlugin, LuaScriptingRunePlugin>(this);
+            this.runePluginsRequiresTarget = new PluginDictionaryCached<ushort, RunePlugin, LuaScriptingRunePlugin>(server); this.runePlugins = new PluginDictionaryCached<ushort, RunePlugin, LuaScriptingRunePlugin>(server);
 
-            this.weaponPlugins = new PluginDictionaryCached<ushort, WeaponPlugin, LuaScriptingWeaponPlugin>(this);
+            this.weaponPlugins = new PluginDictionaryCached<ushort, WeaponPlugin, LuaScriptingWeaponPlugin>(server);
 
-            this.ammunitionPlugins = new PluginDictionaryCached<ushort, AmmunitionPlugin, LuaScriptingAmmunitionPlugin>(this);
+            this.ammunitionPlugins = new PluginDictionaryCached<ushort, AmmunitionPlugin, LuaScriptingAmmunitionPlugin>(server);
 
-            this.raidPlugins = new PluginDictionaryCached<string, RaidPlugin, LuaScriptingRaidPlugin>(this);
+            this.raidPlugins = new PluginDictionaryCached<string, RaidPlugin, LuaScriptingRaidPlugin>(server);
 
-            this.monsterAttackPlugins = new PluginDictionaryCached<string, MonsterAttackPlugin, LuaScriptingMonsterAttackPlugin>(this);
+            this.monsterAttackPlugins = new PluginDictionaryCached<string, MonsterAttackPlugin, LuaScriptingMonsterAttackPlugin>(server);
         }
 
         ~PluginCollection()
@@ -1098,7 +509,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         private ILuaScope script;
 
-        private List<AutoLoadPlugin> autoLoadPlugins = new List<AutoLoadPlugin>();
+        private List<AutoLoadPlugin> autoLoadPlugins;
 
         public void Start()
         {
@@ -1107,622 +518,109 @@ namespace OpenTibia.Game.Common.ServerObjects
                 server.PathResolver.GetFullPath("data/plugins/lib.lua"), 
                 server.PathResolver.GetFullPath("data/lib.lua") );
 
-            foreach (LuaTable plugin in ( (LuaTable)script["plugins.actions"] ).Values)
+            foreach (LuaTable parameters in ( (LuaTable)script["plugins.actions"] ).Values)
             {
-                string type = LuaScope.GetString(plugin["type"] );
+                string fileName = LuaScope.GetString(parameters["filename"] );
 
-                string fileName = LuaScope.GetString(plugin["filename"] );
-
-                switch (type)
-                {
-                    case "PlayerRotateItem":
-                    {
-                        if (plugin["uniqueid"] != null)
-                        {
-                            ushort uniqueid = LuaScope.GetUInt16(plugin["uniqueid"] );
-
-                            playerRotateItemPlugins.UniqueIdAddPlugin(uniqueid, fileName, plugin);
-                        }
-                        else if (plugin["actionid"] != null)
-                        {
-                            ushort actionid = LuaScope.GetUInt16(plugin["actionid"] );
-
-                            playerRotateItemPlugins.ActionIdAddPlugin(actionid, fileName, plugin);
-                        }
-                        else if (plugin["opentibiaid"] != null)
-                        {
-                            ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
-
-                            playerRotateItemPlugins.OpenTibiaIdAddPlugin(openTibiaId, fileName, plugin);
-                        }
-                    }
-                    break;
-
-                    case "PlayerUseItem":
-                    {
-                        if (plugin["uniqueid"] != null)
-                        {
-                            ushort uniqueid = LuaScope.GetUInt16(plugin["uniqueid"] );
-
-                            playerUseItemPlugins.UniqueIdAddPlugin(uniqueid, fileName, plugin);
-                        }
-                        else if (plugin["actionid"] != null)
-                        {
-                            ushort actionid = LuaScope.GetUInt16(plugin["actionid"] );
-
-                            playerUseItemPlugins.ActionIdAddPlugin(actionid, fileName, plugin);
-                        }
-                        else if (plugin["opentibiaid"] != null)
-                        {
-                            ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
-
-                            playerUseItemPlugins.OpenTibiaIdAddPlugin(openTibiaId, fileName, plugin);
-                        }
-                    }
-                    break;
-
-                    case "PlayerUseItemWithItem":
-                    {
-                        bool allowFarUse = LuaScope.GetBoolean(plugin["allowfaruse"] );
-
-                        if (allowFarUse)
-                        {
-                            if (plugin["uniqueid"] != null)
-                            {
-                                ushort uniqueid = LuaScope.GetUInt16(plugin["uniqueid"] );
-
-                                playerUseItemWithItemPluginsAllowFarUse.UniqueIdAddPlugin(uniqueid, fileName, plugin);
-                            }
-                            else if (plugin["actionid"] != null)
-                            {
-                                ushort actionid = LuaScope.GetUInt16(plugin["actionid"] );
-
-                                playerUseItemWithItemPluginsAllowFarUse.ActionIdAddPlugin(actionid, fileName, plugin);
-                            }
-                            else if (plugin["opentibiaid"] != null)
-                            {
-                                ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
-
-                                playerUseItemWithItemPluginsAllowFarUse.OpenTibiaIdAddPlugin(openTibiaId, fileName, plugin);
-                            }
-                        }
-                        else
-                        {
-                            if (plugin["uniqueid"] != null)
-                            {
-                                ushort uniqueid = LuaScope.GetUInt16(plugin["uniqueid"] );
-
-                                playerUseItemWithItemPlugins.UniqueIdAddPlugin(uniqueid, fileName, plugin);
-                            }
-                            else if (plugin["actionid"] != null)
-                            {
-                                ushort actionid = LuaScope.GetUInt16(plugin["actionid"] );
-
-                                playerUseItemWithItemPlugins.ActionIdAddPlugin(actionid, fileName, plugin);
-                            }
-                            else if (plugin["opentibiaid"] != null)
-                            {
-                                ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
-
-                                playerUseItemWithItemPlugins.OpenTibiaIdAddPlugin(openTibiaId, fileName, plugin);
-                            }
-                        }
-                    }
-                    break;
-
-                    case "PlayerUseItemWithCreature":
-                    {
-                        bool allowFarUse = LuaScope.GetBoolean(plugin["allowfaruse"] );
-
-                        if (allowFarUse)
-                        {
-                            if (plugin["uniqueid"] != null)
-                            {
-                                ushort uniqueid = LuaScope.GetUInt16(plugin["uniqueid"] );
-
-                                playerUseItemWithCreaturePluginsAllowFarUse.UniqueIdAddPlugin(uniqueid, fileName, plugin);
-                            }
-                            else if (plugin["actionid"] != null)
-                            {
-                                ushort actionid = LuaScope.GetUInt16(plugin["actionid"] );
-
-                                playerUseItemWithCreaturePluginsAllowFarUse.ActionIdAddPlugin(actionid, fileName, plugin);
-                            }
-                            else if (plugin["opentibiaid"] != null)
-                            {
-                                ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
-
-                                playerUseItemWithCreaturePluginsAllowFarUse.OpenTibiaIdAddPlugin(openTibiaId, fileName, plugin);
-                            }
-                        }
-                        else
-                        {
-                            if (plugin["uniqueid"] != null)
-                            {
-                                ushort uniqueid = LuaScope.GetUInt16(plugin["uniqueid"] );
-
-                                playerUseItemWithCreaturePlugins.UniqueIdAddPlugin(uniqueid, fileName, plugin);
-                            }
-                            else if (plugin["actionid"] != null)
-                            {
-                                ushort actionid = LuaScope.GetUInt16(plugin["actionid"] );
-
-                                playerUseItemWithCreaturePlugins.ActionIdAddPlugin(actionid, fileName, plugin);
-                            }
-                            else if (plugin["opentibiaid"] != null)
-                            {
-                                ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
-
-                                playerUseItemWithCreaturePlugins.OpenTibiaIdAddPlugin(openTibiaId, fileName, plugin);
-                            }
-                        }
-                    }
-                    break;
-
-                    case "PlayerMoveItem":
-                    {
-                        if (plugin["uniqueid"] != null)
-                        {
-                            ushort uniqueid = LuaScope.GetUInt16(plugin["uniqueid"] );
-
-                            playerMoveItemPlugins.UniqueIdAddPlugin(uniqueid, fileName, plugin);
-                        }
-                        else if (plugin["actionid"] != null)
-                        {
-                            ushort actionid = LuaScope.GetUInt16(plugin["actionid"] );
-
-                            playerMoveItemPlugins.ActionIdAddPlugin(actionid, fileName, plugin);
-                        }
-                        else if (plugin["opentibiaid"] != null)
-                        {
-                            ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
-
-                            playerMoveItemPlugins.OpenTibiaIdAddPlugin(openTibiaId, fileName, plugin);
-                        }
-                    }
-                    break;
-
-                    case "PlayerMoveCreature":
-                    {
-                        string name = LuaScope.GetString(plugin["name"] );
-
-                        playerMoveCreaturePlugins.AddPlugin(name, fileName, plugin);
-                    }
-                    break;
-                }
+                ParseActions(fileName, null, parameters);
             }
 
-            foreach (LuaTable plugin in ( (LuaTable)script["plugins.movements"] ).Values)
+            foreach (LuaTable parameters in ( (LuaTable)script["plugins.movements"] ).Values)
             {
-                string type = LuaScope.GetString(plugin["type"] );
+                string fileName = LuaScope.GetString(parameters["filename"] );
 
-                string fileName = LuaScope.GetString(plugin["filename"] );
-
-                switch (type)
-                {
-                    case "CreatureStepIn":
-                    {
-                        if (plugin["uniqueid"] != null)
-                        {
-                            ushort uniqueid = LuaScope.GetUInt16(plugin["uniqueid"] );
-
-                            creatureStepInPlugins.UniqueIdAddPlugin(uniqueid, fileName, plugin);
-                        }
-                        else if (plugin["actionid"] != null)
-                        {
-                            ushort actionid = LuaScope.GetUInt16(plugin["actionid"] );
-
-                            creatureStepInPlugins.ActionIdAddPlugin(actionid, fileName, plugin);
-                        }
-                        else if (plugin["opentibiaid"] != null)
-                        {
-                            ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
-
-                            creatureStepInPlugins.OpenTibiaIdAddPlugin(openTibiaId, fileName, plugin);
-                        }
-                    }
-                    break;
-
-                    case "CreatureStepOut":
-                    {
-                        if (plugin["uniqueid"] != null)
-                        {
-                            ushort uniqueid = LuaScope.GetUInt16(plugin["uniqueid"] );
-
-                            creatureStepOutPlugins.UniqueIdAddPlugin(uniqueid, fileName, plugin);
-                        }
-                        else if (plugin["actionid"] != null)
-                        {
-                            ushort actionid = LuaScope.GetUInt16(plugin["actionid"] );
-
-                            creatureStepOutPlugins.ActionIdAddPlugin(actionid, fileName, plugin);
-                        }
-                        else if (plugin["opentibiaid"] != null)
-                        {
-                            ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
-
-                            creatureStepOutPlugins.OpenTibiaIdAddPlugin(openTibiaId, fileName, plugin);
-                        }
-                    }
-                    break;
-
-                    case "InventoryEquip":
-                    {
-                        if (plugin["uniqueid"] != null)
-                        {
-                            ushort uniqueid = LuaScope.GetUInt16(plugin["uniqueid"] );
-
-                            inventoryEquipPlugins.UniqueIdAddPlugin(uniqueid, fileName, plugin);
-                        }
-                        else if (plugin["actionid"] != null)
-                        {
-                            ushort actionid = LuaScope.GetUInt16(plugin["actionid"] );
-
-                            inventoryEquipPlugins.ActionIdAddPlugin(actionid, fileName, plugin);
-                        }
-                        else if (plugin["opentibiaid"] != null)
-                        {
-                            ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
-
-                            inventoryEquipPlugins.OpenTibiaIdAddPlugin(openTibiaId, fileName, plugin);
-                        }
-                    }
-                    break;
-
-                    case "InventoryDeEquip":
-                    {
-                        if (plugin["uniqueid"] != null)
-                        {
-                            ushort uniqueid = LuaScope.GetUInt16(plugin["uniqueid"] );
-
-                            inventoryDeEquipPlugins.UniqueIdAddPlugin(uniqueid, fileName, plugin);
-                        }
-                        else if (plugin["actionid"] != null)
-                        {
-                            ushort actionid = LuaScope.GetUInt16(plugin["actionid"] );
-
-                            inventoryDeEquipPlugins.ActionIdAddPlugin(actionid, fileName, plugin);
-                        }
-                        else if (plugin["opentibiaid"] != null)
-                        {
-                            ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
-
-                            inventoryDeEquipPlugins.OpenTibiaIdAddPlugin(openTibiaId, fileName, plugin);
-                        }
-                    }
-                    break;
-                }
+                ParseMovements(fileName, null, parameters);
             }
 
-            foreach (LuaTable plugin in ( (LuaTable)script["plugins.talkactions"] ).Values)
+            foreach (LuaTable parameters in ( (LuaTable)script["plugins.talkactions"] ).Values)
             {
-                string type = LuaScope.GetString(plugin["type"] );
+                string fileName = LuaScope.GetString(parameters["filename"] );
 
-                string fileName = LuaScope.GetString(plugin["filename"] );
-
-                switch (type)
-                {
-                    case "PlayerSay":
-                    {
-                        string message = LuaScope.GetString(plugin["message"] );
-
-                        playerSayPlugins.AddPlugin(message, fileName, plugin);
-                    }
-                    break;
-                }
+                ParseTalkActions(fileName, null, parameters);
             }
 
-            foreach (LuaTable plugin in ( (LuaTable)script["plugins.creaturescripts"] ).Values)
+            foreach (LuaTable parameters in ( (LuaTable)script["plugins.creaturescripts"] ).Values)
             {
-                string type = LuaScope.GetString(plugin["type"] );
+                string fileName = LuaScope.GetString(parameters["filename"] );
 
-                string fileName = LuaScope.GetString(plugin["filename"] );
-
-                switch (type)
-                {
-                    case "PlayerLogin":
-                    {
-                        playerLoginPlugins.AddPlugin(fileName, plugin);
-                    }
-                    break;
-
-                    case "PlayerLogout":
-                    {
-                        playerLogoutPlugins.AddPlugin(fileName, plugin);
-                    }
-                    break;
-
-                    case "PlayerAdvanceLevel":
-                    {
-                        playerAdvanceLevelPlugins.AddPlugin(fileName, plugin);
-                    }
-                    break;
-
-                    case "PlayerAdvanceSkill":
-                    {
-                        playerAdvanceSkillPlugins.AddPlugin(fileName, plugin);
-                    }
-                    break;
-
-                    case "CreatureDeath":
-                    {
-                        creatureDeathPlugins.AddPlugin(fileName, plugin);
-                    }
-                    break;
-
-                    case "CreatureKill":
-                    {
-                        creatureKillPlugins.AddPlugin(fileName, plugin);
-                    }
-                    break;
-
-                    case "PlayerEarnAchievement":
-                    {
-                        playerEarnAchievementPlugins.AddPlugin(fileName, plugin);
-                    }
-                    break;
-                }
+                ParseCreatureScripts(fileName, null, parameters);
             }
 
-            foreach (LuaTable plugin in ( (LuaTable)script["plugins.globalevents"] ).Values)
+            foreach (LuaTable parameters in ( (LuaTable)script["plugins.globalevents"] ).Values)
             {
-                string type = LuaScope.GetString(plugin["type"] );
+                string fileName = LuaScope.GetString(parameters["filename"] );
 
-                string fileName = LuaScope.GetString(plugin["filename"] );
-
-                switch (type)
-                {
-                    case "ServerStartup":
-                    {
-                        serverStartupPlugins.AddPlugin(fileName, plugin);
-                    }
-                    break;
-
-                    case "ServerShutdown":
-                    {
-                        serverShutdownPlugins.AddPlugin(fileName, plugin);
-                    }
-                    break;
-
-                    case "ServerSave":
-                    {
-                        serverSavePlugins.AddPlugin(fileName, plugin);
-                    }
-                    break;
-                        
-                    case "ServerRecord":
-                    {
-                        serverRecordPlugins.AddPlugin(fileName, plugin);
-                    }
-                    break;
-                }
+                ParseCreatureGlobalEvents(fileName, null, parameters);
             }
 
-            foreach (LuaTable plugin in ( (LuaTable)script["plugins.items"] ).Values)
+            foreach (LuaTable parameters in ( (LuaTable)script["plugins.items"] ).Values)
             {
-                string type = LuaScope.GetString(plugin["type"] );
+                string fileName = LuaScope.GetString(parameters["filename"] );
 
-                string fileName = LuaScope.GetString(plugin["filename"] );
-
-                switch (type)
-                {
-                    case "ItemCreation":
-                    {
-                        ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
-
-                        itemCreationPlugins.AddPlugin(openTibiaId, fileName, plugin);
-                    }
-                    break;
-                }
+                ParseItems(fileName, null, parameters);
             }
 
-            foreach (LuaTable plugin in ( (LuaTable)script["plugins.monsters"] ).Values)
+            foreach (LuaTable parameters in ( (LuaTable)script["plugins.monsters"] ).Values)
             {
-                string type = LuaScope.GetString(plugin["type"] );
+                string fileName = LuaScope.GetString(parameters["filename"] );
 
-                string fileName = LuaScope.GetString(plugin["filename"] );
-
-                switch (type)
-                {
-                    case "MonsterCreation":
-                    {
-                        string name = LuaScope.GetString(plugin["name"] );
-
-                        monsterCreationPlugins.AddPlugin(name, fileName, plugin);
-                    }
-                    break;
-                }
+                ParseMonsters(fileName, null, parameters);
             }
 
-            foreach (LuaTable plugin in ( (LuaTable)script["plugins.npcs"] ).Values)
+            foreach (LuaTable parameters in ( (LuaTable)script["plugins.npcs"] ).Values)
             {
-                string type = LuaScope.GetString(plugin["type"] );
+                string fileName = LuaScope.GetString(parameters["filename"] );
 
-                string fileName = LuaScope.GetString(plugin["filename"] );
-
-                switch (type)
-                {
-                    case "NpcCreation":
-                    {
-                        string name = LuaScope.GetString(plugin["name"] );
-
-                        npcCreationPlugins.AddPlugin(name, fileName, plugin);
-                    }
-                    break;
-
-                    case "Dialogue":
-                    {
-                        string name = LuaScope.GetString(plugin["name"] );
-
-                        dialoguePlugins.AddPlugin(name, fileName, plugin);
-                    }
-                    break;
-                }
+                ParseNpcs(fileName, null, parameters);
             }
 
-            foreach (LuaTable plugin in ( (LuaTable)script["plugins.players"] ).Values)
+            foreach (LuaTable parameters in ( (LuaTable)script["plugins.players"] ).Values)
             {
-                string type = LuaScope.GetString(plugin["type"] );
+                string fileName = LuaScope.GetString(parameters["filename"] );
 
-                string fileName = LuaScope.GetString(plugin["filename"] );
-
-                switch (type)
-                {
-                    case "PlayerCreation":
-                    {
-                        string name = LuaScope.GetString(plugin["name"] );
-
-                        playerCreationPlugins.AddPlugin(name, fileName, plugin);
-                    }
-                    break;
-                }
+                ParsePlayers(fileName, null, parameters);
             }
 
-            foreach (LuaTable plugin in ( (LuaTable)script["plugins.spells"] ).Values)
+            foreach (LuaTable parameters in ( (LuaTable)script["plugins.spells"] ).Values)
             {
-                string fileName = LuaScope.GetString(plugin["filename"] );
+                string fileName = LuaScope.GetString(parameters["filename"] );
 
-                bool requiresTarget = LuaScope.GetBoolean(plugin["requirestarget"] );
-
-                Spell spell = new Spell()
-                {
-                    Words = LuaScope.GetString(plugin["words"] ),
-
-                    Name = LuaScope.GetString(plugin["name"] ),
-
-                    Group = LuaScope.GetString(plugin["group"] ),
-
-                    Cooldown = TimeSpan.FromSeconds(LuaScope.GetInt32(plugin["cooldown"] ) ),
-
-                    GroupCooldown = TimeSpan.FromSeconds(LuaScope.GetInt32(plugin["groupcooldown"] ) ),
-
-                    Level = LuaScope.GetInt32(plugin["level"] ),
-
-                    Mana = LuaScope.GetInt32(plugin["mana"] ),
-
-                    Soul = LuaScope.GetInt32(plugin["soul"] ),
-
-                    ConjureOpenTibiaId = LuaScope.GetNullableUInt16(plugin["conjureopentibiaid"] ),
-
-                    ConjureCount = LuaScope.GetNullableInt32(plugin["conjurecount"] ),
-
-                    Premium = LuaScope.GetBoolean(plugin["premium"] ),
-
-                    Vocations = ( (LuaTable)plugin["vocations"] ).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()
-                };
-
-                spells.Add(spell);
-
-                if (requiresTarget)
-                {
-                    spellPluginsRequiresTarget.AddPlugin(spell.Words, fileName, plugin, spell);
-                }
-                else
-                {
-                    spellPlugins.AddPlugin(spell.Words, fileName, plugin, spell);
-                }
+                ParseSpells(fileName, null, parameters);
             }
 
-            foreach (LuaTable plugin in ( (LuaTable)script["plugins.runes"] ).Values)
+            foreach (LuaTable parameters in ( (LuaTable)script["plugins.runes"] ).Values)
             {
-                string fileName = LuaScope.GetString(plugin["filename"] );
+                string fileName = LuaScope.GetString(parameters["filename"] );
 
-                bool requiresTarget = LuaScope.GetBoolean(plugin["requirestarget"] );
-
-                Rune rune = new Rune()
-                {
-                    OpenTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] ),
-
-                    Name = LuaScope.GetString(plugin["name"] ),
-
-                    Group = LuaScope.GetString(plugin["group"] ),
-
-                    GroupCooldown = TimeSpan.FromSeconds(LuaScope.GetInt32(plugin["groupcooldown"] ) ),
-
-                    Level = LuaScope.GetInt32(plugin["level"] ),
-
-                    MagicLevel = LuaScope.GetInt32(plugin["magiclevel"] ),
-                          
-                    Vocations = ( (LuaTable)plugin["vocations"] ).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()
-                };
-
-                runes.Add(rune);
-
-                if (requiresTarget)
-                {
-                    runePluginsRequiresTarget.AddPlugin(rune.OpenTibiaId, fileName, plugin, rune);
-                }
-                else
-                {
-                    runePlugins.AddPlugin(rune.OpenTibiaId, fileName, plugin, rune);
-                }
+                ParseRunes(fileName, null, parameters);
             }
 
-            foreach (LuaTable plugin in ( (LuaTable)script["plugins.weapons"] ).Values)
+            foreach (LuaTable parameters in ( (LuaTable)script["plugins.weapons"] ).Values)
             {
-                string fileName = LuaScope.GetString(plugin["filename"] );
+                string fileName = LuaScope.GetString(parameters["filename"] );
 
-                Weapon weapon = new Weapon()
-                {
-                    OpenTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] ),
-
-                    Level = LuaScope.GetInt32(plugin["level"] ),
-
-                    Mana = LuaScope.GetInt32(plugin["mana"] ),
-
-                    Vocations = ( (LuaTable)plugin["vocations"] ).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()
-                };
-
-                weapons.Add(weapon);
-
-                weaponPlugins.AddPlugin(weapon.OpenTibiaId, fileName, plugin, weapon);
+                ParseWeapons(fileName, null, parameters);
             }
 
-            foreach (LuaTable plugin in ( (LuaTable)script["plugins.ammunitions"] ).Values)
+            foreach (LuaTable parameters in ( (LuaTable)script["plugins.ammunitions"] ).Values)
             {
-                string fileName = LuaScope.GetString(plugin["filename"] );
+                string fileName = LuaScope.GetString(parameters["filename"] );
 
-                Ammunition ammunition = new Ammunition()
-                {
-                    OpenTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] ),
-
-                    Level = LuaScope.GetInt32(plugin["level"])
-                };
-
-                ammunitions.Add(ammunition);
-
-                ammunitionPlugins.AddPlugin(ammunition.OpenTibiaId, fileName, plugin, ammunition);
+                ParseAmmunitions(fileName, null, parameters);
             }
 
-            foreach (LuaTable plugin in ( (LuaTable)script["plugins.raids"] ).Values)
+            foreach (LuaTable parameters in ( (LuaTable)script["plugins.raids"] ).Values)
             {
-                string fileName = LuaScope.GetString(plugin["filename"] );
+                string fileName = LuaScope.GetString(parameters["filename"] );
 
-                Raid raid = new Raid()
-                {
-                    Name = LuaScope.GetString(plugin["name"] ),
-
-                    Repeatable = LuaScope.GetBoolean(plugin["repeatable"] ),
-
-                    Interval = LuaScope.GetInt32(plugin["interval"] ),
-
-                    Chance = LuaScope.GetDouble(plugin["chance"] ),
-
-                    Enabled = LuaScope.GetBoolean(plugin["enabled"] )
-                };
-
-                raids.Add(raid);
-
-                raidPlugins.AddPlugin(raid.Name, fileName, plugin, raid);
+                ParseRaids(fileName, null, parameters);
             }
 
-            foreach (LuaTable plugin in ( (LuaTable)script["plugins.monsterattacks"] ).Values)
+            foreach (LuaTable parameters in ( (LuaTable)script["plugins.monsterattacks"] ).Values)
             {
-                string fileName = LuaScope.GetString(plugin["filename"] );
+                string fileName = LuaScope.GetString(parameters["filename"] );
 
-                string name = LuaScope.GetString(plugin["name"] );
-
-                monsterAttackPlugins.AddPlugin(name, fileName, plugin);
+                ParseMonsterAttacks(fileName, null, parameters);
             }
 
             foreach (var filePath in Directory.GetFiles(server.PathResolver.GetFullPath("data/plugins/scripts"), "*.lua", SearchOption.AllDirectories) )
@@ -1734,6 +632,407 @@ namespace OpenTibia.Game.Common.ServerObjects
                     autoLoadPlugins.Add(new AutoLoadPlugin(this, filePath) );
                 }
             }
+        }
+
+        public void ParseActions(string fileName, ILuaScope script, LuaTable parameters)
+        {
+            string type = LuaScope.GetString(parameters["type"] );
+
+            switch (type)
+            {
+                case "PlayerRotateItem":
+                {
+                    playerRotateItemPlugins.AddPlugin(LuaScope.GetNullableUInt32(parameters["id"] ), LuaScope.GetNullableUInt16(parameters["uniqueid"] ), LuaScope.GetNullableUInt16(parameters["actionid"] ), LuaScope.GetNullableUInt16(parameters["opentibiaid"] ), fileName, script, parameters);
+                }
+                break;
+
+                case "PlayerUseItem":
+                {
+                    playerUseItemPlugins.AddPlugin(LuaScope.GetNullableUInt32(parameters["id"]), LuaScope.GetNullableUInt16(parameters["uniqueid"] ), LuaScope.GetNullableUInt16(parameters["actionid"] ), LuaScope.GetNullableUInt16(parameters["opentibiaid"] ), fileName, script, parameters);
+                }
+                break;
+
+                case "PlayerUseItemWithItem":
+                {
+                    bool allowFarUse = LuaScope.GetBoolean(parameters["allowfaruse"] );
+
+                    if (allowFarUse)
+                    {
+                        playerUseItemWithItemPluginsAllowFarUse.AddPlugin(LuaScope.GetNullableUInt32(parameters["id"] ), LuaScope.GetNullableUInt16(parameters["uniqueid"] ), LuaScope.GetNullableUInt16(parameters["actionid"] ), LuaScope.GetNullableUInt16(parameters["opentibiaid"] ), fileName, script, parameters);
+                    }
+                    else
+                    {
+                        playerUseItemWithItemPlugins.AddPlugin(LuaScope.GetNullableUInt32(parameters["id"] ), LuaScope.GetNullableUInt16(parameters["uniqueid"] ), LuaScope.GetNullableUInt16(parameters["actionid"] ), LuaScope.GetNullableUInt16(parameters["opentibiaid"] ), fileName, script, parameters);
+                    }
+                }
+                break;
+
+                case "PlayerUseItemWithCreature":
+                {
+                    bool allowFarUse = LuaScope.GetBoolean(parameters["allowfaruse"] );
+
+                    if (allowFarUse)
+                    {
+                        playerUseItemWithCreaturePluginsAllowFarUse.AddPlugin(LuaScope.GetNullableUInt32(parameters["id"] ), LuaScope.GetNullableUInt16(parameters["uniqueid"] ), LuaScope.GetNullableUInt16(parameters["actionid"] ), LuaScope.GetNullableUInt16(parameters["opentibiaid"] ), fileName, script, parameters);
+                    }
+                    else
+                    {
+                        playerUseItemWithCreaturePlugins.AddPlugin(LuaScope.GetNullableUInt32(parameters["id"] ), LuaScope.GetNullableUInt16(parameters["uniqueid"] ), LuaScope.GetNullableUInt16(parameters["actionid"] ), LuaScope.GetNullableUInt16(parameters["opentibiaid"] ), fileName, script, parameters);
+                    }
+                }
+                break;
+
+                case "PlayerMoveItem":
+                {
+                    playerMoveItemPlugins.AddPlugin(LuaScope.GetNullableUInt32(parameters["id"] ), LuaScope.GetNullableUInt16(parameters["uniqueid"] ), LuaScope.GetNullableUInt16(parameters["actionid"] ), LuaScope.GetNullableUInt16(parameters["opentibiaid"] ), fileName, script, parameters);
+                }
+                break;
+
+                case "PlayerMoveCreature":
+                {
+                    string name = LuaScope.GetString(parameters["name"] );
+
+                    playerMoveCreaturePlugins.AddPlugin(name, fileName, script, parameters);
+                }
+                break;
+            }
+        }
+
+        public void ParseMovements(string fileName, ILuaScope script, LuaTable parameters)
+        {
+            string type = LuaScope.GetString(parameters["type"] );
+
+            switch (type)
+            {
+                case "CreatureStepIn":
+                {
+                    creatureStepInPlugins.AddPlugin(LuaScope.GetNullableUInt32(parameters["id"] ), LuaScope.GetNullableUInt16(parameters["uniqueid"] ), LuaScope.GetNullableUInt16(parameters["actionid"] ), LuaScope.GetNullableUInt16(parameters["opentibiaid"] ), fileName, script, parameters);
+                }
+                break;
+
+                case "CreatureStepOut":
+                {
+                    creatureStepOutPlugins.AddPlugin(LuaScope.GetNullableUInt32(parameters["id"] ), LuaScope.GetNullableUInt16(parameters["uniqueid"] ), LuaScope.GetNullableUInt16(parameters["actionid"] ), LuaScope.GetNullableUInt16(parameters["opentibiaid"] ), fileName, script, parameters);
+                }
+                break;
+
+                case "InventoryEquip":
+                {
+                    inventoryEquipPlugins.AddPlugin(LuaScope.GetNullableUInt32(parameters["id"] ), LuaScope.GetNullableUInt16(parameters["uniqueid"] ), LuaScope.GetNullableUInt16(parameters["actionid"] ), LuaScope.GetNullableUInt16(parameters["opentibiaid"] ), fileName, script, parameters);
+                }
+                break;
+
+                case "InventoryDeEquip":
+                {
+                    inventoryDeEquipPlugins.AddPlugin(LuaScope.GetNullableUInt32(parameters["id"] ), LuaScope.GetNullableUInt16(parameters["uniqueid"] ), LuaScope.GetNullableUInt16(parameters["actionid"] ), LuaScope.GetNullableUInt16(parameters["opentibiaid"] ), fileName, script, parameters);
+                }
+                break;
+            }
+        }
+
+        public void ParseTalkActions(string fileName, ILuaScope script, LuaTable parameters) 
+        { 
+            string type = LuaScope.GetString(parameters["type"] );
+
+            switch (type)
+            {
+                case "PlayerSay":
+                {
+                    string message = LuaScope.GetString(parameters["message"] );
+
+                    playerSayPlugins.AddPlugin(message, fileName, script, parameters);
+                }
+                break;
+            }
+        }
+
+        public void ParseCreatureScripts(string fileName, ILuaScope script, LuaTable parameters)
+        {
+            string type = LuaScope.GetString(parameters["type"] );
+
+            switch (type)
+            {
+                case "PlayerLogin":
+                {
+                    playerLoginPlugins.AddPlugin(fileName, script, parameters);
+                }
+                break;
+
+                case "PlayerLogout":
+                {
+                    playerLogoutPlugins.AddPlugin(fileName, script, parameters);
+                }
+                break;
+
+                case "PlayerAdvanceLevel":
+                {
+                    playerAdvanceLevelPlugins.AddPlugin(fileName, script, parameters);
+                }
+                break;
+
+                case "PlayerAdvanceSkill":
+                {
+                    playerAdvanceSkillPlugins.AddPlugin(fileName, script, parameters);
+                }
+                break;
+
+                case "CreatureDeath":
+                {
+                    creatureDeathPlugins.AddPlugin(fileName, script, parameters);
+                }
+                break;
+
+                case "CreatureKill":
+                {
+                    creatureKillPlugins.AddPlugin(fileName, script, parameters);
+                }
+                break;
+
+                case "PlayerEarnAchievement":
+                {
+                    playerEarnAchievementPlugins.AddPlugin(fileName, script, parameters);
+                }
+                break;
+            }
+        }
+
+        public void ParseCreatureGlobalEvents(string fileName, ILuaScope script, LuaTable parameters)
+        {
+            string type = LuaScope.GetString(parameters["type"] );
+
+            switch (type)
+            {
+                case "ServerStartup":
+                {
+                    serverStartupPlugins.AddPlugin(fileName, script, parameters);
+                }
+                break;
+
+                case "ServerShutdown":
+                {
+                    serverShutdownPlugins.AddPlugin(fileName, script, parameters);
+                }
+                break;
+
+                case "ServerSave":
+                {
+                    serverSavePlugins.AddPlugin(fileName, script, parameters);
+                }
+                break;
+
+                case "ServerRecord":
+                {
+                    serverRecordPlugins.AddPlugin(fileName, script, parameters);
+                }
+                break;
+            }
+        }
+
+        public void ParseItems(string fileName, ILuaScope script, LuaTable parameters)
+        {
+            string type = LuaScope.GetString(parameters["type"] );
+
+            switch (type)
+            {
+                case "ItemCreation":
+                    {
+                        ushort openTibiaId = LuaScope.GetUInt16(parameters["openTibiaId"] );
+
+                        itemCreationPlugins.AddPlugin(openTibiaId, fileName, script, parameters);
+                    }
+                    break;
+            }
+        }
+
+        public void ParseMonsters(string fileName, ILuaScope script, LuaTable parameters)
+        {
+            string type = LuaScope.GetString(parameters["type"] );
+
+            switch (type)
+            {
+                case "MonsterCreation":
+                    {
+                        string name = LuaScope.GetString(parameters["name"] );
+
+                        monsterCreationPlugins.AddPlugin(name, fileName, script, parameters);
+                    }
+                    break;
+            }
+        }
+
+        public void ParseNpcs(string fileName, ILuaScope script, LuaTable parameters)
+        {
+            string type = LuaScope.GetString(parameters["type"] );
+
+            switch (type)
+            {
+                case "NpcCreation":
+                {
+                    string name = LuaScope.GetString(parameters["name"] );
+
+                    npcCreationPlugins.AddPlugin(name, fileName, script, parameters);
+                }
+                break;
+
+                case "Dialogue":
+                {
+                    string name = LuaScope.GetString(parameters["name"] );
+
+                    dialoguePlugins.AddPlugin(name, fileName, script, parameters);
+                }
+                break;
+            }
+        }
+
+        public void ParsePlayers(string fileName, ILuaScope script, LuaTable parameters)
+        {
+            string type = LuaScope.GetString(parameters["type"] );
+
+            switch (type)
+            {
+                case "PlayerCreation":
+                {
+                    string name = LuaScope.GetString(parameters["name"] );
+
+                    playerCreationPlugins.AddPlugin(name, fileName, script, parameters);
+                }
+                break;
+            }
+        }
+
+        public void ParseSpells(string fileName, ILuaScope script, LuaTable parameters)
+        {
+            bool requiresTarget = LuaScope.GetBoolean(parameters["requirestarget"] );
+
+            Spell spell = new Spell()
+            {
+                Words = LuaScope.GetString(parameters["words"] ),
+
+                Name = LuaScope.GetString(parameters["name"] ),
+
+                Group = LuaScope.GetString(parameters["group"] ),
+
+                Cooldown = TimeSpan.FromSeconds(LuaScope.GetInt32(parameters["cooldown"] ) ),
+
+                GroupCooldown = TimeSpan.FromSeconds(LuaScope.GetInt32(parameters["groupcooldown"] ) ),
+
+                Level = LuaScope.GetInt32(parameters["level"] ),
+
+                Mana = LuaScope.GetInt32(parameters["mana"] ),
+
+                Soul = LuaScope.GetInt32(parameters["soul"] ),
+
+                ConjureOpenTibiaId = LuaScope.GetNullableUInt16(parameters["conjureopentibiaid"] ),
+
+                ConjureCount = LuaScope.GetNullableInt32(parameters["conjurecount"] ),
+
+                Premium = LuaScope.GetBoolean(parameters["premium"] ),
+
+                Vocations = ( (LuaTable)parameters["vocations"] ).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()
+            };
+
+            spells.Add(spell);
+
+            if (requiresTarget)
+            {
+                spellPluginsRequiresTarget.AddPlugin(spell.Words, fileName, script, parameters, spell);
+            }
+            else
+            {
+                spellPlugins.AddPlugin(spell.Words, fileName, script, parameters, spell);
+            }
+        }
+
+        public void ParseRunes(string fileName, ILuaScope script, LuaTable parameters)
+        {
+            bool requiresTarget = LuaScope.GetBoolean(parameters["requirestarget"] );
+
+            Rune rune = new Rune()
+            {
+                OpenTibiaId = LuaScope.GetUInt16(parameters["opentibiaid"] ),
+
+                Name = LuaScope.GetString(parameters["name"] ),
+
+                Group = LuaScope.GetString(parameters["group"] ),
+
+                GroupCooldown = TimeSpan.FromSeconds(LuaScope.GetInt32(parameters["groupcooldown"] ) ),
+
+                Level = LuaScope.GetInt32(parameters["level"] ),
+
+                MagicLevel = LuaScope.GetInt32(parameters["magiclevel"] ),
+
+                Vocations = ( (LuaTable)parameters["vocations"] ).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()
+            };
+
+            runes.Add(rune);
+
+            if (requiresTarget)
+            {
+                runePluginsRequiresTarget.AddPlugin(rune.OpenTibiaId, fileName, script, parameters, rune);
+            }
+            else
+            {
+                runePlugins.AddPlugin(rune.OpenTibiaId, fileName, script, parameters, rune);
+            }
+        }
+
+        public void ParseWeapons(string fileName, ILuaScope script, LuaTable parameters)
+        {
+            Weapon weapon = new Weapon()
+            {
+                OpenTibiaId = LuaScope.GetUInt16(parameters["opentibiaid"] ),
+
+                Level = LuaScope.GetInt32(parameters["level"] ),
+
+                Mana = LuaScope.GetInt32(parameters["mana"] ),
+
+                Vocations = ( (LuaTable)parameters["vocations"] ).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()
+            };
+
+            weapons.Add(weapon);
+
+            weaponPlugins.AddPlugin(weapon.OpenTibiaId, fileName, script, parameters, weapon);
+        }
+
+        public void ParseAmmunitions(string fileName, ILuaScope script, LuaTable parameters)
+        {
+            Ammunition ammunition = new Ammunition()
+            {
+                OpenTibiaId = LuaScope.GetUInt16(parameters["opentibiaid"] ),
+
+                Level = LuaScope.GetInt32(parameters["level"] )
+            };
+
+            ammunitions.Add(ammunition);
+
+            ammunitionPlugins.AddPlugin(ammunition.OpenTibiaId, fileName, script, parameters, ammunition);
+        }
+
+        public void ParseRaids(string fileName, ILuaScope script, LuaTable parameters)
+        {
+            Raid raid = new Raid()
+            {
+                Name = LuaScope.GetString(parameters["name"] ),
+
+                Repeatable = LuaScope.GetBoolean(parameters["repeatable"] ),
+
+                Interval = LuaScope.GetInt32(parameters["interval"] ),
+
+                Chance = LuaScope.GetDouble(parameters["chance"] ),
+
+                Enabled = LuaScope.GetBoolean(parameters["enabled"] )
+            };
+
+            raids.Add(raid);
+
+            raidPlugins.AddPlugin(raid.Name, fileName, script, parameters, raid);
+        }
+
+        public void ParseMonsterAttacks(string fileName, ILuaScope script, LuaTable parameters)
+        {
+            string name = LuaScope.GetString(parameters["name"] );
+
+            monsterAttackPlugins.AddPlugin(name, fileName, script, parameters);
         }
 
         /// <exception cref="ObjectDisposedException"></exception>
