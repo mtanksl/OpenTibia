@@ -195,7 +195,7 @@ namespace OpenTibia.FileFormats.Xml.Monsters
                     {
                         PhysicalPercent = (int?)elementNode.Attribute("physicalPercent"),
 
-                        Earthpercent = (int?)elementNode.Attribute("earthpercent"),
+                        EarthPercent = (int?)elementNode.Attribute("earthpercent"),
 
                         FirePercent = (int?)elementNode.Attribute("firePercent"),
 
@@ -554,7 +554,7 @@ namespace OpenTibia.FileFormats.Xml.Monsters
 
                     if (element.PhysicalPercent != null) elementNode.Add(new XAttribute("physicalPercent", element.PhysicalPercent) );
 
-                    if (element.Earthpercent != null) elementNode.Add(new XAttribute("earthpercent", element.Earthpercent) );
+                    if (element.EarthPercent != null) elementNode.Add(new XAttribute("earthpercent", element.EarthPercent) );
 
                     if (element.FirePercent != null) elementNode.Add(new XAttribute("firePercent", element.FirePercent) );
 

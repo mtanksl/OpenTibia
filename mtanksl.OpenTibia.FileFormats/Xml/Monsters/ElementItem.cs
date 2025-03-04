@@ -6,7 +6,7 @@
     {
         public int? PhysicalPercent { get; set; }
 
-        public int? Earthpercent { get; set; }
+        public int? EarthPercent { get; set; }
 
         public int? FirePercent { get; set; }
 

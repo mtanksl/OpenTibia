@@ -174,42 +174,92 @@ namespace OpenTibia.Game.Common.ServerObjects
                     {
                         if (elementItem.PhysicalPercent != null)
                         {
+                            if (elementItem.PhysicalPercent.Value >= 100)
+                            {
+                                monsterMetadata.Immunities.Add(DamageType.Physical);
+                            }
+
                             monsterMetadata.DamageTakenFromElements[DamageType.Physical] = (100 - elementItem.PhysicalPercent.Value) / 100.0;
                         }
-                        else if (elementItem.Earthpercent != null)
+                        else if (elementItem.EarthPercent != null)
                         {
-                            monsterMetadata.DamageTakenFromElements[DamageType.Earth] = (100 - elementItem.Earthpercent.Value) / 100.0;
+                            if (elementItem.EarthPercent.Value >= 100)
+                            {
+                                monsterMetadata.Immunities.Add(DamageType.Earth);
+                            }
+
+                            monsterMetadata.DamageTakenFromElements[DamageType.Earth] = (100 - elementItem.EarthPercent.Value) / 100.0;
                         }
                         else if (elementItem.FirePercent != null)
                         {
+                            if (elementItem.FirePercent.Value >= 100)
+                            {
+                                monsterMetadata.Immunities.Add(DamageType.Fire);
+                            }
+
                             monsterMetadata.DamageTakenFromElements[DamageType.Fire] = (100 - elementItem.FirePercent.Value) / 100.0;
                         }
                         else if (elementItem.EnergyPercent != null)
                         {
+                            if (elementItem.EnergyPercent.Value >= 100)
+                            {
+                                monsterMetadata.Immunities.Add(DamageType.Energy);
+                            }
+
                             monsterMetadata.DamageTakenFromElements[DamageType.Energy] = (100 - elementItem.EnergyPercent.Value) / 100.0;
                         }
                         else if (elementItem.IcePercent != null)
                         {
+                            if (elementItem.IcePercent.Value >= 100)
+                            {
+                                monsterMetadata.Immunities.Add(DamageType.Ice);
+                            }
+
                             monsterMetadata.DamageTakenFromElements[DamageType.Ice] = (100 - elementItem.IcePercent.Value) / 100.0;
                         }
                         else if (elementItem.DeathPercent != null)
                         {
+                            if (elementItem.DeathPercent.Value >= 100)
+                            {
+                                monsterMetadata.Immunities.Add(DamageType.Death);
+                            }
+
                             monsterMetadata.DamageTakenFromElements[DamageType.Death] = (100 - elementItem.DeathPercent.Value) / 100.0;
                         }
                         else if (elementItem.HolyPercent != null)
                         {
+                            if (elementItem.HolyPercent.Value >= 100)
+                            {
+                                monsterMetadata.Immunities.Add(DamageType.Holy);
+                            }
+
                             monsterMetadata.DamageTakenFromElements[DamageType.Holy] = (100 - elementItem.HolyPercent.Value) / 100.0;
                         }
                         else if (elementItem.DrownPercent != null)
                         {
+                            if (elementItem.DrownPercent.Value >= 100)
+                            {
+                                monsterMetadata.Immunities.Add(DamageType.Drown);
+                            }
+
                             monsterMetadata.DamageTakenFromElements[DamageType.Drown] = (100 - elementItem.DrownPercent.Value) / 100.0;
                         }
                         else if (elementItem.ManaDrainPercent != null)
                         {
+                            if (elementItem.ManaDrainPercent.Value >= 100)
+                            {
+                                monsterMetadata.Immunities.Add(DamageType.ManaDrain);
+                            }
+
                             monsterMetadata.DamageTakenFromElements[DamageType.ManaDrain] = (100 - elementItem.ManaDrainPercent.Value) / 100.0;
                         }
                         else if (elementItem.LifeDrainPercent != null)
                         {
+                            if (elementItem.LifeDrainPercent.Value >= 100)
+                            {
+                                monsterMetadata.Immunities.Add(DamageType.LifeDrain);
+                            }
+
                             monsterMetadata.DamageTakenFromElements[DamageType.LifeDrain] = (100 - elementItem.LifeDrainPercent.Value) / 100.0;
                         }
                     }
