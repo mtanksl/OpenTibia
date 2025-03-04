@@ -29,7 +29,7 @@ namespace OpenTibia.Plugins.Spells
 
             return Context.AddCommand(new CreatureAttackCreatureCommand(player, target,
 
-                new DamageAttack(ProjectileType.EtherenalSpear, MagicEffectType.GroundShaker, DamageType.Physical, formula.Min, formula.Max) ) );
+                new DamageAttack(ProjectileType.EtherenalSpear, MagicEffectType.GroundShaker, DamageType.Physical, formula.Min, formula.Max, true) ) );
         }
     }
 }

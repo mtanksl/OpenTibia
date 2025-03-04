@@ -44,7 +44,7 @@ namespace OpenTibia.Plugins.MonsterAttacks
         {            
             return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, true, attacker.Tile.Position, area, null, magicEffectType, 
                         
-                new DamageAttack(null, null, damageType, min, max),
+                new DamageAttack(null, null, damageType, min, max, true),
                 
                 condition) );
         }

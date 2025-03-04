@@ -33,7 +33,7 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         return Context.AddCommand(new CreatureAttackCreatureCommand(null, command.Player, 
                             
-                            new DamageAttack(null, MagicEffectType.ExplosionDamage, DamageType.Fire, 1, 1) ) );
+                            new DamageAttack(null, MagicEffectType.ExplosionDamage, DamageType.Fire, 1, 1, false) ) );
                     }
 
                     return Promise.Completed;

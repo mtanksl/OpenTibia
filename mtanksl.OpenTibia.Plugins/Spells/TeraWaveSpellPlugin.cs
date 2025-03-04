@@ -33,7 +33,7 @@ namespace OpenTibia.Plugins.Spells
 
             return Context.AddCommand(new CreatureAttackAreaCommand(player, true, player.Tile.Position, area, null, MagicEffectType.PlantAttack, 
                         
-                new DamageAttack(null, null, DamageType.Earth, formula.Min, formula.Max) ) );
+                new DamageAttack(null, null, DamageType.Earth, formula.Min, formula.Max, true) ) );
         }
     }
 }

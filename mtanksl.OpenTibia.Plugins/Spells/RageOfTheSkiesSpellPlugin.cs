@@ -40,7 +40,7 @@ namespace OpenTibia.Plugins.Spells
 
             return Context.AddCommand(new CreatureAttackAreaCommand(player, false, player.Tile.Position, area, null, MagicEffectType.BigClouds, 
                         
-                new DamageAttack(null, null, DamageType.Energy, formula.Min, formula.Max) ) );
+                new DamageAttack(null, null, DamageType.Energy, formula.Min, formula.Max, true) ) );
         }
     }
 }

@@ -34,7 +34,7 @@ namespace OpenTibia.Plugins.MonsterAttacks
         {
             return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target,
 
-                new DamageAttack(null, magicEffectType, damageType, min, max) ) );
+                new DamageAttack(null, magicEffectType, damageType, min, max, true) ) );
         }
     }
 }

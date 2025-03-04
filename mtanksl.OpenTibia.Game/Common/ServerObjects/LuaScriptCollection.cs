@@ -1485,7 +1485,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 {
                     case "damage":
 
-                        return new DamageAttack( (ProjectileType?)(long?)table["projectiletype"], (MagicEffectType?)(long?)table["magiceffecttype"], (DamageType)(long)table["damagetype"], LuaScope.GetInt32(table["min"] ), LuaScope.GetInt32(table["max"] ) );
+                        return new DamageAttack( (ProjectileType?)(long?)table["projectiletype"], (MagicEffectType?)(long?)table["magiceffecttype"], (DamageType)(long)table["damagetype"], LuaScope.GetInt32(table["min"] ), LuaScope.GetInt32(table["max"] ), LuaScope.GetBoolean(table["blockable"] ) );
                     
                     case "healing":
                     

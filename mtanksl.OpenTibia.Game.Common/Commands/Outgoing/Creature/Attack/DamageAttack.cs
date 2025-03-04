@@ -24,14 +24,16 @@ namespace OpenTibia.Game.Commands
 
         private int? attackModifierMax;
 
-        public DamageAttack(ProjectileType? projectileType, MagicEffectType? magicEffectType, DamageType damageType, int min, int max) 
+        private bool blockable;
+
+        public DamageAttack(ProjectileType? projectileType, MagicEffectType? magicEffectType, DamageType damageType, int min, int max, bool blockable) 
             
-            : this(projectileType, magicEffectType, damageType, min, max, null, null, null)
+            : this(projectileType, magicEffectType, damageType, min, max, null, null, null, blockable)
         {
 
         }
 
-        public DamageAttack(ProjectileType? projectileType, MagicEffectType? magicEffectType, DamageType damageType, int min, int max, DamageType? attackModifierDamageType, int? attackModifierMin, int? attackModifierMax)
+        public DamageAttack(ProjectileType? projectileType, MagicEffectType? magicEffectType, DamageType damageType, int min, int max, DamageType? attackModifierDamageType, int? attackModifierMin, int? attackModifierMax, bool blockable)
         {
             this.projectileType = projectileType;
 
@@ -48,6 +50,8 @@ namespace OpenTibia.Game.Commands
             this.attackModifierMin = attackModifierMin;
 
             this.attackModifierMax = attackModifierMax;
+
+            this.blockable = blockable;
         }
 
         public override (int Damage, BlockType BlockType) Calculate(Creature attacker, Creature target)
@@ -59,7 +63,7 @@ namespace OpenTibia.Game.Commands
                 int damage1 = Context.Current.Server.Randomization.Take(min, max);
 
                 int damage2 = attackModifierDamageType != null ? Context.Current.Server.Randomization.Take(attackModifierMin.Value, attackModifierMax.Value): 0;
-
+                                
                 if (monster.Metadata.Immunities.Contains(damageType) )
                 {
                     damage1 = 0;
@@ -76,116 +80,119 @@ namespace OpenTibia.Game.Commands
                 }
                 else
                 {
-                    if (monster.Metadata.Mitigation > 0)
+                    if (blockable)
                     {
-                        double mitigationPercent = (100 - monster.Metadata.Mitigation) / 100.0;
-
-                        damage1 = Math.Max(0, (int)(damage1 * mitigationPercent) );
-
-                        damage2 = Math.Max(0, (int)(damage2 * mitigationPercent) );
-                    }
-                    else
-                    {
-                        int defense = Formula.DefenseFormula(monster.Metadata.Defense, FightMode.Balanced);
-
-                        int diff = damage1 - defense;
-
-                        if (diff >= 0)
+                        if (monster.Metadata.Mitigation > 0)
                         {
-                            damage1 = diff;
+                            double mitigationPercent = (100 - monster.Metadata.Mitigation) / 100.0;
 
-                            defense = 0;
+                            damage1 = Math.Max(0, (int)(damage1 * mitigationPercent) );
+
+                            damage2 = Math.Max(0, (int)(damage2 * mitigationPercent) );
                         }
                         else
                         {
-                            damage1 = 0;
+                            int defense = Formula.DefenseFormula(monster.Metadata.Defense, FightMode.Balanced);
 
-                            defense = -diff;
-                        }
-
-                        diff = damage2 - defense;
-
-                        if (diff >= 0)
-                        {
-                            damage2 = diff;
-
-                            defense = 0;
-                        }
-                        else
-                        {
-                            damage2 = 0;
-
-                            defense = -diff;
-                        }
-                    }
-
-                    if (damage1 + damage2 <= 0)
-                    {
-                        blockType = BlockType.Shield;
-                    }
-                    else
-                    {
-                        double elementPercent;
-
-                        if ( !monster.Metadata.DamageTakenFromElements.TryGetValue(damageType, out elementPercent) )
-                        {
-                            elementPercent = 1;
-                        }
-
-                        damage1 = Math.Max(0, (int)(damage1 * elementPercent) );
-
-                        if (attackModifierDamageType != null && !monster.Metadata.DamageTakenFromElements.TryGetValue(attackModifierDamageType.Value, out elementPercent) )
-                        {
-                            elementPercent = 1;
-                        }
-
-                        damage2 = Math.Max(0, (int)(damage2 * elementPercent) );
-
-                        if (damage1 + damage2 <= 0)
-                        {
-                            blockType = BlockType.Armor;
-                        }
-                        else
-                        {
-                            int armor = Formula.ArmorFormula(monster.Metadata.Armor);
-
-                            int diff = damage1 - armor;
+                            int diff = damage1 - defense;
 
                             if (diff >= 0)
                             {
                                 damage1 = diff;
 
-                                armor = 0;
+                                defense = 0;
                             }
                             else
                             {
                                 damage1 = 0;
 
-                                armor = -diff;
+                                defense = -diff;
                             }
 
-                            diff = damage2 - armor;
+                            diff = damage2 - defense;
 
                             if (diff >= 0)
                             {
                                 damage2 = diff;
 
-                                armor = 0;
+                                defense = 0;
                             }
                             else
                             {
                                 damage2 = 0;
 
-                                armor = -diff;
+                                defense = -diff;
                             }
-                            
+                        }
+
+                        if (damage1 + damage2 <= 0)
+                        {
+                            blockType = BlockType.Shield;
+                        }
+                        else
+                        {
+                            double elementPercent;
+
+                            if ( !monster.Metadata.DamageTakenFromElements.TryGetValue(damageType, out elementPercent) )
+                            {
+                                elementPercent = 1;
+                            }
+
+                            damage1 = Math.Max(0, (int)(damage1 * elementPercent) );
+
+                            if (attackModifierDamageType != null && !monster.Metadata.DamageTakenFromElements.TryGetValue(attackModifierDamageType.Value, out elementPercent) )
+                            {
+                                elementPercent = 1;
+                            }
+
+                            damage2 = Math.Max(0, (int)(damage2 * elementPercent) );
+
                             if (damage1 + damage2 <= 0)
                             {
                                 blockType = BlockType.Armor;
                             }
                             else
                             {
-                                // Hit!
+                                int armor = Formula.ArmorFormula(monster.Metadata.Armor);
+
+                                int diff = damage1 - armor;
+
+                                if (diff >= 0)
+                                {
+                                    damage1 = diff;
+
+                                    armor = 0;
+                                }
+                                else
+                                {
+                                    damage1 = 0;
+
+                                    armor = -diff;
+                                }
+
+                                diff = damage2 - armor;
+
+                                if (diff >= 0)
+                                {
+                                    damage2 = diff;
+
+                                    armor = 0;
+                                }
+                                else
+                                {
+                                    damage2 = 0;
+
+                                    armor = -diff;
+                                }
+                            
+                                if (damage1 + damage2 <= 0)
+                                {
+                                    blockType = BlockType.Armor;
+                                }
+                                else
+                                {
+                                    // Hit!
+                                }
                             }
                         }
                     }
@@ -233,106 +240,109 @@ namespace OpenTibia.Game.Commands
 
                 int damage2 = attackModifierDamageType != null ? (int)(Context.Current.Server.Randomization.Take(attackModifierMin.Value, attackModifierMax.Value) * attackPercent) : 0;
 
-                if (damage1 + damage2 <= 0)
+                if (blockable)
                 {
-                        
-                }
-                else
-                {
-                    int defense = Formula.DefenseFormula(player.Inventory.GetDefense(), player.Client.FightMode);
-
-                    int diff = damage1 - defense;
-
-                    if (diff >= 0)
-                    {
-                        damage1 = diff;
-
-                        defense = 0;
-                    }
-                    else
-                    {
-                        damage1 = 0;
-
-                        defense = -diff;
-                    }
-
-                    diff = damage2 - defense;
-
-                    if (diff >= 0)
-                    {
-                        damage2 = diff;
-
-                        defense = 0;
-                    }
-                    else
-                    {
-                        damage2 = 0;
-
-                        defense = -diff;
-                    }
-
                     if (damage1 + damage2 <= 0)
                     {
-                        blockType = BlockType.Shield;
+                        
                     }
                     else
                     {
-                        double armorReductionPercent = player.Inventory.GetArmorReductionPercent(damageType);
+                        int defense = Formula.DefenseFormula(player.Inventory.GetDefense(), player.Client.FightMode);
 
-                        damage1 = Math.Max(0, (int)(damage1 * armorReductionPercent) );
+                        int diff = damage1 - defense;
 
-                        if (attackModifierDamageType != null)
+                        if (diff >= 0)
                         {
-                            armorReductionPercent = player.Inventory.GetArmorReductionPercent(attackModifierDamageType.Value);
+                            damage1 = diff;
 
-                            damage2 = Math.Max(0, (int)(damage2 * armorReductionPercent) );
+                            defense = 0;
+                        }
+                        else
+                        {
+                            damage1 = 0;
+
+                            defense = -diff;
+                        }
+
+                        diff = damage2 - defense;
+
+                        if (diff >= 0)
+                        {
+                            damage2 = diff;
+
+                            defense = 0;
+                        }
+                        else
+                        {
+                            damage2 = 0;
+
+                            defense = -diff;
                         }
 
                         if (damage1 + damage2 <= 0)
                         {
-                            blockType = BlockType.Armor;
+                            blockType = BlockType.Shield;
                         }
                         else
                         {
-                            int armor = Formula.ArmorFormula(player.Inventory.GetArmor() );
+                            double armorReductionPercent = player.Inventory.GetArmorReductionPercent(damageType);
 
-                            diff = damage1 - armor;
+                            damage1 = Math.Max(0, (int)(damage1 * armorReductionPercent) );
 
-                            if (diff >= 0)
+                            if (attackModifierDamageType != null)
                             {
-                                damage1 = diff;
+                                armorReductionPercent = player.Inventory.GetArmorReductionPercent(attackModifierDamageType.Value);
 
-                                armor = 0;
-                            }
-                            else
-                            {
-                                damage1 = 0;
-
-                                armor = -diff;
+                                damage2 = Math.Max(0, (int)(damage2 * armorReductionPercent) );
                             }
 
-                            diff = damage2 - armor;
-
-                            if (diff >= 0)
-                            {
-                                damage2 = diff;
-
-                                armor = 0;
-                            }
-                            else
-                            {
-                                damage2 = 0;
-
-                                armor = -diff;
-                            }
-                            
                             if (damage1 + damage2 <= 0)
                             {
                                 blockType = BlockType.Armor;
                             }
                             else
                             {
-                                // Hit!
+                                int armor = Formula.ArmorFormula(player.Inventory.GetArmor() );
+
+                                diff = damage1 - armor;
+
+                                if (diff >= 0)
+                                {
+                                    damage1 = diff;
+
+                                    armor = 0;
+                                }
+                                else
+                                {
+                                    damage1 = 0;
+
+                                    armor = -diff;
+                                }
+
+                                diff = damage2 - armor;
+
+                                if (diff >= 0)
+                                {
+                                    damage2 = diff;
+
+                                    armor = 0;
+                                }
+                                else
+                                {
+                                    damage2 = 0;
+
+                                    armor = -diff;
+                                }
+                            
+                                if (damage1 + damage2 <= 0)
+                                {
+                                    blockType = BlockType.Armor;
+                                }
+                                else
+                                {
+                                    // Hit!
+                                }
                             }
                         }
                     }

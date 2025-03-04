@@ -40,7 +40,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     return Context.AddCommand(new CreatureAttackCreatureCommand(null, command.Player, 
                         
-                        new DamageAttack(null, MagicEffectType.ExplosionDamage, DamageType.Fire, 10, 10) ) );
+                        new DamageAttack(null, MagicEffectType.ExplosionDamage, DamageType.Fire, 10, 10, false) ) );
 
                 } ).Then( () =>
                 {

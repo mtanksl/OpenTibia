@@ -232,7 +232,7 @@ namespace OpenTibia.Game.Components
 
                             await Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target,
                             
-                                new DamageAttack(null, null, DamageType.Physical, formula.Min, formula.Max, itemWeapon.Metadata.AttackDamageType.Value, formulaModifier.Min, formulaModifier.Max) ) );
+                                new DamageAttack(null, null, DamageType.Physical, formula.Min, formula.Max, itemWeapon.Metadata.AttackDamageType.Value, formulaModifier.Min, formulaModifier.Max, true) ) );
                         }
                         else
                         {
@@ -240,7 +240,7 @@ namespace OpenTibia.Game.Components
 
                             await Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target,
                             
-                                new DamageAttack(null, null, DamageType.Physical, formula.Min, formula.Max) ) );
+                                new DamageAttack(null, null, DamageType.Physical, formula.Min, formula.Max, true) ) );
                         }
                     }
                 }
@@ -264,7 +264,7 @@ namespace OpenTibia.Game.Components
 
                             await Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
                             
-                                new DamageAttack(null, null, DamageType.Physical, formula.Min, formula.Max, itemWeapon.Metadata.AttackDamageType.Value, formulaModifier.Min, formulaModifier.Max) ) );
+                                new DamageAttack(null, null, DamageType.Physical, formula.Min, formula.Max, itemWeapon.Metadata.AttackDamageType.Value, formulaModifier.Min, formulaModifier.Max, true) ) );
                         }
                         else
                         {
@@ -272,7 +272,7 @@ namespace OpenTibia.Game.Components
 
                             await Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
                             
-                                new DamageAttack(null, null, DamageType.Physical, formula.Min, formula.Max) ) );
+                                new DamageAttack(null, null, DamageType.Physical, formula.Min, formula.Max, true) ) );
                         }
                     }
                 }
@@ -296,7 +296,7 @@ namespace OpenTibia.Game.Components
 
                             await Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
                             
-                                new DamageAttack(null, null, DamageType.Physical, formula.Min, formula.Max, itemWeapon.Metadata.AttackDamageType.Value, formulaModifier.Min, formulaModifier.Max) ) );
+                                new DamageAttack(null, null, DamageType.Physical, formula.Min, formula.Max, itemWeapon.Metadata.AttackDamageType.Value, formulaModifier.Min, formulaModifier.Max, true) ) );
                         }
                         else
                         {
@@ -304,7 +304,7 @@ namespace OpenTibia.Game.Components
 
                             await Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
                             
-                                new DamageAttack(null, null, DamageType.Physical, formula.Min, formula.Max) ) );
+                                new DamageAttack(null, null, DamageType.Physical, formula.Min, formula.Max, true) ) );
                         }
                     }
                 }
@@ -397,7 +397,7 @@ namespace OpenTibia.Game.Components
 
                                     await Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
                                 
-                                        new DamageAttack(itemAmmunition.Metadata.ProjectileType.Value, null, DamageType.Physical, formula.Min, formula.Max, itemAmmunition.Metadata.AttackDamageType.Value, formulaModifier.Min, formulaModifier.Max) ) );
+                                        new DamageAttack(itemAmmunition.Metadata.ProjectileType.Value, null, DamageType.Physical, formula.Min, formula.Max, itemAmmunition.Metadata.AttackDamageType.Value, formulaModifier.Min, formulaModifier.Max, true) ) );
                                 }
                                 else
                                 {
@@ -405,7 +405,7 @@ namespace OpenTibia.Game.Components
 
                                     await Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
                                 
-                                        new DamageAttack(itemAmmunition.Metadata.ProjectileType.Value, null, DamageType.Physical, formula.Min, formula.Max) ) );
+                                        new DamageAttack(itemAmmunition.Metadata.ProjectileType.Value, null, DamageType.Physical, formula.Min, formula.Max, true) ) );
                                 }
                             }
                         }
@@ -467,7 +467,7 @@ namespace OpenTibia.Game.Components
 
                                 await Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
                             
-                                    new DamageAttack(itemWeapon.Metadata.ProjectileType.Value, null, DamageType.Physical, formula.Min, formula.Max, itemWeapon.Metadata.AttackDamageType.Value, formulaModifier.Min, formulaModifier.Max) ) );
+                                    new DamageAttack(itemWeapon.Metadata.ProjectileType.Value, null, DamageType.Physical, formula.Min, formula.Max, itemWeapon.Metadata.AttackDamageType.Value, formulaModifier.Min, formulaModifier.Max, true) ) );
                             }
                             else
                             {
@@ -475,7 +475,7 @@ namespace OpenTibia.Game.Components
 
                                 await Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
                                 
-                                    new DamageAttack(itemWeapon.Metadata.ProjectileType.Value, null, DamageType.Physical, formula.Min, formula.Max) ) );
+                                    new DamageAttack(itemWeapon.Metadata.ProjectileType.Value, null, DamageType.Physical, formula.Min, formula.Max, true) ) );
                             }
                         }
                     }
@@ -493,7 +493,7 @@ namespace OpenTibia.Game.Components
 
                 await Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
                     
-                    new DamageAttack(null, null, DamageType.Physical, formula.Min, formula.Max) ) );
+                    new DamageAttack(null, null, DamageType.Physical, formula.Min, formula.Max, true) ) );
             }
         }
     }

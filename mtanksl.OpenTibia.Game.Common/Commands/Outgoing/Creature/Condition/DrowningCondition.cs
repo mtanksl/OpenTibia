@@ -28,7 +28,7 @@ namespace OpenTibia.Game.Commands
 
                 await Context.Current.AddCommand(new CreatureAttackCreatureCommand(null, creature, 
                     
-                    new DamageAttack(null, null, DamageType.Drown, Damage, Damage) ) );
+                    new DamageAttack(null, null, DamageType.Drown, Damage, Damage, false) ) );
             }
         }
 

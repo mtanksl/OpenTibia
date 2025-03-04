@@ -310,7 +310,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         }
 
         private class CreaturePluginDictionaryCached<TValue, TLuaImplementation> where TValue : Plugin
-                                                                             where TLuaImplementation : TValue
+                                                                                 where TLuaImplementation : TValue
         {
             private IServer server;
 
@@ -403,9 +403,9 @@ namespace OpenTibia.Game.Common.ServerObjects
                 
                 var initializations = new List<(string NodeType, LuaTable Parameters)>();
 
-                scripts["registerplugin"] = (string type, LuaTable parameters) =>
+                scripts["registerplugin"] = (string noteType, LuaTable parameters) =>
                 {
-                    initializations.Add( (type, parameters) );
+                    initializations.Add( (noteType, parameters) );
                 };
 
                 script = pluginCollection.server.LuaScripts.LoadScript(pluginCollection.server.PathResolver.GetFullPath(filePath), scripts);

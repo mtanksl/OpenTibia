@@ -30,7 +30,7 @@ namespace OpenTibia.Game.CommandHandlers
                         {
                             return Context.AddCommand(new CreatureAttackCreatureCommand(null, e.Inventory.Player, 
 
-                                new DamageAttack(null, null, DamageType.Drown, 20, 20),
+                                new DamageAttack(null, null, DamageType.Drown, 20, 20, false),
 
                                 new DrowningCondition(20, TimeSpan.FromSeconds(4) ) ) );
                         }
