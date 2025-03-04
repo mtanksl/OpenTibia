@@ -322,14 +322,14 @@ namespace OpenTibia.Game.Common.ServerObjects
                 
                 var initializations = new List<(string NodeType, LuaTable Parameters)>();
 
-                scripts["command.registerplugin"] = (string type, LuaTable parameters) =>
+                scripts["registerplugin"] = (string type, LuaTable parameters) =>
                 {
                     initializations.Add( (type, parameters) );
                 };
 
                 script = pluginCollection.server.LuaScripts.LoadScript(pluginCollection.server.PathResolver.GetFullPath(filePath), scripts);
 
-                scripts["command.registerplugin"] = null;
+                scripts["registerplugin"] = null;
 
                 foreach (var initialization in initializations)
                 {

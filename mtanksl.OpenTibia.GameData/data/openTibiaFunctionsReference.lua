@@ -34,6 +34,13 @@ return {
 		args = "(string relativePath)",
 		returns = "string"
 	},
+	-- void registerplugin(string nodeType, LuaTable parameters)
+	registerplugin = {
+		type = "function",
+		description = "",
+		args = "(string nodeType, LuaTable parameters)",
+		returns = "void"
+	},
 	-- void registeractionsplayerrotateitem(uint? id, ushort? uniqueid, ushort? actionid, ushort? opentibiaid, Func<Player, Item, bool> onrotateitem)
 	registeractionsplayerrotateitem = {
 		type = "function",
