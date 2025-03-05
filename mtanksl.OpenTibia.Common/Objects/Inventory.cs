@@ -225,6 +225,15 @@ namespace OpenTibia.Common.Objects
                     }
 
                     break;
+                                                      
+                case Slot.Backpack:
+
+                    if (slotType != null && slotType.Value.Is(SlotType.Backpack) )
+                    {
+                        isEquipped = true;
+                    }
+
+                    break;
 
                 case Slot.Body:
 
@@ -285,7 +294,7 @@ namespace OpenTibia.Common.Objects
             return isEquipped;
         }
 
-        public double GetArmorReductionPercent(DamageType damageType)
+        public double GetArmorReductionPercent(DamageType damageType, ref HashSet<Item> removeCharges)
         {
             double armorReductionPercent = 1;
 
@@ -299,6 +308,16 @@ namespace OpenTibia.Common.Objects
 
                     if (item.Metadata.DamageTakenFromElements.TryGetValue(damageType, out elementPercent) )
                     {
+                        if (item.Metadata.Charges != null && item.Charges > 0)
+                        {
+                            if (removeCharges == null)
+                            {
+                                removeCharges = new HashSet<Item>();
+                            }
+
+                           removeCharges.Add(item);
+                        }
+
                         armorReductionPercent *= elementPercent;
                     }
                 }

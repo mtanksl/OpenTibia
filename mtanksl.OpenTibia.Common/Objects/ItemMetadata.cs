@@ -79,21 +79,21 @@ namespace OpenTibia.Common.Objects
 
         public Dictionary<DamageType, double> DamageTakenFromElements { get; set; }
 
-        public string GetDescription(byte type)
+        public string GetDescription(byte typeCount)
         {
             string description;
 
-            if (Flags.Is(ItemMetadataFlags.Stackable) && type > 1)
+            if (Flags.Is(ItemMetadataFlags.Stackable) && typeCount > 1)
             {
                 if (Plural != null)
                 {
-                    description = type + " " + Plural;
+                    description = typeCount + " " + Plural;
                 }
                 else
                 {
                     if (Name != null)
                     {
-                        description = type + " " + Name;
+                        description = typeCount + " " + Name;
                     }
                     else
                     {
@@ -101,17 +101,17 @@ namespace OpenTibia.Common.Objects
                     }
                 }
             }
-            else if ( (Flags.Is(ItemMetadataFlags.IsFluid) || Flags.Is(ItemMetadataFlags.IsSplash) ) && type > 0)
+            else if ( (Flags.Is(ItemMetadataFlags.IsFluid) || Flags.Is(ItemMetadataFlags.IsSplash) ) && typeCount > 0)
             {
                 if (Name != null)
                 {
                     if (Article != null)
                     {
-                        description = Article + " " + Name + " of " + ( (FluidType)type ).GetDescription();
+                        description = Article + " " + Name + " of " + ( (FluidType)typeCount ).GetDescription();
                     }
                     else
                     {
-                        description = Name + " of " + ( (FluidType)type ).GetDescription();
+                        description = Name + " of " + ( (FluidType)typeCount ).GetDescription();
                     }
                 }
                 else

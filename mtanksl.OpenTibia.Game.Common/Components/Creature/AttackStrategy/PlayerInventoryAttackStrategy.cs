@@ -216,6 +216,19 @@ namespace OpenTibia.Game.Components
                 {
                     await Context.Current.AddCommand(new PlayerAddSkillPointsCommand(player, Skill.Sword, 1) );
                     
+                    if (Context.Current.Server.Config.GameplayRemoveWeaponCharges)
+                    {
+                        if (itemWeapon.Metadata.Charges != null && itemWeapon.Charges > 0)
+                        {
+                            itemWeapon.Charges--;
+
+                            if (itemWeapon.Charges == 0)
+                            {
+                                await Context.Current.AddCommand(new ItemDestroyCommand(itemWeapon) );
+                            }
+                        }
+                    }
+
                     WeaponPlugin plugin = Context.Current.Server.Plugins.GetWeaponPlugin(itemWeapon.Metadata.OpenTibiaId);
 
                     if (plugin != null)
@@ -248,6 +261,19 @@ namespace OpenTibia.Game.Components
                 {
                     await Context.Current.AddCommand(new PlayerAddSkillPointsCommand(player, Skill.Club, 1) );
                     
+                    if (Context.Current.Server.Config.GameplayRemoveWeaponCharges)
+                    {
+                        if (itemWeapon.Metadata.Charges != null && itemWeapon.Charges > 0)
+                        {
+                            itemWeapon.Charges--;
+
+                            if (itemWeapon.Charges == 0)
+                            {
+                                await Context.Current.AddCommand(new ItemDestroyCommand(itemWeapon) );
+                            }
+                        }
+                    }
+
                     WeaponPlugin plugin = Context.Current.Server.Plugins.GetWeaponPlugin(itemWeapon.Metadata.OpenTibiaId);
 
                     if (plugin != null)
@@ -280,6 +306,19 @@ namespace OpenTibia.Game.Components
                 {
                     await Context.Current.AddCommand(new PlayerAddSkillPointsCommand(player, Skill.Axe, 1) );
                     
+                    if (Context.Current.Server.Config.GameplayRemoveWeaponCharges)
+                    {
+                        if (itemWeapon.Metadata.Charges != null && itemWeapon.Charges > 0)
+                        {
+                            itemWeapon.Charges--;
+
+                            if (itemWeapon.Charges == 0)
+                            {
+                                await Context.Current.AddCommand(new ItemDestroyCommand(itemWeapon) );
+                            }
+                        }
+                    }
+
                     WeaponPlugin plugin = Context.Current.Server.Plugins.GetWeaponPlugin(itemWeapon.Metadata.OpenTibiaId);
 
                     if (plugin != null)
@@ -315,6 +354,19 @@ namespace OpenTibia.Game.Components
                     if (plugin != null)
                     {
                         await Context.Current.AddCommand(new PlayerAddSkillPointsCommand(player, Skill.MagicLevel, (ulong)plugin.Weapon.Mana) );
+
+                        if (Context.Current.Server.Config.GameplayRemoveWeaponCharges)
+                        {
+                            if (itemWeapon.Metadata.Charges != null && itemWeapon.Charges > 0)
+                            {
+                                itemWeapon.Charges--;
+
+                                if (itemWeapon.Charges == 0)
+                                {
+                                    await Context.Current.AddCommand(new ItemDestroyCommand(itemWeapon) );
+                                }
+                            }
+                        }
 
                         await Context.Current.AddCommand(new PlayerUpdateManaCommand(player, player.Mana - plugin.Weapon.Mana) );
 

@@ -3,6 +3,7 @@ using OpenTibia.Common.Structures;
 using OpenTibia.Game.Common;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
+using System.Collections.Generic;
 
 namespace OpenTibia.Game.Commands
 {
@@ -54,7 +55,7 @@ namespace OpenTibia.Game.Commands
             this.blockable = blockable;
         }
 
-        public override (int Damage, BlockType BlockType) Calculate(Creature attacker, Creature target)
+        public override (int Damage, BlockType BlockType, HashSet<Item> RemoveCharges) Calculate(Creature attacker, Creature target)
         {
             if (target is Monster monster)
             {
@@ -198,7 +199,7 @@ namespace OpenTibia.Game.Commands
                     }
                 }
 
-                return (damage1 + damage2, blockType);
+                return (damage1 + damage2, blockType, null);
             }
 
             if (target is Player player)
@@ -235,6 +236,8 @@ namespace OpenTibia.Game.Commands
                 }
 
                 BlockType blockType = BlockType.None;
+
+                HashSet<Item> removeCharges = null;
 
                 int damage1 = (int)(Context.Current.Server.Randomization.Take(min, max) * attackPercent);
 
@@ -286,13 +289,13 @@ namespace OpenTibia.Game.Commands
                         }
                         else
                         {
-                            double armorReductionPercent = player.Inventory.GetArmorReductionPercent(damageType);
+                            double armorReductionPercent = player.Inventory.GetArmorReductionPercent(damageType, ref removeCharges);
 
                             damage1 = Math.Max(0, (int)(damage1 * armorReductionPercent) );
 
                             if (attackModifierDamageType != null)
                             {
-                                armorReductionPercent = player.Inventory.GetArmorReductionPercent(attackModifierDamageType.Value);
+                                armorReductionPercent = player.Inventory.GetArmorReductionPercent(attackModifierDamageType.Value, ref removeCharges);
 
                                 damage2 = Math.Max(0, (int)(damage2 * armorReductionPercent) );
                             }
@@ -348,10 +351,10 @@ namespace OpenTibia.Game.Commands
                     }
                 }
 
-                return (damage1 + damage2, blockType);
+                return (damage1 + damage2, blockType, removeCharges);
             }
 
-            return (0, BlockType.None);
+            return (0, BlockType.None, null);
         }
 
         public override async Promise NoDamage(Creature attacker, Creature target, BlockType blockType)
@@ -377,11 +380,11 @@ namespace OpenTibia.Game.Commands
                     if (attacker != null)
                     {
                         Context.Current.AddPacket(player, new SetFrameColorOutgoingPacket(attacker.Id, FrameColor.Black) );
+                    }
 
-                        if ( (blockType == BlockType.Shield || blockType == BlockType.Armor) && Formula.GetShield(player) != null)
-                        {
-                            await Context.Current.AddCommand(new PlayerAddSkillPointsCommand(player, Skill.Shield, 1) );
-                        }
+                    if ( (blockType == BlockType.Shield || blockType == BlockType.Armor) && Formula.GetShield(player) != null)
+                    {
+                        await Context.Current.AddCommand(new PlayerAddSkillPointsCommand(player, Skill.Shield, 1) );
                     }
                 }
             }

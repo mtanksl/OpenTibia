@@ -63,6 +63,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         public bool GameplayRemoveChargesFromRunes { get; set; }
         public bool GameplayRemoveWeaponAmmunition { get; set; }
         public bool GameplayRemoveWeaponCharges { get; set; }
+        public bool GameplayRemoveArmorCharges { get; set; }
         public WorldType GameplayWorldType { get; set; }
         public int GameplayProtectionLevel { get; set; }
         public int GameplayLogoutBlockSeconds { get; set; }
@@ -284,6 +285,8 @@ namespace OpenTibia.Game.Common.ServerObjects
             GameplayRemoveWeaponAmmunition = LuaScope.GetBoolean(script["server.game.gameplay.removeweaponammunition"], true);
 
             GameplayRemoveWeaponCharges = LuaScope.GetBoolean(script["server.game.gameplay.removeweaponcharges"], true);
+
+            GameplayRemoveArmorCharges = LuaScope.GetBoolean(script["server.game.gameplay.removearmorcharges"], true);
 
             GameplayWorldType = LuaScope.GetString(script["server.game.gameplay.worldtype"], "non-pvp") == "pvp" ? WorldType.Pvp : WorldType.NonPvp;
 

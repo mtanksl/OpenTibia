@@ -7,7 +7,6 @@
 	- Convince
 - Bed
 - Guild
-- Rings and amulets charges
 - Party spells (Enchant Party, Heal Party, Protect Party, Train Party)
 - Party shared experience
 - X-Logging
@@ -96,6 +95,7 @@
 		- Sense invisible
 		- Paralysable
 		- Become invisible
+	- Rings and amulets charges
 	- Weapon attributes (range, atk, def, arm)
 	- Ammunition
 	- Bow and arrow

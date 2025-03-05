@@ -540,7 +540,10 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
             else
             {
-                item = new Item(metadata);
+                item = new Item(metadata)
+                {
+                    Charges = metadata.Charges == null ? 0 : metadata.Charges.Value
+                };
             }
 
             return item;

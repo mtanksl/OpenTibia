@@ -67,6 +67,9 @@ server = {
 			-- true = weapons disappear after attack (Tibia)
 			-- false = weapons do not disappear after attack
 			removeweaponcharges = true,
+			-- true = amulets and rings disappear after defense (Tibia)
+			-- false = amulets and rings do not disappear after defense 
+			removearmorcharges = true,
 			-- pvp or non-pvp
 			worldtype = "non-pvp",
 			protectionlevel = 0, -- When using pvp

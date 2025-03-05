@@ -1,14 +1,15 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Common;
+using System.Collections.Generic;
 
 namespace OpenTibia.Game.Commands
 {
     public class CancelInvisibilityAttack : Attack
     {
-        public override (int Damage, BlockType BlockType) Calculate(Creature attacker, Creature target)
+        public override (int Damage, BlockType BlockType, HashSet<Item> RemoveCharges) Calculate(Creature attacker, Creature target)
         {
-            return (0, BlockType.None);
+            return (0, BlockType.None, null);
         }
 
         public override async Promise NoDamage(Creature attacker, Creature target, BlockType blockType)

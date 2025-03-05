@@ -3,6 +3,7 @@ using OpenTibia.Common.Structures;
 using OpenTibia.Game.Common;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
+using System.Collections.Generic;
 
 namespace OpenTibia.Game.Commands
 {
@@ -42,40 +43,56 @@ namespace OpenTibia.Game.Commands
                     {
                         if (target1.Combat.Attacked(attacker1) )
                         {
-                            await Context.Current.AddCommand(new CreatureAddConditionCommand(attacker1, new LogoutBlockCondition(TimeSpan.FromSeconds(Context.Current.Server.Config.GameplayLogoutBlockSeconds) ) ) );
+                            await Context.AddCommand(new CreatureAddConditionCommand(attacker1, new LogoutBlockCondition(TimeSpan.FromSeconds(Context.Server.Config.GameplayLogoutBlockSeconds) ) ) );
                         }
                         else
                         {
                             if (attacker1.Combat.CanAttack(target1) )
                             {
-                                foreach (var observer in Context.Current.Server.Map.GetObserversOfTypePlayer(attacker1.Tile.Position) )
+                                foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(attacker1.Tile.Position) )
                                 {
                                     byte clientIndex;
 
                                     if (observer.Client.TryGetIndex(attacker1, out clientIndex) )
                                     {
-                                        Context.Current.AddPacket(observer, new SetSkullIconOutgoingPacket(attacker1.Id, observer.Client.GetClientSkullIcon(attacker1) ) );
+                                        Context.AddPacket(observer, new SetSkullIconOutgoingPacket(attacker1.Id, observer.Client.GetClientSkullIcon(attacker1) ) );
                                     }
                                 }
                             }
 
-                            await Context.Current.AddCommand(new CreatureAddConditionCommand(attacker1, new ProtectionZoneBlockCondition(TimeSpan.FromSeconds(Context.Current.Server.Config.GameplayLogoutBlockSeconds) ) ) );
+                            await Context.AddCommand(new CreatureAddConditionCommand(attacker1, new ProtectionZoneBlockCondition(TimeSpan.FromSeconds(Context.Server.Config.GameplayLogoutBlockSeconds) ) ) );
                         }
 
-                        await Context.Current.AddCommand(new CreatureAddConditionCommand(target1, new LogoutBlockCondition(TimeSpan.FromSeconds(Context.Current.Server.Config.GameplayLogoutBlockSeconds) ) ) );
+                        await Context.AddCommand(new CreatureAddConditionCommand(target1, new LogoutBlockCondition(TimeSpan.FromSeconds(Context.Server.Config.GameplayLogoutBlockSeconds) ) ) );
                     }
                 }
                 else if (Attacker is Player attacker2)
                 {
-                    await Context.Current.AddCommand(new CreatureAddConditionCommand(attacker2, new LogoutBlockCondition(TimeSpan.FromSeconds(Context.Current.Server.Config.GameplayLogoutBlockSeconds) ) ) );
+                    await Context.AddCommand(new CreatureAddConditionCommand(attacker2, new LogoutBlockCondition(TimeSpan.FromSeconds(Context.Server.Config.GameplayLogoutBlockSeconds) ) ) );
                 }
                 else if (Target is Player target2)
                 {                    
-                    await Context.Current.AddCommand(new CreatureAddConditionCommand(target2, new LogoutBlockCondition(TimeSpan.FromSeconds(Context.Current.Server.Config.GameplayLogoutBlockSeconds) ) ) );
+                    await Context.AddCommand(new CreatureAddConditionCommand(target2, new LogoutBlockCondition(TimeSpan.FromSeconds(Context.Server.Config.GameplayLogoutBlockSeconds) ) ) );
                 }
             }
 
-            (int damage, BlockType blockType) = Attack.Calculate(Attacker, Target);
+            (int damage, BlockType blockType, HashSet<Item> removeCharges) = Attack.Calculate(Attacker, Target);
+
+            if (Context.Server.Config.GameplayRemoveArmorCharges)
+            {
+                if (removeCharges != null)
+                {
+                    foreach (var item in removeCharges)
+                    {
+                        item.Charges--;
+
+                        if (item.Charges == 0)
+                        {
+                            await Context.AddCommand(new ItemDestroyCommand(item) );
+                        }
+                    }
+                }
+            }
 
             if (damage == 0)
             {

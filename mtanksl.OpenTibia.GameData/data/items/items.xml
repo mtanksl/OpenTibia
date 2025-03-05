@@ -2916,7 +2916,6 @@
   </item>
   <item id="2173" article="an" name="amulet of loss" editorcategory="Amulets">
     <attribute key="weight" value="420" />
-    <attribute key="charges" value="1" />
     <attribute key="slottype" value="necklace" />
   </item>
   <item id="2174" article="a" name="strange symbol" editorcategory="Creature Products">

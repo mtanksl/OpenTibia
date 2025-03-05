@@ -20,29 +20,29 @@ namespace OpenTibia.Game.Commands
 
             if (item is StackableItem stackableItem)
             {
-                Type = stackableItem.Count;
+                TypeCount = stackableItem.Count;
             }
             else if (item is FluidItem fluidItem)
             {
-                Type = (byte)fluidItem.FluidType;
+                TypeCount = (byte)fluidItem.FluidType;
             }
             else if (item is SplashItem splashItem)
             {
-                Type = (byte)splashItem.FluidType;
+                TypeCount = (byte)splashItem.FluidType;
             }
             else
             {
-                Type = 1;
+                TypeCount = 1;
             }
         }
 
-        public PlayerLookItemCommand(Player player, ItemMetadata itemMetadata, byte type)
+        public PlayerLookItemCommand(Player player, ItemMetadata itemMetadata, byte typeCount)
         {
             Player = player;
 
             ItemMetadata = itemMetadata;
 
-            Type = type;
+            TypeCount = typeCount;
         }
 
         public Player Player { get; set; }
@@ -51,13 +51,25 @@ namespace OpenTibia.Game.Commands
 
         public ItemMetadata ItemMetadata { get; set; }
 
-        public byte Type { get; set; }
+        public byte TypeCount { get; set; }
 
         public override Promise Execute()
         {
             StringBuilder builder = new StringBuilder();
 
-            builder.Append("You see " + ItemMetadata.GetDescription(Type) );
+            builder.Append("You see " + ItemMetadata.GetDescription(TypeCount) );
+
+            if (ItemMetadata.Charges != null)
+            {
+                if (Item.Charges == 1)
+                {
+                    builder.Append(" that has 1 charge left.");
+                }
+                else
+                {
+                    builder.Append(" that has " + Item.Charges + " charges left.");
+                }
+            }
 
             List<string> attributes = new List<string>();
 

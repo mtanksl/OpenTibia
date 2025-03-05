@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Common;
+using System.Collections.Generic;
 
 namespace OpenTibia.Game.Commands
 {
@@ -17,9 +18,9 @@ namespace OpenTibia.Game.Commands
             this.max = max;
         }
 
-        public override (int Damage, BlockType BlockType) Calculate(Creature attacker, Creature target)
+        public override (int Damage, BlockType BlockType, HashSet<Item> RemoveCharges) Calculate(Creature attacker, Creature target)
         {
-            return (Context.Current.Server.Randomization.Take(min, max), BlockType.None);
+            return (Context.Current.Server.Randomization.Take(min, max), BlockType.None, null);
         }
 
         public override Promise NoDamage(Creature attacker, Creature target, BlockType blockType)

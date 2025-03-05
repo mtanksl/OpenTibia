@@ -35,6 +35,8 @@ namespace OpenTibia.Common.Objects
 
         public ushort UniqueId { get; set; }
 
+        public int Charges { get; set; }
+
         public IContainer Root()
         {
             IContainer container = Parent;
