@@ -198,17 +198,109 @@ namespace OpenTibia.Common.Objects
             return defense + defenseModifier;
         }
 
+        private bool IsProperlyEquipped(Slot slot, Item item)
+        {
+            SlotType? slotType = item.Metadata.SlotType;
+
+            WeaponType? weaponType = item.Metadata.WeaponType;
+
+            bool isEquipped = false;
+
+            switch (slot)
+            {
+                case Slot.Head:
+
+                    if (slotType != null && slotType.Value.Is(SlotType.Head) )
+                    {
+                        isEquipped = true;
+                    }
+
+                    break;
+
+                case Slot.Necklace:
+
+                    if (slotType != null && slotType.Value.Is(SlotType.Necklace) )
+                    {
+                        isEquipped = true;
+                    }
+
+                    break;
+
+                case Slot.Body:
+
+                    if (slotType != null && slotType.Value.Is(SlotType.Body) )
+                    {
+                        isEquipped = true;
+                    }
+
+                    break;
+
+                case Slot.Right:
+                case Slot.Left:
+
+                    if (weaponType != null && (weaponType.Value == WeaponType.Sword || weaponType.Value == WeaponType.Club || weaponType.Value == WeaponType.Axe || weaponType.Value == WeaponType.Shield || weaponType.Value == WeaponType.Distance || weaponType.Value == WeaponType.Wand) )
+                    {
+                        isEquipped = true;
+                    }
+
+                    break;
+                            
+                case Slot.Legs:
+
+                    if (slotType != null && slotType.Value.Is(SlotType.Legs) )
+                    {
+                        isEquipped = true;
+                    }
+
+                    break;
+
+                case Slot.Feet:
+
+                    if (slotType != null && slotType.Value.Is(SlotType.Feet) )
+                    {
+                        isEquipped = true;
+                    }
+
+                    break;
+
+                case Slot.Ring:
+
+                    if (slotType != null && slotType.Value.Is(SlotType.Ring) )
+                    {
+                        isEquipped = true;
+                    }
+
+                    break;
+
+                case Slot.Ammo:
+
+                    if (weaponType != null && weaponType.Value == WeaponType.Ammunition)
+                    {
+                        isEquipped = true;
+                    }
+
+                    break;
+            }
+
+            return isEquipped;
+        }
+
         public double GetArmorReductionPercent(DamageType damageType)
         {
             double armorReductionPercent = 1;
 
-            foreach (var item in GetItems() )
+            for (int i = 0; i < contents.Length; i++)
             {
-                double elementPercent;
+                var item = (Item)contents[i];
 
-                if (item.Metadata.DamageTakenFromElements.TryGetValue(damageType, out elementPercent) )
+                if (item != null && IsProperlyEquipped( (Slot)i, item) )
                 {
-                    armorReductionPercent *= elementPercent;
+                    double elementPercent;
+
+                    if (item.Metadata.DamageTakenFromElements.TryGetValue(damageType, out elementPercent) )
+                    {
+                        armorReductionPercent *= elementPercent;
+                    }
                 }
             }
 
@@ -219,11 +311,16 @@ namespace OpenTibia.Common.Objects
         {
             int armor = 0;
 
-            foreach (var item in GetItems() )
+            for (int i = 0; i < contents.Length; i++)
             {
-                if (item.Metadata.Armor != null)
+                var item = (Item)contents[i];
+
+                if (item != null && IsProperlyEquipped( (Slot)i, item) )
                 {
-                    armor += item.Metadata.Armor.Value;
+                    if (item.Metadata.Armor != null)
+                    {
+                        armor += item.Metadata.Armor.Value;
+                    }
                 }
             }
 
