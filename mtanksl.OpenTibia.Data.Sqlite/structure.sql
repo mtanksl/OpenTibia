@@ -563,3 +563,15 @@ CREATE INDEX "IX_Players_AccountId" ON "Players" ("AccountId");
 CREATE INDEX "IX_Players_WorldId" ON "Players" ("WorldId");
 
 COMMIT;
+
+--
+
+BEGIN TRANSACTION;
+
+ALTER TABLE "PlayerItems" ADD "Attributes" BLOB NULL;
+
+ALTER TABLE "PlayerDepotItems" ADD "Attributes" BLOB NULL;
+
+ALTER TABLE "HouseItems" ADD "Attributes" BLOB NULL;
+
+COMMIT;

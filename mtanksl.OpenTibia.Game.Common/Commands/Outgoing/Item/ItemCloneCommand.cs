@@ -40,7 +40,7 @@ namespace OpenTibia.Game.Commands
             {
                 toItem.ActionId = Item.ActionId;
 
-                // toItem.UniqueId = FromItem.UniqueId;
+                toItem.UniqueId = Item.UniqueId;
 
                 if (Item.Charges > 0)
                 {
@@ -88,9 +88,9 @@ namespace OpenTibia.Game.Commands
                     {
                         toReadableItem.Text = fromReadableItem.Text;
 
-                        toReadableItem.Author = fromReadableItem.Author;
+                        toReadableItem.WrittenBy = fromReadableItem.WrittenBy;
 
-                        toReadableItem.Date = fromReadableItem.Date;
+                        toReadableItem.WrittenDate = fromReadableItem.WrittenDate;
                     }
                     else 
                     {

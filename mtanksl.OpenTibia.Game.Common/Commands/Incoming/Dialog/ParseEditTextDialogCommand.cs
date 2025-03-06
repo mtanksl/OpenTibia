@@ -33,9 +33,9 @@ namespace OpenTibia.Game.Commands
                 {
                     readableItem.Text = Text == "" ? null : Text;
 
-                    readableItem.Author = Player.Name;
+                    readableItem.WrittenBy = Player.Name;
 
-                    readableItem.Date = DateTime.UtcNow.ToString("dd/MM/yyyy HH:mm:ss");
+                    readableItem.WrittenDate = (uint)DateTimeOffset.UtcNow.ToUnixTimeSeconds();
                 }
 
                 return Promise.Completed;

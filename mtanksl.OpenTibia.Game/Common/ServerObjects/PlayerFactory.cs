@@ -95,8 +95,6 @@ namespace OpenTibia.Game.Common.ServerObjects
             server.PositionalEventHandlers.ClearEventHandlers(player);
         }
 
-        //TODO: Optimize, we don't need to load and save everything
-
         public void Load(DbPlayer dbPlayer, Player player)
         {
             LoadPlayer(Context.Current, dbPlayer, player);
@@ -251,30 +249,32 @@ namespace OpenTibia.Game.Common.ServerObjects
         {
             void AddItems(Container parent, int sequenceId)
             {
-                foreach (var playerDepotItem in dbPlayer.PlayerDepotItems.Where(i => i.ParentId == sequenceId) )
+                foreach (var dbPlayerDepotItem in dbPlayer.PlayerDepotItems.Where(i => i.ParentId == sequenceId) )
                 {
-                    Item item = context.Server.ItemFactory.Create( (ushort)playerDepotItem.OpenTibiaId, (byte)playerDepotItem.Count);
+                    Item item = context.Server.ItemFactory.Create( (ushort)dbPlayerDepotItem.OpenTibiaId, (byte)dbPlayerDepotItem.Count);
+
+                    Serializer.DeserializeItemAttributes(item, dbPlayerDepotItem.Attributes);
 
                     context.Server.ItemFactory.Attach(item);
 
                     if (item is Container container)
                     {
-                        AddItems(container, playerDepotItem.SequenceId);
+                        AddItems(container, dbPlayerDepotItem.SequenceId);
                     }
 
                     parent.AddContent(item);
                 }
             }
 
-            foreach (var playerDepotItem in dbPlayer.PlayerDepotItems.Where(i => i.ParentId >= 0 /* Town Id */ && i.ParentId <= 100 /* Town Id */ ) )
+            foreach (var dbPlayerDepotItem in dbPlayer.PlayerDepotItems.Where(i => i.ParentId >= 0 /* Town Id */ && i.ParentId <= 100 /* Town Id */ ) )
             {
                 Locker locker = (Locker)context.Server.ItemFactory.Create(Constants.LockerOpenTibiaItemId, 1);
 
-                locker.TownId = (ushort)playerDepotItem.ParentId;
+                locker.TownId = (ushort)dbPlayerDepotItem.ParentId;
 
                 context.Server.ItemFactory.Attach(locker);
 
-                AddItems(locker, playerDepotItem.SequenceId);
+                AddItems(locker, dbPlayerDepotItem.SequenceId);
 
                 player.Lockers.AddContent(locker, locker.TownId);
             }
@@ -287,6 +287,8 @@ namespace OpenTibia.Game.Common.ServerObjects
                 foreach (var dbPlayerItem in dbPlayer.PlayerItems.Where(i => i.ParentId == sequenceId) )
                 {
                     Item item = context.Server.ItemFactory.Create( (ushort)dbPlayerItem.OpenTibiaId, (byte)dbPlayerItem.Count);
+
+                    Serializer.DeserializeItemAttributes(item, dbPlayerItem.Attributes);
 
                     context.Server.ItemFactory.Attach(item);
 
@@ -302,6 +304,8 @@ namespace OpenTibia.Game.Common.ServerObjects
             foreach (var dbPlayerItem in dbPlayer.PlayerItems.Where(i => i.ParentId >= 1 /* Slot.Head */ && i.ParentId <= 10 /* Slot.Extra */ ) )
             {
                 Item item = context.Server.ItemFactory.Create( (ushort)dbPlayerItem.OpenTibiaId, (byte)dbPlayerItem.Count);
+
+                Serializer.DeserializeItemAttributes(item, dbPlayerItem.Attributes);
 
                 context.Server.ItemFactory.Attach(item);
 
@@ -494,6 +498,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         private static void SaveLockers(Context context, DbPlayer dbPlayer, Player player)
         {
+            //TODO: Detach
+
             int sequenceId = 101;
 
             void AddItems(int parentId, Item item)
@@ -512,7 +518,9 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                             item is FluidItem fluidItem ? (int)fluidItem.FluidType :
 
-                            item is SplashItem splashItem ? (int)splashItem.FluidType : 1
+                            item is SplashItem splashItem ? (int)splashItem.FluidType : 1,
+
+                    Attributes = Serializer.SerializeItemAttributes(item)
                 };
 
                 dbPlayer.PlayerDepotItems.Add(dbPlayerDepotItem);
@@ -536,6 +544,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         private static void SaveInventory(Context context, DbPlayer dbPlayer, Player player)
         {
+            //TODO: Detach
+
             int sequenceId = 101;
 
             void AddItems(int parentId, Item item)
@@ -554,7 +564,9 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                             item is FluidItem fluidItem ? (int)fluidItem.FluidType :
 
-                            item is SplashItem splashItem ? (int)splashItem.FluidType : 1
+                            item is SplashItem splashItem ? (int)splashItem.FluidType : 1,
+                    
+                    Attributes = Serializer.SerializeItemAttributes(item)
                 };
 
                 dbPlayer.PlayerItems.Add(dbPlayerItem);

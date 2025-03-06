@@ -628,7 +628,17 @@ namespace OpenTibia.FileFormats.Xml.Monsters
 
                     if (defenses.Max != null) defenseNode.Add(new XAttribute("max", defenses.Max) );
 
-                    //TODO: attributes
+                    foreach (var attribute in defenses.Attributes)
+                    {
+                        var attributeNode = 
+                            new XElement("attribute");
+
+                        defenseNode.Add(attributeNode);
+
+                        attributeNode.Add(new XAttribute("key", attribute.Key) );
+
+                        attributeNode.Add(new XAttribute("value", attribute.Value));
+                    }
                 }
             }
 
@@ -684,7 +694,17 @@ namespace OpenTibia.FileFormats.Xml.Monsters
 
                     if (attacks.Max != null) attackNode.Add(new XAttribute("max", attacks.Max) );
 
-                    //TODO: attributes
+                    foreach (var attribute in attacks.Attributes)
+                    {
+                        var attributeNode = 
+                            new XElement("attribute");
+
+                        attackNode.Add(attributeNode);
+
+                        attributeNode.Add(new XAttribute("key", attribute.Key) );
+
+                        attributeNode.Add(new XAttribute("value", attribute.Value) );
+                    }
                 }
             }
 

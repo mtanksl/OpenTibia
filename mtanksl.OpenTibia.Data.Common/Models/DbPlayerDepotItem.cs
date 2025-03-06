@@ -12,6 +12,8 @@
 
         public int Count { get; set; }
 
+        public byte[] Attributes { get; set; }
+
 
         public DbPlayer Player { get; set; }
     }

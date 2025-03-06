@@ -524,3 +524,20 @@ GO
 
 COMMIT;
 GO
+
+--
+
+BEGIN TRANSACTION;
+GO
+
+ALTER TABLE [PlayerItems] ADD [Attributes] varbinary(max) NULL;
+GO
+
+ALTER TABLE [PlayerDepotItems] ADD [Attributes] varbinary(max) NULL;
+GO
+
+ALTER TABLE [HouseItems] ADD [Attributes] varbinary(max) NULL;
+GO
+
+COMMIT;
+GO

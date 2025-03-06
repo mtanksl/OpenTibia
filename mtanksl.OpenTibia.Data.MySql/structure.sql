@@ -402,3 +402,15 @@ ALTER TABLE `Players` DROP COLUMN `OutfitLegs`;
 ALTER TABLE `Players` DROP COLUMN `Speed`;
 
 COMMIT;
+
+--
+
+START TRANSACTION;
+
+ALTER TABLE `PlayerItems` ADD `Attributes` longblob NULL;
+
+ALTER TABLE `PlayerDepotItems` ADD `Attributes` longblob NULL;
+
+ALTER TABLE `HouseItems` ADD `Attributes` longblob NULL;
+
+COMMIT;

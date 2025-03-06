@@ -9,8 +9,8 @@
 
         public string Text { get; set; }
 
-        public string Author { get; set; }
+        public string WrittenBy { get; set; }
 
-        public string Date { get; set; }
+        public uint WrittenDate { get; set; }
     }
 }

@@ -506,6 +506,8 @@ namespace OpenTibia.Game.Common
                                     {
                                         Item item = ItemFactory.Create( (ushort)dbHouseItem.OpenTibiaId, (byte)dbHouseItem.Count);
 
+                                        Serializer.DeserializeItemAttributes(item, dbHouseItem.Attributes);
+
                                         ItemFactory.Attach(item);
 
                                         if (item is Container container)
@@ -530,6 +532,8 @@ namespace OpenTibia.Game.Common
                                     if (tile != null)
                                     {
                                         Item item = ItemFactory.Create( (ushort)dbHouseItem.OpenTibiaId, (byte)dbHouseItem.Count);
+
+                                        Serializer.DeserializeItemAttributes(item, dbHouseItem.Attributes);
 
                                         ItemFactory.Attach(item);
 
@@ -943,7 +947,9 @@ namespace OpenTibia.Game.Common
 
                                                     item is FluidItem fluidItem ? (int)fluidItem.FluidType :
 
-                                                    item is SplashItem splashItem ? (int)splashItem.FluidType : 1
+                                                    item is SplashItem splashItem ? (int)splashItem.FluidType : 1,
+                                                                                    
+                                            Attributes = Serializer.SerializeItemAttributes(item)
                                         };
 
                                         dbHouse.HouseItems.Add(dbHouseItem);

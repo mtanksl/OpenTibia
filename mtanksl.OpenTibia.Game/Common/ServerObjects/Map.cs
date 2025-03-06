@@ -319,7 +319,10 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                                     item.UniqueId = otbmItem.UniqueId;
 
-                                    //TODO: Do we care about charges and duration while loading the map?
+                                    if (otbmItem.Charges > 0)
+                                    {
+                                        item.Charges = otbmItem.Charges;
+                                    }
 
                                     switch (item)
                                     {
@@ -354,7 +357,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                                             readableItem.Text = otbmItem.Text;
 
-                                            readableItem.Author = otbmItem.WrittenBy;
+                                            readableItem.WrittenBy = otbmItem.WrittenBy;
 
                                             break;                                  
                                     }

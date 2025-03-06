@@ -24,7 +24,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 uint windowId = command.Player.Client.Windows.OpenWindow(window);
 
-                Context.AddPacket(command.Player, new OpenShowOrEditTextDialogOutgoingPacket(windowId, command.Item.Metadata.TibiaId, 1024, readableItem.Text, readableItem.Author, readableItem.Date) );
+                Context.AddPacket(command.Player, new OpenShowOrEditTextDialogOutgoingPacket(windowId, command.Item.Metadata.TibiaId, 1024, readableItem.Text, readableItem.WrittenBy, DateTimeOffset.FromUnixTimeSeconds(readableItem.WrittenDate).ToString("dd/MM/yyyy HH:mm:ss") ) );
 
                 return Promise.Completed;
             }

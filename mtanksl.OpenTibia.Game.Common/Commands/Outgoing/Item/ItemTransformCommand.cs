@@ -76,9 +76,9 @@ namespace OpenTibia.Game.Commands
                     {
                         toReadableItem.Text = fromReadableItem.Text;
 
-                        toReadableItem.Author = fromReadableItem.Author;
+                        toReadableItem.WrittenBy = fromReadableItem.WrittenBy;
 
-                        toReadableItem.Date = fromReadableItem.Date;
+                        toReadableItem.WrittenDate = fromReadableItem.WrittenDate;
                     }
                     else
                     {

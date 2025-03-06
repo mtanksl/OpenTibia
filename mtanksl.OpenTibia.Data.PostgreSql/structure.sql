@@ -462,3 +462,15 @@ ALTER TABLE "Players" DROP COLUMN "OutfitLegs";
 ALTER TABLE "Players" DROP COLUMN "Speed";
 
 COMMIT;
+
+--
+
+START TRANSACTION;
+
+ALTER TABLE "PlayerItems" ADD "Attributes" bytea;
+
+ALTER TABLE "PlayerDepotItems" ADD "Attributes" bytea;
+
+ALTER TABLE "HouseItems" ADD "Attributes" bytea;
+
+COMMIT;
