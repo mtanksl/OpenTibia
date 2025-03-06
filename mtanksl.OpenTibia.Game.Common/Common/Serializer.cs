@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.FileFormats.Otbm;
 using OpenTibia.IO;
+using System;
 using System.Linq;
 using Item = OpenTibia.Common.Objects.Item;
 
@@ -146,6 +147,10 @@ namespace OpenTibia.Game.Common
                             item.DurationInMilliseconds = (int)tempReader.ReadUInt();
 
                             break;
+
+                        default:
+
+                            throw new NotImplementedException();
                     }
                 }
             }

@@ -29,7 +29,7 @@ namespace OpenTibia.Game.Commands
             {
                 Player.Client.Windows.CloseWindow(WindowId);
 
-                if (window.Item is ReadableItem readableItem && Text != readableItem.Text)
+                if (window.Item is ReadableItem readableItem && Text != readableItem.Text && Text.Length <= Constants.MaxBookCharacters)
                 {
                     readableItem.Text = Text == "" ? null : Text;
 
