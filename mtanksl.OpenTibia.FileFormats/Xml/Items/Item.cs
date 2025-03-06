@@ -1520,9 +1520,9 @@ namespace OpenTibia.FileFormats.Xml.Items
                 itemNode.Add(new XElement("attribute", new XAttribute("key", "charges"), new XAttribute("value", item.Charges) ) );
             }
 
-            if (item.ShowCharges != null)
+            if (item.DecayToOpenTibiaId != null)
             {
-                itemNode.Add(new XElement("attribute", new XAttribute("key", "showcharges"), new XAttribute("value", item.ShowCharges == true ? "1" : "0") ) );
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "decayto"), new XAttribute("value", item.DecayToOpenTibiaId) ) );
             }
 
             if (item.DurationInSeconds != null)
@@ -1530,14 +1530,14 @@ namespace OpenTibia.FileFormats.Xml.Items
                 itemNode.Add(new XElement("attribute", new XAttribute("key", "duration"), new XAttribute("value", item.DurationInSeconds) ) );
             }
 
+            if (item.ShowCharges != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "showcharges"), new XAttribute("value", item.ShowCharges == true ? "1" : "0")));
+            }
+
             if (item.ShowDuration != null)
             {
                 itemNode.Add(new XElement("attribute", new XAttribute("key", "showduration"), new XAttribute("value", item.ShowDuration == true ? "1" : "0") ) );
-            }
-
-            if (item.DecayToOpenTibiaId != null)
-            {
-                itemNode.Add(new XElement("attribute", new XAttribute("key", "decayto"), new XAttribute("value", item.DecayToOpenTibiaId) ) );
             }
 
             if (item.SlotType != null)

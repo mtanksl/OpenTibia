@@ -522,7 +522,7 @@
 		roughMarbleStatue = 11344,
 		rumCasks = { 5539 },
 		saws = { 2558 },
-		santaDolls = { 6567 },
+		santaDolls = { 6512 },
 		scythes = {
 			2550, -- Scythes
 			10513 -- Squeezing gear of girlpower

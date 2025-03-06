@@ -2390,7 +2390,7 @@
   </item>
   <item id="2018" article="a" name="water splash" editorcategory="Rubbish">
     <attribute key="decayto" value="0" />
-    <attribute key="duration" value="600" />
+    <attribute key="duration" value="60" />
   </item>
   <item id="2019" article="a" name="water splash" editorcategory="Rubbish">
     <attribute key="decayto" value="2020" />
@@ -2474,8 +2474,6 @@
   </item>
   <item id="2049" article="a" name="used candlestick" editorcategory="Rubbish">
     <attribute key="weight" value="200" />
-    <attribute key="decayto" value="0" />
-    <attribute key="duration" value="60" />
   </item>
   <item id="2050" article="a" name="torch" editorcategory="Tools">
     <attribute key="weight" value="500" />
@@ -2506,8 +2504,6 @@
   </item>
   <item id="2056" article="a" name="burnt down torch" editorcategory="Rubbish">
     <attribute key="weight" value="350" />
-    <attribute key="decayto" value="0" />
-    <attribute key="duration" value="60" />
   </item>
   <item id="2057" article="a" name="candelabrum" editorsuffix="(Not decaying)" editorcategory="Light Sources">
     <attribute key="weight" value="5000" />
@@ -2518,8 +2514,6 @@
   <item id="2061" article="a" name="lit torch bearer" />
   <item id="2062" article="a" name="gemmed lamp" editorsuffix="(Green Djinn Quest)" editorcategory="Quest Items">
     <attribute key="weight" value="1300" />
-    <attribute key="decayto" value="0" />
-    <attribute key="duration" value="60" />
     <attribute key="stopduration" value="1" />
   </item>
   <item id="2063" article="a" name="small oil lamp" editorcategory="Decorations">
@@ -2831,9 +2825,9 @@
   <item id="2161" article="a" name="strange talisman" editorcategory="Amulets">
     <attribute key="weight" value="290" />
     <attribute key="charges" value="200" />
+    <attribute key="showcharges" value="1" />
     <attribute key="slottype" value="necklace" />
     <attribute key="absorbpercentenergy" value="10" />
-    <attribute key="showcharges" value="1" />
   </item>
   <item id="2162" article="a" name="magic lightwand" editorcategory="Tools">
     <attribute key="weight" value="1500" />
@@ -2849,6 +2843,7 @@
   <item id="2164" article="a" name="might ring" editorcategory="Rings">
     <attribute key="weight" value="100" />
     <attribute key="charges" value="20" />
+    <attribute key="showcharges" value="1" />
     <attribute key="slottype" value="ring" />
     <attribute key="absorbpercentphysical" value="20" />
     <attribute key="absorbpercentearth" value="20" />
@@ -2857,49 +2852,48 @@
     <attribute key="absorbpercentice" value="20" />
     <attribute key="absorbpercentdeath" value="20" />
     <attribute key="absorbpercentholy" value="20" />
-    <attribute key="showcharges" value="1" />
   </item>
   <item id="2165" article="a" name="stealth ring" editorcategory="Rings">
     <attribute key="weight" value="100" />
-    <attribute key="slottype" value="ring" />
     <attribute key="showduration" value="1" />
+    <attribute key="slottype" value="ring" />
     <attribute key="stopduration" value="1" />
     <attribute key="transformequipto" value="2202" />
   </item>
   <item id="2166" article="a" name="power ring" editorcategory="Rings">
     <attribute key="weight" value="80" />
-    <attribute key="slottype" value="ring" />
     <attribute key="showduration" value="1" />
+    <attribute key="slottype" value="ring" />
     <attribute key="stopduration" value="1" />
     <attribute key="transformequipto" value="2203" />
   </item>
   <item id="2167" article="an" name="energy ring" editorcategory="Rings">
     <attribute key="weight" value="80" />
-    <attribute key="slottype" value="ring" />
     <attribute key="showduration" value="1" />
+    <attribute key="slottype" value="ring" />
     <attribute key="stopduration" value="1" />
     <attribute key="transformequipto" value="2204" />
   </item>
   <item id="2168" article="a" name="life ring" editorcategory="Rings">
     <attribute key="weight" value="80" />
-    <attribute key="slottype" value="ring" />
     <attribute key="showduration" value="1" />
+    <attribute key="slottype" value="ring" />
     <attribute key="stopduration" value="1" />
     <attribute key="transformequipto" value="2205" />
   </item>
   <item id="2169" article="a" name="time ring" editorcategory="Rings">
     <attribute key="weight" value="90" />
-    <attribute key="slottype" value="ring" />
     <attribute key="showduration" value="1" />
+    <attribute key="slottype" value="ring" />
     <attribute key="stopduration" value="1" />
     <attribute key="transformequipto" value="2206" />
   </item>
   <item id="2170" article="a" name="silver amulet" editorcategory="Amulets">
     <attribute key="weight" value="500" />
     <attribute key="charges" value="200" />
+    <attribute key="showcharges" value="1" />
     <attribute key="slottype" value="necklace" />
     <attribute key="absorbpercentearth" value="10" />
-    <attribute key="showcharges" value="1" />
   </item>
   <item id="2171" article="a" name="platinum amulet" editorcategory="Amulets">
     <attribute key="description" value="It is an amulet of protection." />
@@ -2910,9 +2904,9 @@
   <item id="2172" article="a" name="bronze amulet" editorcategory="Amulets">
     <attribute key="weight" value="500" />
     <attribute key="charges" value="200" />
+    <attribute key="showcharges" value="1" />
     <attribute key="slottype" value="necklace" />
     <attribute key="absorbpercentmanadrain" value="20" />
-    <attribute key="showcharges" value="1" />
   </item>
   <item id="2173" article="an" name="amulet of loss" editorcategory="Amulets">
     <attribute key="weight" value="420" />
@@ -3036,14 +3030,15 @@
   <item id="2197" article="a" name="stone skin amulet" editorcategory="Amulets">
     <attribute key="weight" value="700" />
     <attribute key="charges" value="5" />
+    <attribute key="showcharges" value="1" />
     <attribute key="slottype" value="necklace" />
     <attribute key="absorbpercentphysical" value="80" />
     <attribute key="absorbpercentdeath" value="80" />
-    <attribute key="showcharges" value="1" />
   </item>
   <item id="2198" article="an" name="elven amulet" editorcategory="Amulets">
     <attribute key="weight" value="270" />
     <attribute key="charges" value="50" />
+    <attribute key="showcharges" value="1" />
     <attribute key="slottype" value="necklace" />
     <attribute key="absorbpercentphysical" value="5" />
     <attribute key="absorbpercentearth" value="5" />
@@ -3052,147 +3047,146 @@
     <attribute key="absorbpercentice" value="5" />
     <attribute key="absorbpercentdeath" value="5" />
     <attribute key="absorbpercentholy" value="5" />
-    <attribute key="showcharges" value="1" />
   </item>
   <item id="2199" article="a" name="garlic necklace" editorcategory="Amulets">
     <attribute key="weight" value="380" />
     <attribute key="charges" value="150" />
+    <attribute key="showcharges" value="1" />
     <attribute key="slottype" value="necklace" />
     <attribute key="absorbpercentlifedrain" value="20" />
-    <attribute key="showcharges" value="1" />
   </item>
   <item id="2200" article="a" name="protection amulet" editorcategory="Amulets">
     <attribute key="weight" value="550" />
     <attribute key="charges" value="250" />
+    <attribute key="showcharges" value="1" />
     <attribute key="slottype" value="necklace" />
     <attribute key="absorbpercentphysical" value="6" />
-    <attribute key="showcharges" value="1" />
   </item>
   <item id="2201" article="a" name="dragon necklace" editorcategory="Amulets">
     <attribute key="weight" value="630" />
     <attribute key="charges" value="200" />
+    <attribute key="showcharges" value="1" />
     <attribute key="slottype" value="necklace" />
     <attribute key="absorbpercentfire" value="8" />
-    <attribute key="showcharges" value="1" />
   </item>
   <item id="2202" article="a" name="stealth ring (invisibility)" editorcategory="Rings">
     <attribute key="weight" value="100" />
-    <attribute key="slottype" value="ring" />
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="600" />
     <attribute key="showduration" value="1" />
+    <attribute key="slottype" value="ring" />
     <attribute key="transformdeequipto" value="2165" />
   </item>
   <item id="2203" article="a" name="power ring" editorcategory="Rings">
     <attribute key="weight" value="80" />
-    <attribute key="slottype" value="ring" />
-    <attribute key="skillmodifierfist" value="6" />
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="1800" />
     <attribute key="showduration" value="1" />
+    <attribute key="slottype" value="ring" />
+    <attribute key="skillmodifierfist" value="6" />
     <attribute key="transformdeequipto" value="2166" />
   </item>
   <item id="2204" article="an" name="energy ring (magic shield)" editorcategory="Rings">
     <attribute key="weight" value="80" />
-    <attribute key="slottype" value="ring" />
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="600" />
     <attribute key="showduration" value="1" />
+    <attribute key="slottype" value="ring" />
     <attribute key="transformdeequipto" value="2167" />
   </item>
   <item id="2205" article="a" name="life ring (faster regeneration)" editorcategory="Rings">
     <attribute key="weight" value="80" />
-    <attribute key="slottype" value="ring" />
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="1200" />
     <attribute key="showduration" value="1" />
+    <attribute key="slottype" value="ring" />
     <attribute key="transformdeequipto" value="2168" />
   </item>
   <item id="2206" article="a" name="time ring" editorcategory="Rings">
     <attribute key="weight" value="90" />
-    <attribute key="slottype" value="ring" />
-    <attribute key="speedmodifier" value="30" />
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="600" />
     <attribute key="showduration" value="1" />
+    <attribute key="slottype" value="ring" />
+    <attribute key="speedmodifier" value="30" />
     <attribute key="transformdeequipto" value="2169" />
   </item>
   <item id="2207" article="a" name="sword ring" editorcategory="Rings">
     <attribute key="weight" value="90" />
-    <attribute key="slottype" value="ring" />
     <attribute key="showduration" value="1" />
+    <attribute key="slottype" value="ring" />
     <attribute key="stopduration" value="1" />
     <attribute key="transformequipto" value="2210" />
   </item>
   <item id="2208" article="an" name="axe ring" editorcategory="Rings">
     <attribute key="weight" value="90" />
-    <attribute key="slottype" value="ring" />
     <attribute key="showduration" value="1" />
+    <attribute key="slottype" value="ring" />
     <attribute key="stopduration" value="1" />
     <attribute key="transformequipto" value="2211" />
   </item>
   <item id="2209" article="a" name="club ring" editorcategory="Rings">
     <attribute key="weight" value="90" />
-    <attribute key="slottype" value="ring" />
     <attribute key="showduration" value="1" />
+    <attribute key="slottype" value="ring" />
     <attribute key="stopduration" value="1" />
     <attribute key="transformequipto" value="2212" />
   </item>
   <item id="2210" article="a" name="sword ring" editorcategory="Rings">
     <attribute key="weight" value="90" />
-    <attribute key="slottype" value="ring" />
-    <attribute key="skillmodifiersword" value="4" />
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="1800" />
     <attribute key="showduration" value="1" />
+    <attribute key="slottype" value="ring" />
+    <attribute key="skillmodifiersword" value="4" />
     <attribute key="transformdeequipto" value="2207" />
   </item>
   <item id="2211" article="an" name="axe ring" editorcategory="Rings">
     <attribute key="weight" value="90" />
-    <attribute key="slottype" value="ring" />
-    <attribute key="skillmodifieraxe" value="4" />
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="1800" />
     <attribute key="showduration" value="1" />
+    <attribute key="slottype" value="ring" />
+    <attribute key="skillmodifieraxe" value="4" />
     <attribute key="transformdeequipto" value="2208" />
   </item>
   <item id="2212" article="a" name="club ring" editorcategory="Rings">
     <attribute key="weight" value="90" />
-    <attribute key="slottype" value="ring" />
-    <attribute key="skillmodifierclub" value="4" />
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="1800" />
     <attribute key="showduration" value="1" />
+    <attribute key="slottype" value="ring" />
+    <attribute key="skillmodifierclub" value="4" />
     <attribute key="transformdeequipto" value="2209" />
   </item>
   <item id="2213" article="a" name="dwarven ring" editorcategory="Rings">
     <attribute key="weight" value="110" />
-    <attribute key="slottype" value="ring" />
     <attribute key="showduration" value="1" />
+    <attribute key="slottype" value="ring" />
     <attribute key="stopduration" value="1" />
     <attribute key="transformequipto" value="2215" />
   </item>
   <item id="2214" article="a" name="ring of healing" editorcategory="Rings">
     <attribute key="weight" value="80" />
-    <attribute key="slottype" value="ring" />
     <attribute key="showduration" value="1" />
+    <attribute key="slottype" value="ring" />
     <attribute key="stopduration" value="1" />
     <attribute key="transformequipto" value="2216" />
   </item>
   <item id="2215" article="a" name="dwarven ring (hard drinking)" editorcategory="Rings">
     <attribute key="weight" value="110" />
-    <attribute key="slottype" value="ring" />
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="3600" />
     <attribute key="showduration" value="1" />
+    <attribute key="slottype" value="ring" />
     <attribute key="transformdeequipto" value="2213" />
   </item>
   <item id="2216" article="a" name="ring of healing (faster regeneration)" editorcategory="Rings">
     <attribute key="weight" value="80" />
-    <attribute key="slottype" value="ring" />
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="480" />
     <attribute key="showduration" value="1" />
+    <attribute key="slottype" value="ring" />
     <attribute key="transformdeequipto" value="2214" />
   </item>
   <item id="2217" article="a" name="spellbook" editorcategory="Books">
@@ -3746,9 +3740,9 @@
     <attribute key="description" value="The gem is glowing with power." />
     <attribute key="weight" value="2760" />
     <attribute key="armor" value="11" />
-    <attribute key="slottype" value="head" />
     <attribute key="decayto" value="2342" />
     <attribute key="duration" value="1800" />
+    <attribute key="slottype" value="head" />
   </item>
   <item id="2344" article="a" name="gemmed lamp" editorsuffix="(Green Djinn Quest)" editorcategory="Quest Items">
     <attribute key="description" value="It is the djinn leader's sleeping lamp." />
@@ -4269,9 +4263,9 @@
     <attribute key="defense" value="45" />
     <attribute key="attack" value="39" />
     <attribute key="weapontype" value="club" />
-    <attribute key="slottype" value="twohanded" />
     <attribute key="decayto" value="2401" />
     <attribute key="duration" value="60" />
+    <attribute key="slottype" value="twohanded" />
   </item>
   <item id="2434" article="a" name="dragon hammer" editorcategory="Clubs">
     <attribute key="weight" value="9700" />
@@ -5177,10 +5171,10 @@
   <item id="2640" article="a" name="pair of soft boots (faster regeneration)" editorcategory="Boots">
     <attribute key="weight" value="800" />
     <attribute key="armor" value="0" />
-    <attribute key="slottype" value="feet" />
     <attribute key="decayto" value="10021" />
     <attribute key="duration" value="14400" />
     <attribute key="showduration" value="1" />
+    <attribute key="slottype" value="feet" />
     <attribute key="transformdeequipto" value="6132" />
   </item>
   <item id="2641" name="patched boots" editorcategory="Boots">
@@ -6017,10 +6011,7 @@
     <attribute key="decayto" value="2878" />
     <attribute key="duration" value="600" />
   </item>
-  <item id="2878" name="nothing special" editorsuffix="(Blank)">
-    <attribute key="decayto" value="0" />
-    <attribute key="duration" value="600" />
-  </item>
+  <item id="2878" name="nothing special" editorsuffix="(Blank)" />
   <item id="2879" name="nothing special" editorsuffix="(Blank)" />
   <item id="2880" name="nothing special" editorsuffix="(Blank)" />
   <item id="2881" article="a" name="dead dragon lord" editorcategory="Corpses">
@@ -6461,24 +6452,24 @@
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="600" />
   </item>
-  <item id="2952" article="a" name="split stone golem">
+  <item id="2952" article="a" name="split stone golem" editorcategory="Corpses">
     <attribute key="corpsetype" value="undead" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="2953" />
     <attribute key="duration" value="900" />
   </item>
-  <item id="2953" article="a" name="split stone golem">
+  <item id="2953" article="a" name="split stone golem" editorcategory="Corpses">
     <attribute key="corpsetype" value="undead" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="2954" />
     <attribute key="duration" value="600" />
   </item>
-  <item id="2954" article="a" name="split stone golem">
+  <item id="2954" article="a" name="split stone golem" editorcategory="Corpses">
     <attribute key="corpsetype" value="undead" />
     <attribute key="decayto" value="2955" />
     <attribute key="duration" value="600" />
   </item>
-  <item id="2955" article="a" name="split stone golem">
+  <item id="2955" article="a" name="split stone golem" editorcategory="Corpses">
     <attribute key="corpsetype" value="undead" />
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="600" />
@@ -8988,7 +8979,7 @@
   <item id="4208" article="a" name="jungle maw" />
   <item id="4209" article="a" name="jungle maw">
     <attribute key="decayto" value="4208" />
-    <attribute key="duration" value="10" />
+    <attribute key="duration" value="150" />
   </item>
   <item id="4210" article="a" name="fallen tree" />
   <item id="4211" article="a" name="fallen tree" />
@@ -9473,14 +9464,14 @@
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="600" />
   </item>
-  <item id="4326" article="a" name="lifeless nettle">
+  <item id="4326" article="a" name="lifeless nettle" editorcategory="Corpses">
     <attribute key="corpsetype" value="venom" />
     <attribute key="containersize" value="5" />
     <attribute key="decayto" value="4327" />
     <attribute key="duration" value="900" />
     <attribute key="fluidsource" value="slime" />
   </item>
-  <item id="4327" article="a" name="lifeless nettle">
+  <item id="4327" article="a" name="lifeless nettle" editorcategory="Corpses">
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="120" />
   </item>
@@ -10218,7 +10209,7 @@
     <attribute key="armor" value="0" />
     <attribute key="slottype" value="body" />
   </item>
-  <item id="4848" article="an" name="icicle that is brand-new" editorsuffix="(The Explorer Society Quest)" editorcategory="Quest Items">
+  <item id="4848" article="an" name="icicle" editorsuffix="(The Explorer Society Quest)" editorcategory="Quest Items">
     <attribute key="description" value="It is melting rapidly." />
     <attribute key="weight" value="1900" />
     <attribute key="decayto" value="0" />
@@ -10474,10 +10465,7 @@
   <item id="4996" name="canopic jar">
     <attribute key="description" value="You feel an eerie presence." />
   </item>
-  <item id="4997" name="wooden trash" editorcategory="Rubbish">
-    <attribute key="decayto" value="4996" />
-    <attribute key="duration" value="120" />
-  </item>
+  <item id="4997" name="wooden trash" editorcategory="Rubbish" />
   <item id="4998" article="a" name="hawser" />
   <item id="4999" article="a" name="hawser" />
   <item id="5000" article="a" name="hawser" />
@@ -11227,7 +11215,7 @@
   <item id="5470" article="a" name="distilling machine" />
   <item id="5471" article="a" name="sugar cane">
     <attribute key="decayto" value="5466" />
-    <attribute key="duration" value="10" />
+    <attribute key="duration" value="240" />
   </item>
   <item id="5472" article="a" name="ball on chains" editorcategory="Rubbish" />
   <item id="5473" article="a" name="ball on chains" editorcategory="Rubbish" />
@@ -11365,14 +11353,14 @@
     <attribute key="duration" value="900" />
     <attribute key="fluidsource" value="blood" />
   </item>
-  <item id="5527" article="a" name="demon dust">
+  <item id="5527" article="a" name="demon dust" editorcategory="Corpses">
     <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="5528" />
     <attribute key="duration" value="900" />
     <attribute key="fluidsource" value="blood" />
   </item>
-  <item id="5528" article="a" name="demon dust">
+  <item id="5528" article="a" name="demon dust" editorcategory="Corpses">
     <attribute key="corpsetype" value="blood" />
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="600" />
@@ -12707,7 +12695,7 @@
     <attribute key="decayto" value="2949" />
     <attribute key="duration" value="10" />
   </item>
-  <item id="6005" article="a" name="split stone golem" editorsuffix="(Unmoveable)">
+  <item id="6005" article="a" name="split stone golem" editorsuffix="(Unmoveable)" editorcategory="Corpses">
     <attribute key="corpsetype" value="undead" />
     <attribute key="containersize" value="15" />
     <attribute key="decayto" value="2952" />
@@ -13096,7 +13084,7 @@
     <attribute key="duration" value="10" />
     <attribute key="fluidsource" value="blood" />
   </item>
-  <item id="6062" article="a" name="lifeless nettle" editorsuffix="(Unmoveable)">
+  <item id="6062" article="a" name="lifeless nettle" editorsuffix="(Unmoveable)" editorcategory="Corpses">
     <attribute key="corpsetype" value="venom" />
     <attribute key="containersize" value="5" />
     <attribute key="decayto" value="4326" />
@@ -13138,7 +13126,7 @@
     <attribute key="duration" value="10" />
     <attribute key="fluidsource" value="blood" />
   </item>
-  <item id="6068" name="demon dust" editorsuffix="(Unmoveable)">
+  <item id="6068" name="demon dust" editorsuffix="(Unmoveable)" editorcategory="Corpses">
     <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
     <attribute key="decayto" value="5527" />
@@ -13273,7 +13261,7 @@
   <item id="6092" article="a" name="very noble-looking watch" editorcategory="Tools">
     <attribute key="weight" value="50" />
     <attribute key="decayto" value="6091" />
-    <attribute key="duration" value="259200" />
+    <attribute key="duration" value="86400" />
   </item>
   <item id="6093" article="a" name="crystal ring" editorsuffix="(Eleonore)" editorcategory="Rings">
     <attribute key="description" value="The initials E.S. are engraved on it." />
@@ -13405,8 +13393,8 @@
   <item id="6132" article="a" name="pair of soft boots" editorcategory="Boots">
     <attribute key="weight" value="800" />
     <attribute key="armor" value="0" />
-    <attribute key="slottype" value="feet" />
     <attribute key="showduration" value="1" />
+    <attribute key="slottype" value="feet" />
     <attribute key="stopduration" value="1" />
     <attribute key="transformequipto" value="2640" />
   </item>
@@ -13689,8 +13677,8 @@
   <item id="6299" name="some cracks" />
   <item id="6300" article="a" name="death ring" editorcategory="Rings">
     <attribute key="weight" value="80" />
-    <attribute key="slottype" value="ring" />
     <attribute key="showduration" value="1" />
+    <attribute key="slottype" value="ring" />
     <attribute key="stopduration" value="1" />
     <attribute key="transformequipto" value="6301" />
   </item>
@@ -13698,12 +13686,12 @@
     <attribute key="description" value="Wearing it makes you feel a little weaker than usual." />
     <attribute key="weight" value="80" />
     <attribute key="armor" value="1" />
+    <attribute key="decayto" value="0" />
+    <attribute key="duration" value="450" />
+    <attribute key="showduration" value="1" />
     <attribute key="slottype" value="ring" />
     <attribute key="absorbpercentdeath" value="5" />
     <attribute key="skillmodifiershield" value="-10" />
-    <attribute key="decayto" value="0" />
-    <attribute key="duration" value="480" />
-    <attribute key="showduration" value="1" />
     <attribute key="transformdeequipto" value="6300" />
   </item>
   <item id="6302" article="a" name="dead wyvern" editorsuffix="(Unmoveable)" editorcategory="Corpses">
@@ -14613,7 +14601,7 @@
   <item id="6573" article="a" name="party trumpet" editorcategory="Musical Instruments">
     <attribute key="weight" value="50" />
     <attribute key="decayto" value="6572" />
-    <attribute key="duration" value="4" />
+    <attribute key="duration" value="3" />
   </item>
   <item id="6574" article="a" name="bar of chocolate" editorcategory="Foods">
     <attribute key="weight" value="10" />
@@ -17400,9 +17388,9 @@
     <attribute key="attackmodifierfire" value="7" />
     <attribute key="weapontype" value="sword" />
     <attribute key="charges" value="1000" />
-    <attribute key="slottype" value="twohanded" />
     <attribute key="decayto" value="7406" />
     <attribute key="showcharges" value="1" />
+    <attribute key="slottype" value="twohanded" />
   </item>
   <item id="7748" article="a" name="fiery dragonslayer" editorcategory="Swords">
     <attribute key="weight" value="8200" />
@@ -17411,9 +17399,9 @@
     <attribute key="attackmodifierfire" value="9" />
     <attribute key="weapontype" value="sword" />
     <attribute key="charges" value="1000" />
-    <attribute key="slottype" value="twohanded" />
     <attribute key="decayto" value="7402" />
     <attribute key="showcharges" value="1" />
+    <attribute key="slottype" value="twohanded" />
   </item>
   <item id="7749" article="a" name="fiery barbarian axe" editorcategory="Axes">
     <attribute key="weight" value="5100" />
@@ -17456,9 +17444,9 @@
     <attribute key="attackmodifierfire" value="8" />
     <attribute key="weapontype" value="axe" />
     <attribute key="charges" value="1000" />
-    <attribute key="slottype" value="twohanded" />
     <attribute key="decayto" value="7380" />
     <attribute key="showcharges" value="1" />
+    <attribute key="slottype" value="twohanded" />
   </item>
   <item id="7753" article="a" name="fiery war axe" editorcategory="Axes">
     <attribute key="weight" value="6150" />
@@ -17467,9 +17455,9 @@
     <attribute key="attackmodifierfire" value="9" />
     <attribute key="weapontype" value="axe" />
     <attribute key="charges" value="1000" />
-    <attribute key="slottype" value="twohanded" />
     <attribute key="decayto" value="2454" />
     <attribute key="showcharges" value="1" />
+    <attribute key="slottype" value="twohanded" />
   </item>
   <item id="7754" article="a" name="fiery clerical mace" editorcategory="Clubs">
     <attribute key="weight" value="5800" />
@@ -17513,9 +17501,9 @@
     <attribute key="attackmodifierfire" value="7" />
     <attribute key="weapontype" value="club" />
     <attribute key="charges" value="1000" />
-    <attribute key="slottype" value="twohanded" />
     <attribute key="decayto" value="7392" />
     <attribute key="showcharges" value="1" />
+    <attribute key="slottype" value="twohanded" />
   </item>
   <item id="7758" article="a" name="fiery war hammer" editorcategory="Clubs">
     <attribute key="weight" value="5400" />
@@ -17524,9 +17512,9 @@
     <attribute key="attackmodifierfire" value="9" />
     <attribute key="weapontype" value="club" />
     <attribute key="charges" value="1000" />
-    <attribute key="slottype" value="twohanded" />
     <attribute key="decayto" value="2391" />
     <attribute key="showcharges" value="1" />
+    <attribute key="slottype" value="twohanded" />
   </item>
   <item id="7759" article="a" name="small enchanted sapphire" plural="small enchanted sapphires" editorcategory="Valuables">
     <attribute key="weight" value="10" />
@@ -17582,9 +17570,9 @@
     <attribute key="attackmodifierice" value="7" />
     <attribute key="weapontype" value="sword" />
     <attribute key="charges" value="1000" />
-    <attribute key="slottype" value="twohanded" />
     <attribute key="decayto" value="7406" />
     <attribute key="showcharges" value="1" />
+    <attribute key="slottype" value="twohanded" />
   </item>
   <item id="7767" article="an" name="icy dragonslayer" editorcategory="Swords">
     <attribute key="weight" value="8200" />
@@ -17593,9 +17581,9 @@
     <attribute key="attackmodifierice" value="9" />
     <attribute key="weapontype" value="sword" />
     <attribute key="charges" value="1000" />
-    <attribute key="slottype" value="twohanded" />
     <attribute key="decayto" value="7402" />
     <attribute key="showcharges" value="1" />
+    <attribute key="slottype" value="twohanded" />
   </item>
   <item id="7768" article="an" name="icy barbarian axe" editorcategory="Axes">
     <attribute key="weight" value="5100" />
@@ -17638,9 +17626,9 @@
     <attribute key="attackmodifierice" value="8" />
     <attribute key="weapontype" value="axe" />
     <attribute key="charges" value="1000" />
-    <attribute key="slottype" value="twohanded" />
     <attribute key="decayto" value="7380" />
     <attribute key="showcharges" value="1" />
+    <attribute key="slottype" value="twohanded" />
   </item>
   <item id="7772" article="an" name="icy war axe" editorcategory="Axes">
     <attribute key="weight" value="6150" />
@@ -17649,9 +17637,9 @@
     <attribute key="attackmodifierice" value="9" />
     <attribute key="weapontype" value="axe" />
     <attribute key="charges" value="1000" />
-    <attribute key="slottype" value="twohanded" />
     <attribute key="decayto" value="2454" />
     <attribute key="showcharges" value="1" />
+    <attribute key="slottype" value="twohanded" />
   </item>
   <item id="7773" article="an" name="icy clerical mace" editorcategory="Clubs">
     <attribute key="weight" value="5800" />
@@ -17695,9 +17683,9 @@
     <attribute key="attackmodifierice" value="7" />
     <attribute key="weapontype" value="club" />
     <attribute key="charges" value="1000" />
-    <attribute key="slottype" value="twohanded" />
     <attribute key="decayto" value="7392" />
     <attribute key="showcharges" value="1" />
+    <attribute key="slottype" value="twohanded" />
   </item>
   <item id="7777" article="an" name="icy war hammer" editorcategory="Clubs">
     <attribute key="weight" value="5400" />
@@ -17706,9 +17694,9 @@
     <attribute key="attackmodifierice" value="9" />
     <attribute key="weapontype" value="club" />
     <attribute key="charges" value="1000" />
-    <attribute key="slottype" value="twohanded" />
     <attribute key="decayto" value="2391" />
     <attribute key="showcharges" value="1" />
+    <attribute key="slottype" value="twohanded" />
   </item>
   <item id="7778" article="a" name="bed" editorcategory="Furnitures">
     <attribute key="malesleeper" value="1754" />
@@ -18093,9 +18081,9 @@
     <attribute key="attackmodifierearth" value="7" />
     <attribute key="weapontype" value="sword" />
     <attribute key="charges" value="1000" />
-    <attribute key="slottype" value="twohanded" />
     <attribute key="decayto" value="7406" />
     <attribute key="showcharges" value="1" />
+    <attribute key="slottype" value="twohanded" />
   </item>
   <item id="7858" article="an" name="earth dragonslayer" editorcategory="Swords">
     <attribute key="weight" value="8200" />
@@ -18104,9 +18092,9 @@
     <attribute key="attackmodifierearth" value="9" />
     <attribute key="weapontype" value="sword" />
     <attribute key="charges" value="1000" />
-    <attribute key="slottype" value="twohanded" />
     <attribute key="decayto" value="7402" />
     <attribute key="showcharges" value="1" />
+    <attribute key="slottype" value="twohanded" />
   </item>
   <item id="7859" article="an" name="earth barbarian axe" editorcategory="Axes">
     <attribute key="weight" value="5100" />
@@ -18149,9 +18137,9 @@
     <attribute key="attackmodifierearth" value="8" />
     <attribute key="weapontype" value="axe" />
     <attribute key="charges" value="1000" />
-    <attribute key="slottype" value="twohanded" />
     <attribute key="decayto" value="7380" />
     <attribute key="showcharges" value="1" />
+    <attribute key="slottype" value="twohanded" />
   </item>
   <item id="7863" article="an" name="earth war axe" editorcategory="Axes">
     <attribute key="weight" value="6150" />
@@ -18160,9 +18148,9 @@
     <attribute key="attackmodifierearth" value="9" />
     <attribute key="weapontype" value="axe" />
     <attribute key="charges" value="1000" />
-    <attribute key="slottype" value="twohanded" />
     <attribute key="decayto" value="2454" />
     <attribute key="showcharges" value="1" />
+    <attribute key="slottype" value="twohanded" />
   </item>
   <item id="7864" article="an" name="earth clerical mace" editorcategory="Clubs">
     <attribute key="weight" value="5800" />
@@ -18206,9 +18194,9 @@
     <attribute key="attackmodifierearth" value="7" />
     <attribute key="weapontype" value="club" />
     <attribute key="charges" value="1000" />
-    <attribute key="slottype" value="twohanded" />
     <attribute key="decayto" value="7392" />
     <attribute key="showcharges" value="1" />
+    <attribute key="slottype" value="twohanded" />
   </item>
   <item id="7868" article="an" name="earth war hammer" editorcategory="Clubs">
     <attribute key="weight" value="5400" />
@@ -18217,9 +18205,9 @@
     <attribute key="attackmodifierearth" value="9" />
     <attribute key="weapontype" value="club" />
     <attribute key="charges" value="1000" />
-    <attribute key="slottype" value="twohanded" />
     <attribute key="decayto" value="2391" />
     <attribute key="showcharges" value="1" />
+    <attribute key="slottype" value="twohanded" />
   </item>
   <item id="7869" article="an" name="energy spike sword" editorcategory="Swords">
     <attribute key="weight" value="5000" />
@@ -18263,9 +18251,9 @@
     <attribute key="attackmodifierenergy" value="7" />
     <attribute key="weapontype" value="sword" />
     <attribute key="charges" value="1000" />
-    <attribute key="slottype" value="twohanded" />
     <attribute key="decayto" value="7406" />
     <attribute key="showcharges" value="1" />
+    <attribute key="slottype" value="twohanded" />
   </item>
   <item id="7873" article="an" name="energy dragonslayer" editorcategory="Swords">
     <attribute key="weight" value="8200" />
@@ -18274,9 +18262,9 @@
     <attribute key="attackmodifierenergy" value="9" />
     <attribute key="weapontype" value="sword" />
     <attribute key="charges" value="1000" />
-    <attribute key="slottype" value="twohanded" />
     <attribute key="decayto" value="7402" />
     <attribute key="showcharges" value="1" />
+    <attribute key="slottype" value="twohanded" />
   </item>
   <item id="7874" article="an" name="energy barbarian axe" editorcategory="Axes">
     <attribute key="weight" value="5100" />
@@ -18319,9 +18307,9 @@
     <attribute key="attackmodifierenergy" value="8" />
     <attribute key="weapontype" value="axe" />
     <attribute key="charges" value="1000" />
-    <attribute key="slottype" value="twohanded" />
     <attribute key="decayto" value="7380" />
     <attribute key="showcharges" value="1" />
+    <attribute key="slottype" value="twohanded" />
   </item>
   <item id="7878" article="an" name="energy war axe" editorcategory="Axes">
     <attribute key="weight" value="6150" />
@@ -18330,9 +18318,9 @@
     <attribute key="attackmodifierenergy" value="9" />
     <attribute key="weapontype" value="axe" />
     <attribute key="charges" value="1000" />
-    <attribute key="slottype" value="twohanded" />
     <attribute key="decayto" value="2454" />
     <attribute key="showcharges" value="1" />
+    <attribute key="slottype" value="twohanded" />
   </item>
   <item id="7879" article="an" name="energy clerical mace" editorcategory="Clubs">
     <attribute key="weight" value="5800" />
@@ -18376,9 +18364,9 @@
     <attribute key="attackmodifierenergy" value="7" />
     <attribute key="weapontype" value="club" />
     <attribute key="charges" value="1000" />
-    <attribute key="slottype" value="twohanded" />
     <attribute key="decayto" value="7392" />
     <attribute key="showcharges" value="1" />
+    <attribute key="slottype" value="twohanded" />
   </item>
   <item id="7883" article="an" name="energy war hammer" editorcategory="Clubs">
     <attribute key="weight" value="5400" />
@@ -18387,9 +18375,9 @@
     <attribute key="attackmodifierenergy" value="9" />
     <attribute key="weapontype" value="club" />
     <attribute key="charges" value="1000" />
-    <attribute key="slottype" value="twohanded" />
     <attribute key="decayto" value="2391" />
     <attribute key="showcharges" value="1" />
+    <attribute key="slottype" value="twohanded" />
   </item>
   <item id="7884" article="a" name="terra mantle" editorcategory="Armors">
     <attribute key="weight" value="2250" />
@@ -18421,25 +18409,25 @@
   <item id="7888" article="a" name="glacier amulet" editorcategory="Amulets">
     <attribute key="weight" value="500" />
     <attribute key="charges" value="200" />
+    <attribute key="showcharges" value="1" />
     <attribute key="slottype" value="necklace" />
     <attribute key="absorbpercentenergy" value="-10" />
     <attribute key="absorbpercentice" value="20" />
-    <attribute key="showcharges" value="1" />
   </item>
   <item id="7889" article="a" name="lightning pendant" editorcategory="Amulets">
     <attribute key="weight" value="500" />
+    <attribute key="showcharges" value="1" />
     <attribute key="slottype" value="necklace" />
     <attribute key="absorbpercentearth" value="-10" />
     <attribute key="absorbpercentenergy" value="20" />
-    <attribute key="showcharges" value="1" />
   </item>
   <item id="7890" article="a" name="magma amulet" editorcategory="Amulets">
     <attribute key="weight" value="500" />
     <attribute key="charges" value="200" />
+    <attribute key="showcharges" value="1" />
     <attribute key="slottype" value="necklace" />
     <attribute key="absorbpercentfire" value="20" />
     <attribute key="absorbpercentice" value="-10" />
-    <attribute key="showcharges" value="1" />
   </item>
   <item id="7891" name="magma boots" editorcategory="Boots">
     <attribute key="weight" value="750" />
@@ -20471,9 +20459,9 @@
     <attribute key="weight" value="6900" />
     <attribute key="defense" value="36" />
     <attribute key="weapontype" value="shield" />
-    <attribute key="skillmodifiershield" value="3" />
     <attribute key="decayto" value="8905" />
     <attribute key="duration" value="1200" />
+    <attribute key="skillmodifiershield" value="3" />
   </item>
   <item id="8907" article="an" name="icy rainbow shield" editorcategory="Shields">
     <attribute key="description" value="It has been temporarily imbued with ice magic and has a greatly increased shielding value." />
@@ -20488,9 +20476,9 @@
     <attribute key="weight" value="6900" />
     <attribute key="defense" value="36" />
     <attribute key="weapontype" value="shield" />
-    <attribute key="speedmodifier" value="10" />
     <attribute key="decayto" value="8905" />
     <attribute key="duration" value="1200" />
+    <attribute key="speedmodifier" value="10" />
   </item>
   <item id="8909" article="a" name="terran rainbow shield (faster regeneration)" editorcategory="Shields">
     <attribute key="description" value="It has been temporarily imbued with earth magic and boosts your regeneration." />
@@ -20933,8 +20921,6 @@
   <item id="9002" article="an" name="encyclopedia" editorsuffix="(Replicas)" editorcategory="Valuables">
     <attribute key="description" value="Souvenir from Thais Museum." />
     <attribute key="weight" value="1337" />
-    <attribute key="decayto" value="8977" />
-    <attribute key="duration" value="5" />
   </item>
   <item id="9003" article="a" name="golden falcon" editorsuffix="(Replicas)" editorcategory="Valuables">
     <attribute key="description" value="Souvenir from Thais Museum." />
@@ -20943,8 +20929,6 @@
   <item id="9004" article="a" name="golden newspaper" editorsuffix="(Replicas)" editorcategory="Valuables">
     <attribute key="description" value="Souvenir from Thais Museum." />
     <attribute key="weight" value="2400" />
-    <attribute key="decayto" value="8981" />
-    <attribute key="duration" value="5" />
   </item>
   <item id="9005" article="a" name="yummy gummy worm" plural="yummy gummy worms" editorcategory="Foods">
     <attribute key="weight" value="20" />
@@ -21158,7 +21142,7 @@
     <attribute key="description" value="It is charged with magic energy, but that won't last forever." />
     <attribute key="weight" value="890" />
     <attribute key="decayto" value="9369" />
-    <attribute key="duration" value="604800" />
+    <attribute key="duration" value="86400" />
   </item>
   <item id="9142" article="a" name="stone wall" />
   <item id="9143" article="a" name="stone wall" />
@@ -22535,18 +22519,18 @@
     <attribute key="description" value="Wearing these boots reduces the damage gotten from fiery ground." />
     <attribute key="weight" value="950" />
     <attribute key="armor" value="2" />
-    <attribute key="slottype" value="feet" />
     <attribute key="decayto" value="10022" />
     <attribute key="duration" value="3600" />
     <attribute key="showduration" value="1" />
+    <attribute key="slottype" value="feet" />
     <attribute key="transformdeequipto" value="9933" />
   </item>
   <item id="9933" article="a" name="firewalker boots" editorcategory="Boots">
     <attribute key="description" value="Wearing these boots reduces the damage gotten from fiery ground." />
     <attribute key="weight" value="950" />
     <attribute key="armor" value="2" />
-    <attribute key="slottype" value="feet" />
     <attribute key="showduration" value="1" />
+    <attribute key="slottype" value="feet" />
     <attribute key="stopduration" value="1" />
     <attribute key="transformequipto" value="9932" />
   </item>
@@ -22625,11 +22609,11 @@
     <attribute key="description" value="You have a day to light all important locations before the torch stops burning." />
     <attribute key="weight" value="1500" />
     <attribute key="defense" value="25" />
-    <attribute key="slottype" value="hand" />
-    <attribute key="speedmodifier" value="25" />
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="3600" />
     <attribute key="showduration" value="1" />
+    <attribute key="slottype" value="hand" />
+    <attribute key="speedmodifier" value="25" />
   </item>
   <item id="9957" article="a" name="lightbringer's basin" />
   <item id="9958" article="a" name="royal tapestry" editorcategory="Decorations">
@@ -22702,7 +22686,7 @@
   <item id="9976" article="a" name="crystal pedestal" editorcategory="Furnitures">
     <attribute key="weight" value="4000" />
     <attribute key="decayto" value="9977" />
-    <attribute key="duration" value="15" />
+    <attribute key="duration" value="10" />
   </item>
   <item id="9977" article="a" name="crystal pedestal" editorcategory="Furnitures">
     <attribute key="weight" value="4000" />
@@ -22712,12 +22696,12 @@
   <item id="9978" article="a" name="crystal pedestal" editorcategory="Furnitures">
     <attribute key="weight" value="4000" />
     <attribute key="decayto" value="9979" />
-    <attribute key="duration" value="11" />
+    <attribute key="duration" value="10" />
   </item>
   <item id="9979" article="a" name="crystal pedestal" editorcategory="Furnitures">
     <attribute key="weight" value="4000" />
     <attribute key="decayto" value="9976" />
-    <attribute key="duration" value="8" />
+    <attribute key="duration" value="10" />
   </item>
   <item id="9980" article="a" name="crystal of power" editorcategory="Valuables">
     <attribute key="description" value="It is said to make you more resistant to weaknesses and to supply you with energy." />
@@ -23247,27 +23231,27 @@
     <attribute key="description" value="It's leaves stretch out to cover your whole body if you receive earth damage." />
     <attribute key="weight" value="700" />
     <attribute key="charges" value="5" />
+    <attribute key="showcharges" value="1" />
     <attribute key="slottype" value="necklace" />
     <attribute key="absorbpercentphysical" value="60" />
     <attribute key="absorbpercentearth" value="40" />
-    <attribute key="showcharges" value="1" />
   </item>
   <item id="10220" article="a" name="Leviathan's amulet" editorcategory="Amulets">
     <attribute key="weight" value="700" />
     <attribute key="charges" value="5" />
+    <attribute key="showcharges" value="1" />
     <attribute key="slottype" value="necklace" />
     <attribute key="absorbpercentphysical" value="60" />
     <attribute key="absorbpercentice" value="40" />
-    <attribute key="showcharges" value="1" />
   </item>
   <item id="10221" article="a" name="shockwave amulet" editorcategory="Amulets">
     <attribute key="description" value="It tickles your neck in a rather pleasant way and absorbs loads of damage." />
     <attribute key="weight" value="700" />
     <attribute key="charges" value="5" />
+    <attribute key="showcharges" value="1" />
     <attribute key="slottype" value="necklace" />
     <attribute key="absorbpercentphysical" value="60" />
     <attribute key="absorbpercentenergy" value="40" />
-    <attribute key="showcharges" value="1" />
   </item>
   <item id="10222" article="a" name="sandstone floor" />
   <item id="10223" article="a" name="mechanical fishing rod" editorcategory="Tools">
