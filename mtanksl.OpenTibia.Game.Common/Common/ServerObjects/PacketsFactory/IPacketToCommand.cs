@@ -6,7 +6,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 {
     public interface IPacketToCommand
     {
-        public string Name { get; }
+        string Name { get; }
 
         IncomingCommand Convert(IConnection connection, ByteArrayStreamReader reader);
     }
