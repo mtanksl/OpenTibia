@@ -23,7 +23,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             private List<TValue> plugins = new List<TValue>();
 
-            private void AddPlugin(TValue plugin)
+            public void AddPlugin(TValue plugin)
             {
                 plugin.Start();
 
@@ -67,7 +67,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             private Dictionary<TKey, TValue> plugins = new Dictionary<TKey, TValue>();
 
-            private void AddPlugin(TKey key, TValue plugin)
+            public void AddPlugin(TKey key, TValue plugin)
             {
                 plugin.Start();
 
@@ -122,7 +122,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             private List<TValue> plugins = new List<TValue>();
 
-            private void AddPlugin(TKey key, Func<TValue> factory)
+            public void AddPlugin(TKey key, Func<TValue> factory)
             {
                 factories.Add(key, factory);
             }
@@ -1303,6 +1303,18 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         private PluginDictionaryCached<string, SpellPlugin, LuaScriptingSpellPlugin> spellPluginsRequiresTarget;
         private PluginDictionaryCached<string, SpellPlugin, LuaScriptingSpellPlugin> spellPlugins;
+
+        public void AddSpellPlugin(bool requiresTarget, SpellPlugin plugin)
+        {
+            if (requiresTarget)
+            {
+                spellPluginsRequiresTarget.AddPlugin(plugin.Spell.Words, plugin);
+            }
+            else
+            {
+                spellPlugins.AddPlugin(plugin.Spell.Words, plugin);
+            }
+        }
 
         public SpellPlugin GetSpellPlugin(bool requiresTarget, string words)
         {

@@ -96,6 +96,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         PlayerCreationPlugin GetPlayerCreationPlugin(string name);
 
+        void AddSpellPlugin(bool requiresTarget, SpellPlugin plugin);
+
         SpellPlugin GetSpellPlugin(bool requiresTarget, string words);
 
         RunePlugin GetRunePlugin(bool requiresTarget, ushort openTibiaId);
