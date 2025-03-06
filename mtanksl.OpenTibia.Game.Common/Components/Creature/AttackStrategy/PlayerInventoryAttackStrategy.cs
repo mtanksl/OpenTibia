@@ -218,7 +218,7 @@ namespace OpenTibia.Game.Components
                     
                     if (Context.Current.Server.Config.GameplayRemoveWeaponCharges)
                     {
-                        if (itemWeapon.Metadata.Charges != null && itemWeapon.Charges > 0)
+                        if (itemWeapon.Metadata.Charges != null && itemWeapon.Metadata.Charges > 0 && itemWeapon.Charges > 0)
                         {
                             itemWeapon.Charges--;
 
@@ -263,7 +263,7 @@ namespace OpenTibia.Game.Components
                     
                     if (Context.Current.Server.Config.GameplayRemoveWeaponCharges)
                     {
-                        if (itemWeapon.Metadata.Charges != null && itemWeapon.Charges > 0)
+                        if (itemWeapon.Metadata.Charges != null && itemWeapon.Metadata.Charges > 0 && itemWeapon.Charges > 0)
                         {
                             itemWeapon.Charges--;
 
@@ -308,7 +308,7 @@ namespace OpenTibia.Game.Components
                     
                     if (Context.Current.Server.Config.GameplayRemoveWeaponCharges)
                     {
-                        if (itemWeapon.Metadata.Charges != null && itemWeapon.Charges > 0)
+                        if (itemWeapon.Metadata.Charges != null && itemWeapon.Metadata.Charges > 0 && itemWeapon.Charges > 0)
                         {
                             itemWeapon.Charges--;
 
@@ -357,7 +357,7 @@ namespace OpenTibia.Game.Components
 
                         if (Context.Current.Server.Config.GameplayRemoveWeaponCharges)
                         {
-                            if (itemWeapon.Metadata.Charges != null && itemWeapon.Charges > 0)
+                            if (itemWeapon.Metadata.Charges != null && itemWeapon.Metadata.Charges > 0 && itemWeapon.Charges > 0)
                             {
                                 itemWeapon.Charges--;
 

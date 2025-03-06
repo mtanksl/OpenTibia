@@ -60,8 +60,6 @@ namespace OpenTibia.Game.Commands
                 }
 
                 var corpse = await Context.AddCommand(new TileCreateMonsterCorpseCommand(monster.Tile, monster.Metadata) );
-                    
-                         _ = Context.AddCommand(new ItemDecayDestroyCommand(corpse, TimeSpan.FromSeconds(30) ) );
 
                 if (corpse is Container container && killer is Player owner && owner.Tile != null && !owner.IsDestroyed)
                 {
@@ -179,8 +177,6 @@ namespace OpenTibia.Game.Commands
                 player.Direction = Direction.South;
 
                 var corpse = await Context.AddCommand(new TileCreatePlayerCorpseCommand(player.Tile, player, rooking || player.Combat.GetSkullIcon(null) == SkullIcon.Red || player.Combat.GetSkullIcon(null) == SkullIcon.Black, blesses) );
-                        
-                         _ = Context.AddCommand(new ItemDecayDestroyCommand(corpse, TimeSpan.FromMinutes(5) ) );
 
                 if (killer is Player owner)
                 {

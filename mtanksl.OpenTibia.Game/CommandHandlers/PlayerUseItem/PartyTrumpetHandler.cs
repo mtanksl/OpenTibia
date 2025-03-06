@@ -9,12 +9,10 @@ namespace OpenTibia.Game.CommandHandlers
     public class PartyTrumpetHandler : CommandHandler<PlayerUseItemCommand>
     {
         private readonly Dictionary<ushort, ushort> partyTrumpets;
-        private readonly Dictionary<ushort, ushort> decay;
 
         public PartyTrumpetHandler()
         {
             partyTrumpets = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.partyTrumpets");
-            decay = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.decay.partyTrumpets");
         }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
@@ -34,12 +32,6 @@ namespace OpenTibia.Game.CommandHandlers
                 } ).Then( () =>
                 {
                     return Context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) );
-
-                } ).Then( (item) =>
-                {
-                    _ = Context.AddCommand(new ItemDecayTransformCommand(item, TimeSpan.FromSeconds(2), decay[item.Metadata.OpenTibiaId], 1) );
-
-                    return Promise.Completed;
                 } );
             }
 

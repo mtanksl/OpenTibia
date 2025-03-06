@@ -10,12 +10,10 @@ namespace OpenTibia.Game.CommandHandlers
     public class Pitfall2Handler : CommandHandler<PlayerMoveItemCommand>
     {
         private readonly Dictionary<ushort, ushort> pitfalls;
-        private readonly Dictionary<ushort, ushort> decay;
 
         public Pitfall2Handler()
         {
             pitfalls = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.pitfalls");
-            decay = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.decay.pitfalls");
         }
 
         public override Promise Handle(Func<Promise> next, PlayerMoveItemCommand command)
@@ -76,12 +74,6 @@ namespace OpenTibia.Game.CommandHandlers
                             return Context.AddCommand(new PlayerMoveItemCommand(command.Player, command.Item, toTile, 255, command.Count, false) ).Then( () =>
                             {
                                 return Context.AddCommand(new ItemTransformCommand(hole.Ground, toOpenTibiaId, 1) );
-
-                            } ).Then( (item) =>
-                            {
-                                _ = Context.AddCommand(new ItemDecayTransformCommand(item, TimeSpan.FromSeconds(10), decay[toOpenTibiaId], 1) );
-
-                                return Promise.Completed;
                             } );
                         }
                     }

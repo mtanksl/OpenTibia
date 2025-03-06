@@ -312,14 +312,14 @@ namespace OpenTibia.Game.Common.ServerObjects
                                 Item item = server.ItemFactory.Create(otbmItem.OpenTibiaId, otbmItem.Count);
 
                                 if (item != null)
-                                {
-                                    server.ItemFactory.Attach(item);
-
+                                {                                    
                                     item.LoadedFromMap = true;
 
                                     item.ActionId = otbmItem.ActionId;
 
                                     item.UniqueId = otbmItem.UniqueId;
+
+                                    //TODO: Do we care about charges and duration while loading the map?
 
                                     switch (item)
                                     {
@@ -358,6 +358,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                                             break;                                  
                                     }
+
+                                    server.ItemFactory.Attach(item);
 
                                     parent.AddContent(item);
                                 }                              

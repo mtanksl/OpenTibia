@@ -105,7 +105,7 @@ namespace OpenTibia.FileFormats.Xml.Items
 
                         break;
 
-                    case "blockprojectile":
+                    case "blockprojectile": // Always "1"
 
                         item.BlockProjectile = true;
 
@@ -1020,6 +1020,30 @@ namespace OpenTibia.FileFormats.Xml.Items
 
                         break;
 
+                    case "showcharges": // Always "1"
+
+                        item.ShowCharges = true;
+
+                        break;
+                        
+                    case "duration":
+
+                        item.DurationInSeconds = (int)value;
+
+                        break;
+
+                    case "showduration": // Always "1"
+
+                        item.ShowDuration = true;
+
+                        break;
+
+                    case "decayto":
+
+                        item.DecayToOpenTibiaId = (ushort)(uint)value;
+
+                        break;
+
                     case "slottype":
 
                         SlotType slotType = Common.Structures.SlotType.None;
@@ -1496,6 +1520,26 @@ namespace OpenTibia.FileFormats.Xml.Items
                 itemNode.Add(new XElement("attribute", new XAttribute("key", "charges"), new XAttribute("value", item.Charges) ) );
             }
 
+            if (item.ShowCharges != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "showcharges"), new XAttribute("value", item.ShowCharges == true ? "1" : "0") ) );
+            }
+
+            if (item.DurationInSeconds != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "duration"), new XAttribute("value", item.DurationInSeconds) ) );
+            }
+
+            if (item.ShowDuration != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "showduration"), new XAttribute("value", item.ShowDuration == true ? "1" : "0") ) );
+            }
+
+            if (item.DecayToOpenTibiaId != null)
+            {
+                itemNode.Add(new XElement("attribute", new XAttribute("key", "decayto"), new XAttribute("value", item.DecayToOpenTibiaId) ) );
+            }
+
             if (item.SlotType != null)
             {
                 itemNode.Add(new XElement("attribute", new XAttribute("key", "slottype"), new XAttribute("value", item.SlotType.ToString().ToLower() ) ) );
@@ -1700,6 +1744,14 @@ namespace OpenTibia.FileFormats.Xml.Items
         public byte? Range { get; set; }
 
         public int? Charges { get; set; }
+
+        public bool? ShowCharges { get; set; }
+
+        public int? DurationInSeconds { get; set; }
+
+        public bool? ShowDuration { get; set; }
+
+        public ushort? DecayToOpenTibiaId { get; set; }
 
         public SlotType? SlotType { get; set; }
 

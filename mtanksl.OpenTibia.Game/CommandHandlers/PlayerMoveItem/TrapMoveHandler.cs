@@ -12,7 +12,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         public TrapMoveHandler()
         {
-            traps = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.decay.traps");
+            traps = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.opentraps");
         }
 
         public override Promise Handle(Func<Promise> next, PlayerMoveItemCommand command)

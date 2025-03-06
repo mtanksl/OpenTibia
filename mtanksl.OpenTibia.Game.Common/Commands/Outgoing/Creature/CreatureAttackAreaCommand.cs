@@ -144,9 +144,7 @@ namespace OpenTibia.Game.Commands
 
                             if (OpenTibiaId != null)
                             {
-                                var item = await Context.AddCommand(new TileCreateItemCommand(toTile, OpenTibiaId.Value, TypeCount.Value) );
-                            
-                                       _ = Context.AddCommand(new ItemDecayDestroyCommand(item, TimeSpan.FromSeconds(10) ) );
+                                await Context.AddCommand(new TileCreateItemCommand(toTile, OpenTibiaId.Value, TypeCount.Value) );
                             }
 
                             if (Attack != null || Condition != null)
@@ -196,6 +194,11 @@ namespace OpenTibia.Game.Commands
                         if (MagicEffectType != null)
                         {
                             await Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Value) );
+                        }
+
+                        if (OpenTibiaId != null)
+                        {
+                            await Context.AddCommand(new TileCreateItemCommand(toTile, OpenTibiaId.Value, TypeCount.Value) );
                         }
 
                         if (Attack != null || Condition != null)

@@ -10,14 +10,12 @@ namespace OpenTibia.Game.CommandHandlers
     {
         private readonly HashSet<ushort> scythes;
         private readonly Dictionary<ushort, ushort> wheats;
-        private readonly Dictionary<ushort, ushort> decay;
         private readonly ushort wheat;
 
         public ScytheHandler()
         {
             scythes = Context.Server.Values.GetUInt16HashSet("values.items.scythes");
             wheats = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.wheats");
-            decay = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.decay.wheats");
             wheat = Context.Server.Values.GetUInt16("values.items.wheat");
         }
 
@@ -34,17 +32,6 @@ namespace OpenTibia.Game.CommandHandlers
                 } ).Then( () =>
                 {
                     return Context.AddCommand(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) );
-
-                } ).Then( (item) =>
-                {
-                    _ = Context.AddCommand(new ItemDecayTransformCommand(item, TimeSpan.FromSeconds(10), decay[item.Metadata.OpenTibiaId], 1) ).Then( (item2) =>
-                    {
-                        _ = Context.AddCommand(new ItemDecayTransformCommand(item2, TimeSpan.FromSeconds(10), decay[item2.Metadata.OpenTibiaId], 1) );
-
-                        return Promise.Completed;
-                    } );
-
-                    return Promise.Completed;
                 } );
             }
                 

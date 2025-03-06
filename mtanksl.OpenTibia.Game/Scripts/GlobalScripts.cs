@@ -16,7 +16,9 @@ namespace OpenTibia.Game.Scripts
             TibiaClockTick();
              
             Tick(0);
-             
+
+            Decay(0);
+
             Spawn();
 
             Raid();
@@ -75,6 +77,22 @@ namespace OpenTibia.Game.Scripts
                 Tick( (index + 1) % GlobalTickEventArgs.Count);
 
                 Context.AddEvent(GlobalTickEventArgs.Instance(index) );
+
+                return Promise.Completed;
+            } );
+        }
+
+        private void Decay(int index)
+        {
+            DateTime now = DateTime.Now;
+
+            DateTime next = GetSecondInterval(now, GlobalDecayEventArgs.Interval / GlobalDecayEventArgs.Count);
+
+            Promise.Delay("Decay", next - now).Then( () =>
+            {
+                Decay( (index + 1) % GlobalDecayEventArgs.Count);
+
+                Context.AddEvent(GlobalDecayEventArgs.Instance(index) );
 
                 return Promise.Completed;
             } );
@@ -319,6 +337,8 @@ namespace OpenTibia.Game.Scripts
             Context.Server.CancelQueueForExecution("TibiaClockTick");
 
             Context.Server.CancelQueueForExecution("Tick");
+
+            Context.Server.CancelQueueForExecution("Decay");
 
             Context.Server.CancelQueueForExecution("Spawn");
 

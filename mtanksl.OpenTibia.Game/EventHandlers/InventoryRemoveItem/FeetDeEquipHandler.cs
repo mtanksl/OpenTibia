@@ -19,7 +19,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             ushort toOpenTibiaId;
 
-            if (feetDeEquip.TryGetValue(e.Item.Metadata.OpenTibiaId, out toOpenTibiaId) && (Slot)e.Slot == Slot.Feet)
+            if ( !e.Item.IsDestroyed && feetDeEquip.TryGetValue(e.Item.Metadata.OpenTibiaId, out toOpenTibiaId) && (Slot)e.Slot == Slot.Feet)
             {
                 return Context.AddCommand(new ItemTransformCommand(e.Item, toOpenTibiaId, 1) );
             }

@@ -67,6 +67,14 @@ namespace OpenTibia.Common.Objects
 
         public int? Charges { get; set; }
 
+        public bool ShowCharges { get; set; }
+
+        public int? DurationInMilliseconds { get; set; }
+        
+        public bool ShowDuration { get; set; }
+
+        public ushort? DecayToOpenTibiaId { get; set; }
+
         public SlotType? SlotType { get; set; }
 
         public byte? BreakChance { get; set; }

@@ -277,6 +277,14 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                 metadata.Charges = xmlItem.Charges;
 
+                metadata.ShowCharges = xmlItem.ShowCharges == true ? true : false;
+
+                metadata.DurationInMilliseconds = xmlItem.DurationInSeconds * 1000;
+
+                metadata.ShowDuration = xmlItem.ShowDuration == true ? true : false;
+
+                metadata.DecayToOpenTibiaId = xmlItem.DecayToOpenTibiaId;
+
                 metadata.SlotType = xmlItem.SlotType;
 
                 metadata.BreakChance = xmlItem.BreakChance;
@@ -542,7 +550,9 @@ namespace OpenTibia.Game.Common.ServerObjects
             {
                 item = new Item(metadata)
                 {
-                    Charges = metadata.Charges == null ? 0 : metadata.Charges.Value
+                    Charges = metadata.Charges == null ? 0 : metadata.Charges.Value,
+
+                    DurationInMilliseconds = metadata.DurationInMilliseconds == null ? 0 : metadata.DurationInMilliseconds.Value
                 };
             }
 

@@ -8986,7 +8986,10 @@
   <item id="4206" name="vines" />
   <item id="4207" name="vines" />
   <item id="4208" article="a" name="jungle maw" />
-  <item id="4209" article="a" name="jungle maw" />
+  <item id="4209" article="a" name="jungle maw">
+    <attribute key="decayto" value="4208" />
+    <attribute key="duration" value="10" />
+  </item>
   <item id="4210" article="a" name="fallen tree" />
   <item id="4211" article="a" name="fallen tree" />
   <item id="4212" article="a" name="fallen tree" />
@@ -11222,7 +11225,10 @@
   </item>
   <item id="5469" article="a" name="distilling machine" />
   <item id="5470" article="a" name="distilling machine" />
-  <item id="5471" article="a" name="sugar cane" editorsuffix="(Missing Description)" />
+  <item id="5471" article="a" name="sugar cane">
+    <attribute key="decayto" value="5466" />
+    <attribute key="duration" value="10" />
+  </item>
   <item id="5472" article="a" name="ball on chains" editorcategory="Rubbish" />
   <item id="5473" article="a" name="ball on chains" editorcategory="Rubbish" />
   <item id="5474" article="an" name="iron maiden" />
@@ -15595,7 +15601,7 @@
     <attribute key="description" value="You can see the movement of fish." />
   </item>
   <item id="7237" article="an" name="ice hole">
-    <attribute key="decayto" value="7183" />
+    <attribute key="decayto" value="7200" />
     <attribute key="duration" value="300" />
   </item>
   <item id="7238" article="a" name="shield" />

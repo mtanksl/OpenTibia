@@ -96,6 +96,7 @@
 		- Paralysable
 		- Become invisible
 	- Rings and amulets charges
+	- Item duration
 	- Weapon attributes (range, atk, def, arm)
 	- Ammunition
 	- Bow and arrow

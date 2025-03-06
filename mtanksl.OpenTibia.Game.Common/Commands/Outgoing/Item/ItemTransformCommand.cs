@@ -27,11 +27,19 @@ namespace OpenTibia.Game.Commands
 
             if (toItem != null)
             {
-                Context.Server.ItemFactory.Attach(toItem);
-
                 toItem.ActionId = Item.ActionId;
 
                 toItem.UniqueId = Item.UniqueId;
+
+                if (Item.Charges > 0)
+                {
+                    toItem.Charges = Item.Charges;
+                }
+
+                if (Item.DurationInMilliseconds > 0)
+                {
+                    toItem.DurationInMilliseconds = Item.DurationInMilliseconds;
+                }
 
                 if (Item is Container fromContainer)
                 {
@@ -88,6 +96,8 @@ namespace OpenTibia.Game.Commands
                         throw new InvalidOperationException("ToItem must be TeleportItem."); 
                     }                    
                 }
+
+                Context.Server.ItemFactory.Attach(toItem);
 
                 switch (Item.Parent)
                 {

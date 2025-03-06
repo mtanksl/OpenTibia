@@ -308,7 +308,7 @@ namespace OpenTibia.Common.Objects
 
                     if (item.Metadata.DamageTakenFromElements.TryGetValue(damageType, out elementPercent) )
                     {
-                        if (item.Metadata.Charges != null && item.Charges > 0)
+                        if (item.Metadata.Charges != null && item.Metadata.Charges > 0 && item.Charges > 0)
                         {
                             if (removeCharges == null)
                             {

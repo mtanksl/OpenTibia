@@ -37,6 +37,8 @@ namespace OpenTibia.Common.Objects
 
         public int Charges { get; set; }
 
+        public int DurationInMilliseconds { get; set; }
+
         public IContainer Root()
         {
             IContainer container = Parent;

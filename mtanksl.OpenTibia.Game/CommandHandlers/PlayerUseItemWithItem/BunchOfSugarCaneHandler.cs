@@ -9,13 +9,11 @@ namespace OpenTibia.Game.CommandHandlers
     {
         private readonly HashSet<ushort> bunchOfSugarCanes;
         private readonly Dictionary<ushort, ushort> distillingMachines;
-        private readonly Dictionary<ushort, ushort> decay;
 
         public BunchOfSugarCaneHandler()
         {
             bunchOfSugarCanes = Context.Server.Values.GetUInt16HashSet("values.items.bunchOfSugarCanes");
             distillingMachines = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.distillingMachines");
-            decay = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.decay.distillingMachines");
         }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
@@ -27,12 +25,6 @@ namespace OpenTibia.Game.CommandHandlers
                 return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
                 {
                     return Context.AddCommand(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) );
-
-                } ).Then( (item) =>
-                {
-                    _ = Context.AddCommand(new ItemDecayTransformCommand(item, TimeSpan.FromSeconds(10), decay[item.Metadata.OpenTibiaId], 1) );
-
-                    return Promise.Completed;
                 } );
             }
 

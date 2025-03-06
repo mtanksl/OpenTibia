@@ -13,7 +13,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         public OpenTrapHandler()
         {
-            traps = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.decay.traps");
+            traps = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.opentraps");
         }
 
         public override Promise Handle(TileAddCreatureEventArgs e)
