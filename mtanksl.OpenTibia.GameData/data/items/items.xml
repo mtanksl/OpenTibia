@@ -1060,16 +1060,16 @@
   <item id="1439" article="a" name="street sign" />
   <item id="1440" article="a" name="sign" />
   <item id="1441" article="a" name="sign" />
-  <item id="1442" article="a" name="statue">
+  <item id="1442" article="a" name="statue" editorcategory="Furnitures">
     <attribute key="rotateto" value="1476" />
   </item>
   <item id="1443" article="a" name="statue" editorsuffix="(Unmovable)" />
   <item id="1444" article="a" name="hero statue" />
   <item id="1445" article="a" name="monument" />
-  <item id="1446" article="a" name="minotaur statue">
+  <item id="1446" article="a" name="minotaur statue" editorcategory="Furnitures">
     <attribute key="rotateto" value="1461" />
   </item>
-  <item id="1447" article="a" name="goblin statue">
+  <item id="1447" article="a" name="goblin statue" editorcategory="Furnitures">
     <attribute key="rotateto" value="1464" />
   </item>
   <item id="1448" article="an" name="angel statue" />
@@ -1084,22 +1084,22 @@
   <item id="1457" article="a" name="pedestal" />
   <item id="1458" article="a" name="pedestal" />
   <item id="1459" article="a" name="pedestal" />
-  <item id="1460" article="a" name="minotaur statue">
+  <item id="1460" article="a" name="minotaur statue" editorcategory="Furnitures">
     <attribute key="rotateto" value="1462" />
   </item>
-  <item id="1461" article="a" name="minotaur statue">
+  <item id="1461" article="a" name="minotaur statue" editorcategory="Furnitures">
     <attribute key="rotateto" value="1460" />
   </item>
-  <item id="1462" article="a" name="minotaur statue">
+  <item id="1462" article="a" name="minotaur statue" editorcategory="Furnitures">
     <attribute key="rotateto" value="1446" />
   </item>
-  <item id="1463" article="a" name="goblin statue">
+  <item id="1463" article="a" name="goblin statue" editorcategory="Furnitures">
     <attribute key="rotateto" value="1465" />
   </item>
-  <item id="1464" article="a" name="goblin statue">
+  <item id="1464" article="a" name="goblin statue" editorcategory="Furnitures">
     <attribute key="rotateto" value="1463" />
   </item>
-  <item id="1465" article="a" name="goblin statue">
+  <item id="1465" article="a" name="goblin statue" editorcategory="Furnitures">
     <attribute key="rotateto" value="1447" />
   </item>
   <item id="1466" article="a" name="pedestal" />
@@ -1112,13 +1112,13 @@
   <item id="1473" article="a" name="pedestal" />
   <item id="1474" article="a" name="cobra statue" />
   <item id="1475" article="a" name="pedestal" />
-  <item id="1476" article="a" name="statue">
+  <item id="1476" article="a" name="statue" editorcategory="Furnitures">
     <attribute key="rotateto" value="1477" />
   </item>
-  <item id="1477" article="a" name="statue">
+  <item id="1477" article="a" name="statue" editorcategory="Furnitures">
     <attribute key="rotateto" value="1478" />
   </item>
-  <item id="1478" article="a" name="statue">
+  <item id="1478" article="a" name="statue" editorcategory="Furnitures">
     <attribute key="rotateto" value="1442" />
   </item>
   <item id="1479" article="a" name="street lamp" />
@@ -1628,16 +1628,16 @@
     <attribute key="containersize" value="10" />
     <attribute key="rotateto" value="1724" />
   </item>
-  <item id="1728" article="a" name="pendulum clock">
+  <item id="1728" article="a" name="pendulum clock" editorcategory="Furnitures">
     <attribute key="rotateto" value="1729" />
   </item>
-  <item id="1729" article="a" name="pendulum clock">
+  <item id="1729" article="a" name="pendulum clock" editorcategory="Furnitures">
     <attribute key="rotateto" value="1730" />
   </item>
-  <item id="1730" article="a" name="pendulum clock">
+  <item id="1730" article="a" name="pendulum clock" editorcategory="Furnitures">
     <attribute key="rotateto" value="1731" />
   </item>
-  <item id="1731" article="a" name="pendulum clock">
+  <item id="1731" article="a" name="pendulum clock" editorcategory="Furnitures">
     <attribute key="rotateto" value="1728" />
   </item>
   <item id="1732" article="a" name="locker" editorcategory="Furnitures">
@@ -1656,11 +1656,11 @@
     <attribute key="containersize" value="6" />
     <attribute key="rotateto" value="1732" />
   </item>
-  <item id="1736" article="a" name="standing mirror">
+  <item id="1736" article="a" name="standing mirror" editorcategory="Furnitures">
     <attribute key="description" value="You like fine today." />
     <attribute key="rotateto" value="1737" />
   </item>
-  <item id="1737" article="a" name="mirror">
+  <item id="1737" article="a" name="mirror" editorcategory="Furnitures">
     <attribute key="rotateto" value="1736" />
   </item>
   <item id="1738" article="a" name="box" editorcategory="Containers">
@@ -1707,19 +1707,19 @@
     <attribute key="containersize" value="15" />
     <attribute key="rotateto" value="1740" />
   </item>
-  <item id="1750" article="a" name="large trunk">
+  <item id="1750" article="a" name="large trunk" editorcategory="Furnitures">
     <attribute key="containersize" value="18" />
     <attribute key="rotateto" value="1752" />
   </item>
-  <item id="1751" article="a" name="large trunk">
+  <item id="1751" article="a" name="large trunk" editorcategory="Furnitures">
     <attribute key="containersize" value="18" />
     <attribute key="rotateto" value="1753" />
   </item>
-  <item id="1752" article="a" name="large trunk">
+  <item id="1752" article="a" name="large trunk" editorcategory="Furnitures">
     <attribute key="containersize" value="18" />
     <attribute key="rotateto" value="1751" />
   </item>
-  <item id="1753" article="a" name="large trunk">
+  <item id="1753" article="a" name="large trunk" editorcategory="Furnitures">
     <attribute key="containersize" value="18" />
     <attribute key="rotateto" value="1750" />
   </item>
@@ -2557,22 +2557,22 @@
   <item id="2079" article="a" name="war horn" editorcategory="Musical Instruments">
     <attribute key="weight" value="1500" />
   </item>
-  <item id="2080" article="a" name="piano" editorsuffix="Decorations" editorcategory="Musical Instruments">
+  <item id="2080" article="a" name="piano" editorsuffix="(Decorations)" editorcategory="Musical Instruments">
     <attribute key="rotateto" value="2082" />
   </item>
-  <item id="2081" article="a" name="piano" editorsuffix="Decorations" editorcategory="Musical Instruments">
+  <item id="2081" article="a" name="piano" editorsuffix="(Decorations)" editorcategory="Musical Instruments">
     <attribute key="rotateto" value="2083" />
   </item>
-  <item id="2082" article="a" name="piano" editorsuffix="Decorations" editorcategory="Musical Instruments">
+  <item id="2082" article="a" name="piano" editorsuffix="(Decorations)" editorcategory="Musical Instruments">
     <attribute key="rotateto" value="2081" />
   </item>
-  <item id="2083" article="a" name="piano" editorsuffix="Decorations" editorcategory="Musical Instruments">
+  <item id="2083" article="a" name="piano" editorsuffix="(Decorations)" editorcategory="Musical Instruments">
     <attribute key="rotateto" value="2080" />
   </item>
-  <item id="2084" article="a" name="harp" editorsuffix="Decorations" editorcategory="Musical Instruments">
+  <item id="2084" article="a" name="harp" editorsuffix="(Decorations)" editorcategory="Musical Instruments">
     <attribute key="rotateto" value="2085" />
   </item>
-  <item id="2085" article="a" name="harp" editorsuffix="Decorations" editorcategory="Musical Instruments">
+  <item id="2085" article="a" name="harp" editorsuffix="(Decorations)" editorcategory="Musical Instruments">
     <attribute key="rotateto" value="2084" />
   </item>
   <item id="2086" article="a" name="magical key" editorcategory="Keys">
@@ -2618,7 +2618,7 @@
   <item id="2097" article="a" name="pumpkinhead" editorcategory="Light Sources">
     <attribute key="weight" value="1250" />
   </item>
-  <item id="2098" article="a" name="globe" />
+  <item id="2098" article="a" name="globe" editorcategory="Furnitures" />
   <item id="2099" article="a" name="water pipe" editorcategory="Decorations">
     <attribute key="weight" value="5600" />
   </item>
@@ -2667,16 +2667,16 @@
   <item id="2115" article="a" name="broken piggy bank" editorcategory="Rubbish">
     <attribute key="weight" value="750" />
   </item>
-  <item id="2116" article="a" name="rocking horse">
+  <item id="2116" article="a" name="rocking horse" editorcategory="Furnitures">
     <attribute key="rotateto" value="2117" />
   </item>
-  <item id="2117" article="a" name="rocking horse">
+  <item id="2117" article="a" name="rocking horse" editorcategory="Furnitures">
     <attribute key="rotateto" value="2118" />
   </item>
-  <item id="2118" article="a" name="rocking horse">
+  <item id="2118" article="a" name="rocking horse" editorcategory="Furnitures">
     <attribute key="rotateto" value="2119" />
   </item>
-  <item id="2119" article="a" name="rocking horse">
+  <item id="2119" article="a" name="rocking horse" editorcategory="Furnitures">
     <attribute key="rotateto" value="2116" />
   </item>
   <item id="2120" article="a" name="rope" editorcategory="Tools">
@@ -3843,16 +3843,16 @@
   <item id="2366" article="a" name="roc feather" editorcategory="Magical Items">
     <attribute key="weight" value="10" />
   </item>
-  <item id="2367" article="a" name="drum" editorsuffix="Decorations" editorcategory="Musical Instruments" />
-  <item id="2368" article="a" name="simple fanfare" editorsuffix="Decorations" editorcategory="Musical Instruments" />
-  <item id="2369" article="a" name="horn" editorsuffix="Decorations" editorcategory="Musical Instruments" />
-  <item id="2370" article="a" name="lute" editorsuffix="Decorations" editorcategory="Musical Instruments" />
+  <item id="2367" article="a" name="drum" editorsuffix="(Decorations)" editorcategory="Musical Instruments" />
+  <item id="2368" article="a" name="simple fanfare" editorsuffix="(Decorations)" editorcategory="Musical Instruments" />
+  <item id="2369" article="a" name="horn" editorsuffix="(Decorations)" editorcategory="Musical Instruments" />
+  <item id="2370" article="a" name="lute" editorsuffix="(Decorations)" editorcategory="Musical Instruments" />
   <item id="2371" article="a" name="horn of sundering">
     <attribute key="weight" value="1500" />
   </item>
-  <item id="2372" article="a" name="lyre" editorsuffix="Decorations" editorcategory="Musical Instruments" />
-  <item id="2373" article="a" name="panpipe" editorsuffix="Decorations" editorcategory="Musical Instruments" />
-  <item id="2374" article="a" name="wooden flute" editorsuffix="Decorations" editorcategory="Musical Instruments" />
+  <item id="2372" article="a" name="lyre" editorsuffix="(Decorations)" editorcategory="Musical Instruments" />
+  <item id="2373" article="a" name="panpipe" editorsuffix="(Decorations)" editorcategory="Musical Instruments" />
+  <item id="2374" article="a" name="wooden flute" editorsuffix="(Decorations)" editorcategory="Musical Instruments" />
   <item id="2375" article="a" name="gemmed lamp" editorcategory="Decorations" />
   <item id="2376" article="a" name="sword" editorcategory="Swords">
     <attribute key="weight" value="3500" />
@@ -5026,16 +5026,16 @@
   <item id="2580" article="a" name="fishing rod" editorcategory="Tools">
     <attribute key="weight" value="850" />
   </item>
-  <item id="2581" article="a" name="telescope">
+  <item id="2581" article="a" name="telescope" editorcategory="Furnitures">
     <attribute key="rotateto" value="2583" />
   </item>
-  <item id="2582" article="a" name="telescope">
+  <item id="2582" article="a" name="telescope" editorcategory="Furnitures">
     <attribute key="rotateto" value="2584" />
   </item>
-  <item id="2583" article="a" name="telescope">
+  <item id="2583" article="a" name="telescope" editorcategory="Furnitures">
     <attribute key="rotateto" value="2582" />
   </item>
-  <item id="2584" article="a" name="telescope">
+  <item id="2584" article="a" name="telescope" editorcategory="Furnitures">
     <attribute key="rotateto" value="2581" />
   </item>
   <item id="2585" article="a" name="ship's telescope">
@@ -5097,11 +5097,11 @@
   <item id="2600" article="an" name="inkwell" editorcategory="Tools">
     <attribute key="weight" value="200" />
   </item>
-  <item id="2601" article="a" name="coal basin" />
-  <item id="2602" article="a" name="coal basin" />
-  <item id="2603" article="a" name="coal basin" />
-  <item id="2604" article="a" name="coal basin" />
-  <item id="2605" article="an" name="empty coal basin" />
+  <item id="2601" article="a" name="coal basin" editorcategory="Furnitures" />
+  <item id="2602" article="a" name="coal basin" editorcategory="Furnitures" />
+  <item id="2603" article="a" name="coal basin" editorcategory="Furnitures" />
+  <item id="2604" article="a" name="coal basin" editorcategory="Furnitures" />
+  <item id="2605" article="an" name="empty coal basin" editorcategory="Furnitures" />
   <item id="2606" article="an" name="altar" editorcategory="Furnitures" />
   <item id="2607" article="an" name="altar" editorcategory="Furnitures" />
   <item id="2608" article="an" name="altar" editorcategory="Furnitures" />
@@ -8260,7 +8260,7 @@
   <item id="3810" article="a" name="bamboo table" editorcategory="Furnitures">
     <attribute key="rotateto" value="3809" />
   </item>
-  <item id="3811" article="a" name="thick trunk" />
+  <item id="3811" article="a" name="thick trunk" editorcategory="Furnitures" />
   <item id="3812" article="an" name="ornamented stone table" editorcategory="Furnitures" />
   <item id="3813" article="a" name="tusk chair" editorcategory="Furnitures">
     <attribute key="rotateto" value="3816" />
@@ -8626,7 +8626,9 @@
   <item id="3956" article="a" name="tusk" plural="tusks" editorcategory="Creature Products">
     <attribute key="weight" value="1000" />
   </item>
-  <item id="3957" article="a" name="cornucopia" editorcategory="Musical Instruments" />
+  <item id="3957" article="a" name="cornucopia" editorcategory="Musical Instruments">
+    <attribute key="weight" value="1400" />
+  </item>
   <item id="3958" name="trashed wooden bars">
     <attribute key="decayto" value="3799" />
     <attribute key="duration" value="120" />
@@ -10528,7 +10530,7 @@
   <item id="5043" article="a" name="bamboo lamp" />
   <item id="5044" article="a" name="bamboo lamp" />
   <item id="5045" article="a" name="flat roof" />
-  <item id="5046" article="a" name="monkey statue">
+  <item id="5046" article="a" name="monkey statue" editorcategory="Furnitures">
     <attribute key="description" value="The words 'See no evil' are engraved on it." />
   </item>
   <item id="5047" article="a" name="flat roof" />
@@ -10539,10 +10541,10 @@
   <item id="5052" article="a" name="flat roof" />
   <item id="5053" article="a" name="flat roof" />
   <item id="5054" article="a" name="flat roof" />
-  <item id="5055" article="a" name="monkey statue">
+  <item id="5055" article="a" name="monkey statue" editorcategory="Furnitures">
     <attribute key="description" value="The words 'Hear no evil' are engraved on it." />
   </item>
-  <item id="5056" article="a" name="monkey statue">
+  <item id="5056" article="a" name="monkey statue" editorcategory="Furnitures">
     <attribute key="description" value="The words 'Speak no evil' are engraved on it." />
   </item>
   <item id="5057" article="a" name="small snake head">
@@ -13361,7 +13363,7 @@
   </item>
   <item id="6121" article="a" name="note pinned on the wall" />
   <item id="6122" article="a" name="note pinned on the wall" />
-  <item id="6123" article="a" name="piano" editorsuffix="Decorations" editorcategory="Musical Instruments" />
+  <item id="6123" article="a" name="piano" editorsuffix="(Decorations)" editorcategory="Musical Instruments" />
   <item id="6124" article="a" name="damaged logbook" editorsuffix="(Explorer Society Quest)" editorcategory="Quest Items">
     <attribute key="description" value="It must be the one which the explorer society requested." />
     <attribute key="weight" value="1100" />
@@ -14018,28 +14020,28 @@
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="600" />
   </item>
-  <item id="6356" article="an" name="oven">
+  <item id="6356" article="an" name="oven" editorcategory="Furnitures">
     <attribute key="rotateto" value="6358" />
   </item>
-  <item id="6357" article="an" name="oven">
+  <item id="6357" article="an" name="oven" editorcategory="Furnitures">
     <attribute key="rotateto" value="6359" />
   </item>
-  <item id="6358" article="an" name="oven">
+  <item id="6358" article="an" name="oven" editorcategory="Furnitures">
     <attribute key="rotateto" value="6360" />
   </item>
-  <item id="6359" article="an" name="oven">
+  <item id="6359" article="an" name="oven" editorcategory="Furnitures">
     <attribute key="rotateto" value="6361" />
   </item>
-  <item id="6360" article="an" name="oven">
+  <item id="6360" article="an" name="oven" editorcategory="Furnitures">
     <attribute key="rotateto" value="6362" />
   </item>
-  <item id="6361" article="an" name="oven">
+  <item id="6361" article="an" name="oven" editorcategory="Furnitures">
     <attribute key="rotateto" value="6363" />
   </item>
-  <item id="6362" article="an" name="oven">
+  <item id="6362" article="an" name="oven" editorcategory="Furnitures">
     <attribute key="rotateto" value="6356" />
   </item>
-  <item id="6363" article="an" name="oven">
+  <item id="6363" article="an" name="oven" editorcategory="Furnitures">
     <attribute key="rotateto" value="6357" />
   </item>
   <item id="6364" article="a" name="dead diabolic imp" editorsuffix="(Unmoveable)" editorcategory="Corpses">
@@ -14522,9 +14524,7 @@
     <attribute key="weight" value="50" />
     <attribute key="showcount" value="0" />
   </item>
-  <item id="6548" name="draken sulphur" editorcategory="Creature Products">
-    <attribute key="weight" value="68" />
-  </item>
+  <item id="6548" name="nothing special" editorcategory="Duplicate" />
   <item id="6549" name="nothing special" editorcategory="Duplicate" />
   <item id="6550" name="nothing special" editorcategory="Duplicate" />
   <item id="6551" name="nothing special" editorcategory="Duplicate" />
@@ -15980,12 +15980,12 @@
   <item id="7356" name="rock soil" />
   <item id="7357" name="wooden floor" />
   <item id="7358" article="a" name="tiled floor" />
-  <item id="7359" article="a" name="flame of life" editorcategory="Illumination">
+  <item id="7359" article="a" name="flame of life" editorcategory="Fields">
     <attribute key="decayto" value="7360" />
     <attribute key="duration" value="360" />
     <attribute key="showduration" value="1" />
   </item>
-  <item id="7360" article="a" name="flame of life" editorcategory="Illumination">
+  <item id="7360" article="a" name="flame of life" editorcategory="Fields">
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="60" />
     <attribute key="showduration" value="1" />
@@ -16130,7 +16130,7 @@
     <attribute key="attack" value="44" />
     <attribute key="weapontype" value="sword" />
   </item>
-  <item id="7385" article="a" name="crimson sword" />
+  <item id="7385" article="a" name="crimson sword" editorcategory="Duplicate" />
   <item id="7386" article="a" name="mercenary sword" editorcategory="Swords">
     <attribute key="weight" value="6800" />
     <attribute key="defense" value="27" />
@@ -20845,7 +20845,7 @@
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="500" />
   </item>
-  <item id="8970" name="Santiago's piano" editorcategory="Musical Instruments" />
+  <item id="8970" name="Santiago's piano" editorsuffix="(Decorations)" editorcategory="Musical Instruments" />
   <item id="8971" article="a" name="gland" plural="glands" editorcategory="Creature Products">
     <attribute key="description" value="It is the pheromone gland of a rotworm queen." />
     <attribute key="weight" value="50" />
@@ -21543,7 +21543,7 @@
   <item id="9436" article="a" name="heavy wooden chair" editorcategory="Furnitures" />
   <item id="9437" article="a" name="heavy wooden chair" editorcategory="Furnitures" />
   <item id="9438" article="a" name="heavy wooden chair" editorcategory="Furnitures" />
-  <item id="9439" article="a" name="large candelabrum" editorcategory="Illumination" />
+  <item id="9439" article="a" name="large candelabrum" />
   <item id="9440" article="a" name="fire basin" />
   <item id="9441" article="a" name="blood basin" />
   <item id="9442" article="a" name="family banner" />
@@ -21669,7 +21669,7 @@
   <item id="9558" article="a" name="roof" />
   <item id="9559" article="a" name="roof" />
   <item id="9560" article="a" name="roof" />
-  <item id="9561" name="Mr Jones's piano" editorcategory="Musical Instruments">
+  <item id="9561" name="Mr Jones's piano" editorsuffix="(Decorations)" editorcategory="Musical Instruments">
     <attribute key="description" value="It looks a little worn with age, but still has all its keys." />
   </item>
   <item id="9562" article="a" name="large gem" />
@@ -22578,12 +22578,12 @@
   <item id="9945" article="a" name="gate" />
   <item id="9946" article="a" name="gate" />
   <item id="9947" article="a" name="gate" />
-  <item id="9948" article="a" name="dracoyle statue" editorcategory="Decorations">
+  <item id="9948" article="a" name="dracoyle statue" editorcategory="Furnitures">
     <attribute key="description" value="This rare treasure is said to protect its owner from misery and curses." />
     <attribute key="weight" value="1500" />
     <attribute key="rotateto" value="9953" />
   </item>
-  <item id="9949" article="a" name="dracoyle statue" editorcategory="Decorations">
+  <item id="9949" article="a" name="dracoyle statue" editorcategory="Furnitures">
     <attribute key="description" value="This rare treasure can be charged with an enchanted emerald." />
     <attribute key="weight" value="1500" />
     <attribute key="rotateto" value="9954" />
@@ -22591,12 +22591,12 @@
   <item id="9950" article="a" name="gate" />
   <item id="9951" article="a" name="gate" />
   <item id="9952" article="a" name="gate" />
-  <item id="9953" article="a" name="dracoyle statue" editorcategory="Decorations">
+  <item id="9953" article="a" name="dracoyle statue" editorcategory="Furnitures">
     <attribute key="description" value="This rare treasure is said to protect its owner from misery and curses." />
     <attribute key="weight" value="1500" />
     <attribute key="rotateto" value="9948" />
   </item>
-  <item id="9954" article="a" name="dracoyle statue" editorcategory="Decorations">
+  <item id="9954" article="a" name="dracoyle statue" editorcategory="Furnitures">
     <attribute key="description" value="This rare treasure can be charged with an enchanted emerald." />
     <attribute key="weight" value="1500" />
     <attribute key="rotateto" value="9949" />
@@ -22837,8 +22837,18 @@
     <attribute key="duration" value="600" />
   </item>
   <item id="10010" name="swamp tentacles" />
-  <item id="10011" article="a" name="black candle" />
-  <item id="10012" article="a" name="black candle" />
+  <item id="10011" article="a" name="black candle" editorcategory="Tools">
+    <attribute key="weight" value="2200" />
+    <attribute key="decayto" value="0" />
+    <attribute key="duration" value="1800" />
+    <attribute key="showduration" value="1" />
+  </item>
+  <item id="10012" article="a" name="black candle" editorcategory="Tools">
+    <attribute key="weight" value="2200" />
+    <attribute key="decayto" value="0" />
+    <attribute key="duration" value="1800" />
+    <attribute key="showduration" value="1" />
+  </item>
   <item id="10013" name="nothing special" editorcategory="Duplicate">
     <attribute key="type" value="teleport" />
   </item>
@@ -22906,7 +22916,7 @@
   <item id="10048" article="a" name="hat for Eclesius" />
   <item id="10049" name="nothing special" editorsuffix="(Blank)" />
   <item id="10050" name="nothing special" editorcategory="Duplicate" />
-  <item id="10051" article="a" name="frost cannon" />
+  <item id="10051" article="a" name="frost cannon" editorcategory="Furnitures" />
   <item id="10052" article="a" name="crystal column" />
   <item id="10053" article="a" name="crystal column" />
   <item id="10054" article="a" name="crystal column" />
@@ -22915,7 +22925,7 @@
   <item id="10057" article="a" name="crystal column" />
   <item id="10058" article="a" name="crystal column" />
   <item id="10059" article="a" name="crystal column" />
-  <item id="10060" article="a" name="frost cannon" />
+  <item id="10060" article="a" name="frost cannon" editorcategory="Furnitures" />
   <item id="10061" name="nothing special" editorcategory="Duplicate" />
   <item id="10062" article="a" name="book" editorcategory="Books">
     <attribute key="weight" value="1300" />
@@ -22941,11 +22951,15 @@
   <item id="10068" article="a" name="vial of elemental water" editorsuffix="(Shadows of Yalahar Quest)" editorcategory="Quest Items">
     <attribute key="weight" value="180" />
   </item>
-  <item id="10069" article="an" name="energy net" />
+  <item id="10069" article="an" name="energy net" editorsuffix="(Shadows of Yalahar Quest)" editorcategory="Quest Items">
+    <attribute key="weight" value="100" />
+  </item>
   <item id="10070" article="a" name="scum bag" editorsuffix="()" editorcategory="Quest Items">
     <attribute key="weight" value="900" />
   </item>
-  <item id="10071" article="a" name="v-belt" />
+  <item id="10071" article="a" name="v-belt" editorsuffix="(Shadows of Yalahar Quest)" editorcategory="Quest Items">
+    <attribute key="weight" value="540" />
+  </item>
   <item id="10072" article="a" name="yalahari gear wheel" editorsuffix="(Shadows of Yalahar Quest)" editorcategory="Quest Items">
     <attribute key="weight" value="5" />
   </item>
@@ -22958,7 +22972,9 @@
   <item id="10075" article="a" name="green power core" editorsuffix="(Shadows of Yalahar Quest)" editorcategory="Quest Items">
     <attribute key="weight" value="100" />
   </item>
-  <item id="10076" name="chaos matter" />
+  <item id="10076" article="a" name="chaos matter" editorsuffix="(Shadows of Yalahar Quest)" editorcategory="Quest Items">
+    <attribute key="weight" value="100" />
+  </item>
   <item id="10077" article="a" name="vortex of elemental water" />
   <item id="10078" name="pile of chaos matter" editorcategory="Corpses" />
   <item id="10079" article="a" name="metal locker" />
@@ -23154,7 +23170,7 @@
   <item id="10160" article="a" name="crucible" />
   <item id="10161" article="a" name="crucible" />
   <item id="10162" article="a" name="crucible" />
-  <item id="10163" name="nothing special" />
+  <item id="10163" name="nothing special" editorsuffix="(Blank)" />
   <item id="10164" name="earth" />
   <item id="10165" article="a" name="golem blueprint" editorsuffix="(Shadows of Yalahar Quest)" editorcategory="Quest Items">
     <attribute key="weight" value="120" />
@@ -24588,7 +24604,7 @@
   <item id="10982" article="a" name="weapon rack" />
   <item id="10983" article="a" name="weapon rack" />
   <item id="10984" article="a" name="weapon rack" />
-  <item id="10985" name="nothing special" />
+  <item id="10985" name="nothing special" editorsuffix="(Blank)" />
   <item id="10986" article="a" name="fire" />
   <item id="10987" article="a" name="fire" />
   <item id="10988" article="a" name="fire" />
@@ -24723,7 +24739,10 @@
   <item id="11103" article="a" name="scrying ball" />
   <item id="11104" article="a" name="shattered crystal ball" />
   <item id="11105" name="nothing special" editorsuffix="(NotMoveable, LookThrough)" />
-  <item id="11106" article="a" name="flask of extra greasy oil" />
+  <item id="11106" article="a" name="flask of extra greasy oil" editorsuffix="(Children of the Revolution Quest)" editorcategory="Quest Items">
+    <attribute key="description" value="Extra greasy oil from Zalamon's storage." />
+    <attribute key="weight" value="180" />
+  </item>
   <item id="11107" article="a" name="dead draken warmaster" editorsuffix="(Unmoveable)" editorcategory="Corpses">
     <attribute key="corpsetype" value="blood" />
     <attribute key="containersize" value="10" />
@@ -24797,18 +24816,18 @@
     <attribute key="description" value="Use it in your house to reveal a snowman." />
     <attribute key="weight" value="3500" />
   </item>
-  <item id="11127" article="a" name="weapon rack" />
-  <item id="11128" article="a" name="weapon rack" />
-  <item id="11129" name="dragon statue">
+  <item id="11127" article="a" name="weapon rack" editorcategory="Furnitures" />
+  <item id="11128" article="a" name="weapon rack" editorcategory="Furnitures" />
+  <item id="11129" name="dragon statue" editorcategory="Furnitures">
     <attribute key="rotateto" value="11131" />
   </item>
-  <item id="11130" name="dragon statue">
+  <item id="11130" name="dragon statue" editorcategory="Furnitures">
     <attribute key="rotateto" value="11129" />
   </item>
-  <item id="11131" name="dragon statue">
+  <item id="11131" name="dragon statue" editorcategory="Furnitures">
     <attribute key="rotateto" value="11132" />
   </item>
-  <item id="11132" name="dragon statue">
+  <item id="11132" name="dragon statue" editorcategory="Furnitures">
     <attribute key="rotateto" value="11130" />
   </item>
   <item id="11133" article="a" name="dragon statue kit" editorcategory="Furnitures">
@@ -24819,7 +24838,10 @@
     <attribute key="description" value="Bring this encrypted book to a sage in Farmine to gain wisdom or unlock more of Zao's culture." />
     <attribute key="weight" value="1500" />
   </item>
-  <item id="11135" article="a" name="corned fish" />
+  <item id="11135" article="a" name="corned fish" editorsuffix="(Children of the Revolution Quest)" editorcategory="Quest Items">
+    <attribute key="description" value="This fish has been salted and already prepared as provision for soldiers." />
+    <attribute key="weight" value="510" />
+  </item>
   <item id="11136" name="nothing special" editorcategory="Duplicate" />
   <item id="11137" article="an" name="evil tree spirit" />
   <item id="11138" article="a" name="dead killer caiman" editorsuffix="(Unmoveable)" editorcategory="Corpses">
@@ -24936,10 +24958,10 @@
   </item>
   <item id="11201" article="a" name="stone wall" />
   <item id="11202" article="a" name="stone wall" />
-  <item id="11203" name="dragon throne">
+  <item id="11203" name="dragon throne" editorcategory="Furnitures">
     <attribute key="rotateto" value="11204" />
   </item>
-  <item id="11204" name="dragon throne">
+  <item id="11204" name="dragon throne" editorcategory="Furnitures">
     <attribute key="rotateto" value="11204" />
   </item>
   <item id="11205" article="a" name="dragon throne kit" editorcategory="Furnitures">
@@ -25694,7 +25716,13 @@
     <attribute key="description" value="A goblet forged by the dragon Khax that represents all the knowledge and wisdom of TibiaVenezuela." />
     <attribute key="weight" value="1800" />
   </item>
-  <item id="11395" article="a" name="crimson sword" />
+  <item id="11395" article="a" name="crimson sword" editorcategory="Swords">
+    <attribute key="description" value="Its blade is very notchy." />
+    <attribute key="weight" value="3600" />
+    <attribute key="defense" value="10" />
+    <attribute key="attack" value="18" />
+    <attribute key="weapontype" value="sword" />
+  </item>
   <item id="11396" article="a" name="vial" editorcategory="Fluid Containers">
     <attribute key="weight" value="180" />
   </item>
@@ -25752,12 +25780,17 @@
   <item id="11420" name="nothing special" editorsuffix="(Blank)" />
   <item id="11421" article="an" name="ice pick" />
   <item id="11422" article="a" name="damaged steel helmet" />
-  <item id="11423" article="a" name="coral comb" />
+  <item id="11423" article="a" name="coral comb" editorsuffix="(The Explorer Society Quest)" editorcategory="Quest Items">
+    <attribute key="description" value="It once belonged to a mermaid." />
+    <attribute key="weight" value="450" />
+  </item>
   <item id="11424" name="the Brutus Bloodbeard's hat" />
   <item id="11425" name="the Lethal Lissy's shirt" />
   <item id="11426" name="the Ron the Ripper's sabre" />
   <item id="11427" name="Striker's favourite pillow" />
-  <item id="11428" article="a" name="bowl of evergreen flowers" />
+  <item id="11428" article="a" name="bowl of evergreen flowers" editorsuffix="(In Service of Yalahar Quest. )" editorcategory="Quest Items">
+    <attribute key="weight" value="1100" />
+  </item>
   <item id="11429" article="a" name="crocodile steak" plural="crocodile steaks" editorcategory="Foods">
     <attribute key="weight" value="440" />
   </item>
@@ -26325,7 +26358,7 @@
   <item id="11962" article="a" name="timber wall" />
   <item id="11963" article="a" name="pillar" />
   <item id="11964" article="a" name="pillar" />
-  <item id="11965" article="a" name="chair" />
+  <item id="11965" article="a" name="chair" editorcategory="Furnitures" />
   <item id="11966" article="a" name="jade chair" />
   <item id="11967" article="a" name="jade chair" />
   <item id="11968" article="a" name="jade chair" />
@@ -26805,12 +26838,16 @@
   <item id="12396" article="a" name="large book" />
   <item id="12397" article="a" name="large book" />
   <item id="12398" article="a" name="large book" />
-  <item id="12399" article="a" name="girlish hair decoration" />
+  <item id="12399" article="a" name="girlish hair decoration" editorcategory="Creature Products">
+    <attribute key="weight" value="50" />
+  </item>
   <item id="12400" article="a" name="protective charm" />
   <item id="12401" article="a" name="bamboo stick" editorcategory="Creature Products">
     <attribute key="weight" value="112" />
   </item>
-  <item id="12402" name="hair of a banshee" />
+  <item id="12402" name="hair of a banshee" editorcategory="Creature Products">
+    <attribute key="weight" value="46" />
+  </item>
   <item id="12403" article="a" name="battle stone" editorcategory="Creature Products">
     <attribute key="description" value="It seems to be perfect to shape a weapon from it. Someone could definitely be interested in it." />
     <attribute key="weight" value="150" />
@@ -26836,10 +26873,19 @@
     <attribute key="weight" value="156" />
   </item>
   <item id="12410" article="a" name="luminous orb" />
-  <item id="12411" article="a" name="cultish symbol" />
-  <item id="12412" article="a" name="dirty turban" />
-  <item id="12413" article="a" name="dragon's tail" plural="dragon tails" />
-  <item id="12414" article="a" name="geomancer's robe" plural="geomancer robes" />
+  <item id="12411" article="a" name="cultish symbol" plural="cultish symbols" editorcategory="Creature Products">
+    <attribute key="weight" value="82" />
+  </item>
+  <item id="12412" article="a" name="dirty turban" plural="dirty turbans" editorcategory="Creature Products">
+    <attribute key="weight" value="134" />
+  </item>
+  <item id="12413" article="a" name="dragon's tail" plural="dragon tails" editorcategory="Creature Products">
+    <attribute key="weight" value="250" />
+  </item>
+  <item id="12414" article="a" name="geomancer's robe" plural="geomancer robes" editorcategory="Creature Products">
+    <attribute key="description" value="It's too tiny to be worn by humans." />
+    <attribute key="weight" value="130" />
+  </item>
   <item id="12415" article="a" name="pineapple" plural="pineapples" editorcategory="Foods">
     <attribute key="weight" value="750" />
   </item>
@@ -26849,12 +26895,24 @@
   <item id="12417" name="broccoli" editorcategory="Foods">
     <attribute key="weight" value="300" />
   </item>
-  <item id="12418" article="a" name="cauliflower" />
-  <item id="12419" article="a" name="geomancer's staff" plural="geomancer staffs" />
-  <item id="12420" article="an" name="elven scouting glass" />
-  <item id="12421" article="an" name="elven astral observer" />
-  <item id="12422" article="a" name="flask of embalming fluid" plural="flasks of embalming fluid" />
-  <item id="12423" article="a" name="ghoul snack" />
+  <item id="12418" article="a" name="cauliflower" editorcategory="Foods">
+    <attribute key="weight" value="680" />
+  </item>
+  <item id="12419" article="a" name="geomancer's staff" plural="geomancer staffs" editorcategory="Creature Products">
+    <attribute key="weight" value="122" />
+  </item>
+  <item id="12420" article="an" name="elven scouting glass" editorcategory="Creature Products">
+    <attribute key="weight" value="80" />
+  </item>
+  <item id="12421" article="an" name="elven astral observer" editorcategory="Creature Products">
+    <attribute key="weight" value="112" />
+  </item>
+  <item id="12422" article="a" name="flask of embalming fluid" plural="flasks of embalming fluid" editorcategory="Creature Products">
+    <attribute key="weight" value="75" />
+  </item>
+  <item id="12423" article="a" name="ghoul snack" plural="ghoul snacks" editorcategory="Creature Products">
+    <attribute key="weight" value="140" />
+  </item>
   <item id="12424" article="an" name="ornamented brooch" />
   <item id="12425" article="a" name="hunter's quiver" plural="hunter quivers" />
   <item id="12426" article="a" name="jewelled belt" />
@@ -26908,8 +26966,13 @@
   </item>
   <item id="12468" article="a" name="small flask of eyedrops" plural="small flasks of eyedrops" />
   <item id="12469" article="a" name="small pitchfork" />
-  <item id="12470" article="a" name="colourful feather" />
-  <item id="12471" name="trollroot" />
+  <item id="12470" article="a" name="colourful feather" plural="colourful feathers" editorcategory="Creature Products">
+    <attribute key="weight" value="36" />
+  </item>
+  <item id="12471" name="trollroot" editorcategory="Creature Products">
+    <attribute key="description" value="Distinctive shape and flavour." />
+    <attribute key="weight" value="140" />
+  </item>
   <item id="12472" article="a" name="floating cask" />
   <item id="12473" article="a" name="floating table" />
   <item id="12474" name="floating junk" />
@@ -26933,24 +26996,39 @@
   <item id="12492" name="floating bones" />
   <item id="12493" name="floating junk" />
   <item id="12494" name="floating junk" />
-  <item id="12495" article="a" name="goblin ear" />
+  <item id="12495" article="a" name="goblin ear" plural="goblin ears" editorcategory="Creature Products">
+    <attribute key="weight" value="75" />
+  </item>
   <item id="12496" article="a" name="heavy crate" />
   <item id="12497" name="Jean Pierre's Cookbook II" editorcategory="Books">
     <attribute key="description" value="It was given to you by the djinn maître and contains new recipes you cooked." />
     <attribute key="weight" value="1500" />
   </item>
-  <item id="12498" article="a" name="fish tail" />
-  <item id="12499" name="fish tail" />
+  <item id="12498" article="a" name="fish tail" editorcategory="Boots">
+    <attribute key="slottype" value="feet" />
+  </item>
+  <item id="12499" article="a" name="fish tail" editorcategory="Boots">
+    <attribute key="decayto" value="0" />
+    <attribute key="duration" value="300" />
+    <attribute key="showduration" value="1" />
+    <attribute key="slottype" value="feet" />
+  </item>
   <item id="12500" article="a" name="faded last will" editorsuffix="The Spirit Will Get You Quest" editorcategory="Quest Items">
     <attribute key="description" value="Supposedly the last will of someone. Whatever may have been written on it is long vanished." />
     <attribute key="weight" value="200" />
   </item>
-  <item id="12501" name="exquisite silk" />
+  <item id="12501" name="exquisite silk" editorsuffix="(A Father's Burden Quest)" editorcategory="Quest Items">
+    <attribute key="weight" value="10" />
+  </item>
   <item id="12502" name="spectral cloth" />
-  <item id="12503" name="exquisite wood" />
+  <item id="12503" name="exquisite wood" editorsuffix="(A Father's Burden Quest)" editorcategory="Quest Items">
+    <attribute key="weight" value="500" />
+  </item>
   <item id="12504" name="strong sinew" />
   <item id="12505" name="old iron" />
-  <item id="12506" article="a" name="flexible dragon scale" />
+  <item id="12506" article="a" name="flexible dragon scale" editorsuffix="(A Father's Burden Quest)" editorcategory="Quest Items">
+    <attribute key="weight" value="80" />
+  </item>
   <item id="12507" article="a" name="mystic root" />
   <item id="12508" article="a" name="magic crystal" />
   <item id="12509" article="a" name="gate of deathstruction" />
@@ -27205,8 +27283,12 @@
     <attribute key="weapontype" value="sword" />
     <attribute key="slottype" value="hand" />
   </item>
-  <item id="12614" name="draken sulphur" />
-  <item id="12615" name="draken wristbands" />
+  <item id="12614" name="draken sulphur" editorcategory="Creature Products">
+    <attribute key="weight" value="68" />
+  </item>
+  <item id="12615" name="draken wristbands" editorcategory="Creature Products">
+    <attribute key="weight" value="78" />
+  </item>
   <item id="12616" article="a" name="broken draken nail" plural="broken draken ntails" editorcategory="Creature Products">
     <attribute key="weight" value="200" />
   </item>
@@ -27244,7 +27326,9 @@
   <item id="12626" article="a" name="dead draken abomination" editorcategory="Corpses">
     <attribute key="corpsetype" value="blood" />
   </item>
-  <item id="12627" article="an" name="eye of corruption" plural="eyes of corruption" />
+  <item id="12627" article="an" name="eye of corruption" plural="eyes of corruption" editorcategory="Creature Products">
+    <attribute key="weight" value="93" />
+  </item>
   <item id="12628" article="a" name="tail of corruption" plural="tails of corruption" />
   <item id="12629" article="a" name="scale of corruption" plural="scales of corruption" />
   <item id="12630" article="a" name="cobra crown" editorcategory="Helmets">
@@ -27256,9 +27340,9 @@
     <attribute key="skillmodifiermagiclevel" value="2" />
   </item>
   <item id="12631" article="a" name="dissolved souleater" />
-  <item id="12632" article="a" name="dissolved souleater" />
-  <item id="12633" article="a" name="dissolved souleater" />
-  <item id="12634" article="a" name="dissolved souleater" />
+  <item id="12632" article="a" name="dissolved souleater" editorcategory="Corpses" />
+  <item id="12633" article="a" name="dissolved souleater" editorcategory="Corpses" />
+  <item id="12634" article="a" name="dissolved souleater" editorcategory="Corpses" />
   <item id="12635" article="a" name="souleater trophy" />
   <item id="12636" article="a" name="lizard essence" plural="lizards essence" editorcategory="Creature Products">
     <attribute key="weight" value="150" />
@@ -27272,7 +27356,9 @@
   <item id="12639" article="a" name="peas" editorcategory="Foods">
     <attribute key="weight" value="80" />
   </item>
-  <item id="12640" article="a" name="downy feather" />
+  <item id="12640" article="a" name="downy feather" plural="downy feathers" editorcategory="Creature Products">
+    <attribute key="weight" value="32" />
+  </item>
   <item id="12641" article="a" name="cheese cookie" editorcategory="Foods">
     <attribute key="weight" value="10" />
   </item>
@@ -27334,7 +27420,9 @@
     <attribute key="slottype" value="hand" />
   </item>
   <item id="12650" article="a" name="snake god trophy" />
-  <item id="12651" article="a" name="black jade cobra" />
+  <item id="12651" article="a" name="black jade cobra" editorsuffix="(Wrath of the Emperor Quest)" editorcategory="Quest Items">
+    <attribute key="weight" value="650" />
+  </item>
   <item id="12652" article="a" name="gate guardian" />
   <item id="12653" article="a" name="gate guardian" />
   <item id="12654" article="a" name="bag" editorcategory="Containers">
