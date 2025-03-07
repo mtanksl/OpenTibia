@@ -3,15 +3,16 @@ using OpenTibia.Data.Models;
 using System;
 
 namespace OpenTibia.Game.Common.ServerObjects
-{
+{    
     public interface IConfig : IDisposable
     {
         int InfoMaxConnections { get; set; }
         int InfoPort { get; set; }
 
+        string ServerName { get; set; }
         string IpAddress { get; set; }
         int Port { get; set; }
-        string ServerName { get; set; }
+        Version ClientVersion { get; set; }
         string Location { get; set; }
         string Url { get; set; }
         string OwnerName { get; set; }

@@ -2,23 +2,14 @@
 using OpenTibia.Game.Common;
 using OpenTibia.Game.Common.ServerObjects;
 using OpenTibia.IO;
-using OpenTibia.Network.Packets.Incoming;
 using OpenTibia.Network.Sockets;
 using OpenTibia.Security;
-using System.Collections.Generic;
 using System.Net.Sockets;
 
 namespace OpenTibia.Common
 {
     public class LoginConnection : TibiaConnection
     {
-        private static Dictionary<byte, IPacketToCommand> firstCommands = new Dictionary<byte, IPacketToCommand>();
-
-        static LoginConnection()
-        {
-            firstCommands.Add(0x01, new PacketToCommand<EnterGameIncomingPacket>("Enter Game",(connection, packet) => new ParseEnterGameCommand(connection, packet) ) );
-        }
-
         private IServer server;
 
         public LoginConnection(IServer server, Socket socket) : base(server, socket)
@@ -60,7 +51,7 @@ namespace OpenTibia.Common
                     {
                         first = false;
 
-                        if (firstCommands.TryGetValue(identification, out IPacketToCommand packetToCommand) )
+                        if (server.Features.LoginFirstCommands.TryGetValue(identification, out IPacketToCommand packetToCommand) )
                         {
                             Command command = packetToCommand.Convert(this, reader);
 

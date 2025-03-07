@@ -122,6 +122,8 @@ namespace OpenTibia.Game.Common
 
             Config = new Config(this);
 
+            Features = new Features(this);
+
             Quests = new QuestCollection(this);
 
             Outfits = new OutfitCollection(this);
@@ -169,14 +171,6 @@ namespace OpenTibia.Game.Common
             get
             {
                 return new Version(1, 8);
-            }
-        }
-
-        public Version ClientVersion
-        {
-            get
-            {
-                return new Version(8, 60);
             }
         }
 
@@ -248,6 +242,8 @@ namespace OpenTibia.Game.Common
 
         public IConfig Config { get; set; }
 
+        public IFeatures Features { get; set; }
+
         public IQuestCollection Quests { get; set; }
 
         public IOutfitCollection Outfits { get; set; }
@@ -318,6 +314,8 @@ namespace OpenTibia.Game.Common
                 using (Logger.Measure("Loading server config") )
                 {
                     Config.Start();
+
+                    Features.Start();
                 }
 
                 using (Logger.Measure("Loading quests config") )
@@ -554,8 +552,6 @@ namespace OpenTibia.Game.Common
                 {
                     await plugin.OnStartup();
                 }
-
-                await Promise.Completed; return;
 
             } ).Wait();
 
@@ -985,8 +981,6 @@ namespace OpenTibia.Game.Common
                     await plugin.OnSave();
                 }
 
-                await Promise.Completed; return;
-
             } ).Wait();
 
             Logger.WriteLine("Save complete.");
@@ -1062,8 +1056,6 @@ namespace OpenTibia.Game.Common
                 Spawns.Stop();
 
                 Raids.Stop();
-
-                await Promise.Completed; return;
 
             } ).Wait();
 

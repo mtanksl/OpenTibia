@@ -2,22 +2,13 @@
 using OpenTibia.Game.Common;
 using OpenTibia.Game.Common.ServerObjects;
 using OpenTibia.IO;
-using OpenTibia.Network.Packets.Incoming;
 using OpenTibia.Network.Sockets;
-using System.Collections.Generic;
 using System.Net.Sockets;
 
 namespace OpenTibia.Common
 {
     public class InfoConnection : RawConnection
     {
-        private static Dictionary<byte, IPacketToCommand> firstCommands = new Dictionary<byte, IPacketToCommand>();
-
-        static InfoConnection()
-        {
-            firstCommands.Add(0xFF, new PacketToCommand<InfoIncomingPacket>("Info", (connection, packet) => new ParseInfoProtocolCommand(connection, packet) ) );
-        }
-
         private IServer server;
 
         public InfoConnection(IServer server, Socket socket) : base(server, socket)
@@ -48,7 +39,7 @@ namespace OpenTibia.Common
                 {
                     first = false;
 
-                    if (firstCommands.TryGetValue(identification, out IPacketToCommand packetToCommand) )
+                    if (server.Features.InfoFirstCommands.TryGetValue(identification, out IPacketToCommand packetToCommand) )
                     {
                         Command command = packetToCommand.Convert(this, reader);
 

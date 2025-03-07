@@ -28,6 +28,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         public string ServerName { get; set; }
         public string IpAddress { get; set; }
         public int Port { get; set; }
+        public Version ClientVersion { get; set; }
         public string Location { get; set; }
         public string Url { get; set; }
         public string OwnerName { get; set; }
@@ -148,6 +149,8 @@ namespace OpenTibia.Game.Common.ServerObjects
             IpAddress = LuaScope.GetString(script["server.info.public.ipaddress"], "");
 
             Port = LuaScope.GetInt32(script["server.info.public.port"], 7171);
+
+            ClientVersion = Version.Parse(LuaScope.GetString(script["server.info.public.clientversion"], "8.60") );
 
             Location = LuaScope.GetString(script["server.info.public.location"], "");
 

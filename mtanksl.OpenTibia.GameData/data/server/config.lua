@@ -2,6 +2,7 @@ IP_ADDRESS = "127.0.0.1"
 LOGIN_PORT = 7171
 GAME_PORT = 7172
 INFO_PORT = 7173
+CLIENT_VERSION = "8.60"
 
 server = {
 	info = {
@@ -11,6 +12,7 @@ server = {
 			servername = "MTOTS",
 			ipaddress = IP_ADDRESS,
 			port = LOGIN_PORT,
+			clientversion = CLIENT_VERSION,
 			location = "",
 			url = "",
 			ownername = "",

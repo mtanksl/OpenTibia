@@ -10,8 +10,6 @@ namespace OpenTibia.Game.Common
 
         Version ServerVersion { get; }
 
-        Version ClientVersion { get; }
-
         ServerStatus Status { get; }
 
         IMessageCollectionFactory MessageCollectionFactory { get; set; }
@@ -69,6 +67,8 @@ namespace OpenTibia.Game.Common
         IValues Values { get; set; }
 
         IConfig Config { get; set; }
+
+        IFeatures Features { get; set; }
 
         IQuestCollection Quests { get; set; }
 

@@ -40,7 +40,7 @@ namespace OpenTibia.Game.Commands
                             new XAttribute("url", Context.Server.Config.Url),
                             new XAttribute("server", Context.Server.ServerName),
                             new XAttribute("version", Context.Server.ServerVersion),
-                            new XAttribute("client", Context.Server.ClientVersion) ),
+                            new XAttribute("client", Context.Server.Config.ClientVersion.ToString() ) ),
                         new XElement("owner",
                             new XAttribute("name", Context.Server.Config.OwnerName),
                             new XAttribute("email", Context.Server.Config.OwnerEmail) ),
@@ -116,7 +116,7 @@ namespace OpenTibia.Game.Commands
 
                 if (Packet.RequestedInfo.Is(RequestedInfo.SoftwareInfo) )
                 {
-                    Context.AddPacket(Connection, new SoftwareInfoOutgoingPacket(Context.Server.ServerName, Context.Server.ServerVersion.ToString(), Context.Server.ClientVersion.ToString() ) );
+                    Context.AddPacket(Connection, new SoftwareInfoOutgoingPacket(Context.Server.ServerName, Context.Server.ServerVersion.ToString(), Context.Server.Config.ClientVersion.ToString() ) );
                 }
             }
 
