@@ -179,7 +179,7 @@
     <attribute key="decayto" value="461" />
     <attribute key="duration" value="5" />
   </item>
-  <item id="463" article="a" name="pedestal" />
+  <item id="463" article="a" name="pedestal" editorcategory="Furnitures" />
   <item id="464" article="a" name="sandstone wall" editorsuffix="(Walkable)" />
   <item id="465" article="a" name="stone tile" />
   <item id="466" article="a" name="sandstone wall" />
@@ -424,50 +424,50 @@
   <item id="1022" name="marble flooring" />
   <item id="1023" name="marble flooring" />
   <item id="1024" name="marble flooring" />
-  <item id="1025" article="a" name="brick wall" />
-  <item id="1026" article="a" name="brick wall" />
+  <item id="1025" article="a" name="brick wall" editorcategory="Walls" />
+  <item id="1026" article="a" name="brick wall" editorcategory="Walls" />
   <item id="1027" article="a" name="brick wall" />
   <item id="1028" article="a" name="brick wall" />
   <item id="1029" article="a" name="brick wall" />
   <item id="1030" article="a" name="brick wall" />
-  <item id="1031" article="a" name="brick wall" />
+  <item id="1031" article="a" name="brick wall" editorcategory="Walls" />
   <item id="1032" article="a" name="brick wall" />
-  <item id="1033" article="a" name="brick wall" />
+  <item id="1033" article="a" name="brick wall" editorcategory="Walls" />
   <item id="1034" article="a" name="brick wall" />
   <item id="1035" article="a" name="brick wall" />
-  <item id="1036" article="a" name="framework wall" />
-  <item id="1037" article="a" name="framework wall" />
+  <item id="1036" article="a" name="framework wall" editorcategory="Walls" />
+  <item id="1037" article="a" name="framework wall" editorcategory="Walls" />
   <item id="1038" article="a" name="framework wall" />
   <item id="1039" article="a" name="framework wall" />
   <item id="1040" article="a" name="framework wall" />
   <item id="1041" article="a" name="framework wall" />
-  <item id="1042" article="a" name="framework wall" />
+  <item id="1042" article="a" name="framework wall" editorcategory="Walls" />
   <item id="1043" article="a" name="framework wall" />
-  <item id="1044" article="a" name="framework wall" />
+  <item id="1044" article="a" name="framework wall" editorcategory="Walls" />
   <item id="1045" article="a" name="framework wall" />
   <item id="1046" article="a" name="framework wall" />
   <item id="1047" article="a" name="framework wall" />
   <item id="1048" article="a" name="framework wall" />
-  <item id="1049" article="a" name="stone wall" />
-  <item id="1050" article="a" name="stone wall" />
+  <item id="1049" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="1050" article="a" name="stone wall" editorcategory="Walls" />
   <item id="1051" article="a" name="stone wall" />
   <item id="1052" article="a" name="stone wall" />
   <item id="1053" article="a" name="stone wall" />
   <item id="1054" article="a" name="stone wall" />
-  <item id="1055" article="a" name="stone wall" />
+  <item id="1055" article="a" name="stone wall" editorcategory="Walls" />
   <item id="1056" article="a" name="stone wall" />
-  <item id="1057" article="a" name="stone wall" />
+  <item id="1057" article="a" name="stone wall" editorcategory="Walls" />
   <item id="1058" article="a" name="stone wall" />
   <item id="1059" article="a" name="stone wall" />
-  <item id="1060" article="a" name="sandstone wall" />
-  <item id="1061" article="a" name="sandstone wall" />
+  <item id="1060" article="a" name="sandstone wall" editorcategory="Walls" />
+  <item id="1061" article="a" name="sandstone wall" editorcategory="Walls" />
   <item id="1062" article="a" name="sandstone wall" />
   <item id="1063" article="a" name="sandstone wall" />
   <item id="1064" article="a" name="sandstone wall" />
   <item id="1065" article="a" name="sandstone wall" />
-  <item id="1066" article="a" name="sandstone wall" />
+  <item id="1066" article="a" name="sandstone wall" editorcategory="Walls" />
   <item id="1067" article="a" name="sandstone wall" />
-  <item id="1068" article="a" name="sandstone wall" />
+  <item id="1068" article="a" name="sandstone wall" editorcategory="Walls" />
   <item id="1069" article="a" name="sandstone wall" />
   <item id="1070" article="a" name="sandstone wall" />
   <item id="1071" name="sandstone" />
@@ -510,13 +510,13 @@
   <item id="1108" article="a" name="sandstone wall" />
   <item id="1109" article="a" name="sandstone wall" />
   <item id="1110" article="a" name="sandstone wall" />
-  <item id="1111" article="a" name="white stone wall" />
-  <item id="1112" article="a" name="white stone wall" />
+  <item id="1111" article="a" name="white stone wall" editorcategory="Walls" />
+  <item id="1112" article="a" name="white stone wall" editorcategory="Walls" />
   <item id="1113" article="a" name="white stone wall" />
   <item id="1114" article="a" name="white stone wall" />
   <item id="1115" article="a" name="white stone wall" />
   <item id="1116" article="a" name="white stone wall" />
-  <item id="1117" article="a" name="white stone wall" />
+  <item id="1117" article="a" name="white stone wall" editorcategory="Walls" />
   <item id="1118" article="a" name="white stone wall" />
   <item id="1119" article="a" name="white stone wall" />
   <item id="1120" article="an" name="archway" />
@@ -630,7 +630,7 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="1211" article="an" name="open door">
+  <item id="1211" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="1212" article="a" name="closed door" editorsuffix="(Locked)">
@@ -642,7 +642,7 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="1214" article="an" name="open door">
+  <item id="1214" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="1215" article="a" name="buttress" />
@@ -653,42 +653,42 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="1220" article="an" name="open door">
+  <item id="1220" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="1221" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="1222" article="an" name="open door">
+  <item id="1222" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="1223" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="1224" article="an" name="open door">
+  <item id="1224" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="1225" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="1226" article="an" name="open door">
+  <item id="1226" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="1227" article="a" name="gate of expertise">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="1228" article="a" name="gate of expertise">
+  <item id="1228" article="a" name="gate of expertise" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="1229" article="a" name="gate of expertise">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="1230" article="a" name="gate of expertise">
+  <item id="1230" article="a" name="gate of expertise" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="1231" article="a" name="closed door" editorsuffix="(Locked)">
@@ -700,7 +700,7 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="1233" article="an" name="open door">
+  <item id="1233" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="1234" article="a" name="closed door" editorsuffix="(Locked)">
@@ -712,49 +712,49 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="1236" article="an" name="open door">
+  <item id="1236" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="1237" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="1238" article="an" name="open door">
+  <item id="1238" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="1239" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="1240" article="an" name="open door">
+  <item id="1240" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="1241" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="1242" article="an" name="open door">
+  <item id="1242" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="1243" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="1244" article="an" name="open door">
+  <item id="1244" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="1245" article="a" name="gate of expertise">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="1246" article="a" name="gate of expertise">
+  <item id="1246" article="a" name="gate of expertise" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="1247" article="a" name="gate of expertise">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="1248" article="a" name="gate of expertise">
+  <item id="1248" article="a" name="gate of expertise" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="1249" article="a" name="closed door" editorsuffix="(Locked)">
@@ -766,7 +766,7 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="1251" article="an" name="open door">
+  <item id="1251" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="1252" article="a" name="closed door" editorsuffix="(Locked)">
@@ -778,35 +778,35 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="1254" article="an" name="open door">
+  <item id="1254" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="1255" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="1256" article="an" name="open door">
+  <item id="1256" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="1257" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="1258" article="an" name="open door">
+  <item id="1258" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="1259" article="a" name="gate of expertise">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="1260" article="a" name="gate of expertise">
+  <item id="1260" article="a" name="gate of expertise" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="1261" article="a" name="gate of expertise">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="1262" article="a" name="gate of expertise">
+  <item id="1262" article="a" name="gate of expertise" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="1263" article="a" name="framework window" />
@@ -959,7 +959,7 @@
   <item id="1382" article="a" name="millstone" />
   <item id="1383" article="a" name="millstone" />
   <item id="1384" article="a" name="millstone" />
-  <item id="1385" name="stairs">
+  <item id="1385" name="stairs" editorcategory="Ramps">
     <attribute key="floorchange" value="north" />
   </item>
   <item id="1386" article="a" name="ladder" />
@@ -967,42 +967,42 @@
     <attribute key="description" value="You can see the other side through it." />
     <attribute key="type" value="teleport" />
   </item>
-  <item id="1388" article="a" name="ramp">
+  <item id="1388" article="a" name="ramp" editorcategory="Ramps">
     <attribute key="floorchange" value="east" />
   </item>
   <item id="1389" article="a" name="ramp" />
-  <item id="1390" article="a" name="ramp">
+  <item id="1390" article="a" name="ramp" editorcategory="Ramps">
     <attribute key="floorchange" value="west" />
   </item>
   <item id="1391" article="a" name="ramp" />
-  <item id="1392" article="a" name="ramp">
+  <item id="1392" article="a" name="ramp" editorcategory="Ramps">
     <attribute key="floorchange" value="south" />
   </item>
   <item id="1393" article="a" name="ramp" />
-  <item id="1394" article="a" name="ramp">
+  <item id="1394" article="a" name="ramp" editorcategory="Ramps">
     <attribute key="floorchange" value="north" />
   </item>
   <item id="1395" article="a" name="ramp" />
-  <item id="1396" name="wooden stairs">
+  <item id="1396" name="wooden stairs" editorcategory="Ramps">
     <attribute key="floorchange" value="north" />
   </item>
   <item id="1397" article="a" name="mystic flame" editorcategory="Fields">
     <attribute key="description" value="You feel drawn to the mesmerizing light." />
     <attribute key="type" value="teleport" />
   </item>
-  <item id="1398" article="a" name="ramp">
+  <item id="1398" article="a" name="ramp" editorcategory="Ramps">
     <attribute key="floorchange" value="east" />
   </item>
   <item id="1399" article="a" name="ramp" />
-  <item id="1400" article="a" name="ramp">
+  <item id="1400" article="a" name="ramp" editorcategory="Ramps">
     <attribute key="floorchange" value="west" />
   </item>
   <item id="1401" article="a" name="ramp" />
-  <item id="1402" article="a" name="ramp">
+  <item id="1402" article="a" name="ramp" editorcategory="Ramps">
     <attribute key="floorchange" value="south" />
   </item>
   <item id="1403" article="a" name="ramp" />
-  <item id="1404" article="a" name="ramp">
+  <item id="1404" article="a" name="ramp" editorcategory="Ramps">
     <attribute key="floorchange" value="north" />
   </item>
   <item id="1405" article="a" name="ramp" />
@@ -1035,13 +1035,13 @@
   <item id="1420" article="a" name="sarcophagus" />
   <item id="1421" article="a" name="campfire" />
   <item id="1422" article="a" name="campfire" />
-  <item id="1423" article="a" name="campfire">
+  <item id="1423" article="a" name="campfire" editorcategory="Fields">
     <attribute key="field" value="fire" />
   </item>
-  <item id="1424" article="a" name="campfire">
+  <item id="1424" article="a" name="campfire" editorcategory="Fields">
     <attribute key="field" value="fire" />
   </item>
-  <item id="1425" article="a" name="campfire">
+  <item id="1425" article="a" name="campfire" editorcategory="Fields">
     <attribute key="field" value="fire" />
   </item>
   <item id="1426" article="an" name="unlit campfire" />
@@ -1187,7 +1187,7 @@
   <item id="1498" article="a" name="magic wall" editorsuffix="(Not decaying)">
     <attribute key="type" value="magicfield" />
   </item>
-  <item id="1499" article="a" name="rush wood">
+  <item id="1499" article="a" name="rush wood" editorcategory="Fields">
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="45" />
     <attribute key="type" value="magicfield" />
@@ -1293,13 +1293,13 @@
   <item id="1539" article="a" name="closed fence gate">
     <attribute key="type" value="door" />
   </item>
-  <item id="1540" article="an" name="open fence gate">
+  <item id="1540" article="an" name="open fence gate" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="1541" article="a" name="closed fence gate">
     <attribute key="type" value="door" />
   </item>
-  <item id="1542" article="an" name="open fence gate">
+  <item id="1542" article="an" name="open fence gate" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="1543" article="a" name="fence" />
@@ -1312,19 +1312,19 @@
   <item id="1550" article="a" name="sandstone statue" />
   <item id="1551" article="an" name="oriental pillar" />
   <item id="1552" article="a" name="ramp" />
-  <item id="1553" article="a" name="ramp">
+  <item id="1553" article="a" name="ramp" editorcategory="Ramps">
     <attribute key="floorchange" value="northwest" />
   </item>
   <item id="1554" article="a" name="ramp" />
-  <item id="1555" article="a" name="ramp">
+  <item id="1555" article="a" name="ramp" editorcategory="Ramps">
     <attribute key="floorchange" value="northeast" />
   </item>
   <item id="1556" article="a" name="ramp" />
-  <item id="1557" article="a" name="ramp">
+  <item id="1557" article="a" name="ramp" editorcategory="Ramps">
     <attribute key="floorchange" value="southeast" />
   </item>
   <item id="1558" article="a" name="ramp" />
-  <item id="1559" article="a" name="ramp">
+  <item id="1559" article="a" name="ramp" editorcategory="Ramps">
     <attribute key="floorchange" value="southwest" />
   </item>
   <item id="1560" article="an" name="obelisk" />
@@ -1430,10 +1430,10 @@
   <item id="1643" article="a" name="counter" />
   <item id="1644" article="a" name="counter" />
   <item id="1645" article="a" name="counter" />
-  <item id="1646" article="a" name="throne" />
-  <item id="1647" article="a" name="throne" />
-  <item id="1648" article="a" name="throne" />
-  <item id="1649" article="a" name="throne" />
+  <item id="1646" article="a" name="throne" editorcategory="Furnitures" />
+  <item id="1647" article="a" name="throne" editorcategory="Furnitures" />
+  <item id="1648" article="a" name="throne" editorcategory="Furnitures" />
+  <item id="1649" article="a" name="throne" editorcategory="Furnitures" />
   <item id="1650" article="a" name="wooden chair" editorcategory="Furnitures">
     <attribute key="rotateto" value="1651" />
   </item>
@@ -1446,10 +1446,10 @@
   <item id="1653" article="a" name="wooden chair" editorcategory="Furnitures">
     <attribute key="rotateto" value="1650" />
   </item>
-  <item id="1654" article="a" name="throne" />
-  <item id="1655" article="a" name="throne" />
-  <item id="1656" article="a" name="throne" />
-  <item id="1657" article="a" name="throne" />
+  <item id="1654" article="a" name="throne" editorcategory="Furnitures" />
+  <item id="1655" article="a" name="throne" editorcategory="Furnitures" />
+  <item id="1656" article="a" name="throne" editorcategory="Furnitures" />
+  <item id="1657" article="a" name="throne" editorcategory="Furnitures" />
   <item id="1658" article="a" name="sofa chair" editorcategory="Furnitures">
     <attribute key="rotateto" value="1660" />
   </item>
@@ -1550,22 +1550,22 @@
   <item id="1693" article="a" name="round turqoise pillow" editorcategory="Decorations">
     <attribute key="weight" value="1550" />
   </item>
-  <item id="1694" article="a" name="couch" />
-  <item id="1695" article="a" name="couch" />
-  <item id="1696" article="a" name="couch" />
-  <item id="1697" article="a" name="couch" />
-  <item id="1698" article="a" name="couch" />
-  <item id="1699" article="a" name="couch" />
-  <item id="1700" article="a" name="couch" />
-  <item id="1701" article="a" name="couch" />
-  <item id="1702" article="a" name="luxurious couch" />
-  <item id="1703" article="a" name="luxurious couch" />
-  <item id="1704" article="a" name="luxurious couch" />
-  <item id="1705" article="a" name="luxurious couch" />
-  <item id="1706" article="a" name="luxurious couch" />
-  <item id="1707" article="a" name="luxurious couch" />
-  <item id="1708" article="a" name="luxurious couch" />
-  <item id="1709" article="a" name="luxurious couch" />
+  <item id="1694" article="a" name="couch" editorcategory="Furnitures" />
+  <item id="1695" article="a" name="couch" editorcategory="Furnitures" />
+  <item id="1696" article="a" name="couch" editorcategory="Furnitures" />
+  <item id="1697" article="a" name="couch" editorcategory="Furnitures" />
+  <item id="1698" article="a" name="couch" editorcategory="Furnitures" />
+  <item id="1699" article="a" name="couch" editorcategory="Furnitures" />
+  <item id="1700" article="a" name="couch" editorcategory="Furnitures" />
+  <item id="1701" article="a" name="couch" editorcategory="Furnitures" />
+  <item id="1702" article="a" name="luxurious couch" editorcategory="Furnitures" />
+  <item id="1703" article="a" name="luxurious couch" editorcategory="Furnitures" />
+  <item id="1704" article="a" name="luxurious couch" editorcategory="Furnitures" />
+  <item id="1705" article="a" name="luxurious couch" editorcategory="Furnitures" />
+  <item id="1706" article="a" name="luxurious couch" editorcategory="Furnitures" />
+  <item id="1707" article="a" name="luxurious couch" editorcategory="Furnitures" />
+  <item id="1708" article="a" name="luxurious couch" editorcategory="Furnitures" />
+  <item id="1709" article="a" name="luxurious couch" editorcategory="Furnitures" />
   <item id="1710" article="a" name="wardrobe" editorcategory="Furnitures">
     <attribute key="containersize" value="6" />
   </item>
@@ -2380,27 +2380,27 @@
   <item id="2015" article="a" name="brown flask" editorcategory="Fluid Containers">
     <attribute key="weight" value="300" />
   </item>
-  <item id="2016" article="a" name="water splash" editorcategory="Rubbish">
+  <item id="2016" article="a" name="water splash" editorcategory="Splash">
     <attribute key="decayto" value="2017" />
     <attribute key="duration" value="45" />
   </item>
-  <item id="2017" article="a" name="water splash" editorcategory="Rubbish">
+  <item id="2017" article="a" name="water splash" editorcategory="Splash">
     <attribute key="decayto" value="2018" />
     <attribute key="duration" value="45" />
   </item>
-  <item id="2018" article="a" name="water splash" editorcategory="Rubbish">
+  <item id="2018" article="a" name="water splash" editorcategory="Splash">
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="60" />
   </item>
-  <item id="2019" article="a" name="water splash" editorcategory="Rubbish">
+  <item id="2019" article="a" name="water splash" editorcategory="Splash">
     <attribute key="decayto" value="2020" />
     <attribute key="duration" value="45" />
   </item>
-  <item id="2020" article="a" name="water splash" editorcategory="Rubbish">
+  <item id="2020" article="a" name="water splash" editorcategory="Splash">
     <attribute key="decayto" value="2021" />
     <attribute key="duration" value="45" />
   </item>
-  <item id="2021" article="a" name="water splash" editorcategory="Rubbish">
+  <item id="2021" article="a" name="water splash" editorcategory="Splash">
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="60" />
   </item>
@@ -2413,12 +2413,12 @@
   <item id="2024" article="a" name="broken flask" editorcategory="Rubbish">
     <attribute key="weight" value="250" />
   </item>
-  <item id="2025" article="a" name="pool" />
-  <item id="2026" article="a" name="pool" />
-  <item id="2027" article="a" name="pool" />
-  <item id="2028" article="a" name="pool" />
-  <item id="2029" article="a" name="pool" />
-  <item id="2030" article="a" name="pool" />
+  <item id="2025" article="a" name="pool" editorsuffix="(Not decaying)" editorcategory="Splash" />
+  <item id="2026" article="a" name="pool" editorsuffix="(Not decaying)" editorcategory="Splash" />
+  <item id="2027" article="a" name="pool" editorsuffix="(Not decaying)" editorcategory="Splash" />
+  <item id="2028" article="a" name="pool" editorsuffix="(Not decaying)" editorcategory="Splash" />
+  <item id="2029" article="a" name="pool" editorsuffix="(Not decaying)" editorcategory="Splash" />
+  <item id="2030" article="a" name="pool" editorsuffix="(Not decaying)" editorcategory="Splash" />
   <item id="2031" article="a" name="waterskin" editorcategory="Decorations">
     <attribute key="weight" value="700" />
   </item>
@@ -2636,7 +2636,7 @@
     <attribute key="weight" value="2300" />
   </item>
   <item id="2105" article="a" name="christmas tree" editorcategory="Decorations" />
-  <item id="2106" article="a" name="potted flower" />
+  <item id="2106" article="a" name="potted flower" editorcategory="Decorations" />
   <item id="2107" name="exotic flowers" editorcategory="Plants and Herbs">
     <attribute key="weight" value="1100" />
   </item>
@@ -3678,8 +3678,7 @@
     <attribute key="description" value="You see the engraving of a white raven on its surface." />
     <attribute key="weight" value="420" />
   </item>
-  <item id="2328" article="a" name="phoenix egg" plural="phoenix eggs" editorcategory="Magical Items">
-    <attribute key="description" value="It seems to be burning from inside." />
+  <item id="2328" article="an" name="egg" plural="eggs" editorcategory="Foods">
     <attribute key="weight" value="30" />
   </item>
   <item id="2329" article="a" name="bill" editorsuffix="(The Postman Missions Quest)" editorcategory="Quest Items">
@@ -5036,16 +5035,16 @@
   <item id="2584" article="a" name="telescope" editorcategory="Furnitures">
     <attribute key="rotateto" value="2581" />
   </item>
-  <item id="2585" article="a" name="ship's telescope">
+  <item id="2585" article="a" name="ship's telescope" editorcategory="Furnitures">
     <attribute key="rotateto" value="2588" />
   </item>
-  <item id="2586" article="a" name="ship's telescope">
+  <item id="2586" article="a" name="ship's telescope" editorcategory="Furnitures">
     <attribute key="rotateto" value="2587" />
   </item>
   <item id="2587" article="a" name="ship's telescope" editorcategory="Furnitures">
     <attribute key="rotateto" value="2585" />
   </item>
-  <item id="2588" article="a" name="ship's telescope">
+  <item id="2588" article="a" name="ship's telescope" editorcategory="Furnitures">
     <attribute key="rotateto" value="2586" />
   </item>
   <item id="2589" article="a" name="locker" editorcategory="Depots">
@@ -5399,9 +5398,7 @@
   <item id="2694" name="bunch of wheat" plural="bunches of wheat" editorcategory="Plants and Herbs">
     <attribute key="weight" value="1250" />
   </item>
-  <item id="2695" article="an" name="egg" plural="eggs" editorcategory="Foods">
-    <attribute key="weight" value="30" />
-  </item>
+  <item id="2695" name="nothing special" editorcategory="Duplicate" />
   <item id="2696" article="a" name="scarab cheese" editorsuffix="(The Traveling Trader Quest)" editorcategory="Quest Items">
     <attribute key="description" value="It smells horrible and should not be in the sun for too long." />
     <attribute key="weight" value="400" />
@@ -7694,7 +7691,7 @@
   <item id="3308" name="jungle grass" />
   <item id="3309" name="jungle grass" />
   <item id="3310" article="a" name="mud stain" />
-  <item id="3311" article="a" name="pitfall" />
+  <item id="3311" article="a" name="pitfall" editorcategory="Ramps" />
   <item id="3312" article="an" name="ant trail" editorcategory="Animals" />
   <item id="3313" article="an" name="ant trail" editorcategory="Animals" />
   <item id="3314" article="an" name="ant trail" editorcategory="Animals" />
@@ -7707,7 +7704,7 @@
   <item id="3321" article="an" name="ant trail" editorcategory="Animals" />
   <item id="3322" article="an" name="ant trail" editorcategory="Animals" />
   <item id="3323" article="an" name="ant-hill" editorcategory="Natural Products" />
-  <item id="3324" article="a" name="pitfall" />
+  <item id="3324" article="a" name="pitfall" editorcategory="Ramps" />
   <item id="3325" article="a" name="rock" />
   <item id="3326" article="a" name="rock" />
   <item id="3327" article="a" name="rock" />
@@ -7744,13 +7741,13 @@
   <item id="3358" article="a" name="wooden roof" />
   <item id="3359" article="a" name="wooden roof" />
   <item id="3360" article="a" name="wooden roof" />
-  <item id="3361" article="a" name="stone wall" />
-  <item id="3362" article="a" name="stone wall" />
+  <item id="3361" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="3362" article="a" name="stone wall" editorcategory="Walls" />
   <item id="3363" article="a" name="stone wall" />
   <item id="3364" article="a" name="stone wall" />
   <item id="3365" article="a" name="stone wall" />
   <item id="3366" article="a" name="stone wall" />
-  <item id="3367" article="a" name="stone wall" />
+  <item id="3367" article="a" name="stone wall" editorcategory="Walls" />
   <item id="3368" article="a" name="stone wall" />
   <item id="3369" article="a" name="stone wall" />
   <item id="3370" article="a" name="stone wall" />
@@ -7806,15 +7803,15 @@
   <item id="3420" article="a" name="stone wall" />
   <item id="3421" article="a" name="stone wall" />
   <item id="3422" article="a" name="stone wall" />
-  <item id="3423" article="a" name="bamboo wall" />
-  <item id="3424" article="a" name="bamboo wall" />
+  <item id="3423" article="a" name="bamboo wall" editorcategory="Walls" />
+  <item id="3424" article="a" name="bamboo wall" editorcategory="Walls" />
   <item id="3425" article="a" name="bamboo wall" />
   <item id="3426" article="a" name="bamboo wall" />
   <item id="3427" article="a" name="bamboo wall" />
   <item id="3428" article="a" name="bamboo wall" />
-  <item id="3429" article="a" name="bamboo wall" />
+  <item id="3429" article="a" name="bamboo wall" editorcategory="Walls" />
   <item id="3430" article="a" name="bamboo wall" />
-  <item id="3431" article="a" name="bamboo wall" />
+  <item id="3431" article="a" name="bamboo wall" editorcategory="Walls" />
   <item id="3432" article="a" name="bamboo wall" />
   <item id="3433" article="a" name="bamboo wall" />
   <item id="3434" article="a" name="bamboo palisade" />
@@ -7830,10 +7827,10 @@
   <item id="3444" article="an" name="archway" />
   <item id="3445" article="an" name="archway" />
   <item id="3446" article="an" name="archway" />
-  <item id="3447" article="a" name="bamboo wall" />
+  <item id="3447" article="a" name="bamboo wall" editorcategory="Walls" />
   <item id="3448" article="a" name="bamboo wall" />
   <item id="3449" article="a" name="bamboo wall window" />
-  <item id="3450" article="a" name="bamboo wall" />
+  <item id="3450" article="a" name="bamboo wall" editorcategory="Walls" />
   <item id="3451" article="a" name="bamboo wall" />
   <item id="3452" article="a" name="bamboo wall window" />
   <item id="3453" article="a" name="bamboo palisade" />
@@ -7927,28 +7924,28 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="3537" article="an" name="open door">
+  <item id="3537" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="3538" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="3539" article="an" name="open door">
+  <item id="3539" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="3540" article="a" name="gate of expertise">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="3541" article="a" name="gate of expertise">
+  <item id="3541" article="a" name="gate of expertise" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="3542" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="3543" article="an" name="open door">
+  <item id="3543" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="3544" article="a" name="closed door" editorsuffix="(Locked)">
@@ -7960,28 +7957,28 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="3546" article="an" name="open door">
+  <item id="3546" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="3547" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="3548" article="an" name="open door">
+  <item id="3548" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="3549" article="a" name="gate of expertise">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="3550" article="a" name="gate of expertise">
+  <item id="3550" article="a" name="gate of expertise" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="3551" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="3552" article="an" name="open door">
+  <item id="3552" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="3569" article="a" name="waterfall" />
@@ -8094,26 +8091,26 @@
   <item id="3676" article="a" name="painted stone" />
   <item id="3677" article="a" name="painted stone" />
   <item id="3678" article="a" name="ladder" />
-  <item id="3679" article="a" name="ramp">
+  <item id="3679" article="a" name="ramp" editorcategory="Ramps">
     <attribute key="floorchange" value="east" />
   </item>
   <item id="3680" article="a" name="ramp" />
-  <item id="3681" article="a" name="ramp">
+  <item id="3681" article="a" name="ramp" editorcategory="Ramps">
     <attribute key="floorchange" value="west" />
   </item>
   <item id="3682" article="a" name="ramp" />
-  <item id="3683" article="a" name="ramp">
+  <item id="3683" article="a" name="ramp" editorcategory="Ramps">
     <attribute key="floorchange" value="south" />
   </item>
   <item id="3684" article="a" name="ramp" />
-  <item id="3685" article="a" name="ramp">
+  <item id="3685" article="a" name="ramp" editorcategory="Ramps">
     <attribute key="floorchange" value="north" />
   </item>
   <item id="3686" article="a" name="ramp" />
-  <item id="3687" name="stone stairs">
+  <item id="3687" name="stone stairs" editorcategory="Ramps">
     <attribute key="floorchange" value="north" />
   </item>
-  <item id="3688" name="stone stairs">
+  <item id="3688" name="stone stairs" editorcategory="Ramps">
     <attribute key="floorchange" value="west" />
   </item>
   <item id="3689" article="a" name="large cauldron" />
@@ -10304,10 +10301,7 @@
     <attribute key="description" value="It is the official badge of the explorer society." />
     <attribute key="weight" value="90" />
   </item>
-  <item id="4874" article="a" name="dwarven pickaxe" editorsuffix="(Explorer Society Quest)" editorcategory="Quest Items">
-    <attribute key="description" value="It is a masterpiece of dwarvish smithery and made of especially hard steel." />
-    <attribute key="weight" value="6000" />
-  </item>
+  <item id="4874" name="nothing special" editorcategory="Duplicate" />
   <item id="4875" article="a" name="hydra's nest" editorcategory="Natural Products" />
   <item id="4876" name="swamp" />
   <item id="4877" name="swamp" />
@@ -10316,10 +10310,10 @@
   <item id="4880" name="swamp" />
   <item id="4881" name="swamp" />
   <item id="4882" name="swamp" />
-  <item id="4883" article="a" name="ship" />
+  <item id="4883" article="a" name="ship" editorcategory="Walls" />
   <item id="4884" article="a" name="ship" />
   <item id="4885" article="a" name="ship" />
-  <item id="4886" article="a" name="ship" />
+  <item id="4886" article="a" name="ship" editorcategory="Walls" />
   <item id="4887" article="a" name="ship" />
   <item id="4888" article="a" name="ship" />
   <item id="4889" article="a" name="ship" />
@@ -10355,7 +10349,7 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="4915" article="an" name="open door">
+  <item id="4915" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="4916" article="a" name="closed door" editorsuffix="(Locked)">
@@ -10367,7 +10361,7 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="4918" article="an" name="open door">
+  <item id="4918" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="4919" article="a" name="ship railing" />
@@ -10472,14 +10466,14 @@
   <item id="5001" article="a" name="hawser" />
   <item id="5002" article="a" name="ship railing" />
   <item id="5003" article="a" name="ship cabin wall" />
-  <item id="5004" article="a" name="ship cabin wall" />
-  <item id="5005" article="a" name="ship cabin wall" />
+  <item id="5004" article="a" name="ship cabin wall" editorcategory="Walls" />
+  <item id="5005" article="a" name="ship cabin wall" editorcategory="Walls" />
   <item id="5006" article="a" name="ship cabin wall" />
   <item id="5007" article="a" name="ship cabin wall" />
   <item id="5008" article="a" name="ship cabin wall" />
   <item id="5009" article="a" name="metal wall" />
   <item id="5010" article="a" name="white stone wall" />
-  <item id="5011" article="a" name="white stone wall" />
+  <item id="5011" article="a" name="white stone wall" editorcategory="Walls" />
   <item id="5012" article="a" name="lava wall" />
   <item id="5013" article="a" name="lava wall" />
   <item id="5014" article="a" name="dead butterfly" editorcategory="Corpses">
@@ -10590,14 +10584,14 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="5083" article="an" name="open door">
+  <item id="5083" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="5084" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="5085" article="an" name="open door">
+  <item id="5085" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="5086" article="a" name="monkey statue 'speak' kit" editorcategory="Furnitures">
@@ -10638,28 +10632,28 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="5100" article="an" name="open door">
+  <item id="5100" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="5101" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="5102" article="an" name="open door">
+  <item id="5102" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="5103" article="a" name="gate of expertise">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="5104" article="a" name="gate of expertise">
+  <item id="5104" article="a" name="gate of expertise" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="5105" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="5106" article="an" name="open door">
+  <item id="5106" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="5107" article="a" name="closed door" editorsuffix="(Locked)">
@@ -10671,28 +10665,28 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="5109" article="an" name="open door">
+  <item id="5109" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="5110" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="5111" article="an" name="open door">
+  <item id="5111" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="5112" article="a" name="gate of expertise">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="5113" article="a" name="gate of expertise">
+  <item id="5113" article="a" name="gate of expertise" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="5114" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="5115" article="an" name="open door">
+  <item id="5115" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="5116" article="a" name="closed door" editorsuffix="(Locked)">
@@ -10704,28 +10698,28 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="5118" article="an" name="open door">
+  <item id="5118" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="5119" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="5120" article="an" name="open door">
+  <item id="5120" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="5121" article="a" name="gate of expertise">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="5122" article="a" name="gate of expertise">
+  <item id="5122" article="a" name="gate of expertise" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="5123" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="5124" article="an" name="open door">
+  <item id="5124" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="5125" article="a" name="closed door" editorsuffix="(Locked)">
@@ -10737,28 +10731,28 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="5127" article="an" name="open door">
+  <item id="5127" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="5128" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="5129" article="an" name="open door">
+  <item id="5129" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="5130" article="a" name="gate of expertise">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="5131" article="a" name="gate of expertise">
+  <item id="5131" article="a" name="gate of expertise" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="5132" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="5133" article="an" name="open door">
+  <item id="5133" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="5134" article="a" name="closed door" editorsuffix="(Locked)">
@@ -10770,7 +10764,7 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="5136" article="an" name="open door">
+  <item id="5136" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="5137" article="a" name="closed door" editorsuffix="(Locked)">
@@ -10782,7 +10776,7 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="5139" article="an" name="open door">
+  <item id="5139" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="5140" article="a" name="closed door">
@@ -10794,7 +10788,7 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="5142" article="an" name="open door">
+  <item id="5142" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="5143" article="a" name="closed door">
@@ -10806,19 +10800,19 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="5145" article="an" name="open door">
+  <item id="5145" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
-  <item id="5146" article="a" name="framework wall" />
-  <item id="5147" article="a" name="framework wall" />
-  <item id="5148" article="a" name="framework wall" />
-  <item id="5149" article="a" name="framework wall" />
-  <item id="5150" article="a" name="framework wall" />
-  <item id="5151" article="a" name="framework wall" />
-  <item id="5152" article="a" name="framework wall" />
-  <item id="5153" article="a" name="framework wall" />
-  <item id="5154" article="a" name="framework wall" />
-  <item id="5155" article="a" name="framework wall" />
+  <item id="5146" article="a" name="framework wall" editorcategory="Walls" />
+  <item id="5147" article="a" name="framework wall" editorcategory="Walls" />
+  <item id="5148" article="a" name="framework wall" editorcategory="Walls" />
+  <item id="5149" article="a" name="framework wall" editorcategory="Walls" />
+  <item id="5150" article="a" name="framework wall" editorcategory="Walls" />
+  <item id="5151" article="a" name="framework wall" editorcategory="Walls" />
+  <item id="5152" article="a" name="framework wall" editorcategory="Walls" />
+  <item id="5153" article="a" name="framework wall" editorcategory="Walls" />
+  <item id="5154" article="a" name="framework wall" editorcategory="Walls" />
+  <item id="5155" article="a" name="framework wall" editorcategory="Walls" />
   <item id="5156" article="a" name="mango tree" />
   <item id="5157" article="a" name="mango tree" />
   <item id="5158" article="a" name="striped marquee" />
@@ -10921,30 +10915,30 @@
   <item id="5255" article="a" name="wooden railing" />
   <item id="5256" article="a" name="stone wall window" />
   <item id="5257" article="a" name="stone wall window" />
-  <item id="5258" name="stairs">
+  <item id="5258" name="stairs" editorcategory="Ramps">
     <attribute key="floorchange" value="west" />
   </item>
-  <item id="5259" name="stairs">
+  <item id="5259" name="stairs" editorcategory="Ramps">
     <attribute key="floorchange" value="north" />
   </item>
-  <item id="5260" name="stairs">
+  <item id="5260" name="stairs" editorcategory="Ramps">
     <attribute key="floorchange" value="west" />
   </item>
-  <item id="5261" article="a" name="wooden wall" />
-  <item id="5262" article="a" name="wooden wall" />
+  <item id="5261" article="a" name="wooden wall" editorcategory="Walls" />
+  <item id="5262" article="a" name="wooden wall" editorcategory="Walls" />
   <item id="5263" article="a" name="wooden wall" />
   <item id="5264" article="a" name="wooden wall" />
   <item id="5265" article="a" name="wooden wall" />
   <item id="5266" article="a" name="wooden wall" />
-  <item id="5267" article="a" name="wooden wall" />
+  <item id="5267" article="a" name="wooden wall" editorcategory="Walls" />
   <item id="5268" article="a" name="wooden wall" />
-  <item id="5269" article="a" name="wooden wall" />
+  <item id="5269" article="a" name="wooden wall" editorcategory="Walls" />
   <item id="5270" article="a" name="wooden wall" />
   <item id="5271" article="a" name="wooden wall" />
-  <item id="5272" article="a" name="wooden wall" />
-  <item id="5273" article="a" name="wooden wall" />
-  <item id="5274" article="a" name="wooden wall" />
-  <item id="5275" article="a" name="wooden wall" />
+  <item id="5272" article="a" name="wooden wall" editorcategory="Walls" />
+  <item id="5273" article="a" name="wooden wall" editorcategory="Walls" />
+  <item id="5274" article="a" name="wooden wall" editorcategory="Walls" />
+  <item id="5275" article="a" name="wooden wall" editorcategory="Walls" />
   <item id="5276" article="a" name="wooden window" />
   <item id="5277" article="a" name="wooden window" />
   <item id="5278" article="a" name="closed door" editorsuffix="(Locked)">
@@ -10956,7 +10950,7 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="5280" article="an" name="open door">
+  <item id="5280" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="5281" article="a" name="closed door" editorsuffix="(Locked)">
@@ -10968,49 +10962,49 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="5283" article="an" name="open door">
+  <item id="5283" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="5284" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="5285" article="an" name="open door">
+  <item id="5285" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="5286" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="5287" article="an" name="open door">
+  <item id="5287" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="5288" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="5289" article="an" name="open door">
+  <item id="5289" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="5290" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="5291" article="an" name="open door">
+  <item id="5291" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="5292" article="a" name="gate of expertise">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="5293" article="a" name="gate of expertise">
+  <item id="5293" article="a" name="gate of expertise" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="5294" article="a" name="gate of expertise">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="5295" article="a" name="gate of expertise">
+  <item id="5295" article="a" name="gate of expertise" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="5296" article="a" name="wooden plank" />
@@ -11305,18 +11299,18 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="5516" article="an" name="open door">
+  <item id="5516" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="5517" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="5518" article="an" name="open door">
+  <item id="5518" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="5519" article="a" name="stone wall" />
-  <item id="5520" article="a" name="stone wall" />
+  <item id="5520" article="a" name="stone wall" editorcategory="Walls" />
   <item id="5521" article="a" name="wooden railing" />
   <item id="5522" article="a" name="dead quara pincher" editorcategory="Corpses">
     <attribute key="corpsetype" value="blood" />
@@ -11654,8 +11648,8 @@
   <item id="5672" article="a" name="pirate statue" />
   <item id="5673" article="a" name="pirate statue" />
   <item id="5674" article="a" name="pirate statue" />
-  <item id="5675" article="a" name="treasure chest" />
-  <item id="5676" article="a" name="treasure chest" />
+  <item id="5675" article="a" name="treasure chest" editorcategory="Furnitures" />
+  <item id="5676" article="a" name="treasure chest" editorcategory="Furnitures" />
   <item id="5677" article="a" name="tortoise's nest" />
   <item id="5678" article="a" name="tortoise egg" plural="tortoise eggs" editorcategory="Foods">
     <attribute key="weight" value="30" />
@@ -11762,7 +11756,7 @@
   <item id="5733" article="a" name="closed door">
     <attribute key="type" value="door" />
   </item>
-  <item id="5734" article="an" name="open door">
+  <item id="5734" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="5735" article="a" name="closed door" editorsuffix="(Locked)">
@@ -11773,7 +11767,7 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="5737" article="an" name="open door">
+  <item id="5737" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="5738" article="a" name="shark fin" />
@@ -11796,7 +11790,7 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="5746" article="an" name="open door">
+  <item id="5746" article="an" name="open door" editorcategory="Doors">
     <attribute key="description" value="The door seems to be sealed against unwanted intruders." />
     <attribute key="type" value="door" />
   </item>
@@ -11806,7 +11800,7 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="5749" article="an" name="open door">
+  <item id="5749" article="an" name="open door" editorcategory="Doors">
     <attribute key="description" value="The door seems to be sealed against unwanted intruders." />
     <attribute key="type" value="door" />
   </item>
@@ -11859,8 +11853,8 @@
   <item id="5774" name="metal fittings" />
   <item id="5775" name="nothing special" editorsuffix="(Blank)" />
   <item id="5776" name="nothing special" editorsuffix="(Blank)" />
-  <item id="5777" article="a" name="target board" />
-  <item id="5778" article="a" name="target board" />
+  <item id="5777" article="a" name="target board" editorcategory="Furnitures" />
+  <item id="5778" article="a" name="target board" editorcategory="Furnitures" />
   <item id="5779" article="a" name="stuck arrow" />
   <item id="5780" article="a" name="stuck arrow" />
   <item id="5781" article="a" name="stuck arrow" />
@@ -11873,8 +11867,8 @@
   <item id="5786" article="a" name="wooden whistle" editorcategory="Musical Instruments">
     <attribute key="weight" value="100" />
   </item>
-  <item id="5787" article="a" name="training dummy" />
-  <item id="5788" article="a" name="training dummy" />
+  <item id="5787" article="a" name="training dummy" editorcategory="Furnitures" />
+  <item id="5788" article="a" name="training dummy" editorcategory="Furnitures" />
   <item id="5789" article="a" name="stuck axe" />
   <item id="5790" article="a" name="stuck axe" />
   <item id="5791" article="a" name="stuffed dragon" editorcategory="Dolls and Bears">
@@ -12052,8 +12046,8 @@
   <item id="5857" article="a" name="sword" />
   <item id="5858" article="a" name="scimitar" />
   <item id="5859" article="a" name="scimitar" />
-  <item id="5860" article="an" name="armour rack" />
-  <item id="5861" article="an" name="armour rack" />
+  <item id="5860" article="an" name="armour rack" editorcategory="Furnitures" />
+  <item id="5861" article="an" name="armour rack" editorcategory="Furnitures" />
   <item id="5862" article="an" name="armour rack" />
   <item id="5863" article="an" name="armour rack" />
   <item id="5864" name="nothing special" editorsuffix="(Blank)" />
@@ -12220,8 +12214,8 @@
   <item id="5914" article="a" name="yellow piece of cloth" plural="yellow pieces of cloth" editorcategory="Creature Products">
     <attribute key="weight" value="500" />
   </item>
-  <item id="5915" article="a" name="large throne" />
-  <item id="5916" article="a" name="large throne" />
+  <item id="5915" article="a" name="large throne" editorcategory="Furnitures" />
+  <item id="5916" article="a" name="large throne" editorcategory="Furnitures" />
   <item id="5917" article="a" name="bandana" editorcategory="Helmets">
     <attribute key="description" value="It is quite fashionable as well as useful for anyone spending huge amounts of time in the sun." />
     <attribute key="weight" value="850" />
@@ -13400,19 +13394,19 @@
     <attribute key="stopduration" value="1" />
     <attribute key="transformequipto" value="2640" />
   </item>
-  <item id="6133" article="a" name="tree wall" />
+  <item id="6133" article="a" name="tree wall" editorcategory="Walls" />
   <item id="6134" article="a" name="tree wall" />
   <item id="6135" article="a" name="tree wall" />
-  <item id="6136" article="a" name="tree wall" />
+  <item id="6136" article="a" name="tree wall" editorcategory="Walls" />
   <item id="6137" article="a" name="tree wall" />
   <item id="6138" article="a" name="tree wall" />
   <item id="6139" article="a" name="tree wall" />
   <item id="6140" article="a" name="tree wall" />
   <item id="6141" article="a" name="tree wall" />
   <item id="6142" article="a" name="tree wall" />
-  <item id="6143" article="a" name="tree wall" />
+  <item id="6143" article="a" name="tree wall" editorcategory="Walls" />
   <item id="6144" article="a" name="tree wall" />
-  <item id="6145" article="a" name="tree wall" />
+  <item id="6145" article="a" name="tree wall" editorcategory="Walls" />
   <item id="6146" article="a" name="tree wall" />
   <item id="6147" article="a" name="tree wall" />
   <item id="6148" article="a" name="tree wall" />
@@ -13472,7 +13466,7 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="6194" article="an" name="open door">
+  <item id="6194" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="6195" article="a" name="closed door" editorsuffix="(Locked)">
@@ -13484,49 +13478,49 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="6197" article="an" name="open door">
+  <item id="6197" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="6198" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="6199" article="an" name="open door">
+  <item id="6199" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="6200" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="6201" article="an" name="open door">
+  <item id="6201" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="6202" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="6203" article="an" name="open door">
+  <item id="6203" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="6204" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="6205" article="an" name="open door">
+  <item id="6205" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="6206" article="a" name="gate of expertise">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="6207" article="a" name="gate of expertise">
+  <item id="6207" article="a" name="gate of expertise" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="6208" article="a" name="gate of expertise">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="6209" article="a" name="gate of expertise">
+  <item id="6209" article="a" name="gate of expertise" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="6210" article="a" name="rope bridge" />
@@ -13557,15 +13551,15 @@
   <item id="6235" article="an" name="archway" />
   <item id="6236" article="an" name="archway" />
   <item id="6237" article="an" name="archway" />
-  <item id="6238" article="a" name="tendril wall" />
-  <item id="6239" article="a" name="tendril wall" />
+  <item id="6238" article="a" name="tendril wall" editorcategory="Walls" />
+  <item id="6239" article="a" name="tendril wall" editorcategory="Walls" />
   <item id="6240" article="a" name="tendril wall" />
   <item id="6241" article="a" name="tendril wall" />
   <item id="6242" article="a" name="tendril wall" />
   <item id="6243" article="a" name="tendril wall" />
-  <item id="6244" article="a" name="tendril wall" />
+  <item id="6244" article="a" name="tendril wall" editorcategory="Walls" />
   <item id="6245" article="a" name="tendril wall" />
-  <item id="6246" article="a" name="tendril wall" />
+  <item id="6246" article="a" name="tendril wall" editorcategory="Walls" />
   <item id="6247" article="a" name="tendril wall" />
   <item id="6248" article="a" name="tendril wall" />
   <item id="6249" article="a" name="closed door" editorsuffix="(Locked)">
@@ -13577,7 +13571,7 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="6251" article="an" name="open door">
+  <item id="6251" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="6252" article="a" name="closed door" editorsuffix="(Locked)">
@@ -13589,49 +13583,49 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="6254" article="an" name="open door">
+  <item id="6254" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="6255" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="6256" article="an" name="open door">
+  <item id="6256" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="6257" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="6258" article="an" name="open door">
+  <item id="6258" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="6259" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="6260" article="an" name="open door">
+  <item id="6260" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="6261" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="6262" article="an" name="open door">
+  <item id="6262" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="6263" article="a" name="gate of expertise">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="6264" article="a" name="gate of expertise">
+  <item id="6264" article="a" name="gate of expertise" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="6265" article="a" name="gate of expertise">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="6266" article="a" name="gate of expertise">
+  <item id="6266" article="a" name="gate of expertise" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="6267" name="metal trash" editorsuffix="(Unmoveable)" editorcategory="Rubbish" />
@@ -14836,26 +14830,26 @@
   <item id="6725" article="an" name="icy mountain" />
   <item id="6726" article="an" name="icy mountain" />
   <item id="6727" article="an" name="icy mountain" />
-  <item id="6728" article="an" name="ice wall" />
-  <item id="6729" article="an" name="ice wall" />
+  <item id="6728" article="an" name="ice wall" editorcategory="Walls" />
+  <item id="6729" article="an" name="ice wall" editorcategory="Walls" />
   <item id="6730" article="an" name="ice wall" />
   <item id="6731" article="an" name="ice wall" />
   <item id="6732" article="an" name="ice wall" />
   <item id="6733" article="an" name="ice wall" />
-  <item id="6734" article="an" name="ice wall" />
+  <item id="6734" article="an" name="ice wall" editorcategory="Walls" />
   <item id="6735" article="an" name="ice wall" />
-  <item id="6736" article="an" name="ice wall" />
+  <item id="6736" article="an" name="ice wall" editorcategory="Walls" />
   <item id="6737" article="an" name="ice wall" />
   <item id="6738" article="an" name="ice wall" />
-  <item id="6739" article="a" name="frozen wall" />
-  <item id="6740" article="a" name="frozen wall" />
+  <item id="6739" article="a" name="frozen wall" editorcategory="Walls" />
+  <item id="6740" article="a" name="frozen wall" editorcategory="Walls" />
   <item id="6741" article="a" name="frozen wall" />
   <item id="6742" article="a" name="frozen wall" />
   <item id="6743" article="a" name="frozen wall" />
   <item id="6744" article="a" name="frozen wall" />
-  <item id="6745" article="a" name="frozen wall" />
+  <item id="6745" article="a" name="frozen wall" editorcategory="Walls" />
   <item id="6746" article="a" name="frozen wall" />
-  <item id="6747" article="a" name="frozen wall" />
+  <item id="6747" article="a" name="frozen wall" editorcategory="Walls" />
   <item id="6748" article="a" name="frozen wall" />
   <item id="6749" article="a" name="frozen wall" />
   <item id="6750" article="an" name="ice hut" />
@@ -14887,21 +14881,21 @@
   <item id="6770" article="an" name="icy mountain" />
   <item id="6771" article="an" name="icy mountain" />
   <item id="6772" article="an" name="icy mountain" />
-  <item id="6773" article="a" name="fur wall" />
-  <item id="6774" article="a" name="fur wall" />
+  <item id="6773" article="a" name="fur wall" editorcategory="Walls" />
+  <item id="6774" article="a" name="fur wall" editorcategory="Walls" />
   <item id="6775" article="a" name="fur pillar" />
   <item id="6776" article="a" name="fur wall" />
   <item id="6777" article="a" name="fur wall" />
   <item id="6778" article="a" name="fur wall" />
-  <item id="6779" article="a" name="fur wall" />
+  <item id="6779" article="a" name="fur wall" editorcategory="Walls" />
   <item id="6780" article="a" name="fur wall" />
-  <item id="6781" article="a" name="fur wall" />
+  <item id="6781" article="a" name="fur wall" editorcategory="Walls" />
   <item id="6782" article="a" name="fur wall" />
   <item id="6783" article="a" name="fur wall" />
-  <item id="6784" article="a" name="fur wall" />
-  <item id="6785" article="a" name="fur wall" />
-  <item id="6786" article="a" name="fur wall" />
-  <item id="6787" article="a" name="fur wall" />
+  <item id="6784" article="a" name="fur wall" editorcategory="Walls" />
+  <item id="6785" article="a" name="fur wall" editorcategory="Walls" />
+  <item id="6786" article="a" name="fur wall" editorcategory="Walls" />
+  <item id="6787" article="a" name="fur wall" editorcategory="Walls" />
   <item id="6788" article="a" name="fur wall window">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
@@ -14985,33 +14979,33 @@
   <item id="6836" article="a" name="frozen wall" />
   <item id="6837" article="a" name="frozen wall" />
   <item id="6838" name="snow" />
-  <item id="6839" article="a" name="wooden wall" />
-  <item id="6840" article="a" name="wooden wall" />
+  <item id="6839" article="a" name="wooden wall" editorcategory="Walls" />
+  <item id="6840" article="a" name="wooden wall" editorcategory="Walls" />
   <item id="6841" article="a" name="wooden pillar" />
   <item id="6842" article="a" name="wooden wall" />
   <item id="6843" article="a" name="wooden wall" />
   <item id="6844" article="a" name="wooden wall" />
-  <item id="6845" article="a" name="wooden wall" />
+  <item id="6845" article="a" name="wooden wall" editorcategory="Walls" />
   <item id="6846" article="a" name="wooden wall" />
-  <item id="6847" article="a" name="wooden wall" />
+  <item id="6847" article="a" name="wooden wall" editorcategory="Walls" />
   <item id="6848" article="a" name="wooden wall" />
   <item id="6849" article="a" name="wooden wall" />
-  <item id="6850" article="an" name="ornamented wall" />
-  <item id="6851" article="a" name="stone base" />
-  <item id="6852" article="a" name="stone base" />
-  <item id="6853" article="an" name="ornamented wall" />
-  <item id="6854" article="a" name="stone base" />
-  <item id="6855" article="a" name="stone base" />
-  <item id="6856" article="a" name="stone base" />
-  <item id="6857" article="a" name="stone base" />
-  <item id="6858" article="a" name="stone base" />
-  <item id="6859" article="a" name="stone base" />
+  <item id="6850" article="an" name="ornamented wall" editorcategory="Walls" />
+  <item id="6851" article="a" name="stone base" editorcategory="Walls" />
+  <item id="6852" article="a" name="stone base" editorcategory="Walls" />
+  <item id="6853" article="an" name="ornamented wall" editorcategory="Walls" />
+  <item id="6854" article="a" name="stone base" editorcategory="Walls" />
+  <item id="6855" article="a" name="stone base" editorcategory="Walls" />
+  <item id="6856" article="a" name="stone base" editorcategory="Walls" />
+  <item id="6857" article="a" name="stone base" editorcategory="Walls" />
+  <item id="6858" article="a" name="stone base" editorcategory="Walls" />
+  <item id="6859" article="a" name="stone base" editorcategory="Walls" />
   <item id="6860" article="a" name="stone base" />
   <item id="6861" article="a" name="stone base" />
   <item id="6862" article="a" name="stone base" />
-  <item id="6863" article="a" name="stone base" />
+  <item id="6863" article="a" name="stone base" editorcategory="Walls" />
   <item id="6864" article="a" name="stone base" />
-  <item id="6865" article="a" name="stone base" />
+  <item id="6865" article="a" name="stone base" editorcategory="Walls" />
   <item id="6866" article="a" name="stone base" />
   <item id="6867" article="a" name="stone base" />
   <item id="6868" name="nothing special" editorsuffix="(Blank)" />
@@ -15046,28 +15040,28 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="6893" article="an" name="open door">
+  <item id="6893" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="6894" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="6895" article="an" name="open door">
+  <item id="6895" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="6896" article="a" name="gate of expertise">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="6897" article="a" name="gate of expertise">
+  <item id="6897" article="a" name="gate of expertise" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="6898" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="6899" article="an" name="open door">
+  <item id="6899" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="6900" article="a" name="closed door" editorsuffix="(Locked)">
@@ -15079,43 +15073,43 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="6902" article="an" name="open door">
+  <item id="6902" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="6903" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="6904" article="an" name="open door">
+  <item id="6904" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="6905" article="a" name="gate of expertise">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="6906" article="a" name="gate of expertise">
+  <item id="6906" article="a" name="gate of expertise" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="6907" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="6908" article="an" name="open door">
+  <item id="6908" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
-  <item id="6909" article="a" name="ramp">
+  <item id="6909" article="a" name="ramp" editorcategory="Ramps">
     <attribute key="floorchange" value="east" />
   </item>
   <item id="6910" article="a" name="ramp" />
-  <item id="6911" article="a" name="ramp">
+  <item id="6911" article="a" name="ramp" editorcategory="Ramps">
     <attribute key="floorchange" value="west" />
   </item>
   <item id="6912" article="a" name="ramp" />
-  <item id="6913" article="a" name="ramp">
+  <item id="6913" article="a" name="ramp" editorcategory="Ramps">
     <attribute key="floorchange" value="south" />
   </item>
   <item id="6914" article="a" name="ramp" />
-  <item id="6915" article="a" name="ramp">
+  <item id="6915" article="a" name="ramp" editorcategory="Ramps">
     <attribute key="floorchange" value="north" />
   </item>
   <item id="6916" article="a" name="ramp" />
@@ -15280,28 +15274,28 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="7035" article="an" name="open door">
+  <item id="7035" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="7036" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="7037" article="an" name="open door">
+  <item id="7037" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="7038" article="a" name="gate of expertise">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="7039" article="a" name="gate of expertise">
+  <item id="7039" article="a" name="gate of expertise" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="7040" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="7041" article="an" name="open door">
+  <item id="7041" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="7042" article="a" name="closed door" editorsuffix="(Locked)">
@@ -15313,28 +15307,28 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="7044" article="an" name="open door">
+  <item id="7044" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="7045" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="7046" article="an" name="open door">
+  <item id="7046" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="7047" article="a" name="gate of expertise">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="7048" article="a" name="gate of expertise">
+  <item id="7048" article="a" name="gate of expertise" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="7049" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="7050" article="an" name="open door">
+  <item id="7050" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="7051" article="an" name="archway" />
@@ -15346,14 +15340,14 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="7055" article="an" name="open door">
+  <item id="7055" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="7056" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="7057" article="an" name="open door">
+  <item id="7057" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="7058" article="a" name="skull pillar" />
@@ -15489,17 +15483,17 @@
   <item id="7159" article="a" name="green perch" plural="green perches" editorcategory="Foods">
     <attribute key="weight" value="800" />
   </item>
-  <item id="7160" article="a" name="frozen chest" />
-  <item id="7161" article="a" name="frozen chest" />
-  <item id="7162" name="frozen drawers" />
+  <item id="7160" article="a" name="frozen chest" editorcategory="Furnitures" />
+  <item id="7161" article="a" name="frozen chest" editorcategory="Furnitures" />
+  <item id="7162" name="frozen drawers" editorcategory="Furnitures" />
   <item id="7163" article="a" name="frozen chair" editorcategory="Furnitures" />
   <item id="7164" article="a" name="frozen chair" editorcategory="Furnitures" />
   <item id="7165" article="a" name="frozen chair" editorcategory="Furnitures" />
   <item id="7166" article="a" name="frozen chair" editorcategory="Furnitures" />
   <item id="7167" article="a" name="frozen pendulum clock" />
   <item id="7168" article="a" name="frozen pendulum clock" />
-  <item id="7169" article="a" name="frozen trough" />
-  <item id="7170" article="a" name="frozen trough" />
+  <item id="7169" article="a" name="frozen trough" editorcategory="Furnitures" />
+  <item id="7170" article="a" name="frozen trough" editorcategory="Furnitures" />
   <item id="7171" article="a" name="snowman" />
   <item id="7172" article="a" name="snowman" />
   <item id="7173" article="a" name="snowman" />
@@ -15685,8 +15679,8 @@
   <item id="7263" article="a" name="figurehead" />
   <item id="7264" article="a" name="sled" />
   <item id="7265" article="a" name="sled" />
-  <item id="7266" article="a" name="sled" />
-  <item id="7267" article="a" name="sled" />
+  <item id="7266" article="a" name="sled" editorcategory="Furnitures" />
+  <item id="7267" article="a" name="sled" editorcategory="Furnitures" />
   <item id="7268" article="a" name="husky" />
   <item id="7269" article="a" name="husky" />
   <item id="7270" article="a" name="husky" />
@@ -16780,11 +16774,11 @@
   <item id="7521" article="a" name="wooden coffin" />
   <item id="7522" article="a" name="wooden coffin" />
   <item id="7523" article="a" name="wooden coffin" />
-  <item id="7524" article="a" name="wooden coffin">
+  <item id="7524" article="a" name="wooden coffin" editorcategory="Ramps">
     <attribute key="description" value="You can see stairs leading down." />
     <attribute key="floorchange" value="down" />
   </item>
-  <item id="7525" article="a" name="wooden coffin">
+  <item id="7525" article="a" name="wooden coffin" editorcategory="Ramps">
     <attribute key="description" value="You can see stairs leading down." />
     <attribute key="floorchange" value="down" />
   </item>
@@ -18563,10 +18557,10 @@
   <item id="7921" article="a" name="chalk board" />
   <item id="7922" article="a" name="chalk board" />
   <item id="7923" article="a" name="chalk board" />
-  <item id="7924" name="stone stairs">
+  <item id="7924" name="stone stairs" editorcategory="Ramps">
     <attribute key="floorchange" value="south" />
   </item>
-  <item id="7925" name="stone stairs">
+  <item id="7925" name="stone stairs" editorcategory="Ramps">
     <attribute key="floorchange" value="east" />
   </item>
   <item id="7926" article="a" name="dead troll" editorsuffix="(Unmoveable)" editorcategory="Corpses">
@@ -18612,11 +18606,11 @@
     <attribute key="duration" value="900" />
     <attribute key="fluidsource" value="blood" />
   </item>
-  <item id="7932" article="a" name="large hole">
+  <item id="7932" article="a" name="large hole" editorcategory="Ramps">
     <attribute key="description" value="It is loosely covered by some stones and earth." />
     <attribute key="floorchange" value="down" />
   </item>
-  <item id="7933" article="a" name="hole">
+  <item id="7933" article="a" name="hole" editorcategory="Ramps">
     <attribute key="floorchange" value="down" />
     <attribute key="decayto" value="7932" />
     <attribute key="duration" value="600" />
@@ -18627,7 +18621,7 @@
     <attribute key="weight" value="970" />
   </item>
   <item id="7937" article="a" name="potion stand" editorcategory="Fluid Containers" />
-  <item id="7938" article="a" name="large hole">
+  <item id="7938" article="a" name="large hole" editorcategory="Ramps">
     <attribute key="floorchange" value="down" />
   </item>
   <item id="7939" article="a" name="mining helmet" editorcategory="Helmets">
@@ -18636,7 +18630,7 @@
     <attribute key="armor" value="1" />
     <attribute key="slottype" value="head" />
   </item>
-  <item id="7940" article="a" name="cave entrance">
+  <item id="7940" article="a" name="cave entrance" editorcategory="Ramps">
     <attribute key="floorchange" value="down" />
   </item>
   <item id="7941" name="wooden floor">
@@ -19036,10 +19030,10 @@
   <item id="8199" name="nothing special" editorsuffix="(Blank)" />
   <item id="8200" name="nothing special" editorsuffix="(Blank)" />
   <item id="8201" name="broken pottery" editorcategory="Decorations" />
-  <item id="8202" article="a" name="cave entrance">
+  <item id="8202" article="a" name="cave entrance" editorcategory="Ramps">
     <attribute key="floorchange" value="down" />
   </item>
-  <item id="8203" article="a" name="cave entrance">
+  <item id="8203" article="a" name="cave entrance" editorcategory="Ramps">
     <attribute key="floorchange" value="down" />
   </item>
   <item id="8204" article="a" name="yellow powder" editorcategory="Rubbish">
@@ -19064,16 +19058,16 @@
     <attribute key="attack" value="18" />
     <attribute key="weapontype" value="sword" />
   </item>
-  <item id="8210" article="a" name="cave entrance">
+  <item id="8210" article="a" name="cave entrance" editorcategory="Ramps">
     <attribute key="floorchange" value="down" />
   </item>
-  <item id="8211" article="a" name="cave entrance">
+  <item id="8211" article="a" name="cave entrance" editorcategory="Ramps">
     <attribute key="floorchange" value="down" />
   </item>
-  <item id="8212" article="a" name="cave entrance">
+  <item id="8212" article="a" name="cave entrance" editorcategory="Ramps">
     <attribute key="floorchange" value="down" />
   </item>
-  <item id="8213" article="a" name="cave entrance">
+  <item id="8213" article="a" name="cave entrance" editorcategory="Ramps">
     <attribute key="floorchange" value="down" />
   </item>
   <item id="8214" name="jagged stones" />
@@ -19138,7 +19132,7 @@
     <attribute key="description" value="It seems too narrow to crawl trough." />
     <attribute key="floorchange" value="down" />
   </item>
-  <item id="8256" article="a" name="large hole">
+  <item id="8256" article="a" name="large hole" editorcategory="Ramps">
     <attribute key="floorchange" value="down" />
   </item>
   <item id="8257" article="a" name="large hole" />
@@ -19385,19 +19379,19 @@
     <attribute key="weight" value="10" />
   </item>
   <item id="8371" name="earth" />
-  <item id="8372" article="a" name="ramp">
+  <item id="8372" article="a" name="ramp" editorcategory="Ramps">
     <attribute key="floorchange" value="east" />
   </item>
   <item id="8373" article="a" name="ramp" />
-  <item id="8374" article="a" name="ramp">
+  <item id="8374" article="a" name="ramp" editorcategory="Ramps">
     <attribute key="floorchange" value="west" />
   </item>
   <item id="8375" article="a" name="ramp" />
-  <item id="8376" article="a" name="ramp">
+  <item id="8376" article="a" name="ramp" editorcategory="Ramps">
     <attribute key="floorchange" value="south" />
   </item>
   <item id="8377" article="a" name="ramp" />
-  <item id="8378" article="a" name="ramp">
+  <item id="8378" article="a" name="ramp" editorcategory="Ramps">
     <attribute key="floorchange" value="north" />
   </item>
   <item id="8379" article="a" name="ramp" />
@@ -19506,57 +19500,57 @@
   <item id="8474" article="an" name="antidote potion" editorcategory="Liquids">
     <attribute key="weight" value="265" />
   </item>
-  <item id="8475" article="a" name="stone wall" />
-  <item id="8476" article="a" name="stone wall" />
+  <item id="8475" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="8476" article="a" name="stone wall" editorcategory="Walls" />
   <item id="8477" article="a" name="stone wall" />
   <item id="8478" article="a" name="stone wall" />
   <item id="8479" article="a" name="stone wall" />
   <item id="8480" article="a" name="stone wall" />
-  <item id="8481" article="a" name="stone wall" />
+  <item id="8481" article="a" name="stone wall" editorcategory="Walls" />
   <item id="8482" article="a" name="stone wall" />
-  <item id="8483" article="a" name="stone wall" />
+  <item id="8483" article="a" name="stone wall" editorcategory="Walls" />
   <item id="8484" article="a" name="stone wall" />
   <item id="8485" article="a" name="stone wall" />
-  <item id="8486" article="a" name="stone wall" />
-  <item id="8487" article="a" name="stone wall" />
-  <item id="8488" article="a" name="stone wall" />
-  <item id="8489" article="a" name="stone wall" />
-  <item id="8490" article="a" name="stone wall" />
+  <item id="8486" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="8487" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="8488" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="8489" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="8490" article="a" name="stone wall" editorcategory="Walls" />
   <item id="8491" article="a" name="stone wall" />
   <item id="8492" article="a" name="stone wall" />
   <item id="8493" article="a" name="stone wall" />
-  <item id="8494" article="a" name="stone wall" />
+  <item id="8494" article="a" name="stone wall" editorcategory="Walls" />
   <item id="8495" article="a" name="stone wall" />
-  <item id="8496" article="a" name="stone wall" />
+  <item id="8496" article="a" name="stone wall" editorcategory="Walls" />
   <item id="8497" article="a" name="stone wall" />
   <item id="8498" article="a" name="stone wall" />
-  <item id="8499" article="a" name="stone wall" />
-  <item id="8500" article="a" name="stone wall" />
-  <item id="8501" article="a" name="stone wall" />
-  <item id="8502" article="a" name="stone wall" />
-  <item id="8503" article="a" name="stone wall" />
-  <item id="8504" article="a" name="stone wall" />
+  <item id="8499" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="8500" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="8501" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="8502" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="8503" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="8504" article="a" name="stone wall" editorcategory="Walls" />
   <item id="8505" article="a" name="stone wall" />
   <item id="8506" article="a" name="stone wall" />
   <item id="8507" article="a" name="stone wall" />
   <item id="8508" article="a" name="stone wall" />
-  <item id="8509" article="a" name="stone wall" />
-  <item id="8510" article="a" name="stone wall" />
-  <item id="8511" article="a" name="stone wall" />
-  <item id="8512" article="a" name="stone wall" />
-  <item id="8513" article="a" name="stone wall" />
-  <item id="8514" article="a" name="stone wall" />
-  <item id="8515" article="a" name="stone wall" />
-  <item id="8516" article="a" name="stone wall" />
-  <item id="8517" article="a" name="stone wall" />
+  <item id="8509" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="8510" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="8511" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="8512" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="8513" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="8514" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="8515" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="8516" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="8517" article="a" name="stone wall" editorcategory="Walls" />
   <item id="8518" article="a" name="stone wall" />
   <item id="8519" article="a" name="stone wall" />
   <item id="8520" article="a" name="stone wall" />
   <item id="8521" article="a" name="stone wall" />
-  <item id="8522" article="a" name="stone wall" />
-  <item id="8523" article="a" name="stone wall" />
-  <item id="8524" article="a" name="stone wall" />
-  <item id="8525" article="a" name="stone wall" />
+  <item id="8522" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="8523" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="8524" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="8525" article="a" name="stone wall" editorcategory="Walls" />
   <item id="8526" article="a" name="gem" />
   <item id="8527" article="a" name="gem" />
   <item id="8528" article="a" name="gem" />
@@ -19580,7 +19574,7 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="8543" article="an" name="open door">
+  <item id="8543" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="8544" article="a" name="closed door" editorsuffix="(Locked)">
@@ -19591,49 +19585,49 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="8546" article="an" name="open door">
+  <item id="8546" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="8547" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="8548" article="an" name="open door">
+  <item id="8548" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="8549" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="8550" article="an" name="open door">
+  <item id="8550" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="8551" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="8552" article="an" name="open door">
+  <item id="8552" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="8553" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="8554" article="an" name="open door">
+  <item id="8554" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="8555" article="a" name="gate of expertise">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="8556" article="a" name="gate of expertise">
+  <item id="8556" article="a" name="gate of expertise" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="8557" article="a" name="gate of expertise">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="8558" article="a" name="gate of expertise">
+  <item id="8558" article="a" name="gate of expertise" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="8559" article="a" name="ramp">
@@ -19856,7 +19850,7 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="8697" article="an" name="open door">
+  <item id="8697" article="an" name="open door" editorcategory="Doors">
     <attribute key="description" value="It can't be closed." />
     <attribute key="type" value="door" />
   </item>
@@ -19882,12 +19876,13 @@
   </item>
   <item id="8705" name="balloons" />
   <item id="8706" name="balloons" />
-  <item id="8707" name="your student book" editorcategory="Books">
+  <item id="8707" name="your student book" editorsuffix="(Writeable)" editorcategory="Books">
     <attribute key="description" value="Write down important notes in here." />
     <attribute key="weight" value="900" />
+    <attribute key="writeable" value="1" />
   </item>
   <item id="8708" name="rock soil" />
-  <item id="8709" name="wooden stairs">
+  <item id="8709" name="wooden stairs" editorcategory="Ramps">
     <attribute key="floorchange" value="west" />
   </item>
   <item id="8710" article="a" name="cockroach leg" editorcategory="Creature Products">
@@ -19906,10 +19901,10 @@
   <item id="8714" name="wooden floor" editorsuffix="(Tutorial)">
     <attribute key="description" value="This is the border to the village of Rookgaard." />
   </item>
-  <item id="8715" article="a" name="ramp">
+  <item id="8715" article="a" name="ramp" editorcategory="Ramps">
     <attribute key="floorchange" value="west" />
   </item>
-  <item id="8716" name="stone stairs">
+  <item id="8716" name="stone stairs" editorcategory="Ramps">
     <attribute key="floorchange" value="south" />
   </item>
   <item id="8717" name="lock pick" plural="lock picks" editorcategory="Tools">
@@ -19937,10 +19932,10 @@
   <item id="8731" article="a" name="wagon" />
   <item id="8732" article="a" name="wagon" />
   <item id="8733" article="a" name="drawbar" />
-  <item id="8734" article="a" name="covered wagon" />
-  <item id="8735" article="a" name="covered wagon" />
-  <item id="8736" article="a" name="covered wagon" />
-  <item id="8737" article="a" name="covered wagon" />
+  <item id="8734" article="a" name="covered wagon" editorcategory="Furnitures" />
+  <item id="8735" article="a" name="covered wagon" editorcategory="Furnitures" />
+  <item id="8736" article="a" name="covered wagon" editorcategory="Furnitures" />
+  <item id="8737" article="a" name="covered wagon" editorcategory="Furnitures" />
   <item id="8738" name="drawbars" />
   <item id="8739" name="drawbars" />
   <item id="8740" name="stones" />
@@ -20030,10 +20025,10 @@
   <item id="8778" article="a" name="dwarven statue" />
   <item id="8779" article="a" name="statue" />
   <item id="8780" article="a" name="statue" />
-  <item id="8781" article="a" name="wagon" />
-  <item id="8782" article="a" name="wagon" />
-  <item id="8783" article="a" name="wagon" />
-  <item id="8784" article="a" name="wagon" />
+  <item id="8781" article="a" name="wagon" editorcategory="Furnitures" />
+  <item id="8782" article="a" name="wagon" editorcategory="Furnitures" />
+  <item id="8783" article="a" name="wagon" editorcategory="Furnitures" />
+  <item id="8784" article="a" name="wagon" editorcategory="Furnitures" />
   <item id="8785" article="a" name="tree stump" />
   <item id="8786" article="a" name="tree stump" />
   <item id="8787" article="a" name="branch" />
@@ -20865,7 +20860,7 @@
     <attribute key="description" value="It is the pheromone gland of a rotworm queen." />
     <attribute key="weight" value="50" />
   </item>
-  <item id="8972" article="a" name="large hole">
+  <item id="8972" article="a" name="large hole" editorcategory="Ramps">
     <attribute key="floorchange" value="down" />
   </item>
   <item id="8973" article="an" name="archway" />
@@ -21132,28 +21127,28 @@
     <attribute key="description" value="Julius gave it to you to have at least five unusual spots on Vengoth marked." />
     <attribute key="weight" value="750" />
   </item>
-  <item id="9118" article="a" name="stone wall" />
-  <item id="9119" article="a" name="stone wall" />
+  <item id="9118" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="9119" article="a" name="stone wall" editorcategory="Walls" />
   <item id="9120" article="a" name="stone wall" />
   <item id="9121" article="a" name="stone wall" />
   <item id="9122" article="a" name="stone wall" />
   <item id="9123" article="a" name="stone wall" />
-  <item id="9124" article="a" name="stone wall" />
+  <item id="9124" article="a" name="stone wall" editorcategory="Walls" />
   <item id="9125" article="a" name="stone wall" />
-  <item id="9126" article="a" name="stone wall" />
+  <item id="9126" article="a" name="stone wall" editorcategory="Walls" />
   <item id="9127" article="a" name="stone wall" />
   <item id="9128" article="a" name="stone wall" />
-  <item id="9129" article="a" name="stone wall" />
-  <item id="9130" article="a" name="stone wall" />
-  <item id="9131" article="a" name="stone wall" />
-  <item id="9132" article="a" name="stone wall" />
-  <item id="9133" article="a" name="stone wall" />
+  <item id="9129" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="9130" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="9131" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="9132" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="9133" article="a" name="stone wall" editorcategory="Walls" />
   <item id="9134" article="a" name="roof" />
-  <item id="9135" article="a" name="stone wall" />
-  <item id="9136" article="a" name="stone wall" />
-  <item id="9137" article="a" name="stone wall" />
-  <item id="9138" article="a" name="stone wall" />
-  <item id="9139" article="a" name="stone wall" />
+  <item id="9135" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="9136" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="9137" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="9138" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="9139" article="a" name="stone wall" editorcategory="Walls" />
   <item id="9140" article="an" name="archway" />
   <item id="9141" article="a" name="blood crystal" editorsuffix="(Blood Brothers Quest)" editorcategory="Quest Items">
     <attribute key="description" value="It is charged with magic energy, but that won't last forever." />
@@ -21161,23 +21156,23 @@
     <attribute key="decayto" value="9369" />
     <attribute key="duration" value="86400" />
   </item>
-  <item id="9142" article="a" name="stone wall" />
-  <item id="9143" article="a" name="stone wall" />
+  <item id="9142" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="9143" article="a" name="stone wall" editorcategory="Walls" />
   <item id="9144" name="white marble floor" />
   <item id="9145" name="white marble floor" />
   <item id="9146" name="white marble floor" />
-  <item id="9147" article="a" name="stone wall" />
-  <item id="9148" article="a" name="stone wall" />
-  <item id="9149" article="a" name="stone wall" />
-  <item id="9150" article="a" name="stone wall" />
-  <item id="9151" article="a" name="stone wall" />
-  <item id="9152" article="a" name="stone wall" />
-  <item id="9153" article="a" name="stone wall" />
-  <item id="9154" article="a" name="stone wall" />
-  <item id="9155" article="a" name="stone wall" />
-  <item id="9156" article="a" name="stone wall" />
-  <item id="9157" article="a" name="stone wall" />
-  <item id="9158" article="a" name="stone wall" />
+  <item id="9147" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="9148" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="9149" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="9150" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="9151" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="9152" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="9153" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="9154" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="9155" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="9156" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="9157" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="9158" article="a" name="stone wall" editorcategory="Walls" />
   <item id="9159" article="an" name="archway" />
   <item id="9160" article="an" name="archway" />
   <item id="9161" article="an" name="archway" />
@@ -21192,7 +21187,7 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="9167" article="an" name="open door">
+  <item id="9167" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="9168" article="a" name="closed door">
@@ -21203,7 +21198,7 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="9170" article="an" name="open door">
+  <item id="9170" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="9171" article="a" name="closed door">
@@ -21211,7 +21206,7 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="9172" article="an" name="open door">
+  <item id="9172" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="9173" article="a" name="closed door">
@@ -21219,43 +21214,43 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="9174" article="an" name="open door">
+  <item id="9174" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="9175" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="9176" article="an" name="open door">
+  <item id="9176" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="9177" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="9178" article="an" name="open door">
+  <item id="9178" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="9179" article="a" name="gate of expertise">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="9180" article="a" name="gate of expertise">
+  <item id="9180" article="a" name="gate of expertise" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="9181" article="a" name="gate of expertise">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="9182" article="a" name="gate of expertise">
+  <item id="9182" article="a" name="gate of expertise" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
-  <item id="9183" article="a" name="stone wall" />
-  <item id="9184" article="a" name="stone wall" />
-  <item id="9185" article="a" name="stone wall" />
-  <item id="9186" article="a" name="stone wall" />
-  <item id="9187" article="a" name="stone wall" />
-  <item id="9188" article="a" name="stone wall" />
+  <item id="9183" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="9184" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="9185" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="9186" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="9187" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="9188" article="a" name="stone wall" editorcategory="Walls" />
   <item id="9189" article="a" name="window" />
   <item id="9190" article="a" name="window" />
   <item id="9191" article="a" name="torn book" editorsuffix="(the first part of Marziel's diary)" editorcategory="Quest Items">
@@ -21277,23 +21272,23 @@
   <item id="9204" name="iron floor" />
   <item id="9205" name="iron floor" />
   <item id="9206" name="iron floor" />
-  <item id="9207" article="an" name="iron wall" />
-  <item id="9208" article="an" name="iron wall" />
-  <item id="9209" article="an" name="iron wall" />
-  <item id="9210" article="an" name="iron wall" />
-  <item id="9211" article="an" name="iron wall" />
-  <item id="9212" article="an" name="iron wall" />
+  <item id="9207" article="an" name="iron wall" editorcategory="Walls" />
+  <item id="9208" article="an" name="iron wall" editorcategory="Walls" />
+  <item id="9209" article="an" name="iron wall" editorcategory="Walls" />
+  <item id="9210" article="an" name="iron wall" editorcategory="Walls" />
+  <item id="9211" article="an" name="iron wall" editorcategory="Walls" />
+  <item id="9212" article="an" name="iron wall" editorcategory="Walls" />
   <item id="9213" article="an" name="iron wall" />
   <item id="9214" article="an" name="iron wall" />
   <item id="9215" article="an" name="iron wall" />
   <item id="9216" article="an" name="iron wall" />
-  <item id="9217" article="an" name="iron wall" />
+  <item id="9217" article="an" name="iron wall" editorcategory="Walls" />
   <item id="9218" article="an" name="iron wall" />
-  <item id="9219" article="an" name="iron wall" />
+  <item id="9219" article="an" name="iron wall" editorcategory="Walls" />
   <item id="9220" article="an" name="iron wall" />
   <item id="9221" article="an" name="iron wall" />
-  <item id="9222" article="an" name="iron wall" />
-  <item id="9223" article="an" name="iron wall" />
+  <item id="9222" article="an" name="iron wall" editorcategory="Walls" />
+  <item id="9223" article="an" name="iron wall" editorcategory="Walls" />
   <item id="9224" name="wooden floor" />
   <item id="9225" name="wooden floor" />
   <item id="9226" name="wooden floor" />
@@ -21345,7 +21340,7 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="9269" article="an" name="open door">
+  <item id="9269" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="9270" article="a" name="closed door" editorsuffix="(Locked)">
@@ -21356,7 +21351,7 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="9272" article="an" name="open door">
+  <item id="9272" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="9273" article="a" name="closed door">
@@ -21364,7 +21359,7 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="9274" article="an" name="open door">
+  <item id="9274" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="9275" article="a" name="closed door">
@@ -21372,46 +21367,46 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="9276" article="an" name="open door">
+  <item id="9276" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="9277" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="9278" article="an" name="open door">
+  <item id="9278" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="9279" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="9280" article="an" name="open door">
+  <item id="9280" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="9281" article="a" name="gate of expertise">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="9282" article="a" name="gate of expertise">
+  <item id="9282" article="a" name="gate of expertise" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="9283" article="a" name="gate of expertise">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="9284" article="a" name="gate of expertise">
+  <item id="9284" article="a" name="gate of expertise" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="9285" article="an" name="archway" />
   <item id="9286" article="an" name="archway" />
   <item id="9287" article="an" name="archway" />
   <item id="9288" article="a" name="stone wall" />
-  <item id="9289" article="a" name="stone wall" />
-  <item id="9290" article="a" name="stone wall" />
-  <item id="9291" article="a" name="stone wall" />
-  <item id="9292" article="a" name="stone wall" />
-  <item id="9293" article="a" name="stone wall" />
+  <item id="9289" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="9290" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="9291" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="9292" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="9293" article="a" name="stone wall" editorcategory="Walls" />
   <item id="9294" article="a" name="broken stone wall" />
   <item id="9295" article="a" name="broken stone wall" />
   <item id="9296" article="a" name="broken stone wall" />
@@ -21566,8 +21561,8 @@
   <item id="9442" article="a" name="family banner" />
   <item id="9443" article="an" name="old clock" />
   <item id="9444" article="an" name="old clock" />
-  <item id="9445" article="a" name="brass throne" />
-  <item id="9446" article="a" name="brass throne" />
+  <item id="9445" article="a" name="brass throne" editorcategory="Furnitures" />
+  <item id="9446" article="a" name="brass throne" editorcategory="Furnitures" />
   <item id="9447" article="a" name="blood goblet" editorcategory="Valuables">
     <attribute key="weight" value="490" />
   </item>
@@ -21700,7 +21695,7 @@
   <item id="9570" name="wooden floor" />
   <item id="9571" article="a" name="statue" />
   <item id="9572" article="a" name="statue" />
-  <item id="9573" name="corkscrew stairs">
+  <item id="9573" name="corkscrew stairs" editorcategory="Ramps">
     <attribute key="floorchange" value="north" />
   </item>
   <item id="9574" name="corkscrew stairs">
@@ -21985,15 +21980,15 @@
   <item id="9737" article="a" name="ghost charm" editorsuffix="(In Service of Yalahar Quest)" editorcategory="Quest Items">
     <attribute key="weight" value="900" />
   </item>
-  <item id="9738" name="nothing special" editorcategory="Duplicate">
+  <item id="9738" article="a" name="ghost charm" editorsuffix="(In Service of Yalahar Quest)" editorcategory="Quest Items">
     <attribute key="decayto" value="9737" />
     <attribute key="duration" value="120" />
   </item>
-  <item id="9739" name="nothing special" editorcategory="Duplicate">
+  <item id="9739" article="a" name="ghost charm" editorsuffix="(In Service of Yalahar Quest)" editorcategory="Quest Items">
     <attribute key="decayto" value="9738" />
     <attribute key="duration" value="120" />
   </item>
-  <item id="9740" name="nothing special" editorcategory="Duplicate">
+  <item id="9740" article="a" name="ghost charm" editorsuffix="(In Service of Yalahar Quest)" editorcategory="Quest Items">
     <attribute key="decayto" value="9739" />
     <attribute key="duration" value="120" />
   </item>
@@ -22011,10 +22006,10 @@
     <attribute key="description" value="It contains patterns to create food." />
     <attribute key="weight" value="250" />
   </item>
-  <item id="9745" article="a" name="ramp">
+  <item id="9745" article="a" name="ramp" editorcategory="Ramps">
     <attribute key="floorchange" value="north" />
   </item>
-  <item id="9746" article="a" name="ramp">
+  <item id="9746" article="a" name="ramp" editorcategory="Ramps">
     <attribute key="floorchange" value="west" />
   </item>
   <item id="9747" article="a" name="lit wall lamp" />
@@ -22945,7 +22940,9 @@
   <item id="10046" article="a" name="hat for Eclesius" editorsuffix="(The Scatterbrained Sorcerer Quest)" editorcategory="Quest Items">
     <attribute key="weight" value="110" />
   </item>
-  <item id="10047" name="nothing special" editorcategory="Duplicate" />
+  <item id="10047" article="a" name="hat for Eclesius" editorsuffix="(The Scatterbrained Sorcerer Quest)" editorcategory="Quest Items">
+    <attribute key="weight" value="110" />
+  </item>
   <item id="10048" article="a" name="hat for Eclesius" editorsuffix="(The Scatterbrained Sorcerer Quest)" editorcategory="Quest Items">
     <attribute key="weight" value="110" />
   </item>
@@ -23012,7 +23009,7 @@
   </item>
   <item id="10077" article="a" name="vortex of elemental water" />
   <item id="10078" name="pile of chaos matter" editorcategory="Corpses" />
-  <item id="10079" article="a" name="metal locker" />
+  <item id="10079" article="a" name="metal locker" editorcategory="Furnitures" />
   <item id="10080" article="a" name="glue dispenser" />
   <item id="10081" article="a" name="storage chest" editorsuffix="(Shadows of Yalahar Quest)" editorcategory="Quest Items">
     <attribute key="description" value="The chest is filled with crackling green power cores." />
@@ -23021,8 +23018,8 @@
   <item id="10083" article="a" name="storage box" editorsuffix="(Shadows of Yalahar Quest)" editorcategory="Quest Items">
     <attribute key="description" value="It contains numerous bags of screws." />
   </item>
-  <item id="10084" article="a" name="toolbox" />
-  <item id="10085" article="a" name="screwdriver holder" />
+  <item id="10084" article="a" name="toolbox" editorcategory="Furnitures" />
+  <item id="10085" article="a" name="screwdriver holder" editorcategory="Furnitures" />
   <item id="10086" article="an" name="energy generator" />
   <item id="10087" article="a" name="box (Vol:10)" editorcategory="Quest Chests" />
   <item id="10088" article="a" name="crate (Vol:15)" editorcategory="Quest Chests" />
@@ -23238,26 +23235,26 @@
   <item id="10174" article="an" name="unfinished golem" />
   <item id="10175" name="rock soil" />
   <item id="10176" name="dirt" />
-  <item id="10177" article="a" name="limestone wall" />
-  <item id="10178" article="a" name="limestone wall" />
+  <item id="10177" article="a" name="limestone wall" editorcategory="Walls" />
+  <item id="10178" article="a" name="limestone wall" editorcategory="Walls" />
   <item id="10179" article="a" name="limestone wall" />
   <item id="10180" article="a" name="limestone wall" />
   <item id="10181" article="a" name="limestone wall" />
   <item id="10182" article="a" name="limestone wall" />
-  <item id="10183" article="a" name="limestone wall" />
+  <item id="10183" article="a" name="limestone wall" editorcategory="Walls" />
   <item id="10184" article="a" name="limestone wall" />
-  <item id="10185" article="a" name="limestone wall" />
+  <item id="10185" article="a" name="limestone wall" editorcategory="Walls" />
   <item id="10186" article="a" name="limestone wall" />
   <item id="10187" article="a" name="limestone wall" />
   <item id="10188" article="a" name="broken limestone wall" />
   <item id="10189" article="a" name="broken limestone wall" />
   <item id="10190" article="a" name="limestone railing" />
   <item id="10191" article="a" name="limestone railing" />
-  <item id="10192" article="a" name="stone wall" />
-  <item id="10193" article="a" name="stone wall" />
+  <item id="10192" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="10193" article="a" name="stone wall" editorcategory="Walls" />
   <item id="10194" article="a" name="limestone railing" />
-  <item id="10195" article="a" name="stone wall" />
-  <item id="10196" article="a" name="stone wall" />
+  <item id="10195" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="10196" article="a" name="stone wall" editorcategory="Walls" />
   <item id="10197" article="a" name="limestone railing" />
   <item id="10198" article="a" name="limestone pillar" />
   <item id="10199" article="a" name="limestone pillar" />
@@ -23323,42 +23320,42 @@
   <item id="10225" article="the" name="top right part of a map" editorsuffix="(Treasure Hunt Quest)" editorcategory="Quest Items">
     <attribute key="weight" value="790" />
   </item>
-  <item id="10226" article="a" name="framework wall" />
-  <item id="10227" article="a" name="framework wall" />
+  <item id="10226" article="a" name="framework wall" editorcategory="Walls" />
+  <item id="10227" article="a" name="framework wall" editorcategory="Walls" />
   <item id="10228" article="a" name="framework wall" />
   <item id="10229" article="a" name="framework wall" />
   <item id="10230" article="a" name="framework wall" />
   <item id="10231" article="a" name="framework wall" />
-  <item id="10232" article="a" name="framework wall" />
+  <item id="10232" article="a" name="framework wall" editorcategory="Walls" />
   <item id="10233" article="a" name="framework wall" />
-  <item id="10234" article="a" name="framework wall" />
+  <item id="10234" article="a" name="framework wall" editorcategory="Walls" />
   <item id="10235" article="a" name="framework wall" />
   <item id="10236" article="a" name="framework wall" />
   <item id="10237" article="a" name="framework wall" />
   <item id="10238" article="a" name="framework wall" />
-  <item id="10239" article="a" name="framework wall" />
-  <item id="10240" article="a" name="framework wall" />
-  <item id="10241" article="a" name="framework wall" />
-  <item id="10242" article="a" name="framework wall" />
-  <item id="10243" article="a" name="framework wall" />
-  <item id="10244" article="a" name="framework wall" />
-  <item id="10245" article="a" name="framework wall" />
-  <item id="10246" article="a" name="framework wall" />
-  <item id="10247" article="a" name="framework wall" />
-  <item id="10248" article="a" name="framework wall" />
-  <item id="10249" article="a" name="stone wall" />
-  <item id="10250" article="a" name="stone wall" />
+  <item id="10239" article="a" name="framework wall" editorcategory="Walls" />
+  <item id="10240" article="a" name="framework wall" editorcategory="Walls" />
+  <item id="10241" article="a" name="framework wall" editorcategory="Walls" />
+  <item id="10242" article="a" name="framework wall" editorcategory="Walls" />
+  <item id="10243" article="a" name="framework wall" editorcategory="Walls" />
+  <item id="10244" article="a" name="framework wall" editorcategory="Walls" />
+  <item id="10245" article="a" name="framework wall" editorcategory="Walls" />
+  <item id="10246" article="a" name="framework wall" editorcategory="Walls" />
+  <item id="10247" article="a" name="framework wall" editorcategory="Walls" />
+  <item id="10248" article="a" name="framework wall" editorcategory="Walls" />
+  <item id="10249" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="10250" article="a" name="stone wall" editorcategory="Walls" />
   <item id="10251" article="a" name="stone wall" />
   <item id="10252" article="a" name="stone wall" />
   <item id="10253" article="a" name="stone wall" />
   <item id="10254" article="a" name="stone wall" />
-  <item id="10255" article="a" name="stone wall" />
+  <item id="10255" article="a" name="stone wall" editorcategory="Walls" />
   <item id="10256" article="a" name="stone wall" />
-  <item id="10257" article="a" name="stone wall" />
+  <item id="10257" article="a" name="stone wall" editorcategory="Walls" />
   <item id="10258" article="a" name="stone wall" />
   <item id="10259" article="a" name="stone wall" />
-  <item id="10260" article="a" name="stone wall" />
-  <item id="10261" article="a" name="stone wall" />
+  <item id="10260" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="10261" article="a" name="stone wall" editorcategory="Walls" />
   <item id="10262" article="a" name="framework window" />
   <item id="10263" article="a" name="framework window" />
   <item id="10264" article="a" name="framework window">
@@ -23383,7 +23380,7 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="10270" article="an" name="open door">
+  <item id="10270" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="10271" article="a" name="closed door">
@@ -23394,53 +23391,53 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="10273" article="an" name="open door">
+  <item id="10273" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="10274" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="10275" article="an" name="open door">
+  <item id="10275" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="10276" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="10277" article="an" name="open door">
+  <item id="10277" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="10278" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="10279" article="an" name="open door">
+  <item id="10279" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="10280" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="10281" article="an" name="open door">
+  <item id="10281" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="10282" article="a" name="gate of expertise">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="10283" article="a" name="gate of expertise">
+  <item id="10283" article="a" name="gate of expertise" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="10284" article="a" name="gate of expertise">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="10285" article="a" name="gate of expertise">
+  <item id="10285" article="a" name="gate of expertise" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
-  <item id="10286" article="a" name="stone wall" />
-  <item id="10287" article="a" name="stone wall" />
+  <item id="10286" article="a" name="stone wall" editorcategory="Walls" />
+  <item id="10287" article="a" name="stone wall" editorcategory="Walls" />
   <item id="10288" article="a" name="searing fire" editorcategory="Fields" />
   <item id="10289" article="a" name="meat shield" editorcategory="Shields">
     <attribute key="description" value="A sturdy shield made of old meat." />
@@ -23800,28 +23797,28 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="10470" article="an" name="open door">
+  <item id="10470" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="10471" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="10472" article="an" name="open door">
+  <item id="10472" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="10473" article="a" name="gate of expertise">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="10474" article="a" name="gate of expertise">
+  <item id="10474" article="a" name="gate of expertise" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="10475" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="10476" article="an" name="open door">
+  <item id="10476" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="10477" article="a" name="closed door">
@@ -23832,28 +23829,28 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="10479" article="an" name="open door">
+  <item id="10479" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="10480" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="10481" article="an" name="open door">
+  <item id="10481" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="10482" article="a" name="gate of expertise">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="10483" article="a" name="gate of expertise">
+  <item id="10483" article="a" name="gate of expertise" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="10484" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="10485" article="an" name="open door">
+  <item id="10485" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="10486" article="a" name="limestone window" />
@@ -24038,7 +24035,7 @@
   </item>
   <item id="10544" article="an" name="elemental cannon" editorcategory="Furnitures" />
   <item id="10545" article="an" name="elemental cannon" editorcategory="Furnitures" />
-  <item id="10546" article="a" name="magic wall" />
+  <item id="10546" article="a" name="magic wall" editorcategory="Fields" />
   <item id="10547" article="an" name="energy field" />
   <item id="10548" article="a" name="scarab pincers" plural="scarab pincers" editorcategory="Creature Products">
     <attribute key="weight" value="280" />
@@ -24401,7 +24398,7 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="10777" article="an" name="open door">
+  <item id="10777" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="10778" article="a" name="caramel candy mushroom" />
@@ -24410,14 +24407,14 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="10781" article="a" name="gate of expertise">
+  <item id="10781" article="a" name="gate of expertise" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="10782" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="10783" article="a" name="open door">
+  <item id="10783" article="a" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="10784" article="a" name="closed door">
@@ -24429,7 +24426,7 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="10786" article="an" name="open door">
+  <item id="10786" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="10787" article="a" name="golden fairy mushroom" />
@@ -24438,14 +24435,14 @@
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="10790" article="a" name="gate of expertise">
+  <item id="10790" article="a" name="gate of expertise" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="10791" article="a" name="closed door">
     <attribute key="blockprojectile" value="1" />
     <attribute key="type" value="door" />
   </item>
-  <item id="10792" article="an" name="open door">
+  <item id="10792" article="an" name="open door" editorcategory="Doors">
     <attribute key="type" value="door" />
   </item>
   <item id="10793" article="a" name="tainted plant" />
@@ -24648,12 +24645,12 @@
   <item id="10976" article="a" name="decoration" />
   <item id="10977" article="a" name="decoration" />
   <item id="10978" article="a" name="decoration" />
-  <item id="10979" article="a" name="weapon rack" />
-  <item id="10980" article="a" name="weapon rack" />
-  <item id="10981" article="a" name="weapon rack" />
-  <item id="10982" article="a" name="weapon rack" />
-  <item id="10983" article="a" name="weapon rack" />
-  <item id="10984" article="a" name="weapon rack" />
+  <item id="10979" article="a" name="weapon rack" editorcategory="Furnitures" />
+  <item id="10980" article="a" name="weapon rack" editorcategory="Furnitures" />
+  <item id="10981" article="a" name="weapon rack" editorcategory="Furnitures" />
+  <item id="10982" article="a" name="weapon rack" editorcategory="Furnitures" />
+  <item id="10983" article="a" name="weapon rack" editorcategory="Furnitures" />
+  <item id="10984" article="a" name="weapon rack" editorcategory="Furnitures" />
   <item id="10985" name="nothing special" editorsuffix="(Blank)" />
   <item id="10986" article="a" name="fire" />
   <item id="10987" article="a" name="fire" />
@@ -24770,12 +24767,12 @@
   <item id="11095" article="a" name="dragon statue" />
   <item id="11096" article="a" name="dragon statue" />
   <item id="11097" name="stone floor" />
-  <item id="11098" article="a" name="magic wall">
+  <item id="11098" article="a" name="magic wall" editorcategory="Fields">
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="20" />
     <attribute key="type" value="magicfield" />
   </item>
-  <item id="11099" article="a" name="rush wood">
+  <item id="11099" article="a" name="rush wood" editorcategory="Fields">
     <attribute key="decayto" value="0" />
     <attribute key="duration" value="45" />
     <attribute key="type" value="magicfield" />
@@ -24857,7 +24854,7 @@
   <item id="11120" article="a" name="stone" editorsuffix="(Blank)" />
   <item id="11121" article="a" name="stone" editorsuffix="(Blank)" />
   <item id="11122" article="a" name="bone pile" />
-  <item id="11123" article="a" name="stone stairs">
+  <item id="11123" article="a" name="stone stairs" editorcategory="Ramps">
     <attribute key="floorchange" value="north" />
   </item>
   <item id="11124" article="an" name="oven kit" editorcategory="Furnitures">
@@ -26403,8 +26400,8 @@
   <item id="11931" article="a" name="pillar" />
   <item id="11932" article="a" name="pillar" />
   <item id="11933" article="a" name="sapphire stand" />
-  <item id="11934" article="a" name="chair" />
-  <item id="11935" article="a" name="chair" />
+  <item id="11934" article="a" name="chair" editorcategory="Furnitures" />
+  <item id="11935" article="a" name="chair" editorcategory="Furnitures" />
   <item id="11936" article="a" name="blood cask" />
   <item id="11937" name="jade" />
   <item id="11938" name="jade" />
@@ -26435,10 +26432,10 @@
   <item id="11963" article="a" name="pillar" />
   <item id="11964" article="a" name="pillar" />
   <item id="11965" article="a" name="chair" editorcategory="Furnitures" />
-  <item id="11966" article="a" name="jade chair" />
-  <item id="11967" article="a" name="jade chair" />
-  <item id="11968" article="a" name="jade chair" />
-  <item id="11969" article="a" name="jade chair" />
+  <item id="11966" article="a" name="jade chair" editorcategory="Furnitures" />
+  <item id="11967" article="a" name="jade chair" editorcategory="Furnitures" />
+  <item id="11968" article="a" name="jade chair" editorcategory="Furnitures" />
+  <item id="11969" article="a" name="jade chair" editorcategory="Furnitures" />
   <item id="11970" article="a" name="timber wall" />
   <item id="11971" article="a" name="timber wall" />
   <item id="11972" name="jade ornaments" />
@@ -26563,18 +26560,18 @@
   <item id="12091" name="small crystals" />
   <item id="12092" article="a" name="closed door" />
   <item id="12093" article="a" name="closed door" />
-  <item id="12094" article="an" name="open door" />
+  <item id="12094" article="an" name="open door" editorcategory="Doors" />
   <item id="12095" article="a" name="gate of expertise" />
-  <item id="12096" article="a" name="gate of expertise" />
+  <item id="12096" article="a" name="gate of expertise" editorcategory="Doors" />
   <item id="12097" article="a" name="closed door" />
-  <item id="12098" article="an" name="open door" />
+  <item id="12098" article="an" name="open door" editorcategory="Doors" />
   <item id="12099" article="a" name="closed door" />
   <item id="12100" article="a" name="closed door" />
-  <item id="12101" article="an" name="open door" />
+  <item id="12101" article="an" name="open door" editorcategory="Doors" />
   <item id="12102" article="a" name="gate of expertise" />
-  <item id="12103" article="a" name="gate of expertise" />
+  <item id="12103" article="a" name="gate of expertise" editorcategory="Doors" />
   <item id="12104" article="a" name="closed door" />
-  <item id="12105" article="an" name="open door" />
+  <item id="12105" article="an" name="open door" editorcategory="Doors" />
   <item id="12106" article="a" name="dragon scale decoration" />
   <item id="12107" article="a" name="dragon scale decoration" />
   <item id="12108" name="dragon spikes" />
@@ -26659,22 +26656,22 @@
   <item id="12187" name="carpet" />
   <item id="12188" article="a" name="closed door" />
   <item id="12189" article="a" name="closed door" />
-  <item id="12190" article="an" name="open door" />
+  <item id="12190" article="an" name="open door" editorcategory="Doors" />
   <item id="12191" article="a" name="dragon claw lamp" />
   <item id="12192" article="a" name="dragon claw lamp" />
   <item id="12193" article="a" name="gate of expertise" />
-  <item id="12194" article="a" name="gate of expertise" />
+  <item id="12194" article="a" name="gate of expertise" editorcategory="Doors" />
   <item id="12195" article="a" name="closed door" />
-  <item id="12196" article="an" name="open door" />
+  <item id="12196" article="an" name="open door" editorcategory="Doors" />
   <item id="12197" article="a" name="closed door" />
   <item id="12198" article="a" name="closed door" />
-  <item id="12199" article="an" name="open door" />
+  <item id="12199" article="an" name="open door" editorcategory="Doors" />
   <item id="12200" article="a" name="dragon claw lamp" />
   <item id="12201" article="a" name="dragon claw lamp" />
   <item id="12202" article="a" name="gate of expertise" />
-  <item id="12203" article="a" name="gate of expertise" />
+  <item id="12203" article="a" name="gate of expertise" editorcategory="Doors" />
   <item id="12204" article="a" name="closed door" />
-  <item id="12205" article="an" name="open door" />
+  <item id="12205" article="an" name="open door" editorcategory="Doors" />
   <item id="12206" article="a" name="wall mirror" />
   <item id="12207" article="a" name="wall mirror" />
   <item id="12208" article="a" name="wall lamp" />
@@ -26851,7 +26848,7 @@
     <attribute key="description" value="This plant poison is meant to destroy the growths near the Keeper's lair deep beneath the gardens." />
     <attribute key="weight" value="180" />
   </item>
-  <item id="12321" article="a" name="ramp" />
+  <item id="12321" article="a" name="ramp" editorcategory="Ramps" />
   <item id="12322" name="corrupted mud" />
   <item id="12323" article="the" name="tail of the Keeper" editorsuffix="(Wrath of the Emperor Quest)" editorcategory="Quest Items">
     <attribute key="weight" value="450" />
@@ -26941,7 +26938,9 @@
   <item id="12395" article="a" name="slimy cocoon" />
   <item id="12396" article="a" name="large book" />
   <item id="12397" article="a" name="large book" />
-  <item id="12398" article="a" name="large book" />
+  <item id="12398" article="a" name="large book" editorsuffix="(Writeable)" editorcategory="Documents and Papers">
+    <attribute key="writeable" value="1" />
+  </item>
   <item id="12399" article="a" name="girlish hair decoration" editorcategory="Creature Products">
     <attribute key="weight" value="50" />
   </item>
@@ -27167,7 +27166,7 @@
   <item id="12495" article="a" name="goblin ear" plural="goblin ears" editorcategory="Creature Products">
     <attribute key="weight" value="75" />
   </item>
-  <item id="12496" article="a" name="heavy crate" />
+  <item id="12496" article="a" name="heavy crate" editorcategory="Containers" />
   <item id="12497" name="Jean Pierre's Cookbook II" editorcategory="Books">
     <attribute key="description" value="It was given to you by the djinn maître and contains new recipes you cooked." />
     <attribute key="weight" value="1500" />
