@@ -122,7 +122,7 @@ namespace OpenTibia.Network.Packets.Outgoing
                 writer.Write(Level);
             }
 
-            writer.Write( (byte)TalkType );
+            writer.Write(features.GetByteForTalkType(TalkType) );
 
             switch (option)
             {

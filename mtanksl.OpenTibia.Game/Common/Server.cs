@@ -593,7 +593,7 @@ namespace OpenTibia.Game.Common
 
             Status = ServerStatus.Running;
 
-            Logger.WriteLine("Server status: running. Listening on " + Config.IpAddress + " at ports " + string.Join(", ", ports) + ".");
+            Logger.WriteLine("Server status: running. Client version: " + Config.ClientVersion + ". Listening on " + Config.IpAddress + " at " + string.Join(", ", ports) + ".");
         }
 
         private Dictionary<string, SchedulerEvent> schedulerEvents = new Dictionary<string, SchedulerEvent>();

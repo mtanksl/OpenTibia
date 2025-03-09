@@ -13,5 +13,9 @@ namespace OpenTibia.Common.Objects
         byte GetByteForProjectileType(ProjectileType projectileType);
 
         byte GetByteForTextColor(TextColor textColor);
+
+        TalkType GetTalkTypeForByte(byte value);
+
+        byte GetByteForTalkType(TalkType talkType);
     }
 }

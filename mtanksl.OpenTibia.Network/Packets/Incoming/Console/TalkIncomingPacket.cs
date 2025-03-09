@@ -16,7 +16,7 @@ namespace OpenTibia.Network.Packets.Incoming
         
         public void Read(IByteArrayStreamReader reader, IHasFeatureFlag features)        
         {
-            TalkType = (TalkType)reader.ReadByte();
+            TalkType = features.GetTalkTypeForByte(reader.ReadByte() );
 
             switch (TalkType)
             {                   

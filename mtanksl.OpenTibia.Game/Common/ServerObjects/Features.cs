@@ -17,24 +17,20 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         public void Start()
         {
+			#region Clients
+
 			if (server.Config.ClientVersion == new Version(7, 72) )
 			{
                 clientVersion = 772;
-
                 tibiaDat = 1134385715;
-
                 tibiaPic = 1146144984;
-
                 tibiaSpr = 1134056126;
             }
             else if (server.Config.ClientVersion == new Version(8, 60) )
             {
                 clientVersion = 860;
-
 				tibiaDat = 1277983123;
-
 				tibiaPic = 1256571859;
-
 				tibiaSpr = 1277298068;				
             }
             else
@@ -42,7 +38,11 @@ namespace OpenTibia.Game.Common.ServerObjects
                 throw new NotImplementedException();
             }
 
-			if (clientVersion >= 770)
+            #endregion
+
+            #region Feature Flags
+
+            if (clientVersion >= 770)
 			{
 				featureFlags.Add(FeatureFlag.LookTypeUInt16);
 				featureFlags.Add(FeatureFlag.MessageStatement);
@@ -87,6 +87,88 @@ namespace OpenTibia.Game.Common.ServerObjects
 			{
 				featureFlags.Add(FeatureFlag.AttackSequence);
 			}
+
+			#endregion
+
+			#region Text Color
+
+			if (clientVersion >= 840) 
+			{
+				MapTextColor(1, TextColor.YellowDefault);
+				MapTextColor(4, TextColor.PurpleDefault);
+				MapTextColor(5, TextColor.TealDefaultAndNpcs);
+				MapTextColor(6, TextColor.TealDefault);
+				MapTextColor(12, TextColor.RedServerLog);
+				MapTextColor(16, TextColor.RedDefault);
+				MapTextColor(19, TextColor.OrangeDefault);
+				MapTextColor(21, TextColor.RedCenterGameWindowAndServerLog);
+				MapTextColor(22, TextColor.WhiteCenterGameWindowAndServerLog);
+				MapTextColor(23, TextColor.WhiteBottomGameWindowAndServerLog);
+				MapTextColor(25, TextColor.GreenCenterGameWindowAndServerLog);
+				MapTextColor(26, TextColor.WhiteBottomGameWindow);
+			} 
+			else if (clientVersion >= 760) 
+			{
+                MapTextColor(1, TextColor.YellowDefault);
+                MapTextColor(4, TextColor.PurpleDefault);
+                MapTextColor(17, TextColor.OrangeDefault);
+                MapTextColor(18, TextColor.RedCenterGameWindowAndServerLog);
+                MapTextColor(19, TextColor.WhiteCenterGameWindowAndServerLog);
+                MapTextColor(20, TextColor.WhiteBottomGameWindowAndServerLog);
+                MapTextColor(22, TextColor.GreenCenterGameWindowAndServerLog);
+                MapTextColor(23, TextColor.WhiteBottomGameWindow);
+                MapTextColor(24, TextColor.TealDefault);
+                MapTextColor(25, TextColor.RedServerLog);
+            }
+
+            #endregion
+
+            #region Talk Type
+
+            if (clientVersion >= 840) 
+			{
+				MapTalkType(1, TalkType.Say);
+				MapTalkType(2, TalkType.Whisper);
+				MapTalkType(3, TalkType.Yell);
+				MapTalkType(4, TalkType.PrivatePlayerToNpc);
+				MapTalkType(5, TalkType.PrivateNpcToPlayer);
+				MapTalkType(6, TalkType.Private);
+				MapTalkType(7, TalkType.ChannelYellow);
+				MapTalkType(8, TalkType.ChannelWhite);
+				MapTalkType(9, TalkType.ReportRuleViolationOpen);
+				MapTalkType(10, TalkType.ReportRuleViolationAnswer);
+				MapTalkType(11, TalkType.ReportRuleViolationQuestion);
+				MapTalkType(12, TalkType.Broadcast);
+				MapTalkType(13, TalkType.ChannelRed);
+				MapTalkType(14, TalkType.PrivateRed);
+				MapTalkType(15, TalkType.ChannelOrange);
+				MapTalkType(16, TalkType.Unknown);
+				MapTalkType(17, TalkType.ChannelRedAnonymous);
+				MapTalkType(19, TalkType.MonsterSay);
+				MapTalkType(20, TalkType.MonsterYell);
+			} 
+			else if (clientVersion >= 760) 
+			{
+                MapTalkType(1, TalkType.Say);
+                MapTalkType(2, TalkType.Whisper);
+                MapTalkType(3, TalkType.Yell);
+                MapTalkType(4, TalkType.Private);
+                MapTalkType(5, TalkType.ChannelYellow);
+                MapTalkType(6, TalkType.ReportRuleViolationOpen);
+                MapTalkType(7, TalkType.ReportRuleViolationAnswer);
+                MapTalkType(8, TalkType.ReportRuleViolationQuestion);
+                MapTalkType(9, TalkType.Broadcast);
+                MapTalkType(10, TalkType.ChannelRed);
+                MapTalkType(11, TalkType.PrivateRed);
+                MapTalkType(12, TalkType.ChannelOrange);
+                MapTalkType(13, TalkType.ChannelRedAnonymous);
+                MapTalkType(17, TalkType.MonsterSay);
+                MapTalkType(16, TalkType.MonsterYell);
+            }
+
+			#endregion
+
+			#region Packets
 
 			loginFirstCommands.Add(0x01, new PacketToCommand<EnterGameIncomingPacket>("Enter Game",(connection, packet) => new ParseEnterGameCommand(connection, packet) ) );
 
@@ -657,6 +739,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 			gameAccountManagerCommands.Add(0xF2, new PacketToCommand<ReportRuleViolationIncomingPacket>("Report Rule Violation", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
          
 			infoFirstCommands.Add(0xFF, new PacketToCommand<InfoIncomingPacket>("Info", (connection, packet) => new ParseInfoProtocolCommand(connection, packet) ) );
+         
+			#endregion
         }
 
         public int clientVersion;
@@ -762,12 +846,59 @@ namespace OpenTibia.Game.Common.ServerObjects
             return (byte)projectileType;
         }
 
-		public byte GetByteForTextColor(TextColor textColor)
-        {
-            //TODO: Features
+        private Dictionary<TextColor, byte> textColorToByte = new Dictionary<TextColor, byte>();
 
-            return (byte)textColor;
+        private void MapTextColor(byte value, TextColor textColor)
+        {
+            textColorToByte.Add(textColor, value);
         }
+
+        public byte GetByteForTextColor(TextColor textColor)
+        {
+			byte value;
+
+            if ( !textColorToByte.TryGetValue(textColor, out value) )
+			{
+                textColorToByte.TryGetValue(TextColor.WhiteBottomGameWindow, out value);
+			}
+
+			return value;
+        }
+
+        private Dictionary<byte, TalkType> byteToTalkType = new Dictionary<byte, TalkType>();
+
+        private Dictionary<TalkType, byte> talkTypeToByte = new Dictionary<TalkType, byte>();
+
+        private void MapTalkType(byte value, TalkType talkType)
+        {
+			byteToTalkType.Add(value, talkType);
+
+            talkTypeToByte.Add(talkType, value);
+        }
+
+        public TalkType GetTalkTypeForByte(byte value)
+		{
+			TalkType talkType;
+
+            if ( !byteToTalkType.TryGetValue(value, out talkType) )
+			{
+				talkType = TalkType.Say;
+			}
+
+			return talkType;
+		}
+
+        public byte GetByteForTalkType(TalkType talkType)
+		{
+			byte value;
+
+            if ( !talkTypeToByte.TryGetValue(talkType, out value) )
+			{
+				talkTypeToByte.TryGetValue(TalkType.Say, out value);
+			}
+
+			return value;
+		}
 
         private Dictionary<byte, IPacketToCommand> loginFirstCommands = new Dictionary<byte, IPacketToCommand>();
 
