@@ -27,7 +27,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     if (shallowWaters.Contains(fromTile.Ground.Metadata.OpenTibiaId) )
                     {
-                        return Context.AddCommand(new CreatureUpdateOutfitCommand(e.Creature, e.Creature.BaseOutfit, e.Creature.ConditionOutfit, false, e.Creature.ConditionStealth, e.Creature.ItemStealth) );
+                        return Context.AddCommand(new CreatureUpdateOutfitCommand(e.Creature, e.Creature.BaseOutfit, e.Creature.ConditionOutfit, false, e.Creature.ConditionStealth, e.Creature.ItemStealth, e.Creature.IsMounted) );
                     }
                 }
             }

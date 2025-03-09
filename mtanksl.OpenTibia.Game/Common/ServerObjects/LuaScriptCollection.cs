@@ -433,7 +433,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             lua.RegisterCoFunction("creatureupdateoutfit", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new CreatureUpdateOutfitCommand( (Creature)args[0], ToOutfit(args[1] ), ToOutfit(args[2] ), LuaScope.GetBoolean(args[3] ), LuaScope.GetBoolean(args[4] ), LuaScope.GetBoolean(args[5] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new CreatureUpdateOutfitCommand( (Creature)args[0], ToOutfit(args[1] ), ToOutfit(args[2] ), LuaScope.GetBoolean(args[3] ), LuaScope.GetBoolean(args[4] ), LuaScope.GetBoolean(args[5] ), LuaScope.GetBoolean(args[6] )  ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );

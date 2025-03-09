@@ -607,7 +607,12 @@ namespace OpenTibia.Game.Common.ServerObjects
 			gameCommands.Add(0xD2, new PacketToCommand<SetOutfitIncomingPacket>("Set Outfit", (connection, packet) => new ParseSetOutfitCommand(connection.Client.Player) ) );
 			
 			gameCommands.Add(0xD3, new PacketToCommand<SelectedOutfitIncomingPacket>("Selected Outfit", (connection, packet) => new ParseSelectedOutfitCommand(connection.Client.Player, packet.Outfit) ) );
-			
+
+			if (clientVersion >= 870)
+			{
+				gameCommands.Add(0xD4, new PacketToCommand<MountIncomingPacket>("Mount", (connection, packet) => new ParseMountCommand(connection.Client.Player, packet.IsMounted) ) );
+			}
+
 			gameCommands.Add(0xDC, new PacketToCommand<AddVipIncomingPacket>("Add Vip", (connection, packet) => new ParseAddVipCommand(connection.Client.Player, packet.Name) ) );
 			
 			gameCommands.Add(0xDD, new PacketToCommand<RemoveVipIncomingPacket>("Remove Vip", (connection, packet) => new ParseRemoveVipCommand(connection.Client.Player, packet.CreatureId) ) );
@@ -742,6 +747,11 @@ namespace OpenTibia.Game.Common.ServerObjects
             
 			gameAccountManagerCommands.Add(0xD3, new PacketToCommand<SelectedOutfitIncomingPacket>("Selected Outfit", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
             
+			if (clientVersion >= 870)
+			{
+                gameAccountManagerCommands.Add(0xD4, new PacketToCommand<MountIncomingPacket>("Mount", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
+			}
+
 			gameAccountManagerCommands.Add(0xDC, new PacketToCommand<AddVipIncomingPacket>("Add Vip", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
             
 			gameAccountManagerCommands.Add(0xDD, new PacketToCommand<RemoveVipIncomingPacket>("Remove Vip", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );

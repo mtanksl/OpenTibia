@@ -53,7 +53,7 @@ namespace OpenTibia.Game.Commands
             {
                 if (Item.Metadata.OpenTibiaId == stealthRing)
                 {
-                    await Context.AddCommand(new CreatureUpdateOutfitCommand(Inventory.Player, Inventory.Player.BaseOutfit, Inventory.Player.ConditionOutfit, Inventory.Player.Swimming, Inventory.Player.ConditionStealth, true) );
+                    await Context.AddCommand(new CreatureUpdateOutfitCommand(Inventory.Player, Inventory.Player.BaseOutfit, Inventory.Player.ConditionOutfit, Inventory.Player.Swimming, Inventory.Player.ConditionStealth, true, Inventory.Player.IsMounted) );
                 }
 
                 if (Item.Metadata.SpeedModifier != null)

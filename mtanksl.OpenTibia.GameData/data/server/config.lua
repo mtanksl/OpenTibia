@@ -2,7 +2,7 @@ IP_ADDRESS = "127.0.0.1"
 LOGIN_PORT = 7171
 GAME_PORT = 7172
 INFO_PORT = 7173
-CLIENT_VERSION = "8.60" -- "7.72" or "8.60" (not completely ported to older versions yet)
+CLIENT_VERSION = "8.60" -- "7.72" (experimental), "8.60" (stable) or "8.70" (experimental)
 
 server = {
 	info = {

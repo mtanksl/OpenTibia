@@ -8,7 +8,7 @@ namespace OpenTibia.Game.Commands
 {
     public class CreatureUpdateOutfitCommand : Command
     {
-        public CreatureUpdateOutfitCommand(Creature creature, Outfit baseOutfit, Outfit conditionOutfit, bool swimming, bool conditionStealth, bool itemStealth)
+        public CreatureUpdateOutfitCommand(Creature creature, Outfit baseOutfit, Outfit conditionOutfit, bool swimming, bool conditionStealth, bool itemStealth, bool isMounted)
         {
             Creature = creature;
 
@@ -21,6 +21,8 @@ namespace OpenTibia.Game.Commands
             ConditionStealth = conditionStealth;
 
             ItemStealth = itemStealth;
+
+            IsMounted = isMounted;
         }
 
         public Creature Creature { get; set; }
@@ -35,15 +37,18 @@ namespace OpenTibia.Game.Commands
 
         public bool ItemStealth { get; set; }
 
+        public bool IsMounted { get; set; }
+
         public override Promise Execute()
         {
-            if (Creature.BaseOutfit != BaseOutfit || Creature.ConditionOutfit != ConditionOutfit || Creature.Swimming != Swimming || Creature.ConditionStealth != ConditionStealth || Creature.ItemStealth != ItemStealth)
+            if (Creature.BaseOutfit != BaseOutfit || Creature.ConditionOutfit != ConditionOutfit || Creature.Swimming != Swimming || Creature.ConditionStealth != ConditionStealth || Creature.ItemStealth != ItemStealth || Creature.IsMounted != IsMounted)
             {
                 Creature.BaseOutfit = BaseOutfit;
                 Creature.ConditionOutfit = ConditionOutfit;
                 Creature.Swimming = Swimming;
                 Creature.ConditionStealth = ConditionStealth;
                 Creature.ItemStealth = ItemStealth;
+                Creature.IsMounted = IsMounted;
 
                 if (Creature.Tile != null)
                 {

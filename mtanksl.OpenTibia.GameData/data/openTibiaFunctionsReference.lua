@@ -481,11 +481,11 @@ return {
 				args = "(Creature creature, Light conditionLight, Light itemLight)",
 				returns = "void"
 			},
-			-- void command.creatureupdateoutfit(Creature creature, Outfit baseOutfit, Outfit conditionOutfit, bool swimming, bool conditionStealth, bool itemStealth)
+			-- void command.creatureupdateoutfit(Creature creature, Outfit baseOutfit, Outfit conditionOutfit, bool swimming, bool conditionStealth, bool itemStealth, bool isMounted)
 			creatureupdateoutfit = {
 				type = "function",
 				description = "",
-				args = "(Creature creature, Outfit baseOutfit, Outfit conditionOutfit, bool swimming, bool conditionStealth, bool itemStealth)",
+				args = "(Creature creature, Outfit baseOutfit, Outfit conditionOutfit, bool swimming, bool conditionStealth, bool itemStealth, bool isMounted)",
 				returns = "void"
 			},
 			-- void command.creatureupdatespeed(Creature creature, int conditionSpeed, int itemSpeed)

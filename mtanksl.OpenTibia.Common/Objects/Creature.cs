@@ -88,6 +88,8 @@ namespace OpenTibia.Common.Objects
 
         public bool Swimming { get; set; }
 
+        public bool IsMounted { get; set; }
+
         public Outfit ClientOutfit
         {
             get
@@ -115,6 +117,11 @@ namespace OpenTibia.Common.Objects
                 if (ConditionOutfit != null)
                 {
                     return ConditionOutfit;
+                }
+
+                if ( !IsMounted )
+                {
+                    return new Outfit(BaseOutfit.Id, BaseOutfit.Head, BaseOutfit.Body, BaseOutfit.Legs, BaseOutfit.Feet, BaseOutfit.Addon, (ushort)0);
                 }
 
                 return BaseOutfit;
