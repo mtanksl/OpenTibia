@@ -38,6 +38,11 @@ namespace OpenTibia.Game.Commands
                     continue;
                 }
 
+                if (Context.Server.Features.ClientVersion < outfitConfig.MinClientVersion)
+                {
+                    continue;
+                }
+
                 if (outfitConfig.AvailableAtOnce)
                 {
                     Addon addon;

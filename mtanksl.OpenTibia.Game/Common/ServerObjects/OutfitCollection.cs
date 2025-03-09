@@ -42,7 +42,9 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     Premium = LuaScope.GetBoolean(lOutfit["premium"] ),
 
-                    AvailableAtOnce = LuaScope.GetBoolean(lOutfit["availableatonce"] )
+                    AvailableAtOnce = LuaScope.GetBoolean(lOutfit["availableatonce"] ),
+
+                    MinClientVersion = LuaScope.GetInt32(lOutfit["minclientversion"] )
                 };
 
                 outfits.Add(outfit.Id, outfit);

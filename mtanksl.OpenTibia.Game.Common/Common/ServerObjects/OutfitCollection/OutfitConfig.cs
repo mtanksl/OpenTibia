@@ -15,5 +15,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         public bool Premium { get; set; }
 
         public bool AvailableAtOnce { get; set; }
+
+        public int MinClientVersion { get; set; }
     }
 }
