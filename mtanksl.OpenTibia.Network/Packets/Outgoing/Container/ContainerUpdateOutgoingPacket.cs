@@ -28,7 +28,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 
             writer.Write(Index);
 
-            writer.Write(Item);
+            writer.Write(features, Item);
         }
     }
 }

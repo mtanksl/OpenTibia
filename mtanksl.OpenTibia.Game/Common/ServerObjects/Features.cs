@@ -74,7 +74,6 @@ namespace OpenTibia.Game.Common.ServerObjects
 			if (clientVersion >= 841) 
 			{
 				featureFlags.Add(FeatureFlag.ChallengeOnLogin);
-				//featureFlags.Add(FeatureFlag.MessageSizeCheck);
 				featureFlags.Add(FeatureFlag.TileIndex);
 			}
 
@@ -705,6 +704,69 @@ namespace OpenTibia.Game.Common.ServerObjects
         public bool HasFeatureFlag(FeatureFlag featureFlag)
         {
             return featureFlags.Contains(featureFlag);
+        }
+
+        private static FluidColor[] FluidColors = new FluidColor[]
+        {
+            FluidColor.Empty,
+
+            FluidColor.Blue,
+
+            FluidColor.Red,
+
+            FluidColor.Brown1,
+
+            FluidColor.Green,
+
+            FluidColor.Yellow,
+
+            FluidColor.White,
+
+            FluidColor.Purple
+        };
+
+        public byte GetByteForFluidType(FluidType fluidType)
+        {
+            //TODO: Features
+
+            return (byte)FluidColors[ (int)fluidType % FluidColors.Length];
+        }
+
+		public byte GetByteForMagicEffectType(MagicEffectType magicEffectType)
+        {
+            if (clientVersion < 780)
+            {
+                if (magicEffectType >= MagicEffectType.Bubbles)
+                {
+                    magicEffectType =  MagicEffectType.Puff;
+                }
+            }
+            
+            //TODO: Features
+
+            return (byte)magicEffectType;
+        }
+
+		public byte GetByteForProjectileType(ProjectileType projectileType)
+        {
+            if (clientVersion < 780)
+            {
+                if (projectileType >= ProjectileType.ViperStar)
+                {
+                    projectileType = ProjectileType.Spear;
+                }
+            }
+            
+            //TODO: Features
+
+            return (byte)projectileType;
+        }
+
+		public byte GetByteForTextColor(TextColor textColor)
+        {
+            //TODO: Features
+
+            return (byte)textColor;
         }
 
         private Dictionary<byte, IPacketToCommand> loginFirstCommands = new Dictionary<byte, IPacketToCommand>();

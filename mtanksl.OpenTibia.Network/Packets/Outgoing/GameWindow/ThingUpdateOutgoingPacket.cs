@@ -76,7 +76,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 
                 case 2:
 
-                    writer.Write(Item);
+                    writer.Write(features, Item);
 
                     break;
             }

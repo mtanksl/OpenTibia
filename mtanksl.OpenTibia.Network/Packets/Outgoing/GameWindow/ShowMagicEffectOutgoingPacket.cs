@@ -27,7 +27,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 
             writer.Write(Position.Z);
 
-            writer.Write( (byte)MagicEffectType );
+            writer.Write(features.GetByteForMagicEffectType(MagicEffectType) );
         }
     }
 }

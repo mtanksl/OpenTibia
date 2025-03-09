@@ -21,7 +21,7 @@ namespace OpenTibia.Network.Packets.Outgoing
         {
             writer.Write( (byte)0xB4 );
 
-            writer.Write( (byte)TextColor );
+            writer.Write(features.GetByteForTextColor(TextColor) );
 
             writer.Write(Message);
         }

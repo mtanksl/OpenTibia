@@ -101,7 +101,7 @@ namespace OpenTibia.Network.Packets.Outgoing
                 {
                     case Item item:
 
-                        writer.Write(item);
+                        writer.Write(features, item);
 
                         break;
 

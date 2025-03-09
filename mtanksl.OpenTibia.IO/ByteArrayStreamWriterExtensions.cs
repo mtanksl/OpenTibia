@@ -45,26 +45,7 @@ namespace OpenTibia.IO
             writer.Write(light.Color);
         }
 
-        private static FluidColor[] FluidColors = new FluidColor[]
-        {
-            FluidColor.Empty,
-
-            FluidColor.Blue,
-
-            FluidColor.Red,
-
-            FluidColor.Brown1,
-
-            FluidColor.Green,
-
-            FluidColor.Yellow,
-
-            FluidColor.White,
-
-            FluidColor.Purple
-        };
-
-        public static void Write(this IByteArrayStreamWriter writer, Item item)
+        public static void Write(this IByteArrayStreamWriter writer, IHasFeatureFlag features, Item item)
         {
             writer.Write(item.Metadata.TibiaId);
 
@@ -78,13 +59,13 @@ namespace OpenTibia.IO
 
                 case FluidItem fluidItem:
 
-                    writer.Write( (byte)FluidColors[ (int)fluidItem.FluidType % FluidColors.Length ] );
+                    writer.Write(features.GetByteForFluidType(fluidItem.FluidType) );
 
                     break;
 
                 case SplashItem splashItem:
 
-                    writer.Write( (byte)FluidColors[ (int)splashItem.FluidType % FluidColors.Length ] );
+                    writer.Write(features.GetByteForFluidType(splashItem.FluidType) );
 
                     break;
             }

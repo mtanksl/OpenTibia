@@ -37,7 +37,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 
             writer.Write(ToPosition.Z);
             
-            writer.Write( (byte)ProjectileType );
+            writer.Write(features.GetByteForProjectileType(ProjectileType) );
         }
     }
 }

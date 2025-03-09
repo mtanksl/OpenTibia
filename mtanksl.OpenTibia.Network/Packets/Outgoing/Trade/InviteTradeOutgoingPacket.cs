@@ -39,7 +39,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 
             foreach (var item in items)
             {
-                writer.Write(item);
+                writer.Write(features, item);
             }
         }
     }

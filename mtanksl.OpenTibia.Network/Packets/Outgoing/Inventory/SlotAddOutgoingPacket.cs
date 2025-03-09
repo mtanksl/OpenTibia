@@ -22,7 +22,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 
             writer.Write(Slot);
 
-            writer.Write(Item);
+            writer.Write(features, Item);
         }
     }
 }

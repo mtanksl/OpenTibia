@@ -16,7 +16,6 @@
         AccountString,
         PlayerCapacityUInt32,
         ChallengeOnLogin,
-        MessageSizeCheck,
         TileIndex,        
         CreatureWarIcon,
         CreatureBlock,
