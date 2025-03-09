@@ -887,6 +887,40 @@ namespace OpenTibia.Game.Common.ServerObjects
                 return Promise.FromResultAsEmptyObjectArray;
             } );
 
+            lua.RegisterCoFunction("playergetmounts", (luaScope, args) =>
+            {
+                Player player = (Player)args[0];
+
+                ushort[] mounts = player.Mounts.GetMounts().ToArray();
+
+                return Promise.FromResult(new object[] { lua.ToTable(mounts) } );
+            } );
+
+            lua.RegisterCoFunction("playerhasmount", (luaScope, args) =>
+            {
+                Player player = (Player)args[0];
+
+                return player.Mounts.HasMount(LuaScope.GetUInt16(args[1] ) ) ? Promise.FromResultAsBooleanTrueObjectArray : Promise.FromResultAsBooleanFalseObjectArray;
+            } );
+
+            lua.RegisterCoFunction("playersetmount", (luaScope, args) =>
+            {
+                Player player = (Player)args[0];
+
+                player.Mounts.SetMount(LuaScope.GetUInt16(args[1] ) );
+
+                return Promise.FromResultAsEmptyObjectArray;
+            } );
+
+            lua.RegisterCoFunction("playerremovemount", (luaScope, args) =>
+            {
+                Player player = (Player)args[0];
+
+                player.Mounts.RemoveMount(LuaScope.GetUInt16(args[1] ) );
+
+                return Promise.FromResultAsEmptyObjectArray;
+            } );
+
             lua.RegisterCoFunction("playergetstorage", (luaScope, args) =>
             {
                 Player player = (Player)args[0];

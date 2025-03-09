@@ -796,6 +796,34 @@ return {
 				args = "(Player player, ushort outfitId)",
 				returns = "void"
 			},
+			-- ushort[] command.playergetmounts(Player player)
+			playergetmounts = {
+				type = "function",
+				description = "",
+				args = "(Player player)",
+				returns = "ushort[]"
+			},
+			-- bool command.playerhasmount(Player player,ushort mountId)
+			playerhasmount = {
+				type = "function",
+				description = "",
+				args = "(Player player, ushort mountId)",
+				returns = "bool"
+			},
+			-- void command.playersetmount(Player player, ushort mountId)
+			playersetmount = {
+				type = "function",
+				description = "",
+				args = "(Player player, ushort mountId)",
+				returns = "void"
+			},
+			-- void command.playerremovemount(Player player, ushort mountId)
+			playerremovemount = {
+				type = "function",
+				description = "",
+				args = "(Player player, ushort mountId)",
+				returns = "void"
+			},
 			-- (bool, int) command.playergetstorage(Player player, int key)
 			playergetstorage = {
 				type = "function",
