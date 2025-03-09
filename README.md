@@ -1,6 +1,6 @@
 # What is this?
 
-It is an open Tibia server, a simple one, written in C# from scratch. 
+It is an open Tibia server written in C# from scratch. Base protocol is 8.60. Experimental support for other protocols, ranging from 7.72 to 8.70.
 
 # Why another one?
 
@@ -86,6 +86,14 @@ You can use [OTItemEditor](https://github.com/opentibia/item-editor).
 ### Lua IDE (.lua)
 
 You can use [ZeroBrane Studio IDE](https://studio.zerobrane.com).
+
+### Tibia 7.72 client
+
+You can download the official release direct from here [4Shared](https://www.4shared.com/s/fFuN0IXb6ge).
+
+### Tibia 8.74 client
+
+You can download the official release direct from here [4Shared](https://www.4shared.com/s/fDNUFuISgku).
 
 # Project's wiki
 

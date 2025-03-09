@@ -541,3 +541,34 @@ GO
 
 COMMIT;
 GO
+
+--
+
+BEGIN TRANSACTION;
+GO
+
+ALTER TABLE [Players] ADD [BaseOutfitMount] int NOT NULL DEFAULT 0;
+GO
+
+UPDATE [Players] SET [BaseOutfitMount] = 0
+WHERE [Id] = 1;
+GO
+
+UPDATE [Players] SET [BaseOutfitMount] = 0
+WHERE [Id] = 2;
+GO
+
+UPDATE [Players] SET [BaseOutfitMount] = 0
+WHERE [Id] = 3;
+GO
+
+UPDATE [Players] SET [BaseOutfitMount] = 0
+WHERE [Id] = 4;
+GO
+
+UPDATE [Players] SET [BaseOutfitMount] = 0
+WHERE [Id] = 5;
+GO
+
+COMMIT;
+GO

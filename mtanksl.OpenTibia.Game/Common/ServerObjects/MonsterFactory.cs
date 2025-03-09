@@ -51,7 +51,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     Light = xmlMonster.Light == null ? Light.None : new Light( (byte)xmlMonster.Light.Level, (byte)xmlMonster.Light.Color),
 
-                    Outfit = xmlMonster.Look.TypeEx != 0 ? new Outfit(xmlMonster.Look.TypeEx) : new Outfit(xmlMonster.Look.Type, xmlMonster.Look.Head, xmlMonster.Look.Body, xmlMonster.Look.Legs, xmlMonster.Look.Feet, (Addon)xmlMonster.Look.Addon),
+                    Outfit = xmlMonster.Look.TypeEx != 0 ? new Outfit(xmlMonster.Look.TypeEx) : new Outfit(xmlMonster.Look.Type, xmlMonster.Look.Head, xmlMonster.Look.Body, xmlMonster.Look.Legs, xmlMonster.Look.Feet, (Addon)xmlMonster.Look.Addon, xmlMonster.Look.Mount),
 
                     Corpse = (ushort)xmlMonster.Look.Corpse,
 

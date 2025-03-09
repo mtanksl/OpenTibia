@@ -76,7 +76,34 @@ namespace OpenTibia.Game.Commands
                 outfits.Add(new OutfitDto(Outfit.GamemasterGreen.Id, "Community Manager", Addon.None) );
             }
 
-            Context.AddPacket(Player, new OpenSelectOutfitDialogOutgoingPacket(Player.BaseOutfit, outfits) );
+            List<MountDto> mounts = new List<MountDto>();
+
+            foreach (var mountConfig in Context.Server.Mounts.GetMounts() )
+            {
+                if (mountConfig.Premium && !Player.Premium)
+                {
+                    continue;
+                }
+
+                if (Context.Server.Features.ClientVersion < mountConfig.MinClientVersion)
+                {
+                    continue;
+                }
+
+                if (mountConfig.AvailableAtOnce)
+                {
+                    mounts.Add(new MountDto(mountConfig.Id, mountConfig.Name) );
+                }
+                else
+                {
+                    if (Player.Mounts.HasMount(mountConfig.Id) )
+                    {
+                        mounts.Add(new MountDto(mountConfig.Id, mountConfig.Name) );
+                    }
+                }
+            }
+
+            Context.AddPacket(Player, new OpenSelectOutfitDialogOutgoingPacket(Player.BaseOutfit, outfits, mounts) );
 
             return Promise.Completed;
         }

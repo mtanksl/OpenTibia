@@ -128,6 +128,8 @@ namespace OpenTibia.Game.Common
 
             Outfits = new OutfitCollection(this);
 
+            Mounts = new MountCollection(this);
+
             Vocations = new VocationCollection(this);
 
             Plugins = new PluginCollection(this);
@@ -248,6 +250,8 @@ namespace OpenTibia.Game.Common
 
         public IOutfitCollection Outfits { get; set; }
 
+        public IMountCollection Mounts { get; set; }
+
         public IVocationCollection Vocations { get; set; }
 
         public IPluginCollection Plugins { get; set; }
@@ -323,9 +327,11 @@ namespace OpenTibia.Game.Common
                     Quests.Start();
                 }
 
-                using (Logger.Measure("Loading outfits config") )
+                using (Logger.Measure("Loading outfits and mounts config") )
                 {
                     Outfits.Start();
+
+                    Mounts.Start();
                 }
 
                 using (Logger.Measure("Loading vocations config") )

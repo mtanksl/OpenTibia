@@ -55,7 +55,9 @@ namespace OpenTibia.FileFormats.Xml.Npcs
 
                 Feet = (int?)lookNode.Attribute("feet") ?? 0,
 
-                Addon = (int?)lookNode.Attribute("addon") ?? 0
+                Addon = (int?)lookNode.Attribute("addon") ?? 0,
+
+                Mount = (int?)lookNode.Attribute("mount") ?? 0
             };
 
             XElement voicesNode = npcNode.Element("voices");
@@ -153,6 +155,8 @@ namespace OpenTibia.FileFormats.Xml.Npcs
             lookNode.Add(new XAttribute("feet", npc.Look.Feet) );
 
             // lookNode.Add(new XAttribute("addon", npc.Look.Addon) );
+
+            // lookNode.Add(new XAttribute("mount", npc.Look.Mount) );
 
             if (npc.Voices != null)
             {

@@ -7,11 +7,13 @@ namespace OpenTibia.Network.Packets.Outgoing
 {
     public class OpenSelectOutfitDialogOutgoingPacket : IOutgoingPacket
     {
-        public OpenSelectOutfitDialogOutgoingPacket(Outfit outfit, List<OutfitDto> outfits)
+        public OpenSelectOutfitDialogOutgoingPacket(Outfit outfit, List<OutfitDto> outfits, List<MountDto> mounts)
         {
             this.Outfit = outfit;
 
             this.Outfits = outfits;
+
+            this.mounts = mounts;
         }
 
         public Outfit Outfit { get; set; }
@@ -27,6 +29,20 @@ namespace OpenTibia.Network.Packets.Outgoing
             set
             {
                 outfits = value;
+            }
+        }
+
+        private List<MountDto> mounts;
+
+        public List<MountDto> Mounts
+        {
+            get
+            {
+                return mounts ?? (mounts = new List<MountDto>() );
+            }
+            set
+            {
+                mounts = value;
             }
         }
         
@@ -68,6 +84,18 @@ namespace OpenTibia.Network.Packets.Outgoing
                     writer.Write(outfit.Name);
 
                     writer.Write( (byte)outfit.Addon );
+                }
+            }
+
+            if (features.HasFeatureFlag(FeatureFlag.PlayerMounts) )
+            {
+                writer.Write( (byte)Mounts.Count );
+
+                foreach (var mount in Mounts)
+                {
+                    writer.Write(mount.MountId);
+
+                    writer.Write(mount.Name);
                 }
             }
         }

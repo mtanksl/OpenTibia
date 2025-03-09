@@ -1327,7 +1327,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                     return new Outfit(LuaScope.GetUInt16(table["itemid"] ) );
                 }
 
-                return new Outfit(LuaScope.GetUInt16(table["id"] ), LuaScope.GetByte(table["head"] ), LuaScope.GetByte(table["body"] ), LuaScope.GetByte(table["legs"] ), LuaScope.GetByte(table["feet"] ), (Addon)(long)table["addon"] );
+                return new Outfit(LuaScope.GetUInt16(table["id"] ), LuaScope.GetByte(table["head"] ), LuaScope.GetByte(table["body"] ), LuaScope.GetByte(table["legs"] ), LuaScope.GetByte(table["feet"] ), (Addon)(long)table["addon"], LuaScope.GetUInt16(table["mount"] ) );
             }
          
             throw new ArgumentException("Parameter must be Outfit or LuaTable with itemid or with id, head, body, legs, feet and addon.");

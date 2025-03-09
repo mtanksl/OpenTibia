@@ -16,6 +16,8 @@
 
         public int Addon { get; set; }
 
+        public int Mount { get; set; }
+
         public int Corpse { get; set; }
     }
 }

@@ -128,7 +128,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             player.Direction = (Direction)dbPlayer.Direction;
 
-            player.BaseOutfit = dbPlayer.BaseOutfitId == 0 ? new Outfit(dbPlayer.BaseOutfitItemId) : new Outfit(dbPlayer.BaseOutfitId, dbPlayer.BaseOutfitHead, dbPlayer.BaseOutfitBody, dbPlayer.BaseOutfitLegs, dbPlayer.BaseOutfitFeet, (Addon)dbPlayer.BaseOutfitAddon);
+            player.BaseOutfit = dbPlayer.BaseOutfitId == 0 ? new Outfit(dbPlayer.BaseOutfitItemId) : new Outfit(dbPlayer.BaseOutfitId, dbPlayer.BaseOutfitHead, dbPlayer.BaseOutfitBody, dbPlayer.BaseOutfitLegs, dbPlayer.BaseOutfitFeet, (Addon)dbPlayer.BaseOutfitAddon, dbPlayer.BaseOutfitMount);
 
             player.BaseSpeed = (ushort)dbPlayer.BaseSpeed;
 
@@ -428,6 +428,8 @@ namespace OpenTibia.Game.Common.ServerObjects
             dbPlayer.BaseOutfitFeet = player.BaseOutfit.Feet;
 
             dbPlayer.BaseOutfitAddon = (int)player.BaseOutfit.Addon;
+
+            dbPlayer.BaseOutfitMount = player.BaseOutfit.Mount;
 
             dbPlayer.BaseSpeed = player.BaseSpeed;
 

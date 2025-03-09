@@ -13,6 +13,8 @@
     <None Include="$(MSBuildThisFileDirectory)data\dlls\mtanksl.OpenTibia.Plugins\mtanksl.OpenTibia.Plugins.dll" />
     <None Include="$(MSBuildThisFileDirectory)data\items\772\items.otb" />
     <None Include="$(MSBuildThisFileDirectory)data\items\772\tibia.dat" />
+    <None Include="$(MSBuildThisFileDirectory)data\items\870\items.otb" />
+    <None Include="$(MSBuildThisFileDirectory)data\items\870\tibia.dat" />
     <None Include="$(MSBuildThisFileDirectory)data\items\Definition\items.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -26,6 +28,8 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="$(MSBuildThisFileDirectory)data\openTibiaFunctionsReference.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\mounts\config.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\mounts\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\globalevents\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\globalevents\record.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\items\lib.lua" />
@@ -71,6 +75,7 @@
     <None Include="$(MSBuildThisFileDirectory)data\server\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\world\772\map.otbm" />
     <None Include="$(MSBuildThisFileDirectory)data\world\860\map.otbm" />
+    <None Include="$(MSBuildThisFileDirectory)data\world\870\map.otbm" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)data\items\items.xml" />
@@ -593,6 +598,8 @@
     <Content Include="$(MSBuildThisFileDirectory)data\world\772\map-spawn.xml" />
     <Content Include="$(MSBuildThisFileDirectory)data\world\860\map-house.xml" />
     <Content Include="$(MSBuildThisFileDirectory)data\world\860\map-spawn.xml" />
+    <Content Include="$(MSBuildThisFileDirectory)data\world\870\map-house.xml" />
+    <Content Include="$(MSBuildThisFileDirectory)data\world\870\map-spawn.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)data\items\860\" />

@@ -414,3 +414,26 @@ ALTER TABLE `PlayerDepotItems` ADD `Attributes` longblob NULL;
 ALTER TABLE `HouseItems` ADD `Attributes` longblob NULL;
 
 COMMIT;
+
+--
+
+START TRANSACTION;
+
+ALTER TABLE `Players` ADD `BaseOutfitMount` int NOT NULL DEFAULT 0;
+
+UPDATE `Players` SET `BaseOutfitMount` = 0
+WHERE `Id` = 1;
+
+UPDATE `Players` SET `BaseOutfitMount` = 0
+WHERE `Id` = 2;
+
+UPDATE `Players` SET `BaseOutfitMount` = 0
+WHERE `Id` = 3;
+
+UPDATE `Players` SET `BaseOutfitMount` = 0
+WHERE `Id` = 4;
+
+UPDATE `Players` SET `BaseOutfitMount` = 0
+WHERE `Id` = 5;
+
+COMMIT;

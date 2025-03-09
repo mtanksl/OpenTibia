@@ -35,6 +35,11 @@ namespace OpenTibia.IO
                 {
                     writer.Write( (byte)outfit.Addon );
                 }
+
+                if (features.HasFeatureFlag(FeatureFlag.PlayerMounts) )
+                {
+                    writer.Write(outfit.Mount);
+                }
             }
         }
 

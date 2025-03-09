@@ -24,7 +24,7 @@ namespace OpenTibia.IO
                 return new Outfit( reader.ReadUShort() );
             }
 
-            return new Outfit( id, reader.ReadByte(), reader.ReadByte(), reader.ReadByte(), reader.ReadByte(), !features.HasFeatureFlag(FeatureFlag.PlayerAddons) ? Addon.None : (Addon)reader.ReadByte() );
+            return new Outfit( id, reader.ReadByte(), reader.ReadByte(), reader.ReadByte(), reader.ReadByte(), !features.HasFeatureFlag(FeatureFlag.PlayerAddons) ? Addon.None : (Addon)reader.ReadByte(), !features.HasFeatureFlag(FeatureFlag.PlayerMounts) ? 0 : reader.ReadUShort() );
         }
 
         public static Light ReadLight(this IByteArrayStreamReader reader)

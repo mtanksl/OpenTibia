@@ -33,6 +33,13 @@ namespace OpenTibia.Game.Common.ServerObjects
 				tibiaPic = 1256571859;
 				tibiaSpr = 1277298068;				
             }
+			else if (server.Config.ClientVersion == new Version(8, 70) )
+            {
+                clientVersion = 870;
+				tibiaDat = 1291723461;
+				tibiaPic = 1291111508;
+				tibiaSpr = 1291650954;				
+            }
             else
             {
                 throw new NotImplementedException();
@@ -86,6 +93,17 @@ namespace OpenTibia.Game.Common.ServerObjects
 			if (clientVersion >= 860) 
 			{
 				featureFlags.Add(FeatureFlag.AttackSequence);
+			}
+
+			if (clientVersion >= 862)
+			{
+                featureFlags.Add(FeatureFlag.PenalityOnDeath);
+			}
+
+			if (clientVersion >= 870)
+			{
+                featureFlags.Add(FeatureFlag.PlayerExperienceUInt64);
+                featureFlags.Add(FeatureFlag.PlayerMounts);
 			}
 
 			#endregion

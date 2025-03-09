@@ -35,6 +35,8 @@ namespace OpenTibia.Data.Models
 
         public int BaseOutfitAddon { get; set; }
 
+        public int BaseOutfitMount { get; set; }
+
         public int BaseSpeed { get; set; }
 
         public bool Invisible { get; set; }

@@ -575,3 +575,26 @@ ALTER TABLE "PlayerDepotItems" ADD "Attributes" BLOB NULL;
 ALTER TABLE "HouseItems" ADD "Attributes" BLOB NULL;
 
 COMMIT;
+
+--
+
+BEGIN TRANSACTION;
+
+ALTER TABLE "Players" ADD "BaseOutfitMount" INTEGER NOT NULL DEFAULT 0;
+
+UPDATE "Players" SET "BaseOutfitMount" = 0
+WHERE "Id" = 1;
+
+UPDATE "Players" SET "BaseOutfitMount" = 0
+WHERE "Id" = 2;
+
+UPDATE "Players" SET "BaseOutfitMount" = 0
+WHERE "Id" = 3;
+
+UPDATE "Players" SET "BaseOutfitMount" = 0
+WHERE "Id" = 4;
+
+UPDATE "Players" SET "BaseOutfitMount" = 0
+WHERE "Id" = 5;
+
+COMMIT;

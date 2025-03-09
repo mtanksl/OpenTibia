@@ -29,7 +29,7 @@ namespace OpenTibia.Game.Commands
             {
                 Player.Spawn = Player.Town;
 
-                Context.AddPacket(Player, new OpenYouAreDeathDialogOutgoingPacket() );
+                Context.AddPacket(Player, new OpenYouAreDeathDialogOutgoingPacket(100) );
             }
             else
             {

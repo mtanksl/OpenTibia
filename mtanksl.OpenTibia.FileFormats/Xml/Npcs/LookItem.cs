@@ -15,5 +15,7 @@
         public int Feet { get; set; }
 
         public int Addon { get; set; }
+
+        public int Mount { get; set; }
     }
 }

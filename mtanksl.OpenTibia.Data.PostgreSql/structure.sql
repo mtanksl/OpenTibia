@@ -474,3 +474,24 @@ ALTER TABLE "PlayerDepotItems" ADD "Attributes" bytea;
 ALTER TABLE "HouseItems" ADD "Attributes" bytea;
 
 COMMIT;
+
+--
+
+ALTER TABLE "Players" ADD "BaseOutfitMount" integer NOT NULL DEFAULT 0;
+
+UPDATE "Players" SET "BaseOutfitMount" = 0
+WHERE "Id" = 1;
+
+UPDATE "Players" SET "BaseOutfitMount" = 0
+WHERE "Id" = 2;
+
+UPDATE "Players" SET "BaseOutfitMount" = 0
+WHERE "Id" = 3;
+
+UPDATE "Players" SET "BaseOutfitMount" = 0
+WHERE "Id" = 4;
+
+UPDATE "Players" SET "BaseOutfitMount" = 0
+WHERE "Id" = 5;
+
+COMMIT;

@@ -75,7 +75,14 @@ namespace OpenTibia.Network.Packets.Outgoing
                 writer.Write(Capacity);
             }
 
-            writer.Write( (uint)Math.Min(int.MaxValue, Experience) );
+            if ( !features.HasFeatureFlag(FeatureFlag.PlayerExperienceUInt64) )
+            {
+                writer.Write( (uint)Math.Min(int.MaxValue, Experience) );
+            }
+            else
+            {
+                writer.Write(Experience);
+            }
 
             writer.Write(Level);
 

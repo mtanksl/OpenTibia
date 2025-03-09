@@ -74,6 +74,8 @@ namespace OpenTibia.Game.Common
 
         IOutfitCollection Outfits { get; set; }
 
+        IMountCollection Mounts { get; set; }
+
         IVocationCollection Vocations { get; set; }
 
         IPluginCollection Plugins { get; set; }

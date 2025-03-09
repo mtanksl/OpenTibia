@@ -18,6 +18,8 @@ namespace OpenTibia.Common.Objects
 
             Outfits = new PlayerOutfitCollection();
 
+            Mounts = new PlayerMountCollection();
+
             Spells = new PlayerSpellCollection();
 
             Storages = new PlayerStorageCollection();
@@ -84,6 +86,8 @@ namespace OpenTibia.Common.Objects
         public PlayerCombatCollection Combat { get; set; }
 
         public PlayerOutfitCollection Outfits { get; }
+
+        public PlayerMountCollection Mounts { get; }
 
         public PlayerSpellCollection Spells { get; }
 

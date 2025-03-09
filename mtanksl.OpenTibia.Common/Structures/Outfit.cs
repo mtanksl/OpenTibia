@@ -141,31 +141,31 @@ namespace OpenTibia.Common.Structures
             Color.FromArgb(127, 0, 0)
         };
 
-        public static readonly Outfit Invisible = new Outfit(0, 0, 0, 0, 0, Addon.None);
+        public static readonly Outfit Invisible = new Outfit(0, 0, 0, 0, 0, Addon.None, 0);
 
-        public static readonly Outfit Swimming = new Outfit(267, 0, 0, 0, 0, Addon.None);
+        public static readonly Outfit Swimming = new Outfit(267, 0, 0, 0, 0, Addon.None, 0);
 
-        public static readonly Outfit MaleCitizen = new Outfit(128, 0, 0, 0, 0, Addon.None);
+        public static readonly Outfit MaleCitizen = new Outfit(128, 0, 0, 0, 0, Addon.None, 0);
 
-        public static readonly Outfit MaleHunter = new Outfit(129, 0, 0, 0, 0, Addon.None);
+        public static readonly Outfit MaleHunter = new Outfit(129, 0, 0, 0, 0, Addon.None, 0);
 
-        public static readonly Outfit MaleMage = new Outfit(130, 0, 0, 0, 0, Addon.None);
+        public static readonly Outfit MaleMage = new Outfit(130, 0, 0, 0, 0, Addon.None, 0);
 
-        public static readonly Outfit MaleKnight = new Outfit(131, 0, 0, 0, 0, Addon.None);
+        public static readonly Outfit MaleKnight = new Outfit(131, 0, 0, 0, 0, Addon.None, 0);
 
-        public static readonly Outfit FemaleCitizen = new Outfit(136, 0, 0, 0, 0, Addon.None);
+        public static readonly Outfit FemaleCitizen = new Outfit(136, 0, 0, 0, 0, Addon.None, 0);
 
-        public static readonly Outfit FemaleHunter = new Outfit(137, 0, 0, 0, 0, Addon.None);
+        public static readonly Outfit FemaleHunter = new Outfit(137, 0, 0, 0, 0, Addon.None, 0);
 
-        public static readonly Outfit FemaleMage = new Outfit(138, 0, 0, 0, 0, Addon.None);
+        public static readonly Outfit FemaleMage = new Outfit(138, 0, 0, 0, 0, Addon.None, 0);
 
-        public static readonly Outfit FemaleKnight = new Outfit(139, 0, 0, 0, 0, Addon.None);
+        public static readonly Outfit FemaleKnight = new Outfit(139, 0, 0, 0, 0, Addon.None, 0);
 
-        public static readonly Outfit GamemasterRed = new Outfit(266, 0, 0, 0, 0, Addon.None);
+        public static readonly Outfit GamemasterRed = new Outfit(266, 0, 0, 0, 0, Addon.None, 0);
 
-        public static readonly Outfit GamemasterGreen = new Outfit(302, 0, 0, 0, 0, Addon.None);
+        public static readonly Outfit GamemasterGreen = new Outfit(302, 0, 0, 0, 0, Addon.None, 0);
 
-        public static readonly Outfit GamemasterBlue = new Outfit(75, 0, 0, 0, 0, Addon.None);
+        public static readonly Outfit GamemasterBlue = new Outfit(75, 0, 0, 0, 0, Addon.None, 0);
 
         public Outfit(int tibiaId) : this( (ushort)tibiaId)
         {
@@ -187,12 +187,12 @@ namespace OpenTibia.Common.Structures
             }
         }
 
-        public Outfit(int id, int head, int body, int legs, int feet, Addon addon) : this( (ushort)id, (byte)head, (byte)body, (byte)legs, (byte)feet, addon )
+        public Outfit(int id, int head, int body, int legs, int feet, Addon addon, int mount) : this( (ushort)id, (byte)head, (byte)body, (byte)legs, (byte)feet, addon, (ushort)mount)
         {
 
         }
 
-        public Outfit(ushort id, byte head, byte body, byte legs, byte feet, Addon addon)
+        public Outfit(ushort id, byte head, byte body, byte legs, byte feet, Addon addon, ushort mount)
         {
             this.id = id;
 
@@ -205,6 +205,8 @@ namespace OpenTibia.Common.Structures
             this.feet = feet;
 
             this.addon = addon;
+
+            this.mount = mount;
         }
         
         private ushort id;
@@ -267,6 +269,16 @@ namespace OpenTibia.Common.Structures
             }
         }
 
+        private ushort mount;
+
+        public ushort Mount
+        {
+            get
+            {
+                return mount;
+            }
+        }
+
         public static bool operator ==(Outfit a, Outfit b)
         {
             if ( object.ReferenceEquals(a, b) )
@@ -279,7 +291,7 @@ namespace OpenTibia.Common.Structures
                 return false;
             }
 
-            return (a.tibiaId == b.tibiaId) && (a.id == b.id) && (a.head == b.head) && (a.body == b.body) && (a.legs == b.legs) && (a.feet == b.feet) && (a.addon == b.addon);
+            return (a.tibiaId == b.tibiaId) && (a.id == b.id) && (a.head == b.head) && (a.body == b.body) && (a.legs == b.legs) && (a.feet == b.feet) && (a.addon == b.addon) && (a.mount == b.mount);
         }
 
         public static bool operator !=(Outfit a, Outfit b)
@@ -299,7 +311,7 @@ namespace OpenTibia.Common.Structures
                 return false;
             }
 
-            return (tibiaId == outfit.tibiaId) && (id == outfit.id) && (head == outfit.head) && (body == outfit.body) && (legs == outfit.legs) && (feet == outfit.feet) && (addon == outfit.addon);
+            return (tibiaId == outfit.tibiaId) && (id == outfit.id) && (head == outfit.head) && (body == outfit.body) && (legs == outfit.legs) && (feet == outfit.feet) && (addon == outfit.addon) && (mount == outfit.mount);
         }
 
         public override int GetHashCode()
@@ -320,6 +332,8 @@ namespace OpenTibia.Common.Structures
 
             hashCode = hashCode * 23 + addon.GetHashCode();
 
+            hashCode = hashCode * 23 + mount.GetHashCode();
+
             return hashCode;
         }
 
@@ -327,7 +341,7 @@ namespace OpenTibia.Common.Structures
         {
             if (tibiaId == 0)
             {
-                return "Id: " + id + " Head: " + head + " Body: " + body + " Legs: " + legs + " Feet: " + feet + " Addons: " + addon;
+                return "Id: " + id + " Head: " + head + " Body: " + body + " Legs: " + legs + " Feet: " + feet + " Addons: " + addon + " Mount: " + mount;
             }
 
             return "Item id: " + tibiaId;

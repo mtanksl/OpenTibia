@@ -19,6 +19,9 @@
         TileIndex,        
         CreatureWarIcon,
         CreatureBlock,
-        AttackSequence
+        AttackSequence,
+        PenalityOnDeath,
+        PlayerExperienceUInt64,
+        PlayerMounts
     }
 }

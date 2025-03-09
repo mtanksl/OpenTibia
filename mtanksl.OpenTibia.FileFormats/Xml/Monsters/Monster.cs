@@ -97,6 +97,8 @@ namespace OpenTibia.FileFormats.Xml.Monsters
 
                 Addon = (int?)lookNode.Attribute("addon") ?? 0,
 
+                Mount = (int?)lookNode.Attribute("mount") ?? 0,
+
                 Corpse = (int?)lookNode.Attribute("corpse") ?? 3058
             };
  
@@ -459,6 +461,8 @@ namespace OpenTibia.FileFormats.Xml.Monsters
             lookNode.Add(new XAttribute("feet", monster.Look.Feet) );
 
             // lookNode.Add(new XAttribute("addon", monster.Look.Addon) );
+
+            // lookNode.Add(new XAttribute("mount", monster.Look.Mount) );
 
             lookNode.Add(new XAttribute("corpse", monster.Look.Corpse) );
 
