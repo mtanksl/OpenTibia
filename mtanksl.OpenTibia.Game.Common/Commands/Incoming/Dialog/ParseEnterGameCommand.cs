@@ -28,7 +28,7 @@ namespace OpenTibia.Game.Commands
 
             if (Packet.TibiaDat != Context.Server.Features.TibiaDat || Packet.TibiaPic != Context.Server.Features.TibiaPic || Packet.TibiaSpr != Context.Server.Features.TibiaSpr || Packet.Version != Context.Server.Features.ClientVersion)
             {
-                Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.OnlyProtocol86Allowed) );
+                Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, string.Format(Constants.OnlyProtocolAllowed, Context.Server.Config.ClientVersion) ) );
 
                 Context.Disconnect(Connection);
 

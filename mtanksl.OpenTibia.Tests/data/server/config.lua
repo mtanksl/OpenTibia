@@ -1,5 +1,8 @@
 dofile(getfullpath("../../../../mtanksl.OpenTibia.GameData/data/server/config.lua"))
 
+-- Specify protocol
+server.info.public.clientversion = "8.60"
+
 -- Disable sockets
 server.info.maxconnections = 0
 server.login.maxconnections = 0

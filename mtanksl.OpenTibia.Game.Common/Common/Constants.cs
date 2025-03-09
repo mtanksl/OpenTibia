@@ -12,7 +12,7 @@
         
         public static readonly string ItIsEmpty = "It is empty.";
         
-        public static readonly string OnlyProtocol86Allowed = "Only protocol 8.6 allowed.";
+        public static readonly string OnlyProtocolAllowed = "Only protocol {0} allowed.";
         
         public static readonly string PutTheContructionKitOnTheFloorFirst = "Put the construction kit on the floor first.";
         

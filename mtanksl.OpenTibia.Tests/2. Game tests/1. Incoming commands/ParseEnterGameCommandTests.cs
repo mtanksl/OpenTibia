@@ -48,7 +48,7 @@ namespace OpenTibia.Tests
                      .ExpectSuccess(false)
                      .Observe(o => o
                          .ExpectPacket(1)
-                         .ExpectPacket<OpenSorryDialogOutgoingPacket>(1, o => o.Message == Constants.OnlyProtocol86Allowed)
+                         .ExpectPacket<OpenSorryDialogOutgoingPacket>(1, o => o.Message == string.Format(Constants.OnlyProtocolAllowed, t.Server.Config.ClientVersion) )
                          .ExpectConnected(false) );
                 } )
                 .Run();
