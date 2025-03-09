@@ -34,14 +34,31 @@ namespace OpenTibia.Network.Packets.Outgoing
         {
             writer.Write( (byte)0xC8 );
 
+            writer.Write(features, Outfit);
+
             if ( !features.HasFeatureFlag(FeatureFlag.NewOutfitProtocol) )
             {
-                //TODO: Features
+                outfits.RemoveAll(o => o.OutfitId == Outfit.GamemasterBlue.Id);
+
+                outfits.RemoveAll(o => o.OutfitId == Outfit.GamemasterRed.Id);
+
+                outfits.RemoveAll(o => o.OutfitId == Outfit.GamemasterGreen.Id);
+
+                if ( !features.HasFeatureFlag(FeatureFlag.LookTypeUInt16) )
+                {
+                    writer.Write( (byte)Outfits[0].OutfitId);
+
+                    writer.Write( (byte)Outfits[Outfits.Count - 1].OutfitId);
+                }
+                else
+                {
+                    writer.Write(Outfits[0].OutfitId);
+
+                    writer.Write(Outfits[Outfits.Count - 1].OutfitId);
+                }
             }
             else
-            {
-                writer.Write(features, Outfit);
-            
+            {            
                 writer.Write( (byte)Outfits.Count );
 
                 foreach (var outfit in Outfits)
