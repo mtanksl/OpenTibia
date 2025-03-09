@@ -1,4 +1,5 @@
-﻿using OpenTibia.Game.Commands;
+﻿using OpenTibia.Common.Structures;
+using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
 using OpenTibia.Game.Common.ServerObjects;
 using OpenTibia.IO;
@@ -10,11 +11,9 @@ namespace OpenTibia.Common
 {
     public class LoginConnection : TibiaConnection
     {
-        private IServer server;
-
         public LoginConnection(IServer server, Socket socket) : base(server, socket)
         {
-            this.server = server;
+
         }
 
         protected override void OnConnected()
@@ -34,15 +33,22 @@ namespace OpenTibia.Common
 
             try
             {
-                if (Adler32.Generate(body, 4, length - 4) == reader.ReadUInt() )
+                if ( !server.Features.HasFeatureFlag(FeatureFlag.ProtocolChecksum) || Adler32.Generate(body, 4, length - 4) == reader.ReadUInt() )
                 {
                     if (Keys == null)
                     {
-                        Rsa.DecryptAndReplace(body, 21, length - 21);
+                        if ( !server.Features.HasFeatureFlag(FeatureFlag.ProtocolChecksum) )
+                        {
+                            Rsa.DecryptAndReplace(body, 17, length - 17);
+                        }
+                        else
+                        {
+                            Rsa.DecryptAndReplace(body, 21, length - 21);
+                        }
                     }
                     else
                     {
-
+                        //
                     }
 
                     byte identification = reader.ReadByte();
@@ -53,7 +59,7 @@ namespace OpenTibia.Common
 
                         if (server.Features.LoginFirstCommands.TryGetValue(identification, out IPacketToCommand packetToCommand) )
                         {
-                            Command command = packetToCommand.Convert(this, reader);
+                            Command command = packetToCommand.Convert(this, reader, server.Features);
 
                             server.Logger.WriteLine("Received on login server: 0x" + identification.ToString("X2") + " (" + packetToCommand.Name + ")", LogLevel.Debug);        
 

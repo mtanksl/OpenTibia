@@ -81,7 +81,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 
         public Item Item { get; set; }
 
-        public void Write(IByteArrayStreamWriter writer)
+        public void Write(IByteArrayStreamWriter writer, IHasFeatureFlag features)
         {
             writer.Write( (byte)0x6A );
 
@@ -91,19 +91,22 @@ namespace OpenTibia.Network.Packets.Outgoing
 
             writer.Write(Position.Z);
 
-            writer.Write(Index);
+            if (features.HasFeatureFlag(FeatureFlag.TileIndex) )
+            {
+                writer.Write(Index);
+            }
 
             switch (option)
             {
                 case 1:
 
-                    writer.Write(Creature, SkullIcon, PartyIcon);
+                    writer.Write(features, Creature, SkullIcon, PartyIcon);
 
                     break;
 
                 case 2:
 
-                    writer.Write(RemoveId, Creature, SkullIcon, PartyIcon, WarIcon);
+                    writer.Write(features, RemoveId, Creature, SkullIcon, PartyIcon, WarIcon);
 
                     break;
 

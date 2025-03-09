@@ -1,10 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using OpenTibia.Common.Objects;
+using System.Collections.Generic;
 
 namespace OpenTibia.Game.Common.ServerObjects
 {
-    public interface IFeatures
+    public interface IFeatures : IHasFeatureFlag
     {
         void Start();
+
+        int ClientVersion { get; }
+
+        int TibiaDat { get; }
+
+        int TibiaPic { get; }
+
+        int TibiaSpr { get; }
 
         Dictionary<byte, IPacketToCommand> LoginFirstCommands { get; }
 

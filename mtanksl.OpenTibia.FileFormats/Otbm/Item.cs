@@ -17,6 +17,9 @@ namespace OpenTibia.FileFormats.Otbm
 
             item.OpenTibiaId = reader.ReadUShort();
 
+            //TODO: Features
+            // On version 1, a byte is used instead of an attribute for stackable count, fluid type, or splash type
+
             while (true)
             {
                 switch ( (OtbmAttribute)reader.ReadByte() )

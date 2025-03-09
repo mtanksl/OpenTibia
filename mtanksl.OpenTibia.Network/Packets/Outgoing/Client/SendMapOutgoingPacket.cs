@@ -19,7 +19,7 @@ namespace OpenTibia.Network.Packets.Outgoing
             this.client = client;
         }
 
-        public void GetMapDescription(IByteArrayStreamWriter writer, int x, int y, int z, int width, int height, int floor, int floors)
+        public void GetMapDescription(IByteArrayStreamWriter writer, IHasFeatureFlag features, int x, int y, int z, int width, int height, int floor, int floors)
         {
             int step = -1;
 
@@ -37,7 +37,7 @@ namespace OpenTibia.Network.Packets.Outgoing
                     break;
                 }
 
-                empty = GetFloorDescription(writer, x, y, currentFloor, z - currentFloor, width, height, empty);
+                empty = GetFloorDescription(writer, features, x, y, currentFloor, z - currentFloor, width, height, empty);
             }
 
             if (empty != -1)
@@ -48,7 +48,7 @@ namespace OpenTibia.Network.Packets.Outgoing
             }
         }
 
-        private int GetFloorDescription(IByteArrayStreamWriter writer, int x, int y, int z, int offset, int width, int height, int empty)
+        private int GetFloorDescription(IByteArrayStreamWriter writer, IHasFeatureFlag features, int x, int y, int z, int offset, int width, int height, int empty)
         {
             for (int i = 0; i < width; i++)
             {
@@ -78,7 +78,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 
                         empty = 0;
 
-                        GetTileDescription(writer, tile);
+                        GetTileDescription(writer, features, tile);
                     }
                 }
             }
@@ -86,7 +86,7 @@ namespace OpenTibia.Network.Packets.Outgoing
             return empty;
         }
 
-        private void GetTileDescription(IByteArrayStreamWriter writer, Tile tile)
+        private void GetTileDescription(IByteArrayStreamWriter writer, IHasFeatureFlag features, Tile tile)
         {
             byte index = 0;
 
@@ -116,11 +116,11 @@ namespace OpenTibia.Network.Packets.Outgoing
 
                         if (client.Battles.IsKnownCreature(creature.Id, out removeId) )
                         {
-                            writer.Write(creature, client.GetClientSkullIcon(creature), client.GetClientPartyIcon(creature) );
+                            writer.Write(features, creature, client.GetClientSkullIcon(creature), client.GetClientPartyIcon(creature) );
                         }
                         else
                         {
-                            writer.Write(removeId, creature, client.GetClientSkullIcon(creature), client.GetClientPartyIcon(creature), client.GetClientWarIcon(creature) );
+                            writer.Write(features, removeId, creature, client.GetClientSkullIcon(creature), client.GetClientPartyIcon(creature), client.GetClientWarIcon(creature) );
                         }
 
                         break;
@@ -130,6 +130,6 @@ namespace OpenTibia.Network.Packets.Outgoing
             }
         }
 
-        public abstract void Write(IByteArrayStreamWriter writer);
+        public abstract void Write(IByteArrayStreamWriter writer, IHasFeatureFlag features);
     }
 }

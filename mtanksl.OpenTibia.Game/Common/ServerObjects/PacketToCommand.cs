@@ -27,11 +27,11 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
         }
 
-        public IncomingCommand Convert(IConnection connection, ByteArrayStreamReader reader)
+        public IncomingCommand Convert(IConnection connection, ByteArrayStreamReader reader, IHasFeatureFlag features)
         {
             var packet = new T();
 
-            packet.Read(reader);
+            packet.Read(reader, features);
 
             return convert(connection, packet);
         }

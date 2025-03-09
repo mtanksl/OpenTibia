@@ -57,7 +57,7 @@ namespace OpenTibia.Tests
             var builder = 
 
                 Using("127.0.0.1", a => a
-                    .Execute(new ParseSelectedCharacterCommand(a.Connection, new SelectedCharacterIncomingPacket() { OperatingSystem = Common.Structures.OperatingSystem.Windows, Version = 860, Keys = new uint[] { 0, 0, 0, 0 }, Gamemaster = true, Account = account, Password = password, Character = character, Nonce = 0 } ) )
+                    .Execute(new ParseSelectedCharacterCommand(a.Connection, new SelectedCharacterIncomingPacket() { OperatingSystem = Common.Structures.OperatingSystem.Windows, Version = 860, Keys = new uint[] { 0, 0, 0, 0 }, Gamemaster = true, Account = account, Password = password, Character = character, Timestamp = 0, Random = 0 } ) )
                     .ExpectSuccess()
                     .Observe(o => o
                         .ExpectConnected() ) );

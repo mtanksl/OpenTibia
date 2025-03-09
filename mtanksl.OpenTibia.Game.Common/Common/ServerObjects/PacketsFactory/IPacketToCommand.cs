@@ -8,6 +8,6 @@ namespace OpenTibia.Game.Common.ServerObjects
     {
         string Name { get; }
 
-        IncomingCommand Convert(IConnection connection, ByteArrayStreamReader reader);
+        IncomingCommand Convert(IConnection connection, ByteArrayStreamReader reader, IHasFeatureFlag features);
     }
 }

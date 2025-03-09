@@ -1,4 +1,6 @@
-﻿using OpenTibia.IO;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
+using OpenTibia.IO;
 
 namespace OpenTibia.Network.Packets.Outgoing
 {
@@ -31,7 +33,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 
         public string Date { get; set; }
         
-        public void Write(IByteArrayStreamWriter writer)
+        public void Write(IByteArrayStreamWriter writer, IHasFeatureFlag features)
         {
             writer.Write( (byte)0x96 );
 
@@ -45,7 +47,10 @@ namespace OpenTibia.Network.Packets.Outgoing
 
             writer.Write(Author);
 
-            writer.Write(Date);
+            if (features.HasFeatureFlag(FeatureFlag.ReadableItemDate) )
+            {
+                writer.Write(Date);
+            }
         }
     }
 }

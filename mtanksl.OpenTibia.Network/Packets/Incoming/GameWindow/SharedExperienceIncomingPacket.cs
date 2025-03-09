@@ -1,4 +1,5 @@
-﻿using OpenTibia.IO;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.IO;
 
 namespace OpenTibia.Network.Packets.Incoming
 {
@@ -6,7 +7,7 @@ namespace OpenTibia.Network.Packets.Incoming
     {
         public bool Enabled { get; set; }
         
-        public void Read(IByteArrayStreamReader reader)
+        public void Read(IByteArrayStreamReader reader, IHasFeatureFlag features)
         {
             Enabled = reader.ReadBool();
         }

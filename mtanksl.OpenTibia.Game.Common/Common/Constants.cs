@@ -2,15 +2,6 @@
 {
     public static class Constants
     {
-        public static readonly int Version = 860;
-
-        public static readonly int TibiaDat = 1277983123;
-
-        public static readonly int TibiaPic = 1256571859;
-
-        public static readonly int TibiaSpr = 1277298068;
-
-
         public static readonly string AccountNameOrPasswordIsNotCorrect = "Account name or password is not correct.";
        
         public static readonly string DestinationIsOutOfReach = "Destination is out of reach.";

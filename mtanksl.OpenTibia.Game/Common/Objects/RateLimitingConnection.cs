@@ -6,7 +6,7 @@ namespace OpenTibia.Common
 {
     public abstract class RateLimitingConnection : Connection
     {
-        private IServer server;
+        protected IServer server;
 
         public RateLimitingConnection(IServer server, Socket socket) : base(socket, server.Config.SocketReceiveTimeoutMilliseconds, server.Config.SocketSendTimeoutMilliseconds)
         {

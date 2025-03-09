@@ -340,8 +340,8 @@ namespace OpenTibia.Game.Common
 
                 using (Logger.Measure("Loading items") )
                 {
-                    ItemFactory.Start(OtbFile.Load(PathResolver.GetFullPath("data/items/items.otb") ), 
-                                      DatFile.Load(PathResolver.GetFullPath("data/items/tibia.dat") ), 
+                    ItemFactory.Start(OtbFile.Load(PathResolver.GetFullPath("data/items/" + Features.ClientVersion + "/items.otb") ), 
+                                      DatFile.Load(PathResolver.GetFullPath("data/items/" + Features.ClientVersion + "/tibia.dat") ), 
                                       ItemsFile.Load(PathResolver.GetFullPath("data/items/items.xml") ) );
                 }
 
@@ -369,10 +369,10 @@ namespace OpenTibia.Game.Common
 
                 using (Logger.Measure("Loading map") )
                 {
-                    otbmFile = OtbmFile.Load(PathResolver.GetFullPath("data/world/" + Config.MapName + ".otbm") );
+                    otbmFile = OtbmFile.Load(PathResolver.GetFullPath("data/world/" + Features.ClientVersion + "/" + Config.MapName + ".otbm") );
 
                     Map.Start(otbmFile, 
-                              HouseFile.Load(PathResolver.GetFullPath("data/world/" + otbmFile.MapInfo.HouseFile) ) );
+                              HouseFile.Load(PathResolver.GetFullPath("data/world/" + Features.ClientVersion + "/" + otbmFile.MapInfo.HouseFile) ) );
                 }
 
                 if (Map.Warnings.Count > 0)
@@ -382,7 +382,7 @@ namespace OpenTibia.Game.Common
 
                 using (Logger.Measure("Loading spawns") )
                 {
-                    Spawns.Start(SpawnFile.Load(PathResolver.GetFullPath("data/world/" + otbmFile.MapInfo.SpawnFile) ) );
+                    Spawns.Start(SpawnFile.Load(PathResolver.GetFullPath("data/world/" + Features.ClientVersion + "/" + otbmFile.MapInfo.SpawnFile) ) );
 
                     Raids.Start();
                 }

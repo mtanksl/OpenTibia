@@ -230,7 +230,7 @@ namespace OpenTibia.Game.Common
                 messageCollections.Add(connection, messageCollection);
             }
 
-            messageCollection.Add(packet);
+            messageCollection.Add(packet, server.Features);
         }
 
         private HashSet<IConnection> connections;

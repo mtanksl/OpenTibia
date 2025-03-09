@@ -1,4 +1,5 @@
-﻿using OpenTibia.IO;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.IO;
 using OpenTibia.Network.Packets.Outgoing;
 using System.Collections.Generic;
 
@@ -25,7 +26,7 @@ namespace OpenTibia.Network.Packets.Incoming
             }
         }
         
-        public void Write(IByteArrayStreamWriter writer)
+        public void Write(IByteArrayStreamWriter writer, IHasFeatureFlag features)
         {
             writer.Write( (byte)0x21);
             

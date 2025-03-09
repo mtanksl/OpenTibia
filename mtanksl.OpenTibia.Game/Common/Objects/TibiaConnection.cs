@@ -1,4 +1,5 @@
-﻿using OpenTibia.Game.Common;
+﻿using OpenTibia.Common.Structures;
+using OpenTibia.Game.Common;
 using OpenTibia.IO;
 using OpenTibia.Security;
 using System;
@@ -18,6 +19,11 @@ namespace OpenTibia.Common
             if (Keys == null)
             {
                 return Length(Hash(Length(bytes) ) );
+            }
+
+            if ( !server.Features.HasFeatureFlag(FeatureFlag.ProtocolChecksum) )
+            {
+                return Length(Encrypt(Keys, Length(bytes) ) );
             }
 
             return Length(Hash(Encrypt(Keys, Length(bytes) ) ) );

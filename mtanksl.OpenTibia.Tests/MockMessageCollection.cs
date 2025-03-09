@@ -17,7 +17,7 @@ namespace OpenTibia.Tests
             }
         }
 
-        public void Add(IOutgoingPacket packet)
+        public void Add(IOutgoingPacket packet, IHasFeatureFlag features)
         {
             outgoingPackets.Add(packet);
         }

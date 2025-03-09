@@ -13,7 +13,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 
         public Position Position { get; set; }
         
-        public override void Write(IByteArrayStreamWriter writer)
+        public override void Write(IByteArrayStreamWriter writer, IHasFeatureFlag features)
         {
             writer.Write( (byte)0x69 );
 
@@ -23,7 +23,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 
             writer.Write(Position.Z);
 
-            GetMapDescription(writer, Position.X, Position.Y, Position.Z, 1, 1, Position.Z, 0);
+            GetMapDescription(writer, features, Position.X, Position.Y, Position.Z, 1, 1, Position.Z, 0);
         }
     }
 }

@@ -45,7 +45,7 @@ namespace OpenTibia.Network.Packets.Outgoing
             }
         }
         
-        public void Write(IByteArrayStreamWriter writer)
+        public void Write(IByteArrayStreamWriter writer, IHasFeatureFlag features)
         {
             writer.Write( (byte)0x6E );
 

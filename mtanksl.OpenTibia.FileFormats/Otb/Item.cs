@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Structures;
 using OpenTibia.IO;
+using System;
 
 namespace OpenTibia.FileFormats.Otb
 {
@@ -17,14 +18,50 @@ namespace OpenTibia.FileFormats.Otb
             {
                 OtbAttribute attribute = (OtbAttribute)reader.ReadByte();
 
-                stream.Seek(Origin.Current, 2); // Length
+                if (attribute == OtbAttribute.Empty)
+                {
+                    attribute = (OtbAttribute)reader.ReadByte();
+                }
+
+                if (attribute == OtbAttribute.End)
+                {
+                    attribute = (OtbAttribute)reader.ReadByte();
+
+                    if (attribute == OtbAttribute.End)
+                    {
+                        attribute = (OtbAttribute)reader.ReadByte();
+
+                        if (attribute == OtbAttribute.Start)
+                        {
+                            stream.Seek(Origin.Current, -2);
+
+                            return item; // Next (the End node seems missplaced...)
+                        }
+                        else
+                        {
+                            return item; // EOF
+                        }
+                    }
+                    else if (attribute == OtbAttribute.Start)
+                    {
+                        stream.Seek(Origin.Current, -2);
+
+                        return item; // Next
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException();
+                    }
+                }
+
+                ushort length = reader.ReadUShort();
 
                 switch (attribute)
                 {
                     case OtbAttribute.OpenTibiaId:
 
                         item.OpenTibiaId = reader.ReadUShort();
-
+                                                
                         break;
 
                     case OtbAttribute.TibiaId:
@@ -79,9 +116,9 @@ namespace OpenTibia.FileFormats.Otb
 
                     default:
 
-                        stream.Seek(Origin.Current, -3);
+                        stream.Seek(Origin.Current, length);
 
-                        return item;
+                        break;
                 }
             }
         }

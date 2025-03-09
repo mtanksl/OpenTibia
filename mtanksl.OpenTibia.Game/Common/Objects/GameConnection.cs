@@ -13,23 +13,24 @@ namespace OpenTibia.Common
 {
     public class GameConnection : TibiaConnection
     {        
-		private IServer server;
-
         public GameConnection(IServer server, Socket socket) : base(server, socket)
         {
-            this.server = server;
+
         }
 
         protected override void OnConnected()
         {
             server.Logger.WriteLine("Connected on game server", LogLevel.Debug);
 
-            server.QueueForExecution( () =>
+            if (server.Features.HasFeatureFlag(FeatureFlag.ChallengeOnLogin) )
             {
-                Context.Current.AddPacket(this, new SendConnectionInfoOutgoingPacket(0) );
+                server.QueueForExecution( () =>
+                {
+                    Context.Current.AddPacket(this, new SendConnectionInfoOutgoingPacket(0, 0) );
 
-                return Promise.Completed;
-            } );
+                    return Promise.Completed;
+                } );
+            }
 
             base.OnConnected();
         }
@@ -44,15 +45,29 @@ namespace OpenTibia.Common
 
             try
             {
-                if (Adler32.Generate(body, 4, length - 4) == reader.ReadUInt() )
+                if ( !server.Features.HasFeatureFlag(FeatureFlag.ProtocolChecksum) || Adler32.Generate(body, 4, length - 4) == reader.ReadUInt() )
                 {
                     if (Keys == null)
                     {
-                        Rsa.DecryptAndReplace(body, 9, length - 9);
+                        if ( !server.Features.HasFeatureFlag(FeatureFlag.ProtocolChecksum) )
+                        {
+                            Rsa.DecryptAndReplace(body, 5, length - 5);
+                        }
+                        else
+                        {
+                            Rsa.DecryptAndReplace(body, 9, length - 9);
+                        }
                     }
                     else
                     {
-                        Xtea.DecryptAndReplace(body, 4, length - 4, 32, Keys);
+                        if ( !server.Features.HasFeatureFlag(FeatureFlag.ProtocolChecksum) )
+                        {
+                            Xtea.DecryptAndReplace(body, 0, length, 32, Keys);
+                        }
+                        else
+                        {
+                            Xtea.DecryptAndReplace(body, 4, length - 4, 32, Keys);
+                        }
 
                         stream.Seek(Origin.Current, 2);
                     }
@@ -65,7 +80,7 @@ namespace OpenTibia.Common
 
                         if (server.Features.GameFirstCommands.TryGetValue(identification, out IPacketToCommand packetToCommand) )
                         {
-                            Command command = packetToCommand.Convert(this, reader);
+                            Command command = packetToCommand.Convert(this, reader, server.Features);
 
                             server.Logger.WriteLine("Received on game server: 0x" + identification.ToString("X2") + " (" + packetToCommand.Name + ")", LogLevel.Debug);
 
@@ -107,7 +122,7 @@ namespace OpenTibia.Common
 
                             if (current.TryGetValue(identification, out IPacketToCommand packetToCommand) )
                             {
-                                Command command = packetToCommand.Convert(this, reader);
+                                Command command = packetToCommand.Convert(this, reader, server.Features);
 
                                 server.Logger.WriteLine("Received on game server: 0x" + identification.ToString("X2") + " (" + packetToCommand.Name + ")", LogLevel.Debug);
 

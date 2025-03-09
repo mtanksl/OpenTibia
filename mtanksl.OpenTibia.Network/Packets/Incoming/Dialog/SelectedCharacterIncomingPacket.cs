@@ -1,4 +1,5 @@
-﻿using OpenTibia.Common.Structures;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.IO;
 
 namespace OpenTibia.Network.Packets.Incoming
@@ -19,9 +20,11 @@ namespace OpenTibia.Network.Packets.Incoming
 
         public string Password { get; set; }
 
-        public uint Nonce { get; set; }
+        public uint Timestamp { get; set; }
 
-        public void Read(IByteArrayStreamReader reader)
+        public byte Random { get; set; }
+
+        public void Read(IByteArrayStreamReader reader, IHasFeatureFlag features)
         {
             OperatingSystem = (OperatingSystem)reader.ReadUShort();
 
@@ -42,13 +45,25 @@ namespace OpenTibia.Network.Packets.Incoming
 
             Gamemaster = reader.ReadBool();
 
-            Account = reader.ReadString();
+            if ( !features.HasFeatureFlag(FeatureFlag.AccountString) )
+            {
+                Account = reader.ReadUInt().ToString();
+            }
+            else
+            {
+                Account = reader.ReadString();
+            }
 
             Character = reader.ReadString();
 
             Password = reader.ReadString();
 
-            Nonce = reader.ReadUInt();
+            if (features.HasFeatureFlag(FeatureFlag.ChallengeOnLogin) )
+            {
+                Timestamp = reader.ReadUInt();
+
+                Random = reader.ReadByte();
+            }
         }
     }
 }

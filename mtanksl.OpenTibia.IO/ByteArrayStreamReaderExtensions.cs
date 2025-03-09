@@ -1,20 +1,30 @@
-﻿using OpenTibia.Common.Structures;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using System;
 
 namespace OpenTibia.IO
 {
     public static class ByteArrayStreamReaderExtensions
     {
-        public static Outfit ReadOutfit(this IByteArrayStreamReader reader)
+        public static Outfit ReadOutfit(this IByteArrayStreamReader reader, IHasFeatureFlag features)
         {
-            ushort id = reader.ReadUShort();
+            ushort id;
+
+            if ( !features.HasFeatureFlag(FeatureFlag.LookTypeUInt16) )
+            {
+                id = reader.ReadByte();
+            }
+            else
+            {
+                id = reader.ReadUShort();
+            }
 
             if (id == 0)
             {
                 return new Outfit( reader.ReadUShort() );
             }
 
-            return new Outfit( id, reader.ReadByte(), reader.ReadByte(), reader.ReadByte(), reader.ReadByte(), (Addon)reader.ReadByte() );
+            return new Outfit( id, reader.ReadByte(), reader.ReadByte(), reader.ReadByte(), reader.ReadByte(), !features.HasFeatureFlag(FeatureFlag.PlayerAddons) ? Addon.None : (Addon)reader.ReadByte() );
         }
 
         public static Light ReadLight(this IByteArrayStreamReader reader)

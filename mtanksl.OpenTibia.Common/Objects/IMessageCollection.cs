@@ -6,7 +6,7 @@ namespace OpenTibia.Common.Objects
 {
     public interface IMessageCollection : IDisposable
     {
-        void Add(IOutgoingPacket packet);
+        void Add(IOutgoingPacket packet, IHasFeatureFlag features);
 
         IEnumerable<byte[]> GetMessages();
     }

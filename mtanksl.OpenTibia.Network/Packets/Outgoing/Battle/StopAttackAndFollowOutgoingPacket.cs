@@ -1,4 +1,5 @@
-﻿using OpenTibia.IO;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.IO;
 
 namespace OpenTibia.Network.Packets.Outgoing
 {
@@ -11,11 +12,14 @@ namespace OpenTibia.Network.Packets.Outgoing
 
         public uint Nonce { get; set; }
 
-        public void Write(IByteArrayStreamWriter writer)
+        public void Write(IByteArrayStreamWriter writer, IHasFeatureFlag features)
         {
             writer.Write( (byte)0xA3 );
 
-            writer.Write(Nonce);
+            if (features.HasFeatureFlag(Common.Structures.FeatureFlag.AttackSequence) )
+            {
+                writer.Write(Nonce);
+            }
         }
     }
 }

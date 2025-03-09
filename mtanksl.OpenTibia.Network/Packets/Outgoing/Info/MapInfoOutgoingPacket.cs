@@ -1,4 +1,5 @@
-﻿using OpenTibia.IO;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.IO;
 using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Network.Packets.Incoming
@@ -24,7 +25,7 @@ namespace OpenTibia.Network.Packets.Incoming
 
         public ushort MapHeight { get; set; }
 
-        public void Write(IByteArrayStreamWriter writer)
+        public void Write(IByteArrayStreamWriter writer, IHasFeatureFlag features)
         {
             writer.Write( (byte)0x30);
 

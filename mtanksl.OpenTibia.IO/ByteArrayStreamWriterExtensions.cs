@@ -6,9 +6,16 @@ namespace OpenTibia.IO
 {
     public static class ByteArrayStreamWriterExtensions
     {       
-        public static void Write(this IByteArrayStreamWriter writer, Outfit outfit)
+        public static void Write(this IByteArrayStreamWriter writer, IHasFeatureFlag features, Outfit outfit)
         {
-            writer.Write(outfit.Id);
+            if ( !features.HasFeatureFlag(FeatureFlag.LookTypeUInt16) )
+            {
+                writer.Write( (byte)outfit.Id);
+            }
+            else
+            {
+                writer.Write(outfit.Id);
+            }
 
             if (outfit.Id == 0)
             {
@@ -24,7 +31,10 @@ namespace OpenTibia.IO
 
                 writer.Write(outfit.Feet);
 
-                writer.Write( (byte)outfit.Addon );
+                if (features.HasFeatureFlag(FeatureFlag.PlayerAddons) )
+                {
+                    writer.Write( (byte)outfit.Addon );
+                }
             }
         }
 
@@ -83,7 +93,7 @@ namespace OpenTibia.IO
         /// <summary>
         /// Known creature.
         /// </summary>
-        public static void Write(this IByteArrayStreamWriter writer, Creature creature, SkullIcon skullIcon, PartyIcon partyIcon)
+        public static void Write(this IByteArrayStreamWriter writer, IHasFeatureFlag features, Creature creature, SkullIcon skullIcon, PartyIcon partyIcon)
         {
              writer.Write( (ushort)0x62 );
 
@@ -93,7 +103,7 @@ namespace OpenTibia.IO
 
              writer.Write( (byte)creature.Direction );
 
-             writer.Write(creature.ClientOutfit);
+             writer.Write(features, creature.ClientOutfit);
 
              writer.Write(creature.ClientLight);
 
@@ -103,13 +113,16 @@ namespace OpenTibia.IO
 
              writer.Write( (byte)partyIcon);
 
-             writer.Write(creature.Block);
+            if (features.HasFeatureFlag(FeatureFlag.CreatureBlock) )
+            {
+                writer.Write(creature.Block);
+            }
         }
 
         /// <summary>
         /// Unknown creature.
         /// </summary>
-        public static void Write(this IByteArrayStreamWriter writer, uint removeId, Creature creature, SkullIcon skullIcon, PartyIcon partyIcon, WarIcon warIcon)
+        public static void Write(this IByteArrayStreamWriter writer, IHasFeatureFlag features, uint removeId, Creature creature, SkullIcon skullIcon, PartyIcon partyIcon, WarIcon warIcon)
         {
             writer.Write( (ushort)0x61 );
 
@@ -123,7 +136,7 @@ namespace OpenTibia.IO
 
             writer.Write( (byte)creature.Direction );
 
-            writer.Write(creature.ClientOutfit);
+            writer.Write(features, creature.ClientOutfit);
 
             writer.Write(creature.ClientLight);
 
@@ -133,9 +146,15 @@ namespace OpenTibia.IO
 
             writer.Write( (byte)partyIcon);
 
-            writer.Write( (byte)warIcon);
+            if (features.HasFeatureFlag(FeatureFlag.CreatureWarIcon) )
+            {
+                writer.Write( (byte)warIcon);
+            }
 
-            writer.Write(creature.Block);
+            if (features.HasFeatureFlag(FeatureFlag.CreatureBlock) )
+            {
+                writer.Write(creature.Block);
+            }
         }
 
         public static void Write(this IByteArrayStreamWriter writer, IPAddress ipAddress)

@@ -1,9 +1,10 @@
-﻿using OpenTibia.IO;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.IO;
 
 namespace OpenTibia.Network.Packets.Outgoing
 {
     public interface IOutgoingPacket
     {
-        void Write(IByteArrayStreamWriter writer);
+        void Write(IByteArrayStreamWriter writer, IHasFeatureFlag features);
     }
 }

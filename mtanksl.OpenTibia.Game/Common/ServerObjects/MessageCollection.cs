@@ -44,11 +44,11 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         private LinkedList<byte[]> messages;
 
-        public void Add(IOutgoingPacket packet)
+        public void Add(IOutgoingPacket packet, IHasFeatureFlag features)
         {
             tempStream.Seek(Origin.Begin, 0);
 
-            packet.Write(tempWriter);
+            packet.Write(tempWriter, features);
 
             if (messageStream.Position + tempStream.Position > MaxMessageSize)
             {

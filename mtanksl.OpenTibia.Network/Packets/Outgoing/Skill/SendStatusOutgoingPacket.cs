@@ -1,4 +1,6 @@
-﻿using OpenTibia.IO;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
+using OpenTibia.IO;
 using System;
 
 namespace OpenTibia.Network.Packets.Outgoing
@@ -56,7 +58,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 
         public ushort Stamina { get; set; }
         
-        public void Write(IByteArrayStreamWriter writer)
+        public void Write(IByteArrayStreamWriter writer, IHasFeatureFlag features)
         {
             writer.Write( (byte)0xA0 );
 
@@ -64,7 +66,14 @@ namespace OpenTibia.Network.Packets.Outgoing
 
             writer.Write(MaxHealth);
 
-            writer.Write(Capacity);
+            if ( !features.HasFeatureFlag(FeatureFlag.PlayerCapacityUInt32) )
+            {
+                writer.Write( (ushort)Capacity);
+            }
+            else
+            {
+                writer.Write(Capacity);
+            }
 
             writer.Write( (uint)Math.Min(int.MaxValue, Experience) );
 
@@ -82,7 +91,10 @@ namespace OpenTibia.Network.Packets.Outgoing
 
             writer.Write(Soul);
 
-            writer.Write(Stamina);
+            if (features.HasFeatureFlag(FeatureFlag.PlayerStamina) )
+            {
+                writer.Write(Stamina);
+            }
         }
     }
 }

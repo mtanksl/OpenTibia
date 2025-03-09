@@ -9,11 +9,9 @@ namespace OpenTibia.Common
 {
     public class InfoConnection : RawConnection
     {
-        private IServer server;
-
         public InfoConnection(IServer server, Socket socket) : base(server, socket)
         {
-            this.server = server;
+
         }
 
         protected override void OnConnected()
@@ -41,7 +39,7 @@ namespace OpenTibia.Common
 
                     if (server.Features.InfoFirstCommands.TryGetValue(identification, out IPacketToCommand packetToCommand) )
                     {
-                        Command command = packetToCommand.Convert(this, reader);
+                        Command command = packetToCommand.Convert(this, reader, server.Features);
 
                         server.Logger.WriteLine("Received on info server: 0x" + identification.ToString("X2") + " (" + packetToCommand.Name + ")", LogLevel.Debug);
 

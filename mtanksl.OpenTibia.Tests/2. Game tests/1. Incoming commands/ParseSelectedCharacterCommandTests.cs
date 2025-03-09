@@ -29,7 +29,9 @@ namespace OpenTibia.Tests
 
                 Character = "Gamemaster",
 
-                Nonce = 0               
+                Timestamp = 0,
+                
+                Random = 0
             };
         }
 

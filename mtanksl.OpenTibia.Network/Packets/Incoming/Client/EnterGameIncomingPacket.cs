@@ -1,4 +1,5 @@
-﻿using OpenTibia.Common.Structures;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.IO;
 
 namespace OpenTibia.Network.Packets.Incoming
@@ -43,7 +44,7 @@ namespace OpenTibia.Network.Packets.Incoming
 
         public byte RefreshRate { get; set; }
 
-        public void Read(IByteArrayStreamReader reader)
+        public void Read(IByteArrayStreamReader reader, IHasFeatureFlag features)
         {
             OperatingSystem = (OperatingSystem)reader.ReadUShort();
 
@@ -68,37 +69,47 @@ namespace OpenTibia.Network.Packets.Incoming
                 reader.ReadUInt()
             };
 
-            Account = reader.ReadString();
+            if ( !features.HasFeatureFlag(FeatureFlag.AccountString) )
+            {
+                Account = reader.ReadUInt().ToString();
+            }
+            else
+            {
+                Account = reader.ReadString();
+            }
 
             Password = reader.ReadString();
 
-            LocaleId = reader.ReadByte();
+            if (features.HasFeatureFlag(FeatureFlag.AccountString) )
+            {
+                LocaleId = reader.ReadByte();
 
-            Locale = reader.ReadString(3);
+                Locale = reader.ReadString(3);
 
-            TotalRam = reader.ReadUShort();
+                TotalRam = reader.ReadUShort();
 
-            reader.BaseStream.Seek(Origin.Current, 6);
+                reader.BaseStream.Seek(Origin.Current, 6);
 
-            Cpu = reader.ReadString(9);
+                Cpu = reader.ReadString(9);
 
-            reader.BaseStream.Seek(Origin.Current, 2);
+                reader.BaseStream.Seek(Origin.Current, 2);
 
-            CpuClock = reader.ReadUShort();
+                CpuClock = reader.ReadUShort();
 
-            CpuClock2 = reader.ReadUShort();
+                CpuClock2 = reader.ReadUShort();
 
-            reader.BaseStream.Seek(Origin.Current, 4);
+                reader.BaseStream.Seek(Origin.Current, 4);
 
-            Gpu = reader.ReadString(9);
+                Gpu = reader.ReadString(9);
 
-            VideoRam = reader.ReadUShort();
+                VideoRam = reader.ReadUShort();
 
-            ResolutionHorizontal = reader.ReadUShort();
+                ResolutionHorizontal = reader.ReadUShort();
 
-            ResolutionVertical = reader.ReadUShort();
+                ResolutionVertical = reader.ReadUShort();
 
-            RefreshRate = reader.ReadByte();
+                RefreshRate = reader.ReadByte();
+            }
         }
     }
 }

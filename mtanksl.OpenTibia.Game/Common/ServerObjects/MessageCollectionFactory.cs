@@ -20,9 +20,9 @@ namespace OpenTibia.Game.Common.ServerObjects
                 this.messageCollection = messageCollection;
             }
 
-            public void Add(IOutgoingPacket packet)
+            public void Add(IOutgoingPacket packet, IHasFeatureFlag features)
             {
-                messageCollection.Add(packet);
+                messageCollection.Add(packet, features);
             }
 
             public IEnumerable<byte[]> GetMessages()

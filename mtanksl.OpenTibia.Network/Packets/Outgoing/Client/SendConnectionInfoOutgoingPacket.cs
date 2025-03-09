@@ -1,23 +1,28 @@
-﻿using OpenTibia.IO;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.IO;
 
 namespace OpenTibia.Network.Packets.Outgoing
 {
     public class SendConnectionInfoOutgoingPacket : IOutgoingPacket
     {
-        public SendConnectionInfoOutgoingPacket(uint nonce)
+        public SendConnectionInfoOutgoingPacket(uint timestamp, byte random)
         {
-            this.Nonce = nonce;
+            this.Timestamp = timestamp;
+
+            this.Random = random;
         }
 
-        public uint Nonce { get; set; }
+        public uint Timestamp { get; set; }
 
-        public void Write(IByteArrayStreamWriter writer)
+        public byte Random { get; set; }
+
+        public void Write(IByteArrayStreamWriter writer, IHasFeatureFlag features)
         {
             writer.Write( (byte)0x1F );
 
-            writer.Write(Nonce);
+            writer.Write(Timestamp);
 
-            writer.Write( (byte)0x00 );
+            writer.Write(Random);
         }
     }
 }

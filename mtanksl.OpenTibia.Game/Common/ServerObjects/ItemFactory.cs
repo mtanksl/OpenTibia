@@ -217,251 +217,254 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             foreach (var xmlItem in itemsFile.Items)
             {
-                ItemMetadata metadata = openTibiaMetadatas[xmlItem.OpenTibiaId];
+                ItemMetadata metadata;
 
-                metadata.Article = xmlItem.Article;
-
-                metadata.Name = xmlItem.Name;
-
-                metadata.Plural = xmlItem.Plural;
-
-                metadata.Description = xmlItem.Description;
-
-                metadata.RuneSpellName = xmlItem.RuneSpellName;
-
-                metadata.Weight = xmlItem.Weight;
-
-                metadata.Armor = xmlItem.Armor;
-
-                metadata.Defense = xmlItem.Defense;
-
-                metadata.DefenseModifier = xmlItem.DefenseModifier;
-
-                metadata.Attack = xmlItem.Attack;
-
-                if (xmlItem.BlockProjectile == true)
+                if (openTibiaMetadatas.TryGetValue(xmlItem.OpenTibiaId, out metadata) )
                 {
-                    metadata.Flags |= ItemMetadataFlags.BlockProjectile;
-                }
+                    metadata.Article = xmlItem.Article;
 
-                metadata.FloorChange = xmlItem.FloorChange;
+                    metadata.Name = xmlItem.Name;
 
-                metadata.Race = xmlItem.Race;
+                    metadata.Plural = xmlItem.Plural;
 
-                metadata.Capacity = xmlItem.ContainerSize;
+                    metadata.Description = xmlItem.Description;
 
-                if (metadata.Capacity == null)
-                {
-                    if (metadata.Flags.Is(ItemMetadataFlags.IsContainer) )
+                    metadata.RuneSpellName = xmlItem.RuneSpellName;
+
+                    metadata.Weight = xmlItem.Weight;
+
+                    metadata.Armor = xmlItem.Armor;
+
+                    metadata.Defense = xmlItem.Defense;
+
+                    metadata.DefenseModifier = xmlItem.DefenseModifier;
+
+                    metadata.Attack = xmlItem.Attack;
+
+                    if (xmlItem.BlockProjectile == true)
                     {
-                        metadata.Capacity = 8;
+                        metadata.Flags |= ItemMetadataFlags.BlockProjectile;
                     }
-                }
-                else
-                {
-                    if ( !metadata.Flags.Is(ItemMetadataFlags.IsContainer) )
+
+                    metadata.FloorChange = xmlItem.FloorChange;
+
+                    metadata.Race = xmlItem.Race;
+
+                    metadata.Capacity = xmlItem.ContainerSize;
+
+                    if (metadata.Capacity == null)
                     {
-                        metadata.Flags |= ItemMetadataFlags.IsContainer;
-                    }
-                }
-
-                metadata.WeaponType = xmlItem.WeaponType;
-
-                metadata.AmmoType = xmlItem.AmmoType;
-
-                metadata.ProjectileType = xmlItem.ProjectileType;
-
-                metadata.MagicEffectType = xmlItem.MagicEffectType;
-
-                metadata.Range = xmlItem.Range;
-
-                metadata.Charges = xmlItem.Charges;
-
-                metadata.ShowCharges = xmlItem.ShowCharges == true ? true : false;
-
-                metadata.DurationInMilliseconds = xmlItem.DurationInSeconds * 1000;
-
-                metadata.ShowDuration = xmlItem.ShowDuration == true ? true : false;
-
-                metadata.DecayToOpenTibiaId = xmlItem.DecayToOpenTibiaId;
-
-                metadata.SlotType = xmlItem.SlotType;
-
-                metadata.BreakChance = xmlItem.BreakChance;
-
-                metadata.AmmoAction = xmlItem.AmmoAction;
-
-                metadata.HitChance = xmlItem.HitChance;
-
-                metadata.MaxHitChance = xmlItem.MaxHitChance;
-
-                if (metadata.WeaponType == WeaponType.Distance && metadata.SlotType != SlotType.Ammo && metadata.MaxHitChance == null)
-                {
-                    if (metadata.SlotType == SlotType.TwoHanded)
-                    {
-                        metadata.MaxHitChance = 90;
+                        if (metadata.Flags.Is(ItemMetadataFlags.IsContainer) )
+                        {
+                            metadata.Capacity = 8;
+                        }
                     }
                     else
                     {
-                        metadata.MaxHitChance = 75;
+                        if ( !metadata.Flags.Is(ItemMetadataFlags.IsContainer) )
+                        {
+                            metadata.Flags |= ItemMetadataFlags.IsContainer;
+                        }
                     }
-                }
 
-                if (xmlItem.Readable == true)
-                {
-                    metadata.Flags |= ItemMetadataFlags.Readable;
-                }
+                    metadata.WeaponType = xmlItem.WeaponType;
 
-                if (xmlItem.Writeable == true)
-                {
-                    metadata.Flags |= ItemMetadataFlags.Writeable;
-                }
+                    metadata.AmmoType = xmlItem.AmmoType;
+
+                    metadata.ProjectileType = xmlItem.ProjectileType;
+
+                    metadata.MagicEffectType = xmlItem.MagicEffectType;
+
+                    metadata.Range = xmlItem.Range;
+
+                    metadata.Charges = xmlItem.Charges;
+
+                    metadata.ShowCharges = xmlItem.ShowCharges == true ? true : false;
+
+                    metadata.DurationInMilliseconds = xmlItem.DurationInSeconds * 1000;
+
+                    metadata.ShowDuration = xmlItem.ShowDuration == true ? true : false;
+
+                    metadata.DecayToOpenTibiaId = xmlItem.DecayToOpenTibiaId;
+
+                    metadata.SlotType = xmlItem.SlotType;
+
+                    metadata.BreakChance = xmlItem.BreakChance;
+
+                    metadata.AmmoAction = xmlItem.AmmoAction;
+
+                    metadata.HitChance = xmlItem.HitChance;
+
+                    metadata.MaxHitChance = xmlItem.MaxHitChance;
+
+                    if (metadata.WeaponType == WeaponType.Distance && metadata.SlotType != SlotType.Ammo && metadata.MaxHitChance == null)
+                    {
+                        if (metadata.SlotType == SlotType.TwoHanded)
+                        {
+                            metadata.MaxHitChance = 90;
+                        }
+                        else
+                        {
+                            metadata.MaxHitChance = 75;
+                        }
+                    }
+
+                    if (xmlItem.Readable == true)
+                    {
+                        metadata.Flags |= ItemMetadataFlags.Readable;
+                    }
+
+                    if (xmlItem.Writeable == true)
+                    {
+                        metadata.Flags |= ItemMetadataFlags.Writeable;
+                    }
                                       
-                if (xmlItem.AbsorbPhysicalPercent != null)
-                {
-                    metadata.DamageTakenFromElements[DamageType.Physical] = (100 - xmlItem.AbsorbPhysicalPercent.Value) / 100.0;
-                }
+                    if (xmlItem.AbsorbPhysicalPercent != null)
+                    {
+                        metadata.DamageTakenFromElements[DamageType.Physical] = (100 - xmlItem.AbsorbPhysicalPercent.Value) / 100.0;
+                    }
                     
-                if (xmlItem.AbsorbEarthPercent != null)
-                {
-                    metadata.DamageTakenFromElements[DamageType.Earth] = (100 - xmlItem.AbsorbEarthPercent.Value) / 100.0;
-                }
+                    if (xmlItem.AbsorbEarthPercent != null)
+                    {
+                        metadata.DamageTakenFromElements[DamageType.Earth] = (100 - xmlItem.AbsorbEarthPercent.Value) / 100.0;
+                    }
                     
-                if (xmlItem.AbsorbFirePercent != null)
-                {
-                    metadata.DamageTakenFromElements[DamageType.Fire] = (100 - xmlItem.AbsorbFirePercent.Value) / 100.0;
-                }
+                    if (xmlItem.AbsorbFirePercent != null)
+                    {
+                        metadata.DamageTakenFromElements[DamageType.Fire] = (100 - xmlItem.AbsorbFirePercent.Value) / 100.0;
+                    }
                     
-                if (xmlItem.AbsorbEnergyPercent != null)
-                {
-                    metadata.DamageTakenFromElements[DamageType.Energy] = (100 - xmlItem.AbsorbEnergyPercent.Value) / 100.0;
-                }
+                    if (xmlItem.AbsorbEnergyPercent != null)
+                    {
+                        metadata.DamageTakenFromElements[DamageType.Energy] = (100 - xmlItem.AbsorbEnergyPercent.Value) / 100.0;
+                    }
                     
-                if (xmlItem.AbsorbIcePercent != null)
-                {
-                    metadata.DamageTakenFromElements[DamageType.Ice] = (100 - xmlItem.AbsorbIcePercent.Value) / 100.0;
-                }
+                    if (xmlItem.AbsorbIcePercent != null)
+                    {
+                        metadata.DamageTakenFromElements[DamageType.Ice] = (100 - xmlItem.AbsorbIcePercent.Value) / 100.0;
+                    }
                     
-                if (xmlItem.AbsorbDeathPercent != null)
-                {
-                    metadata.DamageTakenFromElements[DamageType.Death] = (100 - xmlItem.AbsorbDeathPercent.Value) / 100.0;
-                }
+                    if (xmlItem.AbsorbDeathPercent != null)
+                    {
+                        metadata.DamageTakenFromElements[DamageType.Death] = (100 - xmlItem.AbsorbDeathPercent.Value) / 100.0;
+                    }
                     
-                if (xmlItem.AbsorbHolyPercent != null)
-                {
-                    metadata.DamageTakenFromElements[DamageType.Holy] = (100 - xmlItem.AbsorbHolyPercent.Value) / 100.0;
-                }
+                    if (xmlItem.AbsorbHolyPercent != null)
+                    {
+                        metadata.DamageTakenFromElements[DamageType.Holy] = (100 - xmlItem.AbsorbHolyPercent.Value) / 100.0;
+                    }
                     
-                if (xmlItem.AbsorbDrownPercent != null)
-                {
-                    metadata.DamageTakenFromElements[DamageType.Drown] = (100 - xmlItem.AbsorbDrownPercent.Value) / 100.0;
-                }
+                    if (xmlItem.AbsorbDrownPercent != null)
+                    {
+                        metadata.DamageTakenFromElements[DamageType.Drown] = (100 - xmlItem.AbsorbDrownPercent.Value) / 100.0;
+                    }
                     
-                if (xmlItem.AbsorbManaDrainPercent != null)
-                {
-                    metadata.DamageTakenFromElements[DamageType.ManaDrain] = (100 - xmlItem.AbsorbManaDrainPercent.Value) / 100.0;
-                }
+                    if (xmlItem.AbsorbManaDrainPercent != null)
+                    {
+                        metadata.DamageTakenFromElements[DamageType.ManaDrain] = (100 - xmlItem.AbsorbManaDrainPercent.Value) / 100.0;
+                    }
                     
-                if (xmlItem.AbsorbLifeDrainPercent != null)
-                {
-                    metadata.DamageTakenFromElements[DamageType.LifeDrain] = (100 - xmlItem.AbsorbLifeDrainPercent.Value) / 100.0;
-                }
+                    if (xmlItem.AbsorbLifeDrainPercent != null)
+                    {
+                        metadata.DamageTakenFromElements[DamageType.LifeDrain] = (100 - xmlItem.AbsorbLifeDrainPercent.Value) / 100.0;
+                    }
 
-                if (xmlItem.AttackModifierEarth != null)
-                {
-                    metadata.AttackDamageType = DamageType.Earth;
+                    if (xmlItem.AttackModifierEarth != null)
+                    {
+                        metadata.AttackDamageType = DamageType.Earth;
 
-                    metadata.AttackModifier = xmlItem.AttackModifierEarth.Value;
-                }
-                else if (xmlItem.AttackModifierFire != null)
-                {
-                    metadata.AttackDamageType = DamageType.Fire;
+                        metadata.AttackModifier = xmlItem.AttackModifierEarth.Value;
+                    }
+                    else if (xmlItem.AttackModifierFire != null)
+                    {
+                        metadata.AttackDamageType = DamageType.Fire;
 
-                    metadata.AttackModifier = xmlItem.AttackModifierFire.Value;
-                }
-                else if (xmlItem.AttackModifierEnergy != null)
-                {
-                    metadata.AttackDamageType = DamageType.Energy;
+                        metadata.AttackModifier = xmlItem.AttackModifierFire.Value;
+                    }
+                    else if (xmlItem.AttackModifierEnergy != null)
+                    {
+                        metadata.AttackDamageType = DamageType.Energy;
 
-                    metadata.AttackModifier = xmlItem.AttackModifierEnergy.Value;
-                }
-                else if (xmlItem.AttackModifierIce != null)
-                {
-                    metadata.AttackDamageType = DamageType.Ice;
+                        metadata.AttackModifier = xmlItem.AttackModifierEnergy.Value;
+                    }
+                    else if (xmlItem.AttackModifierIce != null)
+                    {
+                        metadata.AttackDamageType = DamageType.Ice;
 
-                    metadata.AttackModifier = xmlItem.AttackModifierIce.Value;
-                }
-                else if (xmlItem.AttackModifierDeath != null)
-                {
-                    metadata.AttackDamageType = DamageType.Death;
+                        metadata.AttackModifier = xmlItem.AttackModifierIce.Value;
+                    }
+                    else if (xmlItem.AttackModifierDeath != null)
+                    {
+                        metadata.AttackDamageType = DamageType.Death;
 
-                    metadata.AttackModifier = xmlItem.AttackModifierDeath.Value;
-                }
-                else if (xmlItem.AttackModifierHoly != null)
-                {
-                    metadata.AttackDamageType = DamageType.Holy;
+                        metadata.AttackModifier = xmlItem.AttackModifierDeath.Value;
+                    }
+                    else if (xmlItem.AttackModifierHoly != null)
+                    {
+                        metadata.AttackDamageType = DamageType.Holy;
                             
-                    metadata.AttackModifier = xmlItem.AttackModifierHoly.Value;
-                }
-                else if (xmlItem.AttackModifierDrown != null)
-                {
-                    metadata.AttackDamageType = DamageType.Drown;
+                        metadata.AttackModifier = xmlItem.AttackModifierHoly.Value;
+                    }
+                    else if (xmlItem.AttackModifierDrown != null)
+                    {
+                        metadata.AttackDamageType = DamageType.Drown;
 
-                    metadata.AttackModifier  = xmlItem.AttackModifierDrown.Value;
-                }
-                else if (xmlItem.AttackModifierManaDrain != null)
-                {
-                    metadata.AttackDamageType = DamageType.ManaDrain;
+                        metadata.AttackModifier  = xmlItem.AttackModifierDrown.Value;
+                    }
+                    else if (xmlItem.AttackModifierManaDrain != null)
+                    {
+                        metadata.AttackDamageType = DamageType.ManaDrain;
 
-                    metadata.AttackModifier = xmlItem.AttackModifierManaDrain.Value;
-                }
-                else if (xmlItem.AttackModifierLifeDrain != null)
-                {
-                    metadata.AttackDamageType = DamageType.LifeDrain;
+                        metadata.AttackModifier = xmlItem.AttackModifierManaDrain.Value;
+                    }
+                    else if (xmlItem.AttackModifierLifeDrain != null)
+                    {
+                        metadata.AttackDamageType = DamageType.LifeDrain;
                                                                          
-                    metadata.AttackModifier = xmlItem.AttackModifierLifeDrain.Value;
-                }
+                        metadata.AttackModifier = xmlItem.AttackModifierLifeDrain.Value;
+                    }
 
-                metadata.SpeedModifier = xmlItem.SpeedModifier;
+                    metadata.SpeedModifier = xmlItem.SpeedModifier;
 
-                if (xmlItem.SkillModifierMagicLevel != null)
-                {
-                    metadata.SkillModifier[Skill.MagicLevel] = xmlItem.SkillModifierMagicLevel.Value;
-                }
+                    if (xmlItem.SkillModifierMagicLevel != null)
+                    {
+                        metadata.SkillModifier[Skill.MagicLevel] = xmlItem.SkillModifierMagicLevel.Value;
+                    }
                     
-                if (xmlItem.SkillModifierFist != null)
-                {
-                    metadata.SkillModifier[Skill.Fist] = xmlItem.SkillModifierFist.Value;
-                }
+                    if (xmlItem.SkillModifierFist != null)
+                    {
+                        metadata.SkillModifier[Skill.Fist] = xmlItem.SkillModifierFist.Value;
+                    }
                     
-                if (xmlItem.SkillModifierClub != null)
-                {
-                    metadata.SkillModifier[Skill.Club] = xmlItem.SkillModifierClub.Value;
-                }
+                    if (xmlItem.SkillModifierClub != null)
+                    {
+                        metadata.SkillModifier[Skill.Club] = xmlItem.SkillModifierClub.Value;
+                    }
                     
-                if (xmlItem.SkillModifierSword != null)
-                {
-                    metadata.SkillModifier[Skill.Sword] = xmlItem.SkillModifierSword.Value;
-                }
+                    if (xmlItem.SkillModifierSword != null)
+                    {
+                        metadata.SkillModifier[Skill.Sword] = xmlItem.SkillModifierSword.Value;
+                    }
                     
-                if (xmlItem.SkillModifierAxe != null)
-                {
-                    metadata.SkillModifier[Skill.Axe] = xmlItem.SkillModifierAxe.Value;
-                }
+                    if (xmlItem.SkillModifierAxe != null)
+                    {
+                        metadata.SkillModifier[Skill.Axe] = xmlItem.SkillModifierAxe.Value;
+                    }
                     
-                if (xmlItem.SkillModifierDistance != null)
-                {
-                    metadata.SkillModifier[Skill.Distance] = xmlItem.SkillModifierDistance.Value;
-                }
+                    if (xmlItem.SkillModifierDistance != null)
+                    {
+                        metadata.SkillModifier[Skill.Distance] = xmlItem.SkillModifierDistance.Value;
+                    }
                     
-                if (xmlItem.SkillModifierShield != null)
-                {
-                    metadata.SkillModifier[Skill.Shield] = xmlItem.SkillModifierShield.Value;
-                }
+                    if (xmlItem.SkillModifierShield != null)
+                    {
+                        metadata.SkillModifier[Skill.Shield] = xmlItem.SkillModifierShield.Value;
+                    }
                     
-                if (xmlItem.SkillModifierFish != null)
-                {
-                    metadata.SkillModifier[Skill.Fish] = xmlItem.SkillModifierFish.Value;
+                    if (xmlItem.SkillModifierFish != null)
+                    {
+                        metadata.SkillModifier[Skill.Fish] = xmlItem.SkillModifierFish.Value;
+                    }
                 }
             }
         }

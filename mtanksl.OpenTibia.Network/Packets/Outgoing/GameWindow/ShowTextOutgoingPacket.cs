@@ -1,4 +1,5 @@
-﻿using OpenTibia.Common.Structures;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.IO;
 
 namespace OpenTibia.Network.Packets.Outgoing
@@ -105,15 +106,21 @@ namespace OpenTibia.Network.Packets.Outgoing
 
         public string Message { get; set; }
         
-        public void Write(IByteArrayStreamWriter writer)
+        public void Write(IByteArrayStreamWriter writer, IHasFeatureFlag features)
         {
             writer.Write( (byte)0xAA );
 
-            writer.Write(StatmentId);
+            if (features.HasFeatureFlag(FeatureFlag.MessageStatement) )
+            {
+                writer.Write(StatmentId);
+            }
 
             writer.Write(Sender);
 
-            writer.Write(Level);
+            if (features.HasFeatureFlag(FeatureFlag.MessageLevel) )
+            {
+                writer.Write(Level);
+            }
 
             writer.Write( (byte)TalkType );
 

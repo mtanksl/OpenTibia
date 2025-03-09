@@ -1,4 +1,5 @@
-﻿using OpenTibia.Common.Structures;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.IO;
 using System.Collections.Generic;
 
@@ -29,21 +30,28 @@ namespace OpenTibia.Network.Packets.Outgoing
             }
         }
         
-        public void Write(IByteArrayStreamWriter writer)
+        public void Write(IByteArrayStreamWriter writer, IHasFeatureFlag features)
         {
             writer.Write( (byte)0xC8 );
 
-            writer.Write(Outfit);
-            
-            writer.Write( (byte)Outfits.Count );
-
-            foreach (var outfit in Outfits)
+            if ( !features.HasFeatureFlag(FeatureFlag.NewOutfitProtocol) )
             {
-                writer.Write(outfit.OutfitId);
+                //TODO: Features
+            }
+            else
+            {
+                writer.Write(features, Outfit);
+            
+                writer.Write( (byte)Outfits.Count );
 
-                writer.Write(outfit.Name);
+                foreach (var outfit in Outfits)
+                {
+                    writer.Write(outfit.OutfitId);
 
-                writer.Write( (byte)outfit.Addon );
+                    writer.Write(outfit.Name);
+
+                    writer.Write( (byte)outfit.Addon );
+                }
             }
         }
     }

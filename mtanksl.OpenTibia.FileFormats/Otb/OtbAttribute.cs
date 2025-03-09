@@ -2,6 +2,8 @@
 {
     public enum OtbAttribute : byte
     {
+    Empty = 0,
+
         OpenTibiaId = 16,
 
         TibiaId = 17,
@@ -18,6 +20,10 @@
 
         Light = 42,
 
-        TopOrder = 43
+        TopOrder = 43,
+
+    Start = 254,
+
+    End = 255
     }
 }

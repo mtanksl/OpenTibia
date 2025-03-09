@@ -1,4 +1,5 @@
-﻿using OpenTibia.IO;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.IO;
 using System.Collections.Generic;
 using System.Net;
 
@@ -30,7 +31,7 @@ namespace OpenTibia.Network.Packets.Outgoing
         public ushort PremiumDays { get; set; }
 
 
-        public void Write(IByteArrayStreamWriter writer)
+        public void Write(IByteArrayStreamWriter writer, IHasFeatureFlag features)
         {
             writer.Write( (byte)0x64 );
 

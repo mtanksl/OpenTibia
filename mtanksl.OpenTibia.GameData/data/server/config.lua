@@ -2,7 +2,7 @@ IP_ADDRESS = "127.0.0.1"
 LOGIN_PORT = 7171
 GAME_PORT = 7172
 INFO_PORT = 7173
-CLIENT_VERSION = "8.60"
+CLIENT_VERSION = "8.60" -- "7.72" or "8.60" (not completely ported to older versions yet)
 
 server = {
 	info = {
@@ -72,7 +72,7 @@ server = {
 			-- true = amulets and rings disappear after defense (Tibia)
 			-- false = amulets and rings do not disappear after defense 
 			removearmorcharges = true,
-			-- pvp or non-pvp
+			-- "pvp" or "non-pvp"
 			worldtype = "non-pvp",
 			protectionlevel = 0, -- When using pvp
 			-- When you attack or get attacked by monsters or people, you will receive logout block for 60 seconds.

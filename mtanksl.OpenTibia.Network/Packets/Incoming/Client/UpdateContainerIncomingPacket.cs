@@ -1,4 +1,5 @@
-﻿using OpenTibia.IO;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.IO;
 
 namespace OpenTibia.Network.Packets.Incoming
 {
@@ -6,7 +7,7 @@ namespace OpenTibia.Network.Packets.Incoming
     {
         public byte ContainerId { get; set; }
         
-        public void Read(IByteArrayStreamReader reader)
+        public void Read(IByteArrayStreamReader reader, IHasFeatureFlag features)
         {
             ContainerId = reader.ReadByte();
         }

@@ -1,4 +1,5 @@
-﻿using OpenTibia.Common.Structures;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.IO;
 
 namespace OpenTibia.Network.Packets.Incoming
@@ -7,7 +8,7 @@ namespace OpenTibia.Network.Packets.Incoming
     {
         public MoveDirection[] MoveDirections { get; set; }
         
-        public void Read(IByteArrayStreamReader reader)
+        public void Read(IByteArrayStreamReader reader, IHasFeatureFlag features)
         {
             MoveDirections = new MoveDirection[ reader.ReadByte() ];
             
