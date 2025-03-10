@@ -49,6 +49,9 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             #region Feature Flags
 
+            featureFlags.Add(FeatureFlag.RuleViolationChannel);
+            featureFlags.Add(FeatureFlag.GamemasterChannel);
+
             if (clientVersion >= 770)
 			{
 				featureFlags.Add(FeatureFlag.LookTypeUInt16);
@@ -69,14 +72,21 @@ namespace OpenTibia.Game.Common.ServerObjects
 			if (clientVersion >= 790)
 			{
 				featureFlags.Add(FeatureFlag.ReadableItemDate);
+				featureFlags.Add(FeatureFlag.QuestLog);
+            }
+
+			if (clientVersion >= 820)
+			{
+                featureFlags.Add(FeatureFlag.NpcsChannel);
 			}
 
-			if (clientVersion >= 840) 
+            if (clientVersion >= 840) 
 			{
 				featureFlags.Add(FeatureFlag.ProtocolChecksum);
 				featureFlags.Add(FeatureFlag.AccountString);
 				featureFlags.Add(FeatureFlag.PlayerCapacityUInt32);
-			}
+				featureFlags.Add(FeatureFlag.PartyChannel);
+            }
 
 			if (clientVersion >= 841) 
 			{
@@ -95,22 +105,33 @@ namespace OpenTibia.Game.Common.ServerObjects
 				featureFlags.Add(FeatureFlag.AttackSequence);
 			}
 
+			if (clientVersion >= 861)
+			{
+                featureFlags.Remove(FeatureFlag.RuleViolationChannel);
+                featureFlags.Remove(FeatureFlag.GamemasterChannel);
+            }
+
 			if (clientVersion >= 862)
 			{
-                featureFlags.Add(FeatureFlag.PenalityOnDeath);
-			}
+                featureFlags.Add(FeatureFlag.PenalityOnDeath);				
+            }
 
-			if (clientVersion >= 870)
+            if (clientVersion >= 870)
 			{
                 featureFlags.Add(FeatureFlag.PlayerExperienceUInt64);
                 featureFlags.Add(FeatureFlag.PlayerMounts);
-			}
+                featureFlags.Add(FeatureFlag.SpellList);
+            }
 
-			#endregion
+            #endregion
 
-			#region Text Color
+            #region Text Color
 
-			if (clientVersion >= 840) 
+            if (clientVersion >= 861)
+            {
+                //TODO: Features
+            }
+            else if (clientVersion >= 840) 
 			{
 				MapTextColor(1, TextColor.YellowDefault);
 				MapTextColor(4, TextColor.PurpleDefault);
@@ -143,7 +164,11 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             #region Talk Type
 
-            if (clientVersion >= 840) 
+			if (clientVersion >= 861)
+			{
+				//TODO: Features
+			} 
+			else if (clientVersion >= 840) 
 			{
 				MapTalkType(1, TalkType.Say);
 				MapTalkType(2, TalkType.Whisper);
@@ -180,8 +205,8 @@ namespace OpenTibia.Game.Common.ServerObjects
                 MapTalkType(11, TalkType.PrivateRed);
                 MapTalkType(12, TalkType.ChannelOrange);
                 MapTalkType(13, TalkType.ChannelRedAnonymous);
-                MapTalkType(17, TalkType.MonsterSay);
                 MapTalkType(16, TalkType.MonsterYell);
+                MapTalkType(17, TalkType.MonsterSay);
             }
 
 			#endregion
@@ -545,14 +570,20 @@ namespace OpenTibia.Game.Common.ServerObjects
 			gameCommands.Add(0x99, new PacketToCommand<CloseChannelIncomingPacket>("Close Channel", (connection, packet) => new ParseCloseChannelCommand(connection.Client.Player, packet.ChannelId) ) );
 			
 			gameCommands.Add(0x9A, new PacketToCommand<OpenedPrivateChannelIncomingPacket>("Opened Private Channel", (connection, packet) => new ParseOpenedPrivateChannelCommand(connection.Client.Player, packet.Name) ) );
-			
-			gameCommands.Add(0x9B, new PacketToCommand<ProcessReportRuleViolationIncomingPacket>("Process Report Rule Violation", (connection, packet) => new ParseProcessReportRuleViolationCommand(connection.Client.Player, packet.Name) ) );
-			
-			gameCommands.Add(0x9C, new PacketToCommand<CloseReportRuleViolationChannelAnswerIncomingPacket>("Close Report Rule Violation Channel Answer", (connection, packet) => new ParseCloseReportRuleViolationChannelAnswerCommand(connection.Client.Player, packet.Name) ) );
-			
-			gameCommands.Add(0x9D, new PacketToCommand<CloseReportRuleViolationChannelQuestionIncomingPacket>("Close Report Rule Violation Channel Question", (connection, packet) => new ParseCloseReportRuleViolationChannelQuestionCommand(connection.Client.Player) ) );
-			
-			gameCommands.Add(0x9E, new PacketToCommand<CloseNpcsChannelIncomingPacket>("Close Npcs Channel", (connection, packet) => new ParseCloseNpcsChannelCommand(connection.Client.Player) ) );
+
+            if (HasFeatureFlag(FeatureFlag.RuleViolationChannel) )
+            {
+				gameCommands.Add(0x9B, new PacketToCommand<ProcessReportRuleViolationIncomingPacket>("Process Report Rule Violation", (connection, packet) => new ParseProcessReportRuleViolationCommand(connection.Client.Player, packet.Name) ) );
+
+				gameCommands.Add(0x9C, new PacketToCommand<CloseReportRuleViolationChannelAnswerIncomingPacket>("Close Report Rule Violation Channel Answer", (connection, packet) => new ParseCloseReportRuleViolationChannelAnswerCommand(connection.Client.Player, packet.Name) ) );
+				
+				gameCommands.Add(0x9D, new PacketToCommand<CloseReportRuleViolationChannelQuestionIncomingPacket>("Close Report Rule Violation Channel Question", (connection, packet) => new ParseCloseReportRuleViolationChannelQuestionCommand(connection.Client.Player) ) );
+            }
+
+            if (HasFeatureFlag(FeatureFlag.NpcsChannel) )
+            {
+				gameCommands.Add(0x9E, new PacketToCommand<CloseNpcsChannelIncomingPacket>("Close Npcs Channel", (connection, packet) => new ParseCloseNpcsChannelCommand(connection.Client.Player) ) );
+			}
 			
 			gameCommands.Add(0xA0, new PacketToCommand<CombatControlsIncomingPacket>("Combat Controls", (connection, packet) => new ParseCombatControlsCommand(connection.Client.Player, packet.FightMode, packet.ChaseMode, packet.SafeMode) ) );
 			
@@ -608,8 +639,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 			
 			gameCommands.Add(0xD3, new PacketToCommand<SelectedOutfitIncomingPacket>("Selected Outfit", (connection, packet) => new ParseSelectedOutfitCommand(connection.Client.Player, packet.Outfit) ) );
 
-			if (clientVersion >= 870)
-			{
+            if (HasFeatureFlag(FeatureFlag.PlayerMounts) )
+            {
 				gameCommands.Add(0xD4, new PacketToCommand<MountIncomingPacket>("Mount", (connection, packet) => new ParseMountCommand(connection.Client.Player, packet.IsMounted) ) );
 			}
 
@@ -620,10 +651,13 @@ namespace OpenTibia.Game.Common.ServerObjects
 			gameCommands.Add(0xE6, new PacketToCommand<ReportBugIncomingPacket>("Report Bug", (connection, packet) => new ParseReportBugCommand(connection.Client.Player, packet.Message) ) );
 			
 			gameCommands.Add(0xE8, new PacketToCommand<DebugAssertIncomingPacket>("Debug Assert", (connection, packet) => new ParseDebugAssertCommand(connection.Client.Player, packet.AssertLine, packet.ReportDate, packet.Description, packet.Comment) ) );
-			
-			gameCommands.Add(0xF0, new PacketToCommand<QuestsIncomingPacket>("Quests", (connection, packet) => new ParseQuestsCommand(connection.Client.Player) ) );
-			
-			gameCommands.Add(0xF1, new PacketToCommand<OpenQuestIncomingPacket>("Open Quest", (connection, packet) => new ParseOpenQuestCommand(connection.Client.Player, packet.QuestId) ) );
+
+            if (HasFeatureFlag(FeatureFlag.QuestLog) )
+            {
+				gameCommands.Add(0xF0, new PacketToCommand<QuestsIncomingPacket>("Quests", (connection, packet) => new ParseQuestsCommand(connection.Client.Player) ) );
+
+				gameCommands.Add(0xF1, new PacketToCommand<OpenQuestIncomingPacket>("Open Quest", (connection, packet) => new ParseOpenQuestCommand(connection.Client.Player, packet.QuestId) ) );
+            }
 			
 			gameCommands.Add(0xF2, new PacketToCommand<ReportRuleViolationIncomingPacket>("Report Rule Violation", (connection, packet) => new ParseReportRuleViolationCommand(connection.Client.Player, packet.Type, packet.RuleViolation, packet.Name, packet.Comment, packet.Translation, packet.StatmentId) ) );
 								
@@ -704,14 +738,20 @@ namespace OpenTibia.Game.Common.ServerObjects
 			gameAccountManagerCommands.Add(0x99, new PacketToCommand<CloseChannelIncomingPacket>("Close Channel", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
             
 			gameAccountManagerCommands.Add(0x9A, new PacketToCommand<OpenedPrivateChannelIncomingPacket>("Opened Private Channel", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
-            
-			gameAccountManagerCommands.Add(0x9B, new PacketToCommand<ProcessReportRuleViolationIncomingPacket>("Process Report Rule Violation", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
-            
-			gameAccountManagerCommands.Add(0x9C, new PacketToCommand<CloseReportRuleViolationChannelAnswerIncomingPacket>("Close Report Rule Violation Channel Answer", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
-            
-			gameAccountManagerCommands.Add(0x9D, new PacketToCommand<CloseReportRuleViolationChannelQuestionIncomingPacket>("Close Report Rule Violation Channel Question", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
-            
-			gameAccountManagerCommands.Add(0x9E, new PacketToCommand<CloseNpcsChannelIncomingPacket>("Close Npcs Channel", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
+
+            if (HasFeatureFlag(FeatureFlag.RuleViolationChannel) )
+            {
+				gameAccountManagerCommands.Add(0x9B, new PacketToCommand<ProcessReportRuleViolationIncomingPacket>("Process Report Rule Violation", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
+
+				gameAccountManagerCommands.Add(0x9C, new PacketToCommand<CloseReportRuleViolationChannelAnswerIncomingPacket>("Close Report Rule Violation Channel Answer", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
+				
+				gameAccountManagerCommands.Add(0x9D, new PacketToCommand<CloseReportRuleViolationChannelQuestionIncomingPacket>("Close Report Rule Violation Channel Question", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
+			}
+
+            if (HasFeatureFlag(FeatureFlag.NpcsChannel) )
+            {
+                gameAccountManagerCommands.Add(0x9E, new PacketToCommand<CloseNpcsChannelIncomingPacket>("Close Npcs Channel", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
+			}
             
 			gameAccountManagerCommands.Add(0xA0, new PacketToCommand<CombatControlsIncomingPacket>("Combat Controls", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
             
@@ -746,9 +786,9 @@ namespace OpenTibia.Game.Common.ServerObjects
 			gameAccountManagerCommands.Add(0xD2, new PacketToCommand<SetOutfitIncomingPacket>("Set Outfit", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
             
 			gameAccountManagerCommands.Add(0xD3, new PacketToCommand<SelectedOutfitIncomingPacket>("Selected Outfit", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
-            
-			if (clientVersion >= 870)
-			{
+
+            if (HasFeatureFlag(FeatureFlag.PlayerMounts) )
+            {
                 gameAccountManagerCommands.Add(0xD4, new PacketToCommand<MountIncomingPacket>("Mount", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
 			}
 
@@ -759,10 +799,13 @@ namespace OpenTibia.Game.Common.ServerObjects
 			gameAccountManagerCommands.Add(0xE6, new PacketToCommand<ReportBugIncomingPacket>("Report Bug", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
 			
 			gameAccountManagerCommands.Add(0xE8, new PacketToCommand<DebugAssertIncomingPacket>("Debug Assert", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
-			
-			gameAccountManagerCommands.Add(0xF0, new PacketToCommand<QuestsIncomingPacket>("Quests", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
-            
-			gameAccountManagerCommands.Add(0xF1, new PacketToCommand<OpenQuestIncomingPacket>("Open Quest", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
+
+            if (HasFeatureFlag(FeatureFlag.QuestLog) )
+            {
+                gameAccountManagerCommands.Add(0xF0, new PacketToCommand<QuestsIncomingPacket>("Quests", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
+	
+				gameAccountManagerCommands.Add(0xF1, new PacketToCommand<OpenQuestIncomingPacket>("Open Quest", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
+			}
 			
 			gameAccountManagerCommands.Add(0xF2, new PacketToCommand<ReportRuleViolationIncomingPacket>("Report Rule Violation", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
          

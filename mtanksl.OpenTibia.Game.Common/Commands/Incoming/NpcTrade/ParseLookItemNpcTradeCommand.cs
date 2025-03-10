@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Common;
 using OpenTibia.Game.Common.ServerObjects;
 using OpenTibia.Network.Packets;
@@ -25,7 +26,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            if (Context.Server.Config.GameplayPrivateNpcSystem)
+            if (Context.Server.Config.GameplayPrivateNpcSystem && Context.Server.Features.HasFeatureFlag(FeatureFlag.NpcsChannel) )
             {
                 NpcTrading trading = Context.Server.NpcTradings.GetTradingByCounterOfferPlayer(Player);
 

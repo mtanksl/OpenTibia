@@ -75,7 +75,7 @@ namespace OpenTibia.Game.Commands
                             }
                         }
                     }
-                    else if (channel.Id == 1)
+                    else if (channel.Id == 1 && Context.Server.Features.HasFeatureFlag(FeatureFlag.PartyChannel) )
                     {
                         Party party = Context.Server.Parties.GetPartyThatContainsMember(Player);
 

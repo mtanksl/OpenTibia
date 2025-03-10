@@ -28,11 +28,14 @@ namespace OpenTibia.Game.Commands
                 channels.Add(new ChannelDto(0, guild.Name) );
             }
 
-            Party party = Context.Server.Parties.GetPartyThatContainsMember(Player);
-
-            if (party != null)
+            if (Context.Server.Features.HasFeatureFlag(FeatureFlag.PartyChannel) )
             {
-                channels.Add(new ChannelDto(1, "Party") );
+                Party party = Context.Server.Parties.GetPartyThatContainsMember(Player);
+
+                if (party != null)
+                {
+                    channels.Add(new ChannelDto(1, "Party") );
+                }
             }
 
             if (Player.Rank == Rank.Gamemaster || Player.Rank == Rank.Tutor)
@@ -40,11 +43,21 @@ namespace OpenTibia.Game.Commands
                 channels.Add(new ChannelDto(2, "Tutor") );
             }
 
-            if (Player.Rank == Rank.Gamemaster)
+            
+            if (Context.Server.Features.HasFeatureFlag(FeatureFlag.RuleViolationChannel) )
             {
-                channels.Add(new ChannelDto(3, "Rule Violations") );
+                if (Player.Rank == Rank.Gamemaster)
+                {
+                    channels.Add(new ChannelDto(3, "Rule Violations") );
+                }
+            }
 
-                channels.Add(new ChannelDto(4, "Gamemaster") );
+            if (Context.Server.Features.HasFeatureFlag(FeatureFlag.GamemasterChannel) )
+            {
+                if (Player.Rank == Rank.Gamemaster)
+                {
+                    channels.Add(new ChannelDto(4, "Gamemaster") );
+                }
             }
             
             channels.Add(new ChannelDto(5, "Game Chat") );

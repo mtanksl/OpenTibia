@@ -599,7 +599,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             lua.RegisterCoFunction("npcidle", (luaScope, args) =>
             {
-                if (server.Config.GameplayPrivateNpcSystem)
+                if (server.Config.GameplayPrivateNpcSystem && server.Features.HasFeatureFlag(FeatureFlag.NpcsChannel) )
                 {
                     MultipleQueueNpcThinkBehaviour npcThinkBehaviour = Context.Current.Server.GameObjectComponents.GetComponent<MultipleQueueNpcThinkBehaviour>( (Npc)args[0] );
 
@@ -629,7 +629,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             lua.RegisterCoFunction("npcfarewell", (luaScope, args) =>
             {
-                if (server.Config.GameplayPrivateNpcSystem)
+                if (server.Config.GameplayPrivateNpcSystem && server.Features.HasFeatureFlag(FeatureFlag.NpcsChannel) )
                 {
                     MultipleQueueNpcThinkBehaviour npcThinkBehaviour = Context.Current.Server.GameObjectComponents.GetComponent<MultipleQueueNpcThinkBehaviour>( (Npc)args[0] );
 
@@ -659,7 +659,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             lua.RegisterCoFunction("npcdisappear", (luaScope, args) =>
             {
-                if (server.Config.GameplayPrivateNpcSystem)
+                if (server.Config.GameplayPrivateNpcSystem && server.Features.HasFeatureFlag(FeatureFlag.NpcsChannel) )
                 {
                     MultipleQueueNpcThinkBehaviour npcThinkBehaviour = Context.Current.Server.GameObjectComponents.GetComponent<MultipleQueueNpcThinkBehaviour>( (Npc)args[0] );
 

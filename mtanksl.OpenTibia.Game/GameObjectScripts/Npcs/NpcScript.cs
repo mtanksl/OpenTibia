@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Components;
 
 namespace OpenTibia.Game.GameObjectScripts
@@ -12,7 +13,7 @@ namespace OpenTibia.Game.GameObjectScripts
                 Context.Server.GameObjectComponents.AddComponent(npc, new NpcTalkBehaviour(npc.Metadata.Voices) );
             }
 
-            if (Context.Server.Config.GameplayPrivateNpcSystem)
+            if (Context.Server.Config.GameplayPrivateNpcSystem && Context.Server.Features.HasFeatureFlag(FeatureFlag.NpcsChannel) )
             {
                 Context.Server.GameObjectComponents.AddComponent(npc, new MultipleQueueNpcThinkBehaviour(new NpcWalkStrategy(2) ) );
             }

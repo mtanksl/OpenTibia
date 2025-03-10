@@ -34,7 +34,7 @@ namespace OpenTibia.Game.Commands
                         return Promise.Break;
                     }
                 }
-                else if (channel.Id == 1)
+                else if (channel.Id == 1 && Context.Server.Features.HasFeatureFlag(FeatureFlag.PartyChannel) )
                 {
                     Party party = Context.Server.Parties.GetPartyThatContainsMember(Player);
 
@@ -50,7 +50,14 @@ namespace OpenTibia.Game.Commands
                         return Promise.Break;
                     }
                 }
-                else if (channel.Id == 3 || channel.Id == 4)
+                else if (channel.Id == 3 && Context.Server.Features.HasFeatureFlag(FeatureFlag.RuleViolationChannel) )
+                {
+                    if (Player.Rank != Rank.Gamemaster)
+                    {
+                        return Promise.Break;
+                    }
+                }
+                else if (channel.Id == 4 && Context.Server.Features.HasFeatureFlag(FeatureFlag.GamemasterChannel) )
                 {
                     if (Player.Rank != Rank.Gamemaster)
                     {

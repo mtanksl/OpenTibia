@@ -12,16 +12,22 @@
         PlayerSpecialConditionUInt16,
         NewOutfitProtocol,
         ReadableItemDate,
+        QuestLog,
+        NpcsChannel,
         ProtocolChecksum,
         AccountString,
         PlayerCapacityUInt32,
+        PartyChannel,
         ChallengeOnLogin,
         TileIndex,        
         CreatureWarIcon,
         CreatureBlock,
         AttackSequence,
+        RuleViolationChannel,
+        GamemasterChannel,
         PenalityOnDeath,
         PlayerExperienceUInt64,
-        PlayerMounts
+        PlayerMounts,
+        SpellList
     }
 }
