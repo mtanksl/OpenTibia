@@ -26,6 +26,26 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             foreach (var xmlNpc in npcFile.Npcs)
             {
+                Outfit outfit;
+
+                if (xmlNpc.Look.TypeEx != 0)
+                {
+                    ItemMetadata itemMetadata = server.ItemFactory.GetItemMetadataByOpenTibiaId( (ushort)xmlNpc.Look.TypeEx);
+
+                    if (itemMetadata == null)
+                    {
+                        outfit = new Outfit(0);
+                    }
+                    else
+                    {
+                        outfit = new Outfit(itemMetadata.TibiaId);
+                    }
+                }
+                else
+                {
+                    outfit = new Outfit(xmlNpc.Look.Type, xmlNpc.Look.Head, xmlNpc.Look.Body, xmlNpc.Look.Legs, xmlNpc.Look.Feet, (Addon)xmlNpc.Look.Addon, xmlNpc.Look.Mount);
+                }
+
                 metadatas.Add(xmlNpc.Name, new NpcMetadata()
                 {
                     Name = xmlNpc.Name,
@@ -42,7 +62,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     Light = xmlNpc.Light == null ? Light.None : new Light( (byte)xmlNpc.Light.Level, (byte)xmlNpc.Light.Color),
 
-                    Outfit = xmlNpc.Look.TypeEx != 0 ? new Outfit(xmlNpc.Look.TypeEx) : new Outfit(xmlNpc.Look.Type, xmlNpc.Look.Head, xmlNpc.Look.Body, xmlNpc.Look.Legs, xmlNpc.Look.Feet, (Addon)xmlNpc.Look.Addon, xmlNpc.Look.Mount),
+                    Outfit = outfit,
 
                     Voices = (xmlNpc.Voices == null || xmlNpc.Voices.Items == null || xmlNpc.Voices.Items.Count == 0) ? null : new VoiceCollection()
                     {

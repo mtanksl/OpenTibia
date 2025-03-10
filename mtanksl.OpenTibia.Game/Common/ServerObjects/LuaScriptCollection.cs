@@ -1356,9 +1356,9 @@ namespace OpenTibia.Game.Common.ServerObjects
             {
                 LuaTable table = (LuaTable)parameter;
 
-                if (table["itemid"] != null)
+                if (table["tibiaid"] != null)
                 {
-                    return new Outfit(LuaScope.GetUInt16(table["itemid"] ) );
+                    return new Outfit(LuaScope.GetUInt16(table["tibiaid"] ) );
                 }
 
                 return new Outfit(LuaScope.GetUInt16(table["id"] ), LuaScope.GetByte(table["head"] ), LuaScope.GetByte(table["body"] ), LuaScope.GetByte(table["legs"] ), LuaScope.GetByte(table["feet"] ), (Addon)(long)table["addon"], LuaScope.GetUInt16(table["mount"] ) );

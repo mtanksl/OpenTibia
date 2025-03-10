@@ -117,6 +117,8 @@ namespace OpenTibia.Game.Commands
 
                 if (isAccountManager)
                 {
+                    ItemMetadata itemMetadata = Context.Server.ItemFactory.GetItemMetadataByOpenTibiaId(1448); // an angel statue
+
                     dbPlayer = new DbPlayer() 
                     { 
                         Account = new DbAccount()
@@ -136,7 +138,7 @@ namespace OpenTibia.Game.Commands
                         
                         Direction = 2, 
                          
-                        BaseOutfitItemId = 2031, 
+                        BaseOutfitItemId = itemMetadata.TibiaId, 
                         
                         BaseSpeed = 220,
                         

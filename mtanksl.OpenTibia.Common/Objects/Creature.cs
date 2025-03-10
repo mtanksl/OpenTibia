@@ -121,6 +121,11 @@ namespace OpenTibia.Common.Objects
 
                 if ( !IsMounted )
                 {
+                    if (BaseOutfit.TibiaId != 0)
+                    {
+                        return new Outfit(BaseOutfit.TibiaId);
+                    }
+
                     return new Outfit(BaseOutfit.Id, BaseOutfit.Head, BaseOutfit.Body, BaseOutfit.Legs, BaseOutfit.Feet, BaseOutfit.Addon, (ushort)0);
                 }
 

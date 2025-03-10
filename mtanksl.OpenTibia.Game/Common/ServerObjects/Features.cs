@@ -129,7 +129,17 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             if (clientVersion >= 861)
             {
-                //TODO: Features
+                MapTextColor(1, TextColor.YellowDefault);
+                MapTextColor(4, TextColor.PurpleDefault);
+                MapTextColor(5, TextColor.TealDefaultAndNpcs);
+                MapTextColor(6, TextColor.TealDefault);
+                MapTextColor(9, TextColor.RedServerLog);
+                MapTextColor(13, TextColor.OrangeDefault);
+				MapTextColor(15, TextColor.RedCenterGameWindowAndServerLog);
+                MapTextColor(16, TextColor.WhiteCenterGameWindowAndServerLog);
+				MapTextColor(18, TextColor.WhiteBottomGameWindowAndServerLog);
+				MapTextColor(19, TextColor.GreenCenterGameWindowAndServerLog);
+				MapTextColor(20, TextColor.WhiteBottomGameWindow);
             }
             else if (clientVersion >= 840) 
 			{
@@ -166,9 +176,22 @@ namespace OpenTibia.Game.Common.ServerObjects
 
 			if (clientVersion >= 861)
 			{
-				//TODO: Features
-			} 
-			else if (clientVersion >= 840) 
+				MapTalkType(1, TalkType.Say);
+                MapTalkType(2, TalkType.Whisper);
+                MapTalkType(3, TalkType.Yell);
+                MapTalkType(4, TalkType.PrivatePlayerToNpc);
+                MapTalkType(5, TalkType.PrivateNpcToPlayer);
+                MapTalkType(6, TalkType.Private);
+                MapTalkType(7, TalkType.ChannelYellow);
+                MapTalkType(8, TalkType.ChannelWhite);
+                MapTalkType(9, TalkType.Broadcast);
+                MapTalkType(10, TalkType.ChannelRed);
+				MapTalkType(11, TalkType.PrivateRed);
+                MapTalkType(12, TalkType.ChannelOrange);
+                MapTalkType(13, TalkType.MonsterSay);
+                MapTalkType(14, TalkType.MonsterYell);
+            }
+            else if (clientVersion >= 840) 
 			{
 				MapTalkType(1, TalkType.Say);
 				MapTalkType(2, TalkType.Whisper);
@@ -562,7 +585,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 	
 				throw new NotImplementedException();
 			} ) );
-			
+
 			gameCommands.Add(0x97, new PacketToCommand<OpenNewChannelIncomingPacket>("Open New Channel", (connection, packet) => new ParseOpenNewChannelCommand(connection.Client.Player) ) );
 			
 			gameCommands.Add(0x98, new PacketToCommand<OpenedNewChannelIncomingPacket>("Opened New Channel", (connection, packet) => new ParseOpenedNewChannelCommand(connection.Client.Player, packet.ChannelId) ) );

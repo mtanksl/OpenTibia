@@ -29,6 +29,26 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             foreach (var xmlMonster in monsterFile.Monsters)
             {
+                Outfit outfit;
+
+                if (xmlMonster.Look.TypeEx != 0)
+                {
+                    ItemMetadata itemMetadata = server.ItemFactory.GetItemMetadataByOpenTibiaId( (ushort)xmlMonster.Look.TypeEx);
+
+                    if (itemMetadata == null)
+                    {
+                        outfit = new Outfit(0);
+                    }
+                    else
+                    {
+                        outfit = new Outfit(itemMetadata.TibiaId);
+                    }
+                }
+                else
+                {
+                    outfit = new Outfit(xmlMonster.Look.Type, xmlMonster.Look.Head, xmlMonster.Look.Body, xmlMonster.Look.Legs, xmlMonster.Look.Feet, (Addon)xmlMonster.Look.Addon, xmlMonster.Look.Mount);
+                }
+
                 MonsterMetadata monsterMetadata = new MonsterMetadata()
                 {
                     Name = xmlMonster.Name,
@@ -51,7 +71,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     Light = xmlMonster.Light == null ? Light.None : new Light( (byte)xmlMonster.Light.Level, (byte)xmlMonster.Light.Color),
 
-                    Outfit = xmlMonster.Look.TypeEx != 0 ? new Outfit(xmlMonster.Look.TypeEx) : new Outfit(xmlMonster.Look.Type, xmlMonster.Look.Head, xmlMonster.Look.Body, xmlMonster.Look.Legs, xmlMonster.Look.Feet, (Addon)xmlMonster.Look.Addon, xmlMonster.Look.Mount),
+                    Outfit = outfit,
 
                     Corpse = (ushort)xmlMonster.Look.Corpse,
 

@@ -344,7 +344,7 @@ namespace OpenTibia.Common.Structures
                 return "Id: " + id + " Head: " + head + " Body: " + body + " Legs: " + legs + " Feet: " + feet + " Addons: " + addon + " Mount: " + mount;
             }
 
-            return "Item id: " + tibiaId;
+            return "TibiaId: " + tibiaId;
         }
     }
 }
