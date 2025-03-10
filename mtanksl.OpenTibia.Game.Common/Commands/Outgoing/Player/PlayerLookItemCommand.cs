@@ -59,39 +59,42 @@ namespace OpenTibia.Game.Commands
 
             builder.Append("You see " + ItemMetadata.GetDescription(TypeCount) );
 
-            if (Item.Metadata.ShowCharges && Item.Metadata.Charges != null && Item.Metadata.Charges > 0 && Item.Charges > 0)
+            if (Item != null)
             {
-                if (Item.Charges == 1)
+                if (ItemMetadata.ShowCharges && ItemMetadata.Charges != null && ItemMetadata.Charges > 0 && Item.Charges > 0)
                 {
-                    builder.Append(" that has 1 charge left");
-                }
-                else
-                {
-                    builder.Append(" that has " + Item.Charges + " charges left");
-                }
-            }
-
-            if (Item.Metadata.ShowDuration && Item.Metadata.DurationInMilliseconds != null && Item.Metadata.DurationInMilliseconds > 0 && Item.DurationInMilliseconds > 0)
-            {
-                if (Item.DurationInMilliseconds == Item.Metadata.DurationInMilliseconds)
-                {
-                    builder.Append(" that is brand-new");
-                }
-                else
-                {
-                    int durationInSeconds = Item.DurationInMilliseconds / 1000;
-
-                    if (durationInSeconds > 120)
+                    if (Item.Charges == 1)
                     {
-                        builder.Append(" that has energy for " + (durationInSeconds / 60) + " minutes left");
-                    }
-                    else if (durationInSeconds > 60)
-                    {
-                        builder.Append(" that has energy for 1 minute left");
+                        builder.Append(" that has 1 charge left");
                     }
                     else
                     {
-                        builder.Append(" that has energy for less than a minute left");
+                        builder.Append(" that has " + Item.Charges + " charges left");
+                    }
+                }
+
+                if (ItemMetadata.ShowDuration && ItemMetadata.DurationInMilliseconds != null && ItemMetadata.DurationInMilliseconds > 0 && Item.DurationInMilliseconds > 0)
+                {
+                    if (Item.DurationInMilliseconds == ItemMetadata.DurationInMilliseconds)
+                    {
+                        builder.Append(" that is brand-new");
+                    }
+                    else
+                    {
+                        int durationInSeconds = Item.DurationInMilliseconds / 1000;
+
+                        if (durationInSeconds > 120)
+                        {
+                            builder.Append(" that has energy for " + (durationInSeconds / 60) + " minutes left");
+                        }
+                        else if (durationInSeconds > 60)
+                        {
+                            builder.Append(" that has energy for 1 minute left");
+                        }
+                        else
+                        {
+                            builder.Append(" that has energy for less than a minute left");
+                        }
                     }
                 }
             }
