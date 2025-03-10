@@ -985,8 +985,6 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         public byte GetByteForFluidType(FluidType fluidType)
         {
-			return (byte)fluidType;
-
             byte value;
 
             if ( !fluidTypeToByte.TryGetValue(fluidType, out value) )

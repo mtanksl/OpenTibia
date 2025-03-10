@@ -16,7 +16,7 @@ namespace OpenTibia.Plugins.Runes
 
         public override PromiseResult<bool> OnUsingRune(Player player, Creature target, Tile toTile, Item rune)
         {
-            if (toTile == null || toTile.Ground == null || toTile.TopItem == null || toTile.TopItem.Metadata.Flags.Is(ItemMetadataFlags.NotMoveable) || !player.Tile.Position.IsNextTo(toTile.Position) )
+            if (toTile == null || toTile.Ground == null || toTile.TopItem == null || toTile.TopItem == rune || toTile.TopItem.Metadata.Flags.Is(ItemMetadataFlags.NotMoveable) || !player.Tile.Position.IsNextTo(toTile.Position) )
             {
                 return Promise.FromResultAsBooleanFalse;
             }
