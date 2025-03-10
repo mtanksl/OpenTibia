@@ -68,7 +68,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 
             if ( !features.HasFeatureFlag(FeatureFlag.PlayerCapacityUInt32) )
             {
-                writer.Write( (ushort)Capacity);
+                writer.Write( (ushort)(Capacity / 100) );
             }
             else
             {

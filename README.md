@@ -91,9 +91,9 @@ You can use [ZeroBrane Studio IDE](https://studio.zerobrane.com).
 
 You can download the official release direct from here [4Shared](https://www.4shared.com/s/fFuN0IXb6ge).
 
-### Tibia 8.74 client
+### Tibia 8.70 client
 
-You can download the official release direct from here [4Shared](https://www.4shared.com/s/fDNUFuISgku).
+You can download the official release direct from here [4Shared](https://www.4shared.com/s/faWOpAGiOku).
 
 # Project's wiki
 
