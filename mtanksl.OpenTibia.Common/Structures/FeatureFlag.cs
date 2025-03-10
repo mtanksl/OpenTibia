@@ -7,7 +7,6 @@
         LoginPacketEncryption,
         PlayerAddons,
         PlayerStamina,
-        NewFluids,
         MessageLevel,
         PlayerSpecialConditionUInt16,
         NewOutfitProtocol,

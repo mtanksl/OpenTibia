@@ -6,11 +6,11 @@ namespace OpenTibia.Common.Objects
     {
         bool HasFeatureFlag(FeatureFlag featureFlag);
 
-        byte GetByteForFluidType(FluidType fluidType);
-
         byte GetByteForMagicEffectType(MagicEffectType magicEffectType);
 
         byte GetByteForProjectileType(ProjectileType projectileType);
+
+        byte GetByteForFluidType(FluidType fluidType);
 
         byte GetByteForTextColor(TextColor textColor);
 

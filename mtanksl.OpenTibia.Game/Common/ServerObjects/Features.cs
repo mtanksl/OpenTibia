@@ -63,7 +63,6 @@ namespace OpenTibia.Game.Common.ServerObjects
 			{
 				featureFlags.Add(FeatureFlag.PlayerAddons);
 				featureFlags.Add(FeatureFlag.PlayerStamina);
-				//featureFlags.Add(FeatureFlag.NewFluids);
 				featureFlags.Add(FeatureFlag.MessageLevel);
 				featureFlags.Add(FeatureFlag.PlayerSpecialConditionUInt16);
 				featureFlags.Add(FeatureFlag.NewOutfitProtocol);
@@ -122,6 +121,61 @@ namespace OpenTibia.Game.Common.ServerObjects
                 featureFlags.Add(FeatureFlag.PlayerMounts);
                 featureFlags.Add(FeatureFlag.SpellList);
             }
+
+			#endregion
+
+			#region Fluid Type
+
+			byte empty = 0;
+			byte blue = 0;
+			byte red = 0;
+			byte brown = 0;
+			byte green = 0;
+			byte yellow = 0;
+			byte white = 0;
+			byte pink = 0;
+
+            if (clientVersion >= 780) 
+			{
+                empty = 0;
+                blue = 1;
+                red = 5;
+                brown = 3;
+                green = 6;
+                yellow = 8;
+                white = 9;
+                pink = 2;
+			} 
+			else
+			{
+                empty = 0;
+                blue = 1;
+                red = 2;
+                brown = 3;
+                green = 4;
+                yellow = 5;
+                white = 6;
+                pink = 7;
+            }
+
+            MapFluidType(FluidType.Empty, empty);
+            MapFluidType(FluidType.Water, blue);
+            MapFluidType(FluidType.Blood, red);
+            MapFluidType(FluidType.Beer, brown);
+            MapFluidType(FluidType.Slime, green);
+            MapFluidType(FluidType.Lemonade, yellow);
+            MapFluidType(FluidType.Milk, white);
+            MapFluidType(FluidType.Manafluid, pink);
+            MapFluidType(FluidType.Lifefluid, red);
+            MapFluidType(FluidType.Oil, brown);
+            MapFluidType(FluidType.Urine, yellow);
+            MapFluidType(FluidType.CoconutMilk, white);
+            MapFluidType(FluidType.Wine, pink);
+            MapFluidType(FluidType.Mud, brown);
+            MapFluidType(FluidType.FruitJuice, yellow);
+            MapFluidType(FluidType.Lava, red);
+            MapFluidType(FluidType.Rum, brown);
+            MapFluidType(FluidType.Swamp, green);
 
             #endregion
 
@@ -884,32 +938,6 @@ namespace OpenTibia.Game.Common.ServerObjects
             return featureFlags.Contains(featureFlag);
         }
 
-        private static FluidColor[] FluidColors = new FluidColor[]
-        {
-            FluidColor.Empty,
-
-            FluidColor.Blue,
-
-            FluidColor.Red,
-
-            FluidColor.Brown1,
-
-            FluidColor.Green,
-
-            FluidColor.Yellow,
-
-            FluidColor.White,
-
-            FluidColor.Purple
-        };
-
-        public byte GetByteForFluidType(FluidType fluidType)
-        {
-            //TODO: Features
-
-            return (byte)FluidColors[ (int)fluidType % FluidColors.Length];
-        }
-
 		public byte GetByteForMagicEffectType(MagicEffectType magicEffectType)
         {
             if (clientVersion < 780)
@@ -919,8 +947,8 @@ namespace OpenTibia.Game.Common.ServerObjects
                     magicEffectType =  MagicEffectType.Puff;
                 }
             }
-            
-            //TODO: Features
+
+            //TODO: Support other versions
 
             return (byte)magicEffectType;
         }
@@ -935,9 +963,30 @@ namespace OpenTibia.Game.Common.ServerObjects
                 }
             }
             
-            //TODO: Features
+            //TODO: Support other versions
 
             return (byte)projectileType;
+        }
+
+		private Dictionary<FluidType, byte> fluidTypeToByte = new Dictionary<FluidType, byte>();
+
+		private void MapFluidType(FluidType fluidType, byte value)
+        {
+            fluidTypeToByte.Add(fluidType, value);
+        }
+
+        public byte GetByteForFluidType(FluidType fluidType)
+        {
+			return (byte)fluidType;
+
+            byte value;
+
+            if ( !fluidTypeToByte.TryGetValue(fluidType, out value) )
+			{
+				value = 0;
+            }
+
+			return value;
         }
 
         private Dictionary<TextColor, byte> textColorToByte = new Dictionary<TextColor, byte>();
