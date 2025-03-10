@@ -559,29 +559,42 @@ namespace OpenTibia.Game.Common.ServerObjects
                 };
             }
 
+            item.IsDestroyed = true;
+
             return item;
         }
 
         public void Attach(Item item)
         {
-            item.IsDestroyed = false;
-
-            server.GameObjects.AddGameObject(item);
-
-            GameObjectScript<Item> gameObjectScript = server.GameObjectScripts.GetItemGameObjectScript(item.Metadata.OpenTibiaId) ?? server.GameObjectScripts.GetItemGameObjectScript(0);
-
-            if (gameObjectScript != null)
+            if (item.IsDestroyed)
             {
-                gameObjectScript.Start(item);
-            }
-
-            ItemCreationPlugin plugin = server.Plugins.GetItemCreationPlugin(item.Metadata.OpenTibiaId) ?? server.Plugins.GetItemCreationPlugin(0);
-
-            if (plugin != null)
-            {
-                if (plugin.OnStart(item).Result)
+                if (item is Container container)
                 {
-                    //
+                    foreach (var child in container.GetItems() )
+                    {
+                        Attach(child);
+                    }
+                }
+
+                item.IsDestroyed = false;
+
+                server.GameObjects.AddGameObject(item);
+
+                GameObjectScript<Item> gameObjectScript = server.GameObjectScripts.GetItemGameObjectScript(item.Metadata.OpenTibiaId) ?? server.GameObjectScripts.GetItemGameObjectScript(0);
+
+                if (gameObjectScript != null)
+                {
+                    gameObjectScript.Start(item);
+                }
+
+                ItemCreationPlugin plugin = server.Plugins.GetItemCreationPlugin(item.Metadata.OpenTibiaId) ?? server.Plugins.GetItemCreationPlugin(0);
+
+                if (plugin != null)
+                {
+                    if (plugin.OnStart(item).Result)
+                    {
+                        //
+                    }
                 }
             }
         }
@@ -590,6 +603,14 @@ namespace OpenTibia.Game.Common.ServerObjects
         {
             if (server.GameObjects.RemoveGameObject(item) )
             {
+                if (item is Container container)
+                {
+                    foreach (var child in container.GetItems() )
+                    {
+                        Detach(child);
+                    }
+                }
+
                 GameObjectScript<Item> gameObjectScript = server.GameObjectScripts.GetItemGameObjectScript(item.Metadata.OpenTibiaId) ?? server.GameObjectScripts.GetItemGameObjectScript(0);
 
                 if (gameObjectScript != null)
@@ -615,6 +636,14 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         public void ClearComponentsAndEventHandlers(Item item)
         {
+            if (item is Container container)
+	        {
+		        foreach (var child in container.GetItems() )
+		        {
+                    ClearComponentsAndEventHandlers(child);
+		        }
+	        }
+
             server.GameObjectComponents.ClearComponents(item);
 
             server.GameObjectEventHandlers.ClearEventHandlers(item);

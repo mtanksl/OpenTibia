@@ -316,7 +316,9 @@ namespace OpenTibia.Game.Common.ServerObjects
             {
                 Town = spawn,
 
-                Spawn = spawn
+                Spawn = spawn,
+
+                IsDestroyed = true                
             };
 
             return monster;
@@ -324,24 +326,27 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         public void Attach(Monster monster)
         {
-            monster.IsDestroyed = false;
-
-            server.GameObjects.AddGameObject(monster);
-
-            GameObjectScript<Monster> gameObjectScript = server.GameObjectScripts.GetMonsterGameObjectScript(monster.Name) ?? server.GameObjectScripts.GetMonsterGameObjectScript("");
-
-            if (gameObjectScript != null)
+            if (monster.IsDestroyed)
             {
-                gameObjectScript.Start(monster);
-            }
+                monster.IsDestroyed = false;
 
-            MonsterCreationPlugin plugin = server.Plugins.GetMonsterCreationPlugin(monster.Name) ?? server.Plugins.GetMonsterCreationPlugin("");
+                server.GameObjects.AddGameObject(monster);
 
-            if (plugin != null)
-            {
-                if (plugin.OnStart(monster).Result)
+                GameObjectScript<Monster> gameObjectScript = server.GameObjectScripts.GetMonsterGameObjectScript(monster.Name) ?? server.GameObjectScripts.GetMonsterGameObjectScript("");
+
+                if (gameObjectScript != null)
                 {
-                    //
+                    gameObjectScript.Start(monster);
+                }
+
+                MonsterCreationPlugin plugin = server.Plugins.GetMonsterCreationPlugin(monster.Name) ?? server.Plugins.GetMonsterCreationPlugin("");
+
+                if (plugin != null)
+                {
+                    if (plugin.OnStart(monster).Result)
+                    {
+                        //
+                    }
                 }
             }
         }

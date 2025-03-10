@@ -103,7 +103,9 @@ namespace OpenTibia.Game.Common.ServerObjects
             {
                 Town = spawn,
 
-                Spawn = spawn
+                Spawn = spawn,
+
+                IsDestroyed = true
             };
 
             return npc;
@@ -111,24 +113,27 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         public void Attach(Npc npc)
         {
-            npc.IsDestroyed = false;
-
-            server.GameObjects.AddGameObject(npc);
-
-            GameObjectScript<Npc> gameObjectScript = server.GameObjectScripts.GetNpcGameObjectScript(npc.Name) ?? server.GameObjectScripts.GetNpcGameObjectScript("");
-
-            if (gameObjectScript != null)
+            if (npc.IsDestroyed)
             {
-                gameObjectScript.Start(npc);
-            }
+                npc.IsDestroyed = false;
 
-            NpcCreationPlugin plugin = server.Plugins.GetNpcCreationPlugin(npc.Name) ?? server.Plugins.GetNpcCreationPlugin("");
+                server.GameObjects.AddGameObject(npc);
 
-            if (plugin != null)
-            {
-                if (plugin.OnStart(npc).Result)
+                GameObjectScript<Npc> gameObjectScript = server.GameObjectScripts.GetNpcGameObjectScript(npc.Name) ?? server.GameObjectScripts.GetNpcGameObjectScript("");
+
+                if (gameObjectScript != null)
                 {
-                    //
+                    gameObjectScript.Start(npc);
+                }
+
+                NpcCreationPlugin plugin = server.Plugins.GetNpcCreationPlugin(npc.Name) ?? server.Plugins.GetNpcCreationPlugin("");
+
+                if (plugin != null)
+                {
+                    if (plugin.OnStart(npc).Result)
+                    {
+                        //
+                    }
                 }
             }
         }

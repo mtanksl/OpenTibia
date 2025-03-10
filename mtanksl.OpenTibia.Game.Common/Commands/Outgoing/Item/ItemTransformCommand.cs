@@ -103,13 +103,13 @@ namespace OpenTibia.Game.Commands
                 {
                     case Tile tile:
                         
-                        if (Detach(Context, Item) )
+                        if (Context.Server.ItemFactory.Detach(Item) )
                         {
                             return Context.AddCommand(new TileReplaceItemCommand(tile, Item, toItem) ).Then( () =>
                             {                            
                                 Context.Server.QueueForExecution( () =>
                                 {
-                                    ClearComponentsAndEventHandlers(Context, Item);
+                                    Context.Server.ItemFactory.ClearComponentsAndEventHandlers(Item);
 
                                     return Promise.Completed;
                                 } );
@@ -122,13 +122,13 @@ namespace OpenTibia.Game.Commands
 
                     case Inventory inventory:
 
-                        if (Detach(Context, Item) )
+                        if (Context.Server.ItemFactory.Detach(Item) )
                         {
                             return Context.AddCommand(new InventoryReplaceItemCommand(inventory, Item, toItem) ).Then( () =>
                             {                            
                                 Context.Server.QueueForExecution( () =>
                                 {
-                                    ClearComponentsAndEventHandlers(Context, Item);
+                                    Context.Server.ItemFactory.ClearComponentsAndEventHandlers(Item);
 
                                     return Promise.Completed;
                                 } );
@@ -141,13 +141,13 @@ namespace OpenTibia.Game.Commands
 
                     case Container container:
 
-                        if (Detach(Context, Item) )
+                        if (Context.Server.ItemFactory.Detach(Item) )
                         {
                             return Context.AddCommand(new ContainerReplaceItemCommand(container, Item, toItem) ).Then( () =>
                             {                           
                                 Context.Server.QueueForExecution( () =>
                                 {
-                                    ClearComponentsAndEventHandlers(Context, Item);
+                                    Context.Server.ItemFactory.ClearComponentsAndEventHandlers(Item);
 
                                     return Promise.Completed;
                                 } );
@@ -165,37 +165,6 @@ namespace OpenTibia.Game.Commands
             }
 
             return Promise.FromResult(toItem);
-        }
-
-        private static bool Detach(Context context, Item item)
-        {
-            if (context.Server.ItemFactory.Detach(item) )
-            {
-                if (item is Container container)
-                {
-                    foreach (var child in container.GetItems() )
-                    {
-                        Detach(context, child);
-                    }
-                }
-
-                return true;
-            }
-
-            return false;
-        }
-
-        private static void ClearComponentsAndEventHandlers(Context context, Item item)
-        {
-            context.Server.ItemFactory.ClearComponentsAndEventHandlers(item);
-
-            if (item is Container container)
-	        {
-		        foreach (var child in container.GetItems() )
-		        {
-                    ClearComponentsAndEventHandlers(context, child);
-		        }
-	        }
         }
     }
 }

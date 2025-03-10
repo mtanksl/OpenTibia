@@ -140,7 +140,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 empty = 0;
                 blue = 1;
                 red = 5;
-                brown = 3;
+                brown = 7;
                 green = 6;
                 yellow = 8;
                 white = 9;
@@ -223,6 +223,10 @@ namespace OpenTibia.Game.Common.ServerObjects
                 MapTextColor(24, TextColor.TealDefault);
                 MapTextColor(25, TextColor.RedServerLog);
             }
+			else
+			{
+				throw new NotImplementedException();
+			}
 
             #endregion
 
@@ -285,12 +289,16 @@ namespace OpenTibia.Game.Common.ServerObjects
                 MapTalkType(16, TalkType.MonsterYell);
                 MapTalkType(17, TalkType.MonsterSay);
             }
+            else
+            {
+                throw new NotImplementedException();
+            }
 
-			#endregion
+            #endregion
 
-			#region Packets
+            #region Packets
 
-			loginFirstCommands.Add(0x01, new PacketToCommand<EnterGameIncomingPacket>("Enter Game",(connection, packet) => new ParseEnterGameCommand(connection, packet) ) );
+            loginFirstCommands.Add(0x01, new PacketToCommand<EnterGameIncomingPacket>("Enter Game",(connection, packet) => new ParseEnterGameCommand(connection, packet) ) );
 
             gameFirstCommands.Add(0x0A, new PacketToCommand<SelectedCharacterIncomingPacket>("Selected Character", (connection, packet) => new ParseSelectedCharacterCommand(connection, packet) ) );
 

@@ -29,7 +29,9 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                 Town = town,
 
-                Spawn = spawn
+                Spawn = spawn,
+
+                IsDestroyed = true
             };
 
             return player;
@@ -37,24 +39,32 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         public void Attach(Player player)
         {
-            player.IsDestroyed = false;
-
-            server.GameObjects.AddGameObject(player);
-
-            GameObjectScript<Player> gameObjectScript = server.GameObjectScripts.GetPlayerGameObjectScript(player.Name) ?? server.GameObjectScripts.GetPlayerGameObjectScript("");
-
-            if (gameObjectScript != null)
+            if (player.IsDestroyed)
             {
-                gameObjectScript.Start(player);
-            }
-
-            PlayerCreationPlugin plugin = server.Plugins.GetPlayerCreationPlugin(player.Name) ?? server.Plugins.GetPlayerCreationPlugin("");
-
-            if (plugin != null)
-            {
-                if (plugin.OnStart(player).Result)
+                foreach (var item in player.Inventory.GetItems() )
                 {
-                    //
+                    server.ItemFactory.Attach(item);
+                }
+
+                player.IsDestroyed = false;
+
+                server.GameObjects.AddGameObject(player);
+
+                GameObjectScript<Player> gameObjectScript = server.GameObjectScripts.GetPlayerGameObjectScript(player.Name) ?? server.GameObjectScripts.GetPlayerGameObjectScript("");
+
+                if (gameObjectScript != null)
+                {
+                    gameObjectScript.Start(player);
+                }
+
+                PlayerCreationPlugin plugin = server.Plugins.GetPlayerCreationPlugin(player.Name) ?? server.Plugins.GetPlayerCreationPlugin("");
+
+                if (plugin != null)
+                {
+                    if (plugin.OnStart(player).Result)
+                    {
+                        //
+                    }
                 }
             }
         }
@@ -63,6 +73,11 @@ namespace OpenTibia.Game.Common.ServerObjects
         {
             if (server.GameObjects.RemoveGameObject(player) )
             {
+                foreach (var item in player.Inventory.GetItems() )
+                {
+                    server.ItemFactory.Detach(item);
+                }
+
                 GameObjectScript<Player> gameObjectScript = server.GameObjectScripts.GetPlayerGameObjectScript(player.Name) ?? server.GameObjectScripts.GetPlayerGameObjectScript("");
 
                 if (gameObjectScript != null)
@@ -88,6 +103,11 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         public void ClearComponentsAndEventHandlers(Player player)
         {
+            foreach (var item in player.Inventory.GetItems() )
+            {
+                server.ItemFactory.ClearComponentsAndEventHandlers(item);
+            }
+
             server.GameObjectComponents.ClearComponents(player);
 
             server.GameObjectEventHandlers.ClearEventHandlers(player);
@@ -500,8 +520,6 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         private static void SaveLockers(Context context, DbPlayer dbPlayer, Player player)
         {
-            //TODO: Detach
-
             int sequenceId = 101;
 
             void AddItems(int parentId, Item item)
@@ -546,8 +564,6 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         private static void SaveInventory(Context context, DbPlayer dbPlayer, Player player)
         {
-            //TODO: Detach
-
             int sequenceId = 101;
 
             void AddItems(int parentId, Item item)
