@@ -9,7 +9,7 @@ namespace OpenTibia.Common.Objects
 
         }
 
-        public HouseTile(Position position, int capacity) : base(position, capacity)
+        public HouseTile(Position position, int internalListCapacity) : base(position, internalListCapacity)
         {
 
         }

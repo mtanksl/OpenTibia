@@ -11,9 +11,9 @@ namespace OpenTibia.Common.Objects
             this.contents = new List<IContent>();
         }
 
-        public Container(ItemMetadata metadata, int capacity) : base(metadata) //TODO: Use this constructor
+        public Container(ItemMetadata metadata, int internalListCapacity) : base(metadata)
         {
-            this.contents = new List<IContent>(capacity);
+            this.contents = new List<IContent>(internalListCapacity);
         }
 
         public bool IsContainerOf(Item child)

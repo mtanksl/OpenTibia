@@ -7,6 +7,11 @@
 
         }
 
+        public Locker(ItemMetadata metadata, int internalListCapacity) : base(metadata, internalListCapacity)
+        {
+
+        }
+
         public ushort TownId { get; set; }
     }
 }

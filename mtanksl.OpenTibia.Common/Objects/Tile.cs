@@ -157,11 +157,11 @@ namespace OpenTibia.Common.Objects
             this.contents = new List<IContent>();
         }
 
-        public Tile(Position position, int capacity)
+        public Tile(Position position, int internalListCapacity)
         {
             this.position = position;
 
-            this.contents = new List<IContent>(capacity);
+            this.contents = new List<IContent>(internalListCapacity);
         }
 
         private Position position;
