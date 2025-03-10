@@ -11,9 +11,10 @@
 - Party shared experience
 - X-Logging
 - Stamina
-- Configure monster voices, loots and attacks in monsters .xml
 - Add missing monsters: Acolyte of Darkness, Amarie, Armenius, Arthei, Azerus, Bane of Light, Boreth, Bride of Night, Cublarc the Plunderer, Doomsday Cultist, Dreadmaw, Duskbringer, Eclipse Knight, Enraged Brrokworm, Flamecaller Zazrak, Fleabringer, Ghostly Apparition, Gloombringer, Grodrik, Harbinder of Darkness, Hatebreeder, Lersatio, Marzie, Mutated Zalamon, Nightslayer, Pythius the Rotten, Samael, Servant Golem, Shadow of Lersatio, Shadow of Marziel, Sjadow of Boreth, The Keeper, Weak spawn of Despair, Wrath of Emperor, Yalahari
 - Add missing monster corpses: Lizard Abomination, Snake God Essence
+- Configure monster voices, loots and attacks
+- Add 8.70 items to items.xml
 - Review items.xml
 
 # Done (or good enough for now)
