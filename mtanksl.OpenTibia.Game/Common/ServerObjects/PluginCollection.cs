@@ -955,6 +955,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             Spell spell = new Spell()
             {
+                Id = LuaScope.GetNullableByte(parameters["id"] ),
+
                 Words = LuaScope.GetString(parameters["words"] ),
 
                 Name = LuaScope.GetString(parameters["name"] ),

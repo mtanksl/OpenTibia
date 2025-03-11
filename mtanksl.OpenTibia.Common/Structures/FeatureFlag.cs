@@ -27,6 +27,6 @@
         PenalityOnDeath,
         PlayerExperienceUInt64,
         PlayerMounts,
-        SpellList
+        CooldownBar
     }
 }

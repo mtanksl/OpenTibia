@@ -136,6 +136,16 @@ namespace OpenTibia.Game.CommandHandlers
                     await Context.AddCommand(new ItemDecrementCommand(command.Item, 1) );
                 }
 
+                if (Context.Server.Features.HasFeatureFlag(FeatureFlag.CooldownBar) )
+                {
+                    SpellGroup spellGroup = SpellGroupExtensions.FromString(plugin.Rune.Group);
+
+                    if (spellGroup != SpellGroup.None)
+                    {
+                        Context.AddPacket(command.Player, new SendSpellGroupCooldownOutgoingPacket(spellGroup, (uint)plugin.Rune.GroupCooldown.TotalMilliseconds) );
+                    }
+                }
+
                 await plugin.OnUseRune(command.Player, command.ToCreature, null, command.Item);
 
                 return;

@@ -21,7 +21,6 @@
 
 - Load OTBM v1 stackable, fluid and splash items
 - Use different channel id per protocol
-- Missing spell cooldown animation packets
   
 # Done (or good enough for now)
 
@@ -59,6 +58,7 @@
 		- Player in-game commands
 		- Spells
 			- Database for storing spells
+			- Spell cooldown animation packets
 	- Whisper
 	- Yell
 	- Direct chat

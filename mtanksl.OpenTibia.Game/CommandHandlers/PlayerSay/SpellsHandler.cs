@@ -232,7 +232,24 @@ namespace OpenTibia.Game.CommandHandlers
                     await Context.AddCommand(new PlayerUpdateSoulCommand(command.Player, command.Player.Soul - plugin.Spell.Soul) );
                 }
 
+                if (Context.Server.Features.HasFeatureFlag(FeatureFlag.CooldownBar) )
+                {
+                    if (plugin.Spell.Id != null)
+                    {
+                        Context.AddPacket(command.Player, new SendSpellCooldownOutgoingPacket(plugin.Spell.Id.Value, (uint)plugin.Spell.Cooldown.TotalMilliseconds) );
+                    }
+
+                    SpellGroup spellGroup = SpellGroupExtensions.FromString(plugin.Spell.Group);
+
+                    if (spellGroup != SpellGroup.None)
+                    {
+                        Context.AddPacket(command.Player, new SendSpellGroupCooldownOutgoingPacket(spellGroup, (uint)plugin.Spell.GroupCooldown.TotalMilliseconds) );
+                    }
+                }
+
                 await plugin.OnCast(command.Player, target, message, parameter);
+
+                return;
             }
 
             await next();

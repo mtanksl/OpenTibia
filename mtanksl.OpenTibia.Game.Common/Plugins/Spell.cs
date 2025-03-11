@@ -5,6 +5,8 @@ namespace OpenTibia.Game.Plugins
 {
     public class Spell
     {
+        public byte? Id { get; set; }
+
         public string Words { get; set; }
 
         public string Name { get; set; }

@@ -119,7 +119,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 			{
                 featureFlags.Add(FeatureFlag.PlayerExperienceUInt64);
                 featureFlags.Add(FeatureFlag.PlayerMounts);
-                featureFlags.Add(FeatureFlag.SpellList);
+                featureFlags.Add(FeatureFlag.CooldownBar);
             }
 
 			#endregion
