@@ -47,7 +47,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         public MessageCollectionFactory()
         {
-            pool = new Pool<IMessageCollection>(1000, p => new PooledMessageCollection(p, new MessageCollection() ) );
+            pool = new Pool<IMessageCollection>(p => new PooledMessageCollection(p, new MessageCollection() ) );
         }
 
         ~MessageCollectionFactory()

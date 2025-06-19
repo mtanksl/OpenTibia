@@ -8,9 +8,11 @@ namespace OpenTibia.Game.Common
 
     public enum LoadingMode 
     {
-        Eager, 
+        EagerBounded,
 
-        Lazy
+        LazyBounded,
+
+        LazyUnbounded
     };
 
     public enum AccessMode 
@@ -33,6 +35,11 @@ namespace OpenTibia.Game.Common
 
         private class QueueStore : Queue<T>, IItemStore
         {
+            public QueueStore() : base()
+            {
+
+            }
+
             public QueueStore(int capacity) : base(capacity)
             {
 
@@ -51,6 +58,11 @@ namespace OpenTibia.Game.Common
 
         private class StackStore : Stack<T>, IItemStore
         {
+            public StackStore() : base()
+            {
+
+            }
+
             public StackStore(int capacity) : base(capacity)
             {
 
@@ -75,24 +87,27 @@ namespace OpenTibia.Game.Common
 
         private IItemStore itemStore;
 
-        public Pool(int maxCount, Func<Pool<T>, T> factory) : this(maxCount, factory, LoadingMode.Lazy, AccessMode.FIFO)
+        public Pool(Func<Pool<T>, T> factory) : this(-1, factory, LoadingMode.LazyUnbounded, AccessMode.FIFO)
         {
 
         }
 
         public Pool(int maxCount, Func<Pool<T>, T> factory, LoadingMode loadingMode, AccessMode accessMode)
         {
-            if (maxCount <= 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(maxCount), maxCount, "Argument must be greater than zero.");
-            }
-
             if (factory == null)
             {
                 throw new ArgumentNullException(nameof(factory) );
             }
 
-            this.sync = new Semaphore(maxCount, maxCount);
+            if (loadingMode == LoadingMode.EagerBounded || loadingMode == LoadingMode.LazyBounded)
+            {
+                if (maxCount <= 0)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(maxCount), maxCount, "Argument must be greater than zero.");
+                }
+
+                this.sync = new Semaphore(maxCount, maxCount);
+            }
 
             this.factory = factory;
 
@@ -103,18 +118,18 @@ namespace OpenTibia.Game.Common
                 case AccessMode.FIFO:
                 default:
 
-                    this.itemStore = new QueueStore(maxCount);
+                    this.itemStore = new QueueStore();
 
                     break;
 
                 case AccessMode.LIFO:
 
-                    this.itemStore = new StackStore(maxCount);
+                    this.itemStore = new StackStore();
 
                     break;
             }
 
-            if (loadingMode == LoadingMode.Eager)
+            if (loadingMode == LoadingMode.EagerBounded)
             {
                 for (int i = 0; i < maxCount; i++)
                 {
@@ -132,18 +147,32 @@ namespace OpenTibia.Game.Common
 
         public T Acquire()
         {
-            sync.WaitOne();
-
             switch (loadingMode)
             {
-                case LoadingMode.Eager:
+                case LoadingMode.EagerBounded:
+
+                    sync.WaitOne();
 
                     lock (itemStore)
                     {
                         return itemStore.Fetch();
                     }
 
-                case LoadingMode.Lazy:
+                case LoadingMode.LazyBounded:
+
+                    sync.WaitOne();
+
+                    lock (itemStore)
+                    {
+                        if (itemStore.Count > 0)
+                        {
+                            return itemStore.Fetch();
+                        }
+                    }
+
+                    return factory(this);
+
+                case LoadingMode.LazyUnbounded:
                 default:
 
                     lock (itemStore)
@@ -160,12 +189,30 @@ namespace OpenTibia.Game.Common
 
         public void Release(T item)
         {
-            lock (itemStore)
+            switch (loadingMode)
             {
-                itemStore.Store(item);
-            }
+                case LoadingMode.EagerBounded:
+                case LoadingMode.LazyBounded:
 
-            sync.Release();
+                    lock (itemStore)
+                    {
+                        itemStore.Store(item);
+                    }
+
+                    sync.Release();
+
+                    break;
+
+                case LoadingMode.LazyUnbounded:
+                default:
+
+                    lock (itemStore)
+                    {
+                        itemStore.Store(item);
+                    }
+
+                    break;
+            }
         }        
 
         private bool disposed = false;
@@ -206,7 +253,15 @@ namespace OpenTibia.Game.Common
                         }
                     }
 
-                    sync.Close();
+                    switch (loadingMode)
+                    {
+                        case LoadingMode.EagerBounded:
+                        case LoadingMode.LazyBounded:
+
+                            sync.Close();
+
+                            break;
+                    }
                 }
             }
         }
