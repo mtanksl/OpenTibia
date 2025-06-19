@@ -7,7 +7,7 @@ namespace OpenTibia.Game.CommandHandlers
     {
         public override bool CanHandle(PlayerSayCommand command)
         {
-            return command.Player.Rank == Rank.Gamemaster && command.Message.StartsWith("/");
+            return command.Player.Rank == Rank.Gamemaster && (command.Message.StartsWith("/") || command.Message.StartsWith("!") );
         }
     }
 }

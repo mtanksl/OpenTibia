@@ -3,6 +3,7 @@ using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
+using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
 {
@@ -14,14 +15,27 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.PurpleDefault, command.Message) );
 
+                List<string> commands = new List<string>()
+                {
+                    "!help",
+                    "!online",
+                    "!serverinfo",
+                    "!uptime",
+                };
+
                 if (Context.Server.Config.Rules != null)
                 {
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "Available commands: !help, !rules, !online, !serverinfo, !uptime") );
+                    commands.Add("!rules");
                 }
-                else
+
+                if (command.Player.Rank == Rank.Gamemaster)
                 {
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "Available commands: !help, !online, !serverinfo, !uptime") );
+                    commands.Add("!commands");
                 }
+
+                string message = "Available commands: " + string.Join(", ", commands);
+
+                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, message) );
 
                 return Promise.Completed;
             }

@@ -53,20 +53,22 @@ namespace OpenTibia.Game.Scripts
 
                 gamemasterCommandHandler.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new TeleportToWaypointHandler() ); // /w           (alani)
 
+                gamemasterCommandHandler.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new CommandsHandler() ); // !commands
+
             Context.Server.CommandHandlers.AddCommandHandler(gamemasterCommandHandler);
 
             Context.Server.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new HelpHandler() ); // !help
-
-            if (Context.Server.Config.Rules != null)
-            {
-                Context.Server.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new RulesHandler() ); // !rules
-            }
 
             Context.Server.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new OnlineHandler() ); // !online
 
             Context.Server.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new ServerInfoHandler() ); // !serverinfo
 
             Context.Server.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new UptimeHandler() ); // !uptime
+
+            if (Context.Server.Config.Rules != null)
+            {
+                Context.Server.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new RulesHandler() ); // !rules
+            }
 
             Context.Server.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new SpellsHandler() );
 
