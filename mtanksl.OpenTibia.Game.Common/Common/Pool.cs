@@ -8,12 +8,17 @@ namespace OpenTibia.Game.Common
 
     public enum LoadingMode 
     {
-        EagerBounded,
+        Eager,
 
-        LazyBounded,
-
-        LazyUnbounded
+        Lazy
     };
+
+    public enum BoundMode
+    {
+        Bounded,
+
+        Unbounded
+    }
 
     public enum AccessMode 
     {
@@ -85,27 +90,29 @@ namespace OpenTibia.Game.Common
 
         private LoadingMode loadingMode;
 
+        private BoundMode boundMode;
+
         private IItemStore itemStore;
 
-        public Pool(Func<Pool<T>, T> factory) : this(-1, factory, LoadingMode.LazyUnbounded, AccessMode.FIFO)
+        public Pool(Func<Pool<T>, T> factory) : this(-1, factory, LoadingMode.Lazy, BoundMode.Unbounded, AccessMode.FIFO)
         {
 
         }
 
-        public Pool(int maxCount, Func<Pool<T>, T> factory, LoadingMode loadingMode, AccessMode accessMode)
+        public Pool(int maxCount, Func<Pool<T>, T> factory, LoadingMode loadingMode, BoundMode boundMode, AccessMode accessMode)
         {
             if (factory == null)
             {
                 throw new ArgumentNullException(nameof(factory) );
             }
 
-            if (loadingMode == LoadingMode.EagerBounded || loadingMode == LoadingMode.LazyBounded)
+            if (maxCount <= 0 && (loadingMode == LoadingMode.Eager || boundMode == BoundMode.Bounded) )
             {
-                if (maxCount <= 0)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(maxCount), maxCount, "Argument must be greater than zero.");
-                }
+                throw new ArgumentOutOfRangeException(nameof(maxCount), maxCount, "Argument must be greater than zero.");
+            }
 
+            if (boundMode == BoundMode.Bounded)
+            {
                 this.sync = new Semaphore(maxCount, maxCount);
             }
 
@@ -113,23 +120,32 @@ namespace OpenTibia.Game.Common
 
             this.loadingMode = loadingMode;
 
-            switch (accessMode)
+            this.boundMode = boundMode;
+
+            if (accessMode == AccessMode.FIFO)
             {
-                case AccessMode.FIFO:
-                default:
-
+                if (loadingMode == LoadingMode.Eager || boundMode == BoundMode.Bounded)
+                {
+                    this.itemStore = new QueueStore(maxCount);
+                }
+                else
+                {
                     this.itemStore = new QueueStore();
-
-                    break;
-
-                case AccessMode.LIFO:
-
+                }
+            }
+            else
+            {
+                if (loadingMode == LoadingMode.Eager || boundMode == BoundMode.Bounded)
+                {
+                    this.itemStore = new StackStore(maxCount);
+                }
+                else
+                {
                     this.itemStore = new StackStore();
-
-                    break;
+                }
             }
 
-            if (loadingMode == LoadingMode.EagerBounded)
+            if (loadingMode == LoadingMode.Eager)
             {
                 for (int i = 0; i < maxCount; i++)
                 {
@@ -147,71 +163,32 @@ namespace OpenTibia.Game.Common
 
         public T Acquire()
         {
-            switch (loadingMode)
+            if (boundMode == BoundMode.Bounded)
             {
-                case LoadingMode.EagerBounded:
-
-                    sync.WaitOne();
-
-                    lock (itemStore)
-                    {
-                        return itemStore.Fetch();
-                    }
-
-                case LoadingMode.LazyBounded:
-
-                    sync.WaitOne();
-
-                    lock (itemStore)
-                    {
-                        if (itemStore.Count > 0)
-                        {
-                            return itemStore.Fetch();
-                        }
-                    }
-
-                    return factory(this);
-
-                case LoadingMode.LazyUnbounded:
-                default:
-
-                    lock (itemStore)
-                    {
-                        if (itemStore.Count > 0)
-                        {
-                            return itemStore.Fetch();
-                        }
-                    }
-
-                    return factory(this);
+                sync.WaitOne();
             }
+
+            lock (itemStore)
+            {
+                if (itemStore.Count > 0)
+                {
+                    return itemStore.Fetch();
+                }
+            }
+
+            return factory(this);
         }
 
         public void Release(T item)
         {
-            switch (loadingMode)
+            lock (itemStore)
             {
-                case LoadingMode.EagerBounded:
-                case LoadingMode.LazyBounded:
+                itemStore.Store(item);
+            }
 
-                    lock (itemStore)
-                    {
-                        itemStore.Store(item);
-                    }
-
-                    sync.Release();
-
-                    break;
-
-                case LoadingMode.LazyUnbounded:
-                default:
-
-                    lock (itemStore)
-                    {
-                        itemStore.Store(item);
-                    }
-
-                    break;
+            if (boundMode == BoundMode.Bounded)
+            {
+                sync.Release();
             }
         }        
 
@@ -253,14 +230,9 @@ namespace OpenTibia.Game.Common
                         }
                     }
 
-                    switch (loadingMode)
+                    if (boundMode == BoundMode.Bounded)
                     {
-                        case LoadingMode.EagerBounded:
-                        case LoadingMode.LazyBounded:
-
-                            sync.Close();
-
-                            break;
+                        sync.Close();
                     }
                 }
             }
