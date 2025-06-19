@@ -32,7 +32,7 @@ namespace OpenTibia.Plugins.MonsterAttacks
 
         public override Promise OnAttack(Monster attacker, Creature target, int min, int max, Dictionary<string, string> attributes)
         {
-            return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target,
+            return Context.AddCommand(new CreatureAttackCreatureCommand(attacker, target,
 
                 new DamageAttack(null, magicEffectType, damageType, min, max, true) ) );
         }

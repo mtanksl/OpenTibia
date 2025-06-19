@@ -24,13 +24,13 @@ namespace OpenTibia.Plugins.MonsterAttacks
         {
             if (target is Monster monster && monster.Metadata.ImmuneToParalyse)
             {
-                return Context.Current.AddCommand(new ShowMagicEffectCommand(target, MagicEffectType.GreenShimmer) );
+                return Context.AddCommand(new ShowMagicEffectCommand(target, MagicEffectType.GreenShimmer) );
             }
             else
             {
-                return Context.Current.AddCommand(new ShowMagicEffectCommand(target, MagicEffectType.GreenShimmer) ).Then( () =>
+                return Context.AddCommand(new ShowMagicEffectCommand(target, MagicEffectType.GreenShimmer) ).Then( () =>
                 {
-                    return Context.Current.AddCommand(new CreatureAddConditionCommand(target, new SlowedCondition(-101, TimeSpan.FromSeconds(10) ) ) );
+                    return Context.AddCommand(new CreatureAddConditionCommand(target, new SlowedCondition(-101, TimeSpan.FromSeconds(10) ) ) );
                 } );
             }
         }

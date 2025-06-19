@@ -26,7 +26,7 @@ namespace OpenTibia.Plugins.MonsterAttacks
 
         public override PromiseResult<bool> OnAttacking(Monster attacker, Creature target)
         {
-            if (Context.Current.Server.Pathfinding.CanThrow(attacker.Tile.Position, target.Tile.Position) )
+            if (Context.Server.Pathfinding.CanThrow(attacker.Tile.Position, target.Tile.Position) )
             {
                 return Promise.FromResultAsBooleanTrue;
             }
@@ -36,7 +36,7 @@ namespace OpenTibia.Plugins.MonsterAttacks
 
         public override Promise OnAttack(Monster attacker, Creature target, int min, int max, Dictionary<string, string> attributes)
         {
-            return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target, 
+            return Context.AddCommand(new CreatureAttackCreatureCommand(attacker, target, 
                 
                 new DamageAttack(projectileType, magicEffectType, damageType, min, max, true) ) );
         }

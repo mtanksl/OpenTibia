@@ -42,7 +42,7 @@ namespace OpenTibia.Plugins.MonsterAttacks
 
         public override Promise OnAttack(Monster attacker, Creature target, int min, int max, Dictionary<string, string> attributes)
         {            
-            return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, true, attacker.Tile.Position, area, null, magicEffectType, 
+            return Context.AddCommand(new CreatureAttackAreaCommand(attacker, true, attacker.Tile.Position, area, null, magicEffectType, 
                         
                 new DamageAttack(null, null, damageType, min, max, true),
                 

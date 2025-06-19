@@ -24,9 +24,9 @@ namespace OpenTibia.Plugins.MonsterAttacks
         {
             var conditionSpeed = Formula.HasteFormula(attacker.BaseSpeed);
 
-            return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker, MagicEffectType.GreenShimmer) ).Then( () =>
+            return Context.AddCommand(new ShowMagicEffectCommand(attacker, MagicEffectType.GreenShimmer) ).Then( () =>
             {
-                return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, 
+                return Context.AddCommand(new CreatureAddConditionCommand(attacker, 
                             
                     new HasteCondition(conditionSpeed, new TimeSpan(0, 0, 33) ) ) );
             } );  

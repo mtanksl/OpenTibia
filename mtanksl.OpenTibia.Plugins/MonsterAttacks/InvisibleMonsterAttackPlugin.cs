@@ -27,9 +27,9 @@ namespace OpenTibia.Plugins.MonsterAttacks
 
         public override Promise OnAttack(Monster attacker, Creature target, int min, int max, Dictionary<string, string> attributes)
         {
-            return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker, MagicEffectType.BlueShimmer) ).Then( () =>
+            return Context.AddCommand(new ShowMagicEffectCommand(attacker, MagicEffectType.BlueShimmer) ).Then( () =>
             {
-                return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new InvisibleCondition(TimeSpan.FromSeconds(10) ) ) );
+                return Context.AddCommand(new CreatureAddConditionCommand(attacker, new InvisibleCondition(TimeSpan.FromSeconds(10) ) ) );
             } );
         }
     }    
