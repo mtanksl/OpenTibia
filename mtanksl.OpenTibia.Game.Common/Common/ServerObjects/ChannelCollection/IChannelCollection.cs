@@ -1,10 +1,15 @@
 ﻿using OpenTibia.Common.Objects;
+using System;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.Common.ServerObjects
 {
-    public interface IChannelCollection
+    public interface IChannelCollection : IDisposable
     {
+        void Start();
+
+        object GetValue(string key);
+
         uint GenerateStatementId(int databasePlayerId, string message);
 
         Statement GetStatement(uint statementId);

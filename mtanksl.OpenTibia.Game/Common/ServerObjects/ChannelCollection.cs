@@ -1,4 +1,5 @@
-﻿using OpenTibia.Common.Objects;
+﻿using NLua;
+using OpenTibia.Common.Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,52 @@ namespace OpenTibia.Game.Common.ServerObjects
 {
     public class ChannelCollection : IChannelCollection
     {
+        private IServer server;
+
+        public ChannelCollection(IServer server)
+        {
+            this.server = server;
+        }
+
+        ~ChannelCollection()
+        {
+            Dispose(false);
+        }
+
+        private ILuaScope script;
+
+        public void Start()
+        {
+            script = server.LuaScripts.LoadScript(
+                server.PathResolver.GetFullPath("data/channels/config.lua"),
+                server.PathResolver.GetFullPath("data/channels/lib.lua"),
+                server.PathResolver.GetFullPath("data/lib.lua") );
+
+            foreach (LuaTable lChannel in ( (LuaTable)script["channels"] ).Values)
+            {
+                channels.Add(new Channel()
+                {
+                    Id = LuaScope.GetUInt16(lChannel["id"] ),
+
+                    Name = LuaScope.GetString(lChannel["name"] ),
+
+                    Flags = (ChannelFlags)LuaScope.GetUInt16(lChannel["flags"] )
+                } );
+            }
+        }
+
+        /// <exception cref="ObjectDisposedException"></exception>
+      
+        public object GetValue(string key)
+        {
+            if (disposed)
+            {
+                throw new ObjectDisposedException(nameof(OutfitCollection) );
+            }
+
+            return script[key];
+        }
+
         private uint statementId = 0;
 
         public uint GenerateStatementId(int databasePlayerId, string message)
@@ -38,28 +85,7 @@ namespace OpenTibia.Game.Common.ServerObjects
             return statement;
         }
 
-        private List<Channel> channels = new List<Channel>
-        {
-            new Channel() { Id = 0, Name = "Guild" },
-
-            new Channel() { Id = 1, Name = "Party" },
-
-            new Channel() { Id = 2, Name = "Tutor" },
-
-            new Channel() { Id = 3, Name = "Rule Violations" },
-
-            new Channel() { Id = 4, Name = "Gamemaster" },
-
-            new Channel() { Id = 5, Name = "Game Chat" },
-
-            new Channel() { Id = 6, Name = "Trade" },
-
-            new Channel() { Id = 7, Name = "Trade-Rookgaard" },
-
-            new Channel() { Id = 8, Name = "Real Life Chat" },
-
-            new Channel() { Id = 9, Name = "Help" }
-        };
+        private List<Channel> channels = new List<Channel>();
 
         /// <exception cref="InvalidOperationException"></exception>
         
@@ -113,6 +139,31 @@ namespace OpenTibia.Game.Common.ServerObjects
         public IEnumerable<PrivateChannel> GetPrivateChannels()
         {
             return GetChannels().OfType<PrivateChannel>();
+        }
+
+        private bool disposed = false;
+
+        public void Dispose()
+        {
+            Dispose(true);
+
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposed)
+            {
+                disposed = true;
+
+                if (disposing)
+                {
+                    if (script != null)
+                    {
+                        script.Dispose();
+                    }
+                }
+            }
         }
     }
 }

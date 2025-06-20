@@ -61,7 +61,7 @@ namespace OpenTibia.Game.Commands
             {
                 if (channel.ContainerMember(Player) )
                 {
-                    if (channel.Id == 0)
+                    if (channel.Flags.Is(ChannelFlags.Guild) )
                     {
                         Guild guild = Context.Server.Guilds.GetGuildThatContainsMember(Player);
 
@@ -75,7 +75,7 @@ namespace OpenTibia.Game.Commands
                             }
                         }
                     }
-                    else if (channel.Id == 1 && Context.Server.Features.HasFeatureFlag(FeatureFlag.PartyChannel) )
+                    else if (channel.Flags.Is(ChannelFlags.Party) && Context.Server.Features.HasFeatureFlag(FeatureFlag.PartyChannel) )
                     {
                         Party party = Context.Server.Parties.GetPartyThatContainsMember(Player);
 
@@ -91,7 +91,7 @@ namespace OpenTibia.Game.Commands
                     }
                     else
                     {
-                        if (channel.Id == 6 || channel.Id == 7)
+                        if (channel.Flags.Is(ChannelFlags.Trade) || channel.Flags.Is(ChannelFlags.TradeRookgaard) )
                         {
                             PlayerCooldownBehaviour playerCooldownBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerCooldownBehaviour>(Player);
 
@@ -108,7 +108,7 @@ namespace OpenTibia.Game.Commands
                             }
                         }
 
-                        ShowTextOutgoingPacket showTextOutgoingPacket = new ShowTextOutgoingPacket(Context.Server.Channels.GenerateStatementId(Player.DatabasePlayerId, Message), Player.Name, Player.Level, (channel.Id == 9 && (Player.Rank == Rank.Tutor || Player.Rank == Rank.Gamemaster) ) ? TalkType.ChannelOrange : TalkType.ChannelYellow, channel.Id, Message);
+                        ShowTextOutgoingPacket showTextOutgoingPacket = new ShowTextOutgoingPacket(Context.Server.Channels.GenerateStatementId(Player.DatabasePlayerId, Message), Player.Name, Player.Level, (channel.Flags.Is(ChannelFlags.Help) && (Player.Rank == Rank.Tutor || Player.Rank == Rank.Gamemaster) ) ? TalkType.ChannelOrange : TalkType.ChannelYellow, channel.Id, Message);
 
                         foreach (var observer in channel.GetMembers() )
                         {

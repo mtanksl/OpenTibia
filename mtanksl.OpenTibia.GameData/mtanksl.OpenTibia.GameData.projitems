@@ -9,6 +9,8 @@
     <Import_RootNamespace>mtanksl.OpenTibia.GameData</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)data\channels\config.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\channels\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\database.db" />
     <None Include="$(MSBuildThisFileDirectory)data\dlls\mtanksl.OpenTibia.Plugins\mtanksl.OpenTibia.Plugins.dll" />
     <None Include="$(MSBuildThisFileDirectory)data\items\772\items.otb" />

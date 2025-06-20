@@ -24,6 +24,8 @@ namespace OpenTibia.Game.Commands
                 {
                     privateChannel = new PrivateChannel()
                     {
+                        Flags = ChannelFlags.PrivateChannel,
+
                         Owner = Player,
 
                         Name = Player.Name + "'s Channel"

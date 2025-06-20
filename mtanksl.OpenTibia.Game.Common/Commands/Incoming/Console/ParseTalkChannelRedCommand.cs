@@ -35,7 +35,7 @@ namespace OpenTibia.Game.Commands
                 {
                     if (channel.ContainerMember(Player) )
                     {
-                        if (channel.Id == 0)
+                        if (channel.Flags.Is(ChannelFlags.Guild) )
                         {
                             Guild guild = Context.Server.Guilds.GetGuildThatContainsMember(Player);
 
@@ -49,7 +49,7 @@ namespace OpenTibia.Game.Commands
                                 }
                             }
                         }
-                        else if (channel.Id == 1 && Context.Server.Features.HasFeatureFlag(FeatureFlag.PartyChannel) )
+                        else if (channel.Flags.Is(ChannelFlags.Party) && Context.Server.Features.HasFeatureFlag(FeatureFlag.PartyChannel) )
                         {
                             Party party = Context.Server.Parties.GetPartyThatContainsMember(Player);
 

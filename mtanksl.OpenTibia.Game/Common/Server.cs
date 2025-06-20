@@ -86,7 +86,7 @@ namespace OpenTibia.Game.Common
 
             WaitingList = new WaitingList(this);
 
-            Channels = new ChannelCollection();
+            Channels = new ChannelCollection(this);
 
             RuleViolations = new RuleViolationCollection();
 
@@ -308,6 +308,11 @@ namespace OpenTibia.Game.Common
                 using (Logger.Measure("Loading dlls") )
                 {
                     PluginLoader.Start();
+                }
+
+                using (Logger.Measure("Loading channels config") )
+                {
+                    Channels.Start();
                 }
 
                 using (Logger.Measure("Loading values config") )
@@ -1109,6 +1114,11 @@ namespace OpenTibia.Game.Common
                     if (MessageCollectionFactory != null)
                     {
                         MessageCollectionFactory.Dispose();
+                    }
+
+                    if (Channels != null)
+                    {
+                        Channels.Dispose();
                     }
 
                     if (Values != null)

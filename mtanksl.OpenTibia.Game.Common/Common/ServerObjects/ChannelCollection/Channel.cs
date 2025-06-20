@@ -9,6 +9,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         public string Name { get; set; }
 
+        public ChannelFlags Flags { get; set; }
+
         private HashSet<Player> members = new HashSet<Player>();
 
         public int CountMembers

@@ -25,7 +25,7 @@ namespace OpenTibia.Game.Commands
             
             if (channel != null)
             {
-                if (channel.Id == 0)
+                if (channel.Flags.Is(ChannelFlags.Guild) )
                 {
                     Guild guild = Context.Server.Guilds.GetGuildThatContainsMember(Player);
 
@@ -34,7 +34,7 @@ namespace OpenTibia.Game.Commands
                         return Promise.Break;
                     }
                 }
-                else if (channel.Id == 1 && Context.Server.Features.HasFeatureFlag(FeatureFlag.PartyChannel) )
+                else if (channel.Flags.Is(ChannelFlags.Party) && Context.Server.Features.HasFeatureFlag(FeatureFlag.PartyChannel) )
                 {
                     Party party = Context.Server.Parties.GetPartyThatContainsMember(Player);
 
@@ -43,35 +43,35 @@ namespace OpenTibia.Game.Commands
                         return Promise.Break;
                     }
                 }               
-                else if (channel.Id == 2)
+                else if (channel.Flags.Is(ChannelFlags.Tutor) )
                 {
                     if (Player.Rank != Rank.Gamemaster && Player.Rank != Rank.Tutor)
                     {
                         return Promise.Break;
                     }
                 }
-                else if (channel.Id == 3 && Context.Server.Features.HasFeatureFlag(FeatureFlag.RuleViolationChannel) )
+                else if (channel.Flags.Is(ChannelFlags.RuleViolations) && Context.Server.Features.HasFeatureFlag(FeatureFlag.RuleViolationChannel) )
                 {
                     if (Player.Rank != Rank.Gamemaster)
                     {
                         return Promise.Break;
                     }
                 }
-                else if (channel.Id == 4 && Context.Server.Features.HasFeatureFlag(FeatureFlag.GamemasterChannel) )
+                else if (channel.Flags.Is(ChannelFlags.Gamemaster) && Context.Server.Features.HasFeatureFlag(FeatureFlag.GamemasterChannel) )
                 {
                     if (Player.Rank != Rank.Gamemaster)
                     {
                         return Promise.Break;
                     }
                 }
-                else if (channel.Id == 6)
+                else if (channel.Flags.Is(ChannelFlags.Trade) )
                 {
                     if (Player.Rank != Rank.Gamemaster && Player.Vocation == Vocation.None)
                     {
                         return Promise.Break;
                     }
                 }
-                else if (channel.Id == 7)
+                else if (channel.Flags.Is(ChannelFlags.TradeRookgaard) )
                 {
                     if (Player.Rank != Rank.Gamemaster && Player.Vocation != Vocation.None)
                     {
@@ -96,7 +96,7 @@ namespace OpenTibia.Game.Commands
                     channel.AddMember(Player);
                 }
 
-                if (channel.Id == 3)
+                if (channel.Flags.Is(ChannelFlags.RuleViolations) )
                 {
                     Context.AddPacket(Player, new OpenRuleViolationsChannelOutgoingPacket(channel.Id) );
                     

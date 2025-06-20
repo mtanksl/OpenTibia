@@ -1270,7 +1270,11 @@ namespace OpenTibia.Game.Common.ServerObjects
 #endif
         public object GetConfig(string file, string key)
         {
-            if (file == "values")
+            if (file == "channels")
+            {
+                return server.Channels.GetValue(key);
+            }
+            else if (file == "values")
             {
                 return server.Values.GetValue(key);
             }
