@@ -310,11 +310,6 @@ namespace OpenTibia.Game.Common
                     PluginLoader.Start();
                 }
 
-                using (Logger.Measure("Loading channels config") )
-                {
-                    Channels.Start();
-                }
-
                 using (Logger.Measure("Loading values config") )
                 {
                     Values.Start();
@@ -325,6 +320,11 @@ namespace OpenTibia.Game.Common
                     Config.Start();
 
                     Features.Start();
+                }
+
+                using (Logger.Measure("Loading channels config") )
+                {
+                    Channels.Start();
                 }
 
                 using (Logger.Measure("Loading quests config") )
@@ -1116,11 +1116,6 @@ namespace OpenTibia.Game.Common
                         MessageCollectionFactory.Dispose();
                     }
 
-                    if (Channels != null)
-                    {
-                        Channels.Dispose();
-                    }
-
                     if (Values != null)
                     {
                         Values.Dispose();
@@ -1129,6 +1124,11 @@ namespace OpenTibia.Game.Common
                     if (Config != null)
                     {
                         Config.Dispose();
+                    }
+
+                    if (Channels != null)
+                    {
+                        Channels.Dispose();
                     }
 
                     if (Quests != null)

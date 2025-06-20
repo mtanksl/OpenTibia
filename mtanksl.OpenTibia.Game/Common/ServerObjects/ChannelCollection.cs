@@ -31,14 +31,30 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             foreach (LuaTable lChannel in ( (LuaTable)script["channels"] ).Values)
             {
-                channels.Add(new Channel()
+                var clientVersion = LuaScope.GetInt32(lChannel["clientversion"] );
+
+                if (clientVersion == server.Features.ClientVersion)
                 {
-                    Id = LuaScope.GetUInt16(lChannel["id"] ),
+                    var channelConfig = new ChannelConfig()
+                    {
+                        Id = LuaScope.GetUInt16(lChannel["id"] ),
 
-                    Name = LuaScope.GetString(lChannel["name"] ),
+                        Name = LuaScope.GetString(lChannel["name"] ),
 
-                    Flags = (ChannelFlags)LuaScope.GetUInt16(lChannel["flags"] )
-                } );
+                        Flags = (ChannelFlags)LuaScope.GetUInt16(lChannel["flags"] )
+                    };
+
+                    channelConfigs.Add(channelConfig);
+
+                    channels.Add(new Channel()
+                    {
+                        Id = channelConfig.Id,
+
+                        Name = channelConfig.Name,
+
+                        Flags = channelConfig.Flags
+                    } );
+                }
             }
         }
 
@@ -52,6 +68,13 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
 
             return script[key];
+        }
+
+        private List<ChannelConfig> channelConfigs = new List<ChannelConfig>();
+
+        public IEnumerable<ChannelConfig> GetChannelConfigs()
+        {
+            return channelConfigs;
         }
 
         private uint statementId = 0;

@@ -10,6 +10,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         object GetValue(string key);
 
+        IEnumerable<ChannelConfig> GetChannelConfigs();
+
         uint GenerateStatementId(int databasePlayerId, string message);
 
         Statement GetStatement(uint statementId);

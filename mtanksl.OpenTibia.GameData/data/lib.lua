@@ -21,6 +21,17 @@ animatedtextcolor = {
 	white = 215
 }
 
+channelflag = {
+	guild = 1,
+	party = 2,
+	tutor = 4,
+	ruleviolations = 8,
+	gamemaster = 16,
+	trade = 32,
+	traderookgaard = 64,
+	help = 128
+}
+
 conditionspecialcondition = {
 	none = 0,
 	poisoned = 1,

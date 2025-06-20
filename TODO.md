@@ -20,7 +20,6 @@
 # Known problems
 
 - Load OTBM v1 stackable, fluid and splash items
-- Use different channel id per protocol
   
 # Done (or good enough for now)
 

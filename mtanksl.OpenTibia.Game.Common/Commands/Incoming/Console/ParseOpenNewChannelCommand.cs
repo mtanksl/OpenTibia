@@ -21,60 +21,75 @@ namespace OpenTibia.Game.Commands
         {
             List<ChannelDto> channels = new List<ChannelDto>();
 
-            Guild guild = Context.Server.Guilds.GetGuildThatContainsMember(Player);
-
-            if (guild != null)
+            foreach (var channelConfig in Context.Server.Channels.GetChannelConfigs() )
             {
-                channels.Add(new ChannelDto(0, guild.Name) );
-            }
-
-            if (Context.Server.Features.HasFeatureFlag(FeatureFlag.PartyChannel) )
-            {
-                Party party = Context.Server.Parties.GetPartyThatContainsMember(Player);
-
-                if (party != null)
+                if (channelConfig.Flags.Is(ChannelFlags.Guild) )
                 {
-                    channels.Add(new ChannelDto(1, "Party") );
+                    Guild guild = Context.Server.Guilds.GetGuildThatContainsMember(Player);
+
+                    if (guild != null)
+                    {
+                        channels.Add(new ChannelDto(channelConfig.Id, guild.Name) );
+                    }
+                }
+                else if (channelConfig.Flags.Is(ChannelFlags.Party) )
+                {
+                    if (Context.Server.Features.HasFeatureFlag(FeatureFlag.PartyChannel) )
+                    {
+                        Party party = Context.Server.Parties.GetPartyThatContainsMember(Player);
+
+                        if (party != null)
+                        {
+                            channels.Add(new ChannelDto(channelConfig.Id, channelConfig.Name) );
+                        }
+                    }
+                }
+                else if (channelConfig.Flags.Is(ChannelFlags.Tutor) )
+                {
+                    if (Player.Rank == Rank.Gamemaster || Player.Rank == Rank.Tutor)
+                    {
+                        channels.Add(new ChannelDto(channelConfig.Id, channelConfig.Name) );
+                    }
+                }
+                else if (channelConfig.Flags.Is(ChannelFlags.RuleViolations) )
+                {
+                    if (Context.Server.Features.HasFeatureFlag(FeatureFlag.RuleViolationChannel) )
+                    {
+                        if (Player.Rank == Rank.Gamemaster)
+                        {
+                            channels.Add(new ChannelDto(channelConfig.Id, channelConfig.Name) );
+                        }
+                    }
+                }
+                else if (channelConfig.Flags.Is(ChannelFlags.Gamemaster) )
+                {
+                    if (Context.Server.Features.HasFeatureFlag(FeatureFlag.GamemasterChannel) )
+                    {
+                        if (Player.Rank == Rank.Gamemaster)
+                        {
+                            channels.Add(new ChannelDto(channelConfig.Id, channelConfig.Name) );
+                        }
+                    }
+                }
+                else if (channelConfig.Flags.Is(ChannelFlags.Trade) )
+                {
+                    if (Player.Rank == Rank.Gamemaster || Player.Vocation != Vocation.None)
+                    {
+                        channels.Add(new ChannelDto(channelConfig.Id, channelConfig.Name) );
+                    }
+                }
+                else if (channelConfig.Flags.Is(ChannelFlags.TradeRookgaard) )
+                {
+                    if (Player.Rank == Rank.Gamemaster || Player.Vocation == Vocation.None)
+                    {
+                        channels.Add(new ChannelDto(channelConfig.Id, channelConfig.Name) );
+                    }
+                }
+                else
+                {
+                    channels.Add(new ChannelDto(channelConfig.Id, channelConfig.Name) );
                 }
             }
-
-            if (Player.Rank == Rank.Gamemaster || Player.Rank == Rank.Tutor)
-            {
-                channels.Add(new ChannelDto(2, "Tutor") );
-            }
-
-            
-            if (Context.Server.Features.HasFeatureFlag(FeatureFlag.RuleViolationChannel) )
-            {
-                if (Player.Rank == Rank.Gamemaster)
-                {
-                    channels.Add(new ChannelDto(3, "Rule Violations") );
-                }
-            }
-
-            if (Context.Server.Features.HasFeatureFlag(FeatureFlag.GamemasterChannel) )
-            {
-                if (Player.Rank == Rank.Gamemaster)
-                {
-                    channels.Add(new ChannelDto(4, "Gamemaster") );
-                }
-            }
-            
-            channels.Add(new ChannelDto(5, "Game Chat") );
-
-            if (Player.Rank == Rank.Gamemaster || Player.Vocation != Vocation.None)
-            {
-                channels.Add(new ChannelDto(6, "Trade") );
-            }
-            
-            if (Player.Rank == Rank.Gamemaster || Player.Vocation == Vocation.None)
-            {
-                channels.Add(new ChannelDto(7, "Trade-Rookgaard") );
-            }
-
-            channels.Add(new ChannelDto(8, "Real Life Chat") );
-
-            channels.Add(new ChannelDto(9, "Help") );
 
             if (Player.Premium)
             {

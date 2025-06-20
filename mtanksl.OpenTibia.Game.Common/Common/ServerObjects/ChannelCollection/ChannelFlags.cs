@@ -17,17 +17,13 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         Gamemaster = 16,
 
-        GameChat = 32,
+        Trade = 32,
 
-        Trade = 64,
+        TradeRookgaard = 64,
 
-        TradeRookgaard = 128,
+        Help = 128,
 
-        RealLifeChat = 256,
-
-        Help = 512,
-
-        PrivateChannel = 1024
+        PrivateChannel = 256
     }
 
     public static class ChannelFlagsExtensions
