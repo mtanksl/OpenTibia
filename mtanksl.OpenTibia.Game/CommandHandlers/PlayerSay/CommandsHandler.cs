@@ -23,6 +23,7 @@ namespace OpenTibia.Game.CommandHandlers
                 "/ban ip_address - Ban ip address",
                 "/ban player_name - Ban player",
                 "/ban account_name - Ban account",
+                "/ce n - Display nth cooldown effect",
                 "/c player_name - Teleport player",
                 "/down - Go down one floor",
                 "/ghost - Invisible",

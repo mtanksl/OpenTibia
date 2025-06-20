@@ -19,6 +19,8 @@ namespace OpenTibia.Game.Scripts
 
                 gamemasterCommandHandler.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new BanPlayerHandler() ); // /ban
 
+                gamemasterCommandHandler.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new DispayCooldownEffectHandler() ); // /ce
+
                 gamemasterCommandHandler.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new TeleportPlayerHandler() ); // /c
 
                 gamemasterCommandHandler.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new TeleportDownHandler() ); // /down              (alani hur down)

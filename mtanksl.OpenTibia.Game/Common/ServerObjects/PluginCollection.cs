@@ -1000,6 +1000,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             Rune rune = new Rune()
             {
+                Id = LuaScope.GetNullableByte(parameters["id"] ),
+
                 OpenTibiaId = LuaScope.GetUInt16(parameters["opentibiaid"] ),
 
                 Name = LuaScope.GetString(parameters["name"] ),

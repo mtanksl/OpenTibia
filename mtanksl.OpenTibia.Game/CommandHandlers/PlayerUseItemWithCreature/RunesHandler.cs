@@ -138,6 +138,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (Context.Server.Features.HasFeatureFlag(FeatureFlag.CooldownBar) )
                 {
+                    if (plugin.Rune.Id != null && plugin.Rune.Id > 0)
+                    {
+                        Context.AddPacket(command.Player, new SendSpellCooldownOutgoingPacket(plugin.Rune.Id.Value, (uint)plugin.Rune.GroupCooldown.TotalMilliseconds) );
+                    }
+
                     SpellGroup spellGroup = SpellGroupExtensions.FromString(plugin.Rune.Group);
 
                     if (spellGroup != SpellGroup.None)

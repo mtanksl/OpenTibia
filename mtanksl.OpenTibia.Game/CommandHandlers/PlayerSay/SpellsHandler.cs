@@ -234,7 +234,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (Context.Server.Features.HasFeatureFlag(FeatureFlag.CooldownBar) )
                 {
-                    if (plugin.Spell.Id != null)
+                    if (plugin.Spell.Id != null && plugin.Spell.Id > 0)
                     {
                         Context.AddPacket(command.Player, new SendSpellCooldownOutgoingPacket(plugin.Spell.Id.Value, (uint)plugin.Spell.Cooldown.TotalMilliseconds) );
                     }

@@ -5,6 +5,8 @@ namespace OpenTibia.Game.Plugins
 {
     public class Rune
     {
+        public byte? Id { get; set; }
+
         public ushort OpenTibiaId { get; set; }
 
         public string Name { get; set; }
