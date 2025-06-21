@@ -1,4 +1,6 @@
-﻿using OpenTibia.IO;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.IO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,7 +10,7 @@ namespace OpenTibia.FileFormats.Otbm
     {
         private static readonly List<Item> tempItems = new List<Item>();
 
-        public static Tile Load(ByteArrayFileTreeStream stream, ByteArrayStreamReader reader)
+        public static Tile Load(ByteArrayFileTreeStream stream, ByteArrayStreamReader reader, in OtbmVersion otbmVersion, Func<ushort, ItemMetadata> getItemMetadataByOpenTibiaId)
         {
             Tile tile = new Tile();
 
@@ -40,7 +42,7 @@ namespace OpenTibia.FileFormats.Otbm
                         {
                             while (true)
                             {
-                                tempItems.Add( Item.Load(stream, reader) );
+                                tempItems.Add( Item.Load(stream, reader, otbmVersion, getItemMetadataByOpenTibiaId) );
 
                                 if ( !stream.Next() )
                                 {
@@ -58,7 +60,7 @@ namespace OpenTibia.FileFormats.Otbm
             }
         }
 
-        public static void Save(Tile tile, ByteArrayMemoryFileTreeStream stream, ByteArrayStreamWriter writer)
+        public static void Save(Tile tile, ByteArrayMemoryFileTreeStream stream, ByteArrayStreamWriter writer, in OtbmVersion otbmVersion, Func<ushort, ItemMetadata> getItemMetadataByOpenTibiaId)
         {
             writer.Write( (byte)OtbmType.Tile);
 
@@ -86,7 +88,7 @@ namespace OpenTibia.FileFormats.Otbm
                 {
                     stream.StartChild();
 
-                    Item.Save(item, stream, writer);
+                    Item.Save(item, stream, writer, otbmVersion, getItemMetadataByOpenTibiaId);
 
                     stream.EndChild();
                 }

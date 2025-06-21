@@ -7,7 +7,9 @@
         Version755 = 2,
 
         Version760 = 3,
-        
+
+        Version770 = 3,
+
         Version780 = 4,
         
         Version790 = 5,

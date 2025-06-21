@@ -1,5 +1,7 @@
-﻿using OpenTibia.Common.Structures;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.IO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,7 +11,7 @@ namespace OpenTibia.FileFormats.Otbm
     {
         private static readonly List<Item> tempItems = new List<Item>();
 
-        public static Item Load(ByteArrayFileTreeStream stream, ByteArrayStreamReader reader)
+        public static Item Load(ByteArrayFileTreeStream stream, ByteArrayStreamReader reader, in OtbmVersion otbmVersion, Func<ushort, ItemMetadata> getItemMetadataByOpenTibiaId)
         {
             Item item = new Item();
 
@@ -17,7 +19,15 @@ namespace OpenTibia.FileFormats.Otbm
 
             item.OpenTibiaId = reader.ReadUShort();
 
-            //TODO: On otbm version 1, a byte is used instead of an attribute for stackable count, fluid type, or splash type. Do not load maps with stackable, fluid nor splash items for now.
+            if (otbmVersion == OtbmVersion.Version1)
+            {
+                ItemMetadata itemMetadata = getItemMetadataByOpenTibiaId(item.OpenTibiaId);
+
+                if (itemMetadata.Flags.Is(ItemMetadataFlags.Stackable) || itemMetadata.Flags.Is(ItemMetadataFlags.IsFluid) || itemMetadata.Flags.Is(ItemMetadataFlags.IsSplash) )
+                {
+                    item.Count = reader.ReadByte();
+                }
+            }
 
             while (true)
             {
@@ -163,7 +173,7 @@ namespace OpenTibia.FileFormats.Otbm
                         {
                             while (true)
                             {
-                                tempItems.Add( Item.Load(stream, reader) );
+                                tempItems.Add( Item.Load(stream, reader, otbmVersion, getItemMetadataByOpenTibiaId) );
 
                                 if ( !stream.Next() )
                                 {
@@ -181,17 +191,29 @@ namespace OpenTibia.FileFormats.Otbm
             }
         }
 
-        public static void Save(Item item, ByteArrayMemoryFileTreeStream stream, ByteArrayStreamWriter writer)
+        public static void Save(Item item, ByteArrayMemoryFileTreeStream stream, ByteArrayStreamWriter writer, in OtbmVersion otbmVersion, Func<ushort, ItemMetadata> getItemMetadataByOpenTibiaId)
         {
             writer.Write( (byte)OtbmType.Item);
 
             writer.Write( (ushort)item.OpenTibiaId);
 
-            if (item.Count > 0) // Don't need to write 0 for stackable, fluid nor splash items
+            if (otbmVersion == OtbmVersion.Version1)
             {
-                writer.Write( (byte)OtbmAttribute.Count);
+                ItemMetadata itemMetadata = getItemMetadataByOpenTibiaId(item.OpenTibiaId);
 
-                writer.Write( (byte)item.Count);
+                if (itemMetadata.Flags.Is(ItemMetadataFlags.Stackable) || itemMetadata.Flags.Is(ItemMetadataFlags.IsFluid) || itemMetadata.Flags.Is(ItemMetadataFlags.IsSplash) )
+                {
+                    writer.Write( (byte)item.Count);
+                }
+            }
+            else
+            {
+                if (item.Count > 0) // Don't need to write 0 for stackable, fluid nor splash items
+                {
+                    writer.Write( (byte)OtbmAttribute.Count);
+
+                    writer.Write( (byte)item.Count);
+                }
             }
 
             if (item.ActionId > 0)
@@ -353,7 +375,7 @@ namespace OpenTibia.FileFormats.Otbm
                 {
                     stream.StartChild();
 
-                    Item.Save(item2, stream, writer);
+                    Item.Save(item2, stream, writer, otbmVersion, getItemMetadataByOpenTibiaId);
 
                     stream.EndChild();
                 }

@@ -16,10 +16,6 @@
 - Configure monster loots and attacks
 - Add 8.70 items to items.xml
 - Review items.xml
-
-# Known problems
-
-- Load OTBM v1 stackable, fluid and splash items
   
 # Done (or good enough for now)
 

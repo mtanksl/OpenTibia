@@ -380,7 +380,7 @@ namespace OpenTibia.Game.Common
 
                 using (Logger.Measure("Loading map") )
                 {
-                    otbmFile = OtbmFile.Load(PathResolver.GetFullPath("data/world/" + Features.ClientVersion + "/" + Config.MapName + ".otbm") );
+                    otbmFile = OtbmFile.Load(PathResolver.GetFullPath("data/world/" + Features.ClientVersion + "/" + Config.MapName + ".otbm"), ItemFactory.GetItemMetadataByOpenTibiaId);
 
                     Map.Start(otbmFile, 
                               HouseFile.Load(PathResolver.GetFullPath("data/world/" + Features.ClientVersion + "/" + otbmFile.MapInfo.HouseFile) ) );

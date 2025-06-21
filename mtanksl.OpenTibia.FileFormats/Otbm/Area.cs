@@ -1,5 +1,7 @@
-﻿using OpenTibia.Common.Structures;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.IO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,7 +11,7 @@ namespace OpenTibia.FileFormats.Otbm
     {
         private static readonly List<Tile> tempTiles = new List<Tile>();
 
-        public static Area Load(ByteArrayFileTreeStream stream, ByteArrayStreamReader reader)
+        public static Area Load(ByteArrayFileTreeStream stream, ByteArrayStreamReader reader, in OtbmVersion otbmVersion, Func<ushort, ItemMetadata> getItemMetadataByOpenTibiaId)
         {
             Area area = new Area();
 
@@ -25,13 +27,13 @@ namespace OpenTibia.FileFormats.Otbm
                     {
                         case OtbmType.Tile:
 
-                            tile = Tile.Load(stream, reader);
+                            tile = Tile.Load(stream, reader, otbmVersion, getItemMetadataByOpenTibiaId);
 
                             break;
 
                         case OtbmType.HouseTile:
 
-                            tile = HouseTile.Load(stream, reader);
+                            tile = HouseTile.Load(stream, reader, otbmVersion, getItemMetadataByOpenTibiaId);
 
                             break;
                     }
@@ -52,7 +54,7 @@ namespace OpenTibia.FileFormats.Otbm
             return area;
         }
 
-        public static void Save(Area area, ByteArrayMemoryFileTreeStream stream, ByteArrayStreamWriter writer)
+        public static void Save(Area area, ByteArrayMemoryFileTreeStream stream, ByteArrayStreamWriter writer, in OtbmVersion otbmVersion, Func<ushort, ItemMetadata> getItemMetadataByOpenTibiaId)
         {
             writer.Write( (byte)OtbmType.Area);
 
@@ -70,11 +72,11 @@ namespace OpenTibia.FileFormats.Otbm
 
                     if (tile is HouseTile houseTile)
                     {
-                        HouseTile.Save(houseTile, stream, writer);
+                        HouseTile.Save(houseTile, stream, writer, otbmVersion, getItemMetadataByOpenTibiaId);
                     }
                     else
                     {
-                        Tile.Save(tile, stream, writer);
+                        Tile.Save(tile, stream, writer, otbmVersion, getItemMetadataByOpenTibiaId);
                     }
 
                     stream.EndChild();

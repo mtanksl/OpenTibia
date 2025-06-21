@@ -1,4 +1,6 @@
-﻿using OpenTibia.IO;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.IO;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -6,7 +8,7 @@ namespace OpenTibia.FileFormats.Otbm
 {
     public class OtbmFile
     {
-        public static OtbmFile Load(string path)
+        public static OtbmFile Load(string path, Func<ushort, ItemMetadata> getItemMetadataByOpenTibiaId)
         {
             using ( ByteArrayFileTreeStream stream = new ByteArrayFileTreeStream(path) )
             {
@@ -34,7 +36,7 @@ namespace OpenTibia.FileFormats.Otbm
                                 {
                                     case OtbmType.Area:
 
-                                        file.areas.Add( Area.Load(stream, reader) );
+                                        file.areas.Add( Area.Load(stream, reader, file.otbmInfo.OtbmVersion, getItemMetadataByOpenTibiaId) );
 
                                         break;
 
@@ -90,12 +92,12 @@ namespace OpenTibia.FileFormats.Otbm
             }
         }
 
-        public void Save(string path)
+        public void Save(string path, Func<ushort, ItemMetadata> getItemMetadataByOpenTibiaId)
         {
-            Save(this, path);
+            Save(this, path, getItemMetadataByOpenTibiaId);
         }
 
-        public static void Save(OtbmFile file, string path)
+        public static void Save(OtbmFile file, string path, Func<ushort, ItemMetadata> getItemMetadataByOpenTibiaId)
         {
             ByteArrayMemoryFileTreeStream stream = new ByteArrayMemoryFileTreeStream();
 
@@ -117,7 +119,7 @@ namespace OpenTibia.FileFormats.Otbm
                 {
                     stream.StartChild();
 
-                    Area.Save(area, stream, writer);
+                    Area.Save(area, stream, writer, file.otbmInfo.OtbmVersion, getItemMetadataByOpenTibiaId);
 
                     stream.EndChild();
                 }

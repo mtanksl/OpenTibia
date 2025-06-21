@@ -143,7 +143,7 @@ namespace OpenTibia.Common.Structures
 
         public static readonly Outfit Invisible = new Outfit(0, 0, 0, 0, 0, Addon.None, 0);
 
-        public static readonly Outfit Swimming = new Outfit(267, 0, 0, 0, 0, Addon.None, 0);
+        public static Outfit Swimming = new Outfit(267, 0, 0, 0, 0, Addon.None, 0);
 
         public static readonly Outfit MaleCitizen = new Outfit(128, 0, 0, 0, 0, Addon.None, 0);
 

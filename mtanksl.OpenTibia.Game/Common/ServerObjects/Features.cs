@@ -25,6 +25,8 @@ namespace OpenTibia.Game.Common.ServerObjects
                 tibiaDat = 1134385715;
                 tibiaPic = 1146144984;
                 tibiaSpr = 1134056126;
+
+				Outfit.Swimming = Outfit.Invisible;
             }
             else if (server.Config.ClientVersion == new Version(8, 60) )
             {
