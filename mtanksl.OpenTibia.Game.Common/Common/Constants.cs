@@ -116,5 +116,11 @@
         public static readonly ushort LockerOpenTibiaItemId = 2591;
 
         public static readonly ushort DepotOpenTibiaItemId = 2594;
+
+        public static readonly double CreatureSpeedA = 857.36;
+
+        public static readonly double CreatureSpeedB = 261.29;
+
+        public static readonly double CreatureSpeedC = -4795.01;
     }
 }

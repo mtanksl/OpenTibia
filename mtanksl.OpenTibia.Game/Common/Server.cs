@@ -352,7 +352,7 @@ namespace OpenTibia.Game.Common
                 using (Logger.Measure("Loading items") )
                 {
                     ItemFactory.Start(OtbFile.Load(PathResolver.GetFullPath("data/items/" + Features.ClientVersion + "/items.otb") ), 
-                                      DatFile.Load(PathResolver.GetFullPath("data/items/" + Features.ClientVersion + "/tibia.dat") ), 
+                                      DatFile.Load(PathResolver.GetFullPath("data/items/" + Features.ClientVersion + "/tibia.dat"), Features.HasFeatureFlag(FeatureFlag.SpritesUInt32), Features.HasFeatureFlag(FeatureFlag.IdleAnimations), Features.HasFeatureFlag(FeatureFlag.EnhancedAnimations), Features.HasFeatureFlag(FeatureFlag.NoMovementAnimation) ), 
                                       ItemsFile.Load(PathResolver.GetFullPath("data/items/items.xml") ) );
                 }
 

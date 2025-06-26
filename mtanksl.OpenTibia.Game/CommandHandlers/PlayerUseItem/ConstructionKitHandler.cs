@@ -31,7 +31,7 @@ namespace OpenTibia.Game.CommandHandlers
                     } );
                 }
 
-                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.PutTheContructionKitOnTheFloorFirst) );
+                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.PutTheContructionKitOnTheFloorFirst) );
 
                 return Promise.Break;
             }

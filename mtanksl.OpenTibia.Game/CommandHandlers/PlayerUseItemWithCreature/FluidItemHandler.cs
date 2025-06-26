@@ -15,7 +15,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 if (fromItem.FluidType == FluidType.Empty)
                 {
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ItIsEmpty) );
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.ItIsEmpty) );
 
                     return Promise.Break;
                 }
@@ -24,7 +24,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     return Context.AddCommand(new FluidItemUpdateFluidTypeCommand(fromItem, FluidType.Empty) ).Then( () =>
                     {
-                        return Context.AddCommand(new ShowTextCommand(toPlayer, TalkType.MonsterSay, "Aah...") );
+                        return Context.AddCommand(new ShowTextCommand(toPlayer, MessageMode.MonsterSay, "Aah...") );
                     
                     } ).Then( () =>
                     {
@@ -44,7 +44,7 @@ namespace OpenTibia.Game.CommandHandlers
                     
                     } ).Then( () =>
                     {
-                        return Context.AddCommand(new ShowTextCommand(toPlayer, TalkType.MonsterSay, "Urgh!") );
+                        return Context.AddCommand(new ShowTextCommand(toPlayer, MessageMode.MonsterSay, "Urgh!") );
                     } );
                 }
 
@@ -60,7 +60,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     } ).Then( () =>
                     {
-                        return Context.AddCommand(new ShowTextCommand(toPlayer, TalkType.MonsterSay, "Aaaah...") );
+                        return Context.AddCommand(new ShowTextCommand(toPlayer, MessageMode.MonsterSay, "Aaaah...") );
                     } );
                 }
 
@@ -76,7 +76,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     } ).Then( () =>
                     {
-                        return Context.AddCommand(new ShowTextCommand(toPlayer, TalkType.MonsterSay, "Aaaah...") );
+                        return Context.AddCommand(new ShowTextCommand(toPlayer, MessageMode.MonsterSay, "Aaaah...") );
                     } );
                 }
 
@@ -84,13 +84,13 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     return Context.AddCommand(new FluidItemUpdateFluidTypeCommand(fromItem, FluidType.Empty) ).Then( () =>
                     {
-                        return Context.AddCommand(new ShowTextCommand(toPlayer, TalkType.MonsterSay, "Urgh!") );
+                        return Context.AddCommand(new ShowTextCommand(toPlayer, MessageMode.MonsterSay, "Urgh!") );
                     } );
                 }
 
                 return Context.AddCommand(new FluidItemUpdateFluidTypeCommand(fromItem, FluidType.Empty) ).Then( () =>
                 {
-                    return Context.AddCommand(new ShowTextCommand(toPlayer, TalkType.MonsterSay, "Gulp.") );
+                    return Context.AddCommand(new ShowTextCommand(toPlayer, MessageMode.MonsterSay, "Gulp.") );
                 } ); 
             }
 

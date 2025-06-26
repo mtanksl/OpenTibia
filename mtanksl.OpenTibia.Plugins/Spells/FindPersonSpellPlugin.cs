@@ -93,7 +93,7 @@ namespace OpenTibia.Plugins.Spells
             }
             return Context.AddCommand(new ShowMagicEffectCommand(player, MagicEffectType.BlueShimmer) ).Then( () =>
             {
-                Context.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, builder.ToString() ) );
+                Context.AddPacket(player, new ShowWindowTextOutgoingPacket(MessageMode.Look, builder.ToString() ) );
 
                 return Promise.Completed;
             } );

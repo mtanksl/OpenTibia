@@ -26,7 +26,7 @@ namespace OpenTibia.Game.Commands
         {
             if (Player.Blesses.HasBless(BlessName) )
             {
-                return Context.AddCommand(new ShowTextCommand(Player, TalkType.MonsterSay, "You already possess this blessing.") ).Then( () =>
+                return Context.AddCommand(new ShowTextCommand(Player, MessageMode.MonsterSay, "You already possess this blessing.") ).Then( () =>
                 {
                     return Promise.Break;
                 } );
@@ -35,7 +35,7 @@ namespace OpenTibia.Game.Commands
             {
                 Player.Blesses.SetBless(BlessName);
 
-                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteCenterGameWindowAndServerLog, Message) );
+                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Game, Message) );
 
                 return Promise.Completed;
             }

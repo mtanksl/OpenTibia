@@ -31,11 +31,11 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (trading != null)
             {
-                Context.AddPacket(trading.OfferPlayer, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TradeCanceled) );
+                Context.AddPacket(trading.OfferPlayer, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.TradeCanceled) );
 
                 Context.AddPacket(trading.OfferPlayer, new CloseTradeOutgoingPacket() );
 
-                Context.AddPacket(trading.CounterOfferPlayer, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TradeCanceled) );
+                Context.AddPacket(trading.CounterOfferPlayer, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.TradeCanceled) );
 
                 Context.AddPacket(trading.CounterOfferPlayer, new CloseTradeOutgoingPacket() );
 

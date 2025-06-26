@@ -167,7 +167,7 @@ namespace OpenTibia.Game.Components
                         {
                             StopAttackAndFollow();
 
-                            Context.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TargetLost) );
+                            Context.AddPacket(player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.TargetLost) );
 
                             Context.AddPacket(player, new StopAttackAndFollowOutgoingPacket(0) );
                         }
@@ -207,7 +207,7 @@ namespace OpenTibia.Game.Components
                         {
                             StopAttackAndFollow();
 
-                            Context.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TargetLost) );
+                            Context.AddPacket(player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.TargetLost) );
 
                             Context.AddPacket(player, new StopAttackAndFollowOutgoingPacket(0) );
                         

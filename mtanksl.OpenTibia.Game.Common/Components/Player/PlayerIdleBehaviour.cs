@@ -36,7 +36,7 @@ namespace OpenTibia.Game.Components
                 }
                 else if (totalMinutes >= Context.Server.Config.GameplayKickIdlePlayerAfterMinutes)
                 {
-                    Context.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.RedCenterGameWindowAndServerLog, "There was no variation in your behaviour for 15 minutes. You will be disconnected in one minute if there is no change in your actions until then.") );
+                    Context.AddPacket(player, new ShowWindowTextOutgoingPacket(MessageMode.Warning, "There was no variation in your behaviour for 15 minutes. You will be disconnected in one minute if there is no change in your actions until then.") );
                 }
 
                 return Promise.Completed;

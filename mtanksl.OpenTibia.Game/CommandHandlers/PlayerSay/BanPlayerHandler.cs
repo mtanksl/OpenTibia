@@ -44,7 +44,7 @@ namespace OpenTibia.Game.CommandHandlers
                             await database.Commit();
                         }
 
-                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "IP Address " + parameter + " has been banned.") );
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Look, "IP Address " + parameter + " has been banned.") );
 
                         foreach (var observer in Context.Server.GameObjects.GetPlayersByIpAddress(ipAddress.ToString() ).ToArray() )
                         {
@@ -81,7 +81,7 @@ namespace OpenTibia.Game.CommandHandlers
                                 await database.Commit();
                             }
 
-                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "Player " + parameter + " has been banned.") );
+                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Look, "Player " + parameter + " has been banned.") );
 
                             Player observer = Context.Server.GameObjects.GetPlayerByName(dbPlayer.Name);
 
@@ -120,7 +120,7 @@ namespace OpenTibia.Game.CommandHandlers
                                     await database.Commit();
                                 }
 
-                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "Account " + parameter + " has been banned.") );
+                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Look, "Account " + parameter + " has been banned.") );
 
                                 foreach (var observer in Context.Server.GameObjects.GetPlayersByAccount(dbAccount.Id).ToArray() )
                                 {

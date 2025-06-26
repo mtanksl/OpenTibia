@@ -2,6 +2,7 @@
 using OpenTibia.Game.Common;
 using OpenTibia.Game.Common.ServerObjects;
 using OpenTibia.Network.Packets.Outgoing;
+using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
@@ -24,7 +25,11 @@ namespace OpenTibia.Game.Commands
                 {
                     Context.Server.RuleViolations.RemoveRuleViolation(ruleViolation);
 
-                    foreach (var observer in Context.Server.Channels.GetChannel(3).GetMembers() )
+                    var ruleViolationChannel = Context.Server.Channels.GetChannels()
+                        .Where(c => c.Flags.Is(ChannelFlags.RuleViolations) )
+                        .FirstOrDefault();
+
+                    foreach (var observer in ruleViolationChannel.GetMembers() )
                     {
                         Context.AddPacket(observer, new RemoveRuleViolationOutgoingPacket(ruleViolation.Reporter.Name) );
                     }

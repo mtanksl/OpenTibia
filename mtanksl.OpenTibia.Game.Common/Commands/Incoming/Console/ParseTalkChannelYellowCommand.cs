@@ -36,7 +36,7 @@ namespace OpenTibia.Game.Commands
 
             if (Player.Level == 1)
             {
-                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotSpeakIntoChannelsAsLongAsYouAreOnLevel1) );
+                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouMayNotSpeakIntoChannelsAsLongAsYouAreOnLevel1) );
 
                 return Promise.Break;
             }
@@ -49,7 +49,7 @@ namespace OpenTibia.Game.Commands
 
                 if (playerChannelMuteBehaviour.IsMuted(out message) )
                 {
-                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, message) );
+                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, message) );
 
                     return Promise.Break;
                 }      
@@ -67,7 +67,7 @@ namespace OpenTibia.Game.Commands
 
                         if (guild != null)
                         {
-                            ShowTextOutgoingPacket showTextOutgoingPacket = new ShowTextOutgoingPacket(Context.Server.Channels.GenerateStatementId(Player.DatabasePlayerId, Message), Player.Name, Player.Level, guild.IsLeader(Player.Name) || guild.IsViceLeader(Player.Name) ? TalkType.ChannelOrange : TalkType.ChannelYellow, channel.Id, Message);
+                            ShowTextOutgoingPacket showTextOutgoingPacket = new ShowTextOutgoingPacket(Context.Server.Channels.GenerateStatementId(Player.DatabasePlayerId, Message), Player.Name, Player.Level, guild.IsLeader(Player.Name) || guild.IsViceLeader(Player.Name) ? MessageMode.ChannelHighlight : MessageMode.Channel, channel.Id, Message);
 
                             foreach (var observer in guild.GetMembers() )
                             {
@@ -81,7 +81,7 @@ namespace OpenTibia.Game.Commands
 
                         if (party != null)
                         {
-                            ShowTextOutgoingPacket showTextOutgoingPacket = new ShowTextOutgoingPacket(Context.Server.Channels.GenerateStatementId(Player.DatabasePlayerId, Message), Player.Name, Player.Level, TalkType.ChannelYellow, channel.Id, Message);
+                            ShowTextOutgoingPacket showTextOutgoingPacket = new ShowTextOutgoingPacket(Context.Server.Channels.GenerateStatementId(Player.DatabasePlayerId, Message), Player.Name, Player.Level, MessageMode.Channel, channel.Id, Message);
 
                             foreach (var observer in party.GetMembers() )
                             {
@@ -99,7 +99,7 @@ namespace OpenTibia.Game.Commands
                             {
                                 if (playerCooldownBehaviour.HasCooldown("Trade") )
                                 {
-                                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayOnlyPlaceOneOfferInTwoMinutes) );
+                                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouMayOnlyPlaceOneOfferInTwoMinutes) );
 
                                     return Promise.Break;
                                 }
@@ -108,7 +108,7 @@ namespace OpenTibia.Game.Commands
                             }
                         }
 
-                        ShowTextOutgoingPacket showTextOutgoingPacket = new ShowTextOutgoingPacket(Context.Server.Channels.GenerateStatementId(Player.DatabasePlayerId, Message), Player.Name, Player.Level, (channel.Flags.Is(ChannelFlags.Help) && (Player.Rank == Rank.Tutor || Player.Rank == Rank.Gamemaster) ) ? TalkType.ChannelOrange : TalkType.ChannelYellow, channel.Id, Message);
+                        ShowTextOutgoingPacket showTextOutgoingPacket = new ShowTextOutgoingPacket(Context.Server.Channels.GenerateStatementId(Player.DatabasePlayerId, Message), Player.Name, Player.Level, (channel.Flags.Is(ChannelFlags.Help) && (Player.Rank == Rank.Tutor || Player.Rank == Rank.Gamemaster) ) ? MessageMode.ChannelHighlight : MessageMode.Channel, channel.Id, Message);
 
                         foreach (var observer in channel.GetMembers() )
                         {

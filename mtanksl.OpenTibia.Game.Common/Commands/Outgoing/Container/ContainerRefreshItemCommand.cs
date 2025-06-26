@@ -20,7 +20,7 @@ namespace OpenTibia.Game.Commands
         
         public override Promise Execute()
         {
-            byte index = (byte)Container.GetIndex(Item);
+            ushort index = (ushort)Container.GetIndex(Item);
 
             foreach (var observer in Container.GetPlayers() )
             {

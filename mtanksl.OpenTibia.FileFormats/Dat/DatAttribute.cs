@@ -60,6 +60,20 @@
 
         LookThrough = 31,
 
+        Cloth = 32,
+
+        Market = 33,
+
+        Usable = 34,
+
+        Wrappable = 35,
+
+        Unwrappable = 36,
+
+        TopEffect = 37,
+
+        NoMoveAnimation = 253, // On 10.10 the original value is 16
+
         End = 255
     }
 }

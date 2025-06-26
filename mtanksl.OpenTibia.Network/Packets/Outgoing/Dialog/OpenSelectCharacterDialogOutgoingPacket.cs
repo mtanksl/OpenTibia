@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.IO;
 using System.Collections.Generic;
 using System.Net;
@@ -46,6 +47,11 @@ namespace OpenTibia.Network.Packets.Outgoing
                 writer.Write( IPAddress.Parse(character.Ip) );
 
                 writer.Write(character.Port);
+
+                if (features.HasFeatureFlag(FeatureFlag.PreviewState) )
+                {
+                    writer.Write(character.PreviewState);                    
+                }
             }
 
             writer.Write(PremiumDays);

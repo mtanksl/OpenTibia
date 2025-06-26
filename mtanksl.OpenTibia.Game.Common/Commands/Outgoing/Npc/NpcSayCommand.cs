@@ -21,7 +21,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            ShowTextOutgoingPacket showTextOutgoingPacket = new ShowTextOutgoingPacket(0, Npc.Name, 0, TalkType.Say, Npc.Tile.Position, Message);
+            ShowTextOutgoingPacket showTextOutgoingPacket = new ShowTextOutgoingPacket(0, Npc.Name, 0, MessageMode.Say, Npc.Tile.Position, Message);
 
             foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Npc.Tile.Position) )
             {

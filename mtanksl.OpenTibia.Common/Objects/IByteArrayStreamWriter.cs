@@ -24,6 +24,8 @@ namespace OpenTibia.IO
 
         void Write(ulong value);
 
+        void Write(double value, byte precision);
+
         void Write(string value);
 
         void Write(byte[] buffer);

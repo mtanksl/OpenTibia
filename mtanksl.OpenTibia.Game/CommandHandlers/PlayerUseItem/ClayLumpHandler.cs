@@ -31,7 +31,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     return Context.AddCommand(new ShowMagicEffectCommand(command.Item, MagicEffectType.Puff) ).Then( () =>
                     {
-                        return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, "Aw man. That did not work out too well.") );
+                        return Context.AddCommand(new ShowTextCommand(command.Player, MessageMode.MonsterSay, "Aw man. That did not work out too well.") );
 
                     } ).Then( () =>
                     {

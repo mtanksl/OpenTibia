@@ -31,7 +31,7 @@ namespace OpenTibia.Game.CommandHandlers
                             await database.Commit();
                         }
 
-                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "IP Address " + parameter + " has been unbanned.") );
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Look, "IP Address " + parameter + " has been unbanned.") );
 
                         return;
                     }
@@ -50,7 +50,7 @@ namespace OpenTibia.Game.CommandHandlers
                                 await database.Commit();
                             }
 
-                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "Player " + parameter + " has been unbanned.") );
+                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Look, "Player " + parameter + " has been unbanned.") );
 
                             return;
                         }
@@ -69,7 +69,7 @@ namespace OpenTibia.Game.CommandHandlers
                                     await database.Commit();
                                 }
 
-                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "Account " + parameter + " has been unbanned.") );
+                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Look, "Account " + parameter + " has been unbanned.") );
 
                                 return;
                             }

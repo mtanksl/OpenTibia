@@ -86,7 +86,7 @@ namespace mtanksl.OpenTibia.Host
                                 {
                                     server.QueueForExecution( () =>
                                     {
-                                        ShowWindowTextOutgoingPacket showTextOutgoingPacket = new ShowWindowTextOutgoingPacket(TextColor.RedCenterGameWindowAndServerLog, message);
+                                        ShowWindowTextOutgoingPacket showTextOutgoingPacket = new ShowWindowTextOutgoingPacket(MessageMode.Warning, message);
 
                                         foreach (var observer in Context.Current.Server.GameObjects.GetPlayers() )
                                         {

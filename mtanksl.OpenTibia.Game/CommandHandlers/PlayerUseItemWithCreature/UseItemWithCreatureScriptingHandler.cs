@@ -24,7 +24,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 if ( !Context.Server.Pathfinding.CanThrow(command.Player.Tile.Position, command.ToCreature.Tile.Position) )
                 {
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThere) );
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouCanNotUseThere) );
 
                     return Promise.Break;
                 }

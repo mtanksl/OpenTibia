@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.IO;
 using System.Collections.Generic;
 
@@ -6,10 +7,14 @@ namespace OpenTibia.Network.Packets.Outgoing
 {
     public class InviteNpcTradeOutgoingPacket : IOutgoingPacket
     {
-        public InviteNpcTradeOutgoingPacket(List<OfferDto> offers)
+        public InviteNpcTradeOutgoingPacket(string npcName, List<OfferDto> offers)
         {
+            this.NpcName = npcName;
+
             this.Offers = offers;
         }
+
+        public string NpcName { get; set; }
 
         private List<OfferDto> offers;
 
@@ -29,7 +34,19 @@ namespace OpenTibia.Network.Packets.Outgoing
         {
             writer.Write( (byte)0x7A );
 
-            writer.Write( (byte)Offers.Count );
+            if (features.HasFeatureFlag(FeatureFlag.NameOnNpcTrade) )
+            {
+                writer.Write(NpcName);
+            }
+
+            if (features.HasFeatureFlag(FeatureFlag.NameOnNpcTrade) )
+            {
+                writer.Write( (ushort)Offers.Count);
+            }
+            else
+            {
+                writer.Write( (byte)Offers.Count);
+            }
 
             foreach (var offer in Offers)
             {

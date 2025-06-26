@@ -8,7 +8,11 @@ namespace OpenTibia.Network.Packets.Incoming
     {
         public OperatingSystem OperatingSystem { get; set; }
 
-        public ushort Version { get; set; }
+        public ushort ProtocolVersion { get; set; }
+
+        public uint ClientVersion { get; set; }
+
+        public ushort ContentRevision { get; set; }
 
         public uint[] Keys { get; set; }
 
@@ -28,7 +32,26 @@ namespace OpenTibia.Network.Packets.Incoming
         {
             OperatingSystem = (OperatingSystem)reader.ReadUShort();
 
-            Version = reader.ReadUShort();
+            ProtocolVersion = reader.ReadUShort();
+                        
+            if (features.HasFeatureFlag(FeatureFlag.ClientVersion) )
+            {
+                ClientVersion = reader.ReadUInt();
+            }
+            else
+            {
+                ClientVersion = ProtocolVersion;
+            }
+
+            if (features.HasFeatureFlag(FeatureFlag.ContentRevision) )
+            {
+                ContentRevision = reader.ReadUShort();
+            }
+
+            if (features.HasFeatureFlag(FeatureFlag.PreviewState) )
+            {
+                reader.BaseStream.Seek(Origin.Current, 1);
+            }
 
             reader.BaseStream.Seek(Origin.Current, 1);
 
@@ -47,7 +70,16 @@ namespace OpenTibia.Network.Packets.Incoming
 
             if ( !features.HasFeatureFlag(FeatureFlag.AccountString) )
             {
-                Account = reader.ReadUInt().ToString();
+                var account = reader.ReadUInt();
+
+                if (account == 0)
+                {
+                    Account = "";
+                }
+                else
+                {
+                    Account = account.ToString();
+                }
             }
             else
             {

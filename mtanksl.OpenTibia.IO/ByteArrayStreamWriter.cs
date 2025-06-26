@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 
 namespace OpenTibia.IO
 {
@@ -97,6 +98,13 @@ namespace OpenTibia.IO
         public void Write(ulong value)
         {
             InternalWriteInt64(8, (long)value);
+        }
+
+        public void Write(double value, byte precision)
+        {
+            Write(precision);
+
+            Write( (uint)(value * Math.Pow(10, precision) + int.MaxValue) );
         }
 
         private static readonly object locker = new object();

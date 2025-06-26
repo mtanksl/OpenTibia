@@ -24,7 +24,7 @@ namespace OpenTibia.Game.Commands
         
         public override Promise Execute()
         {
-            byte index = (byte)Container.GetIndex(FromItem);
+            ushort index = (ushort)Container.GetIndex(FromItem);
 
             Container.ReplaceContent(index, ToItem);
 

@@ -3,6 +3,7 @@ using OpenTibia.Common.Structures;
 using OpenTibia.Game.Common;
 using OpenTibia.Game.Events;
 using OpenTibia.Network.Packets.Outgoing;
+using System.Collections.Generic;
 
 namespace OpenTibia.Game.Commands
 {
@@ -17,40 +18,46 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            Context.AddPacket(Player, new SendInfoOutgoingPacket(Player.Id, Player.Rank == Rank.Tutor || Player.Rank == Rank.Gamemaster) );
+            Context.AddPacket(Player, new SendInfoOutgoingPacket(Player.Id, 0x32, Constants.CreatureSpeedA, Constants.CreatureSpeedB, Constants.CreatureSpeedC, Player.Rank == Rank.Tutor || Player.Rank == Rank.Gamemaster) );
+
+            if (Context.Server.Features.HasFeatureFlag(FeatureFlag.LoginPending) )
+            {
+                Context.AddPacket(Player, new SendPendingStateOutgoingPacket() );
+
+                Context.AddPacket(Player, new SendEnterWorldOutgoingPacket() );
+            }
 
             Context.AddPacket(Player, new SendTilesOutgoingPacket(Context.Server.Map, Player.Client, Player.Tile.Position) );
-
+            
             Context.AddPacket(Player, new SetEnvironmentLightOutgoingPacket(Context.Server.Clock.Light) );
                                 
             Context.AddPacket(Player, new SendStatusOutgoingPacket(
                     Player.Health, Player.MaxHealth, 
-                    Player.Capacity, 
+                    Player.Capacity, Player.MaxCapacity,
                     Player.Experience, Player.Level, Player.LevelPercent, 
                     Player.Mana, Player.MaxMana, 
-                    Player.Skills.GetClientSkillLevel(Skill.MagicLevel), Player.Skills.GetSkillPercent(Skill.MagicLevel), 
+                    Player.Skills.GetClientSkillLevel(Skill.MagicLevel), Player.Skills.GetSkillLevel(Skill.MagicLevel), Player.Skills.GetSkillPercent(Skill.MagicLevel), 
                     Player.Soul, 
-                    Player.Stamina) );
-
-            Context.AddPacket(Player, new SendSkillsOutgoingPacket(
-                Player.Skills.GetClientSkillLevel(Skill.Fist), Player.Skills.GetSkillPercent(Skill.Fist),
-                Player.Skills.GetClientSkillLevel(Skill.Club), Player.Skills.GetSkillPercent(Skill.Club),
-                Player.Skills.GetClientSkillLevel(Skill.Sword), Player.Skills.GetSkillPercent(Skill.Sword),
-                Player.Skills.GetClientSkillLevel(Skill.Axe), Player.Skills.GetSkillPercent(Skill.Axe),
-                Player.Skills.GetClientSkillLevel(Skill.Distance), Player.Skills.GetSkillPercent(Skill.Distance),
-                Player.Skills.GetClientSkillLevel(Skill.Shield), Player.Skills.GetSkillPercent(Skill.Shield),
-                Player.Skills.GetClientSkillLevel(Skill.Fish), Player.Skills.GetSkillPercent(Skill.Fish) ) );
-
+                    Player.Stamina,
+                    Player.BaseSpeed) );
+            
+            Context.AddPacket(Player, new SendSkillsOutgoingPacket(Player.Skills) );
+            
             Context.AddPacket(Player, new SetSpecialConditionOutgoingPacket(Player.SpecialConditions) );
-
+            
             foreach (var pair in Player.Inventory.GetIndexedContents() )
             {
                 Context.AddPacket(Player, new SlotAddOutgoingPacket( (byte)pair.Key, (Item)pair.Value) );
             }
-
+            
             foreach (var pair in Player.Vips.GetIndexed() )
             {
-                Context.AddPacket(Player, new VipOutgoingPacket( (uint)pair.Key, pair.Value, Context.Server.GameObjects.GetPlayerByName(pair.Value) != null) );
+                Context.AddPacket(Player, new VipOutgoingPacket( (uint)pair.Key, pair.Value, null, 10, true, Context.Server.GameObjects.GetPlayerByName(pair.Value) != null) );
+            }
+
+            if (Context.Server.Features.HasFeatureFlag(FeatureFlag.PlayerBasicData) )
+            {
+                Context.AddPacket(Player, new SendBasicDataOutgoingPacket(Player.Premium, Player.Vocation, new List<int>() ) ); //TODO: FeatureFlag.PlayerBasicData
             }
 
             Context.AddEvent(new PlayerLoginEventArgs(Player) );

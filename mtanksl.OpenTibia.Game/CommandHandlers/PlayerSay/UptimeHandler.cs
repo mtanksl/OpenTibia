@@ -12,9 +12,9 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (command.Message.StartsWith("!uptime") ) 
             {
-                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.PurpleDefault, command.Message) );
+                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Say, command.Message) );
 
-                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "Uptime: " + Context.Server.Statistics.Uptime.Days + " days " + Context.Server.Statistics.Uptime.Hours + " hours " + Context.Server.Statistics.Uptime.Minutes + " minutes") );
+                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.PrivateFrom, "Uptime: " + Context.Server.Statistics.Uptime.Days + " days " + Context.Server.Statistics.Uptime.Hours + " hours " + Context.Server.Statistics.Uptime.Minutes + " minutes") );
 
                 return Promise.Completed;
             }

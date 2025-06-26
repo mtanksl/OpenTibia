@@ -11,7 +11,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (e.Player.Rank == Rank.AccountManager)
             {
-                Context.AddPacket(e.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "Type 'account' to manage your account and if you want to start over then type 'cancel'.") );
+                Context.AddPacket(e.Player, new ShowWindowTextOutgoingPacket(MessageMode.PrivateFrom, "Type 'account' to manage your account and if you want to start over then type 'cancel'.") );
             }
 
             return Promise.Completed;

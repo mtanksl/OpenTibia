@@ -61,7 +61,7 @@ namespace OpenTibia.Game.Commands
                                     {
                                         if ( IsUseable(fromItem) )
                                         {
-                                            Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, message) );
+                                            Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Look, message) );
 
                                             return Context.AddCommand(new PlayerUseItemWithItemCommand(Player, fromItem, toItem) );
                                         }
@@ -77,7 +77,7 @@ namespace OpenTibia.Game.Commands
                                         {
                                             if (Context.Server.Config.GameplayHotkeyAimbotEnabled)
                                             {
-                                                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, message) );
+                                                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Look, message) );
 
                                                 return Context.AddCommand(new PlayerUseItemWithCreatureCommand(Player, fromItem, toCreature) );
                                             }
@@ -92,11 +92,11 @@ namespace OpenTibia.Game.Commands
                     {
                         if (Player.Tile.Position.Z > toTile.Position.Z)
                         {
-                            Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.FirstGoUpstairs) );
+                            Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.FirstGoUpstairs) );
                         }
                         else
                         {
-                            Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.FirstGoDownstairs) );
+                            Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.FirstGoDownstairs) );
                         }
                     }
                 }

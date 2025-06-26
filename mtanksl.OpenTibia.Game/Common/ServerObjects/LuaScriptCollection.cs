@@ -1090,7 +1090,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             lua.RegisterCoFunction("showtext", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new ShowTextCommand( (Creature)args[0], (TalkType)(long)args[1], LuaScope.GetString(args[2] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new ShowTextCommand( (Creature)args[0], (MessageMode)(long)args[1], LuaScope.GetString(args[2] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
@@ -1098,7 +1098,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             lua.RegisterCoFunction("showwindowtext", (luaScope, args) =>
             {
-                Context.Current.AddPacket( (Player)args[0], new ShowWindowTextOutgoingPacket( (TextColor)(long)args[1], LuaScope.GetString(args[2] ) ) );
+                Context.Current.AddPacket( (Player)args[0], new ShowWindowTextOutgoingPacket( (MessageMode)(long)args[1], LuaScope.GetString(args[2] ) ) );
 
                 return Promise.FromResultAsEmptyObjectArray;
             } );

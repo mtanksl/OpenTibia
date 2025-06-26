@@ -20,7 +20,7 @@ namespace OpenTibia.Tests
                 t.Move(player, new Position(921, 771, 6) );
 
                 t.Using(player, a => a
-                    .Execute(new ShowTextCommand(a.Connection.Client.Player, TalkType.MonsterSay, "ABCDEFGH") )
+                    .Execute(new ShowTextCommand(a.Connection.Client.Player, MessageMode.MonsterSay, "ABCDEFGH") )
                     .ExpectSuccess()
                     .Observe(o => o
                         .ExpectPacket(1)
@@ -41,7 +41,7 @@ namespace OpenTibia.Tests
                 var npc = t.Server.GameObjects.GetNpcs().Where(n => n.Name == "Cipfried").FirstOrDefault();
 
                 t.Using(player, a => a
-                    .Execute(new ShowTextCommand(npc, TalkType.MonsterSay, "ABCDEFGH") )
+                    .Execute(new ShowTextCommand(npc, MessageMode.MonsterSay, "ABCDEFGH") )
                     .ExpectSuccess()
                     .Observe(o => o
                         .ExpectPacket(0) ) )

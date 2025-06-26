@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.IO;
 using System.Collections.Generic;
 
@@ -6,7 +7,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 {
     public class OpenContainerOutgoingPacket : IOutgoingPacket
     {
-        public OpenContainerOutgoingPacket(byte containerId, ushort tibiaId, string name, byte capacity, bool hasParent, List<Item> items)
+        public OpenContainerOutgoingPacket(byte containerId, ushort tibiaId, string name, byte capacity, bool hasParent, bool isUnlocked, bool hasPages, ushort firstIndex, List<Item> items)
         {
             this.ContainerId = containerId;
 
@@ -17,6 +18,12 @@ namespace OpenTibia.Network.Packets.Outgoing
             this.Capacity = capacity;
 
             this.HasParent = hasParent;
+
+            this.IsUnlocked = isUnlocked;
+
+            this.HasPages = hasPages;
+
+            this.FirstIndex = firstIndex;
 
             this.items = items;
         }
@@ -30,6 +37,12 @@ namespace OpenTibia.Network.Packets.Outgoing
         public byte Capacity { get; set; }
 
         public bool HasParent { get; set; }
+
+        public bool IsUnlocked { get; set; }
+
+        public bool HasPages { get; set; }
+
+        public ushort FirstIndex { get; set; }
 
         private List<Item> items;
 
@@ -58,6 +71,17 @@ namespace OpenTibia.Network.Packets.Outgoing
             writer.Write(Capacity);
 
             writer.Write(HasParent);
+
+            if (features.HasFeatureFlag(FeatureFlag.ContainerPagination) )
+            {
+                writer.Write(IsUnlocked);
+
+                writer.Write(HasPages);
+
+                writer.Write( (ushort)items.Count);
+
+                writer.Write(FirstIndex);
+            }
 
             writer.Write( (byte)Items.Count );
 

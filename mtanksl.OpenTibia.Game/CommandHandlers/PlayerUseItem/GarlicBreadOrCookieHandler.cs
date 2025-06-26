@@ -19,7 +19,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (garlicBreadOrCookie.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, "After taking a small bite you decide that you don't want to eat that.") );
+                return Context.AddCommand(new ShowTextCommand(command.Player, MessageMode.MonsterSay, "After taking a small bite you decide that you don't want to eat that.") );
             }
 
             return next();

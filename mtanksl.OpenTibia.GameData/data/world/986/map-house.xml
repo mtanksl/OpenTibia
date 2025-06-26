@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<houses>
+	<house name="Cormaya 1" houseid="1" entryx="930" entryy="777" entryz="7" rent="150000" townid="1" size="20" />
+	<house name="Cormaya 2" houseid="2" entryx="925" entryy="782" entryz="7" rent="300000" guildhall="true" townid="1" size="64" />
+</houses>

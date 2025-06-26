@@ -13,10 +13,14 @@
     <None Include="$(MSBuildThisFileDirectory)data\channels\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\database.db" />
     <None Include="$(MSBuildThisFileDirectory)data\dlls\mtanksl.OpenTibia.Plugins\mtanksl.OpenTibia.Plugins.dll" />
+    <None Include="$(MSBuildThisFileDirectory)data\items\1098\items.otb" />
+    <None Include="$(MSBuildThisFileDirectory)data\items\1098\Tibia.dat" />
     <None Include="$(MSBuildThisFileDirectory)data\items\772\items.otb" />
     <None Include="$(MSBuildThisFileDirectory)data\items\772\tibia.dat" />
     <None Include="$(MSBuildThisFileDirectory)data\items\870\items.otb" />
     <None Include="$(MSBuildThisFileDirectory)data\items\870\tibia.dat" />
+    <None Include="$(MSBuildThisFileDirectory)data\items\986\items.otb" />
+    <None Include="$(MSBuildThisFileDirectory)data\items\986\Tibia.dat" />
     <None Include="$(MSBuildThisFileDirectory)data\items\Definition\items.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -75,9 +79,11 @@
     <None Include="$(MSBuildThisFileDirectory)data\scripts\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\server\config.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\server\lib.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\world\1098\map.otbm" />
     <None Include="$(MSBuildThisFileDirectory)data\world\772\map.otbm" />
     <None Include="$(MSBuildThisFileDirectory)data\world\860\map.otbm" />
     <None Include="$(MSBuildThisFileDirectory)data\world\870\map.otbm" />
+    <None Include="$(MSBuildThisFileDirectory)data\world\986\map.otbm" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)data\items\items.xml" />
@@ -596,12 +602,16 @@
     <Content Include="$(MSBuildThisFileDirectory)data\npcs\Captain Bluebear.xml" />
     <Content Include="$(MSBuildThisFileDirectory)data\npcs\Cipfried.xml" />
     <Content Include="$(MSBuildThisFileDirectory)data\npcs\Rachel.xml" />
+    <Content Include="$(MSBuildThisFileDirectory)data\world\1098\map-house.xml" />
+    <Content Include="$(MSBuildThisFileDirectory)data\world\1098\map-spawn.xml" />
     <Content Include="$(MSBuildThisFileDirectory)data\world\772\map-house.xml" />
     <Content Include="$(MSBuildThisFileDirectory)data\world\772\map-spawn.xml" />
     <Content Include="$(MSBuildThisFileDirectory)data\world\860\map-house.xml" />
     <Content Include="$(MSBuildThisFileDirectory)data\world\860\map-spawn.xml" />
     <Content Include="$(MSBuildThisFileDirectory)data\world\870\map-house.xml" />
     <Content Include="$(MSBuildThisFileDirectory)data\world\870\map-spawn.xml" />
+    <Content Include="$(MSBuildThisFileDirectory)data\world\986\map-house.xml" />
+    <Content Include="$(MSBuildThisFileDirectory)data\world\986\map-spawn.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)data\items\860\" />

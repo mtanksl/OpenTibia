@@ -237,11 +237,11 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
                         {
-                            return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, food.Sound) );
+                            return Context.AddCommand(new ShowTextCommand(command.Player, MessageMode.MonsterSay, food.Sound) );
                         } );
                     }
 
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreFull) );
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouAreFull) );
 
                     return Promise.Break;
                 }

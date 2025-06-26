@@ -444,11 +444,11 @@ namespace OpenTibia.Game.Commands
                     {
                         if (attacker != null)
                         {
-                            Context.Current.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + manaDamage + " mana due to an attack by " + attacker.Name + ".") );
+                            Context.Current.AddPacket(player, new ShowWindowTextOutgoingPacket(MessageMode.Status, "You lose " + manaDamage + " mana due to an attack by " + attacker.Name + ".") );
                         }
                         else
                         {
-                            Context.Current.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + manaDamage + " mana.") );
+                            Context.Current.AddPacket(player, new ShowWindowTextOutgoingPacket(MessageMode.Status, "You lose " + manaDamage + " mana.") );
                         }
 
                         await Context.Current.AddCommand(new ShowMagicEffectCommand(player, MagicEffectType.BlueRings) );
@@ -462,11 +462,11 @@ namespace OpenTibia.Game.Commands
                     {
                         if (attacker != null)
                         {
-                            Context.Current.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + healthDamage + " hitpoints due to an attack by " + attacker.Name + ".") );
+                            Context.Current.AddPacket(player, new ShowWindowTextOutgoingPacket(MessageMode.Status, "You lose " + healthDamage + " hitpoints due to an attack by " + attacker.Name + ".") );
                         }
                         else
                         {
-                            Context.Current.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + healthDamage + " hitpoints.") );
+                            Context.Current.AddPacket(player, new ShowWindowTextOutgoingPacket(MessageMode.Status, "You lose " + healthDamage + " hitpoints.") );
                         }
 
                         MagicEffectType? magicEffectType = this.magicEffectType ?? damageType.ToMagicEffectType(Race.Blood);

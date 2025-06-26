@@ -89,12 +89,12 @@ namespace OpenTibia.Game.Commands
                     {
                         foreach (var member in party.GetMembers() )
                         {
-                            Context.AddPacket(member, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, message) );
+                            Context.AddPacket(member, new ShowWindowTextOutgoingPacket(MessageMode.Look, message) );
                         }
                     }
                     else
                     {
-                        Context.AddPacket(owner, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, message) );
+                        Context.AddPacket(owner, new ShowWindowTextOutgoingPacket(MessageMode.Look, message) );
                     }
                 }
             }
@@ -184,7 +184,7 @@ namespace OpenTibia.Game.Commands
                     {
                         if (owner.Tile != null && !owner.IsDestroyed)
                         {
-                            Context.AddPacket(owner, new ShowWindowTextOutgoingPacket(TextColor.RedCenterGameWindowAndServerLog, "Warning! The murder of " + player.Name + " was not justified.") );
+                            Context.AddPacket(owner, new ShowWindowTextOutgoingPacket(MessageMode.Warning, "Warning! The murder of " + player.Name + " was not justified.") );
 
                             await Context.Current.AddCommand(new CreatureAddConditionCommand(owner, new ProtectionZoneBlockCondition(TimeSpan.FromSeconds(Context.Current.Server.Config.GameplayProtectionZoneBlockSeconds) ) ) );
                         }

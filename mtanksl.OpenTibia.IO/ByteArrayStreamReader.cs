@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 
 namespace OpenTibia.IO
 {
@@ -98,6 +99,15 @@ namespace OpenTibia.IO
         public ulong ReadULong()
         {
             return (ulong)InternalReadInt64(8);
+        }
+
+        public double ReadDouble()
+        {
+            byte precision = ReadByte();
+
+            uint value = ReadUInt();
+
+            return (value - int.MaxValue) / Math.Pow(10, precision);
         }
 
         private static readonly object locker = new object();

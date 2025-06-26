@@ -13,7 +13,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (command.Creature is Player player && command.ToTile is HouseTile houseTile && !houseTile.House.CanWalk(player.Name) )
             {
-                Context.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreNotInvited) );
+                Context.AddPacket(player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouAreNotInvited) );
 
                 Context.AddPacket(player, new StopWalkOutgoingPacket(player.Direction) );
 

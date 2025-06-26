@@ -20,7 +20,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 if ( !(command.ToItem.Parent is Tile toTile) )
                 {
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouCanNotUseThisObject) );
 
                     await Promise.Break;
                 }
@@ -30,7 +30,7 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         if (plugin.Rune.Group == "Attack" && command.Player.Combat.GetSkullIcon(null) == SkullIcon.Black)
                         {
-                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
+                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.SorryNotPossible) );
 
                             await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
 
@@ -39,7 +39,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                         if (plugin.Rune.Vocations != null && !plugin.Rune.Vocations.Contains(command.Player.Vocation) )
                         {
-                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YourVocationCannotUseThisSpell) );
+                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YourVocationCannotUseThisSpell) );
 
                             await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
 
@@ -48,7 +48,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                         if (command.Player.Level < plugin.Rune.Level)
                         {
-                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughLevel) );
+                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouDoNotHaveEnoughLevel) );
 
                             await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
 
@@ -57,7 +57,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                         if (command.Player.Skills.GetClientSkillLevel(Skill.MagicLevel) < plugin.Rune.MagicLevel)
                         {
-                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughMagicLevel) );
+                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouDoNotHaveEnoughMagicLevel) );
 
                             await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
 
@@ -67,7 +67,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     if (command.Player.Tile.ProtectionZone)
                     {
-                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackAPersonWhileYouAreInAProtectionZone) );
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouMayNotAttackAPersonWhileYouAreInAProtectionZone) );
 
                         await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
 
@@ -76,7 +76,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     if (toTile.ProtectionZone)
                     {
-                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackAPersonInAProtectionZone) );
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouMayNotAttackAPersonInAProtectionZone) );
 
                         await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
 
@@ -89,7 +89,7 @@ namespace OpenTibia.Game.CommandHandlers
                     { 
                         if (playerCooldownBehaviour.HasCooldown(plugin.Rune.Group) )
                         {                     
-                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreExhausted) );
+                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouAreExhausted) );
 
                             await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
 
@@ -99,7 +99,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     if ( !Context.Server.Pathfinding.CanThrow(command.Player.Tile.Position, toTile.Position) )
                     {
-                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThere) );
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouCanNotUseThere) );
 
                         await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
 
@@ -108,7 +108,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     if ( !await plugin.OnUsingRune(command.Player, null, toTile, command.Item) )
                     {
-                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThere) );
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouCanNotUseThere) );
 
                         await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
 
@@ -133,7 +133,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (plugin != null)
                 {
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouCanNotUseThisObject) );
 
                     await Promise.Break;
                 }

@@ -14,14 +14,14 @@ namespace OpenTibia.Game.Scripts
             {
                 if (command.ToTile.Ground == null || command.ToTile.NotWalkable || command.ToTile.BlockPathFinding || command.ToTile.Block)
                 {
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNotEnoughtRoom) );
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.ThereIsNotEnoughtRoom) );
 
                     return Promise.Break;
                 }
 
                 if ( !command.Creature.Tile.Position.IsNextTo(command.ToTile.Position) )
                 {
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.DestinationIsOutOfReach) );
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.DestinationIsOutOfReach) );
 
                     return Promise.Break;
                 }

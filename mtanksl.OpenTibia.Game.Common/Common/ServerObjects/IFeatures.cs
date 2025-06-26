@@ -9,11 +9,11 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         int ClientVersion { get; }
 
-        int TibiaDat { get; }
+        uint TibiaDat { get; }
 
-        int TibiaPic { get; }
+        uint TibiaPic { get; }
 
-        int TibiaSpr { get; }
+        uint TibiaSpr { get; }
 
         Dictionary<byte, IPacketToCommand> LoginFirstCommands { get; }
 

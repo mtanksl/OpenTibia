@@ -41,16 +41,16 @@ namespace OpenTibia.Game.Commands
                         {
                             party2.RemoveInvitation(Player);
                           
-                            Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "You have revoked " + party2.Leader.Name + "'s invitation.") );
+                            Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Look, "You have revoked " + party2.Leader.Name + "'s invitation.") );
 
                             Context.AddPacket(Player, new SetPartyIconOutgoingPacket(party2.Leader.Id, PartyIcon.None) );
 
-                            Context.AddPacket(party2.Leader, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, Player.Name + " has revoked your invitation.") );
+                            Context.AddPacket(party2.Leader, new ShowWindowTextOutgoingPacket(MessageMode.Look, Player.Name + " has revoked your invitation.") );
 
                             Context.AddPacket(party2.Leader, new SetPartyIconOutgoingPacket(Player.Id, PartyIcon.None) );    
                         }
 
-                        Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "You have joined " + observerParty.Leader.Name + "'s party. Open the party channel to communicate with your companions.") );
+                        Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Look, "You have joined " + observerParty.Leader.Name + "'s party. Open the party channel to communicate with your companions.") );
 
                         foreach (var member in observerParty.GetMembers() )
                         {
@@ -65,7 +65,7 @@ namespace OpenTibia.Game.Commands
 
                             if (member != Player)
                             {
-                                Context.AddPacket(member, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, Player.Name + " has joined the party.") );
+                                Context.AddPacket(member, new ShowWindowTextOutgoingPacket(MessageMode.Look, Player.Name + " has joined the party.") );
 
                                 Context.AddPacket(member, new SetPartyIconOutgoingPacket(Player.Id, observerParty.SharedExperienceEnabled ? PartyIcon.BlueSharedExperience : PartyIcon.Blue) );
                             }

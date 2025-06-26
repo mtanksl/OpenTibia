@@ -60,7 +60,7 @@ namespace OpenTibia.Game.Commands
                     {                    
                         Player.Achievements.SetAchievement(AchievementName);
 
-                        Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteCenterGameWindowAndServerLog, "Congratulations! You earned the achievement \"" + AchievementName + "\".") );
+                        Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Game, "Congratulations! You earned the achievement \"" + AchievementName + "\".") );
 
                         Context.AddEvent(new PlayerEarnAchievementEventArgs(Player, AchievementName) );
                     }
@@ -71,7 +71,7 @@ namespace OpenTibia.Game.Commands
                     {
                         Player.Achievements.SetAchievement(AchievementName);
 
-                        Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteCenterGameWindowAndServerLog, "Congratulations! You earned the achievement \"" + AchievementName + "\".") );
+                        Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Game, "Congratulations! You earned the achievement \"" + AchievementName + "\".") );
 
                         Context.AddEvent(new PlayerEarnAchievementEventArgs(Player, AchievementName) );
                     }

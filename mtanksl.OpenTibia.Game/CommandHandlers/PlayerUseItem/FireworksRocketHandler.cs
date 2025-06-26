@@ -34,7 +34,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.RocketInPocket, 3, "Rocket in Pocket") ).Then( () =>
                 {
-                    return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, "Ouch! Rather place it on the ground next time.") );
+                    return Context.AddCommand(new ShowTextCommand(command.Player, MessageMode.MonsterSay, "Ouch! Rather place it on the ground next time.") );
 
                 } ).Then( () =>
                 {

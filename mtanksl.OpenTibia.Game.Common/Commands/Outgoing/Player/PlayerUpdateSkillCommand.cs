@@ -53,23 +53,17 @@ namespace OpenTibia.Game.Commands
                 {
                     Context.AddPacket(Player, new SendStatusOutgoingPacket(
                         Player.Health, Player.MaxHealth, 
-                        Player.Capacity, 
+                        Player.Capacity, Player.MaxCapacity,
                         Player.Experience, Player.Level, Player.LevelPercent, 
                         Player.Mana, Player.MaxMana, 
-                        Player.Skills.GetClientSkillLevel(Skill.MagicLevel), Player.Skills.GetSkillPercent(Skill.MagicLevel), 
+                        Player.Skills.GetClientSkillLevel(Skill.MagicLevel), Player.Skills.GetSkillLevel(Skill.MagicLevel), Player.Skills.GetSkillPercent(Skill.MagicLevel), 
                         Player.Soul, 
-                        Player.Stamina) );
+                        Player.Stamina,
+                        Player.BaseSpeed) );
                 }
                 else
                 {
-                    Context.AddPacket(Player, new SendSkillsOutgoingPacket(
-                        Player.Skills.GetClientSkillLevel(Skill.Fist), Player.Skills.GetSkillPercent(Skill.Fist),
-                        Player.Skills.GetClientSkillLevel(Skill.Club), Player.Skills.GetSkillPercent(Skill.Club),
-                        Player.Skills.GetClientSkillLevel(Skill.Sword), Player.Skills.GetSkillPercent(Skill.Sword),
-                        Player.Skills.GetClientSkillLevel(Skill.Axe), Player.Skills.GetSkillPercent(Skill.Axe),
-                        Player.Skills.GetClientSkillLevel(Skill.Distance), Player.Skills.GetSkillPercent(Skill.Distance),
-                        Player.Skills.GetClientSkillLevel(Skill.Shield), Player.Skills.GetSkillPercent(Skill.Shield),
-                        Player.Skills.GetClientSkillLevel(Skill.Fish), Player.Skills.GetSkillPercent(Skill.Fish) ) );
+                    Context.AddPacket(Player, new SendSkillsOutgoingPacket(Player.Skills) );
                 }
 
                 Context.AddEvent(new PlayerUpdateSkillEventArgs(Player, Skill, SkillPoints, SkillLevel, SkillPercent, ConditionSkillLevel, ItemSkillLevel) );

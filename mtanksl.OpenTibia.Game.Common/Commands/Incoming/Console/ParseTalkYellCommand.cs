@@ -33,7 +33,7 @@ namespace OpenTibia.Game.Commands
 
             if (Player.Level == 1)
             {
-                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotYellAsLongAsYouAreOnLevel1) );
+                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouMayNotYellAsLongAsYouAreOnLevel1) );
 
                 return Promise.Break;
             }
@@ -46,7 +46,7 @@ namespace OpenTibia.Game.Commands
 
                 if (playerChannelMuteBehaviour.IsMuted(out message) )
                 {
-                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, message) );
+                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, message) );
 
                     return Promise.Break;
                 }      
@@ -58,7 +58,7 @@ namespace OpenTibia.Game.Commands
             {
                 if (playerCooldownBehaviour.HasCooldown("Yell") )
                 {
-                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreExhausted) );
+                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouAreExhausted) );
 
                     return Promise.Break;
                 }

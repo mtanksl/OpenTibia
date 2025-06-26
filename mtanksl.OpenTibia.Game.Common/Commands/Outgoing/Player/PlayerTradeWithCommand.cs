@@ -53,7 +53,7 @@ namespace OpenTibia.Game.Commands
 
             if ( !Player.Tile.Position.IsInRange(ToPlayer.Tile.Position, 2) )
             {
-                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, ToPlayer.Name + " tells you to move closer.") );
+                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Look, ToPlayer.Name + " tells you to move closer.") );
 
                 return Promise.Break;
             }
@@ -62,7 +62,7 @@ namespace OpenTibia.Game.Commands
 
             if (trading != null)
             {
-                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreAlreadyTrading) );
+                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouAreAlreadyTrading) );
 
                 return Promise.Break;
             }
@@ -71,7 +71,7 @@ namespace OpenTibia.Game.Commands
 
             if (trading != null && trading.OfferPlayer != ToPlayer)
             {
-                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreAlreadyTrading) );
+                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouAreAlreadyTrading) );
 
                 return Promise.Break;
             }
@@ -80,7 +80,7 @@ namespace OpenTibia.Game.Commands
 
             if (trading != null)
             {
-                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisPlayerIsAlreadyTrading) );
+                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.ThisPlayerIsAlreadyTrading) );
 
                 return Promise.Break;
             }
@@ -93,14 +93,14 @@ namespace OpenTibia.Game.Commands
 
                 if ( !CanTrade(Item, items) )
                 {
-                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisItemIsAlreadyBeingTraded) );
+                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.ThisItemIsAlreadyBeingTraded) );
 
                     return Promise.Break;                    
                 }
 
                 if (items.Count > 100)
                 {
-                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotTradeMoreThan100Items) );
+                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouCanNotTradeMoreThan100Items) );
 
                     return Promise.Break;
                 }
@@ -122,7 +122,7 @@ namespace OpenTibia.Game.Commands
 
                 Context.AddPacket(Player, new InviteTradeOutgoingPacket(trading.OfferPlayer.Name, trading.OfferIncludes) );
 
-                Context.AddPacket(ToPlayer, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, Player.Name + " wants to trade with you.") );
+                Context.AddPacket(ToPlayer, new ShowWindowTextOutgoingPacket(MessageMode.Look, Player.Name + " wants to trade with you.") );
 
                 return Promise.Completed;
             }
@@ -130,7 +130,7 @@ namespace OpenTibia.Game.Commands
             {
                 if (trading.CounterOfferPlayer != Player)
                 {
-                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisPlayerIsAlreadyTrading) );
+                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.ThisPlayerIsAlreadyTrading) );
 
                     return Promise.Break;
                 }
@@ -139,14 +139,14 @@ namespace OpenTibia.Game.Commands
 
                 if ( !CanTrade(Item, items) )
                 {
-                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisItemIsAlreadyBeingTraded) );
+                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.ThisItemIsAlreadyBeingTraded) );
 
                     return Promise.Break;                    
                 }
 
                 if (items.Count > 100)
                 {
-                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotTradeMoreThan100Items) );
+                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouCanNotTradeMoreThan100Items) );
 
                     return Promise.Break;
                 }

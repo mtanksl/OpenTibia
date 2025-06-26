@@ -114,6 +114,12 @@ namespace OpenTibia.FileFormats.Otb
 
                         break;
 
+                    case OtbAttribute.WareId:
+
+                        item.WareId = reader.ReadUShort();
+
+                        break;
+
                     default:
 
                         stream.Seek(Origin.Current, length);
@@ -146,5 +152,7 @@ namespace OpenTibia.FileFormats.Otb
         public ushort LightColor { get; set; }
 
         public TopOrder TopOrder { get; set; }
+
+        public ushort WareId { get; set; }
     }
 }

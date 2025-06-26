@@ -63,7 +63,7 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         return Context.AddCommand(new ShowMagicEffectCommand(command.ToItem, MagicEffectType.Puff) ).Then( () =>
                         {
-                            return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, "The attempt at sculpting failed miserably.") );
+                            return Context.AddCommand(new ShowTextCommand(command.Player, MessageMode.MonsterSay, "The attempt at sculpting failed miserably.") );
 
                         } ).Then( () =>
                         {
@@ -84,7 +84,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                             } ).Then( () =>
                             {
-                                return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, "You shaped a perfect little mammoth from the ice cube.") );
+                                return Context.AddCommand(new ShowTextCommand(command.Player, MessageMode.MonsterSay, "You shaped a perfect little mammoth from the ice cube.") );
 
                             } ).Then( () =>
                             {
@@ -108,7 +108,7 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         return Context.AddCommand(new ShowMagicEffectCommand(command.ToItem, MagicEffectType.Puff) ).Then( () =>
                         {
-                            return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, "Aw man. That did not work out too well.") );
+                            return Context.AddCommand(new ShowTextCommand(command.Player, MessageMode.MonsterSay, "Aw man. That did not work out too well.") );
 
                         } ).Then( () =>
                         {

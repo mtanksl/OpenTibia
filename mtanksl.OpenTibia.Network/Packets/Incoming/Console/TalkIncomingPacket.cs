@@ -6,7 +6,7 @@ namespace OpenTibia.Network.Packets.Incoming
 {
     public class TalkIncomingPacket : IIncomingPacket
     {
-        public TalkType TalkType { get; set; }
+        public MessageMode MessageMode { get; set; }
 
         public string Name { get; set; }
 
@@ -16,29 +16,23 @@ namespace OpenTibia.Network.Packets.Incoming
         
         public void Read(IByteArrayStreamReader reader, IHasFeatureFlag features)        
         {
-            TalkType = features.GetTalkTypeForByte(reader.ReadByte() );
+            MessageMode = features.GetMessageModeForByte(reader.ReadByte() );
 
-            switch (TalkType)
+            switch (MessageMode)
             {                   
-                case TalkType.Private:
-
-                case TalkType.PrivateRed:
-
-                case TalkType.ReportRuleViolationAnswer:
+                case MessageMode.PrivateTo:
+                case MessageMode.GamemasterPrivateTo:
+                case MessageMode.RVRAnswer:
 
                     Name = reader.ReadString();
 
                     break;
 
-                case TalkType.ChannelYellow:
-
-                case TalkType.ChannelWhite:
-
-                case TalkType.ChannelRed:
-
-                case TalkType.ChannelOrange:
-
-                case TalkType.ChannelRedAnonymous:
+                case MessageMode.Channel:
+                case MessageMode.ChannelHighlight:
+                case MessageMode.ChannelManagement:
+                case MessageMode.GamemasterChannel:
+                case MessageMode.GamemasterChannelAnonymous:
 
                     ChannelId = reader.ReadUShort();
 

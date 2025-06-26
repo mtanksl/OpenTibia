@@ -30,12 +30,13 @@ namespace OpenTibia.Game.Commands
 
                     Context.AddPacket(Player, new SendStatusOutgoingPacket(
                         Player.Health, Player.MaxHealth, 
-                        Player.Capacity, 
+                        Player.Capacity, Player.MaxCapacity,
                         Player.Experience, Player.Level, Player.LevelPercent, 
                         Player.Mana, Player.MaxMana, 
-                        Player.Skills.GetClientSkillLevel(Skill.MagicLevel), Player.Skills.GetSkillPercent(Skill.MagicLevel), 
+                        Player.Skills.GetClientSkillLevel(Skill.MagicLevel), Player.Skills.GetSkillLevel(Skill.MagicLevel), Player.Skills.GetSkillPercent(Skill.MagicLevel), 
                         Player.Soul, 
-                        Player.Stamina) );
+                        Player.Stamina,
+                        Player.BaseSpeed) );
 
                     Context.AddEvent(new PlayerUpdateCapacityEventArgs(Player, Capacity) );
                 }

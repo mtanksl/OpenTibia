@@ -15,7 +15,7 @@ namespace OpenTibia.Game.Scripts
             {
                 if (command.Pathfinding && command.ToContainer is Tile toTile && !Context.Server.Pathfinding.CanThrow(command.Player.Tile.Position, toTile.Position) )
                 {
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotThrowThere) );
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouCanNotThrowThere) );
 
                     return Promise.Break;
                 }
@@ -52,7 +52,7 @@ namespace OpenTibia.Game.Scripts
                     {
                         if (command.Player.Tile.Position.X + 1 == tile.Position.X)
                         {
-                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotMoveThisObject) );
+                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouCanNotMoveThisObject) );
 
                             return Promise.Break;
                         }
@@ -61,7 +61,7 @@ namespace OpenTibia.Game.Scripts
                     {
                         if (command.Player.Tile.Position.Y + 1 == tile.Position.Y)
                         {
-                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotMoveThisObject) );
+                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouCanNotMoveThisObject) );
 
                             return Promise.Break;
                         }

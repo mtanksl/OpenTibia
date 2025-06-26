@@ -24,7 +24,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (fromHouseTile != null && !fromHouseTile.House.CanWalk(command.Player.Name) )
             {
-                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotMoveThisObject) );
+                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouCanNotMoveThisObject) );
 
                 return Promise.Break;
             }
@@ -42,7 +42,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (toHouseTile != null && !toHouseTile.House.CanWalk(command.Player.Name) )
             {
-                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotThrowThere) );
+                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouCanNotThrowThere) );
 
                 return Promise.Break;
             }

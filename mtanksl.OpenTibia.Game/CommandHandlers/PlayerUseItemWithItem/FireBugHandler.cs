@@ -31,7 +31,7 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         return Context.AddCommand(new ItemDestroyCommand(command.Item) ).Then( () =>
                         {
-                            return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, "Ouch!") );
+                            return Context.AddCommand(new ShowTextCommand(command.Player, MessageMode.MonsterSay, "Ouch!") );
 
                         } ).Then( () =>
                         {
@@ -54,7 +54,7 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         return Context.AddCommand(new ItemDestroyCommand(command.Item) ).Then( () =>
                         {
-                            return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, "Ouch!") );
+                            return Context.AddCommand(new ShowTextCommand(command.Player, MessageMode.MonsterSay, "Ouch!") );
 
                         } ).Then( () =>
                         {

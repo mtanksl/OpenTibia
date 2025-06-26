@@ -1,13 +1,12 @@
 ﻿channels = {
 	{ id = 0, name = "Guild", flags = channelflag.guild, clientversion = 772 },
-	{ id = 2, name = "Tutor", flags = channelflag.tutor, clientversion = 772 },
-	{ id = 3, name = "Rule Violations", flags = channelflag.ruleviolations, clientversion = 772 },
-	{ id = 4, name = "Gamemaster", flags = channelflag.gamemaster, clientversion = 772 },
-	{ id = 5, name = "Game-Chat", flags = 0, clientversion = 772 },
-	{ id = 6, name = "Trade", flags = channelflag.trade, clientversion = 772 },
+	{ id = 2, name = "Rule Violations", flags = channelflag.ruleviolations, clientversion = 772 },
+	{ id = 3, name = "Tutor", flags = channelflag.tutor, clientversion = 772 },
+	{ id = 4, name = "Game-Chat", flags = 0, clientversion = 772 },
+	{ id = 5, name = "RL-Chat", flags = 0, clientversion = 772 },
+	{ id = 6, name = "Trade", flags = channelflag.trade | channelflag.traderookgaard, clientversion = 772 },
 	{ id = 7, name = "Help", flags = channelflag.help, clientversion = 772 },
-	{ id = 8, name = "Trade-Rookgaard", flags = channelflag.traderookgaard, clientversion = 772 },
-	{ id = 9, name = "RL-Chat", flags = 0, clientversion = 772 },
+	{ id = 8, name = "Gamemaster", flags = channelflag.gamemaster, clientversion = 772 },
 
 	{ id = 0, name = "Guild", flags = channelflag.guild, clientversion = 860 },
 	{ id = 1, name = "Party", flags = channelflag.party, clientversion = 860 },
@@ -26,5 +25,22 @@
 	{ id = 3, name = "World Chat", flags = 0, clientversion = 870 },
 	{ id = 4, name = "Advertising", flags = channelflag.trade, clientversion = 870 },
 	{ id = 5, name = "Advertising-Rookgaard", flags = channelflag.traderookgaard, clientversion = 870 },
-	{ id = 6, name = "Help", flags = channelflag.help, clientversion = 870 }
+	{ id = 6, name = "Help", flags = channelflag.help, clientversion = 870 },
+
+	{ id = 0, name = "Guild", flags = channelflag.guild, clientversion = 986 },
+	{ id = 1, name = "Party", flags = channelflag.party, clientversion = 986 },
+	{ id = 2, name = "Tutor", flags = channelflag.tutor, clientversion = 986 },
+	{ id = 3, name = "World Chat", flags = 0, clientversion = 986 },
+	{ id = 4, name = "English Chat", flags = 0, clientversion = 986 },
+	{ id = 5, name = "Advertising", flags = channelflag.trade, clientversion = 986 },
+	{ id = 6, name = "Advertising-Rookgaard", flags = channelflag.traderookgaard, clientversion = 986 },
+	{ id = 7, name = "Help", flags = channelflag.help, clientversion = 986 },
+	
+	{ id = 0, name = "Guild", flags = channelflag.guild, clientversion = 1098 },
+	{ id = 1, name = "Party", flags = channelflag.party, clientversion = 1098 },
+	{ id = 2, name = "World Chat", flags = 0, clientversion = 1098 },
+	{ id = 3, name = "English Chat", flags = 0, clientversion = 1098 },
+	{ id = 4, name = "Advertising", flags = channelflag.trade, clientversion = 1098 },
+	{ id = 5, name = "Advertising-Rookgaard", flags = channelflag.traderookgaard, clientversion = 1098 },
+	{ id = 6, name = "Help", flags = channelflag.help, clientversion = 1098 }
 }

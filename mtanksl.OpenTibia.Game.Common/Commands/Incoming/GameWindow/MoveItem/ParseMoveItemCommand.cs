@@ -20,7 +20,7 @@ namespace OpenTibia.Game.Commands
             {
                 if (toContainer.GetContent(toIndex) == container || toContainer.IsContentOf(container) )
                 {
-                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisIsImpossible) );
+                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.ThisIsImpossible) );
 
                     return false;
                 }
@@ -35,7 +35,7 @@ namespace OpenTibia.Game.Commands
             {
                 if (toInventory.GetContent(toSlot) == container)
                 {
-                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisIsImpossible) );
+                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.ThisIsImpossible) );
 
                     return false;
                 }
@@ -48,7 +48,7 @@ namespace OpenTibia.Game.Commands
         {
             if ( !fromItem.Metadata.Flags.Is(ItemMetadataFlags.Pickupable) )
             {
-                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotTakeThisObject) );
+                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouCanNotTakeThisObject) );
 
                 return false;
             }
@@ -60,7 +60,7 @@ namespace OpenTibia.Game.Commands
         {
             if ( fromItem.Metadata.Flags.Is(ItemMetadataFlags.NotMoveable) )
             {
-                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotMoveThisObject) );
+                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouCanNotMoveThisObject) );
 
                 return false;
             }
@@ -87,7 +87,7 @@ namespace OpenTibia.Game.Commands
         {
             if (fromCreature is Player || fromCreature is Npc || fromCreature is Monster)
             {
-                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotMoveThisObject) );
+                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouCanNotMoveThisObject) );
 
                 return false;
             }

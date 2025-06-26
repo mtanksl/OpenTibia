@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<spawns>
+	<spawn centerx="930" centery="781" centerz="7" radius="5">
+		<monster name="Amazon" x="-4" y="-4" z="7" spawntime="60" />
+		<monster name="Amazon" x="-5" y="-3" z="7" spawntime="60" />
+		<monster name="Valkyrie" x="-3" y="-3" z="7" spawntime="60" />
+		<monster name="Valkyrie" x="-4" y="-2" z="7" spawntime="60" />
+		<monster name="Dog" x="1" y="-1" z="7" spawntime="60" />
+		<monster name="Deer" x="0" y="3" z="7" spawntime="60" />
+		<monster name="Deer" x="2" y="3" z="7" spawntime="60" />
+	</spawn>
+</spawns>

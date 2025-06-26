@@ -202,6 +202,11 @@ namespace OpenTibia.Game.Common.ServerObjects
                         metadata.Flags |= ItemMetadataFlags.HasHeight;
                     }
 
+                    if (datItem.Animations > 1)
+                    {
+                        metadata.Flags |= ItemMetadataFlags.IsAnimated;
+                    }
+
                     metadata.GroundSpeed = datItem.Speed;
 
                     metadata.MaxWriteChars = datItem.MaxWriteChars;

@@ -67,7 +67,7 @@ namespace OpenTibia.Game.Commands
 
             if (correctSkillLevel > currentSkillLevel)
             {
-                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteCenterGameWindowAndServerLog, "You advanced to " + Skill.GetDescription() + " level " + correctSkillLevel + ".") );
+                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Game, "You advanced to " + Skill.GetDescription() + " level " + correctSkillLevel + ".") );
 
                 Context.AddEvent(new PlayerAdvanceSkillEventArgs(Player, Skill, currentSkillLevel, correctSkillLevel) );
             }            

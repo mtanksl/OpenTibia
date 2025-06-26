@@ -26,7 +26,7 @@ namespace OpenTibia.Game.Commands
         {
             Connection.Keys = Packet.Keys;
 
-            if (Packet.TibiaDat != Context.Server.Features.TibiaDat || Packet.TibiaPic != Context.Server.Features.TibiaPic || Packet.TibiaSpr != Context.Server.Features.TibiaSpr || Packet.Version != Context.Server.Features.ClientVersion)
+            if (Packet.TibiaDat != Context.Server.Features.TibiaDat || Packet.TibiaPic != Context.Server.Features.TibiaPic || Packet.TibiaSpr != Context.Server.Features.TibiaSpr || Packet.ClientVersion != Context.Server.Features.ClientVersion)
             {
                 Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, string.Format(Constants.OnlyProtocolAllowed, Context.Server.Config.ClientVersion) ) );
 
@@ -168,7 +168,7 @@ namespace OpenTibia.Game.Commands
                     worldName = dbPlayer.World.Name;
                 }
 
-                characters.Add(new CharacterDto(dbPlayer.Name, worldName, dbPlayer.World.Ip, (ushort)dbPlayer.World.Port) );
+                characters.Add(new CharacterDto(dbPlayer.Name, worldName, dbPlayer.World.Ip, (ushort)dbPlayer.World.Port, false) );
             }
 
             int premiumDays;

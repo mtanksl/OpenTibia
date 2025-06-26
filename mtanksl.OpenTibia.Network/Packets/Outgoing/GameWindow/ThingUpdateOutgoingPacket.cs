@@ -11,7 +11,7 @@ namespace OpenTibia.Network.Packets.Outgoing
         /// <summary>
         /// Creature.
         /// </summary>
-        public ThingUpdateOutgoingPacket(Position position, byte index, uint creatureId, Direction direction)
+        public ThingUpdateOutgoingPacket(Position position, byte index, uint creatureId, Direction direction, bool block)
         {
             this.option = 1;
 
@@ -23,6 +23,8 @@ namespace OpenTibia.Network.Packets.Outgoing
             this.CreatureId = creatureId;
 
             this.Direction = direction;
+
+            this.Block = block;
         }
 
         /// <summary>
@@ -48,6 +50,8 @@ namespace OpenTibia.Network.Packets.Outgoing
 
         public Direction Direction { get; set; }
 
+        public bool Block { get; set; }
+
         public Item Item { get; set; }
               
         public void Write(IByteArrayStreamWriter writer, IHasFeatureFlag features)
@@ -71,6 +75,11 @@ namespace OpenTibia.Network.Packets.Outgoing
                     writer.Write(CreatureId);
 
                     writer.Write( (byte)Direction );
+
+                    if (features.HasFeatureFlag(FeatureFlag.CreatureUnpass) )
+                    {
+                        writer.Write(Block);
+                    }
 
                     break;
 

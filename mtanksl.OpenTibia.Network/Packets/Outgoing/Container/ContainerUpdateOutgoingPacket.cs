@@ -1,11 +1,12 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.IO;
 
 namespace OpenTibia.Network.Packets.Outgoing
 {
     public class ContainerUpdateOutgoingPacket : IOutgoingPacket
     {
-        public ContainerUpdateOutgoingPacket(byte containerId, byte index, Item item)
+        public ContainerUpdateOutgoingPacket(byte containerId, ushort index, Item item)
         {
             this.ContainerId = containerId;
 
@@ -16,7 +17,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 
         public byte ContainerId { get; set; }
 
-        public byte Index { get; set; }
+        public ushort Index { get; set; }
 
         public Item Item { get; set; }
         
@@ -26,7 +27,14 @@ namespace OpenTibia.Network.Packets.Outgoing
 
             writer.Write(ContainerId);
 
-            writer.Write(Index);
+            if (features.HasFeatureFlag(FeatureFlag.ContainerPagination) )
+            {
+                writer.Write( (ushort)Index);
+            }
+            else
+            {
+                writer.Write( (byte)Index);
+            }
 
             writer.Write(features, Item);
         }

@@ -33,7 +33,7 @@ namespace OpenTibia.Game.Commands
                     message = "Using one of " + sum + " " + (fromItem.Metadata.Plural ?? fromItem.Metadata.Name) + "...";
                 }
 
-                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, message) );
+                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Look, message) );
 
                 return Context.AddCommand(new PlayerUseItemCommand(Player, fromItem, null) );
             }

@@ -25,7 +25,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 if (command.Item.Parent is Tile tile && tile.ProtectionZone)
                 {
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisActionIsNotPermittedInAProtectionZone) );
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.ThisActionIsNotPermittedInAProtectionZone) );
 
                     return Promise.Break;
                 }

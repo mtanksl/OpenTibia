@@ -32,7 +32,9 @@ namespace OpenTibia.Game.Commands
                     {
                         if (Player.Vips.AddVip(dbPlayer.Id, dbPlayer.Name) )
                         {
-                            Context.AddPacket(Player, new VipOutgoingPacket( (uint)dbPlayer.Id, dbPlayer.Name, Context.Server.GameObjects.GetPlayerByName(dbPlayer.Name) != null) );
+                            //TODO: FeatureFlag.AdditionalVipInfo
+
+                            Context.AddPacket(Player, new VipOutgoingPacket( (uint)dbPlayer.Id, dbPlayer.Name, null, 10, true, Context.Server.GameObjects.GetPlayerByName(dbPlayer.Name) != null) );
 
                             await Promise.Completed; return;
                         }

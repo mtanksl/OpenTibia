@@ -56,7 +56,7 @@ namespace mtanksl.OpenTibia.Host.GUI
                     server.Logger = logger;
 
                     server.Start();
-                });
+                } );
 
                 startToolStripMenuItem.Enabled = false;
 
@@ -106,7 +106,7 @@ namespace mtanksl.OpenTibia.Host.GUI
                 await Task.Run(() =>
                 {
                     server.ReloadPlugins();
-                });
+                } );
             }
             catch (Exception ex)
             {
@@ -148,7 +148,7 @@ namespace mtanksl.OpenTibia.Host.GUI
                     server.Logger = logger;
 
                     server.Start();
-                });
+                } );
 
                 maintenanceToolStripMenuItem.Checked = false;
             }
@@ -188,7 +188,7 @@ namespace mtanksl.OpenTibia.Host.GUI
                     server.Dispose();
 
                     server = null;
-                });
+                } );
 
                 startToolStripMenuItem.Enabled = true;
 
@@ -238,7 +238,7 @@ namespace mtanksl.OpenTibia.Host.GUI
 
             server.QueueForExecution(() =>
             {
-                ShowWindowTextOutgoingPacket showTextOutgoingPacket = new ShowWindowTextOutgoingPacket(TextColor.RedCenterGameWindowAndServerLog, promptForm.Message);
+                ShowWindowTextOutgoingPacket showTextOutgoingPacket = new ShowWindowTextOutgoingPacket(MessageMode.Warning, promptForm.Message);
 
                 foreach (var observer in Context.Current.Server.GameObjects.GetPlayers())
                 {
@@ -246,7 +246,7 @@ namespace mtanksl.OpenTibia.Host.GUI
                 }
 
                 return Promise.Completed;
-            });
+            } );
         }
 
         private void maintenanceToolStripMenuItem_Click(object sender, EventArgs e)
@@ -288,7 +288,7 @@ namespace mtanksl.OpenTibia.Host.GUI
                 await Task.Run(() =>
                 {
                     server.KickAll();
-                });
+                } );
             }
             catch (Exception ex)
             {
@@ -316,7 +316,7 @@ namespace mtanksl.OpenTibia.Host.GUI
                 await Task.Run(() =>
                 {
                     server.Save();
-                });
+                } );
             }
             catch (Exception ex)
             {
@@ -344,7 +344,7 @@ namespace mtanksl.OpenTibia.Host.GUI
                 await Task.Run(() =>
                 {
                     server.Clean();
-                });
+                } );
             }
             catch (Exception ex)
             {
@@ -391,7 +391,7 @@ namespace mtanksl.OpenTibia.Host.GUI
                             server.Dispose();
 
                             server = null;
-                        });
+                        } );
 
                         startToolStripMenuItem.Enabled = true;
 

@@ -52,11 +52,11 @@ namespace OpenTibia.Game.Commands
                 {
                     if (Player.Tile.Position.Z > fromTile.Position.Z)
                     {
-                        Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.FirstGoUpstairs) );
+                        Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.FirstGoUpstairs) );
                     }
                     else
                     {
-                        Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.FirstGoDownstairs) );
+                        Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.FirstGoDownstairs) );
                     }
                 }
             }

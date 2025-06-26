@@ -49,25 +49,40 @@ namespace OpenTibia.Common
                 {
                     if (Keys == null)
                     {
-                        if ( !server.Features.HasFeatureFlag(FeatureFlag.ProtocolChecksum) )
+                        int skip = 5;
+
+                        if (server.Features.HasFeatureFlag(FeatureFlag.ProtocolChecksum) )
                         {
-                            Rsa.DecryptAndReplace(body, 5, length - 5);
+                            skip += 4;
                         }
-                        else
+
+                        if (server.Features.HasFeatureFlag(FeatureFlag.ClientVersion) )
                         {
-                            Rsa.DecryptAndReplace(body, 9, length - 9);
+                            skip += 4;
                         }
+
+                        if (server.Features.HasFeatureFlag(FeatureFlag.ContentRevision) )
+                        {
+                            skip += 2;
+                        }
+
+                        if (server.Features.HasFeatureFlag(FeatureFlag.PreviewState) )
+                        {
+                            skip += 1;
+                        }
+
+                        Rsa.DecryptAndReplace(body, skip, 128);
                     }
                     else
                     {
-                        if ( !server.Features.HasFeatureFlag(FeatureFlag.ProtocolChecksum) )
+                        int skip = 0;
+
+                        if (server.Features.HasFeatureFlag(FeatureFlag.ProtocolChecksum) )
                         {
-                            Xtea.DecryptAndReplace(body, 0, length, 32, Keys);
+                            skip += 4;
                         }
-                        else
-                        {
-                            Xtea.DecryptAndReplace(body, 4, length - 4, 32, Keys);
-                        }
+
+                        Xtea.DecryptAndReplace(body, skip, length - skip, 32, Keys);
 
                         stream.Seek(Origin.Current, 2);
                     }

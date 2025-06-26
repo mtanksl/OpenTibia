@@ -26,7 +26,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (command.Player.Storages.TryGetValue(command.Item.UniqueId, out value) && value > 0)
                 {
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "It is empty.") );
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Look, "It is empty.") );
 
                     return Promise.Completed;
                 }
@@ -51,11 +51,11 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     builder.Remove(builder.Length - 2, 2);
                
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "You have found " + builder.ToString() + ".") );
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Look, "You have found " + builder.ToString() + ".") );
                 }
                 else
                 {
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "It is empty.") );
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Look, "It is empty.") );
                 }
 
                 return Promise.WhenAll(promises.ToArray() );                

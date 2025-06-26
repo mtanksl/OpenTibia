@@ -28,7 +28,9 @@ namespace OpenTibia.Game.Commands
                 {
                     Player.Client.Containers.ReplaceContainer(parentContainer, ContainerId);
 
-                    Context.AddPacket(Player, new OpenContainerOutgoingPacket(ContainerId, parentContainer.Metadata.TibiaId, parentContainer.Metadata.Name, parentContainer.Metadata.Capacity.Value, parentContainer.Parent is Container, parentContainer.GetItems().ToList() ) );
+                    //TODO: FeatureFlag.ContainerPagination
+
+                    Context.AddPacket(Player, new OpenContainerOutgoingPacket(ContainerId, parentContainer.Metadata.TibiaId, parentContainer.Metadata.Name, parentContainer.Metadata.Capacity.Value, parentContainer.Parent is Container, true, false, 0, parentContainer.GetItems().ToList() ) );
 
                     return Promise.Completed;
                 }

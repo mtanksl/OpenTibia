@@ -25,7 +25,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 return Context.AddCommand(new ShowMagicEffectCommand(command.Item, MagicEffectType.Dice) ).Then( () =>
                 {
-                    return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, command.Player.Name + " rolled a " + (value + 1) + ".") );
+                    return Context.AddCommand(new ShowTextCommand(command.Player, MessageMode.MonsterSay, command.Player.Name + " rolled a " + (value + 1) + ".") );
 
                 } ).Then( () =>
                 {

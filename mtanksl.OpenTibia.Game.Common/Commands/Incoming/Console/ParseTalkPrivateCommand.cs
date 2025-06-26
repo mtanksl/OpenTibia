@@ -42,7 +42,7 @@ namespace OpenTibia.Game.Commands
 
                 if (playerChannelMuteBehaviour.IsMuted(out message) )
                 {
-                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, message) );
+                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, message) );
 
                     return Promise.Break;
                 }      
@@ -52,7 +52,7 @@ namespace OpenTibia.Game.Commands
 
             if (observer != null && observer != Player)
             {
-                Context.AddPacket(observer, new ShowTextOutgoingPacket(Context.Server.Channels.GenerateStatementId(Player.DatabasePlayerId, Message), Player.Name, Player.Level, TalkType.Private, Message) );
+                Context.AddPacket(observer, new ShowTextOutgoingPacket(Context.Server.Channels.GenerateStatementId(Player.DatabasePlayerId, Message), Player.Name, Player.Level, MessageMode.PrivateFrom, Message) );
 
                 return Promise.Completed;
             }

@@ -87,11 +87,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                         if (reject != null)
                         {
-                            Context.AddPacket(reject.OfferPlayer, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TradeCanceled) );
+                            Context.AddPacket(reject.OfferPlayer, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.TradeCanceled) );
 
                             Context.AddPacket(reject.OfferPlayer, new CloseTradeOutgoingPacket() );
 
-                            Context.AddPacket(reject.CounterOfferPlayer, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TradeCanceled) );
+                            Context.AddPacket(reject.CounterOfferPlayer, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.TradeCanceled) );
 
                             Context.AddPacket(reject.CounterOfferPlayer, new CloseTradeOutgoingPacket() );
 

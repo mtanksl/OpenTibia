@@ -962,18 +962,18 @@ return {
 				args = "(Position fromPosition, Position toPosition, ProjectileType projectileType)",
 				returns = "void"
 			},
-			-- void command.showtext(Creature creature, TalkType talkType, string message)
+			-- void command.showtext(Creature creature, MessageMode messageMode, string message)
 			showtext = {
 				type = "function",
 				description = "",
-				args = "(Creature creature, TalkType talkType, string message)",
+				args = "(Creature creature, MessageMode messageMode, string message)",
 				returns = "void"
 			},
-			-- void command.showwindowtext(Player player, TextColor textColor, string message)
+			-- void command.showwindowtext(Player player, MessageMode messageMode, string message)
 			showwindowtext = {
 				type = "function",
 				description = "",
-				args = "(Player player, TextColor textColor, string message)",
+				args = "(Player player, MessageMode messageMode, string message)",
 				returns = "void"
 			},
 			-- void command.splashitemupdatefluidtype(SplashItem splashItem, FluidType fluidType)

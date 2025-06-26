@@ -28,7 +28,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (weight > capacity)
                 {
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisObjectIsTooHeavy) );
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.ThisObjectIsTooHeavy) );
 
                     return Promise.Break;
                 }

@@ -44,7 +44,7 @@ namespace OpenTibia.Game.Commands
 
             Context.Server.NpcTradings.AddTrading(trading);
 
-            Context.AddPacket(Player, new InviteNpcTradeOutgoingPacket(Offers) );
+            Context.AddPacket(Player, new InviteNpcTradeOutgoingPacket(Npc.Name, Offers) );
 
             return Context.AddCommand(new NpcTradeUpdateStatsCommand(trading) );
         }

@@ -35,11 +35,11 @@ namespace OpenTibia.Game.Commands
                     {
                         if (member == party.Leader)
                         {
-                            Context.AddPacket(member, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "You are now the leader of the party.") );
+                            Context.AddPacket(member, new ShowWindowTextOutgoingPacket(MessageMode.Look, "You are now the leader of the party.") );
                         }
                         else
                         {
-                            Context.AddPacket(member, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, party.Leader.Name + " is now the leader of the party.") );
+                            Context.AddPacket(member, new ShowWindowTextOutgoingPacket(MessageMode.Look, party.Leader.Name + " is now the leader of the party.") );
                         }
 
                         Context.AddPacket(member, new SetPartyIconOutgoingPacket(party.Leader.Id, party.SharedExperienceEnabled ? PartyIcon.YellowSharedExperience : PartyIcon.Yellow) );
@@ -49,7 +49,7 @@ namespace OpenTibia.Game.Commands
 
                     foreach (var invitation in party.GetInvitations() )
                     {
-                        Context.AddPacket(invitation, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, party.Leader.Name + " is now the leader of the party.") );
+                        Context.AddPacket(invitation, new ShowWindowTextOutgoingPacket(MessageMode.Look, party.Leader.Name + " is now the leader of the party.") );
 
                         Context.AddPacket(Player, new SetPartyIconOutgoingPacket(invitation.Id, PartyIcon.None) );
 

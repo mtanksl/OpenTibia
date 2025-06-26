@@ -38,7 +38,7 @@ namespace OpenTibia.Game.Commands
 
                 if (playerChannelMuteBehaviour.IsMuted(out message) )
                 {
-                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, message) );
+                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, message) );
 
                     return Promise.Break;
                 }                

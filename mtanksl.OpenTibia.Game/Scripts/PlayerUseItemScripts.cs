@@ -40,7 +40,7 @@ namespace OpenTibia.Game.Scripts
                     {
                         if (command.Player.Tile.Position.X + 1 == tile.Position.X)
                         {
-                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );
+                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouCanNotUseThisObject) );
 
                             return Promise.Break;
                         }
@@ -49,7 +49,7 @@ namespace OpenTibia.Game.Scripts
                     {
                         if (command.Player.Tile.Position.Y + 1 == tile.Position.Y)
                         {
-                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );
+                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouCanNotUseThisObject) );
 
                             return Promise.Break;
                         }

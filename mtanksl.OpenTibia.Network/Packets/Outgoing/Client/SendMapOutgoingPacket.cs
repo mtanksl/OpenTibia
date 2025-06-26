@@ -88,6 +88,11 @@ namespace OpenTibia.Network.Packets.Outgoing
 
         private void GetTileDescription(IByteArrayStreamWriter writer, IHasFeatureFlag features, Tile tile)
         {
+            if (features.HasFeatureFlag(FeatureFlag.EnvironmentEffect) )
+            {
+                writer.Write( (ushort)0 ); //TODO: FeatureFlag.EnvironmentEffect
+            }
+
             byte index = 0;
 
             foreach (var content in tile.GetContents() )

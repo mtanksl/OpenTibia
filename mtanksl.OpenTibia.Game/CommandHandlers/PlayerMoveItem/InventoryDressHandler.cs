@@ -183,7 +183,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     if (!proceed)
                     {
-                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotDressThisObjectThere) );
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouCanNotDressThisObjectThere) );
 
                         return Promise.Break;
                     }

@@ -42,7 +42,21 @@ namespace OpenTibia.Game.Common.ServerObjects
 				tibiaPic = 1291111508;
 				tibiaSpr = 1291650954;				
             }
-            else
+            else if (server.Config.ClientVersion == new Version(9, 86) )
+            {
+                clientVersion = 986;
+                tibiaDat = 1366354180;
+                tibiaPic = 1360233828;
+                tibiaSpr = 1366354287;
+			}
+			else if (server.Config.ClientVersion == new Version(10, 98) )
+            {
+                clientVersion = 1098;
+                tibiaDat = 0;
+                tibiaPic = 1467784158;
+                tibiaSpr = 1471927811;
+			}
+			else
             {
                 throw new NotImplementedException();
             }
@@ -58,7 +72,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 			{
 				featureFlags.Add(FeatureFlag.LookTypeUInt16);
 				featureFlags.Add(FeatureFlag.MessageStatement);
-				//featureFlags.Add(FeatureFlag.LoginPacketEncryption);
+				featureFlags.Add(FeatureFlag.LoginPacketEncryption);
 			}
 
 			if (clientVersion >= 780) 
@@ -124,11 +138,162 @@ namespace OpenTibia.Game.Common.ServerObjects
                 featureFlags.Add(FeatureFlag.CooldownBar);
             }
 
-			#endregion
+			if (clientVersion >= 910) 
+			{
+				featureFlags.Add(FeatureFlag.NameOnNpcTrade);
+				featureFlags.Add(FeatureFlag.PlayerTotalCapacity);
+				featureFlags.Add(FeatureFlag.PlayerSkillsBase);
+				featureFlags.Add(FeatureFlag.PlayerRegenerationTime);
+				featureFlags.Add(FeatureFlag.ChannelPlayerList);
+				featureFlags.Add(FeatureFlag.EnvironmentEffect);
+                featureFlags.Add(FeatureFlag.ItemAnimationPhase);
+				featureFlags.Add(FeatureFlag.CreatureType);
+            }
 
-			#region Fluid Type
+            if (clientVersion >= 940) 
+			{
+				featureFlags.Add(FeatureFlag.PlayerMarket); // ?
+			}
 
-			byte empty = 0;
+			if (clientVersion >= 950)
+			{
+                featureFlags.Add(FeatureFlag.PlayerBasicData);
+            }
+
+            if (clientVersion >= 953)
+            {
+				featureFlags.Add(FeatureFlag.PurseSlot);
+				featureFlags.Add(FeatureFlag.ClientPing);
+				featureFlags.Add(FeatureFlag.CreatureUnpass);
+            }
+
+			if (clientVersion >= 960) 
+			{
+                featureFlags.Add(FeatureFlag.SpritesUInt32);
+                featureFlags.Add(FeatureFlag.OfflineTrainingTime);
+			}
+
+			if (clientVersion >= 963) 
+			{
+				featureFlags.Add(FeatureFlag.AdditionalVipInfo);
+			}
+
+			if (clientVersion >= 980) 
+			{
+				featureFlags.Add(FeatureFlag.PreviewState);
+				featureFlags.Add(FeatureFlag.ClientVersion);
+			}
+
+			if (clientVersion >= 981) 
+			{
+				featureFlags.Add(FeatureFlag.LoginPending);
+				featureFlags.Add(FeatureFlag.NewSpeedLaw);
+			}
+
+			if (clientVersion >= 984) 
+			{
+				featureFlags.Add(FeatureFlag.ContainerPagination);
+				featureFlags.Add(FeatureFlag.BrowseField); // ?
+			}
+
+			if (clientVersion >= 1000) 
+			{
+				featureFlags.Add(FeatureFlag.ThingMarks);
+				featureFlags.Add(FeatureFlag.PVPMode);
+			}
+
+			if (clientVersion >= 1010)
+            {
+                featureFlags.Add(FeatureFlag.NoMovementAnimation);
+            }
+
+			if (clientVersion >= 1035) 
+			{
+				featureFlags.Add(FeatureFlag.DoubleSkills);
+				featureFlags.Add(FeatureFlag.BaseSkillU16);
+			}
+
+			if (clientVersion >= 1036) 
+			{
+				featureFlags.Add(FeatureFlag.CreatureIcons);
+				featureFlags.Add(FeatureFlag.HideNpcNames);
+			}
+
+			if (clientVersion >= 1038) 
+			{
+				featureFlags.Add(FeatureFlag.PremiumExpiration);
+			}
+
+			if (clientVersion >= 1050) 
+			{
+				featureFlags.Add(FeatureFlag.EnhancedAnimations);
+			}
+
+			if (clientVersion >= 1053) 
+			{
+				featureFlags.Add(FeatureFlag.UnjustifiedPoints);
+			}
+
+			if (clientVersion >= 1054)
+			{
+				featureFlags.Add(FeatureFlag.ExperienceBonus);
+			}
+
+			if (clientVersion >= 1055) 
+			{
+				featureFlags.Add(FeatureFlag.DeathType);
+			}
+
+			if (clientVersion >= 1057) 
+			{
+				featureFlags.Add(FeatureFlag.IdleAnimations);
+			}
+
+			if (clientVersion >= 1061) 
+			{
+				featureFlags.Add(FeatureFlag.OGLInformation);
+			}
+
+			if (clientVersion >= 1071) 
+			{
+				featureFlags.Add(FeatureFlag.ContentRevision);
+			}
+
+			if (clientVersion >= 1072) 
+			{
+				featureFlags.Add(FeatureFlag.Authenticator);
+			}
+
+			if (clientVersion >= 1074) 
+			{
+				featureFlags.Add(FeatureFlag.SessionKey);
+			}
+
+			if (clientVersion >= 1080) 
+			{
+				featureFlags.Add(FeatureFlag.IngameStore);
+			}
+
+			if (clientVersion >= 1092) 
+			{
+				featureFlags.Add(FeatureFlag.IngameStoreServiceType);
+			}
+
+			if (clientVersion >= 1093) 
+			{
+				featureFlags.Add(FeatureFlag.IngameStoreHighlights);
+			}
+
+			if (clientVersion >= 1094) 
+			{
+				featureFlags.Add(FeatureFlag.AdditionalSkills);
+			}
+
+            #endregion
+
+            #region Fluid Type
+
+            byte empty = 0;
 			byte blue = 0;
 			byte red = 0;
 			byte brown = 0;
@@ -183,118 +348,109 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             #region Text Color
 
-            if (clientVersion >= 861)
-            {
-                MapTextColor(1, TextColor.YellowDefault);
-                MapTextColor(4, TextColor.PurpleDefault);
-                MapTextColor(5, TextColor.TealDefaultAndNpcs);
-                MapTextColor(6, TextColor.TealDefault);
-                MapTextColor(9, TextColor.RedServerLog);
-                MapTextColor(13, TextColor.OrangeDefault);
-				MapTextColor(15, TextColor.RedCenterGameWindowAndServerLog);
-                MapTextColor(16, TextColor.WhiteCenterGameWindowAndServerLog);
-				MapTextColor(18, TextColor.WhiteBottomGameWindowAndServerLog);
-				MapTextColor(19, TextColor.GreenCenterGameWindowAndServerLog);
-				MapTextColor(20, TextColor.WhiteBottomGameWindow);
-            }
-            else if (clientVersion >= 840) 
+            if (clientVersion >= 900)
 			{
-				MapTextColor(1, TextColor.YellowDefault);
-				MapTextColor(4, TextColor.PurpleDefault);
-				MapTextColor(5, TextColor.TealDefaultAndNpcs);
-				MapTextColor(6, TextColor.TealDefault);
-				MapTextColor(12, TextColor.RedServerLog);
-				MapTextColor(16, TextColor.RedDefault);
-				MapTextColor(19, TextColor.OrangeDefault);
-				MapTextColor(21, TextColor.RedCenterGameWindowAndServerLog);
-				MapTextColor(22, TextColor.WhiteCenterGameWindowAndServerLog);
-				MapTextColor(23, TextColor.WhiteBottomGameWindowAndServerLog);
-				MapTextColor(25, TextColor.GreenCenterGameWindowAndServerLog);
-				MapTextColor(26, TextColor.WhiteBottomGameWindow);
-			} 
-			else if (clientVersion >= 760) 
+				for (int i = 0; i < 42; i++)
+				{
+					MapMessageMode( (byte)i, (MessageMode)i );
+				}
+			}
+			else if (clientVersion >= 861)
 			{
-                MapTextColor(1, TextColor.YellowDefault);
-                MapTextColor(4, TextColor.PurpleDefault);
-                MapTextColor(17, TextColor.OrangeDefault);
-                MapTextColor(18, TextColor.RedCenterGameWindowAndServerLog);
-                MapTextColor(19, TextColor.WhiteCenterGameWindowAndServerLog);
-                MapTextColor(20, TextColor.WhiteBottomGameWindowAndServerLog);
-                MapTextColor(22, TextColor.GreenCenterGameWindowAndServerLog);
-                MapTextColor(23, TextColor.WhiteBottomGameWindow);
-                MapTextColor(24, TextColor.TealDefault);
-                MapTextColor(25, TextColor.RedServerLog);
+				MapMessageMode(0, MessageMode.None);
+				MapMessageMode(1, MessageMode.Say);
+				MapMessageMode(2, MessageMode.Whisper);
+				MapMessageMode(3, MessageMode.Yell);
+				MapMessageMode(4, MessageMode.NpcTo);
+				MapMessageMode(5, MessageMode.NpcFrom);
+				MapMessageMode(6, MessageMode.PrivateTo);
+				MapMessageMode(6, MessageMode.PrivateFrom);
+				MapMessageMode(7, MessageMode.Channel);
+				MapMessageMode(8, MessageMode.ChannelManagement);
+				MapMessageMode(9, MessageMode.GamemasterBroadcast);
+				MapMessageMode(10, MessageMode.GamemasterChannel);
+				MapMessageMode(11, MessageMode.GamemasterPrivateTo);
+				MapMessageMode(11, MessageMode.GamemasterPrivateFrom);
+				MapMessageMode(12, MessageMode.ChannelHighlight);
+				MapMessageMode(13, MessageMode.MonsterSay);
+				MapMessageMode(14, MessageMode.MonsterYell);
+				MapMessageMode(15, MessageMode.Warning);
+				MapMessageMode(16, MessageMode.Game);
+				MapMessageMode(17, MessageMode.Login);
+				MapMessageMode(18, MessageMode.Status);
+				MapMessageMode(19, MessageMode.Look);
+				MapMessageMode(20, MessageMode.Failure);
+				MapMessageMode(21, MessageMode.Blue);
+				MapMessageMode(22, MessageMode.Red);
+			}
+			else if (clientVersion >= 840)
+			{
+				MapMessageMode(0, MessageMode.None);
+				MapMessageMode(1, MessageMode.Say);
+				MapMessageMode(2, MessageMode.Whisper);
+				MapMessageMode(3, MessageMode.Yell);
+				MapMessageMode(4, MessageMode.NpcTo);
+				MapMessageMode(5, MessageMode.NpcFrom);
+				MapMessageMode(6, MessageMode.PrivateTo);
+				MapMessageMode(6, MessageMode.PrivateFrom);
+				MapMessageMode(7, MessageMode.Channel);
+				MapMessageMode(8, MessageMode.ChannelManagement);
+				MapMessageMode(9, MessageMode.RVRChannel);
+				MapMessageMode(10, MessageMode.RVRAnswer);
+				MapMessageMode(11, MessageMode.RVRContinue);
+				MapMessageMode(12, MessageMode.GamemasterBroadcast);
+				MapMessageMode(13, MessageMode.GamemasterChannel);
+				MapMessageMode(14, MessageMode.GamemasterPrivateTo);
+				MapMessageMode(14, MessageMode.GamemasterPrivateFrom);
+				MapMessageMode(15, MessageMode.ChannelHighlight);
+				MapMessageMode(16, MessageMode.Unknown);
+				MapMessageMode(17, MessageMode.GamemasterChannelAnonymous);
+                MapMessageMode(18, MessageMode.Red);
+				MapMessageMode(19, MessageMode.MonsterSay);
+				MapMessageMode(20, MessageMode.MonsterYell);
+				MapMessageMode(21, MessageMode.Warning);
+				MapMessageMode(22, MessageMode.Game);
+				MapMessageMode(23, MessageMode.Login);
+				MapMessageMode(24, MessageMode.Status);
+				MapMessageMode(25, MessageMode.Look);
+				MapMessageMode(26, MessageMode.Failure);
+				MapMessageMode(27, MessageMode.Blue);
+			}
+			else if (clientVersion >= 760)
+			{
+				MapMessageMode(0, MessageMode.None);
+				MapMessageMode(1, MessageMode.Say);
+				MapMessageMode(2, MessageMode.Whisper);
+				MapMessageMode(3, MessageMode.Yell);
+				MapMessageMode(4, MessageMode.PrivateTo);
+				MapMessageMode(4, MessageMode.PrivateFrom);
+				MapMessageMode(5, MessageMode.Channel);
+				MapMessageMode(6, MessageMode.RVRChannel);
+				MapMessageMode(7, MessageMode.RVRAnswer);
+				MapMessageMode(8, MessageMode.RVRContinue);
+				MapMessageMode(9, MessageMode.GamemasterBroadcast);
+				MapMessageMode(10, MessageMode.GamemasterChannel);
+				MapMessageMode(11, MessageMode.GamemasterPrivateTo);
+				MapMessageMode(11, MessageMode.GamemasterPrivateFrom);
+				MapMessageMode(12, MessageMode.ChannelHighlight);
+				MapMessageMode(13, MessageMode.Unknown);
+                MapMessageMode(14, MessageMode.GamemasterChannelAnonymous);
+				// 15
+                MapMessageMode(16, MessageMode.MonsterSay);
+				MapMessageMode(17, MessageMode.MonsterYell);
+				MapMessageMode(18, MessageMode.Warning);
+				MapMessageMode(19, MessageMode.Game);
+				MapMessageMode(20, MessageMode.Login);
+				MapMessageMode(21, MessageMode.Status);
+				MapMessageMode(22, MessageMode.Look);
+				MapMessageMode(23, MessageMode.Failure);
+				MapMessageMode(24, MessageMode.Blue);
+				MapMessageMode(25, MessageMode.Red);
             }
-			else
+            else
 			{
 				throw new NotImplementedException();
 			}
-
-            #endregion
-
-            #region Talk Type
-
-			if (clientVersion >= 861)
-			{
-				MapTalkType(1, TalkType.Say);
-                MapTalkType(2, TalkType.Whisper);
-                MapTalkType(3, TalkType.Yell);
-                MapTalkType(4, TalkType.PrivatePlayerToNpc);
-                MapTalkType(5, TalkType.PrivateNpcToPlayer);
-                MapTalkType(6, TalkType.Private);
-                MapTalkType(7, TalkType.ChannelYellow);
-                MapTalkType(8, TalkType.ChannelWhite);
-                MapTalkType(9, TalkType.Broadcast);
-                MapTalkType(10, TalkType.ChannelRed);
-				MapTalkType(11, TalkType.PrivateRed);
-                MapTalkType(12, TalkType.ChannelOrange);
-                MapTalkType(13, TalkType.MonsterSay);
-                MapTalkType(14, TalkType.MonsterYell);
-            }
-            else if (clientVersion >= 840) 
-			{
-				MapTalkType(1, TalkType.Say);
-				MapTalkType(2, TalkType.Whisper);
-				MapTalkType(3, TalkType.Yell);
-				MapTalkType(4, TalkType.PrivatePlayerToNpc);
-				MapTalkType(5, TalkType.PrivateNpcToPlayer);
-				MapTalkType(6, TalkType.Private);
-				MapTalkType(7, TalkType.ChannelYellow);
-				MapTalkType(8, TalkType.ChannelWhite);
-				MapTalkType(9, TalkType.ReportRuleViolationOpen);
-				MapTalkType(10, TalkType.ReportRuleViolationAnswer);
-				MapTalkType(11, TalkType.ReportRuleViolationQuestion);
-				MapTalkType(12, TalkType.Broadcast);
-				MapTalkType(13, TalkType.ChannelRed);
-				MapTalkType(14, TalkType.PrivateRed);
-				MapTalkType(15, TalkType.ChannelOrange);
-				MapTalkType(16, TalkType.Unknown);
-				MapTalkType(17, TalkType.ChannelRedAnonymous);
-				MapTalkType(19, TalkType.MonsterSay);
-				MapTalkType(20, TalkType.MonsterYell);
-			} 
-			else if (clientVersion >= 760) 
-			{
-                MapTalkType(1, TalkType.Say);
-                MapTalkType(2, TalkType.Whisper);
-                MapTalkType(3, TalkType.Yell);
-                MapTalkType(4, TalkType.Private);
-                MapTalkType(5, TalkType.ChannelYellow);
-                MapTalkType(6, TalkType.ReportRuleViolationOpen);
-                MapTalkType(7, TalkType.ReportRuleViolationAnswer);
-                MapTalkType(8, TalkType.ReportRuleViolationQuestion);
-                MapTalkType(9, TalkType.Broadcast);
-                MapTalkType(10, TalkType.ChannelRed);
-                MapTalkType(11, TalkType.PrivateRed);
-                MapTalkType(12, TalkType.ChannelOrange);
-                MapTalkType(13, TalkType.ChannelRedAnonymous);
-                MapTalkType(16, TalkType.MonsterYell);
-                MapTalkType(17, TalkType.MonsterSay);
-            }
-            else
-            {
-                throw new NotImplementedException();
-            }
 
             #endregion
 
@@ -304,11 +460,21 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             gameFirstCommands.Add(0x0A, new PacketToCommand<SelectedCharacterIncomingPacket>("Selected Character", (connection, packet) => new ParseSelectedCharacterCommand(connection, packet) ) );
 
+			if (HasFeatureFlag(FeatureFlag.LoginPending) )
+			{
+                gameCommands.Add(0x0F, new PacketToCommand<EnterGame2IncomingPacket>("Enter Game", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
+			}
+
 			gameCommands.Add(0x14, new PacketToCommand<LogOutIncomingPacket>("Log Out", (connection, packet) => new ParseLogOutCommand(connection.Client.Player) ) );
 			
-			gameCommands.Add(0x1E, new PacketToCommand<PongIncomingPacket>("Pong", (connection, packet) => new ParsePongCommand(connection.Client.Player) ) );
-			
-			gameCommands.Add(0x64, new PacketToCommand<WalkToIncomingPacket>("Walk To", (connection, packet) => new ParseWalkToCommand(connection.Client.Player, packet.MoveDirections) ) );
+			if (HasFeatureFlag(FeatureFlag.ClientPing) )
+			{
+				gameCommands.Add(0x1D, new PacketToCommand<PingIncomingPacket>("Client ping request", (connection, packet) => new ParsePingCommand(connection.Client.Player) ) );
+            }
+				
+			gameCommands.Add(0x1E, new PacketToCommand<PongIncomingPacket>("Server ping response", (connection, packet) => new ParsePongCommand(connection.Client.Player) ) );
+
+            gameCommands.Add(0x64, new PacketToCommand<WalkToIncomingPacket>("Walk To", (connection, packet) => new ParseWalkToCommand(connection.Client.Player, packet.MoveDirections) ) );
 			
 			gameCommands.Add(0x65, new PacketToCommand<WalkNorthIncomingPacket>("Walk North", (connection, packet) => new ParseWalkCommand(connection.Client.Player, packet.MoveDirection) ) );
 			
@@ -585,69 +751,73 @@ namespace OpenTibia.Game.Common.ServerObjects
 					return new ParseLookFromTileCommand(connection.Client.Player, fromPosition, packet.Index, packet.TibiaId);
 				}
 			} ) );
-			
-			gameCommands.Add(0x96, new PacketToCommand<TalkIncomingPacket>("Talk", (connection, packet) =>
+
+            // 0x8D - LookInBattleListIncomingPacket
+
+            // 0x8E - JoinAggresionIncomingPacket
+
+            gameCommands.Add(0x96, new PacketToCommand<TalkIncomingPacket>("Talk", (connection, packet) =>
 			{
-				switch (packet.TalkType)
+                switch (packet.MessageMode)
 				{
-					case TalkType.Say:
+					case MessageMode.Say:
 
 						return new ParseTalkSayCommand(connection.Client.Player, packet.Message);
 			
-					case TalkType.Whisper:
+					case MessageMode.Whisper:
 
 						return new ParseTalkWhisperCommand(connection.Client.Player, packet.Message);
 
-					case TalkType.Yell:
+					case MessageMode.Yell:
 
 						return new ParseTalkYellCommand(connection.Client.Player, packet.Message);
 
-					case TalkType.PrivatePlayerToNpc:
+					case MessageMode.NpcTo:
 
 						return new ParseTalkPrivatePlayerToNpcCommand(connection.Client.Player, packet.Message);
 
-					case TalkType.Private:
+					case MessageMode.PrivateTo:
 
-						return new ParseTalkPrivateCommand(connection.Client.Player, packet.Name, packet.Message);
+                        return new ParseTalkPrivateCommand(connection.Client.Player, packet.Name, packet.Message);
 
-					case TalkType.ChannelYellow:
+					case MessageMode.Channel:
 
 						return new ParseTalkChannelYellowCommand(connection.Client.Player, packet.ChannelId, packet.Message);
 
-					case TalkType.ReportRuleViolationOpen:
+					case MessageMode.RVRChannel:
 
 						return new ParseOpenReportRuleViolationCommand(connection.Client.Player, packet.Message);
 
-					case TalkType.ReportRuleViolationAnswer:
+					case MessageMode.RVRAnswer:
 
 						return new ParseAnswerReportRuleViolationCommand(connection.Client.Player, packet.Name, packet.Message);
 
-					case TalkType.ReportRuleViolationQuestion:
+					case MessageMode.RVRContinue:
 
 						return new ParseQuestionReportRuleViolationCommand(connection.Client.Player, packet.Message);
 
-					case TalkType.Broadcast:
+					case MessageMode.GamemasterBroadcast:
 
 						return new ParseTalkBroadcastCommand(connection.Client.Player, packet.Message);
 
-					case TalkType.ChannelRed:
+					case MessageMode.GamemasterChannel:
 
 						return new ParseTalkChannelRedCommand(connection.Client.Player, packet.ChannelId, packet.Message);
 
-					case TalkType.PrivateRed:
+					case MessageMode.GamemasterPrivateTo:
 
-						return new ParseTalkPrivateRedCommand(connection.Client.Player, packet.Name, packet.Message);
+                        return new ParseTalkPrivateRedCommand(connection.Client.Player, packet.Name, packet.Message);
 
-					case TalkType.Unknown:
+                    case MessageMode.Unknown:
+                    
+                    	return new ParseTalkUnknownCommand(connection.Client.Player, packet.Message);
+                    
+                    case MessageMode.GamemasterChannelAnonymous:
+                    
+                    	return new ParseTalkChannelRedAnonymousCommand(connection.Client.Player, packet.ChannelId, packet.Message);
+                }
 
-						return new ParseTalkUnknownCommand(connection.Client.Player, packet.Message);
-
-					case TalkType.ChannelRedAnonymous:
-
-						return new ParseTalkChannelRedAnonymousCommand(connection.Client.Player, packet.ChannelId, packet.Message);
-				}
-	
-				throw new NotImplementedException();
+                throw new NotImplementedException();
 			} ) );
 
 			gameCommands.Add(0x97, new PacketToCommand<OpenNewChannelIncomingPacket>("Open New Channel", (connection, packet) => new ParseOpenNewChannelCommand(connection.Client.Player) ) );
@@ -717,12 +887,16 @@ namespace OpenTibia.Game.Common.ServerObjects
 			gameCommands.Add(0xAC, new PacketToCommand<ExcludePlayerIncomingPacket>("Exclude Player", (connection, packet) => new ParseExcludePlayerCommand(connection.Client.Player, packet.Name) ) );
 			
 			gameCommands.Add(0xBE, new PacketToCommand<StopIncomingPacket>("Stop", (connection, packet) => new ParseStopCommand(connection.Client.Player) ) );
-            
-			// 0xC9 - Update Tile
-            
-			// 0xCA - Update Container
-			
-			gameCommands.Add(0xD2, new PacketToCommand<SetOutfitIncomingPacket>("Set Outfit", (connection, packet) => new ParseSetOutfitCommand(connection.Client.Player) ) );
+
+            // 0xC9 - Update Tile
+
+            // 0xCA - Update Container
+
+            // 0xCB - BrowseFieldIncomingPacket
+
+            // 0xCC - SeekInContainerIncomingPacket
+
+            gameCommands.Add(0xD2, new PacketToCommand<SetOutfitIncomingPacket>("Set Outfit", (connection, packet) => new ParseSetOutfitCommand(connection.Client.Player) ) );
 			
 			gameCommands.Add(0xD3, new PacketToCommand<SelectedOutfitIncomingPacket>("Selected Outfit", (connection, packet) => new ParseSelectedOutfitCommand(connection.Client.Player, packet.Outfit) ) );
 
@@ -735,6 +909,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 			
 			gameCommands.Add(0xDD, new PacketToCommand<RemoveVipIncomingPacket>("Remove Vip", (connection, packet) => new ParseRemoveVipCommand(connection.Client.Player, packet.CreatureId) ) );
 			
+			// 0xDE - UpdateVipIncomingPacket
+
 			gameCommands.Add(0xE6, new PacketToCommand<ReportBugIncomingPacket>("Report Bug", (connection, packet) => new ParseReportBugCommand(connection.Client.Player, packet.Message) ) );
 			
 			gameCommands.Add(0xE8, new PacketToCommand<DebugAssertIncomingPacket>("Debug Assert", (connection, packet) => new ParseDebugAssertCommand(connection.Client.Player, packet.AssertLine, packet.ReportDate, packet.Description, packet.Comment) ) );
@@ -747,12 +923,36 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
 			
 			gameCommands.Add(0xF2, new PacketToCommand<ReportRuleViolationIncomingPacket>("Report Rule Violation", (connection, packet) => new ParseReportRuleViolationCommand(connection.Client.Player, packet.Type, packet.RuleViolation, packet.Name, packet.Comment, packet.Translation, packet.StatmentId) ) );
-								
+
+            // 0xF3 - GetObjectInfoIncomingPacket
+
+            // 0xF4 - MarketLeaveIncomingPacket
+
+            // 0xF5 - MarketBrowseIncomingPacket
+
+            // 0xF6 - MarketCreateOfferIncomingPacket
+
+            // 0xF7 - MarketCancelOfferIncomingPacket
+
+            // 0xF8 - MarketAcceptOfferIncomingPacket
+
+            // 0xF9 - ModalWindowAnswerIncomingPacket
+
+            if (HasFeatureFlag(FeatureFlag.LoginPending) )
+			{
+                gameAccountManagerCommands.Add(0x0F, new PacketToCommand<EnterGame2IncomingPacket>("Enter Game", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
+			}
+
 			gameAccountManagerCommands.Add(0x14, new PacketToCommand<LogOutIncomingPacket>("Log Out", (connection, packet) => new ParseLogOutCommand(connection.Client.Player) ) );
             
-			gameAccountManagerCommands.Add(0x1E, new PacketToCommand<PongIncomingPacket>("Pong", (connection, packet) => new ParsePongCommand(connection.Client.Player) ) );
-            
-			gameAccountManagerCommands.Add(0x64, new PacketToCommand<WalkToIncomingPacket>("Walk To", (connection, packet) => new DisallowCommand(connection.Client.Player) ) );
+			if (HasFeatureFlag(FeatureFlag.ClientPing) )
+			{
+                gameAccountManagerCommands.Add(0x1D, new PacketToCommand<PingIncomingPacket>("Client ping request", (connection, packet) => new ParsePingCommand(connection.Client.Player) ) );
+            }
+
+			gameAccountManagerCommands.Add(0x1E, new PacketToCommand<PongIncomingPacket>("Server ping response", (connection, packet) => new ParsePongCommand(connection.Client.Player) ) );
+
+            gameAccountManagerCommands.Add(0x64, new PacketToCommand<WalkToIncomingPacket>("Walk To", (connection, packet) => new DisallowCommand(connection.Client.Player) ) );
             
 			gameAccountManagerCommands.Add(0x65, new PacketToCommand<WalkNorthIncomingPacket>("Walk North", (connection, packet) => new DisallowCommand(connection.Client.Player) ) );
             
@@ -911,9 +1111,9 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
         }
 
-        public int tibiaDat;
+        public uint tibiaDat;
 
-        public int TibiaDat
+        public uint TibiaDat
         {
             get
             {
@@ -921,9 +1121,9 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
         }
 
-        public int tibiaPic;
+        public uint tibiaPic;
 
-        public int TibiaPic
+        public uint TibiaPic
         {
             get
             {
@@ -931,9 +1131,9 @@ namespace OpenTibia.Game.Common.ServerObjects
 			}
         }
 
-        public int tibiaSpr;
+        public uint tibiaSpr;
 
-		public int TibiaSpr
+		public uint TibiaSpr
 		{
 			get
 			{
@@ -997,55 +1197,45 @@ namespace OpenTibia.Game.Common.ServerObjects
 			return value;
         }
 
-        private Dictionary<TextColor, byte> textColorToByte = new Dictionary<TextColor, byte>();
+		private Dictionary<byte, List<MessageMode>> byteToMessageModes = new Dictionary<byte, List<MessageMode>>();
 
-        private void MapTextColor(byte value, TextColor textColor)
+        private Dictionary<MessageMode, byte> messageModeToBytes = new Dictionary<MessageMode, byte>();
+
+        private void MapMessageMode(byte value, MessageMode messageMode)
         {
-            textColorToByte.Add(textColor, value);
-        }
+			List<MessageMode> byteToMessageMode;
 
-        public byte GetByteForTextColor(TextColor textColor)
-        {
-			byte value;
-
-            if ( !textColorToByte.TryGetValue(textColor, out value) )
+            if ( !byteToMessageModes.TryGetValue(value, out byteToMessageMode) )
 			{
-                textColorToByte.TryGetValue(TextColor.WhiteBottomGameWindow, out value);
-			}
+				byteToMessageMode = new List<MessageMode>();
 
-			return value;
+				byteToMessageModes.Add(value, byteToMessageMode);
+            }
+
+			byteToMessageMode.Add(messageMode);
+
+            messageModeToBytes.Add(messageMode, value);
         }
 
-        private Dictionary<byte, TalkType> byteToTalkType = new Dictionary<byte, TalkType>();
-
-        private Dictionary<TalkType, byte> talkTypeToByte = new Dictionary<TalkType, byte>();
-
-        private void MapTalkType(byte value, TalkType talkType)
-        {
-			byteToTalkType.Add(value, talkType);
-
-            talkTypeToByte.Add(talkType, value);
-        }
-
-        public TalkType GetTalkTypeForByte(byte value)
+        public MessageMode GetMessageModeForByte(byte value)
 		{
-			TalkType talkType;
+			List<MessageMode> byteToMessageMode;
 
-            if ( !byteToTalkType.TryGetValue(value, out talkType) )
+            if ( !byteToMessageModes.TryGetValue(value, out byteToMessageMode) )
 			{
-				talkType = TalkType.Say;
-			}
+				return MessageMode.Say;
+            }
 
-			return talkType;
+			return byteToMessageMode[0];
 		}
 
-        public byte GetByteForTalkType(TalkType talkType)
+        public byte GetByteForMessageMode(MessageMode messageMode)
 		{
 			byte value;
 
-            if ( !talkTypeToByte.TryGetValue(talkType, out value) )
+            if ( !messageModeToBytes.TryGetValue(messageMode, out value) )
 			{
-				talkTypeToByte.TryGetValue(TalkType.Say, out value);
+				messageModeToBytes.TryGetValue(MessageMode.Say, out value);
 			}
 
 			return value;

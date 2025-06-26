@@ -39,13 +39,13 @@ namespace OpenTibia.Game.Commands
                         playerThinkBehaviour.StopAttackAndFollow();
                     }
 
-                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackThisCreature) );
+                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouMayNotAttackThisCreature) );
 
                     Context.AddPacket(Player, new StopAttackAndFollowOutgoingPacket(0) );
                 }
                 else if (target is Player player2 && Player.Client.SafeMode == SafeMode.YouCannotAttackUnmarkedCharacter && player2.Combat.GetSkullIcon(null) == SkullIcon.None)
                 {
-                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TurnSecureModeOffIfYouReallyWantToAttackUnmarkedPlayers) );
+                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.TurnSecureModeOffIfYouReallyWantToAttackUnmarkedPlayers) );
 
                     Context.AddPacket(Player, new StopAttackAndFollowOutgoingPacket(0) );
                 }

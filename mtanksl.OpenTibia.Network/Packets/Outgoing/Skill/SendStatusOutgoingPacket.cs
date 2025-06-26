@@ -7,13 +7,15 @@ namespace OpenTibia.Network.Packets.Outgoing
 {
     public class SendStatusOutgoingPacket : IOutgoingPacket
     {
-        public SendStatusOutgoingPacket(ushort health, ushort maxHealth, uint capacity, ulong experience, ushort level, byte levelPercent, ushort mana, ushort maxMana, byte magicLevel, byte magicLevelPercent, byte soul, ushort stamina)
+        public SendStatusOutgoingPacket(ushort health, ushort maxHealth, uint capacity, uint maxCapacity, ulong experience, ushort level, byte levelPercent, ushort mana, ushort maxMana, byte magicLevel, byte baseMagicLevel, byte magicLevelPercent, byte soul, ushort stamina, ushort baseSpeed)
         {
             this.Health = health;
 
             this.MaxHealth = maxHealth;
 
             this.Capacity = capacity;
+
+            this.MaxCapacity = maxCapacity;
 
             this.Experience = experience;
 
@@ -27,11 +29,15 @@ namespace OpenTibia.Network.Packets.Outgoing
 
             this.MagicLevel = magicLevel;
 
+            this.BaseMagicLevel = baseMagicLevel;
+
             this.MagicLevelPercent = magicLevelPercent;
 
             this.Soul = soul;
 
             this.Stamina = stamina;
+
+            this.BaseSpeed = baseSpeed;
         }
 
         public ushort Health { get; set; }
@@ -39,6 +45,8 @@ namespace OpenTibia.Network.Packets.Outgoing
         public ushort MaxHealth { get; set; }
 
         public uint Capacity { get; set; }
+
+        public uint MaxCapacity { get; set; }
 
         public ulong Experience { get; set; }
 
@@ -52,12 +60,16 @@ namespace OpenTibia.Network.Packets.Outgoing
 
         public byte MagicLevel { get; set; }
 
+        public byte BaseMagicLevel { get; set; }
+
         public byte MagicLevelPercent { get; set; }
 
         public byte Soul { get; set; }
 
         public ushort Stamina { get; set; }
-        
+
+        public ushort BaseSpeed { get; set; }
+
         public void Write(IByteArrayStreamWriter writer, IHasFeatureFlag features)
         {
             writer.Write( (byte)0xA0 );
@@ -73,6 +85,11 @@ namespace OpenTibia.Network.Packets.Outgoing
             else
             {
                 writer.Write(Capacity);
+            }
+
+            if (features.HasFeatureFlag(FeatureFlag.PlayerTotalCapacity) )
+            {
+                writer.Write(MaxCapacity);
             }
 
             if ( !features.HasFeatureFlag(FeatureFlag.PlayerExperienceUInt64) )
@@ -94,6 +111,11 @@ namespace OpenTibia.Network.Packets.Outgoing
 
             writer.Write(MagicLevel);
 
+            if (features.HasFeatureFlag(FeatureFlag.PlayerSkillsBase) )
+            {
+                writer.Write(BaseMagicLevel);
+            }
+
             writer.Write(MagicLevelPercent);
 
             writer.Write(Soul);
@@ -101,6 +123,21 @@ namespace OpenTibia.Network.Packets.Outgoing
             if (features.HasFeatureFlag(FeatureFlag.PlayerStamina) )
             {
                 writer.Write(Stamina);
+            }
+
+            if (features.HasFeatureFlag(FeatureFlag.PlayerSkillsBase) )
+            {
+                writer.Write(BaseSpeed);
+            }
+
+            if (features.HasFeatureFlag(FeatureFlag.PlayerRegenerationTime) )
+            {
+                writer.Write( (ushort)0 ); //TODO: FeatureFlag.PlayerRegenerationTime
+            }
+
+            if (features.HasFeatureFlag(FeatureFlag.OfflineTrainingTime) )
+            {
+                writer.Write( (ushort)0 ); //TODO: FeatureFlag.OfflineTrainingTime
             }
         }
     }

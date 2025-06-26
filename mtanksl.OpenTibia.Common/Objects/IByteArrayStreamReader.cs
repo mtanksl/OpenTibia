@@ -23,7 +23,9 @@ namespace OpenTibia.IO
         long ReadLong();
         
         ulong ReadULong();
-        
+
+        double ReadDouble();
+
         string ReadString();
         
         string ReadString(int length);

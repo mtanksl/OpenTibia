@@ -25,7 +25,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 if (command.Item.ActionId < 1000 || command.Player.Level < command.Item.ActionId - 1000)
                 {
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "Only the worthy may pass.") );
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Look, "Only the worthy may pass.") );
 
                     return Promise.Completed;
                 }

@@ -12,10 +12,8 @@ namespace OpenTibia.Common.Objects
 
         byte GetByteForFluidType(FluidType fluidType);
 
-        byte GetByteForTextColor(TextColor textColor);
+        MessageMode GetMessageModeForByte(byte value);
 
-        TalkType GetTalkTypeForByte(byte value);
-
-        byte GetByteForTalkType(TalkType talkType);
+        byte GetByteForMessageMode(MessageMode messageMode);
     }
 }

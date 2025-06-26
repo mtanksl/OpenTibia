@@ -4,7 +4,7 @@ namespace OpenTibia.Game.Events
 {
     public class ContainerReplaceItemEventArgs : GameEventArgs
     {
-        public ContainerReplaceItemEventArgs(Container container, Item fromItem, Item toItem, byte index)
+        public ContainerReplaceItemEventArgs(Container container, Item fromItem, Item toItem, ushort index)
         {
             Container = container;
 
@@ -21,6 +21,6 @@ namespace OpenTibia.Game.Events
 
         public Item ToItem { get; }
 
-        public byte Index { get; }
+        public ushort Index { get; }
     }
 }

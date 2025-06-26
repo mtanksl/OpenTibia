@@ -24,7 +24,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 if (player.Level < 50 || !(player.Vocation == Vocation.Knight || player.Vocation == Vocation.Paladin || player.Vocation == Vocation.EliteKnight || player.Vocation == Vocation.RoyalPaladin) )
                 {
-                    return Context.AddCommand(new ShowTextCommand(player, TalkType.MonsterSay, "Only knights and paladins of level 50 or above may drink this fluid.") );
+                    return Context.AddCommand(new ShowTextCommand(player, MessageMode.MonsterSay, "Only knights and paladins of level 50 or above may drink this fluid.") );
                 }
 
                 Promise promise;
@@ -51,7 +51,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 } ).Then( () =>
                 {
-                    return Context.AddCommand(new ShowTextCommand(player, TalkType.MonsterSay, "Aaaah...") );
+                    return Context.AddCommand(new ShowTextCommand(player, MessageMode.MonsterSay, "Aaaah...") );
                 } );
             }
 

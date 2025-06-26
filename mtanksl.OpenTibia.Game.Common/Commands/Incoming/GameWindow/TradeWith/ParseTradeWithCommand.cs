@@ -28,7 +28,7 @@ namespace OpenTibia.Game.Commands
         {
             if ( fromItem.Metadata.Flags.Is(ItemMetadataFlags.NotMoveable) )
             {
-                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotMoveThisObject) );
+                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouCanNotMoveThisObject) );
 
                 return false;
             }

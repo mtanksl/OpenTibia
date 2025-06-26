@@ -41,7 +41,9 @@ namespace OpenTibia.Common.Structures
 
         Writeable = 65536,
 
-        AllowDistanceRead = 131072
+        AllowDistanceRead = 131072,
+
+        IsAnimated = 262144
     }
 
     public static class ItemMetadataFlagsExtensions

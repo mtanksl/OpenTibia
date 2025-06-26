@@ -47,7 +47,7 @@ namespace OpenTibia.Game.Commands
                         {
                             if (Context.Server.Config.GameplayHotkeyAimbotEnabled)
                             {
-                                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, message) );
+                                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Look, message) );
 
                                 return Context.AddCommand(new PlayerUseItemWithCreatureCommand(Player, fromItem, toCreature) );
                             }

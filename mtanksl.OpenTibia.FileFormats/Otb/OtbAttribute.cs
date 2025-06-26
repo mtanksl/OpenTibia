@@ -22,6 +22,8 @@
 
         TopOrder = 43,
 
+        WareId = 45,
+
     Start = 254,
 
     End = 255

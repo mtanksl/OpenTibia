@@ -75,7 +75,7 @@ namespace OpenTibia.Game.Commands
                                 break;
                         }
 
-                        await Context.AddCommand(new ShowTextCommand(Player, TalkType.MonsterSay, "Hicks!") );
+                        await Context.AddCommand(new ShowTextCommand(Player, MessageMode.MonsterSay, "Hicks!") );
                     }
                 }
 
@@ -85,7 +85,7 @@ namespace OpenTibia.Game.Commands
 
                 if (toTile == null || toTile.Ground == null || toTile.NotWalkable || toTile.Block)
                 {
-                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
+                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.SorryNotPossible) );
 
                     Context.AddPacket(Player, new StopWalkOutgoingPacket(Player.Direction) );
 
@@ -98,7 +98,7 @@ namespace OpenTibia.Game.Commands
                 
                 if (toTile.NotWalkable || toTile.Block)
                 {
-                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
+                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.SorryNotPossible) );
 
                     Context.AddPacket(Player, new StopWalkOutgoingPacket(Player.Direction) );
 

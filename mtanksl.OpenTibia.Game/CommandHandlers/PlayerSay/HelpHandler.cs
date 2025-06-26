@@ -13,7 +13,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (command.Message.StartsWith("!help") ) 
             {
-                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.PurpleDefault, command.Message) );
+                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Say, command.Message) );
 
                 List<string> commands = new List<string>()
                 {
@@ -35,7 +35,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 string message = "Available commands: " + string.Join(", ", commands);
 
-                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, message) );
+                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.PrivateFrom, message) );
 
                 return Promise.Completed;
             }

@@ -1,6 +1,6 @@
 # What is this?
 
-It is an open Tibia server written in C# from scratch. Base protocol is 8.60. Experimental support for other protocols, ranging from 7.72 to 8.70.
+It is an open Tibia server written in C# from scratch. Base protocol is 8.60. Experimental support for other protocols, ranging from 7.72 to 9.86.
 
 # Why another one?
 
@@ -94,6 +94,14 @@ You can download the official release direct from here [4Shared](https://www.4sh
 ### Tibia 8.70 client
 
 You can download the official release direct from here [4Shared](https://www.4shared.com/s/faWOpAGiOku).
+
+### Tibia 9.86 client
+
+You can download the official release direct from here [4Shared](https://www.4shared.com/s/flLaVqqrHjq).
+
+### Tibia 10.98 client
+
+You can download the official release direct from here [4Shared](https://www.4shared.com/s/fy031e-s-fa).
 
 # Project's wiki
 

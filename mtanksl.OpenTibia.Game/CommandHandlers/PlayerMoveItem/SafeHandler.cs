@@ -25,7 +25,7 @@ namespace OpenTibia.Game.CommandHandlers
                         {
                             if (Sum(locker) + Sum(container) >= maxDepotItems)
                             {
-                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YourDepotIsFull) );
+                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YourDepotIsFull) );
 
                                 return Promise.Break;
                             }
@@ -34,7 +34,7 @@ namespace OpenTibia.Game.CommandHandlers
                         {
                             if (Sum(locker) >= maxDepotItems)
                             {
-                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YourDepotIsFull) );
+                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YourDepotIsFull) );
 
                                 return Promise.Break;
                             }

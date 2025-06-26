@@ -30,13 +30,13 @@ namespace OpenTibia.Game.Commands
 
                 if (playerChannelMuteBehaviour.IsMuted(out message) )
                 {
-                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, message) );
+                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, message) );
 
                     return Promise.Break;
                 }      
             }
 
-            ShowTextOutgoingPacket showTextOutgoingPacket = new ShowTextOutgoingPacket(Context.Server.Channels.GenerateStatementId(Player.DatabasePlayerId, Message), Player.Name, Player.Level, TalkType.Say, Player.Tile.Position, Message);
+            ShowTextOutgoingPacket showTextOutgoingPacket = new ShowTextOutgoingPacket(Context.Server.Channels.GenerateStatementId(Player.DatabasePlayerId, Message), Player.Name, Player.Level, MessageMode.Say, Player.Tile.Position, Message);
 
             foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Player.Tile.Position) )
             {

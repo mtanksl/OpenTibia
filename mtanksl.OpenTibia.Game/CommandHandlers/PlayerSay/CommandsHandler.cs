@@ -57,7 +57,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (command.Message.StartsWith("!commands") )
             {
-                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.PurpleDefault, command.Message) );
+                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Say, command.Message) );
 
                 foreach (var pair in command.Player.Client.Windows.GetIndexedWindows() )
                 {

@@ -41,7 +41,7 @@ namespace OpenTibia.Game.Commands
                     await database.Commit();
                 }
 
-                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "Your report has been sent.") );
+                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Look, "Your report has been sent.") );
 
                 await Promise.Completed; return;
             }

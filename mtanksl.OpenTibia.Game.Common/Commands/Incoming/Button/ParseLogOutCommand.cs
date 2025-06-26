@@ -18,7 +18,7 @@ namespace OpenTibia.Game.Commands
         {
             if (Player.HasSpecialCondition(SpecialCondition.NoLogoutZone) )
             {
-                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotLogOutHere) );
+                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouMayNotLogOutHere) );
 
                 return Promise.Break;
             }
@@ -27,7 +27,7 @@ namespace OpenTibia.Game.Commands
             {
                 if ( !Player.Tile.ProtectionZone || Player.HasSpecialCondition(SpecialCondition.Poisoned) || Player.HasSpecialCondition(SpecialCondition.Burning) || Player.HasSpecialCondition(SpecialCondition.Electrified) || Player.HasSpecialCondition(SpecialCondition.Drowning) || Player.HasSpecialCondition(SpecialCondition.Freezing) || Player.HasSpecialCondition(SpecialCondition.Dazzled) || Player.HasSpecialCondition(SpecialCondition.Cursed) || Player.HasSpecialCondition(SpecialCondition.Bleeding) )
                 {
-                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotLogoutDuringOrImmediatelyAfterAFight) );
+                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouMayNotLogoutDuringOrImmediatelyAfterAFight) );
 
                     return Promise.Break;
                 }

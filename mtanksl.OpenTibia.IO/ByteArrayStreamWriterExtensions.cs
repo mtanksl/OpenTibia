@@ -74,6 +74,14 @@ namespace OpenTibia.IO
 
                     break;
             }
+
+            if (features.HasFeatureFlag(FeatureFlag.ItemAnimationPhase) )
+            {
+                if (item.Metadata.Flags.Is(ItemMetadataFlags.IsAnimated) )
+                {
+                    writer.Write( (byte)0xFE); //TODO: FeatureFlag.ItemAnimationPhase
+                }
+            }
         }
 
         /// <summary>
@@ -115,6 +123,11 @@ namespace OpenTibia.IO
             writer.Write(removeId);
 
             writer.Write(creature.Id);
+
+            if (features.HasFeatureFlag(FeatureFlag.CreatureType) )
+            {
+                writer.Write( (byte)(creature is Player ? 0x00 : creature is Monster ? 0x01 : creature is Npc ? 0x02 : 0x00) );
+            }
 
             writer.Write(creature.Name);
 

@@ -114,7 +114,7 @@ namespace mtanksl.OpenTibia.Host.GUI
                 {
                     if (player.Tile != null && !player.IsDestroyed)
                     {
-                        Context.Current.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.RedCenterGameWindowAndServerLog, promptForm.Message) );
+                        Context.Current.AddPacket(player, new ShowWindowTextOutgoingPacket(MessageMode.Warning, promptForm.Message) );
                     }
 
                     return Promise.Completed;

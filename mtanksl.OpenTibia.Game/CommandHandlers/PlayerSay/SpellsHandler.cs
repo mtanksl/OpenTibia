@@ -98,7 +98,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     if (plugin.Spell.Group == "Attack" && command.Player.Combat.GetSkullIcon(null) == SkullIcon.Black)
                     {
-                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.SorryNotPossible) );
 
                         await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
 
@@ -107,7 +107,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     if (plugin.Spell.Vocations != null && !plugin.Spell.Vocations.Contains(command.Player.Vocation) )
                     {
-                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YourVocationCannotUseThisSpell) );
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YourVocationCannotUseThisSpell) );
 
                         await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
 
@@ -118,7 +118,7 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         if ( !command.Player.Spells.HasSpell(plugin.Spell.Name) )
                         {
-                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouNeedToLearnThisSpellFirst) );
+                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouNeedToLearnThisSpellFirst) );
 
                             await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
 
@@ -128,7 +128,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     if (plugin.Spell.Premium && !command.Player.Premium)
                     {
-                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouNeedAPremiumAccount) );
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouNeedAPremiumAccount) );
 
                         await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
 
@@ -137,7 +137,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     if (command.Player.Level < plugin.Spell.Level)
                     {
-                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughLevel) );
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouDoNotHaveEnoughLevel) );
 
                         await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
 
@@ -146,7 +146,7 @@ namespace OpenTibia.Game.CommandHandlers
                  
                     if (command.Player.Mana < plugin.Spell.Mana)
                     {
-                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughMana) );
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouDoNotHaveEnoughMana) );
 
                         await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
 
@@ -155,7 +155,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     if (command.Player.Soul < plugin.Spell.Soul)
                     {
-                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughSoul) );
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouDoNotHaveEnoughSoul) );
 
                         await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
 
@@ -167,7 +167,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     if (command.Player.Tile.ProtectionZone)
                     {
-                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisActionIsNotPermittedInAProtectionZone) );
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.ThisActionIsNotPermittedInAProtectionZone) );
 
                         await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
 
@@ -176,7 +176,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     if (target is Npc || (target is Monster monster && !monster.Metadata.Attackable) || (target is Player player && (player.Rank == Rank.Gamemaster || player.Rank == Rank.AccountManager || Context.Server.Config.GameplayWorldType == WorldType.NonPvp || player.Level <= Context.Server.Config.GameplayProtectionLevel || command.Player.Level <= Context.Server.Config.GameplayProtectionLevel) ) )
                     {
-                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackThisCreature) );
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouMayNotAttackThisCreature) );
 
                         await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
 
@@ -185,7 +185,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     if (target is Player player2 && command.Player.Client.SafeMode == SafeMode.YouCannotAttackUnmarkedCharacter && player2.Combat.GetSkullIcon(null) == SkullIcon.None)
                     {
-                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TurnSecureModeOffIfYouReallyWantToAttackUnmarkedPlayers) );
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.TurnSecureModeOffIfYouReallyWantToAttackUnmarkedPlayers) );
 
                         await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff));
 
@@ -199,7 +199,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     if (playerCooldownBehaviour.HasCooldown(plugin.Spell.Name) || playerCooldownBehaviour.HasCooldown(plugin.Spell.Group) )
                     {
-                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreExhausted) );
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouAreExhausted) );
 
                         await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
 
@@ -209,7 +209,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if ( !await plugin.OnCasting(command.Player, target, message, parameter) )
                 {
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.SorryNotPossible) );
 
                     await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
 

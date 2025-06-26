@@ -37,14 +37,24 @@ namespace OpenTibia.Common
                 {
                     if (Keys == null)
                     {
-                        if ( !server.Features.HasFeatureFlag(FeatureFlag.ProtocolChecksum) )
+                        int skip = 17;
+
+                        if (server.Features.HasFeatureFlag(FeatureFlag.ProtocolChecksum) )
                         {
-                            Rsa.DecryptAndReplace(body, 17, length - 17);
+                            skip += 4;
                         }
-                        else
+
+                        if (server.Features.HasFeatureFlag(FeatureFlag.ClientVersion) )
                         {
-                            Rsa.DecryptAndReplace(body, 21, length - 21);
+                            skip += 4;
                         }
+
+                        if (server.Features.HasFeatureFlag(FeatureFlag.PreviewState) )
+                        {
+                            skip += 1;
+                        }
+
+                        Rsa.DecryptAndReplace(body, skip, 128);
                     }
                     else
                     {

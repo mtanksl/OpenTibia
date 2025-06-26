@@ -3,11 +3,11 @@ using OpenTibia.IO;
 
 namespace OpenTibia.Network.Packets.Outgoing
 {
-    public class PingOutgoingPacket : IOutgoingPacket
+    public class PingRequestOutgoingPacket : IOutgoingPacket
     {
         public void Write(IByteArrayStreamWriter writer, IHasFeatureFlag features)
         {
-            writer.Write( (byte)0x1E );
+            writer.Write( (byte)0x1D );
         }
     }
 }

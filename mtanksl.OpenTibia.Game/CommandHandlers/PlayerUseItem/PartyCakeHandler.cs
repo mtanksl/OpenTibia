@@ -23,7 +23,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.MakeAWish, 5, "Make a Wish") ).Then( () =>
                 {
-                    return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, command.Player.Name + " blew out the candle.") );
+                    return Context.AddCommand(new ShowTextCommand(command.Player, MessageMode.MonsterSay, command.Player.Name + " blew out the candle.") );
 
                 } ).Then( () =>
                 {

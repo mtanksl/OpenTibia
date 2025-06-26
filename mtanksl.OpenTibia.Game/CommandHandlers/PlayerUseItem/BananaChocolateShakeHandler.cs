@@ -20,11 +20,11 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (bananaChocolateShake.Contains(command.Item.Metadata.OpenTibiaId) )
             {                  
-                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteCenterGameWindowAndServerLog, "You don't really know what this did to you, but suddenly you feel very happy.") );
+                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Game, "You don't really know what this did to you, but suddenly you feel very happy.") );
 
                 return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
                 {
-                    return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, "Slurp.") );
+                    return Context.AddCommand(new ShowTextCommand(command.Player, MessageMode.MonsterSay, "Slurp.") );
 
                 } ).Then( () =>
                 {

@@ -34,12 +34,13 @@ namespace OpenTibia.Game.Commands
                         {
                             Context.AddPacket(observer, new SendStatusOutgoingPacket(
                                 observer.Health, observer.MaxHealth,
-                                observer.Capacity,
+                                observer.Capacity, observer.MaxCapacity,
                                 observer.Experience, observer.Level, observer.LevelPercent,
                                 observer.Mana, observer.MaxMana,
-                                observer.Skills.GetClientSkillLevel(Skill.MagicLevel), observer.Skills.GetSkillPercent(Skill.MagicLevel),
+                                observer.Skills.GetClientSkillLevel(Skill.MagicLevel), observer.Skills.GetSkillLevel(Skill.MagicLevel), observer.Skills.GetSkillPercent(Skill.MagicLevel),
                                 observer.Soul,
-                                observer.Stamina) );
+                                observer.Stamina,
+                                observer.BaseSpeed) );
                         }
 
                         byte clientIndex;

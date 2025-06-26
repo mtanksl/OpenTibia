@@ -104,7 +104,7 @@ namespace OpenTibia.Game.Commands
                     {
                         if (ruleViolation.Assignee == null)
                         {
-                            Context.AddPacket(Player, new ShowTextOutgoingPacket(0, ruleViolation.Reporter.Name, ruleViolation.Reporter.Level, TalkType.ReportRuleViolationOpen, ruleViolation.Time, ruleViolation.Message) );
+                            Context.AddPacket(Player, new ShowTextOutgoingPacket(0, ruleViolation.Reporter.Name, ruleViolation.Reporter.Level, ruleViolation.Time, ruleViolation.Message) );
                         }
                     }
                 }

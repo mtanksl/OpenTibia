@@ -17,7 +17,7 @@ namespace OpenTibia.Tests
             {
                 OperatingSystem = OperatingSystem.Windows,
 
-                Version = 860,
+                ProtocolVersion = 860,
 
                 TibiaDat = 1277983123,
                 
@@ -42,7 +42,7 @@ namespace OpenTibia.Tests
                 {
                     var packet = CreatePacket();
 
-                    packet.Version = 772;
+                    packet.ProtocolVersion = 772;
 
                     a.Execute(new ParseEnterGameCommand(a.Connection, packet) )
                      .ExpectSuccess(false)

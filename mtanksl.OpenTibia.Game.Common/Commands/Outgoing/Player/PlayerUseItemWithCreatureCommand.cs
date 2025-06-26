@@ -24,7 +24,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );
+            Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouCanNotUseThisObject) );
 
             return Promise.Break;
         }

@@ -36,9 +36,9 @@ namespace OpenTibia.Game.Commands
                     {
                         privateChannel.AddInvitation(observer);
 
-                        Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, observer.Name + " has been invited.") );
+                        Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Look, observer.Name + " has been invited.") );
 
-                        Context.AddPacket(observer, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, Player.Name + " invites you to " + (Player.Gender == Gender.Male ? "his" : "her") + " private chat channel." ) );
+                        Context.AddPacket(observer, new ShowWindowTextOutgoingPacket(MessageMode.Look, Player.Name + " invites you to " + (Player.Gender == Gender.Male ? "his" : "her") + " private chat channel." ) );
 
                         return Promise.Completed;
                     }

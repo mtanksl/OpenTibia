@@ -29,7 +29,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 if (command.ToItem.Parent is Tile toTile && !Context.Server.Pathfinding.CanThrow(command.Player.Tile.Position, toTile.Position) )
                 {
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThere) );
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouCanNotUseThere) );
 
                     await Promise.Break;
                 }
@@ -60,7 +60,7 @@ namespace OpenTibia.Game.CommandHandlers
                     }
                     else
                     {
-                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouCanNotUseThisObject) );
              
                         await Promise.Break;
                     }

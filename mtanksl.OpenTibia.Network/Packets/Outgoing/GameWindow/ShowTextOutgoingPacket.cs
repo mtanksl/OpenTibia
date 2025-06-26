@@ -10,8 +10,15 @@ namespace OpenTibia.Network.Packets.Outgoing
 
         /// <summary>
         /// Private message.
+        /// <br/>
+        /// <br/> MessageMode.NpcFrom
+        /// <br/> MessageMode.PrivateFrom
+        /// <br/> MessageMode.GamemasterBroadcast
+        /// <br/> MessageMode.GamemasterPrivateFrom
+        /// <br/> MessageMode.RVRAnswer
+        /// <br/> MessageMode.RVRContinue
         /// </summary>
-        public ShowTextOutgoingPacket(uint statmentId, string sender, ushort level, TalkType talkType, string message)
+        public ShowTextOutgoingPacket(uint statmentId, string sender, ushort level, MessageMode messageMode, string message)
         {
             this.option = 1;
 
@@ -22,15 +29,26 @@ namespace OpenTibia.Network.Packets.Outgoing
 
             this.Level = level;
 
-            this.TalkType = talkType;
+            this.MessageMode = messageMode;
 
             this.Message = message;
         }
 
         /// <summary>
         /// Public message.
+        /// <br/>
+        /// <br/> MessageMode.Say
+        /// <br/> MessageMode.Whisper
+        /// <br/> MessageMode.Yell
+        /// <br/> MessageMode.MonsterSay
+        /// <br/> MessageMode.MonsterYell
+        /// <br/> MessageMode.NpcTo
+        /// <br/> MessageMode.BarkLow
+        /// <br/> MessageMode.BarkLoud
+        /// <br/> MessageMode.Spell
+        /// <br/> MessageMode.NpcFromStartBlock
         /// </summary>
-        public ShowTextOutgoingPacket(uint statmentId, string sender, ushort level, TalkType talkType, Position position, string message)
+        public ShowTextOutgoingPacket(uint statmentId, string sender, ushort level, MessageMode messageMode, Position position, string message)
         {
             this.option = 2;
 
@@ -41,7 +59,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 
             this.Level = level;
 
-            this.TalkType = talkType;
+            this.MessageMode = messageMode;
 
             this.Position = position;
 
@@ -50,8 +68,13 @@ namespace OpenTibia.Network.Packets.Outgoing
 
         /// <summary>
         /// Channel message.
+        /// <br/>
+        /// <br/> MessageMode.Channel
+        /// <br/> MessageMode.ChannelManagement
+        /// <br/> MessageMode.ChannelHighlight
+        /// <br/> MessageMode.GamemasterChannel
         /// </summary>
-        public ShowTextOutgoingPacket(uint statmentId, string sender, ushort level, TalkType talkType, ushort channelId, string message)
+        public ShowTextOutgoingPacket(uint statmentId, string sender, ushort level, MessageMode messageMode, ushort channelId, string message)
         {
             this.option = 3;
 
@@ -62,7 +85,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 
             this.Level = level;
 
-            this.TalkType = talkType;
+            this.MessageMode = messageMode;
 
             this.ChannelId = channelId;
 
@@ -71,8 +94,10 @@ namespace OpenTibia.Network.Packets.Outgoing
 
         /// <summary>
         /// Rule violation message.
+        /// <br/>
+        /// <br/> MessageMode.RVRChannel
         /// </summary>
-        public ShowTextOutgoingPacket(uint statmentId, string sender, ushort level, TalkType talkType, uint time, string message)
+        public ShowTextOutgoingPacket(uint statmentId, string sender, ushort level, uint time, string message)
         {
             this.option = 4;
 
@@ -83,7 +108,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 
             this.Level = level;
 
-            this.TalkType = talkType;
+            this.MessageMode = MessageMode.RVRChannel;
 
             this.Time = time;
 
@@ -96,7 +121,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 
         public ushort Level { get; set; }
 
-        public TalkType TalkType { get; set; }
+        public MessageMode MessageMode { get; set; }
 
         public Position Position { get; set; }
 
@@ -122,7 +147,7 @@ namespace OpenTibia.Network.Packets.Outgoing
                 writer.Write(Level);
             }
 
-            writer.Write(features.GetByteForTalkType(TalkType) );
+            writer.Write(features.GetByteForMessageMode(MessageMode) );
 
             switch (option)
             {

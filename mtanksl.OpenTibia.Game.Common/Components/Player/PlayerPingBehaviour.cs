@@ -54,7 +54,14 @@ namespace OpenTibia.Game.Components
 
                     lastPingRequest = DateTime.UtcNow;
 
-                    Context.AddPacket(player, new PingOutgoingPacket() );
+                    if (Context.Server.Features.HasFeatureFlag(FeatureFlag.ClientPing) )
+			        {
+                        Context.AddPacket(player, new PingRequestOutgoingPacket() );
+                    }
+                    else
+                    {
+                        Context.AddPacket(player, new PingResponseOutgoingPacket() );
+                    }
                 }
 
                 return Promise.Completed;

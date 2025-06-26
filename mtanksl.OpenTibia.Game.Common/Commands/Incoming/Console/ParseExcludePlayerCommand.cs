@@ -36,7 +36,7 @@ namespace OpenTibia.Game.Commands
                     {
                         privateChannel.RemoveInvitation(observer);
 
-                        Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, observer.Name + " has been excluded.") );
+                        Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Look, observer.Name + " has been excluded.") );
 
                         return Promise.Completed;
                     }
@@ -44,7 +44,7 @@ namespace OpenTibia.Game.Commands
                     {
                         privateChannel.RemoveMember(observer);
 
-                        Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, observer.Name + " has been excluded.") );
+                        Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Look, observer.Name + " has been excluded.") );
 
                         Context.AddPacket(observer, new CloseChannelOutgoingPacket(privateChannel.Id) );
 

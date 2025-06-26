@@ -5,7 +5,7 @@ namespace OpenTibia.FileFormats.Spr
 {
     public class SprFile
     {
-        public static SprFile Load(string path)
+        public static SprFile Load(string path, bool gameSpritesUInt32)
         {
             using ( ByteArrayFileStream stream = new ByteArrayFileStream(path) )
             {
@@ -14,12 +14,21 @@ namespace OpenTibia.FileFormats.Spr
                 SprFile file = new SprFile();
 
                 file.signature = reader.ReadUInt();
-            
-                ushort sprites = reader.ReadUShort();
+
+                int sprites;
+
+                if (gameSpritesUInt32)
+                {
+                    sprites = reader.ReadInt();
+                }
+                else
+                {
+                    sprites = reader.ReadUShort();
+                }
 
                 file.sprites = new List<Sprite>(sprites);
 
-                for (ushort spriteId = 1; spriteId <= sprites; spriteId++)
+                for (int spriteId = 1; spriteId <= sprites; spriteId++)
                 {
                     int index = reader.ReadInt();
 

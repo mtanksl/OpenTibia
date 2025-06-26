@@ -33,7 +33,7 @@ namespace OpenTibia.Game.Commands
 
                     if (observerParty != null)
                     {
-                        Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, observer.Name + " is already in a party.") );
+                        Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Look, observer.Name + " is already in a party.") );
 
                         return Promise.Break;
                     }
@@ -55,11 +55,11 @@ namespace OpenTibia.Game.Commands
                         {
                             party2.RemoveInvitation(Player);
 
-                            Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "You have revoked " + party2.Leader.Name + "'s invitation.") );
+                            Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Look, "You have revoked " + party2.Leader.Name + "'s invitation.") );
 
                             Context.AddPacket(Player, new SetPartyIconOutgoingPacket(party2.Leader.Id, PartyIcon.None) );
 
-                            Context.AddPacket(party2.Leader, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, Player.Name + " has revoked your invitation.") );
+                            Context.AddPacket(party2.Leader, new ShowWindowTextOutgoingPacket(MessageMode.Look, Player.Name + " has revoked your invitation.") );
 
                             Context.AddPacket(party2.Leader, new SetPartyIconOutgoingPacket(Player.Id, PartyIcon.None) );                              
                         }
@@ -73,16 +73,16 @@ namespace OpenTibia.Game.Commands
 
                     if (createParty)
                     {
-                        Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, observer.Name + " has been invited. Open the party channel to communicate with your members.") );
+                        Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Look, observer.Name + " has been invited. Open the party channel to communicate with your members.") );
                     }
                     else
                     {
-                        Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, observer.Name + " has been invited.") );
+                        Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(MessageMode.Look, observer.Name + " has been invited.") );
                     }
 
                     Context.AddPacket(Player, new SetPartyIconOutgoingPacket(observer.Id, PartyIcon.WhiteBlue) );
 
-                    Context.AddPacket(observer, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, Player.Name + " has invited you to " + (Player.Gender == Gender.Male ? "his" : "her") + " party." ) );
+                    Context.AddPacket(observer, new ShowWindowTextOutgoingPacket(MessageMode.Look, Player.Name + " has invited you to " + (Player.Gender == Gender.Male ? "his" : "her") + " party." ) );
 
                     Context.AddPacket(observer, new SetPartyIconOutgoingPacket(Player.Id, PartyIcon.WhiteYellow) );
                 }

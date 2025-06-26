@@ -25,7 +25,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 if (command.Item.Parent is HouseTile houseTile && !houseTile.House.CanOpenWindow(command.Player.Name) )
                 {
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouCanNotUseThisObject) );
 
                     return Promise.Break;
                 }

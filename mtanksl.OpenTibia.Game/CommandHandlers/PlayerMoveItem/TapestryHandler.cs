@@ -47,7 +47,7 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         if (command.Player.Tile.Position.X < toTile.Position.X)
                         {
-                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotThrowThere) );
+                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouCanNotThrowThere) );
 
                             return Promise.Break;
                         }
@@ -58,7 +58,7 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         if (command.Player.Tile.Position.Y < toTile.Position.Y)
                         {
-                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotThrowThere) );
+                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Failure, Constants.YouCanNotThrowThere) );
 
                             return Promise.Break;
                         }

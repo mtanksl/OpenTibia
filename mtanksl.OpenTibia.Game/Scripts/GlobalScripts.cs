@@ -197,7 +197,7 @@ namespace OpenTibia.Game.Scripts
                 {
                     foreach (var observer in Context.Server.GameObjects.GetPlayers() )
                     {
-                        Context.AddPacket(observer, new ShowWindowTextOutgoingPacket(TextColor.RedCenterGameWindowAndServerLog, "Server is saving game in 5 minutes. Please come back in 10 minutes.") );
+                        Context.AddPacket(observer, new ShowWindowTextOutgoingPacket(MessageMode.Warning, "Server is saving game in 5 minutes. Please come back in 10 minutes.") );
                     }
 
                     Save(2);
@@ -215,7 +215,7 @@ namespace OpenTibia.Game.Scripts
                 {
                     foreach (var observer in Context.Server.GameObjects.GetPlayers() )
                     {
-                        Context.AddPacket(observer, new ShowWindowTextOutgoingPacket(TextColor.RedCenterGameWindowAndServerLog, "Server is saving game in 3 minutes. Please come back in 10 minutes.") );
+                        Context.AddPacket(observer, new ShowWindowTextOutgoingPacket(MessageMode.Warning, "Server is saving game in 3 minutes. Please come back in 10 minutes.") );
                     }
 
                     Save(3);
@@ -233,7 +233,7 @@ namespace OpenTibia.Game.Scripts
                 {
                     foreach (var observer in Context.Server.GameObjects.GetPlayers() )
                     {
-                        Context.AddPacket(observer, new ShowWindowTextOutgoingPacket(TextColor.RedCenterGameWindowAndServerLog, "Server is saving game in 1 minute. Please log out.") );
+                        Context.AddPacket(observer, new ShowWindowTextOutgoingPacket(MessageMode.Warning, "Server is saving game in 1 minute. Please log out.") );
                     }
 
                     Save(4);
@@ -296,7 +296,7 @@ namespace OpenTibia.Game.Scripts
                 {
                     foreach (var observer in Context.Server.GameObjects.GetPlayers() )
                     {
-                        Context.AddPacket(observer, new ShowWindowTextOutgoingPacket(TextColor.RedCenterGameWindowAndServerLog, "Server is cleaning floor in 1 minute. Please take all your items.") );
+                        Context.AddPacket(observer, new ShowWindowTextOutgoingPacket(MessageMode.Warning, "Server is cleaning floor in 1 minute. Please take all your items.") );
                     }
 
                     Clean(2);

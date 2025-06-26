@@ -35,7 +35,7 @@ function stage:execute()
 	function announce(message)
 		local players = command.gameobjectsgetplayers()
 		for _, player in ipairs(players) do
-			command.showwindowtext(player, textcolor.whitecentergamewindowandserverlog, message)
+			command.showwindowtext(player, messagemode.game, message)
 		end
 	end
 

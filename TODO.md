@@ -6,16 +6,19 @@
 	- Summon
 	- Convince
 - Bed
+- Stamina (7.80)
+- Market (9.40)
+- Offline training (9.60)
+- Browse Field (9.84)
 - Guild
 - Party spells (Enchant Party, Heal Party, Protect Party, Train Party)
 - Party shared experience
-- Stamina
 - X-Logging
-- Add missing monsters: Acolyte of Darkness, Amarie, Armenius, Arthei, Azerus, Bane of Light, Boreth, Bride of Night, Cublarc the Plunderer, Doomsday Cultist, Dreadmaw, Duskbringer, Eclipse Knight, Enraged Brrokworm, Flamecaller Zazrak, Fleabringer, Ghostly Apparition, Gloombringer, Grodrik, Harbinder of Darkness, Hatebreeder, Lersatio, Marzie, Mutated Zalamon, Nightslayer, Pythius the Rotten, Samael, Servant Golem, Shadow of Lersatio, Shadow of Marziel, Sjadow of Boreth, The Keeper, Weak spawn of Despair, Wrath of Emperor, Yalahari
-- Add missing monster corpses: Lizard Abomination, Snake God Essence
+- Add missing 8.60 monsters: Acolyte of Darkness, Amarie, Armenius, Arthei, Azerus, Bane of Light, Boreth, Bride of Night, Cublarc the Plunderer, Doomsday Cultist, Dreadmaw, Duskbringer, Eclipse Knight, Enraged Brrokworm, Flamecaller Zazrak, Fleabringer, Ghostly Apparition, Gloombringer, Grodrik, Harbinder of Darkness, Hatebreeder, Lersatio, Marzie, Mutated Zalamon, Nightslayer, Pythius the Rotten, Samael, Servant Golem, Shadow of Lersatio, Shadow of Marziel, Sjadow of Boreth, The Keeper, Weak spawn of Despair, Wrath of Emperor, Yalahari
+- Add missing 8.60 monster corpses: Lizard Abomination, Snake God Essence
 - Configure monster loots and attacks
-- Add 8.70 items to items.xml
-- Review items.xml
+- Add 8.70, 9.86 and 10.98 monsters
+- Add 8.70, 9.86 and 10.98 items
   
 # Done (or good enough for now)
 
@@ -150,7 +153,7 @@
 	- Account manager (create account, change password, add character, change character name, change character gender, move character to temple) 
 	- Server save routine
 	- Map clean routine
-	- Experimental support for other protocols, ranging from 7.72 to 8.70
+	- Experimental support for other protocols, ranging from 7.72 to 9.86
 - Plugins
 	- C# dll plugins
 	- Lua scripting (actions, ammunitions, creaturescripts, globalevents, movements, npcs, raids, runes, spells, talkactions, weapons, monsterattacks)

@@ -16,7 +16,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (Context.Server.Raids.Start(name) )
                 {
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "Raid " + name + " has been started.") );
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Look, "Raid " + name + " has been started.") );
                 }
 
                 return Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );

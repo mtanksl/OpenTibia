@@ -25,7 +25,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 if (command.Item.ActionId < 1000 || !command.Player.Storages.TryGetValue(command.Item.ActionId - 1000, out _) )
                 {
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "The door seems to be sealed against unwanted intruders.") );
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(MessageMode.Look, "The door seems to be sealed against unwanted intruders.") );
 
                     return Promise.Completed;
                 }

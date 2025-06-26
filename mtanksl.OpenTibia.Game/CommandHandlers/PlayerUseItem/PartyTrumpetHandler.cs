@@ -27,7 +27,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 } ).Then( () =>
                 {
-                    return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, "TOOOOOOT!") );
+                    return Context.AddCommand(new ShowTextCommand(command.Player, MessageMode.MonsterSay, "TOOOOOOT!") );
 
                 } ).Then( () =>
                 {

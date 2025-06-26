@@ -5,7 +5,7 @@ namespace OpenTibia.FileFormats.Dat
 {
     public class DatFile
     {
-        public static DatFile Load(string path)
+        public static DatFile Load(string path, bool spritesUInt32, bool idleAnimations, bool enhancedAnimations, bool noMovementAnimation)
         {
             using ( ByteArrayFileStream stream = new ByteArrayFileStream(path) )
             {
@@ -27,7 +27,7 @@ namespace OpenTibia.FileFormats.Dat
 
                 for (ushort itemId = 100; itemId <= items; itemId++)
                 {
-                    Item item = Item.Load(reader);
+                    Item item = Item.Load(reader, spritesUInt32, false, enhancedAnimations, noMovementAnimation);
 
                         item.TibiaId = itemId;
 
@@ -38,7 +38,7 @@ namespace OpenTibia.FileFormats.Dat
 
                 for (ushort outfitId = 1; outfitId <= outfits; outfitId++)
                 {
-                    Item item = Item.Load(reader);
+                    Item item = Item.Load(reader, spritesUInt32, idleAnimations, enhancedAnimations, noMovementAnimation);
 
                         item.TibiaId = outfitId;
 
@@ -49,7 +49,7 @@ namespace OpenTibia.FileFormats.Dat
 
                 for (ushort effectId = 1; effectId <= effects; effectId++)
                 {
-                    Item item = Item.Load(reader);
+                    Item item = Item.Load(reader, spritesUInt32, false, enhancedAnimations, noMovementAnimation);
 
                         item.TibiaId = effectId;
 
@@ -60,7 +60,7 @@ namespace OpenTibia.FileFormats.Dat
 
                 for (ushort projectileId = 1; projectileId <= projectiles; projectileId++)
                 {
-                    Item item = Item.Load(reader);
+                    Item item = Item.Load(reader, spritesUInt32, false, enhancedAnimations, noMovementAnimation);
 
                         item.TibiaId = projectileId;
 

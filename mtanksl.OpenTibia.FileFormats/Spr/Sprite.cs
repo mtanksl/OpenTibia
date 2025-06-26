@@ -89,7 +89,7 @@ namespace OpenTibia.FileFormats.Spr
             return sprite;
         }
         
-        public ushort Id { get; set; }
+        public int Id { get; set; }
 
         public byte Red { get; set; }
 
