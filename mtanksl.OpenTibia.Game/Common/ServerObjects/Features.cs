@@ -152,7 +152,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             if (clientVersion >= 940) 
 			{
-				featureFlags.Add(FeatureFlag.PlayerMarket); // ?
+				featureFlags.Add(FeatureFlag.PlayerMarket); // TODO: Implement
 			}
 
 			if (clientVersion >= 950)
@@ -162,8 +162,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             if (clientVersion >= 953)
             {
-				featureFlags.Add(FeatureFlag.PurseSlot);
-				featureFlags.Add(FeatureFlag.ClientPing);
+				featureFlags.Add(FeatureFlag.PurseSlot); // TODO: Implement
+                featureFlags.Add(FeatureFlag.ClientPing);
 				featureFlags.Add(FeatureFlag.CreatureUnpass);
             }
 
@@ -187,14 +187,14 @@ namespace OpenTibia.Game.Common.ServerObjects
 			if (clientVersion >= 981) 
 			{
 				featureFlags.Add(FeatureFlag.LoginPending);
-				featureFlags.Add(FeatureFlag.NewSpeedLaw);
-			}
+				featureFlags.Add(FeatureFlag.NewSpeedLaw); // TODO: Implement
+            }
 
 			if (clientVersion >= 984) 
 			{
 				featureFlags.Add(FeatureFlag.ContainerPagination);
-				featureFlags.Add(FeatureFlag.BrowseField); // ?
-			}
+				featureFlags.Add(FeatureFlag.BrowseField); // TODO: Implement
+            }
 
 			if (clientVersion >= 1000) 
 			{
@@ -892,9 +892,15 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             // 0xCA - Update Container
 
-            // 0xCB - BrowseFieldIncomingPacket
+			if (HasFeatureFlag(FeatureFlag.BrowseField) )
+			{
+                gameCommands.Add(0xCB, new PacketToCommand<BrowseFieldIncomingPacket>("Browse Field", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
+            }
 
-            // 0xCC - SeekInContainerIncomingPacket
+            if (HasFeatureFlag(FeatureFlag.ContainerPagination) )
+			{
+                gameCommands.Add(0xCC, new PacketToCommand<SeekInContainerIncomingPacket>("Seek In Container", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
+            }
 
             gameCommands.Add(0xD2, new PacketToCommand<SetOutfitIncomingPacket>("Set Outfit", (connection, packet) => new ParseSetOutfitCommand(connection.Client.Player) ) );
 			
@@ -909,7 +915,10 @@ namespace OpenTibia.Game.Common.ServerObjects
 			
 			gameCommands.Add(0xDD, new PacketToCommand<RemoveVipIncomingPacket>("Remove Vip", (connection, packet) => new ParseRemoveVipCommand(connection.Client.Player, packet.CreatureId) ) );
 			
-			// 0xDE - UpdateVipIncomingPacket
+			if (HasFeatureFlag(FeatureFlag.AdditionalVipInfo) )
+			{
+                gameCommands.Add(0xDE, new PacketToCommand<UpdateVipIncomingPacket>("Update Vip", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
+            }
 
 			gameCommands.Add(0xE6, new PacketToCommand<ReportBugIncomingPacket>("Report Bug", (connection, packet) => new ParseReportBugCommand(connection.Client.Player, packet.Message) ) );
 			
@@ -924,19 +933,25 @@ namespace OpenTibia.Game.Common.ServerObjects
 			
 			gameCommands.Add(0xF2, new PacketToCommand<ReportRuleViolationIncomingPacket>("Report Rule Violation", (connection, packet) => new ParseReportRuleViolationCommand(connection.Client.Player, packet.Type, packet.RuleViolation, packet.Name, packet.Comment, packet.Translation, packet.StatmentId) ) );
 
-            // 0xF3 - GetObjectInfoIncomingPacket
+            if (HasFeatureFlag(FeatureFlag.PlayerMarket) )
+			{
+                gameCommands.Add(0xF3, new PacketToCommand<GetObjectInfoIncomingPacket>("Get Object Info", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
 
-            // 0xF4 - MarketLeaveIncomingPacket
+				gameCommands.Add(0xF4, new PacketToCommand<MarketLeaveIncomingPacket>("Market Leave", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
 
-            // 0xF5 - MarketBrowseIncomingPacket
+                gameCommands.Add(0xF5, new PacketToCommand<MarketBrowseIncomingPacket>("Market Browse", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
 
-            // 0xF6 - MarketCreateOfferIncomingPacket
+                gameCommands.Add(0xF6, new PacketToCommand<MarketCreateOfferIncomingPacket>("Market Create Offer", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
 
-            // 0xF7 - MarketCancelOfferIncomingPacket
+                gameCommands.Add(0xF7, new PacketToCommand<MarketCancelOfferIncomingPacket>("Market Cancel Offer", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
 
-            // 0xF8 - MarketAcceptOfferIncomingPacket
+                gameCommands.Add(0xF8, new PacketToCommand<MarketAcceptOfferIncomingPacket>("Market Accept Offer", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
+			}
 
-            // 0xF9 - ModalWindowAnswerIncomingPacket
+			if (HasFeatureFlag(FeatureFlag.OfflineTrainingTime) )
+			{
+				gameCommands.Add(0xF9, new PacketToCommand<ModalWindowAnswerIncomingPacket>("Modal Window Answer", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
+            }
 
             if (HasFeatureFlag(FeatureFlag.LoginPending) )
 			{
@@ -1070,6 +1085,16 @@ namespace OpenTibia.Game.Common.ServerObjects
             
 			// 0xCA - Update Container
             
+			if (HasFeatureFlag(FeatureFlag.BrowseField) )
+			{
+                gameAccountManagerCommands.Add(0xCB, new PacketToCommand<BrowseFieldIncomingPacket>("Browse Field", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
+            }
+
+            if (HasFeatureFlag(FeatureFlag.ContainerPagination) )
+			{
+                gameAccountManagerCommands.Add(0xCC, new PacketToCommand<SeekInContainerIncomingPacket>("Seek In Container", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
+            }
+
 			gameAccountManagerCommands.Add(0xD2, new PacketToCommand<SetOutfitIncomingPacket>("Set Outfit", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
             
 			gameAccountManagerCommands.Add(0xD3, new PacketToCommand<SelectedOutfitIncomingPacket>("Selected Outfit", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
@@ -1083,6 +1108,11 @@ namespace OpenTibia.Game.Common.ServerObjects
             
 			gameAccountManagerCommands.Add(0xDD, new PacketToCommand<RemoveVipIncomingPacket>("Remove Vip", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
             
+			if (HasFeatureFlag(FeatureFlag.AdditionalVipInfo) )
+			{
+                gameAccountManagerCommands.Add(0xDE, new PacketToCommand<UpdateVipIncomingPacket>("Update Vip", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
+            }
+
 			gameAccountManagerCommands.Add(0xE6, new PacketToCommand<ReportBugIncomingPacket>("Report Bug", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
 			
 			gameAccountManagerCommands.Add(0xE8, new PacketToCommand<DebugAssertIncomingPacket>("Debug Assert", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
@@ -1096,6 +1126,26 @@ namespace OpenTibia.Game.Common.ServerObjects
 			
 			gameAccountManagerCommands.Add(0xF2, new PacketToCommand<ReportRuleViolationIncomingPacket>("Report Rule Violation", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
          
+			if (HasFeatureFlag(FeatureFlag.PlayerMarket) )
+			{
+                gameAccountManagerCommands.Add(0xF3, new PacketToCommand<GetObjectInfoIncomingPacket>("Get Object Info", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
+
+                gameAccountManagerCommands.Add(0xF4, new PacketToCommand<MarketLeaveIncomingPacket>("Market Leave", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
+
+                gameAccountManagerCommands.Add(0xF5, new PacketToCommand<MarketBrowseIncomingPacket>("Market Browse", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
+
+                gameAccountManagerCommands.Add(0xF6, new PacketToCommand<MarketCreateOfferIncomingPacket>("Market Create Offer", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
+
+                gameAccountManagerCommands.Add(0xF7, new PacketToCommand<MarketCancelOfferIncomingPacket>("Market Cancel Offer", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
+
+                gameAccountManagerCommands.Add(0xF8, new PacketToCommand<MarketAcceptOfferIncomingPacket>("Market Accept Offer", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
+			}
+
+			if (HasFeatureFlag(FeatureFlag.OfflineTrainingTime) )
+			{
+                gameAccountManagerCommands.Add(0xF9, new PacketToCommand<ModalWindowAnswerIncomingPacket>("Modal Window Answer", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
+            }
+
 			infoFirstCommands.Add(0xFF, new PacketToCommand<InfoIncomingPacket>("Info", (connection, packet) => new ParseInfoProtocolCommand(connection, packet) ) );
          
 			#endregion
