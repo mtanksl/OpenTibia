@@ -117,10 +117,10 @@ namespace OpenTibia.Game.Commands
 
                 await Promise.Break;
             }
+                            
+            int stepDurationMilliseconds = Formula.GetStepDuration(Player, toTile, MoveDirection);
 
-            int diagonalCost = (MoveDirection == MoveDirection.NorthWest || MoveDirection == MoveDirection.NorthEast || MoveDirection == MoveDirection.SouthWest || MoveDirection == MoveDirection.SouthEast) ? 2 : 1;
-
-            await Context.Server.GameObjectComponents.AddComponent(Player, new PlayerWalkDelayBehaviour(TimeSpan.FromMilliseconds(diagonalCost * 1000 * toTile.Ground.Metadata.GroundSpeed / Player.ClientSpeed) ) ).Promise;
+            await Context.Server.GameObjectComponents.AddComponent(Player, new PlayerWalkDelayBehaviour(TimeSpan.FromMilliseconds(stepDurationMilliseconds) ) ).Promise;
                        
             if (toTile.NotWalkable || toTile.Block)
             {

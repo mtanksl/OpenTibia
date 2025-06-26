@@ -8,6 +8,7 @@
 - Bed
 - Stamina (7.80)
 - Market (9.40)
+- Purse (9.54)
 - Offline training (9.60)
 - Browse Field (9.84)
 - Guild

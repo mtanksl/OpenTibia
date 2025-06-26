@@ -101,7 +101,14 @@ namespace OpenTibia.IO
 
              writer.Write(creature.ClientLight);
 
-             writer.Write(creature.ClientSpeed);
+            if (features.HasFeatureFlag(FeatureFlag.NewSpeedLaw) )
+            {
+                writer.Write( (ushort)(creature.ClientSpeed / 2) );
+            }
+            else
+            {
+                writer.Write(creature.ClientSpeed);
+            }
 
              writer.Write( (byte)skullIcon);
 
@@ -139,7 +146,14 @@ namespace OpenTibia.IO
 
             writer.Write(creature.ClientLight);
 
-            writer.Write(creature.ClientSpeed);
+            if (features.HasFeatureFlag(FeatureFlag.NewSpeedLaw) )
+            {
+                writer.Write( (ushort)(creature.ClientSpeed / 2) );
+            }
+            else
+            {
+                writer.Write(creature.ClientSpeed);
+            }
 
             writer.Write( (byte)skullIcon);
 

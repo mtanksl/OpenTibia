@@ -222,13 +222,8 @@ namespace OpenTibia.Game.Components
                                 MoveDirection moveDirection = player.Tile.Position.ToMoveDirection(toTile.Position).Value;
 
                                 await Context.AddCommand(new CreatureMoveCommand(player, toTile) );
-
-                                int diagonalCost = (moveDirection == MoveDirection.NorthWest ||
-                                                    moveDirection == MoveDirection.NorthEast ||
-                                                    moveDirection == MoveDirection.SouthWest ||
-                                                    moveDirection == MoveDirection.SouthEast) ? 2 : 1;
-
-                                nextWalk = DateTime.UtcNow.AddMilliseconds(diagonalCost * 1000 * toTile.Ground.Metadata.GroundSpeed / player.ClientSpeed);
+                                                                
+                                nextWalk = DateTime.UtcNow.AddMilliseconds(Formula.GetStepDuration(player, toTile, moveDirection) );
                             }
                             else
                             {

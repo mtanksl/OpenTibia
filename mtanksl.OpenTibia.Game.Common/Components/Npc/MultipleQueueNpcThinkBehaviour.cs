@@ -143,10 +143,12 @@ namespace OpenTibia.Game.Components
                         Tile toTile;
 
                         if (idleWalkStrategy.CanWalk(npc, null, out toTile) )
-                        {
+                        {                           
+                            MoveDirection moveDirection = npc.Tile.Position.ToMoveDirection(toTile.Position).Value;
+
                             await Context.AddCommand(new CreatureMoveCommand(npc, toTile) );
 
-                            nextWalk = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.GroundSpeed / npc.ClientSpeed);
+                            nextWalk = DateTime.UtcNow.AddMilliseconds(Formula.GetStepDuration(npc, toTile, moveDirection) );
                         }
                         else
                         {

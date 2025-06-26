@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Data.Models;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
 using OpenTibia.Game.Common.ServerObjects;
@@ -188,12 +189,7 @@ namespace OpenTibia.Game.Components
 
                         await Context.AddCommand(new CreatureMoveCommand(monster, toTile) );
 
-                        int diagonalCost = (moveDirection == MoveDirection.NorthWest ||
-                                            moveDirection == MoveDirection.NorthEast ||
-                                            moveDirection == MoveDirection.SouthWest ||
-                                            moveDirection == MoveDirection.SouthEast) ? 2 : 1;
-
-                        nextWalk = DateTime.UtcNow.AddMilliseconds(diagonalCost * 1000 * toTile.Ground.Metadata.GroundSpeed / monster.ClientSpeed);
+                        nextWalk = DateTime.UtcNow.AddMilliseconds(Formula.GetStepDuration(monster, toTile, moveDirection) );
                     }
                     else
                     {

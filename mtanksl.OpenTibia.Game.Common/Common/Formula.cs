@@ -8,6 +8,55 @@ namespace OpenTibia.Game.Common
 {
     public static class Formula
     {
+        public static int GetStepDuration(Creature creature, Tile tile, MoveDirection moveDirection)
+        {
+            int factor = 1;
+
+            if (moveDirection == MoveDirection.NorthWest || 
+                moveDirection == MoveDirection.NorthEast || 
+                moveDirection == MoveDirection.SouthWest || 
+                moveDirection == MoveDirection.SouthEast)
+            {
+                if (Context.Current.Server.Features.HasFeatureFlag(FeatureFlag.SpeedFactor) )
+                {
+                    factor = 3;
+                }
+                else
+                {
+                    factor = 2;
+                }
+            }
+
+            int speed;
+
+            if (Context.Current.Server.Features.HasFeatureFlag(FeatureFlag.NewSpeedLaw) )
+            {
+                if (creature.ClientSpeed > -Constants.CreatureSpeedB) 
+                {
+		            speed = (int)Math.Max(1, Math.Floor( (Constants.CreatureSpeedA * Math.Log( (creature.ClientSpeed / 2) + Constants.CreatureSpeedB) + Constants.CreatureSpeedC) + 0.5) );
+	            }
+                else
+                {
+                    speed = 1;
+                }
+            }
+            else
+            {
+                speed = creature.ClientSpeed;
+            }
+
+            int duration = 1000 * tile.Ground.Metadata.GroundSpeed / speed;
+
+            if (Context.Current.Server.Features.HasFeatureFlag(FeatureFlag.ServerBeat) )
+            {
+                duration = (int)Math.Ceiling(duration / (double)Constants.ServerBeat) * Constants.ServerBeat;
+            }
+
+            duration = Math.Max(duration, Constants.ServerBeat);
+
+            return factor * duration;
+        }
+
         private static Dictionary<ushort, ulong> experienceCaches = new Dictionary<ushort, ulong>();
 
         public static ulong GetRequiredExperience(ushort level)

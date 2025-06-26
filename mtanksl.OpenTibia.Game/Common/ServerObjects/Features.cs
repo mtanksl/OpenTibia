@@ -95,6 +95,11 @@ namespace OpenTibia.Game.Common.ServerObjects
                 featureFlags.Add(FeatureFlag.NpcsChannel);
 			}
 
+            if (clientVersion >= 810) 
+			{
+				featureFlags.Add(FeatureFlag.SpeedFactor);
+            }
+
             if (clientVersion >= 840) 
 			{
 				featureFlags.Add(FeatureFlag.ProtocolChecksum);
@@ -138,6 +143,11 @@ namespace OpenTibia.Game.Common.ServerObjects
                 featureFlags.Add(FeatureFlag.CooldownBar);
             }
 
+			if (clientVersion >= 900) 
+			{
+				featureFlags.Add(FeatureFlag.ServerBeat);
+            }
+
 			if (clientVersion >= 910) 
 			{
 				featureFlags.Add(FeatureFlag.NameOnNpcTrade);
@@ -152,7 +162,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             if (clientVersion >= 940) 
 			{
-				featureFlags.Add(FeatureFlag.PlayerMarket); // TODO: Implement
+				featureFlags.Add(FeatureFlag.PlayerMarket);
 			}
 
 			if (clientVersion >= 950)
@@ -162,7 +172,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             if (clientVersion >= 953)
             {
-				featureFlags.Add(FeatureFlag.PurseSlot); // TODO: Implement
+				featureFlags.Add(FeatureFlag.PurseSlot);
                 featureFlags.Add(FeatureFlag.ClientPing);
 				featureFlags.Add(FeatureFlag.CreatureUnpass);
             }
@@ -171,12 +181,12 @@ namespace OpenTibia.Game.Common.ServerObjects
 			{
                 featureFlags.Add(FeatureFlag.SpritesUInt32);
                 featureFlags.Add(FeatureFlag.OfflineTrainingTime);
-			}
+            }
 
 			if (clientVersion >= 963) 
 			{
-				featureFlags.Add(FeatureFlag.AdditionalVipInfo);
-			}
+				featureFlags.Add(FeatureFlag.AdditionalVipInfo); // TODO: Implement
+            }
 
 			if (clientVersion >= 980) 
 			{
@@ -187,13 +197,13 @@ namespace OpenTibia.Game.Common.ServerObjects
 			if (clientVersion >= 981) 
 			{
 				featureFlags.Add(FeatureFlag.LoginPending);
-				featureFlags.Add(FeatureFlag.NewSpeedLaw); // TODO: Implement
+				featureFlags.Add(FeatureFlag.NewSpeedLaw);
             }
 
 			if (clientVersion >= 984) 
 			{
 				featureFlags.Add(FeatureFlag.ContainerPagination);
-				featureFlags.Add(FeatureFlag.BrowseField); // TODO: Implement
+                featureFlags.Add(FeatureFlag.BrowseField);
             }
 
 			if (clientVersion >= 1000) 

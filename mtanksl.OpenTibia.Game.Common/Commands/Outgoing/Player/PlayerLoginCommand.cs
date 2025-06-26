@@ -18,7 +18,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            Context.AddPacket(Player, new SendInfoOutgoingPacket(Player.Id, 0x32, Constants.CreatureSpeedA, Constants.CreatureSpeedB, Constants.CreatureSpeedC, Player.Rank == Rank.Tutor || Player.Rank == Rank.Gamemaster) );
+            Context.AddPacket(Player, new SendInfoOutgoingPacket(Player.Id, Constants.ServerBeat, Constants.CreatureSpeedA, Constants.CreatureSpeedB, Constants.CreatureSpeedC, Player.Rank == Rank.Tutor || Player.Rank == Rank.Gamemaster) );
 
             if (Context.Server.Features.HasFeatureFlag(FeatureFlag.LoginPending) )
             {

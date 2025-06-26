@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Common;
 using OpenTibia.Game.Events;
 using OpenTibia.Network.Packets.Outgoing;
@@ -35,7 +36,14 @@ namespace OpenTibia.Game.Commands
 
                     if (observer.Client.TryGetIndex(Creature, out clientIndex) )
                     {
-                        Context.AddPacket(observer, new SetSpeedOutgoingPacket(Creature.Id, Creature.ClientSpeed) );
+                        if (Context.Server.Features.HasFeatureFlag(FeatureFlag.NewSpeedLaw) )
+                        {
+                            Context.AddPacket(observer, new SetSpeedOutgoingPacket(Creature.Id, (ushort)(Creature.ClientSpeed / 2) ) );
+                        }
+                        else
+                        {
+                            Context.AddPacket(observer, new SetSpeedOutgoingPacket(Creature.Id, Creature.ClientSpeed) );
+                        }
                     }
                 }
 

@@ -117,6 +117,9 @@
 
         public static readonly ushort DepotOpenTibiaItemId = 2594;
 
+
+        public static readonly ushort ServerBeat = 50;
+
         public static readonly double CreatureSpeedA = 857.36;
 
         public static readonly double CreatureSpeedB = 261.29;
