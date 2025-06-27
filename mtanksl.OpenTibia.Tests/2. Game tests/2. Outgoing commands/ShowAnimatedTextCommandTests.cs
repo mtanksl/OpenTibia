@@ -19,7 +19,7 @@ namespace OpenTibia.Tests
                 t.Move(player, new Position(921, 771, 6) );
 
                 t.Using(player, a => a
-                    .Execute(new ShowAnimatedTextCommand(new Position(921, 771, 6), AnimatedTextColor.White, "ABCDEFGH") )
+                    .Execute(new ShowAnimatedTextCommand(new Position(921, 771, 6), AnimatedTextColor.White, 123456) )
                     .ExpectSuccess()
                     .Observe(o => o
                         .ExpectPacket(1)
@@ -38,7 +38,7 @@ namespace OpenTibia.Tests
                 t.Move(player, new Position(921, 771, 6) );
 
                 t.Using(player, a => a
-                    .Execute(new ShowAnimatedTextCommand(new Position(0, 0, 0), AnimatedTextColor.White, "ABCDEFGH") )
+                    .Execute(new ShowAnimatedTextCommand(new Position(0, 0, 0), AnimatedTextColor.White, 123456) )
                     .ExpectSuccess()
                     .Observe(o => o
                         .ExpectPacket(0) ) )

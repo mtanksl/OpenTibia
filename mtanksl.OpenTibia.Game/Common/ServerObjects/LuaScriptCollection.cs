@@ -1066,7 +1066,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             lua.RegisterCoFunction("showanimatedtext", (luaScope, args) =>
             {
-                return Context.Current.AddCommand(new ShowAnimatedTextCommand(ToPosition(args[0] ), (AnimatedTextColor)(long)args[1], LuaScope.GetString(args[2] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new ShowAnimatedTextCommand(ToPosition(args[0] ), (AnimatedTextColor)(long)args[1], LuaScope.GetUInt32(args[2] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );

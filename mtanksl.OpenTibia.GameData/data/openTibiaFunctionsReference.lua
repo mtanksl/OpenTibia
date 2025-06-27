@@ -936,8 +936,8 @@ return {
 				args = "(Player player)",
 				returns = "void"
 			},
-			-- void command.showanimatedtext(Position position, AnimatedTextColor animatedTextColor, string message)
-			-- void command.showanimatedtext(IContent content, AnimatedTextColor animatedTextColor, string message)
+			-- void command.showanimatedtext(Position position, AnimatedTextColor animatedTextColor, uint value)
+			-- void command.showanimatedtext(IContent content, AnimatedTextColor animatedTextColor, uint value)
 			showanimatedtext = {
 				type = "function",
 				description = "",

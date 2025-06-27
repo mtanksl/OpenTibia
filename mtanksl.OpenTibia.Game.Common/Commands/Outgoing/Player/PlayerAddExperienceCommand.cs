@@ -77,7 +77,7 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            await Context.AddCommand(new ShowAnimatedTextCommand(Player, AnimatedTextColor.White, Experience.ToString() ) );
+            await Context.AddCommand(new ShowAnimatedTextCommand(Player, AnimatedTextColor.White, (uint)Experience) );
 
             if (correctLevel > currentLevel)
             {

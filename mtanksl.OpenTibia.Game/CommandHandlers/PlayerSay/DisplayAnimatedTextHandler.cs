@@ -13,7 +13,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (command.Message.StartsWith("/at ") && int.TryParse(command.Message.Substring(4), out id) && id >= 1 && id <= 255)
             {
-                return Context.AddCommand(new ShowAnimatedTextCommand(command.Player, (AnimatedTextColor)id, "ABCDEFGH") );
+                return Context.AddCommand(new ShowAnimatedTextCommand(command.Player, (AnimatedTextColor)id, 123456) );
             }
 
             return next();

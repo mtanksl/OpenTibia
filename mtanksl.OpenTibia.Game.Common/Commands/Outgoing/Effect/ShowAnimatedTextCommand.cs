@@ -7,7 +7,7 @@ namespace OpenTibia.Game.Commands
 {
     public class ShowAnimatedTextCommand : Command
     {
-        public ShowAnimatedTextCommand(IContent content, AnimatedTextColor animatedTextColor, string message)
+        public ShowAnimatedTextCommand(IContent content, AnimatedTextColor animatedTextColor, uint value)
         {
             Position position = null;
 
@@ -49,29 +49,45 @@ namespace OpenTibia.Game.Commands
 
             AnimatedTextColor = animatedTextColor;
 
-            Message = message;
+            Value = value;
         }
 
-        public ShowAnimatedTextCommand(Position position, AnimatedTextColor animatedTextColor, string message)
+        public ShowAnimatedTextCommand(Position position, AnimatedTextColor animatedTextColor, uint value)
         {
             Position = position;
 
             AnimatedTextColor = animatedTextColor;
 
-            Message = message;
+            Value = value;
         }
 
         public Position Position { get; set; }
 
         public AnimatedTextColor AnimatedTextColor { get; set; }
 
-        public string Message { get; set; }
+        public uint Value { get; set; }
 
         public override Promise Execute()
         {
             if (Position != null)
             {
-                ShowAnimatedTextOutgoingPacket showAnimatedTextOutgoingPacket = new ShowAnimatedTextOutgoingPacket(Position, AnimatedTextColor, Message);
+                IOutgoingPacket showAnimatedTextOutgoingPacket;
+
+                if ( !Context.Server.Features.HasFeatureFlag(FeatureFlag.ConsoleMessageOtherCreatures) )
+                {  
+                    showAnimatedTextOutgoingPacket = new ShowAnimatedTextOutgoingPacket(Position, AnimatedTextColor, Value.ToString() );
+                }
+                else
+                {
+                    if (AnimatedTextColor == AnimatedTextColor.White)
+                    {
+                        showAnimatedTextOutgoingPacket = new ShowWindowTextOutgoingPacket(MessageMode.Exp, Position, Value, AnimatedTextColor, Value.ToString() );
+                    }
+                    else
+                    {
+                        showAnimatedTextOutgoingPacket = new ShowWindowTextOutgoingPacket(MessageMode.DamageOthers, Position, Value, AnimatedTextColor, 0, AnimatedTextColor, Value.ToString() );
+                    }
+                }
 
                 foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Position) )
                 {

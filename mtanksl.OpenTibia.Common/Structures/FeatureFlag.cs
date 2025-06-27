@@ -29,6 +29,7 @@
         PlayerExperienceUInt64,
         PlayerMounts,
         CooldownBar,
+        ConsoleMessageOtherCreatures,
         ServerBeat,
         NameOnNpcTrade,
         PlayerTotalCapacity,

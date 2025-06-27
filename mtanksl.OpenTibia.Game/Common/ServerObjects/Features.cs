@@ -143,7 +143,12 @@ namespace OpenTibia.Game.Common.ServerObjects
                 featureFlags.Add(FeatureFlag.CooldownBar);
             }
 
-			if (clientVersion >= 900) 
+			if (clientVersion >= 873)
+			{
+                featureFlags.Add(FeatureFlag.ConsoleMessageOtherCreatures);
+            }
+
+            if (clientVersion >= 900) 
 			{
 				featureFlags.Add(FeatureFlag.ServerBeat);
             }

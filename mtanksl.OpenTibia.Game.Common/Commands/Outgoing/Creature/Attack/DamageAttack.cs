@@ -453,7 +453,7 @@ namespace OpenTibia.Game.Commands
 
                         await Context.Current.AddCommand(new ShowMagicEffectCommand(player, MagicEffectType.BlueRings) );
 
-                        await Context.Current.AddCommand(new ShowAnimatedTextCommand(player, AnimatedTextColor.Blue, manaDamage.ToString() ) );
+                        await Context.Current.AddCommand(new ShowAnimatedTextCommand(player, AnimatedTextColor.Blue, (uint)manaDamage) );
 
                         await Context.Current.AddCommand(new PlayerUpdateManaCommand(player, player.Mana - manaDamage) );
                     }
@@ -480,7 +480,7 @@ namespace OpenTibia.Game.Commands
 
                         if (animatedTextColor != null)
                         {
-                            await Context.Current.AddCommand(new ShowAnimatedTextCommand(player, animatedTextColor.Value, healthDamage.ToString() ) );
+                            await Context.Current.AddCommand(new ShowAnimatedTextCommand(player, animatedTextColor.Value, (uint)healthDamage) );
                         }
 
                         await Context.Current.AddCommand(new CreatureUpdateHealthCommand(player, player.Health - healthDamage) );
@@ -511,7 +511,7 @@ namespace OpenTibia.Game.Commands
 
                     if (animatedTextColor != null)
                     {
-                        await Context.Current.AddCommand(new ShowAnimatedTextCommand(monster, animatedTextColor.Value, damage.ToString() ) );
+                        await Context.Current.AddCommand(new ShowAnimatedTextCommand(monster, animatedTextColor.Value, (uint)damage) );
                     }
 
                     await Context.Current.AddCommand(new CreatureUpdateHealthCommand(monster, monster.Health - damage) );
