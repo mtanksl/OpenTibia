@@ -9,8 +9,8 @@ say:add("armor", "I sell jackets, coats, doublets, leather armor, and leather le
 say:add("helmet", "I sell leather helmets, studded helmets, and chain helmets. Just tell me what you want to buy.")
 say:add("equipment", "I sell torches, bags, scrolls, shovels, picks, backpacks, sickles, scythes, ropes, fishing rods and sixpacks of worms. Just tell me what you want to buy.")
 say:addtrade( {
-    { article = "a", name = "spear", plural = "spears", item = 2389, type = 1, buyprice = 10, sellprice = 2 },
-    { article = "an", name = "axe", plural = "axes", item = 2386, type = 1, buyprice = 20, sellprice = 10 }
+    { article = "a", name = "spear", plural = "spears", item = 2389, type = 0, buyprice = 10, sellprice = 2 },
+    { article = "an", name = "axe", plural = "axes", item = 2386, type = 0, buyprice = 20, sellprice = 10 }
 } )
 
 local handler = npchandler:new( {

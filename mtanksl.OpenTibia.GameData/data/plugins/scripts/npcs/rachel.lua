@@ -5,8 +5,8 @@ say:add("rune", "I sell blank runes and spell runes.")
 say:addtrade( {
     { article = "a", name = "mana fluid", plural = "mana fluids", item = 11396, type = 7, buyprice = 55 },
     { article = "a", name = "life fluid", plural = "life fluids", item = 11396, type = 10, buyprice = 60 },
-    { article = "a", name = "spellbook", plural = "spellbooks", item = 2175, type = 1, buyprice = 150 },
-    { article = "a", name = "blank rune", plural = "blank runes", item = 2260, type = 1, buyprice = 10 }
+    { article = "a", name = "spellbook", plural = "spellbooks", item = 2175, type = 0, buyprice = 150 },
+    { article = "a", name = "blank rune", plural = "blank runes", item = 2260, type = 0, buyprice = 10 }
 } )
 
 local handler = npchandler:new( {

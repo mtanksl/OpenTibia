@@ -151,9 +151,10 @@ namespace OpenTibia.Game.Common.ServerObjects
             if (clientVersion >= 900) 
 			{
 				featureFlags.Add(FeatureFlag.ServerBeat);
+				featureFlags.Add(FeatureFlag.InviteNpcTradeU16);
             }
 
-			if (clientVersion >= 910) 
+            if (clientVersion >= 910) 
 			{
 				featureFlags.Add(FeatureFlag.NameOnNpcTrade);
 				featureFlags.Add(FeatureFlag.PlayerTotalCapacity);
@@ -193,7 +194,12 @@ namespace OpenTibia.Game.Common.ServerObjects
 				featureFlags.Add(FeatureFlag.AdditionalVipInfo);
             }
 
-			if (clientVersion >= 980) 
+			if (clientVersion >= 973) 
+			{
+				featureFlags.Add(FeatureFlag.JoinNpcTradeU64);
+            }
+
+            if (clientVersion >= 980) 
 			{
 				featureFlags.Add(FeatureFlag.PreviewState);
 				featureFlags.Add(FeatureFlag.ClientVersion);

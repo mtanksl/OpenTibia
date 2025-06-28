@@ -28,7 +28,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            int money = SumMoney(Trading.CounterOfferPlayer.Inventory);
+            ulong money = SumMoney(Trading.CounterOfferPlayer.Inventory);
 
             List<CounterOfferDto> counterOffers = new List<CounterOfferDto>();
 
@@ -45,14 +45,14 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            Context.AddPacket(Trading.CounterOfferPlayer, new JoinNpcTradeOutgoingPacket( (uint)money, counterOffers) );
+            Context.AddPacket(Trading.CounterOfferPlayer, new JoinNpcTradeOutgoingPacket(money, counterOffers) );
 
             return Promise.Completed;
         }
 
-        private int SumMoney(IContainer parent)
+        private ulong SumMoney(IContainer parent)
         {
-            int sum = 0;
+            ulong sum = 0;
 
             foreach (Item content in parent.GetContents() )
             {
@@ -63,15 +63,15 @@ namespace OpenTibia.Game.Commands
 
                 if (content.Metadata.OpenTibiaId == crystalCoin)
                 {
-                    sum += ( (StackableItem)content).Count * 10000;
+                    sum += ( (StackableItem)content).Count * 10000ul;
                 }
                 else if (content.Metadata.OpenTibiaId == platinumCoin)
                 {
-                    sum += ( (StackableItem)content).Count * 100;
+                    sum += ( (StackableItem)content).Count * 100ul;
                 }
                 else if (content.Metadata.OpenTibiaId == goldCoin)
                 {
-                    sum += ( (StackableItem)content).Count * 1;
+                    sum += ( (StackableItem)content).Count * 1ul;
                 }
             }
 

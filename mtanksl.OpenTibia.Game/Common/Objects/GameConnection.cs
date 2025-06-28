@@ -117,7 +117,9 @@ namespace OpenTibia.Common
                     {
                         if (Client == null || Client.Player == null || Client.Player.Tile == null || Client.Player.IsDestroyed)
                         {
-							if (identification != 0x87)
+							if (identification != 0x87 && // CloseContainerIncomingPacket
+                                identification != 0x1D // PingIncomingPacket 
+                               )
 							{
 								Disconnect();
 							}

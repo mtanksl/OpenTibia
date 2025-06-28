@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.IO;
 using System.Collections.Generic;
 
@@ -6,14 +7,14 @@ namespace OpenTibia.Network.Packets.Outgoing
 {
     public class JoinNpcTradeOutgoingPacket : IOutgoingPacket
     {
-        public JoinNpcTradeOutgoingPacket(uint money, List<CounterOfferDto> offers)
+        public JoinNpcTradeOutgoingPacket(ulong money, List<CounterOfferDto> offers)
         {
             this.Money = money;
 
             this.Offers = offers;
         }
 
-        public uint Money { get; set; }
+        public ulong Money { get; set; }
 
         private List<CounterOfferDto> offers;
 
@@ -33,7 +34,14 @@ namespace OpenTibia.Network.Packets.Outgoing
         {
             writer.Write( (byte)0x7B );
 
-            writer.Write(Money);
+            if (features.HasFeatureFlag(FeatureFlag.JoinNpcTradeU64) )
+            {
+                writer.Write(Money);
+            }
+            else
+            {
+                writer.Write( (uint)Money);
+            }
 
             writer.Write( (byte)Offers.Count );
 
