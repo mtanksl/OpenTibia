@@ -773,7 +773,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 				}
 			} ) );
 
-            // 0x8D - LookInBattleListIncomingPacket
+			gameCommands.Add(0x8D, new PacketToCommand<LookInBattleListIncomingPacket>("Look Creature Battle List", (connection, packet) => new ParseLookInBattleListCommand(connection.Client.Player, packet.CreatureId) ) );
 
             // 0x8E - JoinAggresionIncomingPacket
 
@@ -1051,7 +1051,9 @@ namespace OpenTibia.Game.Common.ServerObjects
 			gameAccountManagerCommands.Add(0x8A, new PacketToCommand<EditListDialogIncomingPacket>("Edit List Dialog", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
             
 			gameAccountManagerCommands.Add(0x8C, new PacketToCommand<LookIncomingPacket>("Look", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
-            
+
+            gameAccountManagerCommands.Add(0x8D, new PacketToCommand<LookInBattleListIncomingPacket>("Look Creature Battle List", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
+
 			gameAccountManagerCommands.Add(0x96, new PacketToCommand<TalkIncomingPacket>("Talk", (connection, packet) => new ParseTalkSayCommand(connection.Client.Player, packet.Message) ) );
             
 			gameAccountManagerCommands.Add(0x97, new PacketToCommand<OpenNewChannelIncomingPacket>("Open New Channel", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );

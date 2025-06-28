@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.IO;
 
 namespace OpenTibia.Network.Packets.Outgoing
@@ -23,6 +24,13 @@ namespace OpenTibia.Network.Packets.Outgoing
             writer.Write(ChannelId);
 
             writer.Write(Name);
+
+            if (features.HasFeatureFlag(FeatureFlag.ChannelPlayerList) )
+            {
+                writer.Write( (ushort)0 ); //TODO: FeatureFlag.ChannelPlayerList, count and names
+
+                writer.Write( (ushort)0 ); //TODO: FeatureFlag.ChannelPlayerList, count and names
+            }
         }
     }
 }
