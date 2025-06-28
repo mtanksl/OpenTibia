@@ -495,3 +495,15 @@ UPDATE "Players" SET "BaseOutfitMount" = 0
 WHERE "Id" = 5;
 
 COMMIT;
+
+--
+
+START TRANSACTION;
+
+ALTER TABLE "PlayerVips" ADD "Description" text;
+
+ALTER TABLE "PlayerVips" ADD "IconId" integer NOT NULL DEFAULT 0;
+
+ALTER TABLE "PlayerVips" ADD "NotifyLogin" boolean NOT NULL DEFAULT FALSE;
+
+COMMIT;

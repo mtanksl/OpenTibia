@@ -1,7 +1,6 @@
 ﻿using OpenTibia.IO;
 using System.Collections.Generic;
 using System.Drawing;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace OpenTibia.FileFormats.Pic
 {

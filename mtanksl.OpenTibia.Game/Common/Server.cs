@@ -172,7 +172,7 @@ namespace OpenTibia.Game.Common
         {
             get
             {
-                return new Version(1, 8);
+                return new Version(1, 9);
             }
         }
 

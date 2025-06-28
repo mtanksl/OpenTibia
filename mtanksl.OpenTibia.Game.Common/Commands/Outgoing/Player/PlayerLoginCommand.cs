@@ -52,7 +52,9 @@ namespace OpenTibia.Game.Commands
             
             foreach (var pair in Player.Vips.GetIndexed() )
             {
-                Context.AddPacket(Player, new VipOutgoingPacket( (uint)pair.Key, pair.Value, null, 10, true, Context.Server.GameObjects.GetPlayerByName(pair.Value) != null) );
+                var vip = pair.Value;
+
+                Context.AddPacket(Player, new VipOutgoingPacket( (uint)pair.Key, vip.Name, vip.Description, vip.IconId, vip.NotifyLogin, Context.Server.GameObjects.GetPlayerByName(vip.Name) != null) );
             }
 
             if (Context.Server.Features.HasFeatureFlag(FeatureFlag.PlayerBasicData) )

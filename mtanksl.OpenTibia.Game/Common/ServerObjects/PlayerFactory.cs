@@ -5,6 +5,7 @@ using OpenTibia.Game.GameObjectScripts;
 using OpenTibia.Game.Plugins;
 using System;
 using System.Linq;
+using static OpenTibia.Common.Objects.PlayerVipCollection;
 
 namespace OpenTibia.Game.Common.ServerObjects
 {
@@ -382,7 +383,16 @@ namespace OpenTibia.Game.Common.ServerObjects
         {
             foreach (var dbPlayerVip in dbPlayer.PlayerVips)
             {
-                player.Vips.AddVip(dbPlayerVip.Vip.Id, dbPlayerVip.Vip.Name);
+                player.Vips.AddVip(dbPlayerVip.Vip.Id, new Vip()
+                {
+                    Name = dbPlayerVip.Vip.Name,
+
+                    Description = dbPlayerVip.Description,
+
+                    IconId = (uint)dbPlayerVip.IconId,
+
+                    NotifyLogin = dbPlayerVip.NotifyLogin
+                } );
             }
         }
 
@@ -695,7 +705,13 @@ namespace OpenTibia.Game.Common.ServerObjects
                 {
                     PlayerId = dbPlayer.Id,
 
-                    VipId = pair.Key
+                    VipId = pair.Key,
+                    
+                    Description= pair.Value.Description,
+
+                    IconId = (int)pair.Value.IconId,
+
+                    NotifyLogin = pair.Value.NotifyLogin
                 } );
             }
         }

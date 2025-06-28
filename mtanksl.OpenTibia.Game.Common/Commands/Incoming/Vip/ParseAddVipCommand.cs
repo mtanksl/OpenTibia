@@ -1,22 +1,24 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Data.Models;
 using OpenTibia.Game.Common;
+using OpenTibia.Network.Packets.Incoming;
 using OpenTibia.Network.Packets.Outgoing;
+using static OpenTibia.Common.Objects.PlayerVipCollection;
 
 namespace OpenTibia.Game.Commands
 {
     public class ParseAddVipCommand : IncomingCommand
     {
-        public ParseAddVipCommand(Player player, string name)
+        public ParseAddVipCommand(Player player, AddVipIncomingPacket packet)
         {
             Player = player;
 
-            Name = name;
+            Packet = packet;
         }
 
         public Player Player { get; set; }
 
-        public string Name { get; set; }
+        public AddVipIncomingPacket Packet { get; set; }
 
         public override async Promise Execute()
         {
@@ -26,15 +28,24 @@ namespace OpenTibia.Game.Commands
             {
                 using (var database = Context.Server.DatabaseFactory.Create() )
                 {
-                    DbPlayer dbPlayer = await database.PlayerRepository.GetPlayerByName(Name);
+                    DbPlayer dbPlayer = await database.PlayerRepository.GetPlayerByName(Packet.Name);
 
                     if (dbPlayer != null && dbPlayer.Id != Player.DatabasePlayerId)
                     {
-                        if (Player.Vips.AddVip(dbPlayer.Id, dbPlayer.Name) )
+                        Vip vip = new Vip()
                         {
-                            //TODO: FeatureFlag.AdditionalVipInfo
+                            Name = dbPlayer.Name,
 
-                            Context.AddPacket(Player, new VipOutgoingPacket( (uint)dbPlayer.Id, dbPlayer.Name, null, 10, true, Context.Server.GameObjects.GetPlayerByName(dbPlayer.Name) != null) );
+                            Description = null,
+
+                            IconId = 10,
+
+                            NotifyLogin = true
+                        };
+
+                        if (Player.Vips.AddVip(dbPlayer.Id, vip) )
+                        {
+                            Context.AddPacket(Player, new VipOutgoingPacket( (uint)dbPlayer.Id, vip.Name, vip.Description, vip.IconId, vip.NotifyLogin, Context.Server.GameObjects.GetPlayerByName(dbPlayer.Name) != null) );
 
                             await Promise.Completed; return;
                         }

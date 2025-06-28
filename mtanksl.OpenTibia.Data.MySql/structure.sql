@@ -437,3 +437,15 @@ UPDATE `Players` SET `BaseOutfitMount` = 0
 WHERE `Id` = 5;
 
 COMMIT;
+
+--
+
+START TRANSACTION;
+
+ALTER TABLE `PlayerVips` ADD `Description` longtext CHARACTER SET utf8mb4 NULL;
+
+ALTER TABLE `PlayerVips` ADD `IconId` int NOT NULL DEFAULT 0;
+
+ALTER TABLE `PlayerVips` ADD `NotifyLogin` tinyint(1) NOT NULL DEFAULT FALSE;
+
+COMMIT;

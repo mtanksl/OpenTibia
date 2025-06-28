@@ -4,7 +4,18 @@ namespace OpenTibia.Common.Objects
 {
     public class PlayerVipCollection
     {
-        private Dictionary<int, string> vips = new Dictionary<int, string>();
+        public class Vip
+        {
+            public string Name { get; set; }
+
+            public string Description { get; set; }
+
+            public uint IconId { get; set; }
+
+            public bool NotifyLogin { get; set; }
+        }
+
+        private Dictionary<int, Vip> vips = new Dictionary<int, Vip>();
 
         public int Count
         {
@@ -14,16 +25,16 @@ namespace OpenTibia.Common.Objects
             }
         }
 
-        public bool TryGetVip(int databasePlayerId, out string name)
+        public bool TryGetVip(int databasePlayerId, out Vip vip)
         {
-            return vips.TryGetValue(databasePlayerId, out name);
+            return vips.TryGetValue(databasePlayerId, out vip);
         }
 
-        public bool AddVip(int databasePlayerId, string name)
+        public bool AddVip(int databasePlayerId, Vip vip)
         {
             if ( !vips.ContainsKey(databasePlayerId) )
             {
-                vips.Add(databasePlayerId, name);
+                vips.Add(databasePlayerId, vip);
 
                 return true;
             }
@@ -36,11 +47,11 @@ namespace OpenTibia.Common.Objects
             vips.Remove(databasePlayerId);
         }
 
-        public IEnumerable< KeyValuePair<int, string> > GetIndexed()
+        public IEnumerable< KeyValuePair<int, Vip> > GetIndexed()
         {
-            foreach (var item in vips)
+            foreach (var vip in vips)
             {
-                yield return item;
+                yield return vip;
             }
         }
     }

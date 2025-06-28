@@ -90,15 +90,15 @@ namespace OpenTibia.Game.Common.ServerObjects
 				featureFlags.Add(FeatureFlag.QuestLog);
             }
 
-			if (clientVersion >= 820)
-			{
-                featureFlags.Add(FeatureFlag.NpcsChannel);
-			}
-
             if (clientVersion >= 810) 
 			{
 				featureFlags.Add(FeatureFlag.SpeedFactor);
             }
+
+			if (clientVersion >= 820)
+			{
+                featureFlags.Add(FeatureFlag.NpcsChannel);
+			}
 
             if (clientVersion >= 840) 
 			{
@@ -190,7 +190,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
 			if (clientVersion >= 963) 
 			{
-				featureFlags.Add(FeatureFlag.AdditionalVipInfo); // TODO: Implement
+				featureFlags.Add(FeatureFlag.AdditionalVipInfo);
             }
 
 			if (clientVersion >= 980) 
@@ -926,13 +926,13 @@ namespace OpenTibia.Game.Common.ServerObjects
 				gameCommands.Add(0xD4, new PacketToCommand<MountIncomingPacket>("Mount", (connection, packet) => new ParseMountCommand(connection.Client.Player, packet.IsMounted) ) );
 			}
 
-			gameCommands.Add(0xDC, new PacketToCommand<AddVipIncomingPacket>("Add Vip", (connection, packet) => new ParseAddVipCommand(connection.Client.Player, packet.Name) ) );
+			gameCommands.Add(0xDC, new PacketToCommand<AddVipIncomingPacket>("Add Vip", (connection, packet) => new ParseAddVipCommand(connection.Client.Player, packet) ) );
 			
-			gameCommands.Add(0xDD, new PacketToCommand<RemoveVipIncomingPacket>("Remove Vip", (connection, packet) => new ParseRemoveVipCommand(connection.Client.Player, packet.CreatureId) ) );
+			gameCommands.Add(0xDD, new PacketToCommand<RemoveVipIncomingPacket>("Remove Vip", (connection, packet) => new ParseRemoveVipCommand(connection.Client.Player, packet) ) );
 			
 			if (HasFeatureFlag(FeatureFlag.AdditionalVipInfo) )
 			{
-                gameCommands.Add(0xDE, new PacketToCommand<UpdateVipIncomingPacket>("Update Vip", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
+                gameCommands.Add(0xDE, new PacketToCommand<UpdateVipIncomingPacket>("Update Vip", (connection, packet) => new ParseUpdateVipCommand(connection.Client.Player, packet) ) );
             }
 
 			gameCommands.Add(0xE6, new PacketToCommand<ReportBugIncomingPacket>("Report Bug", (connection, packet) => new ParseReportBugCommand(connection.Client.Player, packet.Message) ) );

@@ -6,6 +6,12 @@
 
         public int VipId { get; set; }
 
+        public string Description { get; set; }
+
+        public int IconId { get; set; }
+
+        public bool NotifyLogin { get; set; }
+
 
         public DbPlayer Player { get; set; }
 

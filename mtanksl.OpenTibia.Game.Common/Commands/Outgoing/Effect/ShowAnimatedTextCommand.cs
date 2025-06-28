@@ -79,6 +79,8 @@ namespace OpenTibia.Game.Commands
                 }
                 else
                 {
+                    //TODO: FeatureFlag.ConsoleMessageOtherCreatures
+
                     if (AnimatedTextColor == AnimatedTextColor.White)
                     {
                         showAnimatedTextOutgoingPacket = new ShowWindowTextOutgoingPacket(MessageMode.Exp, Position, Value, AnimatedTextColor, Value.ToString() );

@@ -7,7 +7,7 @@ namespace OpenTibia.Common.Objects
 {
     public class PlayerCombatCollection
     {
-        public class kill
+        public class Kill
         {
             public int Id { get; set; }
 
@@ -48,7 +48,7 @@ namespace OpenTibia.Common.Objects
             }
         }
 
-        private List<kill> kills = new List<kill>();
+        private List<Kill> kills = new List<Kill>();
 
         public int CountKills
         {
@@ -60,7 +60,7 @@ namespace OpenTibia.Common.Objects
 
         public void AddKill(int id, int databasePlayerId, bool unjustified, DateTime creationDate)
         {
-            kills.Add(new kill()
+            kills.Add(new Kill()
             {
                 Id = id,
 
@@ -77,7 +77,7 @@ namespace OpenTibia.Common.Objects
             }
         }
 
-        public IEnumerable<kill> GetKills()
+        public IEnumerable<Kill> GetKills()
         {
             return kills;
         }

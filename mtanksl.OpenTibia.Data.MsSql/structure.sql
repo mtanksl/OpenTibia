@@ -572,3 +572,20 @@ GO
 
 COMMIT;
 GO
+
+--
+
+BEGIN TRANSACTION;
+GO
+
+ALTER TABLE [PlayerVips] ADD [Description] nvarchar(max) NULL;
+GO
+
+ALTER TABLE [PlayerVips] ADD [IconId] int NOT NULL DEFAULT 0;
+GO
+
+ALTER TABLE [PlayerVips] ADD [NotifyLogin] bit NOT NULL DEFAULT CAST(0 AS bit);
+GO
+
+COMMIT;
+GO
