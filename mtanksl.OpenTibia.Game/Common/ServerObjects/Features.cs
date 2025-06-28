@@ -1222,6 +1222,13 @@ namespace OpenTibia.Game.Common.ServerObjects
                     magicEffectType =  MagicEffectType.Puff;
                 }
             }
+			else if (clientVersion < 986)
+			{
+				if (magicEffectType >= MagicEffectType.OrcChaman)
+                {
+                    magicEffectType =  MagicEffectType.Puff;
+                }
+			}
 
             //TODO: Support other versions
 
@@ -1237,7 +1244,14 @@ namespace OpenTibia.Game.Common.ServerObjects
                     projectileType = ProjectileType.Spear;
                 }
             }
-            
+			else if (clientVersion < 986)
+            {
+                if (projectileType >= ProjectileType.Cake)
+                {
+                    projectileType = ProjectileType.Spear;
+                }
+            }
+
             //TODO: Support other versions
 
             return (byte)projectileType;

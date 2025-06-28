@@ -176,7 +176,14 @@ magiceffecttype = {
 	bats = 67,
 	smoke = 68,
 	insects = 69,
-	dragonhead = 70
+	dragonhead = 70,
+	orcchaman = 71,
+	orcchamanfire = 72,
+	thunder = 73,
+	ferumbras = 74,
+	confettihorizontal = 75,
+	confettivertical = 76,
+	blacksmoke = 158
 }
 
 marker = {
@@ -313,7 +320,13 @@ projectiletype = {
 	earthsmall = 39,
 	eartharrow = 40,
 	explosion = 41,
-	cake = 42
+	cake = 42,
+	tarsalarrow = 44,
+	vortexbolt = 45,
+	prismaticbolt = 48,
+	crystallinearrow = 49,
+	drillbolt = 50,
+	envenomedarrow = 51
 }
 
 rank = {

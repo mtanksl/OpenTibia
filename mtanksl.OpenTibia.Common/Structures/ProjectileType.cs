@@ -84,6 +84,18 @@
 
         Explosion = 41,
 
-        Cake = 42
+        Cake = 42,
+
+        TarsalArrow = 44,
+
+        VortexBolt = 45,
+
+        PrismaticBolt = 48,
+
+        CrystallineArrow = 49,
+
+        DrillBolt = 50,
+
+        EnvenomedArrow = 51
     }
 }

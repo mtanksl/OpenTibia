@@ -11,7 +11,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             int id;
 
-            if (command.Message.StartsWith("/me ") && int.TryParse(command.Message.Substring(4), out id) && id >= 1 && id <= 70)
+            if (command.Message.StartsWith("/me ") && int.TryParse(command.Message.Substring(4), out id) && id >= 1 && id <= 76)
             {
                 return Context.AddCommand(new ShowMagicEffectCommand(command.Player, (MagicEffectType)id) );
             }

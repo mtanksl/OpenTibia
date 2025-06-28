@@ -179,6 +179,20 @@
 
         Insects = 69,
 
-        DragonHead = 70
+        DragonHead = 70,
+
+        OrcChaman = 71,
+
+        OrcChamanFire = 72,
+
+        Thunder = 73,
+
+        Ferumbras = 74,
+
+        ConfettiHorizontal = 75,
+
+        ConfettiVertical = 76,
+
+        BlackSmoke = 158
     }
 }

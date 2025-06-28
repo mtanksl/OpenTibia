@@ -13,7 +13,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             int id;
 
-            if (command.Message.StartsWith("/pe ") && int.TryParse(command.Message.Substring(4), out id) && id >= 1 && id <= 42)
+            if (command.Message.StartsWith("/pe ") && int.TryParse(command.Message.Substring(4), out id) && id >= 1 && id <= 51)
             {
                 Tile fromTile = command.Player.Tile;
 
