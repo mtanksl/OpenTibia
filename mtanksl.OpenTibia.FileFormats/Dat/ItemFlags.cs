@@ -49,7 +49,11 @@ namespace OpenTibia.FileFormats.Dat
 
         SolidGround = 2097152,
 
-        LookThrough = 4194304
+        LookThrough = 4194304,
+
+        Wrappable = 8388608,
+
+        Unwrappable = 16777216
     }
 
     public static class ItemFlagsExtensions

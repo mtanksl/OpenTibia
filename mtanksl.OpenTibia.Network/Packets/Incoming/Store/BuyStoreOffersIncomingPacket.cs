@@ -3,11 +3,11 @@ using OpenTibia.IO;
 
 namespace OpenTibia.Network.Packets.Incoming
 {
-    public class MarketAcceptOfferIncomingPacket : IIncomingPacket
+    public class BuyStoreOffersIncomingPacket : IIncomingPacket
     {
         public void Read(IByteArrayStreamReader reader, IHasFeatureFlag features)
         {
-            //TODO: FeatureFlag.PlayerMarket
+            //TODO: FeatureFlag.IngameStore
         }
     }
 }

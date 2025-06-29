@@ -135,7 +135,7 @@ namespace OpenTibia.IO
             {
                 writer.Write( (byte)0xFF); //TODO: FeatureFlag.ThingMarks, 0xFF = Unmarked
 
-                writer.Write( (ushort)0x00); //TODO: FeatureFlag.ThingMarks, helpers
+                writer.Write( (ushort)0); //TODO: FeatureFlag.ThingMarks, helpers
             }
 
             if (features.HasFeatureFlag(FeatureFlag.CreatureBlock) )
@@ -204,7 +204,7 @@ namespace OpenTibia.IO
             {
                 writer.Write( (byte)0xFF); //TODO: FeatureFlag.ThingMarks, 0xFF = Unmarked
 
-                writer.Write( (ushort)0x00); //TODO: FeatureFlag.ThingMarks, helpers
+                writer.Write( (ushort)0); //TODO: FeatureFlag.ThingMarks, helpers
             }
 
             if (features.HasFeatureFlag(FeatureFlag.CreatureBlock) )

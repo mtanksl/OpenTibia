@@ -588,6 +588,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 			
 			gameCommands.Add(0x72, new PacketToCommand<TurnWestIncomingPacket>("Turn West", (connection, packet) => new ParseTurnCommand(connection.Client.Player, packet.Direction) ) );
 			
+			// 0x77 - EquipObjectIncomingPacket
+
 			gameCommands.Add(0x78, new PacketToCommand<MoveItemIncomingPacket>("Move Item", (connection, packet) => 
 			{
 				Position fromPosition = new Position(packet.FromX, packet.FromY, packet.FromZ);
@@ -820,6 +822,24 @@ namespace OpenTibia.Game.Common.ServerObjects
 			
 			gameCommands.Add(0x8A, new PacketToCommand<EditListDialogIncomingPacket>("Edit List Dialog", (connection, packet) => new ParseEditListDialogCommand(connection.Client.Player, packet.DoorId, packet.WindowId, packet.Text) ) );
 			
+			gameCommands.Add(0x8B, new PacketToCommand<WrapItemIncomingPacket>("Wrap Item", (connection, packet) =>
+			{
+				Position fromPosition = new Position(packet.X, packet.Y, packet.Z);
+
+				if (fromPosition.IsContainer)
+				{
+					return new ParseWrapItemFromContainerCommand(connection.Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.TibiaId);
+				}
+				else if (fromPosition.IsInventory)
+				{
+					return new ParseWrapItemFromInventoryCommand(connection.Client.Player, fromPosition.InventoryIndex, packet.TibiaId);
+				}
+				else
+				{
+					return new ParseWrapItemFromTileCommand(connection.Client.Player, fromPosition, packet.Index, packet.TibiaId);
+				}
+			} ) );
+
 			gameCommands.Add(0x8C, new PacketToCommand<LookIncomingPacket>("Look", (connection, packet) =>
 			{
 				Position fromPosition = new Position(packet.X, packet.Y, packet.Z);
@@ -1006,6 +1026,8 @@ namespace OpenTibia.Game.Common.ServerObjects
                 gameCommands.Add(0xDE, new PacketToCommand<UpdateVipIncomingPacket>("Update Vip", (connection, packet) => new ParseUpdateVipCommand(connection.Client.Player, packet) ) );
             }
 
+			// 0xE7 - ThankYouIncomingPacket
+
 			gameCommands.Add(0xE6, new PacketToCommand<ReportBugIncomingPacket>("Report Bug", (connection, packet) => new ParseReportBugCommand(connection.Client.Player, packet.Message) ) );
 			
 			gameCommands.Add(0xE8, new PacketToCommand<DebugAssertIncomingPacket>("Debug Assert", (connection, packet) => new ParseDebugAssertCommand(connection.Client.Player, packet.AssertLine, packet.ReportDate, packet.Description, packet.Comment) ) );
@@ -1019,10 +1041,10 @@ namespace OpenTibia.Game.Common.ServerObjects
 			
 			gameCommands.Add(0xF2, new PacketToCommand<ReportRuleViolationIncomingPacket>("Report Rule Violation", (connection, packet) => new ParseReportRuleViolationCommand(connection.Client.Player, packet.Type, packet.RuleViolation, packet.Name, packet.Comment, packet.Translation, packet.StatmentId) ) );
 
+            // 0xF3 - GetObjectInfoIncomingPacket
+
             if (HasFeatureFlag(FeatureFlag.PlayerMarket) )
 			{
-                gameCommands.Add(0xF3, new PacketToCommand<GetObjectInfoIncomingPacket>("Get Object Info", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
-
 				gameCommands.Add(0xF4, new PacketToCommand<MarketLeaveIncomingPacket>("Market Leave", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
 
                 gameCommands.Add(0xF5, new PacketToCommand<MarketBrowseIncomingPacket>("Market Browse", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
@@ -1038,6 +1060,19 @@ namespace OpenTibia.Game.Common.ServerObjects
 			{
 				gameCommands.Add(0xF9, new PacketToCommand<ModalWindowAnswerIncomingPacket>("Modal Window Answer", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
             }
+
+            if (HasFeatureFlag(FeatureFlag.IngameStore) )
+			{
+				gameCommands.Add(0xFA, new PacketToCommand<OpenStoreIncomingPacket>("Open Store", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
+
+				gameCommands.Add(0xFB, new PacketToCommand<RequestStoreOffersIncomingPacket>("Request Store Offers", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
+
+                gameCommands.Add(0xFC, new PacketToCommand<BuyStoreOffersIncomingPacket>("Buy Store Offer", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
+
+                gameCommands.Add(0xFD, new PacketToCommand<OpenTransactionHistoryIncomingPacket>("Open Transaction History", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
+
+                gameCommands.Add(0xFE, new PacketToCommand<RequestTransactionHistoryIncomingPacket>("Request Transaction History", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
+			}
 
             if (HasFeatureFlag(FeatureFlag.LoginPending) )
 			{
@@ -1114,8 +1149,10 @@ namespace OpenTibia.Game.Common.ServerObjects
 			gameAccountManagerCommands.Add(0x89, new PacketToCommand<EditTextDialogIncomingPacket>("Edit Text Dialog", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
             
 			gameAccountManagerCommands.Add(0x8A, new PacketToCommand<EditListDialogIncomingPacket>("Edit List Dialog", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
-            
-			gameAccountManagerCommands.Add(0x8C, new PacketToCommand<LookIncomingPacket>("Look", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
+
+            gameAccountManagerCommands.Add(0x8B, new PacketToCommand<WrapItemIncomingPacket>("Wrap Item", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
+
+            gameAccountManagerCommands.Add(0x8C, new PacketToCommand<LookIncomingPacket>("Look", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
 
             gameAccountManagerCommands.Add(0x8D, new PacketToCommand<LookInBattleListIncomingPacket>("Look Creature Battle List", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
 
@@ -1216,8 +1253,6 @@ namespace OpenTibia.Game.Common.ServerObjects
          
 			if (HasFeatureFlag(FeatureFlag.PlayerMarket) )
 			{
-                gameAccountManagerCommands.Add(0xF3, new PacketToCommand<GetObjectInfoIncomingPacket>("Get Object Info", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
-
                 gameAccountManagerCommands.Add(0xF4, new PacketToCommand<MarketLeaveIncomingPacket>("Market Leave", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
 
                 gameAccountManagerCommands.Add(0xF5, new PacketToCommand<MarketBrowseIncomingPacket>("Market Browse", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
@@ -1233,6 +1268,19 @@ namespace OpenTibia.Game.Common.ServerObjects
 			{
                 gameAccountManagerCommands.Add(0xF9, new PacketToCommand<ModalWindowAnswerIncomingPacket>("Modal Window Answer", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
             }
+
+			if (HasFeatureFlag(FeatureFlag.IngameStore) )
+			{
+                gameAccountManagerCommands.Add(0xFA, new PacketToCommand<OpenStoreIncomingPacket>("Open Store", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
+
+                gameAccountManagerCommands.Add(0xFB, new PacketToCommand<RequestStoreOffersIncomingPacket>("Request Store Offers", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
+
+                gameAccountManagerCommands.Add(0xFC, new PacketToCommand<BuyStoreOffersIncomingPacket>("Buy Store Offer", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
+
+                gameAccountManagerCommands.Add(0xFD, new PacketToCommand<OpenTransactionHistoryIncomingPacket>("Open Transaction History", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
+
+                gameAccountManagerCommands.Add(0xFE, new PacketToCommand<RequestTransactionHistoryIncomingPacket>("Request Transaction History", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
+			}
 
 			infoFirstCommands.Add(0xFF, new PacketToCommand<InfoIncomingPacket>("Info", (connection, packet) => new ParseInfoProtocolCommand(connection, packet) ) );
          

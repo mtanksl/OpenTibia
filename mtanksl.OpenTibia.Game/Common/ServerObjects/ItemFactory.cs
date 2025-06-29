@@ -207,6 +207,16 @@ namespace OpenTibia.Game.Common.ServerObjects
                         metadata.Flags |= ItemMetadataFlags.IsAnimated;
                     }
 
+                    if (datItem.Flags.Is(ItemFlags.Wrappable) )
+                    {
+                        metadata.Flags |= ItemMetadataFlags.Wrappable;
+                    }
+
+                    if (datItem.Flags.Is(ItemFlags.Unwrappable) )
+                    {
+                        metadata.Flags |= ItemMetadataFlags.Unwrappable;
+                    }
+
                     metadata.GroundSpeed = datItem.Speed;
 
                     metadata.MaxWriteChars = datItem.MaxWriteChars;

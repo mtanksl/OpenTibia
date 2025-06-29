@@ -25,7 +25,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 
             if (features.HasFeatureFlag(FeatureFlag.ContainerPagination) )
             {
-                writer.Write( (ushort)0x00); //TODO: FeatureFlag.ContainerPagination, index
+                writer.Write( (ushort)0); //TODO: FeatureFlag.ContainerPagination, index
             }
 
             writer.Write(features, Item);

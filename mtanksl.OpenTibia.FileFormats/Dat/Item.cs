@@ -244,7 +244,17 @@ namespace OpenTibia.FileFormats.Dat
                         break;
 
                     case DatAttribute.Wrappable:
+
+                        item.Flags |= ItemFlags.Wrappable;
+
+                        break;
+
                     case DatAttribute.Unwrappable:
+
+                        item.Flags |= ItemFlags.Unwrappable;
+
+                        break;
+
                     case DatAttribute.TopEffect:
                     case DatAttribute.NoMoveAnimation:
 

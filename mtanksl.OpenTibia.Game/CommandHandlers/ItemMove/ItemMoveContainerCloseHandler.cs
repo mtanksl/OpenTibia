@@ -161,7 +161,7 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         //TODO: FeatureFlag.ContainerPagination
 
-                        Context.AddPacket(observer, new OpenContainerOutgoingPacket(pair.Key, container.Metadata.TibiaId, container.Metadata.Name, container.Metadata.Capacity.Value, container.Parent is Container, true, false, 0, container.GetItems().ToList() ) );
+                        Context.AddPacket(observer, new OpenContainerOutgoingPacket(pair.Key, container, container.Metadata.Name, container.Metadata.Capacity.Value, container.Parent is Container, true, false, 0, container.GetItems().ToList() ) );
                     }
                 }
             }

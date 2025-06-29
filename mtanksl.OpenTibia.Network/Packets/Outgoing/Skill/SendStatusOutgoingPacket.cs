@@ -159,17 +159,17 @@ namespace OpenTibia.Network.Packets.Outgoing
 
             if (features.HasFeatureFlag(FeatureFlag.PlayerRegenerationTime) )
             {
-                writer.Write( (ushort)0 ); //TODO: FeatureFlag.PlayerRegenerationTime
+                writer.Write( (ushort)0); //TODO: FeatureFlag.PlayerRegenerationTime
             }
 
             if (features.HasFeatureFlag(FeatureFlag.OfflineTrainingTime) )
             {
-                writer.Write( (ushort)0 ); //TODO: FeatureFlag.OfflineTrainingTime
+                writer.Write( (ushort)0); //TODO: FeatureFlag.OfflineTrainingTime
             }
 
             if (features.HasFeatureFlag(FeatureFlag.ShowExperienceGainRateCalculation) )
             {
-                writer.Write( (ushort)0 ); //TODO: FeatureFlag.ShowExperienceGainRateCalculation, remaining store xp boost seconds
+                writer.Write( (ushort)0); //TODO: FeatureFlag.ShowExperienceGainRateCalculation, remaining store xp boost seconds
 
                 writer.Write(false); //TODO: FeatureFlag.ShowExperienceGainRateCalculation, can buy more xp boosts
             }

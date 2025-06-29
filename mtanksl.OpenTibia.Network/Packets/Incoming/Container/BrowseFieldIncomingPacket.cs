@@ -7,7 +7,7 @@ namespace OpenTibia.Network.Packets.Incoming
     {
         public void Read(IByteArrayStreamReader reader, IHasFeatureFlag features)
         {
-            //TODO
+            //TODO: FeatureFlag.BrowseField
         }
     }
 }

@@ -40,7 +40,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     //TODO: FeatureFlag.ContainerPagination
 
-                    Context.AddPacket(command.Player, new OpenContainerOutgoingPacket(command.ContainerId.Value, container.Metadata.TibiaId, container.Metadata.Name, container.Metadata.Capacity.Value, container.Parent is Container, true, false, 0, container.GetItems().ToList() ) );
+                    Context.AddPacket(command.Player, new OpenContainerOutgoingPacket(command.ContainerId.Value, container, container.Metadata.Name, container.Metadata.Capacity.Value, container.Parent is Container, true, false, 0, container.GetItems().ToList() ) );
                 }               
 
                 return Promise.Completed;

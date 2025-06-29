@@ -31,7 +31,7 @@ namespace OpenTibia.Network.Packets.Outgoing
             {
                 writer.Write( (ushort)Index);
 
-                writer.Write( (ushort)0x00); //TODO: FeatureFlag.ContainerPagination, last item
+                writer.Write( (ushort)0); //TODO: FeatureFlag.ContainerPagination, last item
             }
         }
     }

@@ -7,11 +7,11 @@ namespace OpenTibia.Network.Packets.Outgoing
 {
     public class OpenContainerOutgoingPacket : IOutgoingPacket
     {
-        public OpenContainerOutgoingPacket(byte containerId, ushort tibiaId, string name, byte capacity, bool hasParent, bool isUnlocked, bool hasPages, ushort firstIndex, List<Item> items)
+        public OpenContainerOutgoingPacket(byte containerId, Container container, string name, byte capacity, bool hasParent, bool isUnlocked, bool hasPages, ushort firstIndex, List<Item> items)
         {
             this.ContainerId = containerId;
 
-            this.TibiaId = tibiaId;
+            this.Container = container;
 
             this.Name = name;
 
@@ -30,7 +30,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 
         public byte ContainerId { get; set; }
 
-        public ushort TibiaId { get; set; }
+        public Container Container { get; set; }
 
         public string Name { get; set; }
 
@@ -64,7 +64,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 
             writer.Write(ContainerId);
 
-            writer.Write(TibiaId);
+            writer.Write(features, Container);
 
             writer.Write(Name);
 
