@@ -6,11 +6,6 @@
 	- Summon
 	- Convince
 - Bed
-- Stamina (7.80)
-- Market (9.40)
-- Purse (9.54)
-- Offline training (9.60)
-- Browse Field (9.84)
 - Guild
 - Party spells (Enchant Party, Heal Party, Protect Party, Train Party)
 - Party shared experience
@@ -18,9 +13,15 @@
 - Add missing 8.60 monsters: Acolyte of Darkness, Amarie, Armenius, Arthei, Azerus, Bane of Light, Boreth, Bride of Night, Cublarc the Plunderer, Doomsday Cultist, Dreadmaw, Duskbringer, Eclipse Knight, Enraged Brrokworm, Flamecaller Zazrak, Fleabringer, Ghostly Apparition, Gloombringer, Grodrik, Harbinder of Darkness, Hatebreeder, Lersatio, Marzie, Mutated Zalamon, Nightslayer, Pythius the Rotten, Samael, Servant Golem, Shadow of Lersatio, Shadow of Marziel, Sjadow of Boreth, The Keeper, Weak spawn of Despair, Wrath of Emperor, Yalahari
 - Add missing 8.60 monster corpses: Lizard Abomination, Snake God Essence
 - Configure monster loots and attacks
+- Stamina (7.80)
+- Market (9.40)
+- Purse (9.54)
+- Offline training (9.60)
+- Browse Field (9.84)
 - Add 8.70, 9.86 and 10.98 monsters
 - Add 8.70, 9.86 and 10.98 items
-  
+- The following feature flags are not fully implemented. They work, but as a placeholder: ConsoleMessageOtherCreatures, ItemAnimationPhase, ChannelPlayerList, PlayerRegenerationTime, OfflineTrainingTime, EnvironmentEffect,  PlayerBasicData, ContainerPagination
+
 # Done (or good enough for now)
 
 - Tibia and Open Tibia's file format interpreters (.dat, .otb, .otbm, .pic, .spr)
