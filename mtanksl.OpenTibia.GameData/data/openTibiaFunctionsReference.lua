@@ -48,6 +48,13 @@ return {
 		args = "(uint? id, ushort? uniqueid, ushort? actionid, ushort? opentibiaid, Func<Player, Item, bool> onrotateitem)",
 		returns = "void"
 	},
+	-- void registeractionsplayerwrapitem(uint? id, ushort? uniqueid, ushort? actionid, ushort? opentibiaid, Func<Player, Item, bool> onwrapitem)
+	registeractionsplayerwrapitem = {
+		type = "function",
+		description = "",
+		args = "(uint? id, ushort? uniqueid, ushort? actionid, ushort? opentibiaid, Func<Player, Item, bool> onwrapitem)",
+		returns = "void"
+	},
 	-- void registeractionsplayeruseitem(uint? id, ushort? uniqueid, ushort? actionid, ushort? opentibiaid, Func<Player, Item, bool> onuseitem)
 	registeractionsplayeruseitem = {
 		type = "function",

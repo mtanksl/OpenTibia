@@ -1,6 +1,7 @@
 ﻿plugins = {
 	actions = {
 		-- { type = "PlayerRotateItem", opentibiaid = 1740, filename = "rotate item.lua" },
+		-- { type = "PlayerWrapItem", opentibiaid = 1740, filename = "wrap item.lua" },
 		-- { type = "PlayerUseItem", opentibiaid = 1740, filename = "use item.lua" },
 		-- { type = "PlayerUseItemWithItem", opentibiaid = 2580, allowfaruse = true, filename = "use item with item.lua" },
 		-- { type = "PlayerUseItemWithCreature", opentibiaid = 2580, allowfaruse = true, filename = "use item with creature.lua" },

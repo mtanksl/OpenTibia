@@ -518,6 +518,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             this.playerRotateItemPlugins = new ItemPluginDictionaryCached<PlayerRotateItemPlugin, LuaScriptingPlayerRotateItemPlugin>(server);
 
+            this.playerWrapItemPlugins = new ItemPluginDictionaryCached<PlayerWrapItemPlugin, LuaScriptingPlayerWrapItemPlugin>(server);
+
             this.playerUseItemPlugins = new ItemPluginDictionaryCached<PlayerUseItemPlugin, LuaScriptingPlayerUseItemPlugin>(server);
 
             this.playerUseItemWithItemPluginsAllowFarUse = new ItemPluginDictionaryCached<PlayerUseItemWithItemPlugin, LuaScriptingPlayerUseItemWithItemPlugin>(server); this.playerUseItemWithItemPlugins = new ItemPluginDictionaryCached<PlayerUseItemWithItemPlugin, LuaScriptingPlayerUseItemWithItemPlugin>(server);
@@ -694,6 +696,12 @@ namespace OpenTibia.Game.Common.ServerObjects
                 case "PlayerRotateItem":
                 {
                     playerRotateItemPlugins.AddPlugin(LuaScope.GetNullableUInt32(parameters["id"] ), LuaScope.GetNullableUInt16(parameters["uniqueid"] ), LuaScope.GetNullableUInt16(parameters["actionid"] ), LuaScope.GetNullableUInt16(parameters["opentibiaid"] ), fileName, script, parameters);
+                }
+                break;
+
+                case "PlayerWrapItem":
+                {
+                    playerWrapItemPlugins.AddPlugin(LuaScope.GetNullableUInt32(parameters["id"] ), LuaScope.GetNullableUInt16(parameters["uniqueid"] ), LuaScope.GetNullableUInt16(parameters["actionid"] ), LuaScope.GetNullableUInt16(parameters["opentibiaid"] ), fileName, script, parameters);
                 }
                 break;
 
@@ -1107,6 +1115,13 @@ namespace OpenTibia.Game.Common.ServerObjects
             return playerRotateItemPlugins.GetPlugin(item);
         }
 
+        private ItemPluginDictionaryCached<PlayerWrapItemPlugin, LuaScriptingPlayerWrapItemPlugin> playerWrapItemPlugins;
+
+        public PlayerWrapItemPlugin GetPlayerWrapItemPlugin(Item item)
+        {
+            return playerWrapItemPlugins.GetPlugin(item);
+        }
+
         private ItemPluginDictionaryCached<PlayerUseItemPlugin, LuaScriptingPlayerUseItemPlugin> playerUseItemPlugins;
 
         public PlayerUseItemPlugin GetPlayerUseItemPlugin(Item item)
@@ -1429,8 +1444,10 @@ namespace OpenTibia.Game.Common.ServerObjects
         {
             var pluginLists = new IEnumerable<Plugin>[]
             {
-                playerRotateItemPlugins.GetPlugins(),                  
-                   
+                playerRotateItemPlugins.GetPlugins(),     
+                
+                playerWrapItemPlugins.GetPlugins(),
+
                 playerUseItemPlugins.GetPlugins(),
 
                 playerUseItemWithCreaturePluginsAllowFarUse.GetPlugins(),

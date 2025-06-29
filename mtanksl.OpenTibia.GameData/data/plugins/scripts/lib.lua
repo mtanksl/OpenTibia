@@ -11,6 +11,17 @@ function registeractionsplayerrotateitem(id, uniqueid, actionid, opentibiaid, on
     } )
 end
 
+function registeractionsplayerwrapitem(id, uniqueid, actionid, opentibiaid, onwrapitem)
+    registerplugin("actions", {
+	    type = "PlayerWrapItem",
+	    id = id, 
+	    uniqueid = uniqueid, 
+	    actionid = actionid, 
+	    opentibiaid = opentibiaid, 
+	    onwrapitem = onwrapitem
+    } )
+end
+
 function registeractionsplayeruseitem(id, uniqueid, actionid, opentibiaid, onuseitem)
     registerplugin("actions", {
 	    type = "PlayerUseItem",

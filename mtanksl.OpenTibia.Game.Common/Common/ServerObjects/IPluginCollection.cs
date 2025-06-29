@@ -44,6 +44,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         PlayerRotateItemPlugin GetPlayerRotateItemPlugin(Item item);
 
+        PlayerWrapItemPlugin GetPlayerWrapItemPlugin(Item item);
+
         PlayerUseItemPlugin GetPlayerUseItemPlugin(Item item);
 
         PlayerUseItemWithItemPlugin GetPlayerUseItemWithItemPlugin(bool allowFarUse, Item item);

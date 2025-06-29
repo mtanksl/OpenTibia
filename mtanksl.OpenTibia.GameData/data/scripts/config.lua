@@ -20,6 +20,7 @@
     { filename = "OpenTibia.Game.Scripts.PlayerMoveCreatureScripts" },
     { filename = "OpenTibia.Game.Scripts.PlayerMoveItemScripts" },
     { filename = "OpenTibia.Game.Scripts.PlayerRotateItemScripts" },
+    { filename = "OpenTibia.Game.Scripts.PlayerWrapItemScripts" },
     { filename = "OpenTibia.Game.Scripts.PlayerSayScripts" },
     { filename = "OpenTibia.Game.Scripts.PlayerTradeWithScripts" },
     { filename = "OpenTibia.Game.Scripts.PlayerUseItemScripts" },
