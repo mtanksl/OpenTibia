@@ -249,7 +249,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
 			if (clientVersion >= 1053) 
 			{
-				featureFlags.Add(FeatureFlag.UnjustifiedPoints);
+				featureFlags.Add(FeatureFlag.UnjustifiedPoints); //TODO
 			}
 
 			if (clientVersion >= 1054)
@@ -260,7 +260,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
 			if (clientVersion >= 1055) 
 			{
-				featureFlags.Add(FeatureFlag.DeathType);
+				featureFlags.Add(FeatureFlag.DeathType); //TODO
 			}
 
 			if (clientVersion >= 1057) 
@@ -320,8 +320,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 
 			if (clientVersion >= 1094) 
 			{
-				featureFlags.Add(FeatureFlag.AdditionalSkills);
-			}
+				featureFlags.Add(FeatureFlag.AdditionalSkills); //TODO
+            }
 
 			if (clientVersion >= 1097) 
 			{

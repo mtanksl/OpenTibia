@@ -84,7 +84,7 @@ namespace OpenTibia.IO
             {
                 if (item.Metadata.Flags.Is(ItemMetadataFlags.IsAnimated) )
                 {
-                    writer.Write( (byte)0xFE); //TODO: FeatureFlag.ItemAnimationPhase, 0x00 = Automatic Phase, 0xFE = Random Phase, 0xFF = Async Phase
+                    writer.Write( (byte)0xFE); //TODO: FeatureFlag.IsAnimated, 0x00 = Automatic Phase, 0xFE = Random Phase, 0xFF = Async Phase
                 }
             }
         }
@@ -128,7 +128,7 @@ namespace OpenTibia.IO
 
             if (features.HasFeatureFlag(FeatureFlag.CreatureIcons) )
             {
-                writer.Write( (byte)(creature is Npc ? SpeechBubble.Trade : SpeechBubble.None) ); //TODO: FeatureFlag.CreatureIcons, speech bubble
+                writer.Write( (byte)SpeechBubble.None); //TODO: FeatureFlag.CreatureIcons, speech bubble
             }
 
             if (features.HasFeatureFlag(FeatureFlag.ThingMarks) )
@@ -197,7 +197,7 @@ namespace OpenTibia.IO
 
             if (features.HasFeatureFlag(FeatureFlag.CreatureIcons) )
             {
-                writer.Write( (byte)(creature is Npc ? SpeechBubble.Trade : SpeechBubble.None) ); //TODO: FeatureFlag.CreatureIcons, speech bubble
+                writer.Write( (byte)SpeechBubble.None); //TODO: FeatureFlag.CreatureIcons, speech bubble
             }
 
             if (features.HasFeatureFlag(FeatureFlag.ThingMarks) )

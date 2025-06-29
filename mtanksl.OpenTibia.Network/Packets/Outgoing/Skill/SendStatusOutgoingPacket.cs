@@ -169,9 +169,9 @@ namespace OpenTibia.Network.Packets.Outgoing
 
             if (features.HasFeatureFlag(FeatureFlag.ShowExperienceGainRateCalculation) )
             {
-                writer.Write( (ushort)0 ); //TODO: FeatureFlag.MultipleExperienceBonus, remaining store xp boost seconds
+                writer.Write( (ushort)0 ); //TODO: FeatureFlag.ShowExperienceGainRateCalculation, remaining store xp boost seconds
 
-                writer.Write( (byte)0 ); //TODO: FeatureFlag.MultipleExperienceBonus, can buy more xp boosts
+                writer.Write( (byte)0 ); //TODO: FeatureFlag.ShowExperienceGainRateCalculation, can buy more xp boosts
             }
         }
     }

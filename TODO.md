@@ -18,9 +18,10 @@
 - Purse (9.54)
 - Offline training (9.60)
 - Browse Field (9.84)
+- Store (10.80)
+- The following feature flags are not fully implemented. They work, but as a placeholder: ConsoleMessageOtherCreatures, PlayerRegenerationTime, ChannelPlayerList, EnvironmentEffect, IsAnimated, PlayerBasicData, OfflineTrainingTime, ContainerPagination, ThingMarks, CreatureIcons, ExperienceGainRate, PVPFrame, ExpertMode, ShowExperienceGainRateCalculation
 - Add 8.70, 9.86 and 10.98 monsters
 - Add 8.70, 9.86 and 10.98 items
-- The following feature flags are not fully implemented. They work, but as a placeholder: ConsoleMessageOtherCreatures, ItemAnimationPhase, ChannelPlayerList, PlayerRegenerationTime, OfflineTrainingTime, EnvironmentEffect,  PlayerBasicData, ContainerPagination
 
 # Done (or good enough for now)
 

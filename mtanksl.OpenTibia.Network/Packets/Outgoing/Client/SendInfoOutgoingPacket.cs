@@ -73,7 +73,7 @@ namespace OpenTibia.Network.Packets.Outgoing
             {
                 writer.Write( (string)null); //TODO: FeatureFlag.IngameStore
 
-                writer.Write( (ushort)25 );
+                writer.Write( (ushort)25 ); //TODO: FeatureFlag.IngameStore
             }
         }
     }

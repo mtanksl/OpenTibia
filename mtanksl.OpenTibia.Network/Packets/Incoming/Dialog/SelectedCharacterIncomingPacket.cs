@@ -52,7 +52,7 @@ namespace OpenTibia.Network.Packets.Incoming
 
             if (features.HasFeatureFlag(FeatureFlag.PreviewState) )
             {
-                reader.BaseStream.Seek(Origin.Current, 1);
+                reader.BaseStream.Seek(Origin.Current, 1); // ?
             }
 
             int position = reader.BaseStream.Position;
