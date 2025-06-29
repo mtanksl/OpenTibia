@@ -320,7 +320,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
 			if (clientVersion >= 1094) 
 			{
-				featureFlags.Add(FeatureFlag.AdditionalSkills); //TODO
+				featureFlags.Add(FeatureFlag.AdditionalSkills);
             }
 
 			if (clientVersion >= 1097) 

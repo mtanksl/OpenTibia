@@ -171,7 +171,7 @@ namespace OpenTibia.Network.Packets.Outgoing
             {
                 writer.Write( (ushort)0 ); //TODO: FeatureFlag.ShowExperienceGainRateCalculation, remaining store xp boost seconds
 
-                writer.Write( (byte)0 ); //TODO: FeatureFlag.ShowExperienceGainRateCalculation, can buy more xp boosts
+                writer.Write(false); //TODO: FeatureFlag.ShowExperienceGainRateCalculation, can buy more xp boosts
             }
         }
     }

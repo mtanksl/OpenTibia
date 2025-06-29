@@ -3,7 +3,7 @@
 namespace OpenTibia.Common.Structures
 {
     [Flags]
-    public enum SpecialCondition : ushort
+    public enum SpecialCondition : int
     {
         None = 0,
 
@@ -37,6 +37,8 @@ namespace OpenTibia.Common.Structures
 
         ProtectionZone = 16384,
 
-        NoLogoutZone = 32768 // Internal
+        Bleding = 32768,
+
+        NoLogoutZone = 65536 // Internal
     }
 }

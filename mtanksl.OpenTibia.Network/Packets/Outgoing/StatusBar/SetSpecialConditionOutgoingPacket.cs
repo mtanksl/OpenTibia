@@ -19,11 +19,11 @@ namespace OpenTibia.Network.Packets.Outgoing
 
             if ( !features.HasFeatureFlag(FeatureFlag.PlayerSpecialConditionUInt16) )
             {
-                writer.Write( (byte)SpecialCondition );
+                writer.Write( (byte)( (int)SpecialCondition & 0xFF) );
             }
             else
             {
-                writer.Write( (ushort)SpecialCondition );
+                writer.Write( (ushort)( (int)SpecialCondition & 0xFFFF) );
             }
         }
     }

@@ -61,12 +61,12 @@ namespace OpenTibia.Network.Packets.Outgoing
 
             if (features.HasFeatureFlag(FeatureFlag.PVPFrame) )
             {
-                writer.Write( (byte)0x00 ); //TODO: FeatureFlag.PVPFrame, can change pvp frame option
+                writer.Write(false); //TODO: FeatureFlag.PVPFrame, can change pvp frame option
             }
 
             if (features.HasFeatureFlag(FeatureFlag.ExpertMode) )
             {
-                writer.Write( (byte)0x00 ); //TODO: FeatureFlag.ExpertMode, expert mode button
+                writer.Write(false); //TODO: FeatureFlag.ExpertMode, expert mode button
             }
 
             if (features.HasFeatureFlag(FeatureFlag.IngameStore) )

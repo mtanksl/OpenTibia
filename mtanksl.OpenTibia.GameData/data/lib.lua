@@ -383,7 +383,8 @@ specialcondition = {
 	bleeding = 4096,
 	protectionzoneblock = 8192,
 	protectionzone = 16384,
-	nologoutzone = 32768 -- internal
+	bleding = 32768,
+	nologoutzone = 65536 -- internal
 }
 
 speechbubble = {

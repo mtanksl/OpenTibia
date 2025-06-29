@@ -42,6 +42,33 @@ namespace OpenTibia.Network.Packets.Outgoing
 
                 writer.Write(Skills.GetSkillPercent(skill) );
             }
+
+            if (features.HasFeatureFlag(FeatureFlag.AdditionalSkills) )
+            {
+                for (int i = 0; i < 6; i++)
+                {
+                    if ( !features.HasFeatureFlag(FeatureFlag.SkillLevelU16) )
+                    {
+                        writer.Write( (byte)0);
+                    }
+                    else
+                    {
+                        writer.Write( (ushort)0);
+                    }
+
+                    if (features.HasFeatureFlag(FeatureFlag.PlayerSkillsBase) )
+                    {
+                        if ( !features.HasFeatureFlag(FeatureFlag.SkillLevelU16) )
+                        {
+                            writer.Write( (byte)0);
+                        }
+                        else
+                        {
+                            writer.Write( (ushort)0);
+                        }                    
+                    }
+                }
+            }
         }
     }
 }

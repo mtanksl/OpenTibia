@@ -30,8 +30,11 @@ namespace OpenTibia.Game.Commands
             
             Context.AddPacket(Player, new SendTilesOutgoingPacket(Context.Server.Map, Player.Client, Player.Tile.Position) );
             
-            Context.AddPacket(Player, new SetEnvironmentLightOutgoingPacket(Context.Server.Clock.Light) );
-                                
+            foreach (var pair in Player.Inventory.GetIndexedContents() )
+            {
+                Context.AddPacket(Player, new SlotAddOutgoingPacket( (byte)pair.Key, (Item)pair.Value) );
+            }
+
             Context.AddPacket(Player, new SendStatusOutgoingPacket(
                     Player.Health, Player.MaxHealth, 
                     Player.Capacity, Player.MaxCapacity,
@@ -41,27 +44,26 @@ namespace OpenTibia.Game.Commands
                     Player.Soul, 
                     Player.Stamina,
                     Player.BaseSpeed) );
-            
+
             Context.AddPacket(Player, new SendSkillsOutgoingPacket(Player.Skills) );
-            
+
             Context.AddPacket(Player, new SetSpecialConditionOutgoingPacket(Player.SpecialConditions) );
-            
-            foreach (var pair in Player.Inventory.GetIndexedContents() )
-            {
-                Context.AddPacket(Player, new SlotAddOutgoingPacket( (byte)pair.Key, (Item)pair.Value) );
-            }
-            
+
+            Context.AddPacket(Player, new SetEnvironmentLightOutgoingPacket(Context.Server.Clock.Light) );
+
+            Context.AddPacket(Player, new SetLightOutgoingPacket(Player.Id, Player.ClientLight) );
+
             foreach (var pair in Player.Vips.GetIndexed() )
             {
                 var vip = pair.Value;
-            
+
                 Context.AddPacket(Player, new VipOutgoingPacket( (uint)pair.Key, vip.Name, vip.Description, vip.IconId, vip.NotifyLogin, Context.Server.GameObjects.GetPlayerByName(vip.Name) != null) );
             }
             
             if (Context.Server.Features.HasFeatureFlag(FeatureFlag.PlayerBasicData) )
             {
                 uint premiumDays = Player.PremiumUntil != null ? Math.Max(0, Math.Min(ushort.MaxValue, (uint)Math.Ceiling( (Player.PremiumUntil.Value - DateTime.UtcNow).TotalDays) ) ) : 0;
-            
+
                 Context.AddPacket(Player, new SendBasicDataOutgoingPacket(Player.Premium, premiumDays, Player.Vocation, new List<int>() ) ); //TODO: FeatureFlag.PlayerBasicData
             }
 

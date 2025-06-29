@@ -19,7 +19,7 @@
 - Offline training (9.60)
 - Browse Field (9.84)
 - Store (10.80)
-- The following feature flags are not fully implemented. They work, but as a placeholder: ConsoleMessageOtherCreatures, PlayerRegenerationTime, ChannelPlayerList, EnvironmentEffect, IsAnimated, PlayerBasicData, OfflineTrainingTime, ContainerPagination, ThingMarks, CreatureIcons, ExperienceGainRate, PVPFrame, ExpertMode, ShowExperienceGainRateCalculation
+- The following feature flags are not fully implemented. They work, but as a placeholder: ConsoleMessageOtherCreatures, PlayerRegenerationTime, ChannelPlayerList, EnvironmentEffect, IsAnimated, PlayerBasicData, OfflineTrainingTime, ContainerPagination, ThingMarks, CreatureIcons, ExperienceGainRate, PVPFrame, ExpertMode, ShowExperienceGainRateCalculation, AdditionalSkills
 - Add 8.70, 9.86 and 10.98 monsters
 - Add 8.70, 9.86 and 10.98 items
 
