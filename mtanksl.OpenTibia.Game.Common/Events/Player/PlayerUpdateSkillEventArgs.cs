@@ -5,7 +5,7 @@ namespace OpenTibia.Game.Events
 {
     public class PlayerUpdateSkillEventArgs : GameEventArgs
     {
-        public PlayerUpdateSkillEventArgs(Player player, Skill skill, ulong skillPoints, byte skillLevel, byte skillPercent, int conditionSkillLevel, int itemSkillLevel)
+        public PlayerUpdateSkillEventArgs(Player player, Skill skill, ulong skillPoints, ushort skillLevel, byte skillPercent, int conditionSkillLevel, int itemSkillLevel)
         {
             Player = player;
 
@@ -28,7 +28,7 @@ namespace OpenTibia.Game.Events
 
         public ulong SkillPoints { get; }
 
-        public byte SkillLevel { get; }
+        public ushort SkillLevel { get; }
 
         public byte SkillPercent { get; }
 

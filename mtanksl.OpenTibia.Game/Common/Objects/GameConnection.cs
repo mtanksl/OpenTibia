@@ -71,7 +71,7 @@ namespace OpenTibia.Common
                             skip += 1;
                         }
 
-                        Rsa.DecryptAndReplace(body, skip, 128);
+                        Rsa.DecryptAndReplace(body, skip, 128); // Account, Password, Character and AuthenticatorCode
                     }
                     else
                     {

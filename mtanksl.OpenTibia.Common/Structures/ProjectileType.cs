@@ -96,6 +96,10 @@
 
         DrillBolt = 50,
 
-        EnvenomedArrow = 51
+        EnvenomedArrow = 51,
+
+        GloothSpear = 53,
+
+        SimpleArrow = 54
     }
 }

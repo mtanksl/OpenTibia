@@ -112,11 +112,12 @@
         public static readonly int CreaturesPerClient = 250;
 
         public static readonly ushort MaxBookCharacters = 1024;
+                
+        public static readonly ushort AngelStatueOpenTibiaItemId = 1448;
 
         public static readonly ushort LockerOpenTibiaItemId = 2591;
 
         public static readonly ushort DepotOpenTibiaItemId = 2594;
-
 
         public static readonly ushort ServerBeat = 50;
 

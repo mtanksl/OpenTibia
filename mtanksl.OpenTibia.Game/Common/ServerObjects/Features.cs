@@ -66,7 +66,6 @@ namespace OpenTibia.Game.Common.ServerObjects
             #region Feature Flags
 
             featureFlags.Add(FeatureFlag.RuleViolationChannel);
-            featureFlags.Add(FeatureFlag.GamemasterChannel);
 
             if (clientVersion >= 770)
 			{
@@ -128,7 +127,6 @@ namespace OpenTibia.Game.Common.ServerObjects
 			if (clientVersion >= 861)
 			{
                 featureFlags.Remove(FeatureFlag.RuleViolationChannel);
-                featureFlags.Remove(FeatureFlag.GamemasterChannel);
             }
 
 			if (clientVersion >= 862)
@@ -226,18 +224,17 @@ namespace OpenTibia.Game.Common.ServerObjects
 			if (clientVersion >= 1010)
             {
                 featureFlags.Add(FeatureFlag.NoMovementAnimation);
+                featureFlags.Add(FeatureFlag.GroupWorlds);
             }
 
 			if (clientVersion >= 1035) 
 			{
-				featureFlags.Add(FeatureFlag.DoubleSkills);
-				featureFlags.Add(FeatureFlag.BaseSkillU16);
+				featureFlags.Add(FeatureFlag.SkillLevelU16);
 			}
 
 			if (clientVersion >= 1036) 
 			{
 				featureFlags.Add(FeatureFlag.CreatureIcons);
-				featureFlags.Add(FeatureFlag.HideNpcNames);
 			}
 
 			if (clientVersion >= 1038) 
@@ -258,7 +255,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 			if (clientVersion >= 1054)
 			{
 				featureFlags.Add(FeatureFlag.ExperienceBonus);
-			}
+				featureFlags.Add(FeatureFlag.PVPFrame);
+            }
 
 			if (clientVersion >= 1055) 
 			{
@@ -268,6 +266,11 @@ namespace OpenTibia.Game.Common.ServerObjects
 			if (clientVersion >= 1057) 
 			{
 				featureFlags.Add(FeatureFlag.IdleAnimations);
+			}
+
+			if (clientVersion >= 1058)
+			{
+				featureFlags.Add(FeatureFlag.ExpertMode);
 			}
 
 			if (clientVersion >= 1061) 
@@ -290,6 +293,16 @@ namespace OpenTibia.Game.Common.ServerObjects
 				featureFlags.Add(FeatureFlag.SessionKey);
 			}
 
+			if (clientVersion >= 1076)
+			{
+				featureFlags.Add(FeatureFlag.LoginServerErrorNew);
+			}
+
+			if (clientVersion >= 1077)
+			{
+				featureFlags.Add(FeatureFlag.AccountStatus);                
+            }
+
 			if (clientVersion >= 1080) 
 			{
 				featureFlags.Add(FeatureFlag.IngameStore);
@@ -308,6 +321,11 @@ namespace OpenTibia.Game.Common.ServerObjects
 			if (clientVersion >= 1094) 
 			{
 				featureFlags.Add(FeatureFlag.AdditionalSkills);
+			}
+
+			if (clientVersion >= 1097) 
+			{
+				featureFlags.Add(FeatureFlag.MultipleExperienceBonus);
 			}
 
             #endregion
@@ -369,11 +387,58 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             #region Text Color
 
-            if (clientVersion >= 900)
+			if (clientVersion >= 1055) 
+			{
+				MapMessageMode(0, MessageMode.None);
+				MapMessageMode(1, MessageMode.Say);
+                MapMessageMode(2, MessageMode.Whisper);
+                MapMessageMode(3, MessageMode.Yell);
+                MapMessageMode(4, MessageMode.PrivateFrom);
+                MapMessageMode(5, MessageMode.PrivateTo);
+                MapMessageMode(6, MessageMode.ChannelManagement);
+                MapMessageMode(7, MessageMode.Channel);
+                MapMessageMode(8, MessageMode.ChannelHighlight);
+                MapMessageMode(9, MessageMode.Spell);
+                MapMessageMode(10, MessageMode.NpcFromStartBlock);
+                MapMessageMode(11, MessageMode.NpcFrom);
+                MapMessageMode(12, MessageMode.NpcTo);
+                MapMessageMode(13, MessageMode.GamemasterBroadcast);
+                MapMessageMode(14, MessageMode.GamemasterChannel);
+                MapMessageMode(15, MessageMode.GamemasterPrivateFrom);
+                MapMessageMode(16, MessageMode.GamemasterPrivateTo);
+                MapMessageMode(17, MessageMode.Login);
+                MapMessageMode(18, MessageMode.Warning);
+                MapMessageMode(19, MessageMode.Game);
+                MapMessageMode(20, MessageMode.GameHighlight);
+                MapMessageMode(21, MessageMode.Failure);
+                MapMessageMode(22, MessageMode.Look);
+                MapMessageMode(23, MessageMode.DamageDealed);
+                MapMessageMode(24, MessageMode.DamageReceived);
+                MapMessageMode(25, MessageMode.Heal);
+                MapMessageMode(26, MessageMode.Exp);
+                MapMessageMode(27, MessageMode.DamageOthers);
+                MapMessageMode(28, MessageMode.HealOthers);
+                MapMessageMode(29, MessageMode.ExpOthers);
+                MapMessageMode(30, MessageMode.Status);
+                MapMessageMode(31, MessageMode.Loot);
+                MapMessageMode(32, MessageMode.TradeNpc);
+                MapMessageMode(33, MessageMode.Guild);
+                MapMessageMode(34, MessageMode.PartyManagement);
+                MapMessageMode(35, MessageMode.Party);
+                MapMessageMode(36, MessageMode.BarkLow);
+                MapMessageMode(37, MessageMode.BarkLoud);
+                MapMessageMode(38, MessageMode.Report);
+                MapMessageMode(39, MessageMode.HotkeyUse);
+                MapMessageMode(40, MessageMode.TutorialHint);
+                MapMessageMode(41, MessageMode.Thankyou);
+                MapMessageMode(42, MessageMode.Market);
+                MapMessageMode(43, MessageMode.Mana);
+            }
+			else if (clientVersion >= 900)
 			{
 				for (int i = 0; i < 42; i++)
 				{
-					MapMessageMode( (byte)i, (MessageMode)i );
+					MapMessageMode( (byte)i, (MessageMode)i);
 				}
 			}
 			else if (clientVersion >= 861)
@@ -426,7 +491,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 				MapMessageMode(15, MessageMode.ChannelHighlight);
 				MapMessageMode(16, MessageMode.Unknown);
 				MapMessageMode(17, MessageMode.GamemasterChannelAnonymous);
-                MapMessageMode(18, MessageMode.Red);
+				MapMessageMode(18, MessageMode.Red);
 				MapMessageMode(19, MessageMode.MonsterSay);
 				MapMessageMode(20, MessageMode.MonsterYell);
 				MapMessageMode(21, MessageMode.Warning);
@@ -455,9 +520,9 @@ namespace OpenTibia.Game.Common.ServerObjects
 				MapMessageMode(11, MessageMode.GamemasterPrivateFrom);
 				MapMessageMode(12, MessageMode.ChannelHighlight);
 				MapMessageMode(13, MessageMode.Unknown);
-                MapMessageMode(14, MessageMode.GamemasterChannelAnonymous);
+				MapMessageMode(14, MessageMode.GamemasterChannelAnonymous);
 				// 15
-                MapMessageMode(16, MessageMode.MonsterSay);
+				MapMessageMode(16, MessageMode.MonsterSay);
 				MapMessageMode(17, MessageMode.MonsterYell);
 				MapMessageMode(18, MessageMode.Warning);
 				MapMessageMode(19, MessageMode.Game);
@@ -467,8 +532,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 				MapMessageMode(23, MessageMode.Failure);
 				MapMessageMode(24, MessageMode.Blue);
 				MapMessageMode(25, MessageMode.Red);
-            }
-            else
+			}
+			else
 			{
 				throw new NotImplementedException();
 			}
@@ -1237,6 +1302,13 @@ namespace OpenTibia.Game.Common.ServerObjects
                     magicEffectType =  MagicEffectType.Puff;
                 }
 			}
+			else if (clientVersion < 1098)
+			{
+				if (magicEffectType >= MagicEffectType.RedSmoke)
+                {
+                    magicEffectType =  MagicEffectType.Puff;
+                }
+			}
 
             //TODO: Support other versions
 
@@ -1255,6 +1327,13 @@ namespace OpenTibia.Game.Common.ServerObjects
 			else if (clientVersion < 986)
             {
                 if (projectileType >= ProjectileType.Cake)
+                {
+                    projectileType = ProjectileType.Spear;
+                }
+            }
+			else if (clientVersion < 1098)
+            {
+                if (projectileType >= ProjectileType.GloothSpear)
                 {
                     projectileType = ProjectileType.Spear;
                 }

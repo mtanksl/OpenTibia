@@ -31,14 +31,14 @@ namespace OpenTibia.Common.Objects
             skillPoints[ (byte)skill] = skillPoint;
         }
 
-        private byte[] skillLevels = new byte[] { 0, 10, 10, 10, 10, 10, 10, 10 };
+        private ushort[] skillLevels = new ushort[] { 0, 10, 10, 10, 10, 10, 10, 10 };
 
-        public byte GetSkillLevel(Skill skill)
+        public ushort GetSkillLevel(Skill skill)
         {
             return skillLevels[ (byte)skill];
         }
 
-        public void SetSkillLevel(Skill skill, byte skillLevel)
+        public void SetSkillLevel(Skill skill, ushort skillLevel)
         {
             skillLevels[ (byte)skill] = skillLevel;
         }
@@ -79,9 +79,9 @@ namespace OpenTibia.Common.Objects
             itemSkillLevel[ (byte)skill] = skillModifier;
         }
 
-        public byte GetClientSkillLevel(Skill skill)
+        public ushort GetClientSkillLevel(Skill skill)
         {
-            return (byte)(skillLevels[ (byte)skill ] + conditionSkillLevel[ (byte)skill] + itemSkillLevel[ (byte)skill] );
+            return (ushort)(skillLevels[ (byte)skill ] + conditionSkillLevel[ (byte)skill] + itemSkillLevel[ (byte)skill] );
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Data.Models;
 using OpenTibia.Game.Common;
 using OpenTibia.Network.Packets;
@@ -171,30 +172,14 @@ namespace OpenTibia.Game.Commands
                 characters.Add(new CharacterDto(dbPlayer.Name, worldName, dbPlayer.World.Ip, (ushort)dbPlayer.World.Port, false) );
             }
 
-            int premiumDays;
-
-            if (dbAccount.PremiumUntil != null)
+            if (Context.Server.Features.HasFeatureFlag(FeatureFlag.SessionKey) )
             {
-                premiumDays = (int)Math.Ceiling( (dbAccount.PremiumUntil.Value - DateTime.UtcNow).TotalDays );
-
-                if (premiumDays > 0)
-                {
-                    if (premiumDays > ushort.MaxValue)
-                    {
-                        premiumDays = ushort.MaxValue;
-                    }
-                }
-                else
-                {
-                    premiumDays = 0;
-                }
+                Context.AddPacket(Connection, new SessionKeyOutgoingPacket(Packet.Account, Packet.Password, Packet.AuthenticatorCode) );
             }
-            else
-            {
-                premiumDays = 0;
-            }
+                            
+            uint premiumDays = dbAccount.PremiumUntil != null ? Math.Max(0, Math.Min(ushort.MaxValue, (uint)Math.Ceiling( (dbAccount.PremiumUntil.Value - DateTime.UtcNow).TotalDays) ) ) : 0;
 
-            Context.AddPacket(Connection, new OpenSelectCharacterDialogOutgoingPacket(characters, (ushort)premiumDays) );
+            Context.AddPacket(Connection, new OpenSelectCharacterDialogOutgoingPacket(characters, AccountStatus.Ok, premiumDays == 0 ? SubscriptionStatus.Free : SubscriptionStatus.Premium, premiumDays) );
 
             Context.Disconnect(Connection);
 

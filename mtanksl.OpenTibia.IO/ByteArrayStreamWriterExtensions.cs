@@ -54,6 +54,11 @@ namespace OpenTibia.IO
         {
             writer.Write(item.Metadata.TibiaId);
 
+            if (features.HasFeatureFlag(FeatureFlag.ThingMarks) )
+            {
+                writer.Write( (byte)0xFF); //TODO: FeatureFlag.ThingMarks, 0xFF = Unmarked
+            }
+
             switch (item)
             {
                 case StackableItem stackable:
@@ -79,7 +84,7 @@ namespace OpenTibia.IO
             {
                 if (item.Metadata.Flags.Is(ItemMetadataFlags.IsAnimated) )
                 {
-                    writer.Write( (byte)0xFE); //TODO: FeatureFlag.ItemAnimationPhase
+                    writer.Write( (byte)0xFE); //TODO: FeatureFlag.ItemAnimationPhase, 0x00 = Automatic Phase, 0xFE = Random Phase, 0xFF = Async Phase
                 }
             }
         }
@@ -101,18 +106,37 @@ namespace OpenTibia.IO
 
              writer.Write(creature.ClientLight);
 
-            if (features.HasFeatureFlag(FeatureFlag.NewSpeedLaw) )
-            {
-                writer.Write( (ushort)(creature.ClientSpeed / 2) );
-            }
-            else
+            if ( !features.HasFeatureFlag(FeatureFlag.NewSpeedLaw) )
             {
                 writer.Write(creature.ClientSpeed);
             }
+            else
+            {
+                writer.Write( (ushort)(creature.ClientSpeed / 2) );
+            }
 
-             writer.Write( (byte)skullIcon);
+            writer.Write( (byte)skullIcon);
 
-             writer.Write( (byte)partyIcon);
+            writer.Write( (byte)partyIcon);
+
+            if (features.HasFeatureFlag(FeatureFlag.ThingMarks) )
+            {
+                byte creatureType = (byte)(creature is Player ? 0x00 : creature is Monster ? 0x01 : creature is Npc ? 0x02 : 0x00);
+
+                writer.Write(creatureType); //TODO: FeatureFlag.ThingMarks, 0x03 = Own Summon, 0x04 = Other Summon
+            }
+
+            if (features.HasFeatureFlag(FeatureFlag.CreatureIcons) )
+            {
+                writer.Write( (byte)(creature is Npc ? SpeechBubble.Trade : SpeechBubble.None) ); //TODO: FeatureFlag.CreatureIcons, speech bubble
+            }
+
+            if (features.HasFeatureFlag(FeatureFlag.ThingMarks) )
+            {
+                writer.Write( (byte)0xFF); //TODO: FeatureFlag.ThingMarks, 0xFF = Unmarked
+
+                writer.Write( (ushort)0x00); //TODO: FeatureFlag.ThingMarks, helpers
+            }
 
             if (features.HasFeatureFlag(FeatureFlag.CreatureBlock) )
             {
@@ -131,9 +155,11 @@ namespace OpenTibia.IO
 
             writer.Write(creature.Id);
 
+            byte creatureType = (byte)(creature is Player ? 0x00 : creature is Monster ? 0x01 : creature is Npc ? 0x02 : 0x00);
+
             if (features.HasFeatureFlag(FeatureFlag.CreatureType) )
             {
-                writer.Write( (byte)(creature is Player ? 0x00 : creature is Monster ? 0x01 : creature is Npc ? 0x02 : 0x00) );
+                writer.Write(creatureType);
             }
 
             writer.Write(creature.Name);
@@ -146,13 +172,13 @@ namespace OpenTibia.IO
 
             writer.Write(creature.ClientLight);
 
-            if (features.HasFeatureFlag(FeatureFlag.NewSpeedLaw) )
+            if ( !features.HasFeatureFlag(FeatureFlag.NewSpeedLaw) )
             {
-                writer.Write( (ushort)(creature.ClientSpeed / 2) );
+                writer.Write(creature.ClientSpeed);
             }
             else
             {
-                writer.Write(creature.ClientSpeed);
+                writer.Write( (ushort)(creature.ClientSpeed / 2) );
             }
 
             writer.Write( (byte)skullIcon);
@@ -162,6 +188,23 @@ namespace OpenTibia.IO
             if (features.HasFeatureFlag(FeatureFlag.CreatureWarIcon) )
             {
                 writer.Write( (byte)warIcon);
+            }
+
+            if (features.HasFeatureFlag(FeatureFlag.ThingMarks) )
+            {
+                writer.Write(creatureType); //TODO: FeatureFlag.ThingMarks, 0x03 = Own Summon, 0x04 = Other Summon
+            }
+
+            if (features.HasFeatureFlag(FeatureFlag.CreatureIcons) )
+            {
+                writer.Write( (byte)(creature is Npc ? SpeechBubble.Trade : SpeechBubble.None) ); //TODO: FeatureFlag.CreatureIcons, speech bubble
+            }
+
+            if (features.HasFeatureFlag(FeatureFlag.ThingMarks) )
+            {
+                writer.Write( (byte)0xFF); //TODO: FeatureFlag.ThingMarks, 0xFF = Unmarked
+
+                writer.Write( (ushort)0x00); //TODO: FeatureFlag.ThingMarks, helpers
             }
 
             if (features.HasFeatureFlag(FeatureFlag.CreatureBlock) )

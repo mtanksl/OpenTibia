@@ -117,7 +117,7 @@ namespace OpenTibia.Game.Commands
 
                 if (isAccountManager)
                 {
-                    ItemMetadata itemMetadata = Context.Server.ItemFactory.GetItemMetadataByOpenTibiaId(1448); // an angel statue
+                    ItemMetadata itemMetadata = Context.Server.ItemFactory.GetItemMetadataByOpenTibiaId(Constants.AngelStatueOpenTibiaItemId);
 
                     dbPlayer = new DbPlayer() 
                     { 

@@ -183,7 +183,15 @@ magiceffecttype = {
 	ferumbras = 74,
 	confettihorizontal = 75,
 	confettivertical = 76,
-	blacksmoke = 158
+	blacksmoke = 158,
+	redsmoke = 167,
+	yellowsmoke = 168,
+	greensmoke = 169,
+	purplesmoke = 170,
+	earlythunder = 171,
+	ragiazbonecapsule = 172,
+	criticaldamage = 173,
+	plungingfish = 175
 }
 
 marker = {
@@ -326,7 +334,9 @@ projectiletype = {
 	prismaticbolt = 48,
 	crystallinearrow = 49,
 	drillbolt = 50,
-	envenomedarrow = 51
+	envenomedarrow = 51,
+	gloothspear = 53,
+    simplearrow = 54
 }
 
 rank = {
@@ -374,6 +384,14 @@ specialcondition = {
 	protectionzoneblock = 8192,
 	protectionzone = 16384,
 	nologoutzone = 32768 -- internal
+}
+
+speechbubble = {
+	none = 0,
+	normal = 1,
+	trade = 2,
+	quest = 3,
+	questtrader = 4
 }
 
 vocation = {

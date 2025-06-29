@@ -27,13 +27,13 @@ namespace OpenTibia.Network.Packets.Outgoing
 
             writer.Write(ContainerId);
 
-            if (features.HasFeatureFlag(FeatureFlag.ContainerPagination) )
+            if ( !features.HasFeatureFlag(FeatureFlag.ContainerPagination) )
             {
-                writer.Write( (ushort)Index);
+                writer.Write( (byte)Index);
             }
             else
             {
-                writer.Write( (byte)Index);
+                writer.Write( (ushort)Index);
             }
 
             writer.Write(features, Item);

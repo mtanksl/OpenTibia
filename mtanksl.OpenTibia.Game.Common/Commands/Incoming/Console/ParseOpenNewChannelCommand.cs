@@ -63,12 +63,9 @@ namespace OpenTibia.Game.Commands
                 }
                 else if (channelConfig.Flags.Is(ChannelFlags.Gamemaster) )
                 {
-                    if (Context.Server.Features.HasFeatureFlag(FeatureFlag.GamemasterChannel) )
+                    if (Player.Rank == Rank.Gamemaster)
                     {
-                        if (Player.Rank == Rank.Gamemaster)
-                        {
-                            channels.Add(new ChannelDto(channelConfig.Id, channelConfig.Name) );
-                        }
+                        channels.Add(new ChannelDto(channelConfig.Id, channelConfig.Name) );
                     }
                 }
                 else if (channelConfig.Flags.Is(ChannelFlags.Trade) )

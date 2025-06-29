@@ -24,6 +24,8 @@ namespace OpenTibia.Network.Packets.Incoming
 
         public string Password { get; set; }
 
+        public string AuthenticatorCode { get; set; }
+
         public uint Timestamp { get; set; }
 
         public byte Random { get; set; }
@@ -33,14 +35,14 @@ namespace OpenTibia.Network.Packets.Incoming
             OperatingSystem = (OperatingSystem)reader.ReadUShort();
 
             ProtocolVersion = reader.ReadUShort();
-                        
-            if (features.HasFeatureFlag(FeatureFlag.ClientVersion) )
+
+            if ( !features.HasFeatureFlag(FeatureFlag.ClientVersion) )
             {
-                ClientVersion = reader.ReadUInt();
+                ClientVersion = ProtocolVersion;
             }
             else
             {
-                ClientVersion = ProtocolVersion;
+                ClientVersion = reader.ReadUInt();
             }
 
             if (features.HasFeatureFlag(FeatureFlag.ContentRevision) )
@@ -53,7 +55,9 @@ namespace OpenTibia.Network.Packets.Incoming
                 reader.BaseStream.Seek(Origin.Current, 1);
             }
 
-            reader.BaseStream.Seek(Origin.Current, 1);
+            int position = reader.BaseStream.Position;
+
+            reader.BaseStream.Seek(Origin.Current, 1); // 0x00
 
             Keys = new uint[]
             {
@@ -68,27 +72,47 @@ namespace OpenTibia.Network.Packets.Incoming
 
             Gamemaster = reader.ReadBool();
 
-            if ( !features.HasFeatureFlag(FeatureFlag.AccountString) )
+            if ( !features.HasFeatureFlag(FeatureFlag.SessionKey) )
             {
-                var account = reader.ReadUInt();
-
-                if (account == 0)
+                if ( !features.HasFeatureFlag(FeatureFlag.AccountString) )
                 {
-                    Account = "";
+                    var account = reader.ReadUInt();
+
+                    if (account == 0)
+                    {
+                        Account = "";
+                    }
+                    else
+                    {
+                        Account = account.ToString();
+                    }
                 }
                 else
                 {
-                    Account = account.ToString();
+                    Account = reader.ReadString();
+                }
+
+                Character = reader.ReadString();
+
+                Password = reader.ReadString();
+
+                if (features.HasFeatureFlag(FeatureFlag.Authenticator) )
+                {
+                    AuthenticatorCode = reader.ReadString();
                 }
             }
             else
             {
-                Account = reader.ReadString();
+                string[] sessionKey = reader.ReadString().Split('\n');
+
+                Account = sessionKey[0];
+
+                Password = sessionKey[1];
+
+                AuthenticatorCode = sessionKey[2];
+
+                Character = reader.ReadString();
             }
-
-            Character = reader.ReadString();
-
-            Password = reader.ReadString();
 
             if (features.HasFeatureFlag(FeatureFlag.ChallengeOnLogin) )
             {
@@ -96,6 +120,8 @@ namespace OpenTibia.Network.Packets.Incoming
 
                 Random = reader.ReadByte();
             }
+                           
+            reader.BaseStream.Seek(Origin.Current, 128 - (reader.BaseStream.Position - position) ); // RSA Padding
         }
     }
 }

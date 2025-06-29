@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.IO;
 
 namespace OpenTibia.Network.Packets.Outgoing
@@ -22,7 +23,14 @@ namespace OpenTibia.Network.Packets.Outgoing
 
             writer.Write(CreatureId);
 
-            writer.Write(Speed);
+            if ( !features.HasFeatureFlag(FeatureFlag.NewSpeedLaw) )
+            {
+                writer.Write(Speed);
+            }
+            else
+            {
+                writer.Write( (ushort)(Speed / 2) );
+            }
         }
     }
 }

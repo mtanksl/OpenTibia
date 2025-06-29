@@ -36,14 +36,7 @@ namespace OpenTibia.Game.Commands
 
                     if (observer.Client.TryGetIndex(Creature, out clientIndex) )
                     {
-                        if (Context.Server.Features.HasFeatureFlag(FeatureFlag.NewSpeedLaw) )
-                        {
-                            Context.AddPacket(observer, new SetSpeedOutgoingPacket(Creature.Id, (ushort)(Creature.ClientSpeed / 2) ) );
-                        }
-                        else
-                        {
-                            Context.AddPacket(observer, new SetSpeedOutgoingPacket(Creature.Id, Creature.ClientSpeed) );
-                        }
+                        Context.AddPacket(observer, new SetSpeedOutgoingPacket(Creature.Id, Creature.ClientSpeed) );
                     }
                 }
 

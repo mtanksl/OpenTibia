@@ -2,11 +2,11 @@
 {
     public class CharacterDto
     {
-        public CharacterDto(string name, string world, string ip, ushort port, bool previewState)
+        public CharacterDto(string playerName, string worldName, string ip, ushort port, bool previewState)
         {
-            this.Name = name;
+            this.PlayerName = playerName;
 
-            this.World = world;
+            this.WorldName = worldName;
 
             this.Ip = ip;
 
@@ -15,9 +15,9 @@
             this.PreviewState = previewState;
         }
 
-        public string Name { get; set; }
+        public string PlayerName { get; set; }
 
-        public string World { get; set; }
+        public string WorldName { get; set; }
 
         public string Ip { get; set; }
 

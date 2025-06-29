@@ -23,15 +23,15 @@ namespace OpenTibia.Network.Packets.Outgoing
 
             writer.Write(ContainerId);
 
-            if (features.HasFeatureFlag(FeatureFlag.ContainerPagination) )
+            if ( !features.HasFeatureFlag(FeatureFlag.ContainerPagination) )
+            {
+                writer.Write( (byte)Index);
+            }
+            else
             {
                 writer.Write( (ushort)Index);
 
                 writer.Write( (ushort)0x00); //TODO: FeatureFlag.ContainerPagination, last item
-            }
-            else
-            {
-                writer.Write( (byte)Index);
             }
         }
     }

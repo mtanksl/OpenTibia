@@ -58,6 +58,23 @@ namespace OpenTibia.Network.Packets.Outgoing
             }
 
             writer.Write(CanReportBugs);
+
+            if (features.HasFeatureFlag(FeatureFlag.PVPFrame) )
+            {
+                writer.Write( (byte)0x00 ); //TODO: FeatureFlag.PVPFrame, can change pvp frame option
+            }
+
+            if (features.HasFeatureFlag(FeatureFlag.ExpertMode) )
+            {
+                writer.Write( (byte)0x00 ); //TODO: FeatureFlag.ExpertMode, expert mode button
+            }
+
+            if (features.HasFeatureFlag(FeatureFlag.IngameStore) )
+            {
+                writer.Write( (string)null); //TODO: FeatureFlag.IngameStore
+
+                writer.Write( (ushort)25 );
+            }
         }
     }
 }

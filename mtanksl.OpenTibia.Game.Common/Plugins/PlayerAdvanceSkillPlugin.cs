@@ -6,6 +6,6 @@ namespace OpenTibia.Game.Plugins
 {
     public abstract class PlayerAdvanceSkillPlugin : Plugin
     {
-        public abstract Promise OnAdvanceSkill(Player player, Skill skill, byte fromLevel, byte toLevel);
+        public abstract Promise OnAdvanceSkill(Player player, Skill skill, ushort fromLevel, ushort toLevel);
     }
 }

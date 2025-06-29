@@ -39,13 +39,13 @@ namespace OpenTibia.Network.Packets.Outgoing
                 writer.Write(NpcName);
             }
 
-            if (features.HasFeatureFlag(FeatureFlag.InviteNpcTradeU16) )
+            if ( !features.HasFeatureFlag(FeatureFlag.InviteNpcTradeU16) )
             {
-                writer.Write( (ushort)Offers.Count);
+                writer.Write( (byte)Offers.Count);
             }
             else
             {
-                writer.Write( (byte)Offers.Count);
+                writer.Write( (ushort)Offers.Count);
             }
 
             foreach (var offer in Offers)

@@ -17,32 +17,32 @@ namespace OpenTibia.Game.Common
                 moveDirection == MoveDirection.SouthWest || 
                 moveDirection == MoveDirection.SouthEast)
             {
-                if (Context.Current.Server.Features.HasFeatureFlag(FeatureFlag.SpeedFactor) )
+                if ( !Context.Current.Server.Features.HasFeatureFlag(FeatureFlag.SpeedFactor) )
                 {
-                    factor = 3;
+                    factor = 2;
                 }
                 else
                 {
-                    factor = 2;
+                    factor = 3;
                 }
             }
 
             int speed;
 
-            if (Context.Current.Server.Features.HasFeatureFlag(FeatureFlag.NewSpeedLaw) )
+            if ( !Context.Current.Server.Features.HasFeatureFlag(FeatureFlag.NewSpeedLaw) )
             {
-                if (creature.ClientSpeed > -Constants.CreatureSpeedB) 
+                speed = creature.ClientSpeed;
+            }
+            else
+            {
+                if (creature.ClientSpeed > -Constants.CreatureSpeedB)
                 {
-		            speed = (int)Math.Max(1, Math.Floor( (Constants.CreatureSpeedA * Math.Log( (creature.ClientSpeed / 2) + Constants.CreatureSpeedB) + Constants.CreatureSpeedC) + 0.5) );
-	            }
+                    speed = (int)Math.Max(1, Math.Floor( (Constants.CreatureSpeedA * Math.Log( (creature.ClientSpeed / 2) + Constants.CreatureSpeedB) + Constants.CreatureSpeedC) + 0.5) );
+                }
                 else
                 {
                     speed = 1;
                 }
-            }
-            else
-            {
-                speed = creature.ClientSpeed;
             }
 
             int duration = 1000 * tile.Ground.Metadata.GroundSpeed / speed;
@@ -173,26 +173,26 @@ namespace OpenTibia.Game.Common
             { Skill.Fish, 20 }
         };
 
-        private static Dictionary<Skill, Dictionary<Vocation, Dictionary<byte, ulong>>> skillPointsCaches = new Dictionary<Skill, Dictionary<Vocation, Dictionary<byte, ulong>>>();
+        private static Dictionary<Skill, Dictionary<Vocation, Dictionary<ushort, ulong>>> skillPointsCaches = new Dictionary<Skill, Dictionary<Vocation, Dictionary<ushort, ulong>>>();
 
-        public static ulong GetRequiredSkillPoints(Skill skill, Vocation vocation, byte skillLevel)
+        public static ulong GetRequiredSkillPoints(Skill skill, Vocation vocation, ushort skillLevel)
         {
-            static ulong GetRequiredSkillPoints(Skill skill, Vocation vocation, byte skillLevel, ushort skillConstant, double vocationConstant)
+            static ulong GetRequiredSkillPoints(Skill skill, Vocation vocation, ushort skillLevel, ushort skillConstant, double vocationConstant)
             {
-                Dictionary<Vocation, Dictionary<byte, ulong>> vocationsCache;
+                Dictionary<Vocation, Dictionary<ushort, ulong>> vocationsCache;
 
                 if ( !skillPointsCaches.TryGetValue(skill, out vocationsCache) )
                 {
-                    vocationsCache = new Dictionary<Vocation, Dictionary<byte, ulong>>();
+                    vocationsCache = new Dictionary<Vocation, Dictionary<ushort, ulong>>();
 
                     skillPointsCaches.Add(skill, vocationsCache);
                 }
 
-                Dictionary<byte, ulong> skillPointCache;
+                Dictionary<ushort, ulong> skillPointCache;
 
                 if ( !vocationsCache.TryGetValue(vocation, out skillPointCache) )
                 {
-                    skillPointCache = new Dictionary<byte, ulong>();
+                    skillPointCache = new Dictionary<ushort, ulong>();
 
                     vocationsCache.Add(vocation, skillPointCache);
                 }
@@ -231,9 +231,9 @@ namespace OpenTibia.Game.Common
             return GetRequiredSkillPoints(skill, vocation, skillLevel, skillConstants[skill], vocationConfig.VocationConstants.GetValue(skill) );
         }
 
-        public static byte FixRequiredSkillLevel(Player player, Skill skill)
+        public static ushort FixRequiredSkillLevel(Player player, Skill skill)
         {
-            byte skillLevel = player.Skills.GetSkillLevel(skill);
+            ushort skillLevel = player.Skills.GetSkillLevel(skill);
 
             if (skill != Skill.MagicLevel)
             {
@@ -248,13 +248,13 @@ namespace OpenTibia.Game.Common
 
         public static ulong FixRequiredSkillPoints(Player player, Skill skill)
         {
-            byte skillLevel = player.Skills.GetSkillLevel(skill);
+            ushort skillLevel = player.Skills.GetSkillLevel(skill);
 
             ulong skillPoints = player.Skills.GetSkillPoints(skill);
 
             ulong minSkillPoints = GetRequiredSkillPoints(skill, player.Vocation, skillLevel);
 
-            ulong maxSkillPoints = GetRequiredSkillPoints(skill, player.Vocation, (byte)(skillLevel + 1) );
+            ulong maxSkillPoints = GetRequiredSkillPoints(skill, player.Vocation, (ushort)(skillLevel + 1) );
 
             if (skillPoints >= minSkillPoints && skillPoints < maxSkillPoints)
             {
@@ -266,13 +266,13 @@ namespace OpenTibia.Game.Common
 
         public static byte GetSkillPercent(Player player, Skill skill)
         {
-            byte skillLevel = player.Skills.GetSkillLevel(skill);
+            ushort skillLevel = player.Skills.GetSkillLevel(skill);
 
             ulong skillPoints = player.Skills.GetSkillPoints(skill);
 
             ulong minSkillPoints = GetRequiredSkillPoints(skill, player.Vocation, skillLevel);
 
-            ulong maxSkillPoints = GetRequiredSkillPoints(skill, player.Vocation, (byte)(skillLevel + 1) );
+            ulong maxSkillPoints = GetRequiredSkillPoints(skill, player.Vocation, (ushort)(skillLevel + 1) );
 
             return (byte)Math.Max(0, Math.Min(100, Math.Floor(100.0 * (skillPoints - minSkillPoints) / (maxSkillPoints - minSkillPoints) ) ) );
         }
@@ -312,7 +312,7 @@ namespace OpenTibia.Game.Common
             return ( (int)(level * 0.2 + magicLevel * minx + miny), (int)(level * 0.2 + magicLevel * maxx + maxy) );
         }
 
-        public static (int Min, int Max) WhirlwindThrowFormula(ushort level, byte skill, int weapon)
+        public static (int Min, int Max) WhirlwindThrowFormula(ushort level, int skill, int weapon)
         {
              return ( (int)( (skill + weapon) * 0.3 + level * 0.2), (int)(skill + weapon + level * 0.2) );
         }
@@ -332,7 +332,7 @@ namespace OpenTibia.Game.Common
             return ( (int)( (skill + weapon * 2) * 1.1 + level * 0.2), (int)( (skill + weapon * 2) * 3 + level * 0.2) );
         }
 
-        public static (int Min, int Max) EtherealSpearFormula(ushort level, byte skill)
+        public static (int Min, int Max) EtherealSpearFormula(ushort level, int skill)
         {
             return ( (int)( (skill + 25) * 0.3 + level * 0.2), (int)(skill + 25 + level * 0.2) );
         }

@@ -7,7 +7,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 {
     public class SendStatusOutgoingPacket : IOutgoingPacket
     {
-        public SendStatusOutgoingPacket(ushort health, ushort maxHealth, uint capacity, uint maxCapacity, ulong experience, ushort level, byte levelPercent, ushort mana, ushort maxMana, byte magicLevel, byte baseMagicLevel, byte magicLevelPercent, byte soul, ushort stamina, ushort baseSpeed)
+        public SendStatusOutgoingPacket(ushort health, ushort maxHealth, uint capacity, uint maxCapacity, ulong experience, ushort level, byte levelPercent, ushort mana, ushort maxMana, ushort magicLevel, ushort baseMagicLevel, byte magicLevelPercent, byte soul, ushort stamina, ushort baseSpeed)
         {
             this.Health = health;
 
@@ -58,9 +58,9 @@ namespace OpenTibia.Network.Packets.Outgoing
 
         public ushort MaxMana { get; set; }
 
-        public byte MagicLevel { get; set; }
+        public ushort MagicLevel { get; set; }
 
-        public byte BaseMagicLevel { get; set; }
+        public ushort BaseMagicLevel { get; set; }
 
         public byte MagicLevelPercent { get; set; }
 
@@ -105,15 +105,35 @@ namespace OpenTibia.Network.Packets.Outgoing
 
             writer.Write(LevelPercent);
 
+            if (features.HasFeatureFlag(FeatureFlag.ExperienceBonus) )
+            {
+                if ( !features.HasFeatureFlag(FeatureFlag.MultipleExperienceBonus) )
+                {
+                    writer.Write( (double)0, 2); // Experience bonus
+                }
+                else
+                {
+                    writer.Write( (ushort)100); // Base xp gain
+
+                    writer.Write( (ushort)0); // Voucher addend
+
+                    writer.Write( (ushort)0); // Grinding addend
+
+                    writer.Write( (ushort)0); // Store boost addend
+
+                    writer.Write( (ushort)100); // Hunting boost factor
+                }
+            }
+
             writer.Write(Mana);
 
             writer.Write(MaxMana);
 
-            writer.Write(MagicLevel);
+            writer.Write( (byte)MagicLevel);
 
             if (features.HasFeatureFlag(FeatureFlag.PlayerSkillsBase) )
             {
-                writer.Write(BaseMagicLevel);
+                writer.Write( (byte)BaseMagicLevel);
             }
 
             writer.Write(MagicLevelPercent);
@@ -127,7 +147,14 @@ namespace OpenTibia.Network.Packets.Outgoing
 
             if (features.HasFeatureFlag(FeatureFlag.PlayerSkillsBase) )
             {
-                writer.Write(BaseSpeed);
+                if ( !features.HasFeatureFlag(FeatureFlag.NewSpeedLaw) )
+                {
+                    writer.Write(BaseSpeed);
+                }
+                else
+                {
+                    writer.Write( (ushort)(BaseSpeed / 2) );
+                }
             }
 
             if (features.HasFeatureFlag(FeatureFlag.PlayerRegenerationTime) )
@@ -138,6 +165,13 @@ namespace OpenTibia.Network.Packets.Outgoing
             if (features.HasFeatureFlag(FeatureFlag.OfflineTrainingTime) )
             {
                 writer.Write( (ushort)0 ); //TODO: FeatureFlag.OfflineTrainingTime
+            }
+
+            if (features.HasFeatureFlag(FeatureFlag.MultipleExperienceBonus) )
+            {
+                writer.Write( (ushort)0 ); //TODO: FeatureFlag.MultipleExperienceBonus, remaining store xp boost seconds
+
+                writer.Write( (byte)0 ); //TODO: FeatureFlag.MultipleExperienceBonus, can buy more xp boosts
             }
         }
     }

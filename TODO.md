@@ -155,7 +155,7 @@
 	- Account manager (create account, change password, add character, change character name, change character gender, move character to temple) 
 	- Server save routine
 	- Map clean routine
-	- Experimental support for other protocols, ranging from 7.72 to 9.86
+	- Experimental support for other protocols, ranging from 7.72 to 10.98
 - Plugins
 	- C# dll plugins
 	- Lua scripting (actions, ammunitions, creaturescripts, globalevents, movements, npcs, raids, runes, spells, talkactions, weapons, monsterattacks)

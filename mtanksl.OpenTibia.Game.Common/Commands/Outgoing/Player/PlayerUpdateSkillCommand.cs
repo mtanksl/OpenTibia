@@ -8,7 +8,7 @@ namespace OpenTibia.Game.Commands
 {
     public class PlayerUpdateSkillCommand : Command
     {
-        public PlayerUpdateSkillCommand(Player player, Skill skill, ulong skillPoints, byte skillLevel, byte skillPercent, int conditionSkillLevel, int itemSkillLevel)
+        public PlayerUpdateSkillCommand(Player player, Skill skill, ulong skillPoints, ushort skillLevel, byte skillPercent, int conditionSkillLevel, int itemSkillLevel)
         {
             Player = player;
 
@@ -31,7 +31,7 @@ namespace OpenTibia.Game.Commands
 
         public ulong SkillPoints { get; }
 
-        public byte SkillLevel { get; }
+        public ushort SkillLevel { get; }
 
         public byte SkillPercent { get; }
 

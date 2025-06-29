@@ -193,6 +193,22 @@
 
         ConfettiVertical = 76,
 
-        BlackSmoke = 158
+        BlackSmoke = 158,
+
+        RedSmoke = 167,
+
+        YellowSmoke = 168,
+
+        GreenSmoke = 169,
+
+        PurpleSmoke = 170,
+
+        EarlyThunder = 171,
+
+        RagiazBonecapsule = 172,
+
+        CriticalDamage = 173,
+
+        PlungingFish = 175
     }
 }

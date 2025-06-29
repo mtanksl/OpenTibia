@@ -1,6 +1,6 @@
 # What is this?
 
-It is an open Tibia server written in C# from scratch. Base protocol is 8.60. Experimental support for other protocols, ranging from 7.72 to 9.86.
+It is an open Tibia server written in C# from scratch. Base protocol is 8.60. Experimental support for other protocols, ranging from 7.72 to 10.98.
 
 # Why another one?
 

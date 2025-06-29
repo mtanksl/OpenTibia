@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.IO;
 
 namespace OpenTibia.Network.Packets.Outgoing
@@ -20,7 +21,14 @@ namespace OpenTibia.Network.Packets.Outgoing
         {
             if (login)
             {
-                writer.Write( (byte)0x0A );
+                if ( !features.HasFeatureFlag(FeatureFlag.LoginServerErrorNew) )
+                {
+                    writer.Write( (byte)0x0A );
+                }
+                else
+                {
+                    writer.Write( (byte)0x0B );
+                }
             }
             else
             {

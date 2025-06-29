@@ -35,11 +35,11 @@ namespace OpenTibia.Game.Commands
                 SkillPoints = (ulong)(SkillPoints * Context.Server.Config.GameplaySkillRate);
             }
 
-            byte currentSkillLevel = Player.Skills.GetSkillLevel(Skill);
+            ushort currentSkillLevel = Player.Skills.GetSkillLevel(Skill);
 
             ulong currentSkillPoints = Player.Skills.GetSkillPoints(Skill);
 
-            byte correctSkillLevel = currentSkillLevel;
+            ushort correctSkillLevel = currentSkillLevel;
 
             byte correctSkillPercent = 0;
 
@@ -47,7 +47,7 @@ namespace OpenTibia.Game.Commands
 
             while (true)
             {
-                ulong maxSkillPoints = Formula.GetRequiredSkillPoints(Skill, Player.Vocation, (byte)(correctSkillLevel + 1) );
+                ulong maxSkillPoints = Formula.GetRequiredSkillPoints(Skill, Player.Vocation, (ushort)(correctSkillLevel + 1) );
 
                 if (currentSkillPoints + SkillPoints < maxSkillPoints)
                 {

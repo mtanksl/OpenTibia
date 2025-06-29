@@ -19,11 +19,25 @@ namespace OpenTibia.Network.Packets.Outgoing
 
             foreach (var skill in new[] { Skill.Fist, Skill.Club, Skill.Sword, Skill.Axe, Skill.Distance, Skill.Shield, Skill.Fish } )
             {
-                writer.Write(Skills.GetClientSkillLevel(skill) );
+                if ( !features.HasFeatureFlag(FeatureFlag.SkillLevelU16) )
+                {
+                    writer.Write( (byte)Skills.GetClientSkillLevel(skill) );
+                }
+                else
+                {
+                    writer.Write(Skills.GetClientSkillLevel(skill) );
+                }
 
                 if (features.HasFeatureFlag(FeatureFlag.PlayerSkillsBase) )
                 {
-                    writer.Write(Skills.GetSkillLevel(skill)) ;
+                    if ( !features.HasFeatureFlag(FeatureFlag.SkillLevelU16) )
+                    {
+                        writer.Write( (byte)Skills.GetSkillLevel(skill) );
+                    }
+                    else
+                    {
+                        writer.Write(Skills.GetSkillLevel(skill) );
+                    }                    
                 }
 
                 writer.Write(Skills.GetSkillPercent(skill) );

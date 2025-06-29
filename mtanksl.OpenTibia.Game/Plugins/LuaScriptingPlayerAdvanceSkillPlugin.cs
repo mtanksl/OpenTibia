@@ -40,7 +40,7 @@ namespace OpenTibia.Game.Plugins
             }
         }
 
-        public override Promise OnAdvanceSkill(Player player, Skill skill, byte fromLevel, byte toLevel)
+        public override Promise OnAdvanceSkill(Player player, Skill skill, ushort fromLevel, ushort toLevel)
         {
             if (fileName != null)
             {

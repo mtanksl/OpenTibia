@@ -5,7 +5,7 @@ namespace OpenTibia.Game.Events
 {
     public class PlayerAdvanceSkillEventArgs : GameEventArgs
     {
-        public PlayerAdvanceSkillEventArgs(Player player, Skill skill, byte fromLevel, byte toLevel)
+        public PlayerAdvanceSkillEventArgs(Player player, Skill skill, ushort fromLevel, ushort toLevel)
         {
             Player = player;
 
@@ -20,8 +20,8 @@ namespace OpenTibia.Game.Events
 
         public Skill Skill { get; }
 
-        public byte FromLevel { get; }
+        public ushort FromLevel { get; }
 
-        public byte ToLevel { get; }
+        public ushort ToLevel { get; }
     }
 }

@@ -57,7 +57,7 @@ namespace OpenTibia.Game.Commands
                         return Promise.Break;
                     }
                 }
-                else if (channel.Flags.Is(ChannelFlags.Gamemaster) && Context.Server.Features.HasFeatureFlag(FeatureFlag.GamemasterChannel) )
+                else if (channel.Flags.Is(ChannelFlags.Gamemaster) )
                 {
                     if (Player.Rank != Rank.Gamemaster)
                     {

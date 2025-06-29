@@ -34,13 +34,13 @@ namespace OpenTibia.Network.Packets.Outgoing
         {
             writer.Write( (byte)0x7B );
 
-            if (features.HasFeatureFlag(FeatureFlag.JoinNpcTradeU64) )
+            if ( !features.HasFeatureFlag(FeatureFlag.JoinNpcTradeU64) )
             {
-                writer.Write(Money);
+                writer.Write( (uint)Money);
             }
             else
             {
-                writer.Write( (uint)Money);
+                writer.Write(Money);
             }
 
             writer.Write( (byte)Offers.Count );

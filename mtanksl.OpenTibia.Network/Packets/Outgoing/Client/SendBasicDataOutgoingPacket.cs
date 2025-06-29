@@ -7,9 +7,11 @@ namespace OpenTibia.Network.Packets.Outgoing
 {
     public class SendBasicDataOutgoingPacket : IOutgoingPacket
     {
-        public SendBasicDataOutgoingPacket(bool premium, Vocation vocation, List<int> spellIds)
+        public SendBasicDataOutgoingPacket(bool premium, uint premiumDays, Vocation vocation, List<int> spellIds)
         {
             this.Premium = premium;
+
+            this.PremiumDays = premiumDays;
 
             this.Vocation = vocation;
 
@@ -17,6 +19,8 @@ namespace OpenTibia.Network.Packets.Outgoing
         }
 
         public bool Premium { get; set; }
+
+        public uint PremiumDays { get; set; }
 
         public Vocation Vocation { get; set; }
 
@@ -27,6 +31,11 @@ namespace OpenTibia.Network.Packets.Outgoing
             writer.Write( (byte)0x9F);
 
             writer.Write(Premium);
+
+            if (features.HasFeatureFlag(FeatureFlag.PremiumExpiration) )
+            {
+                writer.Write(PremiumDays);
+            }
 
             writer.Write( (byte)Vocation);
 

@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Structures;
+using System;
 
 namespace OpenTibia.Common.Objects
 {
@@ -120,6 +121,8 @@ namespace OpenTibia.Common.Objects
         public Vocation Vocation { get; set; }
 
         public Rank Rank { get; set; }
+
+        public DateTime? PremiumUntil { get; set; }
 
         public bool Premium { get; set; }
 

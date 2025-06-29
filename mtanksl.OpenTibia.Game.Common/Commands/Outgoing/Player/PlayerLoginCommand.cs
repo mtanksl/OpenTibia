@@ -3,6 +3,7 @@ using OpenTibia.Common.Structures;
 using OpenTibia.Game.Common;
 using OpenTibia.Game.Events;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.Commands
@@ -26,7 +27,7 @@ namespace OpenTibia.Game.Commands
 
                 Context.AddPacket(Player, new SendEnterWorldOutgoingPacket() );
             }
-
+            
             Context.AddPacket(Player, new SendTilesOutgoingPacket(Context.Server.Map, Player.Client, Player.Tile.Position) );
             
             Context.AddPacket(Player, new SetEnvironmentLightOutgoingPacket(Context.Server.Clock.Light) );
@@ -53,13 +54,15 @@ namespace OpenTibia.Game.Commands
             foreach (var pair in Player.Vips.GetIndexed() )
             {
                 var vip = pair.Value;
-
+            
                 Context.AddPacket(Player, new VipOutgoingPacket( (uint)pair.Key, vip.Name, vip.Description, vip.IconId, vip.NotifyLogin, Context.Server.GameObjects.GetPlayerByName(vip.Name) != null) );
             }
-
+            
             if (Context.Server.Features.HasFeatureFlag(FeatureFlag.PlayerBasicData) )
             {
-                Context.AddPacket(Player, new SendBasicDataOutgoingPacket(Player.Premium, Player.Vocation, new List<int>() ) ); //TODO: FeatureFlag.PlayerBasicData
+                uint premiumDays = Player.PremiumUntil != null ? Math.Max(0, Math.Min(ushort.MaxValue, (uint)Math.Ceiling( (Player.PremiumUntil.Value - DateTime.UtcNow).TotalDays) ) ) : 0;
+            
+                Context.AddPacket(Player, new SendBasicDataOutgoingPacket(Player.Premium, premiumDays, Player.Vocation, new List<int>() ) ); //TODO: FeatureFlag.PlayerBasicData
             }
 
             Context.AddEvent(new PlayerLoginEventArgs(Player) );

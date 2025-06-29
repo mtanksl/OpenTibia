@@ -181,11 +181,13 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             player.Rank = (Rank)dbPlayer.Rank;
 
+            player.PremiumUntil = dbPlayer.Account.PremiumUntil;
+
             player.Premium = dbPlayer.Account.PremiumUntil != null && (dbPlayer.Account.PremiumUntil.Value - DateTime.UtcNow).TotalDays > 0;
 
             player.BankAccount = (ulong)dbPlayer.BankAccount;
 
-            player.Skills.SetSkillLevel(Skill.MagicLevel, (byte)dbPlayer.SkillMagicLevel);
+            player.Skills.SetSkillLevel(Skill.MagicLevel, (ushort)dbPlayer.SkillMagicLevel);
 
             player.Skills.SetSkillPoints(Skill.MagicLevel, (ulong)dbPlayer.SkillMagicLevelPoints);
 
@@ -195,7 +197,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             player.Skills.SetSkillPercent(Skill.MagicLevel, Formula.GetSkillPercent(player, Skill.MagicLevel) );
 
-            player.Skills.SetSkillLevel(Skill.Fist, (byte)dbPlayer.SkillFist);
+            player.Skills.SetSkillLevel(Skill.Fist, (ushort)dbPlayer.SkillFist);
 
             player.Skills.SetSkillPoints(Skill.Fist, (ulong)dbPlayer.SkillFistPoints);
 
@@ -205,7 +207,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             player.Skills.SetSkillPercent(Skill.Fist, Formula.GetSkillPercent(player, Skill.Fist) );
 
-            player.Skills.SetSkillLevel(Skill.Club, (byte)dbPlayer.SkillClub);
+            player.Skills.SetSkillLevel(Skill.Club, (ushort)dbPlayer.SkillClub);
 
             player.Skills.SetSkillPoints(Skill.Club, (ulong)dbPlayer.SkillClubPoints);
 
@@ -215,7 +217,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             player.Skills.SetSkillPercent(Skill.Club, Formula.GetSkillPercent(player, Skill.Club) );
 
-            player.Skills.SetSkillLevel(Skill.Sword, (byte)dbPlayer.SkillSword);
+            player.Skills.SetSkillLevel(Skill.Sword, (ushort)dbPlayer.SkillSword);
 
             player.Skills.SetSkillPoints(Skill.Sword, (ulong)dbPlayer.SkillSwordPoints);
 
@@ -225,7 +227,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             player.Skills.SetSkillPercent(Skill.Sword, Formula.GetSkillPercent(player, Skill.Sword) );
 
-            player.Skills.SetSkillLevel(Skill.Axe, (byte)dbPlayer.SkillAxe);
+            player.Skills.SetSkillLevel(Skill.Axe, (ushort)dbPlayer.SkillAxe);
 
             player.Skills.SetSkillPoints(Skill.Axe, (ulong)dbPlayer.SkillAxePoints);
 
@@ -235,7 +237,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             player.Skills.SetSkillPercent(Skill.Axe, Formula.GetSkillPercent(player, Skill.Axe) );
 
-            player.Skills.SetSkillLevel(Skill.Distance, (byte)dbPlayer.SkillDistance);
+            player.Skills.SetSkillLevel(Skill.Distance, (ushort)dbPlayer.SkillDistance);
 
             player.Skills.SetSkillPoints(Skill.Distance, (ulong)dbPlayer.SkillDistancePoints);
 
@@ -245,7 +247,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             player.Skills.SetSkillPercent(Skill.Distance, Formula.GetSkillPercent(player, Skill.Distance) );
 
-            player.Skills.SetSkillLevel(Skill.Shield, (byte)dbPlayer.SkillShield);
+            player.Skills.SetSkillLevel(Skill.Shield, (ushort)dbPlayer.SkillShield);
 
             player.Skills.SetSkillPoints(Skill.Shield, (ulong)dbPlayer.SkillShieldPoints);
 
@@ -255,7 +257,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             player.Skills.SetSkillPercent(Skill.Shield, Formula.GetSkillPercent(player, Skill.Shield) );
 
-            player.Skills.SetSkillLevel(Skill.Fish, (byte)dbPlayer.SkillFish);
+            player.Skills.SetSkillLevel(Skill.Fish, (ushort)dbPlayer.SkillFish);
 
             player.Skills.SetSkillPoints(Skill.Fish, (ulong)dbPlayer.SkillFishPoints);
 

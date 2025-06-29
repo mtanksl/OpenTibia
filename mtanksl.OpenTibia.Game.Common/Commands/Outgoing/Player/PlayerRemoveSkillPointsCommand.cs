@@ -25,11 +25,11 @@ namespace OpenTibia.Game.Commands
 
         public override async Promise Execute()
         {
-            byte currentSkillLevel = Player.Skills.GetSkillLevel(Skill);
+            ushort currentSkillLevel = Player.Skills.GetSkillLevel(Skill);
 
             ulong currentSkillPoints = Player.Skills.GetSkillPoints(Skill);
 
-            byte correctSkillLevel;
+            ushort correctSkillLevel;
 
             byte correctSkillPercent;
 
@@ -39,7 +39,7 @@ namespace OpenTibia.Game.Commands
 
                 correctSkillPercent = 0;
 
-                ulong maxSkillPoints = Formula.GetRequiredSkillPoints(Skill, Player.Vocation, (byte)(correctSkillLevel + 1) );
+                ulong maxSkillPoints = Formula.GetRequiredSkillPoints(Skill, Player.Vocation, (ushort)(correctSkillLevel + 1) );
 
                 while (true)
                 {

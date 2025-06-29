@@ -54,13 +54,13 @@ namespace OpenTibia.Game.Components
 
                     lastPingRequest = DateTime.UtcNow;
 
-                    if (Context.Server.Features.HasFeatureFlag(FeatureFlag.ClientPing) )
-			        {
-                        Context.AddPacket(player, new PingRequestOutgoingPacket() );
+                    if ( !Context.Server.Features.HasFeatureFlag(FeatureFlag.ClientPing) )
+                    {
+                        Context.AddPacket(player, new PingResponseOutgoingPacket() );
                     }
                     else
                     {
-                        Context.AddPacket(player, new PingResponseOutgoingPacket() );
+                        Context.AddPacket(player, new PingRequestOutgoingPacket() );
                     }
                 }
 
