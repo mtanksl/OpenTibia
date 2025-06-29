@@ -87,7 +87,7 @@ namespace OpenTibia.Network.Packets.Outgoing
                 writer.Write(Capacity);
             }
 
-            if (features.HasFeatureFlag(FeatureFlag.PlayerTotalCapacity) )
+            if (features.HasFeatureFlag(FeatureFlag.PlayerMaxCapacity) )
             {
                 writer.Write(MaxCapacity);
             }
@@ -105,23 +105,23 @@ namespace OpenTibia.Network.Packets.Outgoing
 
             writer.Write(LevelPercent);
 
-            if (features.HasFeatureFlag(FeatureFlag.ExperienceBonus) )
+            if (features.HasFeatureFlag(FeatureFlag.ExperienceGainRate) )
             {
-                if ( !features.HasFeatureFlag(FeatureFlag.MultipleExperienceBonus) )
+                if ( !features.HasFeatureFlag(FeatureFlag.ShowExperienceGainRateCalculation) )
                 {
-                    writer.Write( (double)0, 2); // Experience bonus
+                    writer.Write( (double)100, 2);
                 }
                 else
                 {
-                    writer.Write( (ushort)100); // Base xp gain
+                    writer.Write( (ushort)100); // - Base XP gain rate: 100 %
 
-                    writer.Write( (ushort)0); // Voucher addend
+                    writer.Write( (ushort)0); // - XP vouncher: +0 %
 
-                    writer.Write( (ushort)0); // Grinding addend
+                    writer.Write( (ushort)0); // - Low level bonus: +0 % (until level 50)
 
-                    writer.Write( (ushort)0); // Store boost addend
+                    writer.Write( (ushort)0); // Your current XP gain rate amounts to 100%.
 
-                    writer.Write( (ushort)100); // Hunting boost factor
+                    writer.Write( (ushort)100); // - Stamina bonus: x1.0
                 }
             }
 
@@ -167,7 +167,7 @@ namespace OpenTibia.Network.Packets.Outgoing
                 writer.Write( (ushort)0 ); //TODO: FeatureFlag.OfflineTrainingTime
             }
 
-            if (features.HasFeatureFlag(FeatureFlag.MultipleExperienceBonus) )
+            if (features.HasFeatureFlag(FeatureFlag.ShowExperienceGainRateCalculation) )
             {
                 writer.Write( (ushort)0 ); //TODO: FeatureFlag.MultipleExperienceBonus, remaining store xp boost seconds
 

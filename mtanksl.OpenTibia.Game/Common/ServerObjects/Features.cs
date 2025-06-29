@@ -155,7 +155,7 @@ namespace OpenTibia.Game.Common.ServerObjects
             if (clientVersion >= 910) 
 			{
 				featureFlags.Add(FeatureFlag.NameOnNpcTrade);
-				featureFlags.Add(FeatureFlag.PlayerTotalCapacity);
+				featureFlags.Add(FeatureFlag.PlayerMaxCapacity);
 				featureFlags.Add(FeatureFlag.PlayerSkillsBase);
 				featureFlags.Add(FeatureFlag.PlayerRegenerationTime);
 				featureFlags.Add(FeatureFlag.ChannelPlayerList);
@@ -254,7 +254,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
 			if (clientVersion >= 1054)
 			{
-				featureFlags.Add(FeatureFlag.ExperienceBonus);
+				featureFlags.Add(FeatureFlag.ExperienceGainRate);
 				featureFlags.Add(FeatureFlag.PVPFrame);
             }
 
@@ -325,7 +325,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
 			if (clientVersion >= 1097) 
 			{
-				featureFlags.Add(FeatureFlag.MultipleExperienceBonus);
+				featureFlags.Add(FeatureFlag.ShowExperienceGainRateCalculation);
 			}
 
             #endregion

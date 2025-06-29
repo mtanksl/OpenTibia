@@ -33,7 +33,7 @@
         ServerBeat,
         InviteNpcTradeU16,
         NameOnNpcTrade,
-        PlayerTotalCapacity,
+        PlayerMaxCapacity,
         PlayerSkillsBase,
         PlayerRegenerationTime,
         ChannelPlayerList,
@@ -65,7 +65,7 @@
         PremiumExpiration,
         EnhancedAnimations,
         UnjustifiedPoints,
-        ExperienceBonus,
+        ExperienceGainRate,
         PVPFrame,
         DeathType,
         IdleAnimations,
@@ -80,6 +80,6 @@
         IngameStoreServiceType,
         IngameStoreHighlights,
         AdditionalSkills,
-        MultipleExperienceBonus
+        ShowExperienceGainRateCalculation
     }
 }
