@@ -389,148 +389,190 @@ namespace OpenTibia.Game.Common.ServerObjects
 
 			if (clientVersion >= 1055) 
 			{
-				MapMessageMode(0, MessageMode.None);
-				MapMessageMode(1, MessageMode.Say);
-                MapMessageMode(2, MessageMode.Whisper);
-                MapMessageMode(3, MessageMode.Yell);
-                MapMessageMode(4, MessageMode.PrivateFrom);
-                MapMessageMode(5, MessageMode.PrivateTo);
-                MapMessageMode(6, MessageMode.ChannelManagement);
-                MapMessageMode(7, MessageMode.Channel);
-                MapMessageMode(8, MessageMode.ChannelHighlight);
-                MapMessageMode(9, MessageMode.Spell);
-                MapMessageMode(10, MessageMode.NpcFromStartBlock);
-                MapMessageMode(11, MessageMode.NpcFrom);
-                MapMessageMode(12, MessageMode.NpcTo);
-                MapMessageMode(13, MessageMode.GamemasterBroadcast);
-                MapMessageMode(14, MessageMode.GamemasterChannel);
-                MapMessageMode(15, MessageMode.GamemasterPrivateFrom);
-                MapMessageMode(16, MessageMode.GamemasterPrivateTo);
-                MapMessageMode(17, MessageMode.Login);
-                MapMessageMode(18, MessageMode.Warning);
-                MapMessageMode(19, MessageMode.Game);
-                MapMessageMode(20, MessageMode.GameHighlight);
-                MapMessageMode(21, MessageMode.Failure);
-                MapMessageMode(22, MessageMode.Look);
-                MapMessageMode(23, MessageMode.DamageDealed);
-                MapMessageMode(24, MessageMode.DamageReceived);
-                MapMessageMode(25, MessageMode.Heal);
-                MapMessageMode(26, MessageMode.Exp);
-                MapMessageMode(27, MessageMode.DamageOthers);
-                MapMessageMode(28, MessageMode.HealOthers);
-                MapMessageMode(29, MessageMode.ExpOthers);
-                MapMessageMode(30, MessageMode.Status);
-                MapMessageMode(31, MessageMode.Loot);
-                MapMessageMode(32, MessageMode.TradeNpc);
-                MapMessageMode(33, MessageMode.Guild);
-                MapMessageMode(34, MessageMode.PartyManagement);
-                MapMessageMode(35, MessageMode.Party);
+                MapMessageMode(0, MessageMode.None);
+				MapMessageMode(1, MessageMode.Say);							// Tested
+                MapMessageMode(2, MessageMode.Whisper);						// Tested
+                MapMessageMode(3, MessageMode.Yell);						// Tested
+                MapMessageMode(4, MessageMode.PrivateFrom);					// Tested
+                MapMessageMode(5, MessageMode.PrivateTo);					// Tested
+                MapMessageMode(6, MessageMode.ChannelManagement);			
+                MapMessageMode(7, MessageMode.Channel);						// Tested
+                MapMessageMode(8, MessageMode.ChannelHighlight);			// Tested
+                MapMessageMode(9, MessageMode.Spell);						
+                MapMessageMode(10, MessageMode.NpcTo);						// Tested
+                MapMessageMode(11, MessageMode.NpcFromStartBlock);			
+                MapMessageMode(12, MessageMode.NpcFrom);					// Tested
+                MapMessageMode(13, MessageMode.GamemasterBroadcast);		// Tested
+                MapMessageMode(14, MessageMode.GamemasterChannel);			// Tested
+                MapMessageMode(15, MessageMode.GamemasterPrivateFrom);		// Tested
+                MapMessageMode(16, MessageMode.GamemasterPrivateTo);		// Tested
+                MapMessageMode(17, MessageMode.Login);						
+                MapMessageMode(18, MessageMode.Warning);					// Tested
+                MapMessageMode(19, MessageMode.Game);						// Tested
+                MapMessageMode(20, MessageMode.GameHighlight);				
+                MapMessageMode(21, MessageMode.Failure);					// Tested
+                MapMessageMode(22, MessageMode.Look);						// Tested
+                MapMessageMode(23, MessageMode.DamageDealed);				
+                MapMessageMode(24, MessageMode.DamageReceived);				
+                MapMessageMode(25, MessageMode.Heal);						
+                MapMessageMode(26, MessageMode.Exp);						// Tested
+                MapMessageMode(27, MessageMode.DamageOthers);				
+                MapMessageMode(28, MessageMode.HealOthers);					
+                MapMessageMode(29, MessageMode.ExpOthers);					
+                MapMessageMode(30, MessageMode.Status);						// Tested
+                MapMessageMode(31, MessageMode.Loot);						
+                MapMessageMode(32, MessageMode.TradeNpc);					
+                MapMessageMode(33, MessageMode.Guild);						
+                MapMessageMode(34, MessageMode.PartyManagement);			
+                MapMessageMode(35, MessageMode.Party);						
                 MapMessageMode(36, MessageMode.BarkLow);
                 MapMessageMode(37, MessageMode.BarkLoud);
-                MapMessageMode(38, MessageMode.Report);
-                MapMessageMode(39, MessageMode.HotkeyUse);
-                MapMessageMode(40, MessageMode.TutorialHint);
-                MapMessageMode(41, MessageMode.Thankyou);
-                MapMessageMode(42, MessageMode.Market);
-                MapMessageMode(43, MessageMode.Mana);
-            }
-			else if (clientVersion >= 900)
-			{
-				for (int i = 0; i < 42; i++)
-				{
-					MapMessageMode( (byte)i, (MessageMode)i);
-				}
-			}
-			else if (clientVersion >= 861)
-			{
-				MapMessageMode(0, MessageMode.None);
-				MapMessageMode(1, MessageMode.Say);
-				MapMessageMode(2, MessageMode.Whisper);
-				MapMessageMode(3, MessageMode.Yell);
-				MapMessageMode(4, MessageMode.NpcTo);
-				MapMessageMode(5, MessageMode.NpcFrom);
-				MapMessageMode(6, MessageMode.PrivateTo);
-				MapMessageMode(6, MessageMode.PrivateFrom);
-				MapMessageMode(7, MessageMode.Channel);
-				MapMessageMode(8, MessageMode.ChannelManagement);
-				MapMessageMode(9, MessageMode.GamemasterBroadcast);
-				MapMessageMode(10, MessageMode.GamemasterChannel);
-				MapMessageMode(11, MessageMode.GamemasterPrivateTo);
-				MapMessageMode(11, MessageMode.GamemasterPrivateFrom);
-				MapMessageMode(12, MessageMode.ChannelHighlight);
-				MapMessageMode(13, MessageMode.MonsterSay);
-				MapMessageMode(14, MessageMode.MonsterYell);
-				MapMessageMode(15, MessageMode.Warning);
-				MapMessageMode(16, MessageMode.Game);
-				MapMessageMode(17, MessageMode.Login);
-				MapMessageMode(18, MessageMode.Status);
-				MapMessageMode(19, MessageMode.Look);
-				MapMessageMode(20, MessageMode.Failure);
-				MapMessageMode(21, MessageMode.Blue);
+                MapMessageMode(36, MessageMode.MonsterSay);                 // Tested
+                MapMessageMode(37, MessageMode.MonsterYell);                // Tested
+                MapMessageMode(38, MessageMode.Report);						
+                MapMessageMode(39, MessageMode.HotkeyUse);					
+                MapMessageMode(40, MessageMode.TutorialHint);				
+                MapMessageMode(41, MessageMode.Thankyou);					
+                MapMessageMode(42, MessageMode.Market);						
+                MapMessageMode(43, MessageMode.Mana);						
+            }																
+			else if (clientVersion >= 900)									
+			{																
+				MapMessageMode(0, MessageMode.None);						
+				MapMessageMode(1, MessageMode.Say);							// Tested
+                MapMessageMode(2, MessageMode.Whisper);						// Tested
+                MapMessageMode(3, MessageMode.Yell);						// Tested
+                MapMessageMode(4, MessageMode.PrivateFrom);					// Tested
+				MapMessageMode(5, MessageMode.PrivateTo);					// Tested
+                MapMessageMode(6, MessageMode.ChannelManagement);			
+                MapMessageMode(7, MessageMode.Channel);						// Tested
+                MapMessageMode(8, MessageMode.ChannelHighlight);			// Tested
+                MapMessageMode(9, MessageMode.Spell);						
+                MapMessageMode(10, MessageMode.NpcTo);						// Tested
+                MapMessageMode(11, MessageMode.NpcFrom);					// Tested
+                MapMessageMode(12, MessageMode.GamemasterBroadcast);		// Tested
+				MapMessageMode(13, MessageMode.GamemasterChannel);			// Tested
+				MapMessageMode(14, MessageMode.GamemasterPrivateFrom);		// Tested
+				MapMessageMode(15, MessageMode.GamemasterPrivateTo);		// Tested
+                MapMessageMode(16, MessageMode.Login);						
+				MapMessageMode(17, MessageMode.Warning);                    // Tested
+                MapMessageMode(18, MessageMode.Game);                       // Tested
+                MapMessageMode(19, MessageMode.Failure);					// Tested
+				MapMessageMode(20, MessageMode.Look);						// Tested
+                MapMessageMode(21, MessageMode.DamageDealed);				
+				MapMessageMode(22, MessageMode.DamageReceived);				
+				MapMessageMode(23, MessageMode.Heal);						
+				MapMessageMode(24, MessageMode.Exp);                        // Tested
+                MapMessageMode(25, MessageMode.DamageOthers);				
+				MapMessageMode(26, MessageMode.HealOthers);					
+				MapMessageMode(27, MessageMode.ExpOthers);					
+				MapMessageMode(28, MessageMode.Status);						// Tested
+                MapMessageMode(29, MessageMode.Loot);						
+				MapMessageMode(30, MessageMode.TradeNpc);					
+				MapMessageMode(31, MessageMode.Guild);						
+				MapMessageMode(32, MessageMode.PartyManagement);			
+				MapMessageMode(33, MessageMode.Party);						
+				MapMessageMode(34, MessageMode.BarkLow);
+				MapMessageMode(35, MessageMode.BarkLoud);
+				MapMessageMode(34, MessageMode.MonsterSay);					// Tested
+				MapMessageMode(35, MessageMode.MonsterYell);                // Tested
+                MapMessageMode(36, MessageMode.Report);						
+				MapMessageMode(37, MessageMode.HotkeyUse);					
+				MapMessageMode(38, MessageMode.TutorialHint);				
+				MapMessageMode(39, MessageMode.Thankyou);					
+				MapMessageMode(40, MessageMode.Market);						
+				MapMessageMode(41, MessageMode.Mana);						
+			}																
+			else if (clientVersion >= 861)									
+			{																
+				MapMessageMode(0, MessageMode.None);						
+				MapMessageMode(1, MessageMode.Say);							// Tested
+				MapMessageMode(2, MessageMode.Whisper);						// Tested
+                MapMessageMode(3, MessageMode.Yell);						// Tested
+                MapMessageMode(4, MessageMode.NpcFrom);						// Tested
+                MapMessageMode(5, MessageMode.NpcTo);						// Tested
+                MapMessageMode(6, MessageMode.PrivateTo);					// Tested
+				MapMessageMode(6, MessageMode.PrivateFrom);					// Tested
+                MapMessageMode(7, MessageMode.Channel);						// Tested
+                MapMessageMode(8, MessageMode.ChannelManagement);			
+				MapMessageMode(9, MessageMode.GamemasterBroadcast);			// Tested
+				MapMessageMode(10, MessageMode.GamemasterChannel);			// Tested
+				MapMessageMode(11, MessageMode.GamemasterPrivateTo);		// Tested
+				MapMessageMode(11, MessageMode.GamemasterPrivateFrom);		// Tested
+                MapMessageMode(12, MessageMode.ChannelHighlight);			// Tested
+                MapMessageMode(13, MessageMode.MonsterSay);					// Tested
+				MapMessageMode(14, MessageMode.MonsterYell);				// Tested
+                MapMessageMode(15, MessageMode.Warning);                    // Tested
+                MapMessageMode(16, MessageMode.Game);						// Tested
+                MapMessageMode(17, MessageMode.Login);
+				MapMessageMode(18, MessageMode.Status);						// Tested
+                MapMessageMode(19, MessageMode.Look);						// Tested
+                MapMessageMode(20, MessageMode.Failure);					// Tested
+                MapMessageMode(21, MessageMode.Blue);
 				MapMessageMode(22, MessageMode.Red);
 			}
 			else if (clientVersion >= 840)
 			{
 				MapMessageMode(0, MessageMode.None);
-				MapMessageMode(1, MessageMode.Say);
-				MapMessageMode(2, MessageMode.Whisper);
-				MapMessageMode(3, MessageMode.Yell);
-				MapMessageMode(4, MessageMode.NpcTo);
-				MapMessageMode(5, MessageMode.NpcFrom);
-				MapMessageMode(6, MessageMode.PrivateTo);
-				MapMessageMode(6, MessageMode.PrivateFrom);
-				MapMessageMode(7, MessageMode.Channel);
+				MapMessageMode(1, MessageMode.Say);							// Tested
+                MapMessageMode(2, MessageMode.Whisper);						// Tested
+				MapMessageMode(3, MessageMode.Yell);						// Tested
+				MapMessageMode(4, MessageMode.NpcFrom);						// Tested
+				MapMessageMode(5, MessageMode.NpcTo);						// Tested
+				MapMessageMode(6, MessageMode.PrivateTo);					// Tested
+				MapMessageMode(6, MessageMode.PrivateFrom);					// Tested
+				MapMessageMode(7, MessageMode.Channel);						// Tested
 				MapMessageMode(8, MessageMode.ChannelManagement);
-				MapMessageMode(9, MessageMode.RVRChannel);
-				MapMessageMode(10, MessageMode.RVRAnswer);
-				MapMessageMode(11, MessageMode.RVRContinue);
-				MapMessageMode(12, MessageMode.GamemasterBroadcast);
-				MapMessageMode(13, MessageMode.GamemasterChannel);
-				MapMessageMode(14, MessageMode.GamemasterPrivateTo);
-				MapMessageMode(14, MessageMode.GamemasterPrivateFrom);
-				MapMessageMode(15, MessageMode.ChannelHighlight);
-				MapMessageMode(16, MessageMode.Unknown);
-				MapMessageMode(17, MessageMode.GamemasterChannelAnonymous);
-				MapMessageMode(18, MessageMode.Red);
-				MapMessageMode(19, MessageMode.MonsterSay);
-				MapMessageMode(20, MessageMode.MonsterYell);
-				MapMessageMode(21, MessageMode.Warning);
-				MapMessageMode(22, MessageMode.Game);
-				MapMessageMode(23, MessageMode.Login);
-				MapMessageMode(24, MessageMode.Status);
-				MapMessageMode(25, MessageMode.Look);
-				MapMessageMode(26, MessageMode.Failure);
-				MapMessageMode(27, MessageMode.Blue);
+				MapMessageMode(9, MessageMode.RVRChannel);					// Tested
+				MapMessageMode(10, MessageMode.RVRAnswer);					// Tested
+				MapMessageMode(11, MessageMode.RVRContinue);				// Tested
+				MapMessageMode(12, MessageMode.GamemasterBroadcast);		// Tested
+				MapMessageMode(13, MessageMode.GamemasterChannel);			// Tested
+				MapMessageMode(14, MessageMode.GamemasterPrivateTo);		// Tested
+				MapMessageMode(14, MessageMode.GamemasterPrivateFrom);		// Tested
+				MapMessageMode(15, MessageMode.ChannelHighlight);			// Tested
+                MapMessageMode(16, MessageMode.Unknown);					// Tested
+                MapMessageMode(17, MessageMode.GamemasterChannelAnonymous); // Tested
+                MapMessageMode(18, MessageMode.Red);
+				MapMessageMode(19, MessageMode.MonsterSay);					// Tested
+				MapMessageMode(20, MessageMode.MonsterYell);                // Tested
+                MapMessageMode(21, MessageMode.Warning);                    // Tested
+                MapMessageMode(22, MessageMode.Game);                       // Tested
+                MapMessageMode(23, MessageMode.Login);
+				MapMessageMode(24, MessageMode.Status);						// Tested
+				MapMessageMode(25, MessageMode.Look);						// Tested
+				MapMessageMode(26, MessageMode.Failure);                    // Tested
+                MapMessageMode(27, MessageMode.Blue);
 			}
 			else if (clientVersion >= 760)
 			{
 				MapMessageMode(0, MessageMode.None);
-				MapMessageMode(1, MessageMode.Say);
-				MapMessageMode(2, MessageMode.Whisper);
-				MapMessageMode(3, MessageMode.Yell);
-				MapMessageMode(4, MessageMode.PrivateTo);
-				MapMessageMode(4, MessageMode.PrivateFrom);
-				MapMessageMode(5, MessageMode.Channel);
-				MapMessageMode(6, MessageMode.RVRChannel);
-				MapMessageMode(7, MessageMode.RVRAnswer);
-				MapMessageMode(8, MessageMode.RVRContinue);
-				MapMessageMode(9, MessageMode.GamemasterBroadcast);
-				MapMessageMode(10, MessageMode.GamemasterChannel);
-				MapMessageMode(11, MessageMode.GamemasterPrivateTo);
-				MapMessageMode(11, MessageMode.GamemasterPrivateFrom);
-				MapMessageMode(12, MessageMode.ChannelHighlight);
-				MapMessageMode(13, MessageMode.Unknown);
-				MapMessageMode(14, MessageMode.GamemasterChannelAnonymous);
-				// 15
-				MapMessageMode(16, MessageMode.MonsterSay);
-				MapMessageMode(17, MessageMode.MonsterYell);
-				MapMessageMode(18, MessageMode.Warning);
-				MapMessageMode(19, MessageMode.Game);
-				MapMessageMode(20, MessageMode.Login);
-				MapMessageMode(21, MessageMode.Status);
-				MapMessageMode(22, MessageMode.Look);
-				MapMessageMode(23, MessageMode.Failure);
-				MapMessageMode(24, MessageMode.Blue);
+				MapMessageMode(1, MessageMode.Say);							// Tested
+				MapMessageMode(2, MessageMode.Whisper);                     // Tested
+                MapMessageMode(3, MessageMode.Yell);                        // Tested
+                MapMessageMode(4, MessageMode.PrivateTo);					// Tested
+				MapMessageMode(4, MessageMode.PrivateFrom);					// Tested
+				MapMessageMode(5, MessageMode.Channel);						// Tested
+				MapMessageMode(6, MessageMode.RVRChannel);					// Tested
+				MapMessageMode(7, MessageMode.RVRAnswer);					// Tested
+				MapMessageMode(8, MessageMode.RVRContinue);					// Tested
+				MapMessageMode(9, MessageMode.GamemasterBroadcast);			// Tested
+				MapMessageMode(10, MessageMode.GamemasterChannel);			// Tested
+				MapMessageMode(11, MessageMode.GamemasterPrivateTo);		// Tested
+				MapMessageMode(11, MessageMode.GamemasterPrivateFrom);		// Tested
+				MapMessageMode(12, MessageMode.ChannelHighlight);			// Tested
+				MapMessageMode(13, MessageMode.Unknown);					// Tested
+				MapMessageMode(14, MessageMode.GamemasterChannelAnonymous); // Tested
+                // 15
+                MapMessageMode(16, MessageMode.MonsterSay);					// Tested
+				MapMessageMode(17, MessageMode.MonsterYell);                // Tested
+                MapMessageMode(18, MessageMode.Warning);                    // Tested
+                MapMessageMode(19, MessageMode.Game);                       // Tested
+                MapMessageMode(20, MessageMode.Login);
+				MapMessageMode(21, MessageMode.Status);                     // Tested
+                MapMessageMode(22, MessageMode.Look);						// Tested
+				MapMessageMode(23, MessageMode.Failure);                    // Tested
+                MapMessageMode(24, MessageMode.Blue);
 				MapMessageMode(25, MessageMode.Red);
 			}
 			else
@@ -878,7 +920,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
 						return new ParseTalkYellCommand(connection.Client.Player, packet.Message);
 
-					case MessageMode.NpcTo:
+					case MessageMode.NpcFrom:
 
 						return new ParseTalkPrivatePlayerToNpcCommand(connection.Client.Player, packet.Message);
 

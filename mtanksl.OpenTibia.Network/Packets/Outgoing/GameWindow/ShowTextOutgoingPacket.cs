@@ -11,7 +11,6 @@ namespace OpenTibia.Network.Packets.Outgoing
         /// <summary>
         /// Private message.
         /// <br/>
-        /// <br/> MessageMode.NpcFrom
         /// <br/> MessageMode.PrivateFrom
         /// <br/> MessageMode.GamemasterBroadcast
         /// <br/> MessageMode.GamemasterPrivateFrom

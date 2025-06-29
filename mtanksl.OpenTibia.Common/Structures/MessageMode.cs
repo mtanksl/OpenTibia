@@ -22,9 +22,9 @@
 
         Spell = 9,
 
-        NpcFrom = 10, // TalkType.PrivateNpcToPlayer, TextColor.TealDefaultAndNpcs
+        NpcTo = 10, // TalkType.PrivatePlayerToNpc, TextColor.PurpleDefault
 
-        NpcTo = 11, // TalkType.PrivatePlayerToNpc, TextColor.PurpleDefault
+        NpcFrom = 11, // TalkType.PrivateNpcToPlayer, TextColor.TealDefaultAndNpcs
 
         GamemasterBroadcast = 12, // TalkType.Broadcast, TextColor.RedServerLog
 

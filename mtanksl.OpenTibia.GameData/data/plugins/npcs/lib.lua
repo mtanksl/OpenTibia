@@ -545,8 +545,10 @@ function npchandler:onenqueue(npc, player)
 end
 
 function npchandler:ondequeue(npc, player) 
-	if self.contexts[player.Id].delay then
-		command.canceldelay(self.contexts[player.Id].delay)
+	if self.contexts[player.Id] then
+		if self.contexts[player.Id].delay then
+			command.canceldelay(self.contexts[player.Id].delay)
+		end
+		self.contexts[player.Id] = nil
 	end
-	self.contexts[player.Id] = nil
 end
