@@ -6,10 +6,14 @@ namespace OpenTibia.Network.Packets.Outgoing
 {
     public class OpenYouAreDeathDialogOutgoingPacket : IOutgoingPacket
     {
-        public OpenYouAreDeathDialogOutgoingPacket(byte penality)
+        public OpenYouAreDeathDialogOutgoingPacket(DeathType deathType, byte penality)
         {
             this.Penality = penality;
+
+            this.DeathType = deathType;
         }
+
+        public DeathType DeathType { get; set; }
 
         public byte Penality { get; set; }
 
@@ -17,7 +21,12 @@ namespace OpenTibia.Network.Packets.Outgoing
         {
             writer.Write( (byte)0x28 );
 
-            if (features.HasFeatureFlag(FeatureFlag.PenalityOnDeath) )
+            if (features.HasFeatureFlag(FeatureFlag.DeathType) )
+            {
+                writer.Write( (byte)DeathType);
+            }
+
+            if (features.HasFeatureFlag(FeatureFlag.PenalityOnDeath) && DeathType == DeathType.Regular)
             {
                 writer.Write(Penality);
             }

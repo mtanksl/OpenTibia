@@ -19,11 +19,24 @@ namespace OpenTibia.Network.Packets.Outgoing
         
         public void Write(IByteArrayStreamWriter writer, IHasFeatureFlag features)
         {
-            writer.Write( (byte)0x86 );
+            if ( !features.HasFeatureFlag(FeatureFlag.PVPFrame) ) 
+            {
+                writer.Write( (byte)0x86);
 
-            writer.Write(CreatureId);
+                writer.Write(CreatureId);
 
-            writer.Write( (byte)FrameColor );
+                writer.Write( (byte)FrameColor );
+            }
+            else //TODO: Which version was this implemented?
+            {
+                writer.Write( (byte)0x93);
+
+                writer.Write(CreatureId);
+
+                writer.Write( (byte)0x01); // 0x00 = Permanent, 0x01 = Timed
+
+                writer.Write( (byte)FrameColor );
+            }
         }
     }
 }

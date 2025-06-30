@@ -64,7 +64,6 @@
         HideNpcNames,
         PremiumExpiration,
         EnhancedAnimations,
-        UnjustifiedPoints,
         ExperienceGainRate,
         PVPFrame,
         DeathType,

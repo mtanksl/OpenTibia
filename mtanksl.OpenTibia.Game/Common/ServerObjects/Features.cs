@@ -247,11 +247,6 @@ namespace OpenTibia.Game.Common.ServerObjects
 				featureFlags.Add(FeatureFlag.EnhancedAnimations);
 			}
 
-			if (clientVersion >= 1053) 
-			{
-				featureFlags.Add(FeatureFlag.UnjustifiedPoints); //TODO
-			}
-
 			if (clientVersion >= 1054)
 			{
 				featureFlags.Add(FeatureFlag.ExperienceGainRate);
@@ -260,7 +255,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
 			if (clientVersion >= 1055) 
 			{
-				featureFlags.Add(FeatureFlag.DeathType); //TODO
+				featureFlags.Add(FeatureFlag.DeathType);
 			}
 
 			if (clientVersion >= 1057) 

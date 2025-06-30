@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Common;
 using OpenTibia.Game.Events;
 using OpenTibia.Network.Packets.Outgoing;
@@ -29,7 +30,7 @@ namespace OpenTibia.Game.Commands
             {
                 Player.Spawn = Player.Town;
 
-                Context.AddPacket(Player, new OpenYouAreDeathDialogOutgoingPacket(100) );
+                Context.AddPacket(Player, new OpenYouAreDeathDialogOutgoingPacket(DeathType.Regular, 100) ); //TODO: FeatureFlag.DeathType
             }
             else
             {
