@@ -986,7 +986,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 				gameCommands.Add(0x9E, new PacketToCommand<CloseNpcsChannelIncomingPacket>("Close Npcs Channel", (connection, packet) => new ParseCloseNpcsChannelCommand(connection.Client.Player) ) );
 			}
 			
-			gameCommands.Add(0xA0, new PacketToCommand<CombatControlsIncomingPacket>("Combat Controls", (connection, packet) => new ParseCombatControlsCommand(connection.Client.Player, packet.FightMode, packet.ChaseMode, packet.SafeMode) ) );
+			gameCommands.Add(0xA0, new PacketToCommand<CombatControlsIncomingPacket>("Combat Controls", (connection, packet) => new ParseCombatControlsCommand(connection.Client.Player, packet.FightMode, packet.ChaseMode, packet.SafeMode, packet.PVPMode) ) );
 			
 			gameCommands.Add(0xA1, new PacketToCommand<AttackIncomingPacket>("Attack", (connection, packet) =>
 			{

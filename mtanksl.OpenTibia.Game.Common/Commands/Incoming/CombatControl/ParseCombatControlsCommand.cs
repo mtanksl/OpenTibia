@@ -7,7 +7,7 @@ namespace OpenTibia.Game.Commands
 {
     public class ParseCombatControlsCommand : IncomingCommand
     {
-        public ParseCombatControlsCommand(Player player, FightMode fightMode, ChaseMode chaseMode, SafeMode safeMode)
+        public ParseCombatControlsCommand(Player player, FightMode fightMode, ChaseMode chaseMode, SafeMode safeMode, PVPMode pvpMode)
         {
             Player = player;
 
@@ -16,6 +16,8 @@ namespace OpenTibia.Game.Commands
             ChaseMode = chaseMode;
 
             SafeMode = safeMode;
+
+            PVPMode = pvpMode;
         }
 
         public Player Player { get; set; }
@@ -25,6 +27,8 @@ namespace OpenTibia.Game.Commands
         public ChaseMode ChaseMode { get; set; }
 
         public SafeMode SafeMode { get; set; }
+
+        public PVPMode PVPMode { get; set; }
 
         public override Promise Execute()
         {
@@ -58,6 +62,11 @@ namespace OpenTibia.Game.Commands
             if (SafeMode != Player.Client.SafeMode)
             {
                 Player.Client.SafeMode = SafeMode;
+            }
+
+            if (PVPMode != Player.Client.PVPMode)
+            {
+                Player.Client.PVPMode = PVPMode;
             }
 
             return Promise.Completed;

@@ -25,6 +25,8 @@ namespace OpenTibia.Common.Objects
 
         SafeMode SafeMode { get; set; }
 
+        PVPMode PVPMode { get; set; }
+
         IContent GetContent(IContainer container, byte clientIndex);
 
         bool TryGetIndex(IContent content, out byte clientIndex);

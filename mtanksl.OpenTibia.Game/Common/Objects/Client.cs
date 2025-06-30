@@ -101,6 +101,8 @@ namespace OpenTibia.Common
 
         public SafeMode SafeMode { get; set; }
 
+        public PVPMode PVPMode { get; set; }
+
         public IContent GetContent(IContainer container, byte clientIndex)
         {
             if (container is Tile tile)
