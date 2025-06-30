@@ -321,7 +321,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 			if (clientVersion >= 1097) 
 			{
 				featureFlags.Add(FeatureFlag.ShowExperienceGainRateCalculation);
-			}
+                featureFlags.Add(FeatureFlag.ReportCoordinate);
+            }
 
             #endregion
 

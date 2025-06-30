@@ -79,6 +79,7 @@
         IngameStoreServiceType,
         IngameStoreHighlights,
         AdditionalSkills,
-        ShowExperienceGainRateCalculation
+        ShowExperienceGainRateCalculation,
+        ReportCoordinate
     }
 }
