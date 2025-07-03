@@ -19,6 +19,8 @@ namespace OpenTibia.Tests
 
                 ProtocolVersion = 860,
 
+                ClientVersion = 860,
+
                 Keys = new uint[] { 0, 0, 0, 0 },
 
                 Gamemaster = true,
@@ -44,7 +46,7 @@ namespace OpenTibia.Tests
                 {
                     var packet = CreatePacket();
 
-                    packet.ProtocolVersion = 772;
+                    packet.ClientVersion = 772;
 
                     a.Execute(new ParseSelectedCharacterCommand(a.Connection, packet) )
                      .ExpectSuccess(false)
@@ -69,14 +71,15 @@ namespace OpenTibia.Tests
                     a.Execute(new ParseSelectedCharacterCommand(a.Connection, packet) )
                      .ExpectSuccess()
                      .Observe(o => o
-                         .ExpectPacket(9)
+                         .ExpectPacket(10)
                          .ExpectPacket<SendInfoOutgoingPacket>(1)
                          .ExpectPacket<SendTilesOutgoingPacket>(1)
-                         .ExpectPacket<SetEnvironmentLightOutgoingPacket>(1)
+                         .ExpectPacket<SlotAddOutgoingPacket>(1)
                          .ExpectPacket<SendStatusOutgoingPacket>(1)
                          .ExpectPacket<SendSkillsOutgoingPacket>(1)
                          .ExpectPacket<SetSpecialConditionOutgoingPacket>(1)
-                         .ExpectPacket<SlotAddOutgoingPacket>(1)
+                         .ExpectPacket<SetEnvironmentLightOutgoingPacket>(1)
+                         .ExpectPacket<SetLightOutgoingPacket>(1)
                          .ExpectPacket<ShowMagicEffectOutgoingPacket>(1)
                          .ExpectPacket<ShowWindowTextOutgoingPacket>(1)
                          .ExpectConnected() );
@@ -173,14 +176,15 @@ namespace OpenTibia.Tests
                     a.Execute(new ParseSelectedCharacterCommand(a.Connection, packet) )
                      .ExpectSuccess()
                      .Observe(o => o
-                         .ExpectPacket(9)
+                         .ExpectPacket(10)
                          .ExpectPacket<SendInfoOutgoingPacket>(1)
                          .ExpectPacket<SendTilesOutgoingPacket>(1)
-                         .ExpectPacket<SetEnvironmentLightOutgoingPacket>(1)
+                         .ExpectPacket<SlotAddOutgoingPacket>(1)
                          .ExpectPacket<SendStatusOutgoingPacket>(1)
                          .ExpectPacket<SendSkillsOutgoingPacket>(1)
                          .ExpectPacket<SetSpecialConditionOutgoingPacket>(1)
-                         .ExpectPacket<SlotAddOutgoingPacket>(1)
+                         .ExpectPacket<SetEnvironmentLightOutgoingPacket>(1)
+                         .ExpectPacket<SetLightOutgoingPacket>(1)
                          .ExpectPacket<ShowMagicEffectOutgoingPacket>(1)
                          .ExpectPacket<ShowWindowTextOutgoingPacket>(1)
                          .ExpectConnected() );

@@ -19,6 +19,8 @@ namespace OpenTibia.Tests
 
                 ProtocolVersion = 860,
 
+                ClientVersion = 860,
+
                 TibiaDat = 1277983123,
                 
                 TibiaPic = 1256571859,
@@ -42,7 +44,7 @@ namespace OpenTibia.Tests
                 {
                     var packet = CreatePacket();
 
-                    packet.ProtocolVersion = 772;
+                    packet.ClientVersion = 772;
 
                     a.Execute(new ParseEnterGameCommand(a.Connection, packet) )
                      .ExpectSuccess(false)

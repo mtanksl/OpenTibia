@@ -523,7 +523,10 @@ namespace mtanksl.OpenTibia.Build
         {
             directoryName = Path.Combine(GetBaseDirectory(), directoryName);
 
-            Directory.Delete(directoryName, true);
+            if (Directory.Exists(directoryName) )
+            {
+                Directory.Delete(directoryName, true);
+            }
         }
 
         private static void DirectoryCopy(string sourceDirectoryName, string destinationDirectoryName)
